@@ -1,0 +1,2 @@
+about:config
+captivedetect.canonicalURL  http://detectportal.firefox.com/success.txt
