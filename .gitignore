@@ -1,0 +1,12 @@
+# Created by .ignore support plugin (hsz.mobi)
+.gitignore
+.idea/$CACHE_FILE$
+.idea/.gitignore
+.idea/ISP.iml
+.idea/dbnavigator.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/phing.xml
+.idea/php-test-framework.xml
+.idea/php.xml
+.idea/vcs.xml
