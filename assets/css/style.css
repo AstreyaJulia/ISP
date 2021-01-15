@@ -12,11 +12,6 @@ html {
     position: relative;
 }
 
-
-@-ms-viewport {
-    width: device-width;
-}
-
 body {
     background: #f9f9f9;
     font-family: 'Roboto', sans-serif;
@@ -158,10 +153,9 @@ p {
 
 a {
     color: #5e72e4;
-}
-
-a {
-    outline: none !important
+    outline: none !important;
+    text-decoration: none;
+    background-color: transparent;
 }
 
 a:hover {
@@ -3089,6 +3083,9 @@ table.grid td {
 .table td,
 .table th {
     white-space: nowrap;
+    padding: .75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
 }
 
 .table th {
@@ -3235,10 +3232,8 @@ table.grid td {
     border-color: rgb(221, 222, 222) !important;
 }
 
-.table-active,
-.table-active > td,
-.table-active > th {
-    background-color: #f4f7f7 !important;
+.table-active, .table-active>td, .table-active>th {
+    background-color: #f4f7f7;
 }
 
 /* Alerts*/
