@@ -2293,7 +2293,7 @@ hr {
 .fc th.fc-widget-header {
     font-size: 14px;
     line-height: 20px;
-    padding: 10px 0px;
+    padding: 10px 0;
     text-transform: uppercase;
 }
 
@@ -2344,9 +2344,9 @@ hr {
 .profile-card-2 .card::before {
     content: "";
     position: absolute;
-    top: 0px;
-    right: 0px;
-    left: 0px;
+    top: 0;
+    right: 0;
+    left: 0;
     border-top-left-radius: .25rem;
     border-top-right-radius: .25rem;
     height: 112px;
@@ -2380,7 +2380,7 @@ hr {
 .profile-card-3 .user-fullimage .details {
     position: absolute;
     bottom: 0;
-    left: 0px;
+    left: 0;
     width: 100%;
 }
 
@@ -2917,11 +2917,11 @@ label {
 
 .has-icon-left .form-control-position {
     right: auto;
-    left: 0px;
+    left: 0;
 }
 
 .has-icon-right .form-control-position {
-    right: 0px;
+    right: 0;
     left: auto;
 }
 
@@ -2984,7 +2984,7 @@ form.striped-rows .form-group {
 .input-group-prepend [type=radio]:not(:checked) {
     position: initial;
     opacity: 1;
-    margin-top: 0px;
+    margin-top: 0;
 }
 
 .wizard > .content {
@@ -3003,7 +3003,7 @@ form.striped-rows .form-group {
 }
 
 .border-radius {
-    border-radius: 0px;
+    border-radius: 0;
 }
 
 .payment-icons img {
@@ -3011,7 +3011,7 @@ form.striped-rows .form-group {
 }
 
 .bootstrap-touchspin .input-group-text {
-    border-radius: 0px;
+    border-radius: 0;
 }
 
 .datepicker table tr td,
@@ -3042,7 +3042,7 @@ table.grid {
     width: 100%;
     border: none;
     background-color: #f1f1f1;
-    padding: 0px;
+    padding: 0;
 }
 
 table.grid td {
@@ -3051,7 +3051,7 @@ table.grid td {
 }
 
 .card .table {
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
 .card .table td,
@@ -3232,7 +3232,7 @@ table.grid td {
     border-color: rgb(221, 222, 222) !important;
 }
 
-.table-active, .table-active>td, .table-active>th {
+.table-active, .table-active > td, .table-active > th {
     background-color: #f4f7f7;
 }
 
@@ -5151,7 +5151,7 @@ table.grid td {
 [class*="icheck-material"] {
     min-height: 22px;
     margin-top: 6px;
-    margin-bottom: 6px
+    margin-bottom: 6px;
     padding-left: 0px;
 }
 
@@ -5541,7 +5541,7 @@ table.grid td {
 
 .bg-signup2 {
     background-color: rgb(0, 140, 255);
-    background-image: url(..assets/images/authentication-img.png);
+    background-image: url(../../assets/images/authentication-img.png);
     height: 100%;
     border-radius: 0;
     border-top-left-radius: .25rem;
@@ -5550,7 +5550,7 @@ table.grid td {
 
 .bg-signin2 {
     background-color: rgb(0, 140, 255);
-    background-image: url(..assets/images/authentication-img.png);
+    background-image: url(../../assets/images/authentication-img.png);
     height: 100%;
     border-top-left-radius: .25rem;
     border-bottom-left-radius: .25rem;
@@ -5558,7 +5558,7 @@ table.grid td {
 
 .bg-reset-password2 {
     background-color: rgb(0, 140, 255);
-    background-image: url(..assets/images/authentication-img.png);
+    background-image: url(../../assets/images/authentication-img.png);
     height: 100%;
     border-top-left-radius: .25rem;
     border-bottom-left-radius: .25rem;
@@ -5741,11 +5741,11 @@ table.grid td {
 }
 
 .pricing-table .card .card-body .list-group .list-group-item:first-child {
-    border-top: 0px;
+    border-top: 0;
 }
 
 .pricing-table .card .card-body .list-group .list-group-item:last-child {
-    border-bottom: 0px;
+    border-bottom: 0;
 }
 
 .pricing-table .card .card-body .list-group .list-group-item {
@@ -5778,12 +5778,12 @@ table.grid td {
 
 .bg-error {
     background-color: rgb(255, 255, 255);
-    background-image: url(../images/error-texture.png);
+    background-image: url(../../assets/images/error-texture.png);
 }
 
 .bg-coming-soon {
     background-color: rgb(255, 255, 255);
-    background-image: url(../images/coming-soon.png);
+    background-image: url(../../assets/images/coming-soon.png);
 }
 
 .coming-soon {
@@ -6020,4 +6020,53 @@ table.grid td {
     display: inline-block;
     padding-right: .5rem;
     color: #6c757d;
+}
+
+.chip {
+    display: inline-block;
+    height: 32px;
+    padding: 0 12px;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 32px;
+    color: rgba(0, 0, 0, 0.70);
+    cursor: pointer;
+    background-color: #f1f1f1;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 16px;
+    -webkit-transition: all .3s linear;
+    transition: all .3s linear;
+    box-shadow: none;
+}
+
+.chip img {
+    float: left;
+    width: 30px;
+    height: 30px;
+    margin: 0 8px 0 -12px;
+    border-radius: 50%;
+}
+
+.chip.chip-md {
+    height: 42px;
+    line-height: 42px;
+    border-radius: 21px;
+}
+
+.chip.chip-md img {
+    height: 40px;
+    width: 40px;
+}
+
+.chip.chip-lg {
+    height: 52px;
+    line-height: 52px;
+    border-radius: 26px;
+}
+
+.chip.chip-lg img {
+    height: 50px;
+    width: 50px;
 }
