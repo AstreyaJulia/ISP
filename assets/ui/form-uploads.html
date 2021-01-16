@@ -14,6 +14,8 @@
     <link href="../../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- animate CSS-->
     <link href="../../assets/css/animate.css" rel="stylesheet" type="text/css">
+    <!-- Dropzone css -->
+    <link href="../../assets/plugins/dropzone/css/dropzone.css" rel="stylesheet" type="text/css">
     <!-- CSS Значков-->
     <link href="../../assets/fonts/material-design-iconic-font.css" rel="stylesheet" type="text/css">
     <link href="../../assets/fonts/fontawesome-all.css" rel="stylesheet" type="text/css">
@@ -200,11 +202,11 @@
                             <li><a href="../../assets/ui/form-uploads.html"><i
                                     class="zmdi zmdi-star-outline"></i> Форма Загрузки</a></li>
                             <li><a href="../../assets/ui/form-validation.html"><i
-                                    class="zmdi zmdi-star-outline"></i> Валидация Форм</a></li>
+                                    class="zmdi zmdi-star-outline"></i> Форма Валидации</a></li>
                             <li><a href="../../assets/ui/form-step-wizard.html"><i
-                                    class="zmdi zmdi-star-outline"></i> Мастер Форм</a></li>
+                                    class="zmdi zmdi-star-outline"></i> Форма Мастера</a></li>
                             <li><a href="../../assets/ui/form-text-editor.html"><i
-                                    class="zmdi zmdi-star-outline"></i> Редактор Форм</a></li>
+                                    class="zmdi zmdi-star-outline"></i> Форма Редактирования</a></li>
                         </ul>
                     </li>
 
@@ -241,16 +243,7 @@
                                     class="zmdi zmdi-star-outline"></i> Line Значки</a></li>
 
                         </ul>
-                    </li>
-
-                    <li>
-                        <a href="../../assets/ui/widgets.html" class="waves-effect">
-                            <i class="zmdi zmdi-widgets"></i> <span>Виджеты</span>
-                            <small class="badge float-right badge-danger">10</small>
-                        </a>
-                    </li>
-
-                    <li>
+                    </li><li>
                         <a href="#" class="waves-effect">
                             <i class="zmdi zmdi-grid"></i> <span>Таблицы</span>
                             <i class="fa fa-angle-left float-right"></i>
@@ -349,7 +342,20 @@
             </div>
             <!--Конец первой строки с крошками и кнопками управления -->
 
-
+            <div class="row" style="height: 450px;">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header text-uppercase">Multiple Form Uploads</div>
+                        <div class="card-body">
+                            <form action="#" class="dropzone" id="dropzone">
+                                <div class="fallback">
+                                    <input name="file" type="file" multiple="multiple">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div><!--End Row-->
 
             <!--Конец содержимого страницы-->
         </div>
@@ -381,6 +387,8 @@
 <script src="../../assets/plugins/sidebar-menu/js/sidebar-menu.js"></script>
 <!-- Пользовательские скрипты -->
 <script src="../../assets/js/app-script.js"></script>
+<!-- Dropzone JS  -->
+<script src="../../assets/plugins/dropzone/js/dropzone.js"></script>
 
 </body>
 </html>
