@@ -20,7 +20,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="assets/ui/calendar.html" class="waves-effect">
+					<a href="?page=fullcalendar" class="waves-effect">
 						<i class="fa fa-calendar-alt"></i> <span>Календарь</span>
 						<small class="badge float-right badge-info">New</small>
 					</a>
@@ -38,7 +38,7 @@
 						<i class="fa fa-angle-left float-right"></i>
 					</a>
 					<ul class="sidebar-submenu">
-						<li><a href="assets/ui/pages-user-profile.html"><i class="fa fa-users"></i>
+						<li><a href="?page=staff"><i class="fa fa-users"></i>
 							Сотрудники</a></li>
 						<li><a href="assets/ui/pages-blank-page.html"><i class="fa fa-book"></i>
 							Телефонный Справочник</a></li>

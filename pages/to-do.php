@@ -1,7 +1,8 @@
 <?php
 	$title = "Список задач";
 	
-?>
+
+$content = '
 	<div class="card col-lg-8">
 		<div class="card-body">
 			<h4 class="mb-0">Список Дел</h4>
@@ -106,3 +107,4 @@
 			RenderAllTodos();
 		}
 	</script>
+';

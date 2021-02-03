@@ -17,4 +17,19 @@
     <link href="assets/plugins/sidebar-menu/css/sidebar-menu.css" rel="stylesheet">
     <!-- Пользовательские стили-->
     <link href="assets/css/style.css" rel="stylesheet">
+<?php
+    if (isset($_GET["page"]) and $_GET["page"] == "fullcalendar") {
+        include "components/fullcalendar/fullcalendar.php"; 
+    } else {
+        echo "не подключен: elements/header.php";
+    }
+?>
+
+
+
+
+
+
+
+
 </head>

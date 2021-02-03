@@ -109,4 +109,11 @@ if($user->isMember(array('Administrator'), true)) {
             $content .= "</div>";
         }
     $content .= "</div></div></div></div></div></div></div>";
-?>
+
+if (isset($_COOKIE['aut'])) {
+        foreach ($_COOKIE['aut'] as $name => $value) {
+            $name = htmlspecialchars($name);
+            $value = htmlspecialchars($value);
+            echo "$name. $value <br />";
+        }
+    }
