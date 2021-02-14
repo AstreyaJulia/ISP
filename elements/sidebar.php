@@ -65,8 +65,8 @@
 					<ul class="sidebar-submenu">
 						<li><a href="assets/ui/pages-user-profile.html"><i class="zmdi zmdi-star-outline"></i>
 							Навгация по сайту</a></li>
-						<li><a href="assets/ui/pages-blank-page.html"><i class="zmdi zmdi-star-outline"></i>
-							Инструкции</a></li>
+						<li><a href="?page=faq"><i class="zmdi zmdi-star-outline"></i>
+							FAQ</a></li>
 					</ul>
 				</li>
 			</ul>

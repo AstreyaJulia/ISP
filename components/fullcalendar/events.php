@@ -3,9 +3,9 @@
 		error_reporting(E_ALL);
 		ini_set("display_errors", "on");
 
-		$host = "localhost";
-		$user = "chainik";
-		$password = "qwer";
+		$host = "192.168.2.111";
+		$user = "root";
+		$password = "";
 		$dbName = "isp";
 
 		$link = mysqli_connect($host, $user, $password, $dbName);
@@ -16,7 +16,7 @@
 		for ($data =[]; $row = mysqli_fetch_assoc($result); $data[] = $row);
 
 	foreach ($data as $myCalendar) {
-			if(empty($myCalendar['freq'])) {
+			if(!empty($myCalendar['freq'])) {
 				$json[] = array(
 				'id' => $myCalendar['id'],
 				'title' => $myCalendar['title'],

@@ -20,16 +20,6 @@
 <?php
     if (isset($_GET["page"]) and $_GET["page"] == "fullcalendar") {
         include "components/fullcalendar/fullcalendar.php"; 
-    } else {
-        echo "не подключен: elements/header.php";
     }
 ?>
-
-
-
-
-
-
-
-
 </head>

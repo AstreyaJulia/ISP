@@ -1,6 +1,7 @@
 <link href='../assets/fullcalendar/main.min.css' rel='stylesheet' />
 <script src='../assets/fullcalendar/main.min.js'></script>
 <script src='../assets/fullcalendar/locales/ru.js'></script>
+<script src="../assets/fullcalendar/rrule-tz.min.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
