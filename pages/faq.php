@@ -3,7 +3,7 @@
 	$content = "";
 	$dir = scandir("components/faq/");
 	foreach($dir as $value) {
-		if (strpos($value, ".") !== 0) {
+		if (strpos($value, ".") !== 0 and strpos($value, "img") !== 0) {
 			//разбиваем строку по нижнему подчеркиванию
 			$keywords = preg_split("/[_]+/", $value);
 			//$keywords["0"] для сортировки
