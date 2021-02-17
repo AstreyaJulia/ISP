@@ -21,5 +21,8 @@
     if (isset($_GET["page"]) and $_GET["page"] == "fullcalendar") {
         include "components/fullcalendar/fullcalendar.php"; 
     }
+	if (isset($_GET["faq"])) {
+        echo '<script src="assets/js/ajax-js.js"></script>';
+    }
 ?>
 </head>
