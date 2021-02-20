@@ -42,8 +42,8 @@ if($_COOKIE['aut']['sudo'] == 1) {
     $content .= "<div class=\"row\"><div class=\"col-lg-12\"><div class=\"card shadow m-3\">
             <div class=\"card-header pt-3 d-flex justify-content-between\">
                 <h6 class=\"text-primary m-0 font-weight-bold\">Заголовок</h6>
-                <div class=\"dropdown no-arrow\">
-                    <button class=\"btn btn-link btn-sm dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\" type=\"button\">
+                <div class=\"dropdown\">
+                    <button class=\"btn btn-link btn-sm dropdown-toggle\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\" type=\"button\">
                         <i class=\"fas fa-ellipsis-v text-gray-400\"></i>
                     </button>
                     <div class=\"dropdown-menu shadow dropdown-menu-right animated--fade-in\">
@@ -58,7 +58,7 @@ if($_COOKIE['aut']['sudo'] == 1) {
                         <div class=\"list-group\" role=\"tablist\" aria-orientation=\"vertical\">";
         foreach ($family as $goodname => $properties) {
         $content .= "<a class=\"list-group-item list-group-item-action\" id=\"tab-{$properties['id']}\" data-bs-toggle=\"pill\" href=\"#list-{$properties['id']}\" role=\"tab\" aria-controls=\"list-{$properties['id']}\" aria-selected=\"false\">{$properties['name_href']}
-                        <object class=\"float-right mt-1\" onclick=\"location.href = ''\">
+                        <object class=\"float-end mt-1\" onclick=\"location.href = ''\">
                             <i class=\"fas fa-pencil-alt fa-fw text-gray-400\"></i>
                         </object>
                     </a>";
@@ -71,7 +71,7 @@ if($_COOKIE['aut']['sudo'] == 1) {
                 if (is_array($value)){
                 foreach ($value as $property_list_array => $value_list_array) {
                 $content .= "<a class=\"list-group-item list-group-item-action\" href=\"{$value_list_array['href']}\" target=\"_blank\">{$value_list_array['name_href']}
-                                <object class=\"float-right\">
+                                <object class=\"float-end\">
                                     <a  href=\"\">
                                         <i class=\"fas fa-pencil-alt fa-fw text-gray-400\"></i>
                                     </a>
