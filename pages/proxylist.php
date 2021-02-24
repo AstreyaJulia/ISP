@@ -39,7 +39,8 @@ array_multisort($menuindex, SORT_ASC, $family);
 $content = "";
 //Если входит в группу sudo отображаем с кнопочками
 if($_COOKIE['aut']['sudo'] == 1) {
-	$content .= include "components/proxylist/modal";
+    //подключаем модальное окно
+    $content .= include "components/proxylist/modal";
     $content .= "<div class=\"row\"><div class=\"col-lg-12\"><div class=\"card shadow m-3\">
             <div class=\"card-header pt-3 d-flex justify-content-between\">
                 <h6 class=\"text-primary m-0 font-weight-bold\">Заголовок</h6>
@@ -59,7 +60,7 @@ if($_COOKIE['aut']['sudo'] == 1) {
                         <div class=\"list-group\" role=\"tablist\" aria-orientation=\"vertical\">";
         foreach ($family as $goodname => $properties) {
         $content .= "<a class=\"list-group-item list-group-item-action\" id=\"tab-{$properties['id']}\" data-bs-toggle=\"pill\" href=\"#list-{$properties['id']}\" role=\"tab\" aria-controls=\"list-{$properties['id']}\" aria-selected=\"false\">{$properties['name_href']}
-                        <object class=\"float-end mt-1\" onclick=\"location.href = ''\">
+                        <object class=\"float-end mt-1\" onclick=\"location.href = '?edit={$properties['id']}'\">
                             <i class=\"fas fa-pencil-alt fa-fw text-gray-400\"></i>
                         </object>
                     </a>";
