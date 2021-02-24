@@ -1,4 +1,24 @@
 <?php
+//проверим заполнены ли поля перед отправкой
+	if (!empty($_POST["name_href"]) and !empty($_POST["menuindex"]) and !empty($_POST["proxy_href"])) {
+		$menuindex = $_POST["menuindex"];
+		$name_href = $_POST["name_href"];
+		$proxy_href = $_POST["proxy_href"];
+
+		// добавляем новую запись
+		$query = "INSERT INTO sdc_proxy_list SET menuindex = '$menuindex', name_href = '$name_href', proxy_href = '$proxy_href'";
+		mysqli_query($link, $query);
+	}
+
+	if (isset($_GET["edit"])){
+		$id = $_GET["edit"];
+		$query = "SELECT menuindex, name_href, proxy_href FROM sdc_proxy_list WHERE id ='$id'";
+		$result = mysqli_query($link, $query) or die(mysqli_error($link));
+		for ($data =[]; $row = mysqli_fetch_assoc($result); $data[] = $row);
+		} 
+
+
+
 	$content ='<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
