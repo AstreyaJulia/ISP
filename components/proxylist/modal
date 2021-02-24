@@ -1,0 +1,47 @@
+<?php
+	$content ='<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Заголовок модального окна</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="post">
+			<fieldset>
+			  <div class="form-group">
+				<label for="name_href" class="col control-label">Наименование группы</label>
+				<div class="col">
+				  <input type="text" name="name_href" class="form-control" placeholder="Наименование группы" autocomplete="off">
+				</div>
+			  </div>
+			  <div class="form-group">
+				<label for="menuindex" class="col control-label">Положение в списке</label>
+				<div class="col">
+				  <input type="text" name="menuindex" class="form-control" placeholder="Положение в списке" autocomplete="off">
+				</div>
+			  </div>
+			  <!--div class="form-group" style="display: none;">
+				<label for="href" class="col control-label">Ссылка</label>
+				<div class="col">
+				  <input type="text" name="href" class="form-control" placeholder="Ссылка" autocomplete="off">
+				</div>
+			  </div-->
+			  <div class="form-group">
+				<label for="proxy_href" class="col control-label">Общая запись группы для CCProxy</label>
+				<div class="col">
+				  <textarea class="form-control" name="proxy_href" placeholder="Запись для CCProxy" rows="3"></textarea>
+				</div>
+			  </div>
+			  <div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+				<button type="submit" class="btn btn-primary">Сохранить изменения</button>
+			  </div>
+			</fieldset>
+		</form>
+      </div>
+    </div>
+  </div>
+</div>';
+
+return $content;
