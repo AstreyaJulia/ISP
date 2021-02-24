@@ -39,6 +39,7 @@ array_multisort($menuindex, SORT_ASC, $family);
 $content = "";
 //Если входит в группу sudo отображаем с кнопочками
 if($_COOKIE['aut']['sudo'] == 1) {
+	$content .= include "components/proxylist/modal";
     $content .= "<div class=\"row\"><div class=\"col-lg-12\"><div class=\"card shadow m-3\">
             <div class=\"card-header pt-3 d-flex justify-content-between\">
                 <h6 class=\"text-primary m-0 font-weight-bold\">Заголовок</h6>
@@ -47,8 +48,8 @@ if($_COOKIE['aut']['sudo'] == 1) {
                         <i class=\"fas fa-ellipsis-v text-gray-400\"></i>
                     </button>
                     <div class=\"dropdown-menu shadow dropdown-menu-right animated--fade-in\">
-                        <a class=\"dropdown-item\" href=\"dobavlenie-ssyilki\">Довабить ссылку</a>
-                        <a class=\"dropdown-item\" href=\"dobavlenie-gruppyi\">Довабить группу</a>
+                        <a class=\"dropdown-item\" href=\"\">Добавить ссылку</a>
+                        <a class=\"dropdown-item\" href=\"\" data-bs-toggle=\"modal\" data-bs-target=\"#exampleModal\">Добавить группу</a>
                     </div>
                 </div>
             </div>
