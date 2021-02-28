@@ -16,7 +16,7 @@
 			</script>
 			<script src=\"components/proxylist/ajax-form.js\"></script>";
 	}
-	if (!isset($_GET["page"])) {
+	if (!isset($_GET["page"]) and !isset($_GET["faq"])) {
 		echo "<script>
 				let trurl = 'https://www.pochta.ru/tracking#';
 				let trbutton = document.getElementById('track_btn');
