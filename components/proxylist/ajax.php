@@ -16,3 +16,7 @@
 		$query = "INSERT INTO sdc_proxy_list SET menuindex = '$menuindex', name_href = '$name_href', proxy_href = '$proxy_href'";
 		mysqli_query($link, $query);
 	}
+
+	if (!empty($_GET[edit])) {
+		echo "я get-параметр";
+	}
