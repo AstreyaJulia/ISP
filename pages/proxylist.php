@@ -74,7 +74,7 @@ if($_COOKIE['aut']['sudo'] == 1) {
                 foreach ($value as $property_list_array => $value_list_array) {
                 $content .= "<a class=\"list-group-item list-group-item-action\" href=\"{$value_list_array['href']}\" target=\"_blank\">{$value_list_array['name_href']}
                                 <object class=\"float-end\">
-                                    <a  href=\"/components/proxylist/ajax.php?edit={$value_list_array['id']}\">
+                                    <a  href=\"/components/proxylist/ajax.php?editLink={$value_list_array['id']}\">
                                         <i class=\"fas fa-pencil-alt fa-fw text-gray-400\"></i>
                                     </a>
                                 </object>
