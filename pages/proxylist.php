@@ -41,6 +41,7 @@ $content = "";
 if($_COOKIE['aut']['sudo'] == 1) {
     //подключаем модальное окно
     $content .= include "components/proxylist/modal";
+    //формируем страницу
     $content .= "<div class=\"row\"><div class=\"col-lg-12\"><div class=\"card shadow m-3\">
             <div class=\"card-header pt-3 d-flex justify-content-between\">
                 <h6 class=\"text-primary m-0 font-weight-bold\">Заголовок</h6>
@@ -74,7 +75,7 @@ if($_COOKIE['aut']['sudo'] == 1) {
                 foreach ($value as $property_list_array => $value_list_array) {
                 $content .= "<a class=\"list-group-item list-group-item-action\" href=\"{$value_list_array['href']}\" target=\"_blank\">{$value_list_array['name_href']}
                                 <object class=\"float-end\">
-                                    <a  href=\"/components/proxylist/ajax.php?editLink={$value_list_array['id']}\">
+                                    <a  href=\"?editLink={$value_list_array['id']}\">
                                         <i class=\"fas fa-pencil-alt fa-fw text-gray-400\"></i>
                                     </a>
                                 </object>

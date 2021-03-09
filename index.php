@@ -24,6 +24,10 @@
 		$faq = $_GET["faq"];
 		$path = "components/faq/$faq/index.php";
 	}
+	//формируем путь для редактирования proxylist
+	if (isset($_GET["editLink"])) {
+		$path = "components/proxylist/ajax.php";
+	}
 
 //проверяем наличие куки аторизации
 	if (isset($_COOKIE['aut'])) {
