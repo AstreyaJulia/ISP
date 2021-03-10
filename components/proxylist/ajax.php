@@ -86,6 +86,6 @@ if (!empty($_POST["name_href"]) and !empty($_POST["href"]) and !empty($_GET["edi
 			$query_update = "UPDATE sdc_proxy_list SET menuindex='$menuindex', id_group='$id_group', href='$href', name_href='$name_href', proxy_href='$proxy_href' WHERE id='$id'";
 			mysqli_query($link, $query_update);
 //переходим в раздел
-header( "refresh:1;url=/?page=proxylist" );
+header("Location: /?page=proxylist");
 	}
 
