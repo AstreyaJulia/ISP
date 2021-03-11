@@ -50,7 +50,7 @@ if($_COOKIE['aut']['sudo'] == 1) {
                         <i class=\"fas fa-ellipsis-v text-gray-400\"></i>
                     </button>
                     <div class=\"dropdown-menu shadow dropdown-menu-right animated--fade-in\">
-                        <a class=\"dropdown-item\" href=\"\">Добавить ссылку</a>
+                        <a class=\"dropdown-item\" href=\"?editLink=add\">Добавить ссылку</a>
                         <a class=\"dropdown-item\" href=\"\" data-bs-toggle=\"modal\" data-bs-target=\"#exampleModal\">Добавить группу</a>
                     </div>
                 </div>
