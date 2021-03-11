@@ -53,8 +53,6 @@
 			$value['menuindex'] = "";
 			$value['href'] = "";
 			$value['proxy_href'] = "";
-			
-			echo $group[$value["id_group"]]["id"];
 			include "elements/form-editLink.php";
 		}
 	} else {
