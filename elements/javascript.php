@@ -13,8 +13,7 @@
 				var someListItemEl = document.querySelector('#tab-1')
 				var tab = new bootstrap.Tab(someListItemEl)
 				tab.show()
-			</script>
-			<script src=\"components/proxylist/ajax-form.js\"></script>";
+			</script>";
 	}
 	if (!isset($_GET["page"]) and !isset($_GET["faq"])) {
 		echo "<script>

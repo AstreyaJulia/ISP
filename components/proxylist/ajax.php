@@ -1,19 +1,7 @@
 <?php
 	$title = "Редактировать запись";
 	$desc = "Описание чего-то коротко";
-//Добавляем группу
-	if (!empty($_POST["name_href"]) and !empty($_POST["menuindex"]) and !empty($_POST["proxy_href"]) and empty($_GET["editLink"])) {
-		$menuindex = $_POST["menuindex"];
-		$name_href = $_POST["name_href"];
-		$proxy_href = $_POST["proxy_href"];
-
-		// если заполнены поля добавляем новую запись
-		$query = "INSERT INTO sdc_proxy_list SET menuindex = '$menuindex', name_href = '$name_href', proxy_href = '$proxy_href'";
-		mysqli_query($link, $query);
-		echo "я добавил запись";
-	}
-
-//Добавляем и редактируем ссылку
+//Редактируем ссылку
 	if (!empty($_GET["editLink"])) {
 		//Получаем все группы
 		$query_group = "SELECT id, name_href FROM sdc_proxy_list WHERE id_group=0";
@@ -33,7 +21,7 @@
 				include "elements/form-editLink.php";
 	        }
 
-			if (!empty($_POST["name_href"]) and !empty($_POST["href"]) and !empty($_GET["editLink"])) {
+			if (!empty($_POST["name_href"]) and !empty($_POST["href"]) and $_GET["editLink"] !== "add") {
 				$menuindex = $_POST["menuindex"];
 				$id_group = $_POST["id_group"];
 				$href = $_POST["href"];
@@ -54,7 +42,57 @@
 			$value['href'] = "";
 			$value['proxy_href'] = "";
 			include "elements/form-editLink.php";
+			if (!empty($_POST["name_href"]) and !empty($_POST["href"]) and $_GET["editLink"] == "add") {
+				$menuindex = $_POST["menuindex"];
+				$id_group = $_POST["id_group"];
+				$href = $_POST["href"];
+				$name_href = $_POST["name_href"];
+				$proxy_href = $_POST["proxy_href"];
+				$query_insert = "INSERT INTO sdc_proxy_list (menuindex, id_group, href, name_href, proxy_href) VALUES ('$menuindex', '$id_group', '$href', '$name_href', '$proxy_href')";
+				mysqli_query($link, $query_insert);
+				header("Location: /?page=proxylist");
+			}
 		}
-	} else {
-		$content = "что-то пошло не так";
+	}
+
+//Редактируем группу
+	if (!empty($_GET["editGroup"])) {
+		//редактируем группу
+		if ($_GET["editGroup"] !== "add"){
+			$id = $_GET["editGroup"];
+			//получаем запись для редактирования
+			$query = "SELECT menuindex, name_href, proxy_href FROM sdc_proxy_list WHERE id='$id'";
+			$result = mysqli_query($link, $query) or die (mysqli_error($link));
+			//получаем массив с записью
+			for ($editGroup =[]; $row = mysqli_fetch_assoc($result); $editGroup[] = $row);
+
+			foreach ($editGroup as $key => $value) {
+				include "elements/form-editGroup.php";
+	        }
+
+			if (!empty($_POST["name_href"]) and $_GET["editGroup"] !== "add") {
+				$menuindex = $_POST["menuindex"];
+				$name_href = $_POST["name_href"];
+				$proxy_href = $_POST["proxy_href"];
+				$query_update = "UPDATE sdc_proxy_list SET menuindex='$menuindex', name_href='$name_href', proxy_href='$proxy_href' WHERE id='$id'";
+				mysqli_query($link, $query_update);
+				//переходим в раздел
+				//header( "refresh:1;url=/?page=proxylist" );
+				header("Location: /?page=proxylist");
+			}
+		} else {//добавляем ссылку
+			$value['name_href'] = "";
+			$value['menuindex'] = "";
+			$value['proxy_href'] = "";
+			include "elements/form-editGroup.php";
+			if (!empty($_POST["name_href"]) and $_GET["editGroup"] == "add") {
+				$menuindex = $_POST["menuindex"];
+				$name_href = $_POST["name_href"];
+				$proxy_href = $_POST["proxy_href"];
+				$query_insert = "INSERT INTO sdc_proxy_list (menuindex, name_href, proxy_href) VALUES ('$menuindex', '$name_href', '$proxy_href')";
+				mysqli_query($link, $query_insert);
+				echo "Добавил группу";
+				header("Location: /?page=proxylist");
+			}
+		}
 	}

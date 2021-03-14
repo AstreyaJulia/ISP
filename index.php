@@ -25,7 +25,7 @@
 		$path = "components/faq/$faq/index.php";
 	}
 	//формируем путь для редактирования proxylist
-	if (isset($_GET["editLink"])) {
+	if (isset($_GET["editLink"]) or isset($_GET["editGroup"])) {
 		$path = "components/proxylist/ajax.php";
 	}
 
