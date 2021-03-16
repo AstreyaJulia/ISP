@@ -4,61 +4,45 @@
 	error_reporting(E_ALL);
 	ini_set("display_errors", "on");
 
-	$host = "localhost";
-	$user = "chainik";
-	$password = "qwer";
-	$dbName = "isp";
+	require_once "db_config.php";
 
-	$link = mysqli_connect($host, $user, $password, $dbName);
-	mysqli_query($link, "SET NAMES 'utf8'");
+	//Получаем все name_href
+	$query_name_href = "SELECT id, id_group, proxy_href FROM sdc_proxy_list WHERE name_href IS NOT NULL";
+	$result_name_href = mysqli_query($link, $query_name_href) or die (mysqli_error($link));
+	//получаем массив с записью
+	for ($all_name_href = []; $row = mysqli_fetch_assoc($result_name_href); $all_name_href[] = $row);
+	
+	
 
+	$id = 6; //Группа blacklist 
+	$id_group = 6; //Ссылки из группы blacklist
+	$output = "";
 
-
-
-if (!empty($_POST['password']) and !empty($_POST['login'])) {
-		
-		// Пишем логин и пароль из формы в переменные для удобства работы:
-		$login = $_POST['login'];
-		$password = $_POST['password'];
-		
-		// Формируем и отсылаем SQL запрос:
-		$query = "SELECT * FROM sdc_users WHERE username='$login' AND password='$password'";
-		$result = mysqli_query($link, $query) or die (mysqli_error($link));
-		
-		// Преобразуем ответ из БД в нормальный массив PHP:
-		$user = mysqli_fetch_assoc($result);
-		if (!empty($user)) {
-			// Пользователь прошел авторизацию, выполним какой-то код
-			setcookie("aut[id]","$user[id]", time() + 3600*24*30);
-			setcookie("aut[login]","$login", time() + 3600*24*30);
-			setcookie("aut[password]","$password", time() + 3600*24*30);
-			setcookie("aut[active]","$user[active]", time() + 3600*24*30);
-			setcookie("aut[primary_group]","$user[primary_group]", time() + 3600*24*30);
-			setcookie("aut[sudo]","$user[sudo]", time() + 3600*24*30);
-			echo "авторизован";
-		} else {
-			// Пользователь неверно ввел логин или пароль, выполним какой-то код
-			setcookie ("aut[id]", "", time() - 3600);
-			setcookie ("aut[login]", "", time() - 3600);
-			setcookie ("aut[password]", "", time() - 3600);
-			setcookie ("aut[active]", "", time() - 3600);
-			setcookie ("aut[primary_group]", "", time() - 3600);
-			setcookie ("aut[sudo]", "", time() - 3600);
-			echo 'Не авторизован';
+	function whitelist ($id, $id_group, $output, $all_name_href) {
+		$whitelist = array_filter($all_name_href, function ($value) use ($id, $id_group) {
+			return ($value["id"] != $id and $value["id_group"] != $id_group);
+		}, ARRAY_FILTER_USE_BOTH);
+		foreach ($whitelist as $resourse) {
+			$output .= $resourse["proxy_href"];
 		}
+		file_put_contents('components/proxylist/data/whitelist.txt', $output);
+	}
 
+	function blacklist ($id, $id_group, $output, $all_name_href) {
+		$blacklist = array_filter($all_name_href, function ($value) use ($id, $id_group) {
+			return ($value["id"] == $id or $value["id_group"] == $id_group);
+		}, ARRAY_FILTER_USE_BOTH);
+		foreach ($blacklist as $resourse) {
+			$output .= $resourse["proxy_href"];
+		}
+		file_put_contents('components/proxylist/data/blacklist.txt', $output);
 	}
-	if (isset($_COOKIE['aut'])) {
-	    foreach ($_COOKIE['aut'] as $name => $value) {
-	        $name = htmlspecialchars($name);
-	        $value = htmlspecialchars($value);
-	        echo "$name. $value <br />";
-    	}
-	}
-?>
-<form action="test.php" method="POST">
-	<input name="login">
-	<input name="password" type="password">
-	<input type="submit" value="Отправить">
-</form>
+	
+	whitelist ($id, $id_group, $output, $all_name_href);
+	blacklist ($id, $id_group, $output, $all_name_href);
+	
+	
+	echo '<div style="text-align:right;">Время выполнения скрипта: '.(microtime(true) - $start).' сек.</div>';
+
+
 

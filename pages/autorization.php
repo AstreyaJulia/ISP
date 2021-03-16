@@ -3,13 +3,8 @@
 	error_reporting(E_ALL);
 	ini_set("display_errors", "on");
 
-	$host = "localhost";
-	$user = "chainik";
-	$password = "qwer";
-	$dbName = "isp";
-
-	$link = mysqli_connect($host, $user, $password, $dbName);
-	mysqli_query($link, "SET NAMES 'utf8'");
+	require_once "db_config.php";
+	
 	$title = "Авторизация пользователя";
 
 	if (!empty($_POST['login']) and !empty($_POST['password'])) {
