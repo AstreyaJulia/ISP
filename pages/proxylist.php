@@ -4,13 +4,11 @@ $title = "Каталог ссылок";
 $desc = "Описание чего-то коротко";
 //Если есть атрибут sudo = 1 добавляем админские плюшки
 if ($_COOKIE['aut']['sudo'] == 1) {
-    $query = "SELECT * FROM sdc_proxy_list";
+    $ProxyList = $link->query("SELECT * FROM sdc_proxy_list")->fetchAll(PDO::FETCH_ASSOC);
 } else {
 // не показываем blacklist
-    $query = "SELECT * FROM sdc_proxy_list WHERE id != 6";
+    $ProxyList = $link->query("SELECT * FROM sdc_proxy_list WHERE id != 6")->fetchAll(PDO::FETCH_ASSOC);
 }
-$result = mysqli_query($link, $query) or die(mysqli_error($link));
-for ($ProxyList =[]; $row = mysqli_fetch_assoc($result); $ProxyList[] = $row);
 
 // Создаем массив только с детьми
 function children($id_group, $ProxyList)

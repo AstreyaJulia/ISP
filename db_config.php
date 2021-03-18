@@ -1,7 +1,8 @@
 <?php
-	$host = "";
-	$user = "";
-	$password = "";
-	$dbName = "";
-	$link = mysqli_connect($host, $user, $password, $dbName);
-	mysqli_query($link, "SET NAMES 'utf8'");
+	//Подключение с бработкой ошибок подключения
+	try {
+		$link = new PDO('mysql:host=сервер;dbname=имя бд;charset=utf8mb4', 'логин', 'пароль');
+	} catch (PDOException $e) {
+		print "Error!: " . $e->getMessage();
+		die();
+	}

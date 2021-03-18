@@ -2,10 +2,9 @@
 
 	$title = "Список сотрудников";
 	$desc = "Описание чего-то коротко";
-	$query = "SELECT fullname, phone, position, room FROM sdc_user_attributes";
-	$result = mysqli_query($link, $query) or die(mysqli_error($link));
-	for ($staff =[]; $row = mysqli_fetch_assoc($result); $staff[] = $row);
-	
+	//получаем пользователей
+	$staff = $link->query("SELECT fullname, phone, position, room FROM sdc_user_attributes")->fetchAll(PDO::FETCH_ASSOC);
+
 	$content_4 = '<div class="row">
 					<div class="col-lg-12">
 						<div class="card">
