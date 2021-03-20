@@ -11,10 +11,10 @@
 		// Пишем логин из формы в переменную для удобства работы:
 		$login = $_POST['login'];
 		// Формируем и отсылаем SQL запрос:
-		$query = "SELECT * FROM sdc_users WHERE username='$login'";
-		$result = mysqli_query($link, $query) or die (mysqli_error($link));
-		// Преобразуем ответ из БД в нормальный массив PHP:
-		$user = mysqli_fetch_assoc($result);
+		$query_select = $link->prepare("SELECT * FROM sdc_users WHERE `username` = ?");
+		$query_select->execute([$login]);
+		//извлекаем резултаты запроса
+		$user = $query_select->fetch(PDO::FETCH_LAZY);
 		//Если пользователь с таким логином есть
 		if (!empty($user)) {
 			$hash = $user['password']; // соленый пароль из БД

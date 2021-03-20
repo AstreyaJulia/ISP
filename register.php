@@ -13,16 +13,23 @@
 			$login = $_POST["login"];
 			$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 			// Пробуем получить юзера с таким логином
-			$query = "SELECT * FROM sdc_users WHERE username='$login'";
-			$user = mysqli_fetch_assoc(mysqli_query($link, $query));
+			$query_select = $link->prepare("SELECT * FROM sdc_users WHERE `username` = ?");
+			$query_select->execute([$login]);
+			//извлекаем резултаты запроса
+			$user = $query_select->fetch(PDO::FETCH_LAZY);
 			// Если юзера с таким логином нет
 			if (empty($user)) {
 				// Логина нет, выведем сообщение об этом
 				echo "Такого логина нет";
 			} else {
-				// Логин есть, Формируем и отсылаем SQL запрос:
-				$query = "UPDATE sdc_users SET password='$password' WHERE username='$login'";
-				mysqli_query($link, $query);
+				// Логин есть, записываем хэш пароль в бд
+				$query_update = "UPDATE sdc_users SET `password`=:password WHERE `username` = :login";
+			    $params = [
+			        ':login' => $login,
+			        ':password' => $password
+			    ];
+			    $stmt = $link->prepare($query_update);
+			    $stmt->execute($params);
 				// Пользователь прошел авторизацию, запишем cookie
 				setcookie("aut[id]","$user[id]", time() + 3600*24*30);
 				setcookie("aut[login]","$login", time() + 3600*24*30);
