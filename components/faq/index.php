@@ -65,8 +65,12 @@ $content .= '</ul>
 	<div class="faq-categories-doc " style="display: none">
 	<div class="card">
 	<div class="card-body h-100">
-			<div id="contentBody"></div>
-		  <div class="spinner-border text-primary spinner-lg spinner-fixed" id="loading" style="display: none"></div>
+			<div class="faq-body">
+			<div class="loading-spinner-faq  d-flex align-items-center justify-content-center text-center w-100 h-100" style="display: none">
+									<div class="spinner-border text-primary spinner-lg spinner-fixed"></div>
+
+			</div>
+			</div>
 </div>
 </div>
 

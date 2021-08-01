@@ -18,7 +18,7 @@
   </div>
 </header>
 <div class="card">
-  <table class="table dataTable table-users">
+  <table class="table dataTable sort table-users">
     <thead>
     <tr>
       <th>№</th>

@@ -19,7 +19,7 @@
       </div>
     <?php endforeach ?>
   </div>
-  <table class="table dataTable table-users">
+  <table class="table dataTable sort table-users">
     <thead>
     <tr>
       <th>Кабинет</th>

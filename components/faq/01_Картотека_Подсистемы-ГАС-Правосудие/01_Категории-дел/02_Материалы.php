@@ -34,7 +34,7 @@ array_walk($array, function ($item, $key) use (&$resultArray) {
 });
 ?>
 
-<table class="table dataTable">
+<table class="table dataTable nosort">
   <thead>
   <tr>
     <th>Индекс</th>

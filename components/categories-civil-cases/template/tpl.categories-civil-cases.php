@@ -15,7 +15,7 @@
   </div>
 </header>
 <div class="card">
-  <table class="table dataTable">
+  <table class="table dataTable nosort">
     <thead>
     <tr>
       <th>PREFIX</th>
