@@ -1,0 +1,2036 @@
+//Bootstrap
+/*!
+ * Bootstrap v5.0.2 (https://getbootstrap.com/)
+ * Copyright 2011-2021 The Bootstrap Authors
+ * Copyright 2011-2021 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+ */
+
+// scss-docs-start import-stack
+// Configuration
+@import "../../../node_modules/bootstrap/scss/functions";
+// Отредактированный стандартный файл
+@import "variables";
+@import "../../../node_modules/bootstrap/scss/mixins";
+@import "../../../node_modules/bootstrap/scss/utilities";
+
+// Layout & components
+@import "../../../node_modules/bootstrap/scss/root";
+@import "../../../node_modules/bootstrap/scss/reboot";
+@import "../../../node_modules/bootstrap/scss/type";
+@import "../../../node_modules/bootstrap/scss/images";
+@import "../../../node_modules/bootstrap/scss/containers";
+@import "../../../node_modules/bootstrap/scss/grid";
+@import "../../../node_modules/bootstrap/scss/tables";
+@import "../../../node_modules/bootstrap/scss/forms";
+@import "../../../node_modules/bootstrap/scss/buttons";
+@import "../../../node_modules/bootstrap/scss/transitions";
+@import "../../../node_modules/bootstrap/scss/dropdown";
+@import "../../../node_modules/bootstrap/scss/button-group";
+@import "../../../node_modules/bootstrap/scss/nav";
+@import "../../../node_modules/bootstrap/scss/navbar";
+@import "../../../node_modules/bootstrap/scss/card";
+@import "../../../node_modules/bootstrap/scss/accordion";
+@import "../../../node_modules/bootstrap/scss/breadcrumb";
+@import "../../../node_modules/bootstrap/scss/pagination";
+@import "../../../node_modules/bootstrap/scss/badge";
+@import "../../../node_modules/bootstrap/scss/alert";
+@import "../../../node_modules/bootstrap/scss/progress";
+@import "../../../node_modules/bootstrap/scss/list-group";
+@import "../../../node_modules/bootstrap/scss/close";
+@import "../../../node_modules/bootstrap/scss/toasts";
+@import "../../../node_modules/bootstrap/scss/modal";
+@import "../../../node_modules/bootstrap/scss/tooltip";
+@import "../../../node_modules/bootstrap/scss/popover";
+@import "../../../node_modules/bootstrap/scss/carousel";
+@import "../../../node_modules/bootstrap/scss/spinners";
+@import "../../../node_modules/bootstrap/scss/offcanvas";
+
+// Helpers
+@import "../../../node_modules/bootstrap/scss/helpers";
+
+// Utilities
+@import "../../../node_modules/bootstrap/scss/utilities/api";
+// scss-docs-end import-stack
+
+// Импорт стилей библиотек
+@import "../../../node_modules/fullcalendar/main";
+@import "../../../node_modules/datatables.net-bs5/css/dataTables.bootstrap5";
+
+// Шрифты
+@import "fonts";
+@import "../../../node_modules/@mdi/font/scss/materialdesignicons";
+// Пользовательские стили
+@import "mixin";
+@import "waves";
+
+// Прячет элементы
+.visually-hidden {
+  position: absolute;
+  clip: rect(0 0 0 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  overflow: hidden;
+}
+
+html {
+  overflow: hidden;
+}
+
+body {
+  @media (min-width: 1360px) and (max-width: 1920px) {
+    width: 1280px;
+    margin: 0 auto;
+    box-shadow: $grey-shadow-6;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+}
+
+a {
+  text-decoration: none;
+
+  :hover {
+    text-decoration: underline;
+  }
+}
+
+// Стили для печати
+@media print {
+  body {
+    margin: 0;
+    padding: 0;
+    display: block !important;
+    overflow: hidden !important;
+    font-size: 14px !important;
+    line-height: normal !important;
+  }
+
+  .main-content {
+    overflow: hidden !important;
+  }
+
+  body > *:not(main),
+  .pagination,
+  .main-sidebar,
+  .main-content-subheader,
+  .table-toolbutton,
+  .badge-big,
+  .list-group-toolbutton,
+  .back-to-top {
+    display: none !important;
+  }
+
+  *,
+  *:before,
+  *:after,
+  *:first-letter,
+  p:first-line,
+  div:first-line,
+  blockquote:first-line,
+  li:first-line {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  * {
+    border-color: #000 !important;
+  }
+
+  * svg {
+    fill: #000 !important;
+  }
+
+  th, td {
+    padding: 5px !important;
+  }
+
+  th, td {
+    border-left: 1px solid !important;
+  }
+
+  th {
+    border-top: 1px solid !important;
+  }
+
+  th:last-child,
+  td:last-child {
+    border-right: 1px solid !important;
+  }
+}
+
+.page-body {
+  height: auto;
+  min-height: 100vh;
+  overflow: hidden;
+  font-family: "TT Norms Pro", "Arial", sans-serif;
+  position: relative;
+
+  &.disabled .main-sidebar {
+    width: $sidebar-width-min;
+    transition: all 0.3s ease;
+  }
+
+  &.disabled {
+    .main-content:not(.auth):not(.err404) {
+      width: calc(100% - #{$sidebar-width-min});
+      transition: all 0.3s ease;
+    }
+
+  }
+
+  &:not(.disabled) {
+    .main-sidebar {
+      width: $sidebar-width-max;
+      transition: all 0.3s ease;
+    }
+
+    .main-content:not(.auth):not(.err404) {
+      width: calc(100% - #{$sidebar-width-max});
+      transition: all 0.3s ease;
+    }
+  }
+}
+
+// Стандартные Bootstrap элементы и цвета
+
+// Фоновые цвета
+
+.bg-primary-dark {
+  background-color: $primary-dark !important;
+}
+
+.bg-primary-light {
+  background-color: $primary-light !important;
+}
+
+.bg-primary-50 {
+  background-color: $primary-50 !important;
+}
+
+.bg-primary-20 {
+  background-color: $primary-20 !important;
+}
+
+.bg-success-dark {
+  background-color: $success-dark !important;
+}
+
+.bg-success-light {
+  background-color: $success-light !important;
+}
+
+.bg-success-50 {
+  background-color: $success-50 !important;
+}
+
+.bg-success-20 {
+  background-color: $success-20 !important;
+}
+
+.bg-secondary-dark {
+  background-color: $secondary-dark !important;
+}
+
+.bg-secondary-light {
+  background-color: $secondary-light !important;
+}
+
+.bg-secondary-50 {
+  background-color: $secondary-50 !important;
+}
+
+.bg-secondary-20 {
+  background-color: $secondary-20 !important;
+}
+
+.bg-danger-dark {
+  background-color: $danger-dark !important;
+}
+
+.bg-danger-light {
+  background-color: $danger-light !important;
+}
+
+.bg-danger-50 {
+  background-color: $danger-50 !important;
+}
+
+.bg-danger-20 {
+  background-color: $danger-20 !important;
+}
+
+.bg-warning {
+  background-color: $warning !important;
+}
+
+.bg-warning-dark {
+  background-color: $warning-dark !important;
+}
+
+.bg-warning-light {
+  background-color: $warning-light !important;
+}
+
+.bg-warning-50 {
+  background-color: $warning-50 !important;
+}
+
+.bg-warning-20 {
+  background-color: $warning-20 !important;
+}
+
+.bg-info {
+  background-color: $info !important;
+}
+
+.bg-info-dark {
+  background-color: $info-dark !important;
+}
+
+.bg-info-light {
+  background-color: $info-light !important;
+}
+
+.bg-info-50 {
+  background-color: $info-50 !important;
+}
+
+.bg-info-20 {
+  background-color: $info-20 !important;
+}
+
+.bg-gradient-primary {
+  background: $gradient-primary !important;
+}
+
+.bg-gradient-success {
+  background: $gradient-success !important;
+}
+
+.bg-gradient-danger {
+  background: $gradient-danger !important;
+}
+
+.bg-gradient-info {
+  background: $gradient-info !important;
+}
+
+.bg-gradient-warning {
+  background: $gradient-warning !important;
+}
+
+.bg-gradient-info {
+  background: $gradient-info !important;
+}
+
+.bg-gradient-progress {
+  background: $gradient-progress !important;
+}
+
+.bg-gradient-menu {
+  background: $gradient-menu !important;
+}
+
+// Список list group
+.list-group {
+  .list-group-item {
+    border-color: $line;
+  }
+}
+
+// Кнопки
+
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+
+  &-block {
+    display: block;
+    width: 100%;
+    justify-content: center;
+  }
+
+  &.disabled,
+  &:disabled {
+    pointer-events: none;
+    opacity: .65;
+  }
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &-primary {
+    box-shadow: 0 2px 6px 0 $primary-50;
+  }
+
+  &-secondary {
+    box-shadow: 0 2px 6px 0 $secondary-50;
+  }
+
+  &-info {
+    box-shadow: 0 2px 6px 0 $info-50;
+  }
+
+  &-danger {
+    box-shadow: 0 2px 6px 0 $danger-50;
+  }
+
+  &-success {
+    box-shadow: 0 2px 6px 0 $success-50;
+  }
+
+  &-warning {
+    box-shadow: 0 2px 6px 0 $warning-50;
+  }
+
+  &-info {
+    box-shadow: 0 2px 6px 0 $info-50;
+
+  }
+
+}
+
+.fa {
+  display: inline-block;
+  font: normal normal normal 24px/1 "Material Design Icons";
+  font-size: inherit;
+  text-rendering: auto;
+  line-height: inherit;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  &.fa-chevron-left:before {
+    content: "\F0141";
+  }
+
+  &.fa-chevron-right:before {
+    content: "\F0142";
+  }
+}
+
+// Таблицы
+.table {
+
+  &-toolbar {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 7px;
+    margin-right: 7px;
+  }
+
+  & > :not(:last-child) > :last-child > * {
+    border-bottom-color: $placeholder;
+  }
+
+  a:hover {
+    text-decoration: solid underline;
+  }
+
+  i {
+    color: $body;
+
+    &:hover {
+      color: $danger;
+    }
+  }
+
+  &-toolbutton {
+    padding: 5px;
+    cursor: pointer;
+  }
+}
+
+// Верхний топбар
+
+.main-header {
+  background-color: $off-white;
+  position: absolute;
+  z-index: 810;
+  top: 0;
+  left: 0;
+  right: 0;
+  max-height: 120px;
+  border-bottom: 1px solid $line;
+  padding: 0 10px;
+  box-shadow: $grey-shadow-3;
+
+  .nav {
+    font-size: 24px;
+  }
+
+}
+
+// Сайдбар
+
+.page-body.disabled .main-sidebar span,
+.page-body.disabled .main-sidebar .sidebar-footer {
+  display: none;
+}
+
+.page-body.disabled .main-sidebar .submenu-item {
+  padding: 0;
+}
+
+.main-sidebar {
+  margin-top: 62px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-right: 1px solid $line;
+  background-color: $off-white;
+  box-shadow: $grey-shadow-3;
+  padding: 10px;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-decoration: none;
+
+  .menu-item,
+  .submenu-item {
+    margin-bottom: 10px;
+  }
+
+  .sidebar-footer {
+
+    p {
+      font-size: 12px;
+      margin-bottom: 5px;
+      line-height: 1;
+
+      &:first-of-type {
+        border-top: 1px solid $line;
+        padding-top: 10px;
+      }
+    }
+
+    span i {
+      color: $danger;
+      font-size: 16px;
+    }
+  }
+
+  .menu-item {
+    &.with-sub {
+      cursor: pointer;
+
+      &.dev,
+      &.adm {
+        padding-top: 20px;
+        margin-top: 20px;
+        border-top: 1px solid $line;
+      }
+
+      &.dev {
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid $line;
+      }
+    }
+
+    &.active {
+
+      .sub-menu {
+        display: block;
+        background-color: $off-white;
+        transition: all 0.3s ease;
+      }
+
+      .menu-link {
+        position: relative;
+        color: $off-white;
+        background: $gradient-menu;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 5px 0 $primary;
+
+        &:hover {
+          color: $off-white;
+
+          span {
+            text-decoration: none;
+          }
+        }
+      }
+
+      &.adm {
+        .menu-link {
+          background: $gradient-success;
+          box-shadow: 0 0 5px 0 $success;
+        }
+      }
+
+      &.dev {
+        .menu-link {
+          background: $gradient-info;
+          box-shadow: 0 0 5px 0 $info;
+        }
+      }
+    }
+  }
+
+  .navigation-menu,
+  .sub-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .menu-link,
+  .submenu-link {
+    text-decoration: none;
+    color: $label;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px 15px;
+    position: relative;
+    margin: 0;
+
+    i {
+      font-size: 22px;
+      margin-right: 10px;
+    }
+
+    &:hover {
+      color: $primary;
+      background-color: $primary-20;
+      border-radius: 10px;
+
+      span {
+        text-decoration: none;
+      }
+    }
+  }
+
+  .sub-menu {
+    .submenu-item {
+      padding: 0 10px;
+    }
+  }
+}
+
+.menu-item.with-sub:not(.active) .sub-menu {
+  display: none;
+  transition: all 0.3s ease;
+}
+
+.main-sidebar .menu-link .menu-arrow {
+  position: absolute;
+  right: 0;
+  top: 26%;
+  transition: transform 0.5s ease;
+  font-size: 16px;
+}
+
+.menu-item.with-sub.active .menu-arrow {
+  transform: rotate(90deg);
+  transition: transform 0.5s ease;
+}
+
+.page-body.disabled .main-sidebar .menu-arrow {
+  right: -9px;
+}
+
+.main-sidebar .sub-menu {
+  margin-top: 10px;
+}
+
+.main-sidebar .submenu-item.active .submenu-link {
+  color: $primary;
+  border: 2px solid $primary;
+  border-radius: 10px;
+}
+
+// Дропдауны без стрелок
+
+.dropdown-toggle.no-carret {
+  &::after {
+    display: none;
+  }
+}
+
+//Верхний топбар
+.main-header {
+
+  .nav-link {
+    color: $body;
+    padding: 5px 11px;
+
+    &:hover {
+      color: $primary;
+      background-color: $primary-20;
+      border-radius: 50%;
+    }
+  }
+
+  // Виджет даты
+  .today-group {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    line-height: 1;
+    justify-content: center;
+    border-left: 1px solid $line;
+    padding-left: 10px;
+
+    &-day {
+      color: $primary;
+      font-size: 22px;
+      margin: 0 10px 0 0;
+      font-weight: 700;
+    }
+
+    &-month {
+      color: $body;
+      margin: 0 10px 0 0;
+    }
+
+    &-dayw {
+      color: $placeholder;
+      margin: 0 10px 0 0;
+    }
+  }
+
+  // Дропдаун в аватаре в топбаре
+  .dropdown-toggle.usermenu {
+    padding: 5px 11px;
+    margin: 0 5px 0 15px;
+  }
+
+  .dropdown-menu.usermenu {
+    padding: 20px;
+    box-shadow: $grey-shadow-6;
+
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      &:hover,
+      &:focus {
+        color: $body;
+        background-color: $primary-20;
+      }
+
+      &.btn.btn-primary {
+        margin-top: 10px;
+        background-color: $primary;
+        color: $off-white;
+        justify-content: center;
+
+        &:hover {
+          background-color: $primary-dark;
+        }
+      }
+    }
+
+    .highlighted {
+      color: $info;
+      font-weight: 700;
+      float: right;
+      font-size: 12px;
+    }
+
+    .usermenu-header {
+      display: flex;
+      align-items: center;
+
+      .user-avatar img {
+        width: 40px;
+        height: 40px;
+        border-radius: 7px;
+        border: 1px solid $line;
+      }
+
+      .header-group {
+        display: flex;
+        flex-direction: column;
+
+        p {
+          margin: 0;
+          padding: 0;
+        }
+
+        .user-name,
+        .user-login {
+          margin-left: 10px;
+          font-size: 14px;
+        }
+
+        .user-name {
+          font-weight: 700;
+        }
+      }
+    }
+
+    .usermenu-category {
+      margin: 20px 0 10px;
+      color: $placeholder;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+  }
+}
+
+.nav-link:focus {
+  color: $primary-dark;
+}
+
+.main-content:not(.auth):not(.err404) {
+  padding: 20px;
+  margin-left: 240px;
+  height: calc(100% - #{$header-height});
+  overflow-y: scroll;
+  background-color: $input-background;
+  position: absolute;
+  top: $header-height;
+  bottom: 0;
+  right: 0;
+}
+
+.right-header li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.right-header .dropdown {
+  border-left: 1px solid $line;
+}
+
+.sidebar-toggle-button {
+  margin-right: 30px;
+}
+
+.progress-container {
+  width: 100%;
+  height: 2px;
+  background: transparent;
+  position: absolute;
+  top: 0;
+  z-index: 9999;
+
+  .topprogressbar {
+    height: 2px;
+    background: $danger;
+    width: 0;
+    transition: all 0.3s ease;
+  }
+}
+
+// Кнопка назад наверх
+.back-to-top {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  color: $off-white;
+  position: fixed;
+  border-radius: 10%;
+  background-color: $primary;
+  bottom: 20px;
+  right: 36px;
+  transition: all 0.3s ease;
+  opacity: 0.5;
+  box-shadow: 0 0 10px $primary;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+
+  :hover {
+    transition: all 0.3s ease;
+    opacity: 1;
+    cursor: pointer;
+    color: $off-white;
+  }
+}
+
+// Поиск
+
+.search-input {
+  position: absolute;
+  width: 0;
+  height: 0;
+  margin: -1px;
+
+  &.open {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 0;
+    background: $off-white;
+    right: 0;
+    top: 0;
+    width: 100%;
+    height: 64px;
+    z-index: 10000;
+    justify-content: space-between;
+    padding: 16px;
+    border: 1px solid $line;
+    box-shadow: 0 0 5px 0 $info;
+
+    input {
+      display: block;
+      width: 100%;
+      background: 0 0;
+      border: 0;
+      height: 40px;
+      outline: 0;
+      margin-left: 16px;
+    }
+
+    .nav-search-icon,
+    .search-close {
+      display: block;
+    }
+  }
+
+  .nav-search-icon,
+  .search-close,
+  input {
+    display: none;
+  }
+
+  .top-search-close {
+    font-size: 24px;
+    color: $body;
+
+    &:hover i {
+      color: $primary;
+    }
+  }
+}
+
+// Заголовок главного содержимого
+
+.main-content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+
+  .header-left {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .header-right {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .content-header-controls {
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+
+    .controls-filter {
+      margin-right: 10px;
+    }
+
+  }
+
+  // Заголовок содержимого
+  .main-content-title {
+    padding-right: 20px;
+    border-right: 1px solid $line;
+    margin-bottom: 0;
+  }
+
+  //Хлебные крошки в заголовке содержимого
+  .breadcrumb {
+    padding-left: 20px;
+    margin-bottom: 0;
+    font-size: 16px;
+
+  }
+
+}
+
+// Погодный виджет в верхней панели
+.weather-info {
+  display: flex;
+  position: relative;
+  border: 0;
+  padding: 5px 5px 5px 10px;
+  margin: 0;
+  text-decoration: none;
+}
+
+// Каталог ссылок
+
+// Общие
+
+.list-tab-group {
+  display: flex;
+  flex-direction: row;
+  background-color: $off-white;
+  margin: 0 10px 10px 10px;
+
+  .tab-list-group,
+  .list-group {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .list-group {
+    padding: 0 15px 0 0;
+    margin-left: 15px;
+    border-right: 1px solid $line;
+    border-top: none;
+    border-bottom: none;
+    border-radius: 0;
+    max-width: 350px;
+
+    &-body {
+      display: flex;
+      align-items: center;
+      flex-grow: 2;
+    }
+
+    &-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      border: none;
+      text-decoration: none;
+      background-color: $input-background;
+      padding: 0;
+
+      &:first-child {
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+      }
+
+      &:hover {
+        background-color: $primary-20;
+
+        a {
+          color: $primary;
+        }
+
+      }
+
+      &.active {
+        background-color: $primary;
+        box-shadow: 0 0 0 4px $line;
+        color: $off-white;
+
+        .list-group-toolbutton:hover {
+          color: $danger;
+        }
+
+        a {
+          color: $off-white;
+        }
+
+      }
+
+    }
+
+    &-link {
+      width: 100%;
+      height: 100%;
+      flex-grow: 2;
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      cursor: pointer;
+      color: $body;
+      text-decoration: none;
+      margin-right: 10px;
+
+      &:hover {
+        color: $primary;
+        text-decoration: none;
+      }
+    }
+
+    &-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-left: 7px;
+      margin-right: 20px;
+    }
+
+    &-toolbutton {
+      padding: 5px;
+      cursor: pointer;
+
+      &:hover {
+        i {
+          color: $danger;
+        }
+      }
+
+      i {
+        color: $body;
+      }
+    }
+
+  }
+
+  .tab-content {
+    padding: 0 0 0 15px;
+    min-width: 250px;
+
+    .tab-list-group {
+
+      &.active {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      &:not(.active) {
+        display: none;
+      }
+    }
+
+  }
+
+  .menu-arrow {
+    position: absolute;
+    right: 7px;
+  }
+
+}
+
+// Full calendar
+
+.fc {
+
+}
+
+// Страница авторизации / входа
+
+.main-content.auth {
+  display: flex;
+  flex-direction: row;
+
+  .auth-logo {
+    margin-bottom: 20px;
+    display: flex;
+
+    img {
+      margin-right: 20px;
+    }
+  }
+
+  .left-auth,
+  .right-auth {
+    height: 100vh;
+  }
+
+  .left-auth {
+    padding: 40px;
+    width: 30%;
+    border-right: 1px solid $line;
+    box-shadow: $grey-shadow-6;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .right-auth {
+    width: 70%;
+    opacity: 0.8;
+    background-image: linear-gradient(to right, $primary-light, $primary-light 5px, $line 5px, $line);
+    background-size: 10px 100%;
+  }
+}
+
+// Страница 404
+
+.main-content.err404 {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+// Показать / скрыть пароль
+
+.form-control-wrap {
+  position: relative;
+}
+
+.form-icon {
+  position: absolute;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  top: 50%;
+  transform: translateY(-50%);
+  width: calc(1rem + 24px);
+  height: calc(1rem + 24px);
+  color: $label;
+
+  &-right {
+    left: auto;
+    right: -1px;
+  }
+}
+
+.passcode-switch {
+
+  &:not(.is-hidden) {
+
+    .icon-show {
+      display: none;
+    }
+
+    .icon-hide {
+      display: block;
+    }
+  }
+
+  &.is-hidden {
+    .icon-show {
+      display: block;
+    }
+
+    .icon-hide {
+      display: none;
+    }
+  }
+}
+
+// Формы
+
+.form {
+  &-label {
+    color: $body;
+    margin-bottom: 10px;
+
+    &-group {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: .10px;
+
+      .form-label {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &-group {
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  &-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+}
+
+// Чекбоксы
+
+.form-check-input {
+  background-color: $off-white;
+  border: 1px solid $body-20;
+  width: 1.2em;
+  height: 1.2em;
+  margin-top: 0.15em;
+
+  &:checked {
+    background-color: $primary;
+    border-color: $primary;
+  }
+
+  &:focus {
+    border-color: $primary-light;
+    box-shadow: 0 0 0 0.25rem $primary-20;
+  }
+}
+
+// Datatables
+
+table.dataTable > thead .sorting:before,
+table.dataTable > thead .sorting_asc:before,
+table.dataTable > thead .sorting_desc:before,
+table.dataTable > thead .sorting_asc_disabled:before,
+table.dataTable > thead .sorting_desc_disabled:before {
+  display: inline-block;
+  font: normal normal normal 24px/1 "Material Design Icons";
+  font-size: inherit;
+  text-rendering: auto;
+  line-height: inherit;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "\F0737";
+}
+
+table.dataTable > thead .sorting:after,
+table.dataTable > thead .sorting_asc:after,
+table.dataTable > thead .sorting_desc:after,
+table.dataTable > thead .sorting_asc_disabled:after,
+table.dataTable > thead .sorting_desc_disabled:after {
+  display: inline-block;
+  font: normal normal normal 24px/1 "Material Design Icons";
+  font-size: inherit;
+  text-rendering: auto;
+  line-height: inherit;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "\F072E";
+}
+
+div.dataTables_wrapper div.dataTables_filter input[type="search"] {
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: $body;
+  background-color: $off-white;
+  background-clip: padding-box;
+  border: 1px solid $line;
+  appearance: none;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.dataTables_filter input[type="search"]:focus {
+  color: $body;
+  background-color: $off-white;
+  border-color: $primary-light;
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem $primary-20;
+}
+
+.dataTables_length,
+.dataTables_filter {
+  display: inline-flex;
+  align-items: center;
+  margin: 10px 30px 0 20px;
+}
+
+.dataTables_length select {
+  display: block;
+  width: 100%;
+  padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+  -moz-padding-start: calc(0.75rem - 3px);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: $body;
+  background-color: $off-white;
+  background-image: escape-svg($form-select-indicator);
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 16px 12px;
+  border: 1px solid $line;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  appearance: none;
+  margin: 0 5px;
+}
+
+.dataTables_length select:focus {
+  border-color: $primary-light;
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem $primary-20;
+}
+
+div.dataTables_wrapper div.dataTables_filter input {
+  display: inline-flex;
+}
+
+.dataTables_info {
+  margin: 0 20px 20px 20px;
+  display: inline-flex;
+  min-width: 250px;
+}
+
+div.dataTables_wrapper div.dataTables_paginate {
+  display: inline-flex;
+  margin: 0 20px 20px 20px;
+}
+
+.dataTables_paginate {
+  display: flex;
+  padding-left: 0;
+}
+
+.dataTables_paginate span {
+  display: flex;
+  padding-left: 0;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.paginate_button.previous {
+  border-top-left-radius: .25rem;
+  border-bottom-left-radius: .25rem;
+}
+
+.paginate_button.next {
+  border-top-right-radius: .25rem;
+  border-bottom-right-radius: .25rem;
+}
+
+.paginate_button {
+  display: flex;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  margin: -1px;
+  padding: .5rem 1rem;
+  position: relative;
+  color: $primary;
+  text-decoration: none;
+  background-color: $off-white;
+  border: 1px solid $line;
+  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  cursor: pointer;
+}
+
+.paginate_button:hover {
+  text-decoration: none;
+  background-color: $primary-20;
+}
+
+.paginate_button.current {
+  z-index: 3;
+  color: $off-white;
+  background-color: $primary;
+  border-color: $primary;
+}
+
+table.dataTable > thead .sorting_asc:after,
+table.dataTable > thead .sorting_asc:before,
+table.dataTable > thead .sorting_desc:after,
+table.dataTable > thead .sorting_desc:before {
+  color: $primary;
+}
+
+// Бейджи
+.badge-status {
+  border-radius: 50%;
+  font-size: 10px;
+  padding: 0 6px;
+  margin: auto 5px;
+}
+
+td .badge,
+td .badge-big {
+  margin: 5px;
+}
+
+.badge-status {
+  &.success {
+    background-color: $success;
+  }
+
+  &.error {
+    background-color: $danger;
+  }
+}
+
+.badge-big.secondary {
+  background-color: $info;
+  border-radius: 50rem !important;
+  display: inline-block;
+  padding: 0.35em 0.65em;
+  font-size: 0.75em;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+}
+
+
+// Группы фильтров
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  margin: 10px 20px 0 20px;
+  border-bottom: 1px solid $line;
+  padding-bottom: 10px;
+
+  .group-title,
+  .form-check {
+    margin: 0 20px 0 0;
+  }
+
+  .group-title {
+    font-weight: 700;
+  }
+}
+
+// FAQ
+
+.faq-cards {
+  .faq-card {
+
+    i {
+      font-size: 60px;
+      color: $label;
+    }
+
+    &:hover {
+      border-color: $label;
+      text-decoration: none;
+      box-shadow: 0 0 0 0.25rem $primary-20;
+      cursor: pointer;
+    }
+  }
+
+  .w-100 {
+    margin: 10px 0;
+  }
+}
+
+.faq-category .list-group {
+  border: none;
+  border-radius: 0;
+
+  .list-group-item {
+    border-right: 0;
+    border-left: 0;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}
+
+// 404
+
+.danger {
+  color: $label;
+  font-size: 7rem;
+  position: relative;
+  line-height: 1;
+  width: 12.5rem;
+
+  &:before {
+    content: attr(data-text);
+    position: absolute;
+    left: -2px;
+    text-shadow: 1px 0 $primary;
+    top: 0;
+    color: $label;
+    background: transparent;
+    overflow: hidden;
+    clip: rect(0, 900px, 0, 0);
+    animation: noise-anim-2 3s linear infinite alternate-reverse;
+  }
+
+  &:after {
+    content: attr(data-text);
+    position: absolute;
+    left: 2px;
+    text-shadow: -1px 0 $danger;
+    top: 0;
+    color: $label;
+    background: transparent;
+    overflow: hidden;
+    clip: rect(0, 900px, 0, 0);
+    animation: noise-anim 2s linear infinite alternate-reverse;
+  }
+}
+
+@keyframes noise-anim {
+  0% {
+    clip: rect(87px, 9999px, 15px, 0)
+  }
+  5% {
+    clip: rect(76px, 9999px, 99px, 0)
+  }
+  10% {
+    clip: rect(58px, 9999px, 85px, 0)
+  }
+  15% {
+    clip: rect(22px, 9999px, 37px, 0)
+  }
+  20% {
+    clip: rect(17px, 9999px, 83px, 0)
+  }
+  25% {
+    clip: rect(21px, 9999px, 54px, 0)
+  }
+  30% {
+    clip: rect(49px, 9999px, 62px, 0)
+  }
+  35% {
+    clip: rect(70px, 9999px, 52px, 0)
+  }
+  40% {
+    clip: rect(30px, 9999px, 5px, 0)
+  }
+  45% {
+    clip: rect(20px, 9999px, 3px, 0)
+  }
+  50% {
+    clip: rect(86px, 9999px, 77px, 0)
+  }
+  55% {
+    clip: rect(44px, 9999px, 90px, 0)
+  }
+  60% {
+    clip: rect(52px, 9999px, 69px, 0)
+  }
+  65% {
+    clip: rect(89px, 9999px, 72px, 0)
+  }
+  70% {
+    clip: rect(80px, 9999px, 34px, 0)
+  }
+  75% {
+    clip: rect(55px, 9999px, 2px, 0)
+  }
+  80% {
+    clip: rect(9px, 9999px, 93px, 0)
+  }
+  85% {
+    clip: rect(38px, 9999px, 52px, 0)
+  }
+  90% {
+    clip: rect(43px, 9999px, 87px, 0)
+  }
+  95% {
+    clip: rect(41px, 9999px, 10px, 0)
+  }
+  to {
+    clip: rect(88px, 9999px, 88px, 0)
+  }
+}
+
+// UI Kit
+.uikit {
+  [id="modal"] .bd-example .btn,
+  [id="buttons"] .bd-example .btn,
+  [id="tooltips"] .bd-example .btn,
+  [id="popovers"] .bd-example .btn,
+  [id="dropdowns"] .bd-example .btn-group,
+  [id="dropdowns"] .bd-example .dropdown,
+  [id="dropdowns"] .bd-example .dropup,
+  [id="dropdowns"] .bd-example .dropend,
+  [id="dropdowns"] .bd-example .dropstart {
+    margin: 0 1rem 1rem 0;
+  }
+
+  .row {
+    margin-bottom: 20px;
+  }
+
+}
+
+// Слайдер на главной
+#carouselNews.carousel.slide {
+  .carousel-caption {
+    position: revert;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+    text-align: left;
+    color: $body;
+  }
+
+  .carousel-control-prev,
+  .carousel-control-next {
+    height: 300px;
+  }
+
+  .carousel-caption {
+    padding: 20px;
+
+    p {
+      margin: 0;
+    }
+  }
+}
+
+
+// Fullcalendar
+
+.today-calendar,
+.calendar-module {
+  .fc-h-event {
+    display: block;
+    border: 1.5px solid $primary;
+    border-radius: 4px;
+  }
+
+  a {
+    color: $body;
+  }
+
+  .fc-toolbar-title {
+    color: $body
+  }
+
+  .fc-daygrid-dot-event {
+    border-radius: 4px;
+    color: $off-white;
+  }
+
+  .fc {
+    .fc-highlight {
+      background: $info-20;
+      border: none;
+      border-radius: 3px;
+    }
+
+    .fc-toolbar-title {
+      text-transform: uppercase;
+      color: $body;
+    }
+
+    .fc-button {
+      border: none;
+
+      &-primary {
+        background-color: $primary;
+        box-shadow: 0 2px 6px 0 $primary-50;
+
+        &:not(:disabled):active, &:not(:disabled).fc-button-active {
+          color: $offcanvas-vertical-height;
+          background-color: $primary-dark;
+        }
+
+        &:hover,
+        &:active {
+          background-color: $primary-dark;
+        }
+
+        &:focus {
+          outline: 0;
+          box-shadow: 0 0 0 0.25rem $primary-50;
+        }
+
+        &:disabled {
+          background-color: $primary;
+          opacity: 0.5;
+        }
+      }
+    }
+
+    .fc-daygrid-day {
+      &.fc-day-today {
+        background-color: $warning-50;
+        border: none;
+        border-radius: 4px;
+
+        .fc-daygrid-day-number {
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+
+    &-event {
+      background-color: $primary;
+    }
+
+    &-col-header-cell {
+      text-align: center;
+    }
+
+    &-view-month &-event,
+    .fc-day-sat a,
+    .fc-day-sun a {
+      color: $danger;
+    }
+  }
+}
+
+// Мини календарь на главной
+.today-calendar {
+  width: 100%;
+  margin: 0 auto;
+  font-size: 14px;
+
+  .fc-daygrid-dot-event {
+    border-radius: 50%;
+  }
+
+  table tbody tr th,
+  table tbody tr td {
+    width: 31px;
+    height: 31px;
+  }
+
+  .fc-daygrid-dot-event {
+    padding: 2px 2px;
+  }
+
+  .fc {
+    .fc-scrollgrid {
+      border: none;
+    }
+
+    .fc-daygrid-day-frame {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .fc-daygrid-day-top {
+      justify-content: center;
+    }
+
+    &-theme-standard td,
+    &-theme-standard th {
+      border-color: $line;
+    }
+
+    .fc-daygrid-day-bottom {
+      font-size: 12px;
+    }
+
+    .fc-scrollgrid {
+      border: none;
+    }
+
+    .fc-toolbar {
+      &.fc-header-toolbar {
+        margin: 0 0 10px 0;
+      }
+
+    }
+
+    .fc-toolbar-title {
+      font-size: 14px;
+    }
+
+    .fc-button {
+      padding: 0 5px;
+
+      .fc-icon {
+        font-size: 12px;
+      }
+    }
+
+    table {
+      font-size: 14px;
+    }
+
+    th,
+    td {
+      vertical-align: middle;
+    }
+
+    &-theme-standard td,
+    &-theme-standard th {
+      border: none;
+    }
+
+    &-view-month &-event,
+    &-view-agendaWeek &-event {
+      font-size: 0;
+      overflow: hidden;
+      height: 2px;
+    }
+
+    &-event-time,
+    &-daygrid-event-dot,
+    &-event-title,
+    &-sticky,
+    &-event-title,
+    &-daygrid-more-link {
+      display: none;
+    }
+  }
+}
+
+// Всплывашки. Toasts
+.toasts-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  z-index: 9999;
+  right: 0;
+  height: auto;
+
+  .toast {
+    box-shadow: $grey-shadow-6;
+
+    &-header i {
+      font-size: 20px;
+      color: $danger;
+      margin-right: 10px;
+    }
+  }
+}
+
+// Алерты
+.alert-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  z-index: 8888;
+  right: 0;
+  left: 20px;
+  top: 20px;
+  height: auto;
+  width: auto;
+
+  .row {
+    margin: 0;
+  }
+
+  .alert {
+    box-shadow: $grey-shadow-6;
+    max-width: calc(100% - 20px);
+  }
+}
+
+// Спиннер загрузки
+
+.spinner-wrapper {
+  z-index: 99999;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: $off-white;
+}
+
+// Виджеты на странице
+
+.main-content {
+  .card {
+    box-shadow: $grey-shadow-6;
+  }
+
+  .today-calendar {
+    padding-bottom: 20px;
+    border-bottom: 1px solid $line;
+  }
+
+  .today-events {
+    padding-top: 20px;
+
+    .widget-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      padding-bottom: 10px;
+    }
+
+    .today-birthdays-list,
+    .today-events-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .today-birthdays-item,
+    .today-events-item {
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    i,
+    .event-time {
+      font-size: 24px;
+      margin: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-right: 19px;
+    }
+    .today-birthdays-username,
+    .today-birthdays-date,
+    .event-title {
+      margin: 0;
+    }
+
+    .today-birthdays-username,
+    .event-title {
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .today-birthdays-date {
+      font-size: 12px;
+    }
+
+    .event-time {
+      font-size: 14px;
+      font-weight: 700;
+      width: 44px;
+      line-height: normal;
+    }
+
+    .bday-group,
+    .event-group {
+      display: flex;
+      flex-direction: column;
+
+      &:before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border: 2px solid transparent;
+        top: 15px;
+        left: 60px;
+        position: absolute;
+        border-radius: 50%;
+      }
+      &.primary:before {
+        border-color: $primary;
+      }
+      &.info:before {
+        border-color: $info;
+      }
+    }
+  }
+}
+
+// Редактирование пользователя
+.user-photo {
+  position: relative;
+  margin-bottom: 20px;
+
+  img {
+    width: 40px;
+    height: 40px;
+    border-radius: 7px;
+    border: 1px solid $line;
+  }
+}

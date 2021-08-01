@@ -1,0 +1,14 @@
+#Исключаем файл
+.DS_Store
+.idea
+.vscode
+*.log
+*.sublime*
+node_modules/
+npm-debug.*
+Thumbs.db
+.htaccess
+test.php
+test_callendar.php
+isp.sql
+dist/
