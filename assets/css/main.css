@@ -37439,6 +37439,11 @@ td:last-child {
   display: none;
 }
 
+.dropdown-menu {
+  transition: transform 0.4s ease-in-out 0s, opacity 0.4s ease-in-out 0s, visibility 0.4s ease-in-out 0s;
+  box-shadow: 0 8px 24px -4px rgba(27, 46, 94, 0.12);
+}
+
 .main-header .nav-link {
   color: #404d61;
   padding: 5px 11px;
@@ -37477,16 +37482,19 @@ td:last-child {
 }
 .main-header .dropdown-menu.usermenu {
   padding: 20px;
-  box-shadow: 0 8px 24px -4px rgba(27, 46, 94, 0.12);
+  width: 250px;
 }
 .main-header .dropdown-menu.usermenu .dropdown-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 8px 0;
+  color: #5a6474;
 }
 .main-header .dropdown-menu.usermenu .dropdown-item:hover, .main-header .dropdown-menu.usermenu .dropdown-item:focus {
-  color: #404d61;
-  background-color: rgba(85, 82, 217, 0.2);
+  color: #4e73f8;
+  background: none;
+  padding-left: 4px;
 }
 .main-header .dropdown-menu.usermenu .dropdown-item.btn.btn-primary {
   margin-top: 10px;
@@ -38127,12 +38135,21 @@ td .badge-big {
   font-weight: 700;
 }
 
-.faq-cards .faq-card i {
-  font-size: 60px;
-  color: #5a6474;
+.faq-cards a:hover {
+  text-decoration: none;
 }
 .faq-cards .faq-card:hover {
-  border-color: #5a6474;
+  text-decoration: none;
+  color: #5552d9;
+}
+.faq-cards .faq-card .card-body {
+  color: #404d61;
+}
+.faq-cards .faq-card .card-body p:last-child {
+  margin-bottom: 0;
+}
+.faq-cards .faq-card:hover {
+  border-color: #5552d9;
   text-decoration: none;
   box-shadow: 0 0 0 0.25rem rgba(85, 82, 217, 0.2);
   cursor: pointer;
@@ -38494,6 +38511,15 @@ td .badge-big {
 .main-content .card {
   box-shadow: 0 8px 24px -4px rgba(27, 46, 94, 0.12);
 }
+.main-content .card-footer .button-group button {
+  margin: 0 10px;
+}
+.main-content .card-footer .button-group button:last-child {
+  margin-right: 0;
+}
+.main-content .card-footer .button-group button:first-child {
+  margin-left: 0;
+}
 .main-content .today-calendar {
   padding-bottom: 20px;
   border-bottom: 1px solid #d9dbe9;
@@ -38531,13 +38557,8 @@ td .badge-big {
 .main-content .today-events .event-title {
   margin: 0;
 }
-.main-content .today-events .today-birthdays-username,
-.main-content .today-events .event-title {
-  font-weight: 700;
-  font-size: 14px;
-}
 .main-content .today-events .today-birthdays-date {
-  font-size: 12px;
+  font-size: 14px;
 }
 .main-content .today-events .event-time {
   font-size: 14px;

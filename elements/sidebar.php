@@ -36,7 +36,7 @@
         <i class="menu-arrow mdi mdi-chevron-right"></i>
       </a>
       <ul class="sub-menu">
-        <li class="submenu-item"><a class="submenu-link" href="src/updates.html">
+        <li class="submenu-item"><a class="submenu-link" href="updates.html">
             <i class="mdi mdi-reload-alert"></i>
             <span>Обновления программ</span></a></li>
       </ul>
@@ -67,7 +67,7 @@
       </a>
       <ul class="sub-menu">
         <li class="submenu-item">
-          <a class="submenu-link" href="src/slider.html">
+          <a class="submenu-link" href="slider.html">
             <i class="mdi mdi-image-move"></i>
             <span>Новостной слайдер</span>
           </a>
@@ -79,13 +79,13 @@
           </a>
         </li>
         <li class="submenu-item">
-          <a class="submenu-link" href="src/rooms.html">
+          <a class="submenu-link" href="rooms.html">
             <i class="mdi mdi-wan"></i>
             <span>Рабочие места</span>
           </a>
         </li>
         <li class="submenu-item">
-          <a class="submenu-link" href="src/documentation.html">
+          <a class="submenu-link" href="documentation.html">
             <i class="mdi mdi-book-open-variant"></i>
             <span>Документация</span>
           </a>
@@ -113,31 +113,31 @@
           </a>
         </li>
         <li class="submenu-item">
-          <a class="submenu-link" href="src/auth.html">
+          <a class="submenu-link" href="auth.html">
             <i class="mdi mdi-exit-run"></i>
             <span>Страница входа</span>
           </a>
         </li>
         <li class="submenu-item">
-          <a class="submenu-link" href="src/404.html">
+          <a class="submenu-link" href="404.html">
             <i class="mdi mdi-exit-run"></i>
             <span>404</span>
           </a>
         </li>
         <li class="submenu-item">
-          <a class="submenu-link" href="src/uikit.html">
+          <a class="submenu-link" href="uikit.html">
             <i class="mdi mdi-flower-outline"></i>
             <span>UI Kit</span>
           </a>
         </li>
         <li class="submenu-item">
-          <a class="submenu-link" href="src/bootstrap.html">
+          <a class="submenu-link" href="bootstrap.html">
             <i class="mdi mdi-flower-outline"></i>
             <span>Bootstrap</span>
           </a>
         </li>
         <li class="submenu-item">
-          <a class="submenu-link" href="src/blank.html">
+          <a class="submenu-link" href="blank.html">
             <i class="mdi mdi-file-outline"></i>
             <span>Пустая страница</span>
           </a>

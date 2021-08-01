@@ -35,13 +35,12 @@ foreach($dir as $value) {
     if (isset($keywords["2"])) {
       $description = replaceBash($keywords["2"]);//$keywords["2"] описание
       //$content .= '</br><a class="" href="?faq='.$value.'">'.$itemmenu.'</a><p>'.$description.'</p>';
-      $content .= '<div class="col">
+      $content .= '<div class="col-4">
       <a class="card faq-card" href="?faq='.$value.'">
         <div class="row">
           <div class="col">
             <div class="card-body">
-              <i class="mdi mdi-book-open-variant d-flex align-items-center justify-content-center"></i>
-              <p class="h6 text-center">'.$itemmenu.'</p>
+              <p class="h5 text-center">'.$itemmenu.'</p>
               <p class="text-center">'.$description.'</p>
             </div>
           </div>

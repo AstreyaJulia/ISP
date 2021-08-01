@@ -668,6 +668,11 @@ a {
   }
 }
 
+.dropdown-menu {
+  transition: transform 0.4s ease-in-out 0s, opacity 0.4s ease-in-out 0s, visibility 0.4s ease-in-out 0s;
+  box-shadow: $grey-shadow-6;
+}
+
 //Верхний топбар
 .main-header {
 
@@ -718,17 +723,20 @@ a {
 
   .dropdown-menu.usermenu {
     padding: 20px;
-    box-shadow: $grey-shadow-6;
+    width: 250px;
 
     .dropdown-item {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      padding: 8px 0;
+      color: $label;
 
       &:hover,
       &:focus {
-        color: $body;
-        background-color: $primary-20;
+        color: $info;
+        background: none;
+        padding-left: 4px;
       }
 
       &.btn.btn-primary {
@@ -1497,15 +1505,26 @@ td .badge-big {
 // FAQ
 
 .faq-cards {
+  a {
+    &:hover {
+      text-decoration: none;
+    }
+  }
   .faq-card {
+    &:hover {
+      text-decoration: none;
+      color: $primary;
+    }
 
-    i {
-      font-size: 60px;
-      color: $label;
+    .card-body {
+      color: $body;
+      p:last-child {
+        margin-bottom: 0;
+      }
     }
 
     &:hover {
-      border-color: $label;
+      border-color: $primary;
       text-decoration: none;
       box-shadow: 0 0 0 0.25rem $primary-20;
       cursor: pointer;
@@ -1938,6 +1957,20 @@ td .badge-big {
     box-shadow: $grey-shadow-6;
   }
 
+  .card-footer {
+    .button-group {
+      button {
+        margin: 0 10px;
+      }
+      button:last-child {
+        margin-right: 0;
+      }
+      button:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+
   .today-calendar {
     padding-bottom: 20px;
     border-bottom: 1px solid $line;
@@ -1981,14 +2014,8 @@ td .badge-big {
       margin: 0;
     }
 
-    .today-birthdays-username,
-    .event-title {
-      font-weight: 700;
-      font-size: 14px;
-    }
-
     .today-birthdays-date {
-      font-size: 12px;
+      font-size: 14px;
     }
 
     .event-time {
