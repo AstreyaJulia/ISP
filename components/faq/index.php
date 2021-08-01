@@ -44,9 +44,9 @@ foreach ($dir as $value) {
         //проверяем существование описания (иначе при отсутсвии выдает ошибки)
         if (isset($keywords_2["2"])) {
           $description_2 = replaceBash($keywords_2["2"]);//$keywords_2["2"] описание файла
-          $content .= "<li class=\"faq-category-subitem\"><a href=\"javascript:void(0);\" onclick=\"showContent('components/faq/{$_GET['faq']}/$value/$value_2')\">$itemmenu_2</a><p>$description_2</p></li>";
+          $content .= "<li class=\"faq-category-subitem\"><a data-link='components/faq/{$_GET['faq']}/$value/$value_2'\">$itemmenu_2</a><p>$description_2</p></li>";
         } else {
-          $content .= "<li class=\"faq-category-subitem\"><a href=\"javascript:void(0);\" onclick=\"showContent('components/faq/{$_GET['faq']}/$value/$value_2')\">$itemmenu_2</a></li>";
+          $content .= "<li class=\"faq-category-subitem\"><a data-link='components/faq/{$_GET['faq']}/$value/$value_2'\">$itemmenu_2</a></li>";
         }
       }
     }
@@ -57,7 +57,7 @@ foreach ($dir as $value) {
 $content .= '</ul>
 	<div class="faq-categories-doc">
 		<div id="contentBody"></div>
-		  <div class="spinner-border text-primary spinner-lg spinner-fixed" id="loading">
+		  <div class="spinner-border text-primary spinner-lg spinner-fixed" id="loading" style="display: none">
   </div>
 	</div>
 	</div>';

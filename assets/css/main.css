@@ -37373,6 +37373,9 @@ td:last-child {
   margin: 0;
   padding: 0;
 }
+.main-sidebar .navigation-menu {
+  height: calc(100% - 40px);
+}
 .main-sidebar .menu-link,
 .main-sidebar .submenu-link {
   text-decoration: none;
@@ -38519,7 +38522,6 @@ td .badge-big {
 }
 .main-content .today-events i,
 .main-content .today-events .event-time {
-  color: #4e73f8;
   font-size: 24px;
   margin: 0 20px;
   display: flex;
@@ -38544,6 +38546,7 @@ td .badge-big {
   font-size: 14px;
   font-weight: 700;
   width: 44px;
+  line-height: normal;
 }
 .main-content .today-events .bday-group,
 .main-content .today-events .event-group {

@@ -38,14 +38,23 @@ const string = '/components/phonebook/ajax.php/?';
 const cont = document.getElementById('contentBody');
 // Индикатор загрузки для страницы FAQ
 const loading = document.getElementById('loading');
+// Ссылки FAQ
+const faqlinks = document.querySelectorAll('.faq-category-subitem a');
 
 // Спиннер
 const spinnerloader = document.querySelector('.spinner-wrapper');
 
-// FAQ. Функция onclick
-const showContent = (link) => {
+
+// FAQ
+const faqlinkClickHandler = (evt) => {
+  const link = evt.target.closest('a');
+  if (!link) {
+    return;
+  }
+  const datalink = link.dataset.link;
   // В странице FAQ, показывает индикатор загрузки, пока не прогрузится содержимое страницы
   cont.innerHTML = loading.innerHTML;
+  loading.style.display = 'inline-block';
   // создание ajax объекта
 
   /*
@@ -68,20 +77,19 @@ const showContent = (link) => {
   }
   */
 
-  const Http = new XMLHttpRequest();
+  let Http = new XMLHttpRequest();
   // Перебираем запросы HTTP,
   if (new XMLHttpRequest()) {
-    const Http = new XMLHttpRequest();
-  } else
-  if (new ActiveXObject('Msxml2.XMLHTTP')) {
-    const Http = new ActiveXObject('Msxml2.XMLHTTP');
+    Http = new XMLHttpRequest();
+  } else if (new ActiveXObject('Msxml2.XMLHTTP')) {
+    Http = new ActiveXObject('Msxml2.XMLHTTP');
   } else {
     if (new ActiveXObject('Microsoft.XMLHTTP')) {
-      const Http = new ActiveXObject('Microsoft.XMLHTTP');
+      Http = new ActiveXObject('Microsoft.XMLHTTP');
     } else return null;
   }
   if (Http) {
-    Http.open('GET', link, true);							// инициируем загрузку страницы
+    Http.open('GET', datalink, true);							// инициируем загрузку страницы
     Http.onreadystatechange = () => {			// назначаем асинхронный обработчик события
       if (Http.readyState === 4 && Http.status === 200) {
         cont.innerHTML = Http.responseText;		// присваиваем содержимое
@@ -89,7 +97,7 @@ const showContent = (link) => {
     }
     Http.send(null);
   } else {
-    document.location = link;	// если ajax-объект не удается создать, просто перенаправляем на адрес
+    document.location = datalink;	// если ajax-объект не удается создать, просто перенаправляем на адрес
   }
 }
 
@@ -464,6 +472,15 @@ if (toastoffbtn) {
 }
 if (alertoffbtn) {
   alertoffbtn.addEventListener('click', alertoffHandler);
+}
+
+//FAQ
+if (cont && loading && faqlinks) {
+  faqlinks.forEach((faqlink) => {
+    faqlink.addEventListener('click', (evt) => {
+      faqlinkClickHandler(evt);
+    });
+  });
 }
 
 // Запуск функции при загрузке. Будет запущено все, что внутри const init = () => {}

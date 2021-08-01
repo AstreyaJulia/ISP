@@ -594,6 +594,10 @@ a {
     padding: 0;
   }
 
+  .navigation-menu {
+    height: calc(100% - 40px);
+  }
+
   .menu-link,
   .submenu-link {
     text-decoration: none;
@@ -1974,6 +1978,7 @@ td .badge-big {
       justify-content: center;
       padding-right: 19px;
     }
+
     .today-birthdays-username,
     .today-birthdays-date,
     .event-title {
@@ -2012,9 +2017,11 @@ td .badge-big {
         position: absolute;
         border-radius: 50%;
       }
+
       &.primary:before {
         border-color: $primary;
       }
+
       &.info:before {
         border-color: $info;
       }
