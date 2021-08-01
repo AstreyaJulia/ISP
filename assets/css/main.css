@@ -37373,9 +37373,6 @@ td:last-child {
   margin: 0;
   padding: 0;
 }
-.main-sidebar .navigation-menu {
-  height: calc(100% - 40px);
-}
 .main-sidebar .menu-link,
 .main-sidebar .submenu-link {
   text-decoration: none;

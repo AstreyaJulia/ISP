@@ -35,6 +35,7 @@ const string = '/components/phonebook/ajax.php/?';
 
 // FAQ
 // Содержимое страницы FAQ
+const faqcard = document.querySelector('.faq-categories-doc');
 const cont = document.getElementById('contentBody');
 // Индикатор загрузки для страницы FAQ
 const loading = document.getElementById('loading');
@@ -52,6 +53,7 @@ const faqlinkClickHandler = (evt) => {
     return;
   }
   const datalink = link.dataset.link;
+  faqcard.style.display = 'block';
   // В странице FAQ, показывает индикатор загрузки, пока не прогрузится содержимое страницы
   cont.innerHTML = loading.innerHTML;
   loading.style.display = 'inline-block';
@@ -93,11 +95,13 @@ const faqlinkClickHandler = (evt) => {
     Http.onreadystatechange = () => {			// назначаем асинхронный обработчик события
       if (Http.readyState === 4 && Http.status === 200) {
         cont.innerHTML = Http.responseText;		// присваиваем содержимое
+        loading.style.display = 'none';
       }
     }
     Http.send(null);
   } else {
     document.location = datalink;	// если ajax-объект не удается создать, просто перенаправляем на адрес
+    loading.style.display = 'none';
   }
 }
 
@@ -475,7 +479,7 @@ if (alertoffbtn) {
 }
 
 //FAQ
-if (cont && loading && faqlinks) {
+if (faqcard && cont && loading && faqlinks) {
   faqlinks.forEach((faqlink) => {
     faqlink.addEventListener('click', (evt) => {
       faqlinkClickHandler(evt);

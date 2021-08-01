@@ -2,8 +2,12 @@
 $ourData = file_get_contents("../../../../data/categories-civil-cases.json");
 $row = json_decode($ourData);
 ?>
-<table class="table">
+<table class="table dataTable">
   <thead>
+  <tr>
+    <th>Строка</th>
+    <th>Наменование</th>
+  </tr>
   </thead>
   <tbody>
   <?php foreach ($row as $key => $value): ?>

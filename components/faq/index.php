@@ -2,22 +2,27 @@
 $title = "FAQ по " . replaceBash(preg_split("/[_]+/", $_GET["faq"])["1"]);
 $path = "components/faq/{$_GET['faq']}/";
 $dir = scandir($path);
-$content = '<header class="main-content-header">
-        <h3 class="main-content-title">' . replaceBash(preg_split("/[_]+/", $_GET["faq"])["1"]) . '</h3>
-        <div class="main-content-subheader">
-            <div class="breadcrumbs">
-                <a href="/" class="breadcrumbs-home">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-                        <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z"/>
-                    </svg>
-                </a>
-                <a class="breadcrumbs-item" href="?page=faq">База знаний</a>
-                <a class="breadcrumbs-item active">' . replaceBash(preg_split("/[_]+/", $_GET["faq"])["1"]) . '</a>
-            </div>
-        </div>
-    </header>
-    <div class="faq-categories">
-    	<ul class="faq-categories-list accordion-group">';
+$content = '
+  <header class="main-content-header">
+    <div class="header-left">
+    <p class="h5 main-content-title">' . replaceBash(preg_split("/[_]+/", $_GET["faq"])["1"]) . '</p>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+          <a href="/" data-bs-toggle="tooltip" data-bs-placement="top" title="Главная страница"><i class="mdi mdi-home-outline"></i></a></li>
+          <li class="breadcrumb-item">
+          <a href="?page=faq">База знаний</a>
+          </li>
+          <li class="breadcrumb-item" aria-current="page">' . replaceBash(preg_split("/[_]+/", $_GET["faq"])["1"]) . '</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="header-right"></div>
+  </header>
+      <div class="faq-categories">
+<div class="row">
+<div class="col-3">
+<ul class="faq-categories-list accordion-group">';
 foreach ($dir as $value) {
   $content .= '<li class="faq-category accordion-item">';
   //исключаем из показа системные папки и файл index.php
@@ -55,11 +60,19 @@ foreach ($dir as $value) {
   $content .= '</li>';
 }
 $content .= '</ul>
-	<div class="faq-categories-doc">
-		<div id="contentBody"></div>
-		  <div class="spinner-border text-primary spinner-lg spinner-fixed" id="loading" style="display: none">
-  </div>
+</div>
+<div class="col-9">
+	<div class="faq-categories-doc " style="display: none">
+	<div class="card">
+	<div class="card-body h-100">
+			<div id="contentBody"></div>
+		  <div class="spinner-border text-primary spinner-lg spinner-fixed" id="loading" style="display: none"></div>
+</div>
+</div>
+
 	</div>
+</div>
+</div>
 	</div>';
 
 //меняет '-' на ' '
@@ -68,7 +81,6 @@ function replaceBash($string)
   if (isset($string)) {
     return str_replace(['-', '.php'], [' ', ''], $string);
   } else {
-    echo "false";
+    return "false";
   }
-
 }
