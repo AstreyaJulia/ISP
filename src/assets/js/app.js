@@ -42,6 +42,9 @@ const loading = document.querySelector('.loading-spinner-faq');
 // Ссылки FAQ
 const faqlinks = document.querySelectorAll('.faq-category-subitem a');
 
+// FAQ акордеон в группе
+const faqaccordeon = document.querySelector('.faq-categories-list');
+
 // Спиннер
 const spinnerloader = document.querySelector('.spinner-wrapper');
 
@@ -93,7 +96,6 @@ const faqlinkClickHandler = (evt) => {
       if (Http.readyState === 4 && Http.status === 200) {
         cont.innerHTML = "";                                                      // Очищаем содержимое cont
         cont.insertAdjacentHTML('beforeend', Http.responseText);           // Вставляем текст ответа Http.responseText в cont перед концом
-        colspanfix();
         datatablesHandler();
       }
     }
@@ -103,13 +105,18 @@ const faqlinkClickHandler = (evt) => {
   }
 }
 
-// Datatables
-const colspanfix = () => {
-  const colspan = $('td[colspan]').not('[colspan=1]');
-  colspan.after('<td style="display: none;"></td>');
+// FAQ аккродеон в группе
+const faqcategoryClickHandler = (evt) => {
+  // Переключает класс родительского элемента события клик
+  evt.target.parentElement.classList.toggle("active");
 }
 
+// Datatables
 const datatablesHandler = () => {
+  const colspan = $('td[colspan]').not('[colspan=1]');
+  /* colspan.prop("colSpan")  получает кол-во colspan */
+  colspan.after('<td style="display: none;"></td>');
+  // Для таблиц с сортировкой
   $('.dataTable.sort').DataTable({
     "language": {
       "processing": "Подождите...",
@@ -289,6 +296,7 @@ const datatablesHandler = () => {
       }
     }
   });
+  // Для таблиц без сортировки
   $('.dataTable.nosort').DataTable({
     "ordering": false,
     "language": {
@@ -827,7 +835,7 @@ document.querySelectorAll('[data-bs-toggle="popover"]')
 
 document.querySelectorAll('.toast')
   .forEach(function (toastNode) {
-    const toast = new bootstrap.Toast(toastNode, {
+    new bootstrap.Toast(toastNode, {
       autohide: false
     });
 // Показывает всплывашки при загрузке страницы
@@ -849,6 +857,15 @@ if (faqcard && cont && loading && faqlinks) {
   faqlinks.forEach((faqlink) => {
     faqlink.addEventListener('click', (evt) => {
       faqlinkClickHandler(evt);
+    });
+  });
+}
+
+if (faqaccordeon) {
+  const faqcategorys = faqaccordeon.querySelectorAll('.faq-category');
+  faqcategorys.forEach((faqcategory) => {
+    faqcategory.addEventListener('click', (evt) => {
+      faqcategoryClickHandler(evt);
     });
   });
 }

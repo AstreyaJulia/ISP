@@ -22,9 +22,10 @@ $content = '
       <div class="faq-categories">
 <div class="row">
 <div class="col-3">
-<ul class="faq-categories-list accordion-group">';
+<div class="card">
+<ul class="faq-categories-list">';
 foreach ($dir as $value) {
-  $content .= '<li class="faq-category accordion-item">';
+  $content .= '<li class="faq-category">';
   //исключаем из показа системные папки и файл index.php
   if (strpos($value, ".") !== 0 and strpos($value, "index") !== 0) {
     //разбиваем строку по нижнему подчеркиванию
@@ -34,9 +35,9 @@ foreach ($dir as $value) {
     //проверяем существование описания (иначе при отсутсвии выдает ошибки)
     if (isset($keywords["2"])) {
       $description = replaceBash($keywords["2"]);//$keywords["2"] описание
-      $content .= '<a class="faq-category-link accordion-header">' . $itemmenu . '<p>' . $description . '</p></a>';
+      $content .= '<a class="faq-category-link">' . $itemmenu . '<p>' . $description . '</p></a>';
     } else {
-      $content .= '<a class="faq-category-link accordion-header">' . $itemmenu . '</a>';
+      $content .= '<a class="faq-category-link">' . $itemmenu . '</a>';
     }
     $content .= '<ul class="faq-category-sublist">';
     //Форимруем имя и путь к файлу
@@ -60,6 +61,7 @@ foreach ($dir as $value) {
   $content .= '</li>';
 }
 $content .= '</ul>
+</div>
 </div>
 <div class="col-9">
 	<div class="faq-categories-doc " style="display: none">

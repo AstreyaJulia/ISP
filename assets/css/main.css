@@ -38158,16 +38158,95 @@ td .badge-big {
   margin: 10px 0;
 }
 
-.faq-category .list-group {
-  border: none;
-  border-radius: 0;
+.faq-categories-list,
+.faq-category-sublist {
+  list-style: none;
+  padding: 0;
 }
-.faq-category .list-group .list-group-item {
-  border-right: 0;
-  border-left: 0;
+
+.faq-categories-list {
+  padding: 0;
+  margin: 0;
 }
-.faq-category .list-group .list-group-item:last-child {
-  border-bottom: none;
+
+.faq-category-link,
+.faq-category-subitem a {
+  position: relative;
+  padding: 10px;
+  display: block;
+  width: 100%;
+  color: #5a6474;
+}
+.faq-category-link:hover,
+.faq-category-subitem a:hover {
+  cursor: pointer;
+  background-color: rgba(85, 82, 217, 0.2);
+}
+
+.faq-category-subitem a {
+  padding: 10px 10px 10px 25px;
+}
+.faq-category-subitem a:before {
+  display: inline-block;
+  font: normal normal normal 24px/1 "Material Design Icons";
+  font-size: inherit;
+  text-rendering: auto;
+  line-height: inherit;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: absolute;
+  content: "󰧮";
+  top: 22%;
+  left: 5px;
+}
+
+.faq-category-link:after {
+  position: absolute;
+  display: inline-block;
+  font: normal normal normal 24px/1 "Material Design Icons";
+  font-size: inherit;
+  text-rendering: auto;
+  line-height: inherit;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "󰅂";
+  top: 22%;
+  right: 7px;
+}
+
+.faq-category:not(.active) .faq-category-sublist {
+  display: none;
+}
+
+.faq-category.active .faq-category-link {
+  border-bottom: 1px solid #d9dbe9;
+}
+.faq-category.active .faq-category-link:after {
+  position: absolute;
+  display: inline-block;
+  font: normal normal normal 24px/1 "Material Design Icons";
+  font-size: inherit;
+  text-rendering: auto;
+  line-height: inherit;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "󰅀";
+  top: 22%;
+  right: 7px;
+}
+
+.faq-category.active .faq-category-sublist {
+  display: block;
+}
+
+.faq-category-link:first-child {
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+}
+
+.faq-category-link:last-child {
+  border-bottom-left-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
 }
 
 .danger {
@@ -38282,22 +38361,29 @@ td .badge-big {
   margin-bottom: 20px;
 }
 
-#carouselNews.carousel.slide .carousel-caption {
-  position: revert;
-  padding-top: 1.25rem;
-  padding-bottom: 1.25rem;
-  text-align: left;
-  color: #404d61;
+#carouselNews.carousel.slide .carousel-indicators {
+  top: 250px;
+}
+#carouselNews.carousel.slide .carousel-indicators [data-bs-target] {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+#carouselNews.carousel.slide .carousel-indicators [data-bs-target]:hover {
+  background-color: #5552d9;
 }
 #carouselNews.carousel.slide .carousel-control-prev,
 #carouselNews.carousel.slide .carousel-control-next {
   height: 300px;
 }
 #carouselNews.carousel.slide .carousel-caption {
-  padding: 20px;
+  position: revert;
+  padding: 1.25rem;
+  text-align: left;
+  color: #404d61;
 }
-#carouselNews.carousel.slide .carousel-caption p {
-  margin: 0;
+#carouselNews.carousel.slide .carousel-caption h6, #carouselNews.carousel.slide .carousel-caption .h6 {
+  text-align: center;
 }
 
 .today-calendar .fc-h-event,

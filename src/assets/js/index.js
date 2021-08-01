@@ -225,48 +225,37 @@ let slides_arr = [
     image:
       "https://images.unsplash.com/photo-1612640975490-497b68f80639?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxNDU4OXwwfDF8cmFuZG9tfHx8fHx8fHw&ixlib=rb-1.2.1&q=80&w=400",
     header: "Заголовок слайда №1. Короткий",
-    text: "Текст слайда",
-    link: "/"
+    text: "Текст слайда"
   },
   {
     id: 1,
     image:
       "https://images.unsplash.com/photo-1614357235247-99fabbee67f9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxNDU4OXwwfDF8cmFuZG9tfHx8fHx8fHw&ixlib=rb-1.2.1&q=80&w=400",
-    header: "Заголовок слайда №2. Чуть больше, чем первый",
-    text: "Таким образом укрепление и развитие структуры позволяет оценить значение систем массового\n" +
-      "                                участия. Повседневная практика показывает, что сложившаяся структура организации\n" +
-      "                                позволяет выполнять важные задания по разработке форм развития. Равным образом\n" +
-      "                                укрепление и развитие структуры требуют от нас анализа форм развития. Разнообразный и\n" +
-      "                                богатый опыт рамки и место обучения кадров позволяет выполнять важные задания по\n" +
-      "                                разработке модели развития."
+    header: "Заголовок слайда №2. Чуть больше, чем первый"
   },
   {
     id: 2,
     image:
       "https://images.unsplash.com/photo-1613557029019-e536807463dd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxNDU4OXwwfDF8cmFuZG9tfHx8fHx8fHw&ixlib=rb-1.2.1&q=80&w=400",
-    header: "Заголовок слайда №3. Этот немного больше, чем предыдущие",
-    text: "Текст слайда"
+    header: "Заголовок слайда №3. Этот немного больше, чем предыдущие"
   },
   {
     id: 3,
     image:
       "https://tproger.ru/s3/uploads/2020/07/field.jpg",
-    header: "Заголовок слайда №4. Этот должен быть самым длинным из предыдущих трех",
-    text: "Текст слайда"
+    header: "Заголовок слайда №4. Этот должен быть самым длинным из предыдущих трех"
   },
   {
     id: 4,
     image:
       "https://tproger.ru/s3/uploads/2020/07/rose.jpg",
-    header: "Заголовок слайда",
-    text: "Текст слайда"
+    header: "Заголовок слайда"
   },
   {
     id: 5,
     image:
       "https://tproger.ru/s3/uploads/2020/07/leaf.jpg",
-    header: "Заголовок слайда",
-    text: "Текст слайда"
+    header: "Заголовок слайда"
   },
 ];
 
@@ -274,13 +263,13 @@ let slides_arr = [
 const sliderContainer = document.querySelector('.carousel-inner');
 const sliderDotsContainer = document.querySelector('.carousel-indicators');
 
-const createSliderItemString = ({image, header, text}) =>
+const createSliderItemString = ({image, header}) =>
 
   `<div class="carousel-item">
   <img src="${image}" alt="${header}" class="d-block w-100" aria-label="${header}" height="300" style="object-fit: cover;">
   <div class="carousel-caption d-none d-md-block">
   <h6>${header}</h6>
-  <p>${text}</p></div>
+  </div>
   </div>`;
 
 const createDotsItemString = ({id, header}) =>

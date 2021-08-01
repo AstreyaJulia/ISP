@@ -1510,6 +1510,7 @@ td .badge-big {
       text-decoration: none;
     }
   }
+
   .faq-card {
     &:hover {
       text-decoration: none;
@@ -1518,6 +1519,7 @@ td .badge-big {
 
     .card-body {
       color: $body;
+
       p:last-child {
         margin-bottom: 0;
       }
@@ -1536,18 +1538,103 @@ td .badge-big {
   }
 }
 
-.faq-category .list-group {
-  border: none;
-  border-radius: 0;
+.faq-categories-list,
+.faq-category-sublist {
+  list-style: none;
+  padding: 0;
+}
 
-  .list-group-item {
-    border-right: 0;
-    border-left: 0;
+.faq-categories-list {
+  padding: 0;
+  margin: 0;
+}
 
-    &:last-child {
-      border-bottom: none;
-    }
+.faq-category-link,
+.faq-category-subitem a {
+  position: relative;
+  padding: 10px;
+  display: block;
+  width: 100%;
+  color: $label;
+
+  &:hover {
+    cursor: pointer;
+    background-color: $primary-20;
   }
+}
+
+.faq-category-subitem a {
+  padding: 10px 10px 10px 25px;
+
+  &:before {
+    display: inline-block;
+    font: normal normal normal 24px/1 "Material Design Icons";
+    font-size: inherit;
+    text-rendering: auto;
+    line-height: inherit;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    position: absolute;
+    content: "\F09EE";
+    top: 22%;
+    left: 5px;
+  }
+}
+
+.faq-category-link:after {
+  position: absolute;
+  display: inline-block;
+  font: normal normal normal 24px/1 "Material Design Icons";
+  font-size: inherit;
+  text-rendering: auto;
+  line-height: inherit;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "\F0142";
+  top: 22%;
+  right: 7px;
+}
+
+.faq-category:not(.active) {
+  .faq-category-sublist {
+    display: none;
+  }
+}
+
+.faq-category.active {
+  .faq-category-link {
+    border-bottom: 1px solid $line;
+  }
+
+  .faq-category-link:after {
+    position: absolute;
+    display: inline-block;
+    font: normal normal normal 24px/1 "Material Design Icons";
+    font-size: inherit;
+    text-rendering: auto;
+    line-height: inherit;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    content: "\F0140";
+    top: 22%;
+    right: 7px;
+  }
+}
+
+.faq-category.active {
+  .faq-category-sublist {
+    display: block;
+  }
+}
+
+.faq-category-link:first-child {
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+}
+
+.faq-category-link:last-child {
+  border-bottom-left-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
 }
 
 // 404
@@ -1674,12 +1761,16 @@ td .badge-big {
 
 // Слайдер на главной
 #carouselNews.carousel.slide {
-  .carousel-caption {
-    position: revert;
-    padding-top: 1.25rem;
-    padding-bottom: 1.25rem;
-    text-align: left;
-    color: $body;
+  .carousel-indicators {
+    top: 250px;
+  }
+  .carousel-indicators [data-bs-target] {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    &:hover {
+      background-color: $primary;
+    }
   }
 
   .carousel-control-prev,
@@ -1688,10 +1779,12 @@ td .badge-big {
   }
 
   .carousel-caption {
-    padding: 20px;
-
-    p {
-      margin: 0;
+    position: revert;
+    padding: 1.25rem;
+    text-align: left;
+    color: $body;
+    h6 {
+      text-align: center;
     }
   }
 }
@@ -1962,9 +2055,11 @@ td .badge-big {
       button {
         margin: 0 10px;
       }
+
       button:last-child {
         margin-right: 0;
       }
+
       button:first-child {
         margin-left: 0;
       }
