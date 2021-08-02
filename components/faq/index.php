@@ -17,7 +17,15 @@ $content = '
         </ol>
       </nav>
     </div>
-    <div class="header-right"></div>
+    <div class="header-right">
+    <button class="btn btn-primary" type="button" id="contentmenu" data-bs-toggle="dropdown" data-bs-placement="top"
+            title="Меню">
+      <i class="mdi mdi-cog-outline"></i>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="contentmenu">
+        <a href="#" class="dropdown-item btn-print">Печать</a>
+    </ul>
+</div>
   </header>
       <div class="faq-categories">
 <div class="row">

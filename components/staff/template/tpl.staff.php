@@ -15,6 +15,14 @@
     <form method="get">
       <button type="submit" class="btn btn-primary" name="editStaff" value="add">Добавить сотрудника</button>
     </form>
+    <button class="btn btn-primary ms-2" type="button" id="contentmenu" data-bs-toggle="dropdown" data-bs-placement="top"
+            title="Меню">
+      <i class="mdi mdi-cog-outline"></i>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="contentmenu">
+      <a href="#" class="dropdown-item btn-print">Печать</a>
+    </ul>
+
   </div>
 </header>
 <div class="card">

@@ -648,6 +648,16 @@ if (backbtn) {
   }
 }
 
+// Кнопка Печати страницы. Класс .btn-print
+const printbtns = document.querySelectorAll('.btn-print');
+if (printbtns) {
+  printbtns.forEach(function (printbtn) {
+    printbtn.addEventListener('click', () => {
+      window.print()
+    });
+  });
+}
+
 // Фильтр в телефонной книге
 const filterClickHandler = () => {
   //Обнуление строк фильтров - выбранного и пустого
