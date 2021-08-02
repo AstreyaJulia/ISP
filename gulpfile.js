@@ -56,7 +56,8 @@ const copy = () => {
       "src/assets/modules/**/*.{js,map,css}",
       "src/assets/js/calendar.js",
       "src/assets/js/weather.min.js",
-      "src/assets/js/index.js"
+      "src/assets/js/index.js",
+      "src/assets/js/slider.js"
     ],
     {
       base: "src"

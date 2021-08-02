@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="icon" href="assets/img/favicons/favicon.png" type="image/x-icon">
   <link rel="stylesheet" href="assets/css/main.css">
-  <title>Управлние слайдером</title>
+  <title>Управление слайдером</title>
 </head>
 <body class="wrapper fixed page-body">
 <!-- Прогресс бар вверху страницы -->
@@ -48,9 +48,10 @@
 
         <!-- Меню демо администратора -->
         <li class="btn-group nav-item ">
-          <button class="dropdown-toggle btn btn-primary btn-sm" id="demomenu" data-bs-toggle="dropdown">
+          <a href="#" class="waves-effect waves-light nav-link dropdown-toggle no-carret" id="demomenu"
+             data-bs-toggle="dropdown">
             <i class="mdi mdi-incognito"></i>
-          </button>
+          </a>
           <ul class="dropdown-menu" aria-labelledby="demomenu">
 
             <li>
@@ -78,26 +79,26 @@
           <a class="weather-info" id="meteonova_inf_88_31_2_26686" href="//www.meteonova.ru/weather/26686-Saphonovo.htm"
              title="Погода в Сафоново"></a>
         </li> <!-- Виджет погоды. Конец -->
-        <li class="dropdown">
-          <div class="main-header-avatar">
-
-            <a href="#" class="dropdown-header-avatar dropdown-toggle" id="usermenu" data-bs-toggle="dropdown">
-              <p>Администратор</p>
-              <img src="assets/img/avatars/default.svg" width="300" alt="Лого">
-              <span class="badge-logo-indicator badge error"></span>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="usermenu">
-              <!-- Пока что отключено. Уведомления в дропдауне -->
-              <!--
-              <li class="dropdown-item"><a href="#"><span>15</span> Уведомлений</a></li>
-              <li class="dropdown-separator"></li>
-              -->
-              <li>
-                <a class="dropdown-item" href="profileedit.html">Редактировать профиль</a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="auth.html">Выход</a></li>
-            </ul>
+        <li class="dropdown nav-item">
+          <a class="nav-link dropdown-toggle usermenu waves-effect waves-light no-carret" id="usermenu"
+             data-bs-toggle="dropdown">
+            <i class="mdi mdi-apps"></i>
+          </a>
+          <div class="dropdown-menu usermenu dropdown-menu-lg-end" aria-labelledby="usermenu">
+            <div class="usermenu-header">
+              <a class="user-avatar" href="userprofile.html">
+                <img src="assets/img/avatars/default.svg" width="300" alt="Администратор">
+              </a>
+              <div class="header-group">
+                <p class="user-name"><span>Привет, </span>Супер А.И.</p>
+                <p class="user-login"><a href="userprofile.html"><span>@</span>chainik</a></p>
+              </div>
+            </div>
+            <p class="usermenu-category">Мой профиль</p>
+            <a class="dropdown-item" href="profileedit.html">Личная информация</a>
+            <a class="dropdown-item" href="#">Уведомления<span class="highlighted">10</span></a>
+            <a class="dropdown-item" href="#">Сообщения<span class="highlighted ">5</span></a>
+            <a class="dropdown-item btn btn-primary" href="auth.html">Выход</a>
           </div>
         </li>
         <!-- Пока что отключено. Кнопка открытия поиска -->
@@ -113,6 +114,7 @@
     </div>
   </nav>
 </header>
+
 <!-- Сайдбар -->
 <aside class="main-sidebar">
   <ul class="navigation-menu">
@@ -257,8 +259,25 @@
 </aside>
 <!-- Основное содержимое -->
 <main class="main-content">
+  <header class="main-content-header">
+    <div class="header-left"><p class="h5 main-content-title">Управление слайдером</p>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html" data-bs-toggle="dropdown" data-bs-placement="top"
+                                         title="Главная страница"><i class="mdi mdi-home-outline"></i></a></li>
+        </ol>
+      </nav>
+    </div>
+    <div class="header-right">
+      <a class="btn btn-primary">Добавить слайд</a>
+    </div>
+  </header>
+
+  <div class="row row-cols-1 row-cols-md-2 g-4 slider-elements">
 
 
+
+  </div>
 
 </main>
 
@@ -301,6 +320,7 @@
 <!-- Скрипты. Скрипт приложения общий -->
 <script src="assets/js/app.js"></script>
 <!-- Скрипты. Скрипт приложения для страницы -->
+<script src="assets/js/slider.js"></script>
 
 </body>
 </html>
