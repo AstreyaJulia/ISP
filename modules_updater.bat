@@ -11,3 +11,4 @@ XCOPY /Y /H /R node_modules\rrule\dist\es5\rrule-tz.js.map src\assets\modules\rr
 XCOPY /Y /H /R node_modules\@mdi\font\fonts\materialdesignicons-webfont.woff2 src\assets\fonts\
 XCOPY /Y /H /R node_modules\moment\dist\moment.js src\assets\modules\moment\
 XCOPY /Y /H /R node_modules\moment\dist\locale\ru.js src\assets\modules\moment\
+XCOPY /Y /H /R node_modules\flatpickr\dist\flatpickr.js src\assets\modules\flatpickr\

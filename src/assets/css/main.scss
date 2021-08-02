@@ -54,6 +54,7 @@
 // scss-docs-end import-stack
 
 // Импорт стилей библиотек
+@import "../../../node_modules/flatpickr/dist/flatpickr.css";
 @import "../../../node_modules/fullcalendar/main";
 @import "../../../node_modules/datatables.net-bs5/css/dataTables.bootstrap5";
 
@@ -669,7 +670,6 @@ a {
 }
 
 .dropdown-menu {
-  transition: transform 0.4s ease-in-out 0s, opacity 0.4s ease-in-out 0s, visibility 0.4s ease-in-out 0s;
   box-shadow: $grey-shadow-6;
 }
 

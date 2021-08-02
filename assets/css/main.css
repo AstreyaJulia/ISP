@@ -5,6 +5,7 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+@import "../../../node_modules/flatpickr/dist/flatpickr.css";
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
@@ -37440,7 +37441,6 @@ td:last-child {
 }
 
 .dropdown-menu {
-  transition: transform 0.4s ease-in-out 0s, opacity 0.4s ease-in-out 0s, visibility 0.4s ease-in-out 0s;
   box-shadow: 0 8px 24px -4px rgba(27, 46, 94, 0.12);
 }
 
