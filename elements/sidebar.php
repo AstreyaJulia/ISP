@@ -107,7 +107,7 @@
           </a>
         </li>
         <li class="submenu-item">
-          <a class="submenu-link" href="page=to-do">
+          <a class="submenu-link" href="?page=to-do">
             <i class="mdi mdi-checkbox-marked-outline"></i>
             <span>Задачи</span>
           </a>
