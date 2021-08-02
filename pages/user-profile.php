@@ -30,7 +30,7 @@ $content = "";
 				LEFT JOIN sdc_room ON sdc_room.id=sdc_user_attributes.room
 			WHERE sdc_user_attributes.internalKey = ?");
 	$userProfile->execute([$id]);
-	
+
 
 	//событие на кнопку выход
 	if(array_key_exists('logOut',$_GET)) {
@@ -42,7 +42,6 @@ $content = "";
 		header( "refresh:1;url=/" );
 	}
 	
-
 
 	while ($row = $userProfile->fetch(PDO::FETCH_LAZY)) {
 		ob_start();
