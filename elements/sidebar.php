@@ -125,9 +125,9 @@
           </a>
         </li>
         <li class="submenu-item">
-          <a class="submenu-link" href="blank.html">
+          <a class="submenu-link" href="?page=test">
             <i class="mdi mdi-file-outline"></i>
-            <span>Пустая страница</span>
+            <span>Тестовая страница</span>
           </a>
         </li>
       </ul>
