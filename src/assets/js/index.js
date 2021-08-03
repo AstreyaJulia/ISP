@@ -1,5 +1,9 @@
 'use strict';
 
+//
+
+const todayeventswidget = document.querySelector('.today-events');
+
 /* Рендеринг мини-календаря дашбоарда */
 const minicalendar = document.querySelector('.today-calendar-widget');
 
@@ -15,7 +19,7 @@ let calendar = new FullCalendar.Calendar(minicalendar, {
   headerToolbar: {
     right: 'prev,next,today',
     left: 'title',
-  },
+  }/*,
   events: [
     {
       title: 'Событие на весь день',
@@ -214,7 +218,7 @@ let calendar = new FullCalendar.Calendar(minicalendar, {
       start: '2021-08-28',
       description: "Длинное описание какого-то длинного события."
     }
-  ]
+  ]*/
 });
 
 // Слайдер
@@ -296,6 +300,18 @@ const initdashboard = () => {
   document.addEventListener('DOMContentLoaded', () => {
     calendar.render();
     sliderRender();
+    // Если списки дней рождения скрыты и событий, то список скрывается польностью
+    if (todayeventswidget) {
+      const todayeventslist = todayeventswidget.querySelector('.today-events-list');
+      const todaybdayslist = todayeventswidget.querySelector('.today-birthdays-list');
+      if (todayeventslist.classList.contains('visually-hidden') && todaybdayslist .classList.contains('visually-hidden')) {
+        todayeventswidget.querySelector('.widget-title').classList.add('visually-hidden');
+        todayeventswidget.style.padding = '0';
+      } else {
+        todayeventswidget.querySelector('.widget-title').classList.remove('visually-hidden');
+        todayeventswidget.style = '';
+      }
+    }
   });
 
 };

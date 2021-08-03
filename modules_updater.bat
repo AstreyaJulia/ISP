@@ -12,3 +12,5 @@ XCOPY /Y /H /R node_modules\@mdi\font\fonts\materialdesignicons-webfont.woff2 sr
 XCOPY /Y /H /R node_modules\moment\dist\moment.js src\assets\modules\moment\
 XCOPY /Y /H /R node_modules\moment\dist\locale\ru.js src\assets\modules\moment\
 XCOPY /Y /H /R node_modules\flatpickr\dist\flatpickr.js src\assets\modules\flatpickr\
+XCOPY /Y /H /R node_modules\select2\dist\js\select2.full.js src\assets\modules\select2\
+XCOPY /Y /H /R node_modules\select2\dist\js\i18n\ru.js src\assets\modules\select2\

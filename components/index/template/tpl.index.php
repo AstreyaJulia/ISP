@@ -23,7 +23,7 @@
         </div>
         <div class="today-events">
           <h5 class="widget-title">Сегодня</h5>
-          <ul class="today-events-list">
+          <ul class="today-events-list visually-hidden"><!-- Пока нет календаря-->
             <li class="today-events-item">
               <p class="event-time">Весь день</p>
               <div class="event-group info">

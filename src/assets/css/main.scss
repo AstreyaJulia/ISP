@@ -55,6 +55,7 @@
 
 // Импорт стилей библиотек
 @import "../../../node_modules/flatpickr/dist/flatpickr.css";
+@import "../../../node_modules/select2-bootstrap-5-theme/src/select2-bootstrap-5-theme";
 @import "../../../node_modules/fullcalendar/main";
 @import "../../../node_modules/datatables.net-bs5/css/dataTables.bootstrap5";
 
@@ -110,27 +111,43 @@ a {
 
 // Стили для печати
 @media print {
-  body {
-    margin: 0;
-    padding: 0;
-    display: block !important;
+  body,
+  .main-content,
+  .page-body {
+    width: auto !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    //display: block !important;
     overflow: hidden !important;
-    font-size: 14px !important;
+    font-size: 12px !important;
     line-height: normal !important;
-  }
-
-  .main-content {
-    overflow: hidden !important;
+    top:0 !important;
+    left: 0 !important;
   }
 
   body > *:not(main),
-  .pagination,
+  .breadcrumb,
+  .main-content-header .header-right,
+  .dataTables_length,
+  .dataTables_filter,
+  .dataTables_info,
+  .dataTables_paginate,
+  .sorting:before,
+  .sorting:after,
+  .progress-container,
+  .spinner-wrapper,
+  .back-to-top,
+  .main-header,
   .main-sidebar,
-  .main-content-subheader,
+  .toasts-container,
+  .table-toolbar,
   .table-toolbutton,
   .badge-big,
-  .list-group-toolbutton,
-  .back-to-top {
+  .badge-status,
+  .badge,
+  .faq-categories .col-3,
+  .filter-group {
     display: none !important;
   }
 
@@ -147,6 +164,23 @@ a {
     box-shadow: none !important;
     text-shadow: none !important;
   }
+
+  .main-content-header > *,
+  .card,
+  .card-body {
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .main-content-header {
+    margin-bottom: 10px !important;
+
+    .main-content-title {
+      border-right: none !important;
+    }
+  }
+
 
   * {
     border-color: #000 !important;
@@ -173,6 +207,7 @@ a {
     border-right: 1px solid !important;
   }
 }
+
 
 .page-body {
   height: auto;
@@ -2084,6 +2119,10 @@ td .badge-big {
     .today-events-list {
       list-style: none;
       padding: 0;
+    }
+
+    .today-birthdays-list {
+      margin-bottom: 0;
     }
 
     .today-birthdays-item,
