@@ -54,7 +54,8 @@ const copy = () => {
       "src/assets/**/*.ico",
       "src/assets/img/**/*.{jpg,png,svg}",
       "src/assets/modules/**/*.{js,map,css}",
-      "src/assets/js/calendar.js",
+//      "src/assets/js/calendar.js",
+//      "src/assets/js/calendar-events.js",
       "src/assets/js/weather.min.js",
       "src/assets/js/index.js",
       "src/assets/js/slider.js"

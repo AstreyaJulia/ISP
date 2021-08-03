@@ -914,3 +914,92 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 });
+
+
+// Послений код
+
+'use strict';
+
+const calendarEl = document.getElementById('calendar');
+
+let calendarsColor = {
+  All: 'primary',
+  Personal: 'success',
+  Holidays: 'danger',
+  Warning: 'warning',
+  Misc: 'info'
+};
+let calendar = new FullCalendar.Calendar(calendarEl, {
+  locale: 'ru',
+  initialView: 'dayGridMonth',
+  events: fetchEvents,
+  editable: true,
+  dragScroll: true,
+  dayMaxEvents: 2,
+  eventResizableFromStart: true,
+  headerToolbar: {
+    start: 'prev,next, title',
+    end: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+  },
+  initialDate: new Date(),
+  navLinks: true, // can click day/week names to navigate views
+  eventClassNames: function ({event: calendarEvent}) {
+    const colorName = calendarsColor[calendarEvent._def.extendedProps.calendar];
+    return [
+      // Фоновый цвет событий
+      'bg-' + colorName + '-light'
+    ];
+  },
+});
+
+// Selected Checkboxes
+function selectedCalendars() {
+  const selected = [];
+  $('.calendar-events-filter input:checked').each(function () {
+    selected.push($(this).attr('data-value'));
+  });
+  return selected;
+}
+
+// --------------------------------------------------------------------------------------------------
+// AXIOS: fetchEvents
+// * This will be called by fullCalendar to fetch events. Also this can be used to refetch events.
+// --------------------------------------------------------------------------------------------------
+function fetchEvents(info, successCallback) {
+  // Fetch Events from API endpoint reference
+  /* $.ajax(
+    {
+      url: '../../../app-assets/data/app-calendar-events.js',
+      type: 'GET',
+      success: function (result) {
+        // Get requested calendars as Array
+        var calendars = selectedCalendars();
+
+        return [result.events.filter(event => calendars.includes(event.extendedProps.calendar))];
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    }
+  ); */
+
+  const calendars = selectedCalendars();
+  // We are reading event object from app-calendar-events.js file directly by including that file above app-calendar file.
+  // You should make an API call, look into above commented API call for reference
+  let selectedEvents = events.filter(function (event) {
+    // console.log(event.extendedProps.calendar.toLowerCase());
+    return calendars.includes(event.extendedProps.calendar.toLowerCase());
+  });
+  // if (selectedEvents.length > 0) {
+  successCallback(selectedEvents);
+  // }
+}
+
+const initdashboard = () => {
+
+  document.addEventListener('DOMContentLoaded', () => {
+    calendar.render();
+  });
+};
+
+initdashboard();

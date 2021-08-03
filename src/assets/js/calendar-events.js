@@ -1,4 +1,4 @@
-// События для модуля календаря
+// События для календаря
 
 'use strict';
 
@@ -11,40 +11,40 @@ const events = [
   {
     id: 1,
     url: '',
-    title: 'Design Review',
+    title: 'Событие 1',
     start: date,
     end: nextDay,
     allDay: false,
     extendedProps: {
-      calendar: 'Общий'
+      calendar: 'All'
     }
   },
   {
     id: 2,
     url: '',
-    title: 'Meeting With Client',
+    title: 'Событие 2',
     start: new Date(date.getFullYear(), date.getMonth() + 1, -11),
     end: new Date(date.getFullYear(), date.getMonth() + 1, -10),
     allDay: true,
     extendedProps: {
-      calendar: 'Общий'
+      calendar: 'All'
     }
   },
   {
     id: 3,
     url: '',
-    title: 'Family Trip',
+    title: 'Событие 3',
     allDay: true,
     start: new Date(date.getFullYear(), date.getMonth() + 1, -9),
     end: new Date(date.getFullYear(), date.getMonth() + 1, -7),
     extendedProps: {
-      calendar: 'Праздники'
+      calendar: 'Misc'
     }
   },
   {
     id: 4,
     url: '',
-    title: "Doctor's Appointment",
+    title: "Событие 4",
     start: new Date(date.getFullYear(), date.getMonth() + 1, -11),
     end: new Date(date.getFullYear(), date.getMonth() + 1, -10),
     allDay: true,
@@ -55,18 +55,18 @@ const events = [
   {
     id: 5,
     url: '',
-    title: 'Dart Game?',
+    title: 'Событие 5',
     start: new Date(date.getFullYear(), date.getMonth() + 1, -13),
     end: new Date(date.getFullYear(), date.getMonth() + 1, -12),
     allDay: true,
     extendedProps: {
-      calendar: 'Разное'
+      calendar: 'Misc'
     }
   },
   {
     id: 6,
     url: '',
-    title: 'Meditation',
+    title: 'Событие 6',
     start: new Date(date.getFullYear(), date.getMonth() + 1, -13),
     end: new Date(date.getFullYear(), date.getMonth() + 1, -12),
     allDay: true,
@@ -77,45 +77,56 @@ const events = [
   {
     id: 7,
     url: '',
-    title: 'Dinner',
+    title: 'Событие 7',
     start: new Date(date.getFullYear(), date.getMonth() + 1, -13),
     end: new Date(date.getFullYear(), date.getMonth() + 1, -12),
     allDay: true,
     extendedProps: {
-      calendar: 'Family'
+      calendar: 'Warning'
     }
   },
   {
     id: 8,
     url: '',
-    title: 'Product Review',
+    title: 'Событие 8',
     start: new Date(date.getFullYear(), date.getMonth() + 1, -13),
     end: new Date(date.getFullYear(), date.getMonth() + 1, -12),
     allDay: true,
     extendedProps: {
-      calendar: 'Общий'
+      calendar: 'All'
     }
   },
   {
     id: 9,
     url: '',
-    title: 'Monthly Meeting',
+    title: 'Событие 9',
     start: nextMonth,
     end: nextMonth,
     allDay: true,
     extendedProps: {
-      calendar: 'Общий'
+      calendar: 'All'
     }
   },
   {
     id: 10,
     url: '',
-    title: 'Monthly Checkup',
+    title: 'Событие 10',
     start: prevMonth,
     end: prevMonth,
     allDay: true,
     extendedProps: {
       calendar: 'Личный'
+    }
+  },
+  {
+    id: 11,
+    url: '',
+    title: 'Событие 3',
+    allDay: true,
+    start: '2021-08-03',
+    end: '2021-08-03',
+    extendedProps: {
+      calendar: 'Holidays'
     }
   }
 ];
