@@ -1,1 +1,1250 @@
-!function(e){var t={};function n(o){if(t[o])return t[o].exports;var l=t[o]={i:o,l:!1,exports:{}};return e[o].call(l.exports,l,l.exports,n),l.l=!0,l.exports}n.m=e,n.c=t,n.d=function(e,t,o){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:o})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var o=Object.create(null);if(n.r(o),Object.defineProperty(o,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var l in e)n.d(o,l,function(t){return e[t]}.bind(null,l));return o},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s=0)}([function(e,t,n){"use strict";n.r(t);n(1)},function(e,t,n){"use strict";const o=document.querySelector(".back-to-top"),l=document.querySelector(".main-content"),a=document.querySelector(".sidebar-toggle-button"),s=document.querySelector(".page-body"),c=document.querySelector(".top-search-button-toggle"),r=document.querySelector(".top-search"),i=document.querySelector(".top-search-close"),d=document.querySelector(".navigation-menu"),u=document.querySelector(".passcode-switch"),m=document.getElementById("pass"),p=document.querySelector(".phonebook-filter"),y=document.getElementById("filter"),f="/components/phonebook/ajax.php/?",g=document.querySelector(".faq-categories-doc"),b=document.querySelector(".faq-body"),h=document.querySelector(".loading-spinner-faq"),v=document.querySelectorAll(".faq-category-subitem a"),E=document.querySelector(".faq-categories-list"),q=document.querySelector(".spinner-wrapper"),L=document.getElementById("calendar"),_=document.getElementById("add-e"),M=document.getElementById("edit-event"),w=document.getElementsByClassName("add-event-title")[0],S=document.getElementsByClassName("edit-event-title")[0],T=document.getElementById("addEventsModal"),k=new FullCalendar.Calendar(L,{locale:"ru",timeZone:"GMT+3",initialView:"dayGridMonth",editable:!0,selectable:!0,businessHours:!1,handleWindowResize:!0,nowIndicator:!0,dayMaxEvents:!0,selectMirror:!0,navLinks:!0,events:"components/fullcalendar/events.php",headerToolbar:{left:"title",center:"",right:"prev,next,today dayGridMonth,timeGridWeek,timeGridDay,listWeek"},eventClick:function(e){_.style.display="none",M.style.display="block",w.style.display="none",S.style.display="block",T.style.display="block",document.querySelector(".page-body")[0].style.overflow="hidden",function(){const e=document.createElement("div");e.setAttribute("class","modal-backdrop fade show"),document.body.appendChild(e)}();const t=e.title,n=e.description,o=$("#write-e"),l=(o.val(t),$("#taskdescription"));l.val(n),$("#start-date").val(e.start.format("YYYY-MM-DD HH:mm:ss")),$("#end-date").val(e.end.format("YYYY-MM-DD HH:mm:ss")),flatpickr(document.getElementById("start-date"),{enableTime:!0,dateFormat:"Y-m-d H:i",defaultDate:e.start.format("YYYY-MM-DD HH:mm:ss")}).config.onChange.push((function(e,t,n){flatpickr(document.getElementById("end-date"),{enableTime:!0,dateFormat:"Y-m-d H:i",minDate:t})})),flatpickr(document.getElementById("end-date"),{enableTime:!0,dateFormat:"Y-m-d H:i",defaultDate:e.end.format("YYYY-MM-DD HH:mm:ss"),minDate:e.start.format("YYYY-MM-DD HH:mm:ss")});$("#edit-event").off("click").on("click",(function(t){t.preventDefault();const n=$("input[name='marker']:checked").val(),a=document.getElementById("start-date").value,s=document.getElementById("end-date").value;e.title=o.val(),e.description=l.val(),e.start=a,e.end=s,e.className=n,$("#calendar").calendar.refetchEvents("updateEvent",e),T.style.display="none",modalResetData(),document.getElementsByTagName("body")[0].removeAttribute("style")}))}}),A=()=>{$("td[colspan]").not("[colspan=1]").after('<td style="display: none;"></td>'),$(".dataTable.sort").DataTable({language:{processing:"Подождите...",search:"Поиск:",lengthMenu:"Показать _MENU_ записей",info:"Записи _START_ - _END_ из _TOTAL_",infoEmpty:"Записи с 0 по 0 из 0 записей",infoFiltered:"(отфильтровано из _MAX_ записей)",loadingRecords:"Загрузка записей...",zeroRecords:"Записи отсутствуют.",emptyTable:"В таблице отсутствуют данные",paginate:{first:"Первая",previous:"‹",next:"›",last:"Последняя"},aria:{sortAscending:": активировать для сортировки столбца по возрастанию",sortDescending:": активировать для сортировки столбца по убыванию"},select:{rows:{_:"Выбрано записей: %d",0:"Кликните по записи для выбора",1:"Выбрана одна запись"},1:"%d ряд выбран",_:"%d ряда(-ов) выбрано",cells:{1:"1 ячейка выбрана",_:"Выбрано %d ячеек"},columns:{1:"1 столбец выбран",_:"%d столбцов выбрано"}},searchBuilder:{conditions:{string:{startsWith:"Начинается с",contains:"Содержит",empty:"Пусто",endsWith:"Заканчивается на",equals:"Равно",not:"Не",notEmpty:"Не пусто"},date:{after:"После",before:"До",between:"Между",empty:"Пусто",equals:"Равно",not:"Не",notBetween:"Не между",notEmpty:"Не пусто"},number:{empty:"Пусто",equals:"Равно",gt:"Больше чем",gte:"Больше, чем равно",lt:"Меньше чем",lte:"Меньше, чем равно",not:"Не",notEmpty:"Не пусто",between:"Между",notBetween:"Не между ними"},array:{equals:"Равно",empty:"Пусто",contains:"Содержит",not:"Не равно",notEmpty:"Не пусто",without:"Без"}},data:"Данные",deleteTitle:"Удалить условие фильтрации",logicAnd:"И",logicOr:"Или",title:{0:"Конструктор поиска",_:"Конструктор поиска (%d)"},value:"Значение",add:"Добавить условие",button:{0:"Конструктор поиска",_:"Конструктор поиска (%d)"},clearAll:"Очистить всё",condition:"Условие"},searchPanes:{clearMessage:"Очистить всё",collapse:{0:"Панели поиска",_:"Панели поиска (%d)"},count:"{total}",countFiltered:"{shown} ({total})",emptyPanes:"Нет панелей поиска",loadMessage:"Загрузка панелей поиска",title:"Фильтры активны - %d"},thousands:",",buttons:{pageLength:{_:"Показать 10 строк","-1":"Показать все ряды",1:"Показать 1 ряд"},pdf:"PDF",print:"Печать",collection:'Коллекция <span class="ui-button-icon-primary ui-icon ui-icon-triangle-1-s"></span>',colvis:"Видимость столбцов",colvisRestore:"Восстановить видимость",copy:"Копировать",copyKeys:"Нажмите ctrl or u2318 + C, чтобы скопировать данные таблицы в буфер обмена.  Для отмены, щелкните по сообщению или нажмите escape.",copySuccess:{1:"Скопирована 1 ряд в буфер обмена",_:"Скопировано %ds рядов в буфер обмена"},copyTitle:"Скопировать в буфер обмена",csv:"CSV",excel:"Excel"},decimal:".",infoThousands:",",autoFill:{cancel:"Отменить",fill:"Заполнить все ячейки <i>%d<i></i></i>",fillHorizontal:"Заполнить ячейки по горизонтали",fillVertical:"Заполнить ячейки по вертикали",info:"Пример автозаполнения"},datetime:{previous:"Предыдущий",next:"Следующий",hours:"Часы",minutes:"Минуты",seconds:"Секунды",unknown:"Неизвестный",amPm:["AM","PM"]},editor:{close:"Закрыть",create:{button:"Новый",title:"Создать новую запись",submit:"Создать"},edit:{button:"Изменить",title:"Изменить запись",submit:"Изменить"},remove:{button:"Удалить",title:"Удалить",submit:"Удалить",confirm:{_:"Вы точно хотите удалить %d строк?",1:"Вы точно хотите удалить 1 строку?"}},multi:{restore:"Отменить изменения"}}}}),$(".dataTable.nosort").DataTable({ordering:!1,language:{processing:"Подождите...",search:"Поиск:",lengthMenu:"Показать _MENU_ записей",info:"Записи _START_ - _END_ из _TOTAL_",infoEmpty:"Записи с 0 по 0 из 0 записей",infoFiltered:"(отфильтровано из _MAX_ записей)",loadingRecords:"Загрузка записей...",zeroRecords:"Записи отсутствуют.",emptyTable:"В таблице отсутствуют данные",paginate:{first:"Первая",previous:"‹",next:"›",last:"Последняя"},aria:{sortAscending:": активировать для сортировки столбца по возрастанию",sortDescending:": активировать для сортировки столбца по убыванию"},select:{rows:{_:"Выбрано записей: %d",0:"Кликните по записи для выбора",1:"Выбрана одна запись"},1:"%d ряд выбран",_:"%d ряда(-ов) выбрано",cells:{1:"1 ячейка выбрана",_:"Выбрано %d ячеек"},columns:{1:"1 столбец выбран",_:"%d столбцов выбрано"}},searchBuilder:{conditions:{string:{startsWith:"Начинается с",contains:"Содержит",empty:"Пусто",endsWith:"Заканчивается на",equals:"Равно",not:"Не",notEmpty:"Не пусто"},date:{after:"После",before:"До",between:"Между",empty:"Пусто",equals:"Равно",not:"Не",notBetween:"Не между",notEmpty:"Не пусто"},number:{empty:"Пусто",equals:"Равно",gt:"Больше чем",gte:"Больше, чем равно",lt:"Меньше чем",lte:"Меньше, чем равно",not:"Не",notEmpty:"Не пусто",between:"Между",notBetween:"Не между ними"},array:{equals:"Равно",empty:"Пусто",contains:"Содержит",not:"Не равно",notEmpty:"Не пусто",without:"Без"}},data:"Данные",deleteTitle:"Удалить условие фильтрации",logicAnd:"И",logicOr:"Или",title:{0:"Конструктор поиска",_:"Конструктор поиска (%d)"},value:"Значение",add:"Добавить условие",button:{0:"Конструктор поиска",_:"Конструктор поиска (%d)"},clearAll:"Очистить всё",condition:"Условие"},searchPanes:{clearMessage:"Очистить всё",collapse:{0:"Панели поиска",_:"Панели поиска (%d)"},count:"{total}",countFiltered:"{shown} ({total})",emptyPanes:"Нет панелей поиска",loadMessage:"Загрузка панелей поиска",title:"Фильтры активны - %d"},thousands:",",buttons:{pageLength:{_:"Показать 10 строк","-1":"Показать все ряды",1:"Показать 1 ряд"},pdf:"PDF",print:"Печать",collection:'Коллекция <span class="ui-button-icon-primary ui-icon ui-icon-triangle-1-s"></span>',colvis:"Видимость столбцов",colvisRestore:"Восстановить видимость",copy:"Копировать",copyKeys:"Нажмите ctrl or u2318 + C, чтобы скопировать данные таблицы в буфер обмена.  Для отмены, щелкните по сообщению или нажмите escape.",copySuccess:{1:"Скопирована 1 ряд в буфер обмена",_:"Скопировано %ds рядов в буфер обмена"},copyTitle:"Скопировать в буфер обмена",csv:"CSV",excel:"Excel"},decimal:".",infoThousands:",",autoFill:{cancel:"Отменить",fill:"Заполнить все ячейки <i>%d<i></i></i>",fillHorizontal:"Заполнить ячейки по горизонтали",fillVertical:"Заполнить ячейки по вертикали",info:"Пример автозаполнения"},datetime:{previous:"Предыдущий",next:"Следующий",hours:"Часы",minutes:"Минуты",seconds:"Секунды",unknown:"Неизвестный",amPm:["AM","PM"]},editor:{close:"Закрыть",create:{button:"Новый",title:"Создать новую запись",submit:"Создать"},edit:{button:"Изменить",title:"Изменить запись",submit:"Изменить"},remove:{button:"Удалить",title:"Удалить",submit:"Удалить",confirm:{_:"Вы точно хотите удалить %d строк?",1:"Вы точно хотите удалить 1 строку?"}},multi:{restore:"Отменить изменения"}}}})},x=document.querySelector(".toasts-off"),H=document.querySelector(".alerts-off"),D=document.querySelectorAll(".toast"),B=()=>{for(let e=0,t=D.length;e<t;e++)D[e].classList.toggle("show"),D[e].classList.toggle("hide")},I=()=>{document.querySelectorAll(".alert").forEach((function(e){new bootstrap.Alert(e,{autohide:!1}).close()}))},Y=()=>{l.scrollTop>20?o.style.display="flex":o.style.display="none"},P=()=>{l.scrollTop=0},j=()=>{s.classList.toggle("disabled")},O=()=>{r.classList.add("open")},R=()=>{r.classList.remove("open")},X=document.getElementById("profession"),C=document.getElementById("affiliation"),F=()=>{"6"===X.options[X.selectedIndex].value||"7"===X.options[X.selectedIndex].value||"9"===X.options[X.selectedIndex].value?C.disabled=!1:(C.disabled=!0,C.selectedIndex=0)};X&&C&&X.addEventListener("change",F);const N=document.getElementById("active"),W=document.getElementById("room"),G=()=>{"1"===N.options[N.selectedIndex].value?W.disabled=!1:(W.disabled=!0,W.selectedIndex=0)};N&&W&&N.addEventListener("change",G);const z=document.querySelector(".list-tab-group .list-group"),V=document.querySelector(".tab-content");if(z&&V){const e=z.querySelectorAll(".list-group-item"),t=V.querySelectorAll(".tab-list-group"),n=n=>{const o=n.target.closest(".list-group-item");if(null!=o){for(let t=0,n=e.length;t<n;t++)e[t].classList.remove("active");o.classList.add("active");for(let e=0,n=t.length;e<n;e++)t[e].classList.remove("active"),o.id+"-list"===t[e].id&&t[e].classList.add("active")}};e[0].classList.add("active"),t[0].classList.add("active"),z.addEventListener("click",e=>{n(e)})}const K=document.querySelectorAll(".btn-back");if(K)for(let e=0;e<K.length;e++)K[e].addEventListener("click",(function(){window.history.back()}));const U=document.querySelectorAll(".btn-print");U&&U.forEach((function(e){e.addEventListener("click",()=>{window.print()})}));if(document.querySelector(".today-group")&&(()=>{const e=new Date;let t=["воскресенье","понедельник","вторник","среда","четверг","пятница","суббота"][e.getDay()],n=["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"][e.getMonth()],o=e.getDate();document.querySelector(".today-group-dayw").innerHTML=t,document.querySelector(".today-group-day").innerHTML=o,document.querySelector(".today-group-month").innerHTML=n})(),u&&m&&u.addEventListener("click",()=>{"password"===m.type?(m.type="text",u.classList.toggle("is-hidden")):(m.type="password",u.classList.toggle("is-hidden"))}),p&&y){p.querySelectorAll("input[type=checkbox]").forEach((function(e){e.addEventListener("click",()=>{(()=>{let e=p.querySelectorAll("input[type=checkbox]"),t=f,n=f;for(let o=0,l=e.length;o<l;o++)!0===e[o].checked?t+="&filter["+e[o].name+"]="+e[o].value:n+="&filter["+e[o].name+"]="+e[o].value;t===f?fetch(n).then(e=>e.text()).then(e=>{y.innerHTML=e}):fetch(t).then(e=>e.text()).then(e=>{y.innerHTML=e})})()})}))}if(document.querySelectorAll(".bs-tooltip").forEach((function(e){new bootstrap.Tooltip(e,{selector:'[data-bs-toggle="tooltip"]'})})),document.querySelectorAll('[data-bs-toggle="popover"]').forEach((function(e){new bootstrap.Popover(e)})),document.querySelectorAll(".toast").forEach((function(e){new bootstrap.Toast(e,{autohide:!1})})),x&&x.addEventListener("click",B),H&&H.addEventListener("click",I),g&&b&&h&&v&&v.forEach(e=>{e.addEventListener("click",e=>{(e=>{const t=e.target.closest("a");if(!t)return;const n=t.dataset.link;g.style.display="block",h.style.display="inline-block";let o=new XMLHttpRequest;if(new XMLHttpRequest)o=new XMLHttpRequest;else if(new ActiveXObject("Msxml2.XMLHTTP"))o=new ActiveXObject("Msxml2.XMLHTTP");else{if(!new ActiveXObject("Microsoft.XMLHTTP"))return null;o=new ActiveXObject("Microsoft.XMLHTTP")}o?(o.open("GET",n,!0),o.onreadystatechange=()=>{4===o.readyState&&200===o.status&&(b.innerHTML="",b.insertAdjacentHTML("beforeend",o.responseText),A())},o.send(null)):document.location=n})(e)})}),E){E.querySelectorAll(".faq-category").forEach(e=>{e.addEventListener("click",e=>{(e=>{e.target.parentElement.classList.toggle("active")})(e)})})}L&&k.render(),A(),(()=>{if(q&&(q.style.display="none"),o&&(l.addEventListener("scroll",Y),o.addEventListener("click",P)),a&&s&&a.addEventListener("click",j),c&&r&&i&&(c.addEventListener("click",O),i.addEventListener("click",R)),d){let e=window.location.href.replace(/^.*[\\\/]/,"").replace("#",""),t=d.querySelectorAll(".menu-link"),n=d.querySelectorAll(".submenu-link");for(let n=0,o=t.length;n<o;n++)""===e&&""===t[n].href.replace(/^.*[\\\/]/,"").replace("#","")&&(e="/",t[n].closest(".menu-item").classList.add("active")),""===e&&"index.html"===t[n].href.replace(/^.*[\\\/]/,"").replace("#","")&&(e="index.html",t[n].closest(".menu-item").classList.add("active")),e===t[n].href.replace(/^.*[\\\/]/,"").replace("#","")&&t[n].closest(".menu-item").classList.add("active");for(let t=0,o=n.length;t<o;t++)e===n[t].href.replace(/^.*[\\\/]/,"").replace("#","")&&(n[t].closest(".submenu-item").classList.add("active"),n[t].closest(".menu-item").classList.add("active"));d.addEventListener("click",e=>{(e=>{e.target.closest(".menu-item").classList.toggle("active")})(e)})}l.addEventListener("scroll",()=>{const e=l.scrollTop/(l.scrollHeight-l.clientHeight)*100,t=document.querySelector(".topprogressbar");t&&(t.style.width=e+"%")}),document.querySelector(".weather-info")&&(()=>{const e=document.createElement("script");e.src="assets/js/weather.min.js",e.defer=!0,e.onload=function(){new MeteonovaInf({type:"88_31_2",cities:["26686"],scheme:{border_radius:"4px",box_shadow:"none",border_color:"#e9ecef",background_color:"transparent",city_color:"#343a40",main_color:"#495057",params_color:"#868e96"}})},document.getElementsByTagName("head")[0].appendChild(e)})(),X&&C&&F(),N&&W&&G()})()}]);
+'use strict';
+
+// Кнопка Назад Наверх, класс .back-to-top
+
+const backtotopbutton = document.querySelector('.back-to-top');
+// Прокручиваемое содержимое, класс .main-content, если его прокручивать, появляется кнопка Назад наверх
+const maincontent = document.querySelector('.main-content');
+
+// Кнопка, переключающая сайдбар, класс .sidebar-toggle-button
+const sidebartogglbutton = document.querySelector('.sidebar-toggle-button');
+// Тело страницы, класс .main-sidebar
+const sidebarwrapper = document.querySelector('.page-body');
+
+// Кнопка вкл/выкл верхнего поиска, класс .top-search-button-toggle
+const searchbutton = document.querySelector('.top-search-button-toggle');
+// Верхний поиск, класс .top-search
+const searchinput = document.querySelector('.top-search');
+// Кнопка закрытия верхнего поиска, класс .top-search-close
+const searchclosebtn = document.querySelector('.top-search-close');
+
+// Меню сайдбара
+const sidebarnavmenu = document.querySelector('.navigation-menu');
+
+// Кнопка показать / скрыть пароль
+const showhidepass = document.querySelector('.passcode-switch');
+// Поле ввода пароля
+const passinp = document.getElementById('pass');
+
+//Фильтр d телефонном справочнике
+// Ищем группу фильтров с селектором button-group
+const filterGroup = document.querySelector('.phonebook-filter');
+// Куда будет выводиться результат
+const result = document.getElementById('filter');
+// Начальная строка без фильтров
+const string = '/components/phonebook/ajax.php/?';
+
+// FAQ
+// Содержимое страницы FAQ
+const faqcard = document.querySelector('.faq-categories-doc');
+const cont = document.querySelector('.faq-body');
+// Индикатор загрузки для страницы FAQ
+const loading = document.querySelector('.loading-spinner-faq');
+// Ссылки FAQ
+const faqlinks = document.querySelectorAll('.faq-category-subitem a');
+
+// FAQ акордеон в группе
+const faqaccordeon = document.querySelector('.faq-categories-list');
+
+// Спиннер
+const spinnerloader = document.querySelector('.spinner-wrapper');
+
+// Календарь большой
+// Контейнер для календаря
+const calendarEl = document.getElementById('calendar');
+
+const calendmodulehandler = () => {
+  //Элементы
+
+  // Кнопка "Добавить событие" в модале добавления события. Сохраняет событие
+  const addEvent = document.getElementById("add-e");
+  // Кпока "Сохранить" событие на модале
+  const editEvent = document.getElementById("edit-event");
+  // Заголовок модала Добавить событие. Для переключения в заголовке слов редактировать / создать
+  const addEventTitle = document.querySelector(".add-event-title");
+  // Заголовок модала Редактировать событие. Для переключения в заголовке слов редактировать / создать
+  const editEventTitle = document.querySelector(".edit-event-title");
+  // Модал добавления события
+  const modal = document.getElementById("addEventsModal");
+  // Кнопка, открывающая модал
+  const btn = document.getElementById("myBtn");
+  // Кнопка отмены на модале
+  const discardModal = modal.querySelectorAll("[data-bs-dismiss='modal']");
+  // Кнопка закрыть на модале (крестик)
+  const span = modal.querySelector(".btn-close");
+  // Все элементы <input> в модале
+  const input = modal.querySelectorAll('input[type="text"]');
+  const radioInput = modal.querySelectorAll('input[type="radio"]');
+  // Все элементы <textarea> в модале
+  const textarea = modal.getElementsByTagName('textarea');
+
+  // Функции
+
+  // Создать оверлей
+  function createBackdropElement () {
+    const btn = document.createElement("div");
+    btn.setAttribute('class', 'modal-backdrop fade show')
+    document.body.appendChild(btn);
+  }
+
+  // Сброс радо кнопок
+  function clearRadioGroup(GroupName) {
+    const ele = document.getElementsByName(GroupName);
+    for(let i=0; i<ele.length; i++)
+      ele[i].checked = false;
+  }
+
+  // Скрыть модал
+  function hideModal() {
+    modal.style.display = "none";
+  }
+  // Показать модал
+  function showModal() {
+  modal.style.display = "block";
+}
+  // Сброс данных в модале, когда модал закрывается
+  function modalResetData() {
+    hideModal();
+    for (let i = 0; i < input.length; i++) {
+      input[i].value = '';
+    }
+    for (let j = 0; j < textarea.length; j++) {
+      textarea[j].value = '';
+    }
+    clearRadioGroup("marker");
+    const getModalBackdrop = document.getElementsByClassName('modal-backdrop')[0];
+    document.body.removeChild(getModalBackdrop)
+  }
+
+  // Когда кнопка нажата, открыть модал
+  btn.onclick = function() {
+    showModal();
+    addEvent.style.display = 'block';
+    editEvent.style.display = 'none';
+    addEventTitle.style.display = 'block';
+    editEventTitle.style.display = 'none';
+    document.getElementsByTagName('body')[0].style.overflow = 'hidden';
+    createBackdropElement();
+    enableDatePicker();
+  }
+
+  // Очистить данные и закрыть модал, когда пользователь нажимает кнопку отмены
+  discardModal.onclick = function() {
+    modalResetData();
+    document.getElementsByTagName('body')[0].removeAttribute('style');
+  }
+
+  // Очистить данные и закрыть модал, когда пользователь нажимает кнопку закрыть модал (крестик)
+  span.onclick = function() {
+    modalResetData();
+    document.getElementsByTagName('body')[0].removeAttribute('style');
+  }
+
+  // Очистить данные и закрыть модал, когда пользователь нажимает где-то вне модала
+  window.onclick = function(event) {
+    if (event.target === modal) {
+      modalResetData();
+      document.getElementsByTagName('body')[0].removeAttribute('style');
+    }
+  }
+
+  function getDynamicMonth( monthOrder ) {
+    const getNumericMonth = parseInt(monthArray[newDate.getMonth()]);
+    const getNumericMonthInc = parseInt(monthArray[newDate.getMonth()]) + 1;
+    const getNumericMonthDec = parseInt(monthArray[newDate.getMonth()]) - 1;
+
+    if (monthOrder === 'default') {
+
+      if (getNumericMonth < 10 ) {
+        return '0' + getNumericMonth;
+      } else if (getNumericMonth >= 10) {
+        return getNumericMonth;
+      }
+
+    } else if (monthOrder === 'inc') {
+
+      if (getNumericMonthInc < 10 ) {
+        return '0' + getNumericMonthInc;
+      } else if (getNumericMonthInc >= 10) {
+        return getNumericMonthInc;
+      }
+
+    } else if (monthOrder === 'dec') {
+
+      if (getNumericMonthDec < 10 ) {
+        return '0' + getNumericMonthDec;
+      } else if (getNumericMonthDec >= 10) {
+        return getNumericMonthDec;
+      }
+    }
+  }
+
+  const calendarmodule = new FullCalendar.Calendar(calendarEl, {
+    /* Прежний код
+    document.addEventListener('DOMContentLoaded', function() {
+      var calendarEl = document.getElementById('calendar');
+
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+          height: 650,
+          locale: 'ru',
+          headerToolbar: {
+              left: 'prev,next,today addEventButton',
+              center: 'title',
+              right: 'dayGridMonth,timeGridWeek,timeGridDay'
+          },
+          customButtons: {
+            addEventButton: {
+              text: 'Добавить событие',
+              click: function() {
+                var dateStr = prompt('Enter a date in YYYY-MM-DD format');
+                var date = new Date(dateStr + 'T00:00:00'); // will be in local time
+
+                if (!isNaN(date.valueOf())) { // valid?
+                  calendar.addEvent({
+                    title: 'dynamic event',
+                    start: date,
+                    allDay: true
+                  });
+                  alert('Great. Now, update your database...');
+                } else {
+                  alert('Invalid date.');
+                }
+              }
+            }
+          },
+          initialDate: '2020-03-12',
+          navLinks: true, // can click day/week names to navigate views
+          selectable: true,
+          selectMirror: true,
+          editable: true,
+          dayMaxEvents: true, // allow "more" link when too many events
+          events: 'components/fullcalendar/events.php',
+          selectHelper:true,
+     */
+
+    locale: 'ru',
+    timeZone: 'GMT+3',
+    initialView: 'dayGridMonth',
+    editable: true,
+    selectable: true,
+    selectMirror: true,
+    businessHours: false,
+    handleWindowResize: true,
+    nowIndicator: true,
+    dayMaxEvents: true, // allow "more" link when too many events
+    navLinks: true, // can click day/week names to navigate views
+    initialDate: '2021-05-12',  // временно, убрать в релизе
+    events: 'components/fullcalendar/events.php',
+
+    headerToolbar: {
+      left: 'title',
+      center: '',
+      right: 'prev,next,today dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+    },
+    eventMouseEnter: function (event, jsEvent, view) {
+      $(this).attr('id', event.id);
+
+      $('#' + event.id).tooltip({
+        template: '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>',
+        title: event.title,
+        content: event.description,
+        placement: 'top',
+      });
+
+      $('#' + event.id).tooltip('show');
+    },
+    eventMouseLeave: function (event, jsEvent, view) {
+      $('#' + event.id).tooltip('hide');
+    },
+    eventClick: function (info) {
+      addEvent.style.display = 'none';
+      editEvent.style.display = 'block';
+      addEventTitle.style.display = 'none';
+      editEventTitle.style.display = 'block';
+      modal.style.display = "block";
+      document.querySelector('.page-body').style.overflow = 'hidden';
+      createBackdropElement();
+
+      // Получение событий календаря (fetch)
+      const eventTitle = info.title;
+      const eventDescription = info.description;
+
+      // Модал ввода события
+      const taskTitle = $('#write-e');
+      const taskTitleValue = taskTitle.val(eventTitle);
+
+      const taskDescription = $('#taskdescription');
+      const taskDescriptionValue = taskDescription.val(eventDescription);
+
+      const taskInputStarttDate = $("#start-date");
+      const taskInputStarttDateValue = taskInputStarttDate.val(info.start.format("YYYY-MM-DD HH:mm:ss"));
+
+      const taskInputEndDate = $("#end-date");
+      const taskInputEndtDateValue = taskInputEndDate.val(info.end.format("YYYY-MM-DD HH:mm:ss"));
+
+      const startDate = flatpickr(document.getElementById('start-date'), {
+        enableTime: true,
+        dateFormat: "Y-m-d H:i",
+        defaultDate: info.start.format("YYYY-MM-DD HH:mm:ss"),
+      });
+
+      const abv = startDate.config.onChange.push(function (selectedDates, dateStr, instance) {
+        const endtDate = flatpickr(document.getElementById('end-date'), {
+          enableTime: true,
+          dateFormat: "Y-m-d H:i",
+          minDate: dateStr
+        });
+      });
+
+      const endtDate = flatpickr(document.getElementById('end-date'), {
+        enableTime: true,
+        dateFormat: "Y-m-d H:i",
+        defaultDate: info.end.format("YYYY-MM-DD HH:mm:ss"),
+        minDate: info.start.format("YYYY-MM-DD HH:mm:ss")
+      });
+
+      // Создает Overlay элемент
+      function createBackdropElement() {
+        const btn = document.createElement("div");
+        btn.setAttribute('class', 'modal-backdrop fade show')
+        document.body.appendChild(btn);
+      }
+
+      $('#edit-event').off('click').on('click', function (event) {
+        event.preventDefault();
+        /* Act on the event */
+        const radioValue = $("input[name='marker']:checked").val();
+
+        const taskStartTimeValue = document.getElementById("start-date").value;
+        const taskEndTimeValue = document.getElementById("end-date").value;
+
+        info.title = taskTitle.val();
+        info.description = taskDescription.val();
+        info.start = taskStartTimeValue;
+        info.end = taskEndTimeValue;
+        info.className = radioValue;
+
+        $('#calendar').calendar.refetchEvents('updateEvent', info);
+        modal.style.display = "none";
+        modalResetData();
+        document.getElementsByTagName('body')[0].removeAttribute('style');
+      });
+    },
+  });
+  function enableDatePicker() {
+    const startDate = flatpickr(document.getElementById('start-date'), {
+      enableTime: true,
+      locale: "ru",
+      dateFormat: "Y-m-d H:i",
+      minDate: new Date()
+    });
+
+    const abv = startDate.config.onChange.push(function (selectedDates, dateStr, instance) {
+
+      var endtDate = flatpickr(document.getElementById('end-date'), {
+        enableTime: true,
+        dateFormat: "Y-m-d H:i",
+        minDate: dateStr
+      });
+    });
+
+    const endtDate = flatpickr(document.getElementById('end-date'), {
+      enableTime: true,
+      dateFormat: "Y-m-d H:i",
+      minDate: new Date()
+    });
+  }
+
+  function randomString(length, chars) {
+    let result = '';
+    for (let i = length; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];
+    return result;
+  }
+  
+  // При нажатии на кнопку сохранить событие
+  $("#add-e").off('click').on('click', function(event) {
+    const radioValue = $("input[name='marker']:checked").val();
+    const randomAlphaNumeric = randomString(10, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+    const inputValue = $("#write-e").val();
+    const inputStarttDate = document.getElementById("start-date").value;
+    const inputEndDate = document.getElementById("end-date").value;
+
+    const arrayStartDate = inputStarttDate.split(' ');
+
+    const arrayEndDate = inputEndDate.split(' ');
+
+    const startDate = arrayStartDate[0];
+    const startTime = arrayStartDate[1];
+
+    const endDate = arrayEndDate[0];
+    const endTime = arrayEndDate[1];
+
+    const concatenateStartDateTime = startDate + 'T' + startTime + ':00';
+    const concatenateEndDateTime = endDate + 'T' + endTime + ':00';
+
+    const inputDescription = document.getElementById("taskdescription").value;
+    const myCalendar = $('#calendar');
+    //calendarmodule.fullCalendar();
+    const myEvent = {
+      //  timeZone: 'UTC',
+      allDay: false,
+      //  allDay: true,
+      //   id: randomAlphaNumeric,
+      title: inputValue,
+      start: concatenateStartDateTime,
+      end: concatenateEndDateTime,
+      //   className: radioValue,
+      //    description: inputDescription
+    };
+    calendarmodule.addEvent({myEvent});
+    calendarmodule.eventDisplay(myEvent);
+    modal.style.display = "none";
+    modalResetData();
+    document.getElementsByTagName('body')[0].removeAttribute('style');
+  });
+  calendarmodule.render();
+}
+// Конец календаря
+
+// FAQ
+const faqlinkClickHandler = (evt) => {
+  const link = evt.target.closest('a');
+  if (!link) {
+    return;
+  }
+  const datalink = link.dataset.link;
+  faqcard.style.display = 'block';               // Отображает тело карточки
+  loading.style.display = 'inline-block';       // В странице FAQ, показывает индикатор загрузки, пока не прогрузится содержимое страницы
+  // создание ajax объекта
+
+  /*
+  оригинал кода
+  const xmlHttp = () => {
+    // создание ajax объекта
+    try {
+      return new XMLHttpRequest()
+    } catch (e) {
+      try {
+        return new ActiveXObject('Msxml2.XMLHTTP')
+      } catch (e) {
+        try {
+          return new ActiveXObject('Microsoft.XMLHTTP')
+        } catch (e) {
+          return null;
+        }
+      }
+    }
+  }
+  */
+
+  let Http = new XMLHttpRequest();
+  // Перебираем запросы HTTP,
+  if (new XMLHttpRequest()) {
+    Http = new XMLHttpRequest();
+  } else if (new ActiveXObject('Msxml2.XMLHTTP')) {
+    Http = new ActiveXObject('Msxml2.XMLHTTP');
+  } else {
+    if (new ActiveXObject('Microsoft.XMLHTTP')) {
+      Http = new ActiveXObject('Microsoft.XMLHTTP');
+    } else return null;
+  }
+  if (Http) {
+    Http.open('GET', datalink, true);                             	// инициируем загрузку страницы
+    Http.onreadystatechange = () => {                                             // назначаем асинхронный обработчик события
+      if (Http.readyState === 4 && Http.status === 200) {
+        cont.innerHTML = "";                                                      // Очищаем содержимое cont
+        cont.insertAdjacentHTML('beforeend', Http.responseText);           // Вставляем текст ответа Http.responseText в cont перед концом
+        datatablesHandler();
+      }
+    }
+    Http.send(null);
+  } else {
+    document.location = datalink;                                                 // если ajax-объект не удается создать, просто перенаправляем на адрес
+  }
+}
+
+// FAQ аккродеон в группе
+const faqcategoryClickHandler = (evt) => {
+  // Переключает класс родительского элемента события клик
+  evt.target.parentElement.classList.toggle("active");
+}
+
+// Datatables
+const datatablesHandler = () => {
+  const colspan = $('td[colspan]').not('[colspan=1]');
+  /* colspan.prop("colSpan")  получает кол-во colspan */
+  colspan.after('<td style="display: none;"></td>');
+  // Для таблиц с сортировкой
+  $('.dataTable.sort').DataTable({
+    "language": {
+      "processing": "Подождите...",
+      "search": "Поиск:",
+      "lengthMenu": "Показать _MENU_ записей",
+      "info": "Записи _START_ - _END_ из _TOTAL_",
+      "infoEmpty": "Записи с 0 по 0 из 0 записей",
+      "infoFiltered": "(отфильтровано из _MAX_ записей)",
+      "loadingRecords": "Загрузка записей...",
+      "zeroRecords": "Записи отсутствуют.",
+      "emptyTable": "В таблице отсутствуют данные",
+      "paginate": {
+        "first": "Первая",
+        "previous": "‹",
+        "next": "›",
+        "last": "Последняя"
+      },
+      "aria": {
+        "sortAscending": ": активировать для сортировки столбца по возрастанию",
+        "sortDescending": ": активировать для сортировки столбца по убыванию"
+      },
+      "select": {
+        "rows": {
+          "_": "Выбрано записей: %d",
+          "0": "Кликните по записи для выбора",
+          "1": "Выбрана одна запись"
+        },
+        "1": "%d ряд выбран",
+        "_": "%d ряда(-ов) выбрано",
+        "cells": {
+          "1": "1 ячейка выбрана",
+          "_": "Выбрано %d ячеек"
+        },
+        "columns": {
+          "1": "1 столбец выбран",
+          "_": "%d столбцов выбрано"
+        }
+      },
+      "searchBuilder": {
+        "conditions": {
+          "string": {
+            "startsWith": "Начинается с",
+            "contains": "Содержит",
+            "empty": "Пусто",
+            "endsWith": "Заканчивается на",
+            "equals": "Равно",
+            "not": "Не",
+            "notEmpty": "Не пусто"
+          },
+          "date": {
+            "after": "После",
+            "before": "До",
+            "between": "Между",
+            "empty": "Пусто",
+            "equals": "Равно",
+            "not": "Не",
+            "notBetween": "Не между",
+            "notEmpty": "Не пусто"
+          },
+          "number": {
+            "empty": "Пусто",
+            "equals": "Равно",
+            "gt": "Больше чем",
+            "gte": "Больше, чем равно",
+            "lt": "Меньше чем",
+            "lte": "Меньше, чем равно",
+            "not": "Не",
+            "notEmpty": "Не пусто",
+            "between": "Между",
+            "notBetween": "Не между ними"
+          },
+          "array": {
+            "equals": "Равно",
+            "empty": "Пусто",
+            "contains": "Содержит",
+            "not": "Не равно",
+            "notEmpty": "Не пусто",
+            "without": "Без"
+          }
+        },
+        "data": "Данные",
+        "deleteTitle": "Удалить условие фильтрации",
+        "logicAnd": "И",
+        "logicOr": "Или",
+        "title": {
+          "0": "Конструктор поиска",
+          "_": "Конструктор поиска (%d)"
+        },
+        "value": "Значение",
+        "add": "Добавить условие",
+        "button": {
+          "0": "Конструктор поиска",
+          "_": "Конструктор поиска (%d)"
+        },
+        "clearAll": "Очистить всё",
+        "condition": "Условие"
+      },
+      "searchPanes": {
+        "clearMessage": "Очистить всё",
+        "collapse": {
+          "0": "Панели поиска",
+          "_": "Панели поиска (%d)"
+        },
+        "count": "{total}",
+        "countFiltered": "{shown} ({total})",
+        "emptyPanes": "Нет панелей поиска",
+        "loadMessage": "Загрузка панелей поиска",
+        "title": "Фильтры активны - %d"
+      },
+      "thousands": ",",
+      "buttons": {
+        "pageLength": {
+          "_": "Показать 10 строк",
+          "-1": "Показать все ряды",
+          "1": "Показать 1 ряд"
+        },
+        "pdf": "PDF",
+        "print": "Печать",
+        "collection": "Коллекция <span class=\"ui-button-icon-primary ui-icon ui-icon-triangle-1-s\"><\/span>",
+        "colvis": "Видимость столбцов",
+        "colvisRestore": "Восстановить видимость",
+        "copy": "Копировать",
+        "copyKeys": "Нажмите ctrl or u2318 + C, чтобы скопировать данные таблицы в буфер обмена.  Для отмены, щелкните по сообщению или нажмите escape.",
+        "copySuccess": {
+          "1": "Скопирована 1 ряд в буфер обмена",
+          "_": "Скопировано %ds рядов в буфер обмена"
+        },
+        "copyTitle": "Скопировать в буфер обмена",
+        "csv": "CSV",
+        "excel": "Excel"
+      },
+      "decimal": ".",
+      "infoThousands": ",",
+      "autoFill": {
+        "cancel": "Отменить",
+        "fill": "Заполнить все ячейки <i>%d<i><\/i><\/i>",
+        "fillHorizontal": "Заполнить ячейки по горизонтали",
+        "fillVertical": "Заполнить ячейки по вертикали",
+        "info": "Пример автозаполнения"
+      },
+      "datetime": {
+        "previous": "Предыдущий",
+        "next": "Следующий",
+        "hours": "Часы",
+        "minutes": "Минуты",
+        "seconds": "Секунды",
+        "unknown": "Неизвестный",
+        "amPm": [
+          "AM",
+          "PM"
+        ]
+      },
+      "editor": {
+        "close": "Закрыть",
+        "create": {
+          "button": "Новый",
+          "title": "Создать новую запись",
+          "submit": "Создать"
+        },
+        "edit": {
+          "button": "Изменить",
+          "title": "Изменить запись",
+          "submit": "Изменить"
+        },
+        "remove": {
+          "button": "Удалить",
+          "title": "Удалить",
+          "submit": "Удалить",
+          "confirm": {
+            "_": "Вы точно хотите удалить %d строк?",
+            "1": "Вы точно хотите удалить 1 строку?"
+          }
+        },
+        "multi": {
+          "restore": "Отменить изменения"
+        }
+      }
+    }
+  });
+  // Для таблиц без сортировки
+  $('.dataTable.nosort').DataTable({
+    "ordering": false,
+    "language": {
+      "processing": "Подождите...",
+      "search": "Поиск:",
+      "lengthMenu": "Показать _MENU_ записей",
+      "info": "Записи _START_ - _END_ из _TOTAL_",
+      "infoEmpty": "Записи с 0 по 0 из 0 записей",
+      "infoFiltered": "(отфильтровано из _MAX_ записей)",
+      "loadingRecords": "Загрузка записей...",
+      "zeroRecords": "Записи отсутствуют.",
+      "emptyTable": "В таблице отсутствуют данные",
+      "paginate": {
+        "first": "Первая",
+        "previous": "‹",
+        "next": "›",
+        "last": "Последняя"
+      },
+      "aria": {
+        "sortAscending": ": активировать для сортировки столбца по возрастанию",
+        "sortDescending": ": активировать для сортировки столбца по убыванию"
+      },
+      "select": {
+        "rows": {
+          "_": "Выбрано записей: %d",
+          "0": "Кликните по записи для выбора",
+          "1": "Выбрана одна запись"
+        },
+        "1": "%d ряд выбран",
+        "_": "%d ряда(-ов) выбрано",
+        "cells": {
+          "1": "1 ячейка выбрана",
+          "_": "Выбрано %d ячеек"
+        },
+        "columns": {
+          "1": "1 столбец выбран",
+          "_": "%d столбцов выбрано"
+        }
+      },
+      "searchBuilder": {
+        "conditions": {
+          "string": {
+            "startsWith": "Начинается с",
+            "contains": "Содержит",
+            "empty": "Пусто",
+            "endsWith": "Заканчивается на",
+            "equals": "Равно",
+            "not": "Не",
+            "notEmpty": "Не пусто"
+          },
+          "date": {
+            "after": "После",
+            "before": "До",
+            "between": "Между",
+            "empty": "Пусто",
+            "equals": "Равно",
+            "not": "Не",
+            "notBetween": "Не между",
+            "notEmpty": "Не пусто"
+          },
+          "number": {
+            "empty": "Пусто",
+            "equals": "Равно",
+            "gt": "Больше чем",
+            "gte": "Больше, чем равно",
+            "lt": "Меньше чем",
+            "lte": "Меньше, чем равно",
+            "not": "Не",
+            "notEmpty": "Не пусто",
+            "between": "Между",
+            "notBetween": "Не между ними"
+          },
+          "array": {
+            "equals": "Равно",
+            "empty": "Пусто",
+            "contains": "Содержит",
+            "not": "Не равно",
+            "notEmpty": "Не пусто",
+            "without": "Без"
+          }
+        },
+        "data": "Данные",
+        "deleteTitle": "Удалить условие фильтрации",
+        "logicAnd": "И",
+        "logicOr": "Или",
+        "title": {
+          "0": "Конструктор поиска",
+          "_": "Конструктор поиска (%d)"
+        },
+        "value": "Значение",
+        "add": "Добавить условие",
+        "button": {
+          "0": "Конструктор поиска",
+          "_": "Конструктор поиска (%d)"
+        },
+        "clearAll": "Очистить всё",
+        "condition": "Условие"
+      },
+      "searchPanes": {
+        "clearMessage": "Очистить всё",
+        "collapse": {
+          "0": "Панели поиска",
+          "_": "Панели поиска (%d)"
+        },
+        "count": "{total}",
+        "countFiltered": "{shown} ({total})",
+        "emptyPanes": "Нет панелей поиска",
+        "loadMessage": "Загрузка панелей поиска",
+        "title": "Фильтры активны - %d"
+      },
+      "thousands": ",",
+      "buttons": {
+        "pageLength": {
+          "_": "Показать 10 строк",
+          "-1": "Показать все ряды",
+          "1": "Показать 1 ряд"
+        },
+        "pdf": "PDF",
+        "print": "Печать",
+        "collection": "Коллекция <span class=\"ui-button-icon-primary ui-icon ui-icon-triangle-1-s\"><\/span>",
+        "colvis": "Видимость столбцов",
+        "colvisRestore": "Восстановить видимость",
+        "copy": "Копировать",
+        "copyKeys": "Нажмите ctrl or u2318 + C, чтобы скопировать данные таблицы в буфер обмена.  Для отмены, щелкните по сообщению или нажмите escape.",
+        "copySuccess": {
+          "1": "Скопирована 1 ряд в буфер обмена",
+          "_": "Скопировано %ds рядов в буфер обмена"
+        },
+        "copyTitle": "Скопировать в буфер обмена",
+        "csv": "CSV",
+        "excel": "Excel"
+      },
+      "decimal": ".",
+      "infoThousands": ",",
+      "autoFill": {
+        "cancel": "Отменить",
+        "fill": "Заполнить все ячейки <i>%d<i><\/i><\/i>",
+        "fillHorizontal": "Заполнить ячейки по горизонтали",
+        "fillVertical": "Заполнить ячейки по вертикали",
+        "info": "Пример автозаполнения"
+      },
+      "datetime": {
+        "previous": "Предыдущий",
+        "next": "Следующий",
+        "hours": "Часы",
+        "minutes": "Минуты",
+        "seconds": "Секунды",
+        "unknown": "Неизвестный",
+        "amPm": [
+          "AM",
+          "PM"
+        ]
+      },
+      "editor": {
+        "close": "Закрыть",
+        "create": {
+          "button": "Новый",
+          "title": "Создать новую запись",
+          "submit": "Создать"
+        },
+        "edit": {
+          "button": "Изменить",
+          "title": "Изменить запись",
+          "submit": "Изменить"
+        },
+        "remove": {
+          "button": "Удалить",
+          "title": "Удалить",
+          "submit": "Удалить",
+          "confirm": {
+            "_": "Вы точно хотите удалить %d строк?",
+            "1": "Вы точно хотите удалить 1 строку?"
+          }
+        },
+        "multi": {
+          "restore": "Отменить изменения"
+        }
+      }
+    }
+  });
+}
+
+// Меню демо администратора
+// Кнопки
+const toastoffbtn = document.querySelector('.toasts-off');
+const alertoffbtn = document.querySelector('.alerts-off');
+// Элементы
+const toastselem = document.querySelectorAll('.toast');
+
+const toastsoffHandler = () => {
+  for (let i = 0, len = toastselem.length; i < len; i++) {
+    toastselem[i].classList.toggle("show");
+    toastselem[i].classList.toggle("hide");
+  }
+};
+
+const alertoffHandler = () => {
+  document.querySelectorAll('.alert')
+    .forEach(function (alertNode) {
+      const alert = new bootstrap.Alert(alertNode, {
+        autohide: false
+      });
+      alert.close()
+    })
+};
+
+// При прокручивании вниз на 20px от верхнего края элемента с классом main-content, показывает кнопку
+const maincontentscroll = () => {
+  if (maincontent.scrollTop > 20) {
+    backtotopbutton.style.display = "flex";
+  } else {
+    backtotopbutton.style.display = "none";
+  }
+};
+
+// Возвращает наверх при нажатии на кнопку .back-to-top
+const buttonscrolltotopHandler = () => {
+  maincontent.scrollTop = 0;
+};
+
+// Переключает класс disabled у .page-body
+const buttonsidebartoggleHandler = () => {
+  sidebarwrapper.classList.toggle('disabled');
+};
+
+// Добавляет класс open у .top-search
+const buttonsearchHandler = () => {
+  searchinput.classList.add('open');
+};
+
+// Удаляет класс open у .top-search
+const buttonsearchcloseHandler = () => {
+  searchinput.classList.remove('open');
+};
+
+// Переключает класс .active у ближайшего .menu-item нажатой ссылки меню сайдбара
+const menuitemClickHandler = (evt) => {
+  evt.target.closest('.menu-item').classList.toggle("active");
+};
+
+// Ищет в форме селект с id profession, проверяет, если судья или председатель, то отображает принадлежность судье, если нет, то блокирует и сбрасывает значение
+const profselect = document.getElementById('profession');
+const affselect = document.getElementById('affiliation');
+
+const profselectHandler = () => {
+  if (
+    profselect.options[profselect.selectedIndex].value === '6' || profselect.options[profselect.selectedIndex].value === '7' || profselect.options[profselect.selectedIndex].value === '9') {
+    affselect.disabled = false;
+  } else {
+    affselect.disabled = true;
+    affselect.selectedIndex = 0;
+  }
+}
+
+if (profselect && affselect) {
+  profselect.addEventListener('change', profselectHandler);
+}
+
+// Ищет селект с id active
+const activeselect = document.getElementById('active');
+const roomselect = document.getElementById('room');
+
+const activeselectHandler = () => {
+  if (
+    activeselect.options[activeselect.selectedIndex].value === '1') {
+    roomselect.disabled = false;
+  } else {
+    roomselect.disabled = true;
+    roomselect.selectedIndex = 0;
+  }
+}
+
+if (activeselect && roomselect) {
+  activeselect.addEventListener('change', activeselectHandler);
+}
+
+/* Возвращает текущий день, месяц и день недели в элементы с классами today-group-day,
+*  today-group-month, today-group-dayw */
+
+const datarenderHandler = () => {
+  const d = new Date();
+  const month = ["января",
+    "февраля",
+    "марта",
+    "апреля",
+    "мая",
+    "июня",
+    "июля",
+    "августа",
+    "сентября",
+    "октября",
+    "ноября",
+    "декабря"];
+  const day = ["воскресенье",
+    "понедельник",
+    "вторник",
+    "среда",
+    "четверг",
+    "пятница",
+    "суббота"];
+  let curdayw = day[d.getDay()];
+  let curmonth = month[d.getMonth()];
+  let curday = d.getDate();
+  document.querySelector(".today-group-dayw").innerHTML = curdayw;
+  document.querySelector(".today-group-day").innerHTML = curday;
+  document.querySelector(".today-group-month").innerHTML = curmonth;
+  return curday;
+};
+
+// Список ссылок
+const listgroupmenu = document.querySelector('.list-tab-group .list-group');
+const tablistgroupmenu = document.querySelector('.tab-content');
+if (listgroupmenu && tablistgroupmenu) {
+  const listgroup = listgroupmenu.querySelectorAll('.list-group-item');
+  const tablistgroup = tablistgroupmenu.querySelectorAll('.tab-list-group');
+
+  // Переключает класс .active у ближайшего .list-group-item нажатой ссылки списка ссылок
+  const listgroupitemClickHandler = (evt) => {
+    const listgroupitem = evt.target.closest('.list-group-item');
+    if (listgroupitem != null) {
+      for (let i = 0, len = listgroup.length; i < len; i++) {
+        listgroup[i].classList.remove("active");
+      }
+      listgroupitem.classList.add("active");
+      for (let a = 0, len = tablistgroup.length; a < len; a++) {
+        tablistgroup[a].classList.remove("active");
+        if (listgroupitem.id + "-list" === tablistgroup[a].id) {
+          tablistgroup[a].classList.add("active");
+        }
+      }
+    }
+  };
+  // Устанавливает класс active первой из найденных ссылок и табов
+  listgroup[0].classList.add("active");
+  tablistgroup[0].classList.add("active");
+  // Прослушивание нажатия нажатия на ссылки списка ссылок .list-group
+  listgroupmenu.addEventListener('click', (evt) => {
+    listgroupitemClickHandler(evt);
+  });
+}
+
+// Кнопка Назад. Класс .btn-back. Возвращает на страницу, с которой был переход
+const backbtn = document.querySelectorAll('.btn-back');
+if (backbtn) {
+  for (let a = 0; a < backbtn.length; a++) {
+    backbtn[a].addEventListener('click', function () {
+      window.history.back();
+    })
+  }
+}
+
+// Кнопка Печати страницы. Класс .btn-print
+const printbtns = document.querySelectorAll('.btn-print');
+if (printbtns) {
+  printbtns.forEach(function (printbtn) {
+    printbtn.addEventListener('click', () => {
+      window.print()
+    });
+  });
+}
+
+// Фильтр в телефонной книге
+const filterClickHandler = () => {
+  //Обнуление строк фильтров - выбранного и пустого
+  let filterItems = filterGroup.querySelectorAll('input[type=checkbox]');
+
+  let filterstring = string;
+  let emptyfilter = string;
+  for (let i = 0, len = filterItems.length; i < len; i++) {
+    if (filterItems[i].checked === true) {
+      filterstring += '&filter[' + (filterItems[i].name) + ']=' + filterItems[i].value
+    } else {
+      //Если фильтр не включен. Составляет строку их всех имеющихся фильтров и их значений
+      emptyfilter += '&filter[' + (filterItems[i].name) + ']=' + filterItems[i].value;
+    }
+  }
+  if (filterstring === string) {
+    //Если ни один фильтр не выбран, то выведет emptyfilter
+    fetch(emptyfilter).then(
+      response => {
+        return response.text();
+      }
+    ).then(
+      text => {
+        result.innerHTML = text;
+      }
+    );
+  } else {
+    fetch(filterstring).then(
+      response => {
+        return response.text();
+      }
+    ).then(
+      text => {
+        result.innerHTML = text;
+      }
+    );
+  }
+};
+
+// Погодный виджет
+const weatherHandler = () => {
+  const script = document.createElement("script");
+  script.src = "assets/js/weather.min.js";
+  script.defer = true;
+  script.onload = function () {
+    new MeteonovaInf({
+      type: "88_31_2",
+      cities: ["26686"],
+      scheme: {
+        "border_radius": "4px",
+        "box_shadow": "none",
+        "border_color": "#e9ecef",
+        "background_color": "transparent",
+        "city_color": "#343a40",
+        "main_color": "#495057",
+        "params_color": "#868e96"
+      }
+    });
+  };
+  document.getElementsByTagName("head")[0].appendChild(script);
+}
+
+// Определение функции, запускающейся при полной загрузке страницы
+const init = () => {
+  //Отключаем спиннер
+  if (spinnerloader) {
+    spinnerloader.style.display = "none";
+  }
+  // Прослушивание прокручивания .main-content
+  if (backtotopbutton) {
+    maincontent.addEventListener('scroll', maincontentscroll);
+    // Прослушивание нажатия кнопки .back-to-top
+    backtotopbutton.addEventListener('click', buttonscrolltotopHandler);
+  }
+  // Прослушивание нажатия кнопки .sidebar-toggle-button
+  if (sidebartogglbutton && sidebarwrapper) {
+    sidebartogglbutton.addEventListener('click', buttonsidebartoggleHandler);
+  }
+  // Прослушивание нажатия кнопки .top-search-button-toggle
+  if (searchbutton && searchinput && searchclosebtn) {
+    searchbutton.addEventListener('click', buttonsearchHandler);
+    // Прослушивание нажатия кнопки .top-search-close
+    searchclosebtn.addEventListener('click', buttonsearchcloseHandler);
+  }
+  // Получает имя файла текущей открытой страницы и ищет такое же в ссылках бокового меню, устанавливает класс active открытому пункту или субпункту и его родителю
+  if (sidebarnavmenu) {
+    let filename = window.location.href.replace(/^.*[\\\/]/, '').replace('#', '');
+    let menulink = sidebarnavmenu.querySelectorAll('.menu-link');
+    let submenulink = sidebarnavmenu.querySelectorAll('.submenu-link');
+    for (let i = 0, len = menulink.length; i < len; i++) {
+      // Поменять в этом условии http://isp/, если будет другой домен
+      if (filename === "" && menulink[i].href.replace(/^.*[\\\/]/, '').replace('#', '') === "") {
+        filename = "/";
+        menulink[i].closest('.menu-item').classList.add("active");
+      }
+      // Условие для локальной версии, где главная index.html
+      if (filename === "" && menulink[i].href.replace(/^.*[\\\/]/, '').replace('#', '') === "index.html") {
+        filename = "index.html";
+        menulink[i].closest('.menu-item').classList.add("active");
+      }
+      if (filename === menulink[i].href.replace(/^.*[\\\/]/, '').replace('#', '')) {
+        menulink[i].closest('.menu-item').classList.add("active");
+      }
+    }
+    for (let i = 0, len = submenulink.length; i < len; i++) {
+      if (filename === submenulink[i].href.replace(/^.*[\\\/]/, '').replace('#', '')) {
+        submenulink[i].closest('.submenu-item').classList.add("active");
+        submenulink[i].closest('.menu-item').classList.add("active");
+      }
+    }
+    // Прослушивание нажатия нажатия на ссылки меню .navigation-menu
+    sidebarnavmenu.addEventListener('click', (evt) => {
+      menuitemClickHandler(evt);
+    });
+  }
+  // Прогресс бар над хедером
+  maincontent.addEventListener('scroll', () => {
+    const winScroll = maincontent.scrollTop;
+    const height = maincontent.scrollHeight - maincontent.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    const topprogress = document.querySelector('.topprogressbar');
+    if (topprogress) {
+      topprogress.style.width = scrolled + "%";
+    }
+  });
+
+// Погода
+
+  if (document.querySelector('.weather-info')) {
+    weatherHandler();
+  }
+
+// Форма добавления сотрудника. Профессия и активность
+  if (profselect && affselect) {
+    profselectHandler();
+  }
+  if (activeselect && roomselect) {
+    activeselectHandler();
+  }
+};
+
+// Сегодняшняя дата
+if (document.querySelector('.today-group')) {
+  datarenderHandler();
+}
+
+// Показать / скрыть пароль
+if (showhidepass && passinp) {
+  showhidepass.addEventListener('click', () => {
+    // Меняем тип поля ввода пароля с password на text
+    if (passinp.type === "password") {
+      passinp.type = "text";
+      showhidepass.classList.toggle('is-hidden');
+    } else {
+      passinp.type = "password";
+      showhidepass.classList.toggle('is-hidden');
+    }
+  });
+}
+
+/* Слушаем клик по каждому из фильтров телефонной книги */
+if (filterGroup && result) {
+  // Ищем в filter-group элементы фильтров checkbox
+  let filterItems = filterGroup.querySelectorAll('input[type=checkbox]');
+
+  filterItems.forEach(function (filter) {
+    filter.addEventListener('click', () => {
+      filterClickHandler();
+    });
+  });
+}
+
+// Tooltip и popover
+document.querySelectorAll('.bs-tooltip')
+  .forEach(function (tooltip) {
+    new bootstrap.Tooltip(tooltip, {
+      selector: '[data-bs-toggle="tooltip"]'
+    })
+  })
+
+document.querySelectorAll('[data-bs-toggle="popover"]')
+  .forEach(function (popover) {
+    new bootstrap.Popover(popover)
+  })
+
+document.querySelectorAll('.toast')
+  .forEach(function (toastNode) {
+    new bootstrap.Toast(toastNode, {
+      autohide: false
+    });
+// Показывает всплывашки при загрузке страницы
+    //  toast.show()
+  })
+
+
+// Меню демо администратора
+
+if (toastoffbtn) {
+  toastoffbtn.addEventListener('click', toastsoffHandler);
+}
+if (alertoffbtn) {
+  alertoffbtn.addEventListener('click', alertoffHandler);
+}
+
+//FAQ
+if (faqcard && cont && loading && faqlinks) {
+  faqlinks.forEach((faqlink) => {
+    faqlink.addEventListener('click', (evt) => {
+      faqlinkClickHandler(evt);
+    });
+  });
+}
+
+if (faqaccordeon) {
+  const faqcategorys = faqaccordeon.querySelectorAll('.faq-category');
+  faqcategorys.forEach((faqcategory) => {
+    faqcategory.addEventListener('click', (evt) => {
+      faqcategoryClickHandler(evt);
+    });
+  });
+}
+
+if (calendarEl) {
+  calendmodulehandler();
+}
+
+datatablesHandler();
+
+// Запуск функции при загрузке. Будет запущено все, что внутри const init = () => {}
+init();
+
+
