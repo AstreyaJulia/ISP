@@ -3,9 +3,9 @@ $start = microtime(true);
 error_reporting(E_ALL);
 ini_set("display_errors", "on");
 
-$host = "192.168.2.111";
+$host = "isp";
 $user = "root";
-$password = "";
+$password = "root";
 $dbName = "isp";
 
 $link = mysqli_connect($host, $user, $password, $dbName);

@@ -49,42 +49,157 @@ const faqaccordeon = document.querySelector('.faq-categories-list');
 const spinnerloader = document.querySelector('.spinner-wrapper');
 
 // Календарь большой
+// Контейнер для календаря
 const calendarEl = document.getElementById('calendar');
-const calendar = new FullCalendar.Calendar(calendarEl, {
-  height: 650,
-  locale: 'ru',
-  headerToolbar: {
-    left: 'prev,next,today addEventButton',
-    center: 'title',
-    right: 'dayGridMonth,timeGridWeek,timeGridDay'
-  },
-  customButtons: {
-    addEventButton: {
-      text: 'Добавить событие',
-      click: function () {
-        const dateStr = prompt('Enter a date in YYYY-MM-DD format');
-        const date = new Date(dateStr + 'T00:00:00'); // will be in local time
+// Кнопка "Добавить событие" в модале добавления события. Сохраняет событие
+const addEvent = document.getElementById("add-e");
+// Кпока "Сохранить" событие на модале
+const editEvent = document.getElementById("edit-event");
+// Заголовок модала Добавить событие. Для переключения в заголовке слов редактировать / создать
+const addEventTitle = document.getElementsByClassName("add-event-title")[0];
+// Заголовок модала Редактировать событие. Для переключения в заголовке слов редактировать / создать
+const editEventTitle = document.getElementsByClassName("edit-event-title")[0];
+// Модал добавления события
+const modal = document.getElementById("addEventsModal");
 
-        if (!isNaN(date.valueOf())) { // valid?
-          calendar.addEvent({
-            title: 'dynamic event',
-            start: date,
-            allDay: true
-          });
-          alert('Great. Now, update your database...');
-        } else {
-          alert('Invalid date.');
-        }
-      }
-    }
-  },
-  initialDate: '2020-03-12',
-  navLinks: true, // can click day/week names to navigate views
-  selectable: true,
-  selectMirror: true,
+
+const calendar = new FullCalendar.Calendar(calendarEl, {
+  /* Прежний код
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        height: 650,
+        locale: 'ru',
+        headerToolbar: {
+            left: 'prev,next,today addEventButton',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        customButtons: {
+          addEventButton: {
+            text: 'Добавить событие',
+            click: function() {
+              var dateStr = prompt('Enter a date in YYYY-MM-DD format');
+              var date = new Date(dateStr + 'T00:00:00'); // will be in local time
+
+              if (!isNaN(date.valueOf())) { // valid?
+                calendar.addEvent({
+                  title: 'dynamic event',
+                  start: date,
+                  allDay: true
+                });
+                alert('Great. Now, update your database...');
+              } else {
+                alert('Invalid date.');
+              }
+            }
+          }
+        },
+        initialDate: '2020-03-12',
+        navLinks: true, // can click day/week names to navigate views
+        selectable: true,
+        selectMirror: true,
+        editable: true,
+        dayMaxEvents: true, // allow "more" link when too many events
+        events: 'components/fullcalendar/events.php',
+        selectHelper:true,
+   */
+
+  locale: 'ru',
+  timeZone: 'GMT+3',
+  initialView: 'dayGridMonth',
   editable: true,
+  selectable: true,
+  businessHours: false,
+  handleWindowResize: true,
+  nowIndicator: true,
   dayMaxEvents: true, // allow "more" link when too many events
+  selectMirror: true,
+  navLinks: true, // can click day/week names to navigate views
+
   events: 'components/fullcalendar/events.php',
+
+  headerToolbar: {
+    left: 'title',
+    center: '',
+    right: 'prev,next,today dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+  },
+  eventClick: function (info) {
+    addEvent.style.display = 'none';
+    editEvent.style.display = 'block';
+    addEventTitle.style.display = 'none';
+    editEventTitle.style.display = 'block';
+    modal.style.display = "block";
+    document.querySelector('.page-body')[0].style.overflow = 'hidden';
+    createBackdropElement();
+
+    // Получение событий календаря (fetch)
+    const eventTitle = info.title;
+    const eventDescription = info.description;
+
+    // Модал ввода события
+    const taskTitle = $('#write-e');
+    const taskTitleValue = taskTitle.val(eventTitle);
+
+    const taskDescription = $('#taskdescription');
+    const taskDescriptionValue = taskDescription.val(eventDescription);
+
+    const taskInputStarttDate = $("#start-date");
+    const taskInputStarttDateValue = taskInputStarttDate.val(info.start.format("YYYY-MM-DD HH:mm:ss"));
+
+    const taskInputEndDate = $("#end-date");
+    const taskInputEndtDateValue = taskInputEndDate.val(info.end.format("YYYY-MM-DD HH:mm:ss"));
+
+    const startDate = flatpickr(document.getElementById('start-date'), {
+      enableTime: true,
+      dateFormat: "Y-m-d H:i",
+      defaultDate: info.start.format("YYYY-MM-DD HH:mm:ss"),
+    });
+
+    const abv = startDate.config.onChange.push(function (selectedDates, dateStr, instance) {
+      const endtDate = flatpickr(document.getElementById('end-date'), {
+        enableTime: true,
+        dateFormat: "Y-m-d H:i",
+        minDate: dateStr
+      });
+    });
+
+    const endtDate = flatpickr(document.getElementById('end-date'), {
+      enableTime: true,
+      dateFormat: "Y-m-d H:i",
+      defaultDate: info.end.format("YYYY-MM-DD HH:mm:ss"),
+      minDate: info.start.format("YYYY-MM-DD HH:mm:ss")
+    });
+
+    // Создает Overlay элемент
+    function createBackdropElement () {
+      const btn = document.createElement("div");
+      btn.setAttribute('class', 'modal-backdrop fade show')
+      document.body.appendChild(btn);
+    }
+
+    $('#edit-event').off('click').on('click', function (event) {
+      event.preventDefault();
+      /* Act on the event */
+      const radioValue = $("input[name='marker']:checked").val();
+
+      const taskStartTimeValue = document.getElementById("start-date").value;
+      const taskEndTimeValue = document.getElementById("end-date").value;
+
+      info.title = taskTitle.val();
+      info.description = taskDescription.val();
+      info.start = taskStartTimeValue;
+      info.end = taskEndTimeValue;
+      info.className = radioValue;
+
+      $('#calendar').calendar.refetchEvents('updateEvent', info);
+      modal.style.display = "none";
+      modalResetData();
+      document.getElementsByTagName('body')[0].removeAttribute('style');
+    });
+  },
+
 });
 // Конец календаря
 
