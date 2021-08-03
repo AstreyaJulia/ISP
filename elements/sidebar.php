@@ -31,18 +31,6 @@
     </li>
     <li class="menu-item with-sub">
       <a class="menu-link">
-        <i class="mdi mdi-newspaper-variant-outline"></i>
-        <span>Новости</span>
-        <i class="menu-arrow mdi mdi-chevron-right"></i>
-      </a>
-      <ul class="sub-menu">
-        <li class="submenu-item"><a class="submenu-link" href="updates.html">
-            <i class="mdi mdi-reload-alert"></i>
-            <span>Обновления программ</span></a></li>
-      </ul>
-    </li>
-    <li class="menu-item with-sub">
-      <a class="menu-link">
         <i class="mdi mdi-help-circle-outline"></i>
         <span>Помощь</span>
         <i class="menu-arrow mdi mdi-chevron-right"></i>
@@ -67,15 +55,15 @@
       </a>
       <ul class="sub-menu">
         <li class="submenu-item">
-          <a class="submenu-link" href="slider.html">
-            <i class="mdi mdi-image-move"></i>
-            <span>Новостной слайдер</span>
-          </a>
-        </li>
-        <li class="submenu-item">
           <a class="submenu-link" href="?page=staff">
             <i class="mdi mdi-account-multiple"></i>
             <span>Сотрудники</span>
+          </a>
+        </li>
+                <li class="submenu-item">
+          <a class="submenu-link" href="slider.html">
+            <i class="mdi mdi-image-move"></i>
+            <span>Новостной слайдер</span>
           </a>
         </li>
         <li class="submenu-item">

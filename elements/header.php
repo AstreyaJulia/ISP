@@ -35,24 +35,6 @@
             <i class="nav-link-icon mdi mdi-menu"></i>
           </a>
         </li>
-
-        <!-- Меню демо администратора -->
-        <li class="btn-group nav-item ">
-          <a href="#" class="waves-effect waves-light nav-link dropdown-toggle no-carret" id="demomenu"
-             data-bs-toggle="dropdown">
-            <i class="mdi mdi-incognito"></i>
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="demomenu">
-
-            <li>
-              <a href="#" class="toasts-off dropdown-item">Вкл/выкл всплывашки</a>
-            </li>
-
-            <li>
-              <a href="#" class="alerts-off dropdown-item">Выкл алерты</a>
-            </li>
-          </ul>
-        </li>
       </ul>
     </div>
     <div class="right-header">
@@ -86,8 +68,10 @@
             </div>
             <p class="usermenu-category">Мой профиль</p>
             <a class="dropdown-item" href="?page=user-profile">Личная информация</a>
+            <!-- Пока что отключено.
             <a class="dropdown-item" href="#">Уведомления<span class="highlighted">10</span></a>
             <a class="dropdown-item" href="#">Сообщения<span class="highlighted ">5</span></a>
+            -->
             <a class="dropdown-item btn btn-primary" href="?page=user-profile&logOut" name="logOut">Выход</a>
           </div>
         </li>
