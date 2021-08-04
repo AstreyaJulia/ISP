@@ -137,6 +137,6 @@
     ?>
     <div class="sidebar-footer">
       <p class="footer-text">Сделано с <span><i class="mdi mdi-cards-heart"></i></span></p>
-      <p class="footer-text">Сафоновский районный суд © <span><!-- PHP: Текущий год -->2021</span></p>
+      <p class="footer-text">Сафоновский районный суд © <span><?= date('Y'); ?></span></p>
     </div>
 </aside>
