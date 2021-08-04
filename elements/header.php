@@ -63,7 +63,7 @@
               </a>
               <div class="header-group">
                 <p class="user-name"><span>Привет, </span><!-- PHP: Фамилия И.О. пользователя -->Супер А.И.</p>
-                <p class="user-login"><a><span>@</span><!-- PHP: Логин пользователя -->chainik</a></p>
+                <p class="user-login"><a><span>@</span><?= $_COOKIE['aut']['login']; ?></a></p>
               </div>
             </div>
             <p class="usermenu-category">Мой профиль</p>
