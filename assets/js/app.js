@@ -124,12 +124,12 @@ const calendmodulehandler = () => {
 
   // Функции
 
- /* // Создать оверлей
-  function createBackdropElement() {
-    const btn = document.createElement("div");
-    btn.setAttribute('class', 'modal-backdrop fade show')
-    document.body.appendChild(btn);
-  }*/
+  /* // Создать оверлей
+   function createBackdropElement() {
+     const btn = document.createElement("div");
+     btn.setAttribute('class', 'modal-backdrop fade show')
+     document.body.appendChild(btn);
+   }*/
 
   // Скрыть модал
   function hideModal() {
@@ -150,11 +150,11 @@ const calendmodulehandler = () => {
     document.body.appendChild(btn);
   }
 
-/*  // При добавлении события сбросить поля модала
-  $('.add-event-btn').on('click', function (e) {
-    showModal();
-    createBackdropElement();
-  });*/
+  /*  // При добавлении события сбросить поля модала
+    $('.add-event-btn').on('click', function (e) {
+      showModal();
+      createBackdropElement();
+    });*/
 
   $(span).on('click', function () {
     hideModal();
@@ -168,7 +168,8 @@ const calendmodulehandler = () => {
       info.jsEvent.preventDefault();
       window.open(eventToUpdate.url, '_blank');
     }*/
-
+    console.log(eventToUpdate);
+ //   console.log(calendar.getEvents());
     showModal();
     addEventBtn.style.display = "none";
     cancelBtn.style.display = "none";
@@ -184,35 +185,38 @@ const calendmodulehandler = () => {
     eventToUpdate.end !== null
       ? end.setDate(eventToUpdate.end, true, 'd-m-Y')
       : end.setDate(eventToUpdate.start, true, 'd-m-Y');
-    $(modal).find(eventLabel).val(eventToUpdate.extendedProps.calendar).trigger('change');
+    $(modal).find(eventLabel).val(eventToUpdate.extendedProps.color).trigger('change');
 
     //  Удаление события
     $(btnDeleteEvent).on('click', function () {
-      //eventToUpdate.remove();
-      $(calendar).removeEvent(eventToUpdate.id);
+      eventToUpdate.remove();
+      calendar.removeEvent(eventToUpdate.id);
       hideModal();
       document.querySelector('.page-body')[0].removeAttribute('style');
     });
   }
 
   // Start date picker
- // if ($(startDate).length) {
-    const start = startDate.flatpickr({
-      locale: "ru",
-      enableTime: true,
-      dateFormat: 'd-m-Y H:i',
-      onReady: function (selectedDates, dateStr, instance) {}
-    });
- // }
+  // if ($(startDate).length) {
+  const start = startDate.flatpickr({
+    //appendTo: startDate,
+    locale: "ru",
+    enableTime: true,
+    dateFormat: 'Y-m-d H:i:S',
+    onReady: function (selectedDates, dateStr, instance) {
+    }
+  });
+  // }
 
   // End date picker
- // if ($(endDate).length) {
-    const end = endDate.flatpickr({
-      locale: "ru",
-      enableTime: true,
-      dateFormat: 'd-m-Y H:i',
-      onReady: function (selectedDates, dateStr, instance) {}
-    });
+  // if ($(endDate).length) {
+  const end = endDate.flatpickr({
+    locale: "ru",
+    enableTime: true,
+    dateFormat: 'Y-m-d H:i:S',
+    onReady: function (selectedDates, dateStr, instance) {
+    }
+  });
 //  }
 
   // Выбранные чекбоксы
@@ -229,14 +233,14 @@ const calendmodulehandler = () => {
     // Получение событий из API конечной ссылки
     $.ajax(
       {
-       // url: '../../../app-assets/data/app-calendar-events.js',
+        // url: '../../../app-assets/data/app-calendar-events.js',
         url: 'components/fullcalendar/events.php',
         type: 'GET',
         success: function (result) {
           // Получает запрашиваемые календари как массив
           const calendars = selectedCalendars();
 
-          return [result.events.filter(event => calendars.includes(event.extendedProps.calendar))];
+          return [result.events.filter(event => calendars.includes(event.backgroundColor))];
         },
         error: function (error) {
           console.log(error);
@@ -245,8 +249,8 @@ const calendmodulehandler = () => {
     );
     const calendars = selectedCalendars();
     let selectedEvents = events.filter(function (event) {
-      // console.log(event.extendedProps.calendar.toLowerCase());
-      return calendars.includes(event.extendedProps.calendar.toLowerCase());
+      // console.log(event.backgroundColor.toLowerCase());
+      return calendars.includes(event.backgroundColor.toLowerCase());
     });
     // if (selectedEvents.length > 0) {
     successCallback(selectedEvents);
@@ -268,8 +272,9 @@ const calendmodulehandler = () => {
     dayMaxEvents: true, // добавляет ссылку "еще", когда очень много событий
     navLinks: true, // can click day/week names to navigate views
     initialDate: '2021-05-12',  // временно, убрать в релизе
-    eventClassNames: function ({ event: calendarEvent }) {
-      const colorName = calendarsColor[calendarEvent._def.extendedProps.calendar];
+    eventClassNames: function ({event: calendarEvent}) {
+      //const colorName = calendarsColor[calendarEvent._def.backgroundColor];
+      const colorName = calendarsColor[calendarEvent.backgroundColor];
       return [
         // Фоновый цвет событий
         'bg-' + colorName + '-light'
@@ -289,8 +294,8 @@ const calendmodulehandler = () => {
       addEventBtn.style.display = "block";
       updateEventBtn.style.display = "none";
       btnDeleteEvent.style.display = "none";
-      startDate.val(date);
-      endDate.val(date);
+      $(startDate).val(date);
+      $(endDate).val(date);
     },
     eventClick: function (info) {
       eventClick(info);
@@ -309,25 +314,25 @@ const calendmodulehandler = () => {
   /*modifyToggler();*/
 
   // Валидация для jquery validate
-/*  if (eventForm.length) {
-    eventForm.validate({
-      submitHandler: function (form, event) {
-        event.preventDefault();
-        if (eventForm.valid()) {
-          sidebar.modal('hide');
+  /*  if (eventForm.length) {
+      eventForm.validate({
+        submitHandler: function (form, event) {
+          event.preventDefault();
+          if (eventForm.valid()) {
+            sidebar.modal('hide');
+          }
+        },
+        title: {
+          required: true
+        },
+        'start-date': {
+          required: true
+        },
+        'end-date': {
+          required: true
         }
-      },
-      title: {
-        required: true
-      },
-      'start-date': {
-        required: true
-      },
-      'end-date': {
-        required: true
-      }
-    });
-  }*/
+      });
+    }*/
 
   // Sidebar Toggle Btn
   if ($(toggleSidebarBtn.length)) {
@@ -341,6 +346,9 @@ const calendmodulehandler = () => {
   function addEvent(eventData) {
     calendar.addEvent(eventData);
     calendar.refetchEvents();
+    hideModal();
+    resetValues();
+    calendar.render();
   }
 
   // Обновление события
@@ -372,7 +380,7 @@ const calendmodulehandler = () => {
 
     // --- Set date related props ----- //
     // ? Docs: https://fullcalendar.io/docs/Event-setDates
-    existingEvent.setDates(updatedEventData.start, updatedEventData.end, { allDay: updatedEventData.allDay });
+    existingEvent.setDates(updatedEventData.start, updatedEventData.end, {allDay: updatedEventData.allDay});
 
     // --- Set event's extendedProps ----- //
     // ? Docs: https://fullcalendar.io/docs/Event-setExtendedProp
@@ -391,52 +399,53 @@ const calendmodulehandler = () => {
   // Add new event
   $(addEventBtn).on('click', function () {
     // валидация if (eventForm.valid()) {
-      const newEvent = {
-        id: calendar.getEvents().length + 1,
-        title: $(eventTitle).val(),
-        start: $(startDate).val(),
-        end: $(endDate).val(),
-        startStr: $(startDate).val(),
-        endStr: $(endDate).val(),
-        display: 'block',
-        extendedProps: {
-          calendar: $(eventLabel).val(),
-          description: $(calendarEditor).val()
-        }
-      };
-      if ($(eventUrl).val().length) {
-        newEvent.url = $(eventUrl).val();
+    const newEvent = {
+      id: calendar.getEvents().length + 1,
+      title: $(eventTitle).val(),
+      start: $(startDate).val(),
+      end: $(endDate).val(),
+      //startStr: $(startDate).val(),
+      //endStr: $(endDate).val(),
+      //display: 'block',
+      backgroundColor: $(eventLabel).val(),
+      extendedProps: {
+        description: $(calendarEditor).val()
       }
-      if ($(allDaySwitch).prop('checked')) {
-        newEvent.allDay = true;
-      }
-      addEvent(newEvent);
+    };
+    console.log(newEvent);
+    if ($(eventUrl).val().length) {
+      newEvent.url = $(eventUrl).val();
+    }
+    if ($(allDaySwitch).prop('checked')) {
+      newEvent.allDay = true;
+    }
+    addEvent(newEvent);
     //}
   });
 
   // Update new event
   $(updateEventBtn).on('click', function () {
-   // if (eventForm.valid()) {
-      const eventData = {
-        id: eventToUpdate.id,
-        title: $(modal).find(eventTitle).val(),
-        start: $(modal).find(startDate).val(),
-        end: $(modal).find(endDate).val(),
-        url: $(eventUrl).val(),
-        extendedProps: {
-          calendar: $(eventLabel).val(),
-          description: $(calendarEditor).val()
-        },
-        display: 'block',
-        allDay: $(!!allDaySwitch).prop('checked')
-      };
+    // if (eventForm.valid()) {
+    const eventData = {
+      id: eventToUpdate.id,
+      title: $(modal).find(eventTitle).val(),
+      start: $(modal).find(startDate).val(),
+      end: $(modal).find(endDate).val(),
+      url: $(eventUrl).val(),
+      backgroundColor: $(eventLabel).val(),
+      extendedProps: {
+        description: $(calendarEditor).val()
+      },
+      //display: 'block',
+      allDay: $(!!allDaySwitch).prop('checked')
+    };
 
-      updateEvent(eventData);
-      hideModal();
-  //  }
+    updateEvent(eventData);
+    hideModal();
+    //  }
   });
 
-  // Reset sidebar input values
+  // Сброс значений модала
   function resetValues() {
     $(endDate).val('');
     $(eventUrl).val('');

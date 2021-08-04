@@ -79,7 +79,7 @@ $content .= '
                             <label for="start-date" class="">Название события:</label>
                             <div class="d-flex event-title">
                               <input id="title" type="text" placeholder="Введите название" class="form-control"
-                                     name="task">
+                                     name="task" required>
                             </div>
                           </div>
                           <div class="form-group">
@@ -97,20 +97,20 @@ $content .= '
 
 </div>
                           <div class="col-md-6 col-sm-6 col-12">
-                            <div class="form-group start-date position-relative">
+                            <div class="form-group start-date ">
                               <label for="start-date" class="">От:</label>
-                              <div class="d-flex">
+                              <div class="d-flex position-relative">
                                 <input id="start-date" placeholder="Дата начала" class="form-control flatpickr-input"
-                                       type="text">
+                                       type="text" required>
                               </div>
                             </div>
                           </div>
                           <div class="col-md-6 col-sm-6 col-12">
-                            <div class="form-group end-date position-relative">
+                            <div class="form-group end-date ">
                               <label for="end-date" class="">До:</label>
-                              <div class="d-flex">
+                              <div class="d-flex position-relative">
                                 <input id="end-date" placeholder="Дата окончания" type="text"
-                                       class="form-control flatpickr-input">
+                                       class="form-control flatpickr-input" required>
                               </div>
                             </div>
                           </div>
