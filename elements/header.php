@@ -62,7 +62,7 @@
                 <img src="assets/img/avatars/default.svg" width="300" alt="Администратор">
               </a>
               <div class="header-group">
-                <p class="user-name"><span>Привет, </span><!-- PHP: Фамилия И.О. пользователя -->Супер А.И.</p>
+                <p class="user-name"><span>Привет, </span><?= $_COOKIE['aut']['fullname']; ?></p>
                 <p class="user-login"><a><span>@</span><?= $_COOKIE['aut']['login']; ?></a></p>
               </div>
             </div>
