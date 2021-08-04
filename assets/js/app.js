@@ -49,6 +49,13 @@ const faqaccordeon = document.querySelector('.faq-categories-list');
 // Спиннер
 const spinnerloader = document.querySelector('.spinner-wrapper');
 
+// Виджет событий и дней рождения скрывается сам, если остальные скрыты
+const todayeventswidget = document.querySelector('.today-events');
+
+// Календарь на главной
+// Контейнер для календаря
+const minicalendar = document.querySelector('.today-calendar-widget');
+
 // Календарь большой
 // Контейнер для календаря
 const calendarEl = document.getElementById('calendar');
@@ -124,13 +131,6 @@ const calendmodulehandler = () => {
 
   // Функции
 
-  /* // Создать оверлей
-   function createBackdropElement() {
-     const btn = document.createElement("div");
-     btn.setAttribute('class', 'modal-backdrop fade show')
-     document.body.appendChild(btn);
-   }*/
-
   // Скрыть модал
   function hideModal() {
     modal.style.display = "none";
@@ -150,31 +150,28 @@ const calendmodulehandler = () => {
     document.body.appendChild(btn);
   }
 
-  /*  // При добавлении события сбросить поля модала
-    $('.add-event-btn').on('click', function (e) {
-      showModal();
-      createBackdropElement();
-    });*/
-
+  // Кнопка закрыть
   $(span).on('click', function () {
     hideModal();
     resetValues()
   });
-  
+
+  // Кнопка отмены
   $(cancelBtn).on('click', function () {
     hideModal();
     resetValues()
   });
 
-  // Event click function
+  // Событие при нажатии на событие
   function eventClick(info) {
     eventToUpdate = info.event;
+    // Открывает ссылку вместо модала, глючит
     /*if ($(eventToUpdate.url)) {
       info.jsEvent.preventDefault();
       window.open(eventToUpdate.url, '_blank');
     }*/
     console.log(eventToUpdate);
- //   console.log(calendar.getEvents());
+    //   console.log(calendar.getEvents());
     showModal();
     addEventBtn.style.display = "none";
     cancelBtn.style.display = "none";
@@ -185,26 +182,25 @@ const calendmodulehandler = () => {
 
     $(eventTitle).val(eventToUpdate.title);
     start.setDate(eventToUpdate.start, true, 'd-m-Y');
-    // $(startDate).val(eventToUpdate.start, true, 'd-m-Y');
     eventToUpdate.allDay === true ? $(allDaySwitch).prop('checked', true) : $(allDaySwitch).prop('checked', false);
     eventToUpdate.end !== null
       ? end.setDate(eventToUpdate.end, true, 'd-m-Y')
       : end.setDate(eventToUpdate.start, true, 'd-m-Y');
-    $(modal).find(eventLabel).val(eventToUpdate.extendedProps.color).trigger('change');
+    $(modal).find(eventLabel).val(eventToUpdate.backgroundColor).trigger('change');
 
     //  Удаление события
     $(btnDeleteEvent).on('click', function () {
-      eventToUpdate.remove();
-      calendar.removeEvent(eventToUpdate.id);
+      eventToUpdate.remove(eventToUpdate.id);
+      //   calendar.removeEvent(eventToUpdate.id);
       hideModal();
-      document.querySelector('.page-body')[0].removeAttribute('style');
+      resetValues();
     });
   }
 
   // Start date picker
   // if ($(startDate).length) {
   const start = startDate.flatpickr({
-    //appendTo: startDate,
+    appendTo: startDate,
     locale: "ru",
     enableTime: true,
     dateFormat: 'Y-m-d H:i:S',
@@ -238,7 +234,6 @@ const calendmodulehandler = () => {
     // Получение событий из API конечной ссылки
     $.ajax(
       {
-        // url: '../../../app-assets/data/app-calendar-events.js',
         url: 'components/fullcalendar/events.php',
         type: 'GET',
         success: function (result) {
@@ -285,7 +280,16 @@ const calendmodulehandler = () => {
         'bg-' + colorName + '-light'
       ];
     },
-    events: 'components/fullcalendar/events.php',
+    // events: 'components/fullcalendar/events.php',
+    events: {
+      url: 'components/fullcalendar/events.php',
+      method: 'GET',
+      extraParams: function () { // функция, которая возвращает объект
+        return {
+          cachebuster: new Date().valueOf()
+        };
+      }
+    },
 
     headerToolbar: {
       left: 'title',
@@ -354,6 +358,7 @@ const calendmodulehandler = () => {
     hideModal();
     resetValues();
     calendar.render();
+    calendar.refetchEvents();
   }
 
   // Обновление события
@@ -412,18 +417,15 @@ const calendmodulehandler = () => {
       //startStr: $(startDate).val(),
       //endStr: $(endDate).val(),
       //display: 'block',
-      backgroundColor: $(eventLabel).val(),
+      //backgroundColor: $(eventLabel).val(),
+      url: $(eventUrl).val(),
+      allDay: !!$(allDaySwitch).prop('checked'),
       extendedProps: {
         description: $(calendarEditor).val()
       }
     };
+    //newEvent.allDay = !!$(allDaySwitch).prop('checked');
     console.log(newEvent);
-    if ($(eventUrl).val().length) {
-      newEvent.url = $(eventUrl).val();
-    }
-    if ($(allDaySwitch).prop('checked')) {
-      newEvent.allDay = true;
-    }
     addEvent(newEvent);
     //}
   });
@@ -470,9 +472,9 @@ const calendmodulehandler = () => {
     $(selectAll).on('change', function () {
       const $this = $(this);
       if ($this.prop('checked')) {
-        calEventFilter.find('input').prop('checked', true);
+        $(calEventFilter).find('input').prop('checked', true);
       } else {
-        calEventFilter.find('input').prop('checked', false);
+        $(calEventFilter).find('input').prop('checked', false);
       }
       calendar.refetchEvents();
     });
@@ -480,9 +482,9 @@ const calendmodulehandler = () => {
 
   if (filterInput.length) {
     $(filterInput).on('change', function () {
-      $('.input-filter:checked').length < calEventFilter.find('input').length
-        ? selectAll.prop('checked', false)
-        : selectAll.prop('checked', true);
+      $('.input-filter:checked').length < $(calEventFilter).find('input').length
+        ? $(selectAll).prop('checked', false)
+        : $(selectAll).prop('checked', true);
       calendar.refetchEvents();
     });
   }
@@ -491,6 +493,40 @@ const calendmodulehandler = () => {
 }
 
 // Конец календаря
+
+// Мини календарь на главной
+const minicalendarhandler = () => {
+  let calendar = new FullCalendar.Calendar(minicalendar, {
+    locale: 'ru',
+    timeZone: 'GMT+3',
+    initialView: 'dayGridMonth',
+    height: 250,
+    editable: false,
+    selectable: true,
+    businessHours: false,
+    dayMaxEvents: false, //
+    headerToolbar: {
+      right: 'prev,next,today',
+      left: 'title',
+    }
+  });
+  calendar.render();
+}
+
+// Виджет событий
+const todayeventswidgethandler = () => {
+  // Если списки дней рождения скрыты и событий, то список скрывается польностью
+  const todayeventslist = todayeventswidget.querySelector('.today-events-list');
+  const todaybdayslist = todayeventswidget.querySelector('.today-birthdays-list');
+  if (todayeventslist.classList.contains('visually-hidden') && todaybdayslist .classList.contains('visually-hidden')) {
+    todayeventswidget.querySelector('.widget-title').classList.add('visually-hidden');
+    todayeventswidget.style.padding = '0';
+  } else {
+    todayeventswidget.querySelector('.widget-title').classList.remove('visually-hidden');
+    todayeventswidget.style = '';
+  }
+  }
+
 
 // FAQ
 const faqlinkClickHandler = (evt) => {
@@ -1326,6 +1362,14 @@ if (faqaccordeon) {
 
 if (calendarEl) {
   calendmodulehandler();
+}
+
+if (minicalendar) {
+  minicalendarhandler();
+}
+
+if (todayeventswidget) {
+  todayeventswidgethandler();
 }
 
 datatablesHandler();
