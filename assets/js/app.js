@@ -160,6 +160,11 @@ const calendmodulehandler = () => {
     hideModal();
     resetValues()
   });
+  
+  $(cancelBtn).on('click', function () {
+    hideModal();
+    resetValues()
+  });
 
   // Event click function
   function eventClick(info) {
