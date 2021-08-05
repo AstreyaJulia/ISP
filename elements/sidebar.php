@@ -1,16 +1,12 @@
 <!-- Сайдбар -->
 <aside class="main-sidebar">
   <ul class="navigation-menu">
-    <?php
-    if ($_COOKIE['aut']['sudo'] == 1) {
-      echo '<li class="menu-item">
+    <li class="menu-item">
       <a class="menu-link" href="/">
         <i class="mdi mdi-apps"></i>
         <span>Главная</span>
       </a>
-    </li>';
-    }
-    ?>
+    </li>
     <li class="menu-item">
       <a class="menu-link" href="?page=proxylist">
         <i class="mdi mdi-folder-table-outline"></i>
