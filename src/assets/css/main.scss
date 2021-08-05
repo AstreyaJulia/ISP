@@ -82,13 +82,14 @@ html {
   overflow: hidden;
 }
 
-body {
+// Центрованный макет
+/*body {
   @media (min-width: 1360px) and (max-width: 1920px) {
     width: 1280px;
     margin: 0 auto;
     box-shadow: $grey-shadow-6;
   }
-}
+}*/
 
 h1,
 h2,
@@ -111,21 +112,19 @@ a {
 @media print {
   body,
   .main-content,
-  .page-body {
+  .content-wrapper {
     width: auto !important;
     height: auto !important;
     margin: 0 !important;
     padding: 0 !important;
     //display: block !important;
-    overflow: hidden !important;
     font-size: 12px !important;
     line-height: normal !important;
     top:0 !important;
     left: 0 !important;
   }
 
-  body > *:not(main),
-  .breadcrumb,
+  .main-content-header .breadcrumb,
   .main-content-header .header-right,
   .dataTables_length,
   .dataTables_filter,
@@ -145,7 +144,8 @@ a {
   .badge-status,
   .badge,
   .faq-categories .col-3,
-  .filter-group {
+  .filter-group,
+  .fc-button-group {
     display: none !important;
   }
 
@@ -161,6 +161,7 @@ a {
     color: #000 !important;
     box-shadow: none !important;
     text-shadow: none !important;
+    overflow: hidden !important;
   }
 
   .main-content-header > *,
@@ -208,11 +209,11 @@ a {
 
 
 .page-body {
+  background-color: $input-background;
   height: auto;
   min-height: 100vh;
   overflow: hidden;
   font-family: "TT Norms Pro", "Arial", sans-serif;
-  position: relative;
 
   &.disabled .main-sidebar {
     width: $sidebar-width-min;
@@ -221,7 +222,8 @@ a {
 
   &.disabled {
     .main-content:not(.auth):not(.err404) {
-      width: calc(100% - #{$sidebar-width-min});
+      //width: calc(100% - #{$sidebar-width-min});
+      margin-left: $sidebar-width-min;
       transition: all 0.3s ease;
     }
 
@@ -234,10 +236,47 @@ a {
     }
 
     .main-content:not(.auth):not(.err404) {
-      width: calc(100% - #{$sidebar-width-max});
+      //width: calc(100% - #{$sidebar-width-max});
+      margin-left: $sidebar-width-max;
       transition: all 0.3s ease;
     }
   }
+}
+
+// Центрованный макет
+
+/*.main-content:not(.auth):not(.err404) {
+  padding: 20px;
+  margin-left: 240px;
+  height: calc(100% - #{$header-height});
+  overflow-y: scroll;
+  background-color: $input-background;
+  position: absolute;
+  top: $header-height;
+  bottom: 0;
+  right: 0;
+}*/
+
+.main-content:not(.auth):not(.err404) {
+  overflow-y: scroll;
+  position: absolute;
+  top: $header-height;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+.main-content .content-wrapper {
+  max-width: 1010px;
+  margin: 0 auto ;
+  padding: 20px;
+}
+
+.page-wrapper {
+  position: relative;
+  height: auto;
+  min-height: 100vh;
+  overflow: hidden;
 }
 
 // Стандартные Bootstrap элементы и цвета
@@ -835,18 +874,6 @@ a {
 
 .nav-link:focus {
   color: $primary-dark;
-}
-
-.main-content:not(.auth):not(.err404) {
-  padding: 20px;
-  margin-left: 240px;
-  height: calc(100% - #{$header-height});
-  overflow-y: scroll;
-  background-color: $input-background;
-  position: absolute;
-  top: $header-height;
-  bottom: 0;
-  right: 0;
 }
 
 .right-header li {

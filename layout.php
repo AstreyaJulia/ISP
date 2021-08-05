@@ -10,6 +10,7 @@ if (file_exists($path)) {
 }
 ?>
 <body class="page-body">
+<div class="page-wrapper">
 <?php
 //подключаем header
 $path = "elements/header.php";
@@ -46,5 +47,6 @@ if (file_exists($path)) {
   echo "не подключен: elements/javascript.php";
 }
 ?>
+</div>
 </body>
 </html>

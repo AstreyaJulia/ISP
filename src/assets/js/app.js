@@ -200,12 +200,9 @@ const calendmodulehandler = () => {
   // Start date picker
   // if ($(startDate).length) {
   const start = startDate.flatpickr({
-    appendTo: startDate,
     locale: "ru",
     enableTime: true,
     dateFormat: 'Y-m-d H:i:S',
-    onReady: function (selectedDates, dateStr, instance) {
-    }
   });
   // }
 

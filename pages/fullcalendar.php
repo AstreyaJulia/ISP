@@ -99,8 +99,8 @@ $content .= '
                           <div class="col-md-6 col-sm-6 col-12">
                             <div class="form-group start-date ">
                               <label for="start-date" class="">От:</label>
-                              <div class="d-flex position-relative">
-                                <input id="start-date" placeholder="Дата начала" class="form-control flatpickr-input"
+                              <div class="d-flex">
+                                <input id="start-date" placeholder="Дата начала" class="form-control flatpickr-input position-relative"
                                        type="text" required>
                               </div>
                             </div>
@@ -108,9 +108,9 @@ $content .= '
                           <div class="col-md-6 col-sm-6 col-12">
                             <div class="form-group end-date ">
                               <label for="end-date" class="">До:</label>
-                              <div class="d-flex position-relative">
+                              <div class="d-flex">
                                 <input id="end-date" placeholder="Дата окончания" type="text"
-                                       class="form-control flatpickr-input" required>
+                                       class="form-control flatpickr-input position-relative" required>
                               </div>
                             </div>
                           </div>

@@ -1,5 +1,6 @@
 <!-- Основное содержимое -->
 <main class="main-content <?php if (empty($_GET)) echo "dashboard"; ?>">
+  <div class="content-wrapper">
   <!-- Контейнер алертов -->
   <!-- Пока что отключено. Мешает
 
@@ -26,7 +27,7 @@
 
   <?php if ($info) echo "<p>$info</p>"; ?>
   <?= $content ?>
-
+  </div>
 </main>
 <!-- Контейнер для всплывашек -->
 <div class="toasts-container">
