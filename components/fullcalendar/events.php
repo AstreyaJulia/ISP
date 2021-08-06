@@ -15,6 +15,7 @@ $query = "SELECT * FROM sdc_calendar ";
 $result = mysqli_query($link, $query) or die(mysqli_error($link));
 for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row) ;
 
+/*
 foreach ($data as $myCalendar) {
   if (!empty($myCalendar['freq'])) {
     $json[] = array(
@@ -48,5 +49,19 @@ foreach ($data as $myCalendar) {
       'url' => $myCalendar['url']
     );
   }
+}*/
+
+foreach ($data as $myCalendar) {
+  $json[] = array(
+    'id' => $myCalendar['id'],
+    'title' => $myCalendar['title'],
+    //'description' => $myCalendar['description'],
+    'start' => $myCalendar['start'],
+    'end' => $myCalendar['end'],
+    //'allDay' => $myCalendar['allDay'],
+    //'color' => $myCalendar['color'],
+   // 'url' => $myCalendar['url']
+  );
 }
+
 echo json_encode($json);

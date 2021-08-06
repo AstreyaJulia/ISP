@@ -77,12 +77,7 @@ exports.cleanassets = cleanassets;
 
 const server = (done) => {
   sync.init({
-    server: {
-      baseDir: 'dist'
-    },
-    cors: true,
-    notify: false,
-    ui: false,
+    proxy: "isp"
   });
   done();
 }

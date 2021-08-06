@@ -348,7 +348,7 @@ const calendmodulehandler = () => {
     });
   }
 
-  // Добавление события
+ /* // Добавление события
   function addEvent(eventData) {
     calendar.addEvent(eventData);
     calendar.refetchEvents();
@@ -357,7 +357,7 @@ const calendmodulehandler = () => {
     calendar.render();
     calendar.refetchEvents();
   }
-
+*/
   // Обновление события
   function updateEvent(eventData) {
     const propsToUpdate = ['id', 'title', 'url'];
@@ -407,24 +407,44 @@ const calendmodulehandler = () => {
   $(addEventBtn).on('click', function () {
     // валидация if (eventForm.valid()) {
     const newEvent = {
-      id: calendar.getEvents().length + 1,
+      //id: calendar.getEvents().length + 1,
       title: $(eventTitle).val(),
-      start: $(startDate).val(),
-      end: $(endDate).val(),
+      start: moment($(startDate).val()).format('YYYY-MM-DD hh:mm:ss'),
+      end: moment($(endDate).val()).format('YYYY-MM-DD hh:mm:ss'),
       //startStr: $(startDate).val(),
       //endStr: $(endDate).val(),
       //display: 'block',
       //backgroundColor: $(eventLabel).val(),
-      url: $(eventUrl).val(),
-      allDay: !!$(allDaySwitch).prop('checked'),
-      extendedProps: {
-        description: $(calendarEditor).val()
-      }
+      //url: $(eventUrl).val(),
+      //allDay: !!$(allDaySwitch).prop('checked'),
+      //extendedProps: {
+      //  description: $(calendarEditor).val()
+      //}
     };
     //newEvent.allDay = !!$(allDaySwitch).prop('checked');
     console.log(newEvent);
-    addEvent(newEvent);
-    //}
+
+    $.ajax({
+      url: 'components/fullcalendar/ajax.php',
+      data:{newEvent},
+      type: "POST",
+      headers: {
+        'Accept': 'application/json;odata=nometadata'
+      },
+      success: function() {
+        console.log("Успешно добавлено");
+        //addEvent(newEvent);
+        calendar.addEvent(newEvent);
+        calendar.refetchEvents();
+        hideModal();
+        resetValues();
+        calendar.render();
+        calendar.refetchEvents();
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+       alert("Ошибка" + jqXHR + textStatus + errorThrown);
+      }
+    });
   });
 
   // Update new event
