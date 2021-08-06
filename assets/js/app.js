@@ -347,17 +347,7 @@ const calendmodulehandler = () => {
       btnDeleteEvent.style.display = "none";
     });
   }
-
- /* // Добавление события
-  function addEvent(eventData) {
-    calendar.addEvent(eventData);
-    calendar.refetchEvents();
-    hideModal();
-    resetValues();
-    calendar.render();
-    calendar.refetchEvents();
-  }
-*/
+  
   // Обновление события
   function updateEvent(eventData) {
     const propsToUpdate = ['id', 'title', 'url'];
@@ -407,7 +397,6 @@ const calendmodulehandler = () => {
   $(addEventBtn).on('click', function () {
     // валидация if (eventForm.valid()) {
     const newEvent = {
-      //id: calendar.getEvents().length + 1,
       title: $(eventTitle).val(),
       start: moment($(startDate).val()).format('YYYY-MM-DD hh:mm:ss'),
       end: moment($(endDate).val()).format('YYYY-MM-DD hh:mm:ss'),
@@ -422,24 +411,19 @@ const calendmodulehandler = () => {
       //}
     };
     //newEvent.allDay = !!$(allDaySwitch).prop('checked');
-    console.log(newEvent);
-
     $.ajax({
       url: 'components/fullcalendar/ajax.php',
-      data:{newEvent},
+      data:newEvent,
       type: "POST",
       headers: {
         'Accept': 'application/json;odata=nometadata'
       },
-      success: function() {
-        console.log("Успешно добавлено");
-        //addEvent(newEvent);
-        calendar.addEvent(newEvent);
-        calendar.refetchEvents();
-        hideModal();
-        resetValues();
-        calendar.render();
-        calendar.refetchEvents();
+      success: function(response) {
+          console.log("Успешно добавлено");
+          calendar.addEvent(newEvent);
+          hideModal();
+          resetValues();
+          calendar.render();
       },
       error: function(jqXHR, textStatus, errorThrown) {
        alert("Ошибка" + jqXHR + textStatus + errorThrown);

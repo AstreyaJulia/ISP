@@ -23,16 +23,20 @@ VALUES
   ('123', '2021-05-05 10:34:44', '2021-05-05 10:34:44');
  */
 
+  $title = isset($_POST['title']) ? $_POST['title'] : "";
+  $start = isset($_POST['start']) ? $_POST['start'] : "";
+  $end = isset($_POST['end']) ? $_POST['end'] : "";
+
   $sql = "INSERT INTO `sdc_calendar`
   (`title`, `start`, `end`)
 VALUES
-  (:title, :start, :start);";
+  ('".$title."','".$start."','".$end ."');";
 
-  $params = [
+ /* $params = [
     'title' => $_POST["title"],
     'start' => $_POST["start"],
     'end' => $_POST["end"]
-  ];
+  ];*/
 
 // Код ниже рабочий, добавляет статичную запись
   $stmt = $link->prepare($sql);
