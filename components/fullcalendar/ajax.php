@@ -11,40 +11,29 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/core/extension/custom_functions.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/core/extension/reference_book.php";
 //подключаем классы
 
-print_r($_POST);
-echo "событие добавлено";
-
 if (!empty($_POST))
 {
-  /* Этот запрос верный, запись создает
- INSERT INTO `sdc_calendar`
-  (`title`, `start`, `end`)
-VALUES
-  ('123', '2021-05-05 10:34:44', '2021-05-05 10:34:44');
- */
 
   $title = isset($_POST['title']) ? $_POST['title'] : "";
   $start = isset($_POST['start']) ? $_POST['start'] : "";
   $end = isset($_POST['end']) ? $_POST['end'] : "";
+  $calendar = isset($_POST['calendar']) ? $_POST['calendar'] : "";
+  //$allDay = isset($_POST['allDay']) ? $_POST['allDay'] : "";
+  $description = isset($_POST['description']) ? $_POST['description'] : "";
+  $url = isset($_POST['url']) ? $_POST['url'] : "";
 
   $sql = "INSERT INTO `sdc_calendar`
-  (`title`, `start`, `end`)
+  (`title`, `start`, `end`, `calendar`, `description`, `url`)
 VALUES
-  ('".$title."','".$start."','".$end ."');";
+  ('".$title."','".$start."','".$end ."','".$calendar ."','".$description ."','".$url ."');";
 
- /* $params = [
-    'title' => $_POST["title"],
-    'start' => $_POST["start"],
-    'end' => $_POST["end"]
-  ];*/
 
-// Код ниже рабочий, добавляет статичную запись
   $stmt = $link->prepare($sql);
 
   $stmt->execute();
   return $stmt->rowCount($params);
 }
-else // $_POST пустой.
+else // $_POST пустой
 {
   echo "Выполняемый для страницы код без данных POST";
 }

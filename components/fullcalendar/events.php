@@ -55,12 +55,12 @@ foreach ($data as $myCalendar) {
   $json[] = array(
     'id' => $myCalendar['id'],
     'title' => $myCalendar['title'],
-    //'description' => $myCalendar['description'],
     'start' => $myCalendar['start'],
     'end' => $myCalendar['end'],
     //'allDay' => $myCalendar['allDay'],
-    //'color' => $myCalendar['color'],
-   // 'url' => $myCalendar['url']
+    'calendar' => $myCalendar['calendar'],
+    'description' => $myCalendar['description'],
+    'url' => $myCalendar['url']
   );
 }
 

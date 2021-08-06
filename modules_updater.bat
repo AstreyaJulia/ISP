@@ -15,3 +15,5 @@ XCOPY /Y /H /R node_modules\flatpickr\dist\flatpickr.js src\assets\modules\flatp
 XCOPY /Y /H /R node_modules\flatpickr\dist\l10n\ru.js src\assets\modules\flatpickr\
 XCOPY /Y /H /R node_modules\select2\dist\js\select2.full.js src\assets\modules\select2\
 XCOPY /Y /H /R node_modules\select2\dist\js\i18n\ru.js src\assets\modules\select2\
+XCOPY /Y /H /R node_modules\jquery-validation\dist\jquery.validate.js src\assets\modules\jquery-validation\
+XCOPY /Y /H /R node_modules\jquery-validation\dist\localization\messages_ru.js src\assets\modules\jquery-validation\

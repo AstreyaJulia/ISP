@@ -26,35 +26,34 @@ $content .= '
     </header>
     <div class="card mb-3">
       <div class="card-body">
-        <div class="row">
           <div class="filter-group calendar-events-filter">
-            <p class="group-title">Фильтр:</p>
+            <p class="group-title">Календарь:</p>
             <div class="form-check">
               <input class="form-check-input input-filter bg-dark select-all" type="checkbox" id="select-all"
                      name="select-all">
-              <label class="form-check-label" for="select-all">All</label>
+              <label class="form-check-label" for="select-all">Все</label>
             </div>
             <div class="form-check">
-              <input class="form-check-input input-filter bg-primary" type="checkbox" id="Business" name="Business">
-              <label class="form-check-label" for="Business">Business</label>
+              <input class="form-check-input input-filter bg-primary" type="checkbox" id="Primary" name="Primary">
+              <label class="form-check-label" for="Primary">Общий</label>
             </div>
             <div class="form-check">
-              <input class="form-check-input input-filter bg-danger" type="checkbox" id="Personal" name="Personal">
-              <label class="form-check-label" for="Personal">Personal</label>
+              <input class="form-check-input input-filter bg-danger" type="checkbox" id="Danger" name="Danger">
+              <label class="form-check-label" for="Danger">Праздники</label>
             </div>
             <div class="form-check">
-              <input class="form-check-input input-filter bg-warning" type="checkbox" id="Family" name="Family">
-              <label class="form-check-label" for="Family">Family</label>
+              <input class="form-check-input input-filter bg-warning" type="checkbox" id="Warning" name="Warning">
+              <label class="form-check-label" for="Warning">Важно</label>
             </div>
             <div class="form-check">
-              <input class="form-check-input input-filter bg-success" type="checkbox" id="Holiday" name="Holiday">
-              <label class="form-check-label" for="Holiday">Holiday</label>
+              <input class="form-check-input input-filter bg-success" type="checkbox" id="Success" name="Success">
+              <label class="form-check-label" for="Success">Личный</label>
             </div>
             <div class="form-check">
-              <input class="form-check-input input-filter bg-info" type="checkbox" id="ETC" name="ETC">
-              <label class="form-check-label" for="ETC">ETC</label>
+              <input class="form-check-input input-filter bg-info" type="checkbox" id="Info" name="Info">
+              <label class="form-check-label" for="Info">Разное</label>
             </div>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addEventsModal"
+            <button type="button" class="btn btn-primary ms-auto me-3" data-bs-toggle="modal" data-bs-target="#addEventsModal"
                     id="myBtn">Добавить
               событие
             </button>
@@ -77,29 +76,30 @@ $content .= '
                         <div class="row">
                           <div class="form-group">
                             <label for="start-date" class="">Название события:</label>
-                            <div class="d-flex event-title">
+                            <div class="event-title">
                               <input id="title" type="text" placeholder="Введите название" class="form-control"
                                      name="task" required>
                             </div>
                           </div>
                           <div class="form-group">
                           <label for="select-label" class="">Категория события:</label>
-                                                      <select class="select2 select-label form-control w-100 select2-hidden-accessible"
-                                    id="select-label" name="select-label" data-select2-id="select-label" tabindex="-1"
-                                    aria-hidden="true">
-                              <option data-label="primary" value="Business" selected="" data-select2-id="2">Business
+                          <div class="cat-select position-relative ">
+                                                                                <select class="select2 select-label form-control w-100" id="select-label" name="select-label">
+                              <option data-label="primary" value="Primary" selected>Общий
                               </option>
-                              <option data-label="danger" value="Personal" data-select2-id="13">Personal</option>
-                              <option data-label="warning" value="Family" data-select2-id="14">Family</option>
-                              <option data-label="success" value="Holiday" data-select2-id="15">Holiday</option>
-                              <option data-label="info" value="ETC" data-select2-id="16">ETC</option>
+                              <option data-label="danger" value="Danger">Праздники</option>
+                              <option data-label="warning" value="Warning">Важно</option>
+                              <option data-label="success" value="Success">Личный</option>
+                              <option data-label="info" value="Info">Разное</option>
                             </select>
+
+</div>
 
 </div>
                           <div class="col-md-6 col-sm-6 col-12">
                             <div class="form-group start-date ">
                               <label for="start-date" class="">От:</label>
-                              <div class="d-flex">
+                              <div>
                                 <input id="start-date" placeholder="Дата начала" class="form-control flatpickr-input position-relative"
                                        type="text" required>
                               </div>
@@ -108,7 +108,7 @@ $content .= '
                           <div class="col-md-6 col-sm-6 col-12">
                             <div class="form-group end-date ">
                               <label for="end-date" class="">До:</label>
-                              <div class="d-flex">
+                              <div>
                                 <input id="end-date" placeholder="Дата окончания" type="text"
                                        class="form-control flatpickr-input position-relative" required>
                               </div>
@@ -124,18 +124,17 @@ $content .= '
 
                         <div class="row">
                           <div class="form-group">
-                            <label for="event-url" class="form-label">URL (ссылка события)</label>
+                            <label for="event-url" class="form-label">URL (откроется в новом окне при нажатии на событие)</label>
                             <input type="url" class="form-control" id="event-url" placeholder="">
                           </div>
                           <div class="col-md-12">
                             <label for="start-date" class="">Описание события:</label>
-                            <div class="d-flex event-description">
+                            <div class="event-description">
                               <textarea id="event-description-editor" placeholder="Введите описание" rows="3"
                                         class="form-control" name="event-description-editor"></textarea>
                             </div>
                           </div>
                         </div>
-
                       </form>
                     </div>
                   </div>
@@ -151,17 +150,11 @@ $content .= '
                   <button id="discard" class="btn btn-danger btn-delete-event" data-dismiss="modal"
                           style="display: none;">Удалить
                   </button>
-
                 </div>
-
               </div>
-
             </div>
-
           </div>
-
         </div>
-      </div>
     </div>
     <div class="calendar-module card">
       <div class="card-body">

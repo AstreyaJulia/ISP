@@ -34,6 +34,7 @@
     "gulp-svgstore": "^8.0.0",
     "imagesloaded": "^4.1.4",
     "jquery": "^3.6.0",
+    "jquery-validation": "^1.19.3",
     "moment": "^2.29.1",
     "node-gyp": "^8.1.0",
     "node-sass": "^6.0.1",

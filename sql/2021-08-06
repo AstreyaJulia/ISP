@@ -1,0 +1,8 @@
+alter table sdc_calendar
+    add calendar varchar(40) not null;
+
+alter table sdc_calendar
+    add description varchar(255) null;
+
+alter table sdc_calendar
+    add url varchar(255) null;
