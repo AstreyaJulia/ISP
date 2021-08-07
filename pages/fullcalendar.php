@@ -26,6 +26,15 @@ $content .= '
     </header>
     <div class="card mb-3">
       <div class="card-body">
+                <div class="filter-group calendar-private-filter">
+                      <p class="group-title">События:</p>
+            <div class="form-check">
+              <input class="form-check-input input-filter bg-primary" type="checkbox" id="Private" name="Private">
+              <label class="form-check-label" for="Private">Только мои</label>
+            </div>
+
+          </div>
+
           <div class="filter-group calendar-events-filter">
             <p class="group-title">Календарь:</p>
             <div class="form-check">

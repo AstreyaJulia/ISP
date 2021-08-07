@@ -1,2 +1,5 @@
 alter table sdc_calendar
     add user_id int default 0 not null;
+
+alter table sdc_calendar
+    add allDay bit default null;

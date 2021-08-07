@@ -164,6 +164,14 @@ const calendmodulehandler = () => {
     resetValues()
   });
 
+  // Очистить данные и закрыть модал, если нажали вне модала
+  window.onclick = function(event) {
+    if (event.target === modal) {
+      resetValues();
+      hideModal();
+    }
+  }
+
   // Событие при нажатии на событие
   function eventClick(info) {
     eventToUpdate = info.event;
@@ -173,7 +181,7 @@ const calendmodulehandler = () => {
     // window.open((eventToUpdate).url, '_blank');
     }
     console.log(eventToUpdate);
-    console.log(eventToUpdate.extendedProps.user_id);
+    console.log(eventToUpdate.allDay);
     showModal();
     addEventBtn.style.display = "none";
     cancelBtn.style.display = "none";
@@ -189,7 +197,11 @@ const calendmodulehandler = () => {
       $(privateSwitch).prop('checked', true)
     }
     start.setDate(eventToUpdate.start, true, 'd-m-Y');
-    eventToUpdate.allDay === 'true' ? $(allDaySwitch).prop('checked', true) : $(allDaySwitch).prop('checked', false);
+    if (eventToUpdate.allDay === "true") {
+      $(allDaySwitch).prop('checked', true)
+    } else {
+      $(allDaySwitch).prop('checked', false)
+    }
     eventToUpdate.end !== null
       ? end.setDate(eventToUpdate.end, true, 'd-m-Y')
       : end.setDate(eventToUpdate.start, true, 'd-m-Y');
@@ -393,14 +405,12 @@ const calendmodulehandler = () => {
         title: $(eventTitle).val(),
         start: moment($(startDate).val()).format('YYYY-MM-DD hh:mm:ss'),
         end: moment($(endDate).val()).format('YYYY-MM-DD hh:mm:ss'),
-        //display: 'block',
         calendar: $(eventLabel).val(),
         description: $(calendarEditor).val(),
         url: $(eventUrl).val(),
         user_id: $(privateSwitch).prop('checked') ? "999999999" : "0",
-        //allDay: $(allDaySwitch).prop('checked') ? true : false,
+        allDay: $(allDaySwitch).prop('checked') ? true : null,
       };
-      //newEvent.allDay = !!$(allDaySwitch).prop('checked');
       $.ajax({
         url: 'components/fullcalendar/ajax.php',
         data: newEvent,

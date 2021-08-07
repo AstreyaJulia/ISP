@@ -18,7 +18,7 @@ if (!empty($_POST))
   $start = isset($_POST['start']) ? $_POST['start'] : "";
   $end = isset($_POST['end']) ? $_POST['end'] : "";
   $calendar = isset($_POST['calendar']) ? $_POST['calendar'] : "";
-  //$allDay = isset($_POST['allDay']) ? $_POST['allDay'] : "";
+  $allDay = $_POST['allDay'];
   $description = isset($_POST['description']) ? $_POST['description'] : "";
   $url = isset($_POST['url']) ? $_POST['url'] : "";
 
@@ -30,11 +30,19 @@ if (!empty($_POST))
     if ($_POST['user_id'] === "0") {
       $user_id = "0";
     };
+// В allDay либо true или прочее, для весь день, либо null для не весь день
+/*  if
+  ($_POST['allDay'] === true) {
+    $allDay = true;
+  } else
+    if ($_POST['allDay'] === null) {
+      $allDay = null;
+    };*/
 
   $sql = "INSERT INTO `sdc_calendar`
-  (`title`, `start`, `end`, `calendar`, `description`, `url`, `user_id`)
+  (`title`, `start`, `end`, `calendar`, `description`, `url`, `user_id`, `allDay`)
 VALUES
-  ('".$title."','".$start."','".$end ."','".$calendar ."','".$description ."','".$url ."','".$user_id ."');";
+  ('".$title."','".$start."','".$end ."','".$calendar."','".$description."','".$url."','".$user_id."','".$allday."');";
 
 
   $stmt = $link->prepare($sql);
