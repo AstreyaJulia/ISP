@@ -35,7 +35,7 @@ $content .= '
             </div>
             <div class="form-check">
               <input class="form-check-input input-filter bg-primary" type="checkbox" id="Primary" name="Primary">
-              <label class="form-check-label" for="Primary">Общий</label>
+              <label class="form-check-label" for="Primary">События</label>
             </div>
             <div class="form-check">
               <input class="form-check-input input-filter bg-danger" type="checkbox" id="Danger" name="Danger">
@@ -47,7 +47,7 @@ $content .= '
             </div>
             <div class="form-check">
               <input class="form-check-input input-filter bg-success" type="checkbox" id="Success" name="Success">
-              <label class="form-check-label" for="Success">Личный</label>
+              <label class="form-check-label" for="Success">Личное</label>
             </div>
             <div class="form-check">
               <input class="form-check-input input-filter bg-info" type="checkbox" id="Info" name="Info">
@@ -82,14 +82,20 @@ $content .= '
                             </div>
                           </div>
                           <div class="form-group">
+                                                                                  <div class="form-check form-switch">
+                              <input type="checkbox" class="form-check-input private-switch" id="customSwitch4">
+                              <label class="form-check-label" for="customSwitch4">Вижу только я (приватное событие)</label>
+                            </div>
+</div>
+                          <div class="form-group">
                           <label for="select-label" class="">Категория события:</label>
                           <div class="cat-select position-relative ">
                                                                                 <select class="select2 select-label form-control w-100" id="select-label" name="select-label">
-                              <option data-label="primary" value="Primary" selected>Общий
+                              <option data-label="primary" value="Primary" selected>События
                               </option>
                               <option data-label="danger" value="Danger">Праздники</option>
                               <option data-label="warning" value="Warning">Важно</option>
-                              <option data-label="success" value="Success">Личный</option>
+                              <option data-label="success" value="Success">Личное</option>
                               <option data-label="info" value="Info">Разное</option>
                             </select>
 
@@ -119,6 +125,7 @@ $content .= '
                               <input type="checkbox" class="form-check-input allDay-switch" id="customSwitch3">
                               <label class="form-check-label" for="customSwitch3">Весь день</label>
                             </div>
+
                           </div>
                         </div>
 

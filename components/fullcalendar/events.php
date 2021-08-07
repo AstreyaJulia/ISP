@@ -60,7 +60,8 @@ foreach ($data as $myCalendar) {
     //'allDay' => $myCalendar['allDay'],
     'calendar' => $myCalendar['calendar'],
     'description' => $myCalendar['description'],
-    'url' => $myCalendar['url']
+    'url' => $myCalendar['url'],
+    'user_id' => $myCalendar['user_id']
   );
 }
 

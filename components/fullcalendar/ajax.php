@@ -22,10 +22,19 @@ if (!empty($_POST))
   $description = isset($_POST['description']) ? $_POST['description'] : "";
   $url = isset($_POST['url']) ? $_POST['url'] : "";
 
+  // Если в полученном post user_id = 999999999, то меняем на id пользователя из куки, ессли 0, то user_id =0
+  if
+  ($_POST['user_id'] = "999999999") {
+    $user_id = $_COOKIE['aut']['id'];
+  } else
+    if ($_POST['user_id'] = "0") {
+      $user_id = "0";
+    };
+
   $sql = "INSERT INTO `sdc_calendar`
-  (`title`, `start`, `end`, `calendar`, `description`, `url`)
+  (`title`, `start`, `end`, `calendar`, `description`, `url`, `user_id`)
 VALUES
-  ('".$title."','".$start."','".$end ."','".$calendar ."','".$description ."','".$url ."');";
+  ('".$title."','".$start."','".$end ."','".$calendar ."','".$description ."','".$url ."','".$user_id ."');";
 
 
   $stmt = $link->prepare($sql);

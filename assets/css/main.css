@@ -38856,6 +38856,10 @@ td .badge-big {
 .calendar-module .fc .bg-warning-50 .fc-daygrid-event-dot {
   border-color: #a95803;
 }
+.today-calendar .fc .fc-daygrid-day-frame .fc-daygrid-day-events > .fc-daygrid-event-harness > .bg-danger-50 + .fc-daygrid-day-top > .fc-daygrid-day-number,
+.calendar-module .fc .fc-daygrid-day-frame .fc-daygrid-day-events > .fc-daygrid-event-harness > .bg-danger-50 + .fc-daygrid-day-top > .fc-daygrid-day-number {
+  color: #f43c3c;
+}
 .today-calendar .fc .bg-danger-50,
 .calendar-module .fc .bg-danger-50 {
   border: 1px solid #f43c3c;

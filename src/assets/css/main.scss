@@ -1911,6 +1911,13 @@ td .badge-big {
       }
     }
 
+    .fc-daygrid-day-frame {
+      .fc-daygrid-day-events > .fc-daygrid-event-harness > .bg-danger-50 + .fc-daygrid-day-top > .fc-daygrid-day-number {
+        color: $danger;
+      }
+    }
+
+
     .bg-danger-50 {
       border: 1px solid $danger;
       color: $danger-dark;

@@ -99,6 +99,8 @@ const calendmodulehandler = () => {
   const eventUrl = document.getElementById("event-url");
   // Переключатель Весь день
   const allDaySwitch = document.querySelector(".allDay-switch");
+  // Переключатель Вижу только я (приватное событие)
+  const privateSwitch = document.querySelector(".private-switch");
 
   // Все элементы <input> в модале
   const input = modal.querySelectorAll('input[type="text"]');
@@ -180,6 +182,11 @@ const calendmodulehandler = () => {
     editEventTitle.style.display = "block";
 
     $(eventTitle).val(eventToUpdate.title);
+    if (eventToUpdate.user_id === '0') {
+      $(privateSwitch).prop('checked', false)
+    } else {
+      $(privateSwitch).prop('checked', true)
+    }
     start.setDate(eventToUpdate.start, true, 'd-m-Y');
     eventToUpdate.allDay === 'true' ? $(allDaySwitch).prop('checked', true) : $(allDaySwitch).prop('checked', false);
     eventToUpdate.end !== null
@@ -389,6 +396,7 @@ const calendmodulehandler = () => {
         calendar: $(eventLabel).val(),
         description: $(calendarEditor).val(),
         url: $(eventUrl).val(),
+        user_id: $(privateSwitch).prop('checked') ? "999999999" : "0",
         //allDay: $(allDaySwitch).prop('checked') ? true : false,
       };
       //newEvent.allDay = !!$(allDaySwitch).prop('checked');
@@ -401,6 +409,7 @@ const calendmodulehandler = () => {
         },
         success: function (response) {
           console.log(newEvent);
+          console.log($(allDaySwitch).prop);
           calendar.addEvent(newEvent);
           hideModal();
           resetValues();
@@ -443,6 +452,7 @@ const calendmodulehandler = () => {
     $(startDate).val('');
     $(eventTitle).val('');
     $(allDaySwitch).prop('checked', false);
+    $(privateSwitch).prop('checked', false);
     $(calendarEditor).val('');
   }
 
