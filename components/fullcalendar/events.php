@@ -14,7 +14,9 @@ mysqli_query($link, "SET NAMES 'utf8'");
 // Нужно добавить отбор по пользователю (показываются с user_id = 0, и только с своим user_id)
 // Нужно добавить отбор по календарю calendar
 
-$query = "SELECT * FROM sdc_calendar ";
+$user = $_COOKIE['aut']['id'];
+
+$query = "SELECT * FROM sdc_calendar where user_id in (0, $user)";
 $result = mysqli_query($link, $query) or die(mysqli_error($link));
 for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row) ;
 
