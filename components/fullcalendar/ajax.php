@@ -30,19 +30,11 @@ if (!empty($_POST))
     if ($_POST['user_id'] === "0") {
       $user_id = "0";
     };
-// В allDay либо true или прочее, для весь день, либо null для не весь день
-/*  if
-  ($_POST['allDay'] === true) {
-    $allDay = true;
-  } else
-    if ($_POST['allDay'] === null) {
-      $allDay = null;
-    };*/
 
   $sql = "INSERT INTO `sdc_calendar`
   (`title`, `start`, `end`, `calendar`, `description`, `url`, `user_id`, `allDay`)
 VALUES
-  ('".$title."','".$start."','".$end ."','".$calendar."','".$description."','".$url."','".$user_id."','".$allday."');";
+  ('".$title."','".$start."','".$end ."','".$calendar."','".$description."','".$url."','".$user_id."','".$allDay."');";
 
 
   $stmt = $link->prepare($sql);

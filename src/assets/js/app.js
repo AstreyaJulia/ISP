@@ -401,6 +401,8 @@ const calendmodulehandler = () => {
     // Скрываем на модале кнопку Удалить
     btnDeleteEvent.style.display = "none";
     if ($(eventForm).valid()) {
+      // Задаем переменную. На данный момент она пустая.
+      let allDay;
       const newEvent = {
         title: $(eventTitle).val(),
         start: moment($(startDate).val()).format('YYYY-MM-DD hh:mm:ss'),
@@ -409,8 +411,14 @@ const calendmodulehandler = () => {
         description: $(calendarEditor).val(),
         url: $(eventUrl).val(),
         user_id: $(privateSwitch).prop('checked') ? "999999999" : "0",
-        allDay: $(allDaySwitch).prop('checked') ? true : null,
-      };
+        // Тут тоже она пустая, но без ее объявления нельзя
+        allDay: allDay,
+      }
+      if ($(allDaySwitch).prop('checked')) {
+        // Если Весь день, то меняем переменную
+        newEvent.allDay = '1';
+      }
+      // Пишем в базу новое событие методом POST
       $.ajax({
         url: 'components/fullcalendar/ajax.php',
         data: newEvent,

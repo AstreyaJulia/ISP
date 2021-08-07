@@ -401,18 +401,21 @@ const calendmodulehandler = () => {
     // Скрываем на модале кнопку Удалить
     btnDeleteEvent.style.display = "none";
     if ($(eventForm).valid()) {
+      let allDay;
       const newEvent = {
         title: $(eventTitle).val(),
         start: moment($(startDate).val()).format('YYYY-MM-DD hh:mm:ss'),
         end: moment($(endDate).val()).format('YYYY-MM-DD hh:mm:ss'),
-        //display: 'block',
         calendar: $(eventLabel).val(),
         description: $(calendarEditor).val(),
         url: $(eventUrl).val(),
         user_id: $(privateSwitch).prop('checked') ? "999999999" : "0",
-        allDay: $(allDaySwitch).prop('checked') ? true : null,
-      };
-      //newEvent.allDay = !!$(allDaySwitch).prop('checked');
+        allDay: allDay,
+        //allDay: $(allDaySwitch).prop('checked') ? true : null,
+      }
+      if ($(allDaySwitch).prop('checked')) {
+        newEvent.allDay = '1';
+      }
       $.ajax({
         url: 'components/fullcalendar/ajax.php',
         data: newEvent,
