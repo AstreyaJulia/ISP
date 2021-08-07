@@ -173,6 +173,7 @@ const calendmodulehandler = () => {
     // window.open((eventToUpdate).url, '_blank');
     }
     console.log(eventToUpdate);
+    console.log(eventToUpdate.extendedProps.user_id);
     showModal();
     addEventBtn.style.display = "none";
     cancelBtn.style.display = "none";
@@ -182,7 +183,7 @@ const calendmodulehandler = () => {
     editEventTitle.style.display = "block";
 
     $(eventTitle).val(eventToUpdate.title);
-    if (eventToUpdate.user_id === '0') {
+    if (eventToUpdate.extendedProps.user_id === "0") {
       $(privateSwitch).prop('checked', false)
     } else {
       $(privateSwitch).prop('checked', true)
