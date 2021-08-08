@@ -1,8 +1,16 @@
 <?php
 //$start = microtime(true);
-spl_autoload_register(); // включаем автозагрузку классов
+spl_autoload_register(function($class) {
+    require (mb_strtolower($_SERVER['DOCUMENT_ROOT'] . '/' . str_replace('\\', '/', $class) . '.php'));
+});
+
 error_reporting(E_ALL);
 ini_set("display_errors", "on");
+//Параметры для подключения к базе
+require_once $_SERVER['DOCUMENT_ROOT'] . "/conection.php";
+//Подключаемся  базе
+$db = new \Core\Config\DB($dbname, $user, $password, $host);
+
 //подключаемся к базе
 require_once "core/config/db_config.php";
 //подключаем функции
