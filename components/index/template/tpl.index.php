@@ -32,12 +32,12 @@
             </li>
           </ul>
           <ul class="today-birthdays-list <?php visuallyHidden($birthday); ?>">
-            <?php foreach ($birthday as $key => $value): ?>
+            <?php foreach ($birthday as $row): ?>
               <li class="today-birthdays-item">
                 <i class="mdi mdi-cake"></i>
                 <div class="bday-group primary">
-                  <p class="today-birthdays-username"><?= shortFIO($value['fullname']) ?></p>
-                  <p class="today-birthdays-date"><?= shortFIO($value['dob']) ?></p>
+                  <p class="today-birthdays-username"><?= $userClass->getShortFIO($row->fullname) ?></p>
+                  <p class="today-birthdays-date"><?= $row->dob ?></p>
                 </div>
               </li>
             <?php endforeach ?>
