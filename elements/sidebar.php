@@ -57,19 +57,19 @@
           </a>
         </li>
                 <li class="submenu-item">
-          <a class="submenu-link" href="slider.html">
+          <a class="submenu-link" href="##">
             <i class="mdi mdi-image-move"></i>
             <span>Новостной слайдер</span>
           </a>
         </li>
         <li class="submenu-item">
-          <a class="submenu-link" href="rooms.html">
+          <a class="submenu-link" href="##">
             <i class="mdi mdi-wan"></i>
             <span>Рабочие места</span>
           </a>
         </li>
         <li class="submenu-item">
-          <a class="submenu-link" href="documentation.html">
+          <a class="submenu-link" href="?page=documentation">
             <i class="mdi mdi-book-open-variant"></i>
             <span>Документация</span>
           </a>
