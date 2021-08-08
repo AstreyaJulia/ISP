@@ -1,110 +1,127 @@
 <?php
-	$title = "Список задач";
-	
+$title = "Список задач";
+
 
 $content = '
-	<div class="card col-lg-8">
-		<div class="card-body">
-			<h4 class="mb-0">Список Дел</h4>
-			<hr/>
-			<div class="form-row mt-3">
-				<div class="col-12">
-					<div id="todo-container"></div>
-				</div>
-			</div>
-			<div class="form-row mt-3">
-				<div class="input-group mb-3">
-					<input type="text" class="form-control" id="todo-input" placeholder="введите текст задачи"
-						   value="">
-					<button type="button" onclick="CreateTodo();" class="btn input-group-text btn-primary">
-						Добавить Задачу
-					</button>
-				</div>
-			</div>
+<header class="main-content-header">
+      <div class="header-left">
+        <p class="h5 main-content-title">Задачи</p>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+            <a href="/" data-bs-toggle="tooltip" data-bs-placement="top"
+                                           title="Главная страница">
+                                           <i class="mdi mdi-home-outline"></i>
+                                           </a>
+                                           </li>
+          </ol>
+        </nav>
+      </div>
+      <div class="header-right">
+        <button class="btn btn-primary" type="button" id="contentmenu" data-bs-toggle="dropdown" data-bs-placement="top"
+                title="Меню">
+          <i class="mdi mdi-cog-outline"></i>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="contentmenu">
+          <a href="#" class="dropdown-item btn-print">Печать</a>
+        </ul>
+      </div>
+    </header>
 
-		</div>
-	</div>
-    <!--Кнопка возврата вверх страницы-->
-    <a href="#" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+  <div class="row todo-wrapper">
+    <div class="col-3">
+      <div class="card">
+        <div class="card-header">
+          <button class="btn btn-primary btn-block mt-1 mb-1">Добавить задачу</button>
+        </div>
 
-	<script>
-		// to do list
-		var todos = [{
-			text: "вынести мусор",
-			done: false,
-			id: 0
-		}];
-		var currentTodo = {
-			text: "",
-			done: false,
-			id: 0
-		}
-		document.getElementById("todo-input").oninput = function (e) {
-			currentTodo.text = e.target.value;
-		};
+        <div class="sidebar-menu">
+          <div class="list-group list-group-filters">
+            <a class="list-group-item list-group-item-action" href="javascript:void(0)"><i class="mdi mdi-shape-outline me-2"></i> Все задачи</a>
+            <a class="list-group-item list-group-item-action" href="javascript:void(0)"><i class="mdi mdi-account-details-outline me-2"></i> Мои
+              задачи</a>
+            <a class="list-group-item list-group-item-action" href="javascript:void(0)"><i class="mdi mdi-alert-decagram-outline me-2"></i>Метка</a>
+            <a class="list-group-item list-group-item-action" href="javascript:void(0)"><i class="mdi mdi-check-box-outline me-2"></i> Завершенные</a>
+            <a class="list-group-item list-group-item-action" href="javascript:void(0)"><i class="mdi mdi-trash-can-outline me-2"></i>
+              Удаленные</a>
+          </div>
+          <div class="mt-3 px-2 d-flex justify-content-between align-items-center">
+          <h6 class="section-label mb-1">Метки</h6>
+          <i class="mdi mdi-plus p-1"></i>
+</div>
+<div class="list-group list-group-labels">
+<a class="list-group-item list-group-item-action d-flex align-items-center" href="javascript:void(0)">
+                                        <span class="bullet bullet-sm bullet-primary me-2"></span>Метка
+                                    </a>
+                                    <a class="list-group-item list-group-item-action d-flex align-items-center" href="javascript:void(0)">
+                                        <span class="bullet bullet-sm bullet-danger me-2"></span>Метка
+                                    </a>
+                                    <a class="list-group-item list-group-item-action d-flex align-items-center" href="javascript:void(0)">
+                                        <span class="bullet bullet-sm bullet-warning me-2"></span>Метка
+                                    </a>
+                                    <a class="list-group-item list-group-item-action d-flex align-items-center" href="javascript:void(0)">
+                                        <span class="bullet bullet-sm bullet-success me-2"></span>Метка
+                                    </a>
+                                    <a class="list-group-item list-group-item-action d-flex align-items-center" href="javascript:void(0)">
+                                        <span class="bullet bullet-sm bullet-info me-2"></span>Метка
+                                    </a>
+</div>
+        </div>
 
-		function DrawTodo(todo) {
-			var newTodoHTML = `
-				  <div class="pb-3 todo-item" todo-id="${todo.id}">
-				  <div class="input-group">
+      </div>
+    </div>
+    <div class="col-9">
+      <div class="card">
+        <div class="app-fixed-search d-flex align-items-center">
+          <div class="d-flex align-content-center justify-content-between w-100">
+            <div class="input-group input-group-merge">
+              <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                            <i class="mdi mdi-magnify"></i>
+                                            </span>
+              </div>
+              <input type="text" class="form-control" id="todo-search" placeholder="Искать задачи" aria-label="Поиск..."
+                     aria-describedby="todo-search">
+            </div>
+          </div>
+          <div class="dropdown">
+            <a class="dropdown-toggle p-2 no-carret me-1 waves-effect waves-light" id="todoActions" data-bs-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+              <i class="mdi mdi-dots-vertical"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="todoActions" style="">
+              <a class="dropdown-item sort-asc" href="javascript:void(0)">Сортировать А - Я</a>
+              <a class="dropdown-item sort-desc" href="javascript:void(0)">Сортировать Я - А</a>
+              <a class="dropdown-item" href="javascript:void(0)">Сортировать по сроку</a>
+              <a class="dropdown-item" href="javascript:void(0)">Показать Задачи на сегодня</a>
+              <a class="dropdown-item" href="javascript:void(0)">Показать Задачи на эту неделю</a>
+              <a class="dropdown-item" href="javascript:void(0)">Показать Задачи на этот месяц</a>
+            </div>
+          </div>
+        </div>
+        <div class="todo-task-list-wrapper list-group">
+          <ul class="todo-task-list media-list" id="todo-task-list">
+            <li class="todo-item">
+              <div class="todo-title-wrapper">
+                <div class="todo-title-area">
+                  <div class="title-wrapper">
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" class="form-check-input" id="customCheck13">
+                      <label class="custom-control-label" for="customCheck13"></label>
+                    </div>
+                    <span class="todo-title">Задача</span>
+                  </div>
+                </div>
+                <div class="todo-item-action">
+                <div class="badge rounded-pill bg-info me-2">Важно</div>
+                <small class="text-nowrap text-muted me-1">Август 05</small>
+                </div>
+              </div>
+            </li>
 
-					<div class="input-group-text">
-					  <input type="checkbox" onchange="TodoChecked(${todo.id})" aria-label="Checkbox for following text input" ${todo.done && "checked"} >
-					</div>
-
-				  <input type="text" readonly class="form-control ${todo.done && "todo-done"} " aria-label="Text input with checkbox"
-					value="${todo.text}">
-
-					<button todo-id="${todo.id}" class="btn btn-outline-secondary bg-danger text-white" type="button" onclick="DeleteTodo(this);"
-					  id="button-addon2 ">X</button>
-
-				  </div>
-				  </div>
-				  `;
-			var dummy = document.createElement("DIV");
-			dummy.innerHTML = newTodoHTML;
-			document.getElementById("todo-container").appendChild(dummy.children[0]);
-
-		}
-
-		function RenderAllTodos() {
-			var container = document.getElementById("todo-container");
-			while (container.firstChild) {
-				container.removeChild(container.firstChild);
-			}
-
-			for (var i = 0; i < todos.length; i++) {
-				DrawTodo(todos[i]);
-			}
-		}
-
-		RenderAllTodos();
-
-		function DeleteTodo(button) {
-			var deleteID = parseInt(button.getAttribute("todo-id"));
-
-			for (let i = 0; i < todos.length; i++) {
-				if (todos[i].id === deleteID) {
-					todos.splice(i, 1);
-					RenderAllTodos();
-					break;
-				}
-			}
-		}
-
-		function TodoChecked(id) {
-			todos[id].done = !todos[id].done;
-			RenderAllTodos();
-		}
-
-		function CreateTodo() {
-			newtodo = {
-				text: currentTodo.text,
-				done: false,
-				id: todos.length
-			}
-			todos.push(newtodo);
-			RenderAllTodos();
-		}
-	</script>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 ';

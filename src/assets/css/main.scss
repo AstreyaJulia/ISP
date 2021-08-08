@@ -654,7 +654,7 @@ a {
       &.dev {
         .menu-link {
           background: $gradient-info;
-          box-shadow: 0 0 5px 0 $info;
+          box-shadow: 0 0 5px 0 $theme-blue-secondary;
         }
       }
     }
@@ -806,7 +806,8 @@ a {
 
       &:hover,
       &:focus {
-        color: $info;
+        color: $theme-blue-secondary;
+        font-weight: 700;
         background: none;
         padding-left: 4px;
       }
@@ -954,7 +955,7 @@ a {
     justify-content: space-between;
     padding: 16px;
     border: 1px solid $line;
-    box-shadow: 0 0 5px 0 $info;
+    box-shadow: 0 0 5px 0 $theme-blue-secondary;
 
     input {
       display: block;
@@ -1529,14 +1530,14 @@ td .badge-big {
 }
 
 .badge-big.secondary {
-  background-color: $info;
+  background-color: $theme-blue-secondary;
   border-radius: 50rem !important;
   display: inline-block;
   padding: 0.35em 0.65em;
   font-size: 0.75em;
   font-weight: 700;
   line-height: 1;
-  color: #fff;
+  color: $off-white;
   text-align: center;
   white-space: nowrap;
   vertical-align: baseline;
@@ -1874,7 +1875,6 @@ td .badge-big {
   }
 
 
-
   .fc-toolbar-title {
     color: $body
   }
@@ -2026,16 +2026,16 @@ td .badge-big {
 
   .fc-daygrid-dot-event {
     border-radius: 50%;
+    padding: 2px 2px;
+    .fc-event-title {
+      font-weight: 400;
+    }
   }
 
   table tbody tr th,
   table tbody tr td {
     width: 31px;
     height: 31px;
-  }
-
-  .fc-daygrid-dot-event {
-    padding: 2px 2px;
   }
 
   .fc {
@@ -2070,7 +2070,6 @@ td .badge-big {
       &.fc-header-toolbar {
         margin: 0 0 10px 0;
       }
-
     }
 
     .fc-toolbar-title {
@@ -3857,4 +3856,177 @@ form .select2.error + .select2-container--default .select2-selection--single,
 form .select2.error + .select2-container--classic .select2-selection--multiple,
 form .select2.error + .select2-container--default .select2-selection--multiple {
   border-color: $danger !important;
+}
+
+// Список задач
+
+.todo-wrapper {
+  height: 100%;
+
+  .col-9,
+  .col-3 {
+    height: 100%;
+  }
+
+  .list-group {
+    border-radius: 0;
+
+    .list-group-item {
+      color: $label;
+      border: none;
+
+      i {
+        font-size: 1.2em;
+      }
+    }
+  }
+
+  .app-fixed-search {
+    padding: 0.35rem 0.5rem;
+    border-bottom: 1px solid $line;
+    background-color: $off-white;
+    border-top-right-radius: 0.357rem;
+
+    .input-group-prepend {
+      margin-right: -1px;
+      display: flex;
+    }
+
+    .input-group-text {
+      border: none;
+      background-color: transparent;
+    }
+
+    input {
+      border-color: transparent;
+      height: 50px;
+    }
+  }
+
+  .todo-task-list-wrapper {
+    position: relative;
+    height: calc(100% - 3.56rem);
+    background-color: $off-white;
+    border-radius: 0;
+    overflow-y: scroll;
+    border-top: none;
+
+    .todo-task-list {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+
+      .todo-item {
+        cursor: pointer;
+        transition: all 0.2s, border-color 0s;
+        position: relative;
+        padding: 0.893rem 1rem;
+
+        .todo-title-wrapper {
+          display: flex;
+          justify-content: space-between;
+        }
+
+        .todo-title-area {
+          display: flex;
+          align-items: center;
+
+          .title-wrapper {
+            display: flex;
+            align-items: center;
+
+            .custom-control .custom-checkbox {
+              input {
+                width: 18px;
+                height: 18px;
+              }
+            }
+
+            .todo-title {
+              margin-left: 0.5rem;
+              margin-right: 0.5rem;
+            }
+          }
+        }
+
+        .todo-item-action {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+      }
+    }
+  }
+}
+
+
+// Bullet
+
+.bullet {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  display: inline-block;
+
+  &-primary {
+    background-color: $primary;
+  }
+
+  &-secondary {
+    background-color: $secondary;
+  }
+
+  &-success {
+    background-color: $success;
+  }
+
+  &-warning {
+    background-color: $warning;
+  }
+
+  &-danger {
+    background-color: $danger;
+  }
+
+  &-info {
+    background-color: $info;
+  }
+
+  &.bullet-sm {
+    width: 0.714rem;
+    height: 0.714rem;
+  }
+}
+
+
+// Dropdown
+
+.dropdown-menu {
+  padding: 0;
+
+  .dropdown-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    color: $label;
+
+    &:hover,
+    &:focus {
+      color: $theme-blue-secondary;
+      background-color: $theme-blue-20;
+    }
+
+    &.btn.btn-primary {
+      margin-top: 10px;
+      background-color: $primary;
+      color: $off-white;
+      justify-content: center;
+
+      &:hover {
+        background-color: $primary-dark;
+      }
+    }
+  }
+
 }

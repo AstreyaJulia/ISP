@@ -1,5 +1,5 @@
 <?php
-	//Подключение с бработкой ошибок подключения
+	//Подключение с обработкой ошибок подключения
 	try {
 		$link = new PDO('mysql:host=сервер;dbname=имя_бд;charset=utf8mb4', 'логин', 'пароль');
 		$link->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

@@ -11,12 +11,14 @@ $dbName = "isp";
 $link = mysqli_connect($host, $user, $password, $dbName);
 mysqli_query($link, "SET NAMES 'utf8'");
 
-// Нужно добавить отбор по пользователю (показываются с user_id = 0, и только с своим user_id)
 // Нужно добавить отбор по календарю calendar
 
+
+// ID пользователя. Чтоб приватные события не было видно чужим
 $user = $_COOKIE['aut']['id'];
 
-$query = "SELECT * FROM sdc_calendar where user_id in (0, $user)";
+
+$query = "SELECT * FROM sdc_calendar where user_id in (0, " . $user . ")";
 $result = mysqli_query($link, $query) or die(mysqli_error($link));
 for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row) ;
 

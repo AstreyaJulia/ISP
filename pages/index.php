@@ -1,5 +1,5 @@
 <?php
-$title = "Глвная страница";
+$title = "Главная страница";
 
 $userClass = new \Core\Model\User($db);
 $birthday = $userClass->getBirthday();

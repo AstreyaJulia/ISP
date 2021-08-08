@@ -97,27 +97,9 @@
           </a>
         </li>
         <li class="submenu-item">
-          <a class="submenu-link" href="auth.html">
-            <i class="mdi mdi-exit-run"></i>
-            <span>Страница входа</span>
-          </a>
-        </li>
-        <li class="submenu-item">
-          <a class="submenu-link" href="404.html">
-            <i class="mdi mdi-exit-run"></i>
-            <span>404</span>
-          </a>
-        </li>
-        <li class="submenu-item">
-          <a class="submenu-link" href="uikit.html">
+          <a class="submenu-link" href="?page=uikit">
             <i class="mdi mdi-flower-outline"></i>
             <span>UI Kit</span>
-          </a>
-        </li>
-        <li class="submenu-item">
-          <a class="submenu-link" href="bootstrap.html">
-            <i class="mdi mdi-flower-outline"></i>
-            <span>Bootstrap</span>
           </a>
         </li>
         <li class="submenu-item">

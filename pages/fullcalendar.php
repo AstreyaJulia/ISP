@@ -1,6 +1,6 @@
 <?php
 
-$title = "Ежедневник";
+$title = "Календарь";
 $content = "";
 
 $content .= '

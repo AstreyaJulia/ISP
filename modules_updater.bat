@@ -1,4 +1,4 @@
-@echo 
+@echo
 XCOPY /Y /H /R node_modules\bootstrap\dist\js\bootstrap.bundle.js src\assets\modules\bootstrap\
 XCOPY /Y /H /R node_modules\bootstrap\dist\js\bootstrap.bundle.js.map src\assets\modules\bootstrap\
 XCOPY /Y /H /R node_modules\datatables.net\js\jquery.dataTables.js src\assets\modules\datatables\
@@ -17,3 +17,5 @@ XCOPY /Y /H /R node_modules\select2\dist\js\select2.full.js src\assets\modules\s
 XCOPY /Y /H /R node_modules\select2\dist\js\i18n\ru.js src\assets\modules\select2\
 XCOPY /Y /H /R node_modules\jquery-validation\dist\jquery.validate.js src\assets\modules\jquery-validation\
 XCOPY /Y /H /R node_modules\jquery-validation\dist\localization\messages_ru.js src\assets\modules\jquery-validation\
+XCOPY /Y /H /R node_modules\moment-timezone\builds\moment-timezone-with-data.js src\assets\modules\moment-timezone\
+XCOPY /Y /H /R node_modules\@fullcalendar\moment-timezone\main.global.js src\assets\modules\moment-timezone\

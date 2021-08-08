@@ -281,6 +281,81 @@
       </ul>
     </div>
   </header>
+
+  <div class="row todo-wrapper">
+    <div class="col-3">
+      <div class="card">
+        <div class="card-header">
+          <button class="btn btn-primary btn-block mt-1 mb-1">Добавить задачу</button>
+        </div>
+
+        <div class="sidebar-menu">
+          <div class="list-group list-group-filters">
+            <a class="list-group-item list-group-item-action"><i class="mdi mdi-shape-outline me-2"></i> Все задачи</a>
+            <a class="list-group-item list-group-item-action"><i class="mdi mdi-account-details-outline me-2"></i> Мои
+              задачи</a>
+            <a class="list-group-item list-group-item-action"><i class="mdi mdi-alert-decagram-outline me-2"></i> Важно</a>
+            <a class="list-group-item list-group-item-action"><i class="mdi mdi-check-box-outline me-2"></i> Завершенные</a>
+            <a class="list-group-item list-group-item-action"><i class="mdi mdi-trash-can-outline me-2"></i>
+              Удаленные</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="col-9">
+      <div class="card">
+        <div class="app-fixed-search d-flex align-items-center">
+          <div class="d-flex align-content-center justify-content-between w-100">
+            <div class="input-group input-group-merge">
+              <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                            <i class="mdi mdi-magnify"></i>
+                                            </span>
+              </div>
+              <input type="text" class="form-control" id="todo-search" placeholder="Искать задачи" aria-label="Поиск..."
+                     aria-describedby="todo-search">
+            </div>
+          </div>
+          <div class="dropdown">
+            <a class="dropdown-toggle no-carret hide-arrow mr-1" id="todoActions" data-bs-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+              <i class="mdi mdi-dots-vertical"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="todoActions" style="">
+              <a class="dropdown-item sort-asc">Сортировать А - Я</a>
+              <a class="dropdown-item sort-desc">Сортировать Я - А</a>
+              <a class="dropdown-item" href="javascript:void(0)">Сортировать по сроку</a>
+              <a class="dropdown-item" href="javascript:void(0)">Показать Задачи на сегодня</a>
+              <a class="dropdown-item" href="javascript:void(0)">Показать Задачи на эту неделю</a>
+              <a class="dropdown-item" href="javascript:void(0)">Показать Задачи на этот месяц</a>
+            </div>
+          </div>
+        </div>
+        <div class="todo-task-list-wrapper list-group ps ps--active-y">
+          <ul class="todo-task-list media-list" id="todo-task-list">
+            <li class="todo-item">
+              <div class="todo-title-wrapper">
+                <div class="todo-title-area">
+                  <div class="title-wrapper">
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" class="custom-control-input" id="customCheck13">
+                      <label class="custom-control-label" for="customCheck13"></label>
+                    </div>
+                    <span class="todo-title">Conduct a mini awareness meeting regarding health care. </span>
+
+                  </div>
+                </div>
+                <div class="todo-item-action">
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </main>
 <!-- Контейнер для всплывашек -->
 <div class="toasts-container">

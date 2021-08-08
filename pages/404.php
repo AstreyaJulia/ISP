@@ -19,7 +19,7 @@
     <p class="m-0">404</p>
   </div>
   <p class="text-dark mb-3 lead">Страница не найдена</p>
-  <p class="text-black-50 mb-3"><?= $content ?></p>
+  <p class="text-dark mb-3"><?= $content ?></p>
   <a class="btn btn-primary btn-back">← Назад</a>
 </main>
 <!-- Скрипты. Jquery вначале -->
