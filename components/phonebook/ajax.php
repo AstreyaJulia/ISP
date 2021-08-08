@@ -35,9 +35,9 @@ $phonebook = $phonebookClass->getSelect($primary_group);
 
 foreach ($phonebook as $row) {
   echo '<tr>
-	<td>' . $phonebookClass->getPositionPhonebook($row->position) . '</td>
+	<td>' . $phonebookClass->getPosition($row->position) . '</td>
 	<td>' . shortFIO($row->fullname) . '</td>
-	<td>' . $phonebookClass->getProfessionPhonebook($row->profession) . '</td>
+	<td>' . $phonebookClass->getProfession($row->profession) . '</td>
 	<td>' . $row->phone_worck . '</td>
 </tr>' . PHP_EOL;
 }

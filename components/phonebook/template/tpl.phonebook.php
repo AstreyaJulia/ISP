@@ -39,9 +39,9 @@
     <tbody id="<?= $id; ?>">
     <?php foreach ($phonebook as $row): ?>
       <tr>
-        <td><?= $phonebookClass->getPositionPhonebook($row->position); ?></td>
+        <td><?= $phonebookClass->getPosition($row->position); ?></td>
         <td><?= $row->fullname; ?></td>
-        <td><?= $phonebookClass->getProfessionPhonebook($row->profession); ?></td>
+        <td><?= $phonebookClass->getProfession($row->profession); ?></td>
         <td><?= $row->phone_worck; ?></td>
       </tr>
     <?php endforeach ?>
