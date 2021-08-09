@@ -61,7 +61,6 @@ const minicalendar = document.querySelector('.today-calendar-widget');
 const calendarEl = document.getElementById('calendar');
 
 
-
 const calendmodulehandler = () => {
   //Элементы
 
@@ -258,6 +257,11 @@ const calendmodulehandler = () => {
         type: "GET",
         dataType: "json",
 
+        /*data: {
+          startParam: "2021-01-01",
+          endParam: "2021-12-31",
+        },*/
+
         data: {
           startParam: moment(info.start).format('YYYY-MM-DD hh:mm'),
           endParam: moment(info.end).format('YYYY-MM-DD hh:mm'),
@@ -285,6 +289,24 @@ const calendmodulehandler = () => {
      // }*/
   }
 
+  const bgevents = [
+    {
+      id: 1001,
+      start: "2021-08-01",
+      end: "2021-08-01",
+      allDay: true,
+      display: "background"
+    },
+    {
+      id: 1002,
+      start: "2021-08-07",
+      end: "2021-08-07",
+      allDay: true,
+      display: "background"
+    },
+  ];
+
+
   const calendar = new FullCalendar.Calendar(calendarEl, {
     locale: 'ru',
     timeZone: 'Europe/Moscow',
@@ -306,7 +328,12 @@ const calendmodulehandler = () => {
         'bg-' + colorName + '-50'
       ];
     },
-    events: fetchEvents,
+
+    eventSources: [
+      fetchEvents,
+      bgevents
+],
+  //  events: fetchEvents,
     headerToolbar: {
       left: 'title',
       center: '',
@@ -355,23 +382,27 @@ const calendmodulehandler = () => {
     });
   }
 
-  // Добавление события
+  // Функция - Добавление события
   function addEvent(eventData) {
     calendar.refetchEvents(eventData);
     hideModal();
     resetValues();
   }
 
-  // Обновление события
+  // Функция - Обновление события
   function updateEvent(eventData) {
     const propsToUpdate = ['id', 'title', 'url'];
     const extendedPropsToUpdate = ['calendar', 'description', 'user_id'];
     updateEventInCalendar(eventData, propsToUpdate, extendedPropsToUpdate);
+    hideModal();
+    resetValues();
   }
 
-  // Удаление события
+  // Функция - Удаление события
   function removeEvent(eventId) {
     removeEventInCalendar(eventId);
+    hideModal();
+    resetValues();
   }
 
   // (UI) updateEventInCalendar
@@ -380,8 +411,8 @@ const calendmodulehandler = () => {
     let index;
     const existingEvent = calendar.getEventById(updatedEventData.id);
 
-    // --- Set event properties except date related ----- //
-    // ? Docs: https://fullcalendar.io/docs/Event-setProp
+    // --- Установить параметры события, не связанные с датой ----- //
+    // ? Документация: https://fullcalendar.io/docs/Event-setProp
     // dateRelatedProps => ['start', 'end', 'allDay']
     // eslint-disable-next-line no-plusplus
     for (index = 0; index < propsToUpdate.length; index++) {
@@ -389,12 +420,12 @@ const calendmodulehandler = () => {
       existingEvent.setProp(propName, updatedEventData[propName]);
     }
 
-    // --- Set date related props ----- //
-    // ? Docs: https://fullcalendar.io/docs/Event-setDates
-    existingEvent.setDates(updatedEventData.start, updatedEventData.end, {allDay: updatedEventData.allDay});
+    // --- Установить параметры события, связанные с датой ----- //
+    // ? Документация: https://fullcalendar.io/docs/Event-setDates
+    existingEvent.setDates(updatedEventData.start, updatedEventData.end);
 
-    // --- Set event's extendedProps ----- //
-    // ? Docs: https://fullcalendar.io/docs/Event-setExtendedProp
+    // --- Установить расширенные параметры события ----- //
+    // ? Документация: https://fullcalendar.io/docs/Event-setExtendedProp
     // eslint-disable-next-line no-plusplus
     for (index = 0; index < extendedPropsToUpdate.length; index++) {
       propName = extendedPropsToUpdate[index];
@@ -404,10 +435,10 @@ const calendmodulehandler = () => {
 
   // (UI) removeEventInCalendar Удаление события
   function removeEventInCalendar(eventId) {
-    calendar.getEventById(eventId).remove();
+    $(calendar).getEventById(eventId).remove();
   }
 
-  // Добавление нового события
+  // Кнопка - Добавление нового события
   $(addEventBtn).on('click', function () {
     // Показываем на модале кнопку Отмена
     cancelBtn.style.display = "block";
@@ -450,27 +481,67 @@ const calendmodulehandler = () => {
     }
   });
 
-  // Update new event
+  // Кнопка - Обновление нового события
   $(updateEventBtn).on('click', function () {
-    // if (eventForm.valid()) {
-    const eventData = {
-      id: eventToUpdate.id,
-      title: $(modal).find(eventTitle).val(),
-      start: $(modal).find(startDate).val(),
-      end: $(modal).find(endDate).val(),
-      url: $(eventUrl).val(),
-      calendar: $(eventLabel).val(),
-      extendedProps: {
-        calendar: eventLabel.val(),
-        description: calendarEditor.val()
-      },
-      //display: 'block',
-      //allDay: $(allDaySwitch).prop('checked') ? true : false,
-    };
+    if ($(eventForm).valid()) {
+      let allDay;
+      const Event = {
+        operation: "upd",
+        id: eventToUpdate.id,
+        title: $(modal).find(eventTitle).val(),
+        start: $(modal).find(startDate).val(),
+        end: $(modal).find(endDate).val(),
+        url: $(eventUrl).val(),
+        calendar: $(eventLabel).val(),
+        user_id: $(privateSwitch).prop('checked') ? "999999999" : "0",
+        description: $(calendarEditor).val(),
+        allDay: allDay,
+      }
+      if ($(allDaySwitch).prop('checked')) {
+        // Если Весь день, то меняем переменную
+        Event.allDay = '1';
+      }
 
-    updateEvent(eventData);
-    hideModal();
-    //  }
+      // Пишем в базу событие методом POST
+      $.ajax({
+        url: 'components/fullcalendar/ajax.php',
+        data: Event,
+        type: "POST",
+        headers: {
+          'Accept': 'application/json;odata=nometadata'
+        },
+        success: function (response) {
+          updateEvent(Event);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          alert("Ошибка" + jqXHR + textStatus + errorThrown);
+        }
+      });
+      //updateEvent(eventData);
+    }
+  });
+
+  // Кнопка - Удаление события
+  $(btnDeleteEvent).on('click', function () {
+    const Event = {
+      operation: "del",
+      id: eventToUpdate.id,
+    }
+    // Удалям из базы событие методом POST
+    $.ajax({
+      url: 'components/fullcalendar/ajax.php',
+      data: Event,
+      type: "POST",
+      headers: {
+        'Accept': 'application/json;odata=nometadata'
+      },
+      success: function (response) {
+      removeEvent(Event);
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert("Ошибка" + jqXHR + textStatus + errorThrown);
+      }
+    });
   });
 
   // Сброс значений модала
@@ -510,7 +581,6 @@ const calendmodulehandler = () => {
       calendar.refetchEvents();
     });
   }
-
 }
 
 // Конец календаря
