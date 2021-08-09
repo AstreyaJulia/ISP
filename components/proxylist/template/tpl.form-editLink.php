@@ -34,6 +34,12 @@
           </select>
         </div>
         <div class="form-group">
+          <label class="form-label" for="menuindex">Позиция в меню</label>
+          <input class="form-control" type="menuindex" id="menuindex" value="<?= $row->menuindex; ?>"
+                 placeholder="Например: 12" name="menuindex"
+                 autocomplete="off" required>
+        </div>
+        <div class="form-group">
           <label class="form-label" for="url">Адрес (URL) ссылки</label>
           <input class="form-control" type="url" id="url" value="<?= $row->href; ?>"
                  placeholder="Например: http://google.com" name="href"
