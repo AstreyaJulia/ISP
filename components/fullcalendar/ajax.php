@@ -11,8 +11,8 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/core/extension/custom_functions.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/core/extension/reference_book.php";
 //подключаем классы
 
-if (!empty($_POST))
-{
+
+
 
   $title = isset($_POST['title']) ? $_POST['title'] : "";
   $start = isset($_POST['start']) ? $_POST['start'] : "";
@@ -31,20 +31,31 @@ if (!empty($_POST))
       $user_id = "0";
     };
 
-  $sql = "INSERT INTO `sdc_calendar`
+ 
+
+
+  
+
+
+
+
+switch ($_POST['operation']) {
+    case add:
+         $sql = "INSERT INTO `sdc_calendar`
   (`title`, `start`, `end`, `calendar`, `description`, `url`, `user_id`, `allDay`)
 VALUES
   ('".$title."','".$start."','".$end ."','".$calendar."','".$description."','".$url."','".$user_id."','".$allDay."');";
-
-
   $stmt = $link->prepare($sql);
 
   $stmt->execute();
   return $stmt->rowCount($params);
-}
-else // $_POST пустой
-{
-  echo "Выполняемый для страницы код без данных POST";
+        break;
+    case 1:
+        echo "i равно 1";
+        break;
+    case 2:
+        echo "i равно 2";
+        break;
 }
 
 

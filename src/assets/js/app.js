@@ -243,6 +243,40 @@ const calendmodulehandler = () => {
     return selected;
   }
 
+  // AXIOS: fetchEvents
+  // * This will be called by fullCalendar to fetch events. Also this can be used to refetch events.
+  // --------------------------------------------------------------------------------------------------
+  function fetchEvents(info, successCallback) {
+    // Fetch Events from API endpoint reference
+    $.ajax(
+      {
+        url: 'components/fullcalendar/events.php',
+        type: 'GET',
+        dataType: "json",
+        success: function (result) {
+          // Get requested calendars as Array
+          /*const calendars = selectedCalendars();*/
+          successCallback(result);
+          /*return [result.events.filter(event => (calendars.includes(event.extendedProps.calendar)))];*/
+        },
+        error: function (error) {
+          console.log(error);
+        }
+      }
+    );
+
+   /* const calendars = selectedCalendars();
+    // We are reading event object from app-calendar-events.js file directly by including that file above app-calendar file.
+    // You should make an API call, look into above commented API call for reference
+    let selectedEvents = $(events).filter(function (event) {
+      // console.log(event.extendedProps.calendar.toLowerCase());
+      return calendars.includes(event.extendedProps.calendar.toLowerCase());
+    });
+    // if (selectedEvents.length > 0) {
+    successCallback(selectedEvents);
+    // }*/
+  }
+
   const calendar = new FullCalendar.Calendar(calendarEl, {
     locale: 'ru',
     timeZone: 'Europe/Moscow',
@@ -265,7 +299,7 @@ const calendmodulehandler = () => {
         'bg-' + colorName + '-50'
       ];
     },
-    events: {
+ /*   events: {
       url: 'components/fullcalendar/events.php',
       method: 'GET',
       extraParams: function () { // функция, которая возвращает объект
@@ -273,7 +307,9 @@ const calendmodulehandler = () => {
           cachebuster: new Date().valueOf()
         };
       }
-    },
+    },*/
+
+    events: fetchEvents,
 
     headerToolbar: {
       left: 'title',
@@ -322,6 +358,15 @@ const calendmodulehandler = () => {
       }
     });
   }
+
+  // ------------------------------------------------
+  // addEvent
+  // ------------------------------------------------
+ /* function addEvent(eventData) {
+    calendar.addEvent(eventData);
+    //calendar.refetchEvents();
+
+  }*/
 
   // Обновление события
   function updateEvent(eventData) {
@@ -378,6 +423,7 @@ const calendmodulehandler = () => {
       // Задаем переменную. На данный момент она пустая.
       let allDay;
       const newEvent = {
+        operation: "add",
         title: $(eventTitle).val(),
         start: moment($(startDate).val()).format('YYYY-MM-DD hh:mm:ss'),
         end: moment($(endDate).val()).format('YYYY-MM-DD hh:mm:ss'),
@@ -401,12 +447,11 @@ const calendmodulehandler = () => {
           'Accept': 'application/json;odata=nometadata'
         },
         success: function (response) {
-          console.log(newEvent);
-          console.log($(allDaySwitch).prop);
-          calendar.addEvent(newEvent);
+          //console.log(newEvent);
+          //calendar.addEvent(newEvent); // не нужно. сразу в refetchEvents
+          calendar.refetchEvents(newEvent);
           hideModal();
           resetValues();
-          calendar.render();
         },
         error: function (jqXHR, textStatus, errorThrown) {
           alert("Ошибка" + jqXHR + textStatus + errorThrown);

@@ -17,8 +17,13 @@ mysqli_query($link, "SET NAMES 'utf8'");
 // ID пользователя. Чтоб приватные события не было видно чужим
 $user = $_COOKIE['aut']['id'];
 
+// Передаваемые параметры
 
-$query = "SELECT * FROM sdc_calendar where user_id in (0, " . $user . ")";
+$start = $_GET['startParam'];
+$end = $_GET['endParam'];
+
+
+$query = "SELECT * FROM sdc_calendar where user_id in (0, " . $user . ") and start >= '$start' AND end <= '$end'";
 $result = mysqli_query($link, $query) or die(mysqli_error($link));
 for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row) ;
 

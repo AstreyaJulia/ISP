@@ -60,6 +60,8 @@ const minicalendar = document.querySelector('.today-calendar-widget');
 // Контейнер для календаря
 const calendarEl = document.getElementById('calendar');
 
+
+
 const calendmodulehandler = () => {
   //Элементы
 
@@ -82,7 +84,7 @@ const calendmodulehandler = () => {
   // Кнопка отмены на модале
   const cancelBtn = document.getElementById("discard");
   // Кнопка удалить событие на модале
-  const btnDeleteEvent = document.querySelector(".btn-delete-event");
+  const btnDeleteEvent = document.getElementById("delete");
 
   // Форма в модале
   const eventForm = modal.querySelector(".event-form");
@@ -117,6 +119,10 @@ const calendmodulehandler = () => {
   const filterInput = document.querySelectorAll('.input-filter');
   // Чекбокс Все в фильтре
   const selectAll = document.querySelector(".select-all");
+
+  // Тип операции события
+
+  const eventOperation = "";
 
   // Цвета событий, названия менять в разметке, в js менять не надо
 
@@ -182,7 +188,6 @@ const calendmodulehandler = () => {
       // window.open((eventToUpdate).url, '_blank');
     }
     console.log(eventToUpdate);
-    console.log(eventToUpdate.allDay);
     showModal();
     addEventBtn.style.display = "none";
     cancelBtn.style.display = "none";
@@ -243,6 +248,59 @@ const calendmodulehandler = () => {
     return selected;
   }
 
+  // Получение событий. Эта функция будет вызываться fullCalendar для получения и обновления событий.
+  function fetchEvents(info, successCallback) {
+    // Получение событий AJAX
+
+    // Конвертер unix времени в дату
+    function timeConverter(UNIX_timestamp){
+      var a = new Date(UNIX_timestamp * 1000);
+      var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      var year = a.getFullYear();
+      var month = months[a.getMonth()];
+      var date = a.getDate();
+      var hour = a.getHours();
+      var min = a.getMinutes();
+      var sec = a.getSeconds();
+      var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+      return time;
+    }
+
+    $.ajax(
+      {
+        url: "components/fullcalendar/events.php",
+        type: "GET",
+        dataType: "json",
+
+        data: {
+          /*startParam: timeConverter(info.start.valueOf()),
+          endParam: timeConverter(info.end.valueOf()),*/
+          startParam: '2021-01-01',
+          endParam: '2021-12-31',
+      },
+        success: function (result) {
+          // Получение запрашиваемых календарей(категорий событий)
+          /*const calendars = selectedCalendars();*/
+          successCallback(result);
+          /*return [result.events.filter(event => (calendars.includes(event.extendedProps.calendar)))];*/
+        },
+        error: function (error) {
+          console.log(info.start.valueOf(),info.end.valueOf());
+        }
+      }
+    );
+
+   /* const calendars = selectedCalendars();
+    // Сделать API вызов
+    let selectedEvents = $(events).filter(function (event) {
+      // console.log(event.extendedProps.calendar.toLowerCase());
+      return calendars.includes(event.extendedProps.calendar.toLowerCase());
+    });
+    // if (selectedEvents.length > 0) {
+    successCallback(selectedEvents);
+    // }*/
+  }
+
   const calendar = new FullCalendar.Calendar(calendarEl, {
     locale: 'ru',
     timeZone: 'Europe/Moscow',
@@ -257,7 +315,6 @@ const calendmodulehandler = () => {
     nowIndicator: true,
     dayMaxEvents: true, // добавляет ссылку "еще", когда очень много событий
     navLinks: true, // можно нажимть на названия дней/недель для переключения между видами
-    initialDate: '2021-05-12',  // временно, убрать в релизе
     eventClassNames: function ({event: calendarEvent}) {
       const colorName = calendarsColor[calendarEvent._def.extendedProps.calendar];
       return [
@@ -265,16 +322,7 @@ const calendmodulehandler = () => {
         'bg-' + colorName + '-50'
       ];
     },
-    events: {
-      url: 'components/fullcalendar/events.php',
-      method: 'GET',
-      extraParams: function () { // функция, которая возвращает объект
-        return {
-          cachebuster: new Date().valueOf()
-        };
-      }
-    },
-
+    events: fetchEvents,
     headerToolbar: {
       left: 'title',
       center: '',
@@ -323,10 +371,17 @@ const calendmodulehandler = () => {
     });
   }
 
+  // Добавление события
+  function addEvent(eventData) {
+    calendar.refetchEvents(eventData);
+          hideModal();
+          resetValues();
+  }
+
   // Обновление события
   function updateEvent(eventData) {
     const propsToUpdate = ['id', 'title', 'url'];
-    const extendedPropsToUpdate = ['calendar', 'guests', 'location', 'description'];
+    const extendedPropsToUpdate = ['calendar', 'description', 'user_id'];
     updateEventInCalendar(eventData, propsToUpdate, extendedPropsToUpdate);
   }
 
@@ -363,7 +418,7 @@ const calendmodulehandler = () => {
     }
   };
 
-  // (UI) removeEventInCalendar
+  // (UI) removeEventInCalendar Удаление события
   function removeEventInCalendar(eventId) {
     calendar.getEventById(eventId).remove();
   }
@@ -377,7 +432,8 @@ const calendmodulehandler = () => {
     if ($(eventForm).valid()) {
       // Задаем переменную. На данный момент она пустая.
       let allDay;
-      const newEvent = {
+      const Event = {
+        operation: "add",
         title: $(eventTitle).val(),
         start: moment($(startDate).val()).format('YYYY-MM-DD hh:mm:ss'),
         end: moment($(endDate).val()).format('YYYY-MM-DD hh:mm:ss'),
@@ -390,23 +446,18 @@ const calendmodulehandler = () => {
       }
       if ($(allDaySwitch).prop('checked')) {
         // Если Весь день, то меняем переменную
-        newEvent.allDay = '1';
+        Event.allDay = '1';
       }
       // Пишем в базу новое событие методом POST
       $.ajax({
         url: 'components/fullcalendar/ajax.php',
-        data: newEvent,
+        data: Event,
         type: "POST",
         headers: {
           'Accept': 'application/json;odata=nometadata'
         },
         success: function (response) {
-          console.log(newEvent);
-          console.log($(allDaySwitch).prop);
-          calendar.addEvent(newEvent);
-          hideModal();
-          resetValues();
-          calendar.render();
+          addEvent(Event);
         },
         error: function (jqXHR, textStatus, errorThrown) {
           alert("Ошибка" + jqXHR + textStatus + errorThrown);
