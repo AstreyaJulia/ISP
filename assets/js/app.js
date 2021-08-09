@@ -252,20 +252,6 @@ const calendmodulehandler = () => {
   function fetchEvents(info, successCallback) {
     // Получение событий AJAX
 
-    // Конвертер unix времени в дату
-    function timeConverter(UNIX_timestamp){
-      var a = new Date(UNIX_timestamp * 1000);
-      var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-      var year = a.getFullYear();
-      var month = months[a.getMonth()];
-      var date = a.getDate();
-      var hour = a.getHours();
-      var min = a.getMinutes();
-      var sec = a.getSeconds();
-      var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
-      return time;
-    }
-
     $.ajax(
       {
         url: "components/fullcalendar/events.php",
@@ -273,11 +259,9 @@ const calendmodulehandler = () => {
         dataType: "json",
 
         data: {
-          /*startParam: timeConverter(info.start.valueOf()),
-          endParam: timeConverter(info.end.valueOf()),*/
-          startParam: '2021-01-01',
-          endParam: '2021-12-31',
-      },
+          startParam: moment(info.start).format('YYYY-MM-DD hh:mm'),
+          endParam: moment(info.end).format('YYYY-MM-DD hh:mm'),
+        },
         success: function (result) {
           // Получение запрашиваемых календарей(категорий событий)
           /*const calendars = selectedCalendars();*/
@@ -285,20 +269,20 @@ const calendmodulehandler = () => {
           /*return [result.events.filter(event => (calendars.includes(event.extendedProps.calendar)))];*/
         },
         error: function (error) {
-          console.log(info.start.valueOf(),info.end.valueOf());
+          //console.log(error);
         }
       }
     );
 
-   /* const calendars = selectedCalendars();
-    // Сделать API вызов
-    let selectedEvents = $(events).filter(function (event) {
-      // console.log(event.extendedProps.calendar.toLowerCase());
-      return calendars.includes(event.extendedProps.calendar.toLowerCase());
-    });
-    // if (selectedEvents.length > 0) {
-    successCallback(selectedEvents);
-    // }*/
+    /* const calendars = selectedCalendars();
+     // Сделать API вызов
+     let selectedEvents = $(events).filter(function (event) {
+       // console.log(event.extendedProps.calendar.toLowerCase());
+       return calendars.includes(event.extendedProps.calendar.toLowerCase());
+     });
+     // if (selectedEvents.length > 0) {
+     successCallback(selectedEvents);
+     // }*/
   }
 
   const calendar = new FullCalendar.Calendar(calendarEl, {
@@ -374,8 +358,8 @@ const calendmodulehandler = () => {
   // Добавление события
   function addEvent(eventData) {
     calendar.refetchEvents(eventData);
-          hideModal();
-          resetValues();
+    hideModal();
+    resetValues();
   }
 
   // Обновление события
@@ -1500,10 +1484,7 @@ if (todayeventswidget) {
   todayeventswidgethandler();
 }
 
-
 datatablesHandler();
 
 // Запуск функции при загрузке. Будет запущено все, что внутри const init = () => {}
 init();
-
-

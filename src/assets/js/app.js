@@ -60,6 +60,8 @@ const minicalendar = document.querySelector('.today-calendar-widget');
 // Контейнер для календаря
 const calendarEl = document.getElementById('calendar');
 
+
+
 const calendmodulehandler = () => {
   //Элементы
 
@@ -82,7 +84,7 @@ const calendmodulehandler = () => {
   // Кнопка отмены на модале
   const cancelBtn = document.getElementById("discard");
   // Кнопка удалить событие на модале
-  const btnDeleteEvent = document.querySelector(".btn-delete-event");
+  const btnDeleteEvent = document.getElementById("delete");
 
   // Форма в модале
   const eventForm = modal.querySelector(".event-form");
@@ -117,6 +119,10 @@ const calendmodulehandler = () => {
   const filterInput = document.querySelectorAll('.input-filter');
   // Чекбокс Все в фильтре
   const selectAll = document.querySelector(".select-all");
+
+  // Тип операции события
+
+  const eventOperation = "";
 
   // Цвета событий, названия менять в разметке, в js менять не надо
 
@@ -182,7 +188,6 @@ const calendmodulehandler = () => {
       // window.open((eventToUpdate).url, '_blank');
     }
     console.log(eventToUpdate);
-    console.log(eventToUpdate.allDay);
     showModal();
     addEventBtn.style.display = "none";
     cancelBtn.style.display = "none";
@@ -243,38 +248,41 @@ const calendmodulehandler = () => {
     return selected;
   }
 
-  // AXIOS: fetchEvents
-  // * This will be called by fullCalendar to fetch events. Also this can be used to refetch events.
-  // --------------------------------------------------------------------------------------------------
+  // Получение событий. Эта функция будет вызываться fullCalendar для получения и обновления событий.
   function fetchEvents(info, successCallback) {
-    // Fetch Events from API endpoint reference
+    // Получение событий AJAX
+
     $.ajax(
       {
-        url: 'components/fullcalendar/events.php',
-        type: 'GET',
+        url: "components/fullcalendar/events.php",
+        type: "GET",
         dataType: "json",
+
+        data: {
+          startParam: moment(info.start).format('YYYY-MM-DD hh:mm'),
+          endParam: moment(info.end).format('YYYY-MM-DD hh:mm'),
+        },
         success: function (result) {
-          // Get requested calendars as Array
+          // Получение запрашиваемых календарей(категорий событий)
           /*const calendars = selectedCalendars();*/
           successCallback(result);
           /*return [result.events.filter(event => (calendars.includes(event.extendedProps.calendar)))];*/
         },
         error: function (error) {
-          console.log(error);
+          //console.log(error);
         }
       }
     );
 
-   /* const calendars = selectedCalendars();
-    // We are reading event object from app-calendar-events.js file directly by including that file above app-calendar file.
-    // You should make an API call, look into above commented API call for reference
-    let selectedEvents = $(events).filter(function (event) {
-      // console.log(event.extendedProps.calendar.toLowerCase());
-      return calendars.includes(event.extendedProps.calendar.toLowerCase());
-    });
-    // if (selectedEvents.length > 0) {
-    successCallback(selectedEvents);
-    // }*/
+    /* const calendars = selectedCalendars();
+     // Сделать API вызов
+     let selectedEvents = $(events).filter(function (event) {
+       // console.log(event.extendedProps.calendar.toLowerCase());
+       return calendars.includes(event.extendedProps.calendar.toLowerCase());
+     });
+     // if (selectedEvents.length > 0) {
+     successCallback(selectedEvents);
+     // }*/
   }
 
   const calendar = new FullCalendar.Calendar(calendarEl, {
@@ -291,7 +299,6 @@ const calendmodulehandler = () => {
     nowIndicator: true,
     dayMaxEvents: true, // добавляет ссылку "еще", когда очень много событий
     navLinks: true, // можно нажимть на названия дней/недель для переключения между видами
-    initialDate: '2021-05-12',  // временно, убрать в релизе
     eventClassNames: function ({event: calendarEvent}) {
       const colorName = calendarsColor[calendarEvent._def.extendedProps.calendar];
       return [
@@ -299,18 +306,7 @@ const calendmodulehandler = () => {
         'bg-' + colorName + '-50'
       ];
     },
- /*   events: {
-      url: 'components/fullcalendar/events.php',
-      method: 'GET',
-      extraParams: function () { // функция, которая возвращает объект
-        return {
-          cachebuster: new Date().valueOf()
-        };
-      }
-    },*/
-
     events: fetchEvents,
-
     headerToolbar: {
       left: 'title',
       center: '',
@@ -359,19 +355,17 @@ const calendmodulehandler = () => {
     });
   }
 
-  // ------------------------------------------------
-  // addEvent
-  // ------------------------------------------------
- /* function addEvent(eventData) {
-    calendar.addEvent(eventData);
-    //calendar.refetchEvents();
-
-  }*/
+  // Добавление события
+  function addEvent(eventData) {
+    calendar.refetchEvents(eventData);
+    hideModal();
+    resetValues();
+  }
 
   // Обновление события
   function updateEvent(eventData) {
     const propsToUpdate = ['id', 'title', 'url'];
-    const extendedPropsToUpdate = ['calendar', 'guests', 'location', 'description'];
+    const extendedPropsToUpdate = ['calendar', 'description', 'user_id'];
     updateEventInCalendar(eventData, propsToUpdate, extendedPropsToUpdate);
   }
 
@@ -408,7 +402,7 @@ const calendmodulehandler = () => {
     }
   };
 
-  // (UI) removeEventInCalendar
+  // (UI) removeEventInCalendar Удаление события
   function removeEventInCalendar(eventId) {
     calendar.getEventById(eventId).remove();
   }
@@ -422,7 +416,7 @@ const calendmodulehandler = () => {
     if ($(eventForm).valid()) {
       // Задаем переменную. На данный момент она пустая.
       let allDay;
-      const newEvent = {
+      const Event = {
         operation: "add",
         title: $(eventTitle).val(),
         start: moment($(startDate).val()).format('YYYY-MM-DD hh:mm:ss'),
@@ -436,22 +430,18 @@ const calendmodulehandler = () => {
       }
       if ($(allDaySwitch).prop('checked')) {
         // Если Весь день, то меняем переменную
-        newEvent.allDay = '1';
+        Event.allDay = '1';
       }
       // Пишем в базу новое событие методом POST
       $.ajax({
         url: 'components/fullcalendar/ajax.php',
-        data: newEvent,
+        data: Event,
         type: "POST",
         headers: {
           'Accept': 'application/json;odata=nometadata'
         },
         success: function (response) {
-          //console.log(newEvent);
-          //calendar.addEvent(newEvent); // не нужно. сразу в refetchEvents
-          calendar.refetchEvents(newEvent);
-          hideModal();
-          resetValues();
+          addEvent(Event);
         },
         error: function (jqXHR, textStatus, errorThrown) {
           alert("Ошибка" + jqXHR + textStatus + errorThrown);
@@ -1494,10 +1484,7 @@ if (todayeventswidget) {
   todayeventswidgethandler();
 }
 
-
 datatablesHandler();
 
 // Запуск функции при загрузке. Будет запущено все, что внутри const init = () => {}
 init();
-
-
