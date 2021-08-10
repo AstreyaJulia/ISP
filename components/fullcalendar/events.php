@@ -11,7 +11,7 @@ $db = new \Core\Config\DB($dbname, $user, $password, $host);
 $params = [
     ':user' => $_COOKIE['aut']['id'],
     ':start' => $_GET['startParam'],
-    ':end' => ""
+    ':end' => $_GET['endParam']
 ];
 $data = new \Core\Model\Fullcalendar($db);
 $data = $data->getEvents($params);
