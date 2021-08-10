@@ -1971,6 +1971,7 @@ td .badge-big {
       .fc-event-time,
       .fc-event-title {
         color: $dark;
+        font-weight: 400;
       }
     }
 
@@ -1990,9 +1991,8 @@ td .badge-big {
 
     .fc-daygrid-day {
       &.fc-day-today {
-        background-color: $warning-50;
+        background-color: $info-20;
         border: none;
-        border-radius: 4px;
 
         .fc-daygrid-day-number {
           &:hover {
@@ -2002,8 +2002,8 @@ td .badge-big {
       }
     }
 
-    &-event {
-      background-color: $primary;
+    &-bg-event {
+      background-color: $danger-50;
     }
 
     &-col-header-cell {

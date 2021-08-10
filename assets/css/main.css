@@ -38914,6 +38914,7 @@ td .badge-big {
 .calendar-module .fc .fc-daygrid-event .fc-event-time,
 .calendar-module .fc .fc-daygrid-event .fc-event-title {
   color: #404d61;
+  font-weight: 400;
 }
 .today-calendar .fc .fc-highlight,
 .calendar-module .fc .fc-highlight {
@@ -38927,17 +38928,16 @@ td .badge-big {
 }
 .today-calendar .fc .fc-daygrid-day.fc-day-today,
 .calendar-module .fc .fc-daygrid-day.fc-day-today {
-  background-color: rgba(252, 165, 73, 0.5);
+  background-color: rgba(0, 207, 232, 0.2);
   border: none;
-  border-radius: 4px;
 }
 .today-calendar .fc .fc-daygrid-day.fc-day-today .fc-daygrid-day-number:hover,
 .calendar-module .fc .fc-daygrid-day.fc-day-today .fc-daygrid-day-number:hover {
   cursor: pointer;
 }
-.today-calendar .fc-event,
-.calendar-module .fc-event {
-  background-color: #5552d9;
+.today-calendar .fc-bg-event,
+.calendar-module .fc-bg-event {
+  background-color: rgba(244, 60, 60, 0.5);
 }
 .today-calendar .fc-col-header-cell,
 .calendar-module .fc-col-header-cell {

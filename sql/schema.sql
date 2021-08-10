@@ -1,127 +1,63 @@
--- phpMyAdmin SQL Dump
--- version 5.0.4
--- https://www.phpmyadmin.net/
---
--- Хост: 127.0.0.1:3306
-<<<<<<< HEAD
--- Время создания: Авг 10 2021 г., 19:26
-=======
--- Время создания: Авг 10 2021 г., 09:21
->>>>>>> 0ba1fbf2b39529341eb1cdd2f05702d9af4c0178
--- Версия сервера: 10.4.12-MariaDB
--- Версия PHP: 7.4.14
+CREATE DATABASE isp CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE isp;
+CREATE TABLE sdc_calendar
+(
+  id int(10) NOT NULL,
+  title varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
+  description text COLLATE utf8mb4_unicode_ci NOT NULL,
+  start datetime DEFAULT NULL,
+  end datetime DEFAULT NULL,
+  allDay varchar(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  calendar varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  url varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  user_id int(10) NOT NULL
+);
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
+INSERT INTO isp.sdc_calendar (id, title, description, start, end, allDay, calendar, url, user_id) VALUES (1, 'Закрытие суда', 'Чернов Роман Александрович', '2021-08-01 00:00:00', '2021-05-08 00:00:00', '0', 'Primary', '', 1);
+INSERT INTO isp.sdc_calendar (id, title, description, start, end, allDay, calendar, url, user_id) VALUES (2, 'Консультант +', 'Отправить статистику Консультант+', '2021-08-20 12:00:00', '2021-05-20 12:30:00', '0', 'Danger', 'sobyitiya/konsultant', 1);
+INSERT INTO isp.sdc_calendar (id, title, description, start, end, allDay, calendar, url, user_id) VALUES (3, 'Справка к совещанию председателей', 'Подготовить справку отправить на Смоленский областной суд; ''gk_smoloblsud@mail.ru''; ''uk_smoloblsud@mail.ru''; ''adm_smoloblsud@mail.ru''; ''ok_smoloblsud@mail.ru''; ''smoloblsud@mail.ru ''', '2021-08-16 00:00:00', '2021-08-16 00:00:00', '0', 'Warning', '', 1);
+INSERT INTO isp.sdc_calendar (id, title, description, start, end, allDay, calendar, url, user_id) VALUES (4, 'Статистическая отчетность', 'До 10 июля', '2021-08-09 00:00:00', '2021-08-09 00:00:00', '0', 'Primary', 'sobyitiya/polugodovaya-otchetnost', 1);
+INSERT INTO isp.sdc_calendar (id, title, description, start, end, allDay, calendar, url, user_id) VALUES (5, 'Справка', 'Отправить подготовленные спраки', '2021-08-21 00:00:00', '2021-08-21 00:00:00', '0', 'Warning', 'sobyitiya/spravka-k-soveshhaniyu-predsedatelej', 1);
+INSERT INTO isp.sdc_calendar (id, title, description, start, end, allDay, calendar, url, user_id) VALUES (6, 'Видеоконференц-связь', 'Проведение тестового сеанса ВКС перед совещанием председателей в 14:00', '2021-08-09 00:00:00', '2021-08-09 00:00:00', '0', 'Warning', '', 0);
+INSERT INTO isp.sdc_calendar (id, title, description, start, end, allDay, calendar, url, user_id) VALUES (7, 'Видеоконференц-связь', 'Проведение тестового сеанса ВКС перед совещанием председателей в 14:00', '2021-08-16 00:00:00', '2021-08-16 00:00:00', '0', 'Primary', '', 0);
+INSERT INTO isp.sdc_calendar (id, title, description, start, end, allDay, calendar, url, user_id) VALUES (8, 'Видеоконференц-связь', 'Проведение тестового сеанса ВКС перед совещанием по СМИ в 14:00', '2021-08-27 00:00:00', '2021-08-27 00:00:00', '0', 'Success', '', 0);
+INSERT INTO isp.sdc_calendar (id, title, description, start, end, allDay, calendar, url, user_id) VALUES (9, 'Тестовая запись', '', '2021-08-03 12:00:00', '2021-08-11 12:00:00', '', 'Warning', '', 0);
+INSERT INTO isp.sdc_calendar (id, title, description, start, end, allDay, calendar, url, user_id) VALUES (10, 'Тестовая запись', '', '2021-05-06 12:00:00', '2021-05-06 12:00:00', '', 'Success', '', 0);
+INSERT INTO isp.sdc_calendar (id, title, description, start, end, allDay, calendar, url, user_id) VALUES (11, 'Тестовое событие', '', '2021-08-05 12:00:00', '2021-08-05 12:00:00', '', 'Primary', '', 0);
+INSERT INTO isp.sdc_calendar (id, title, description, start, end, allDay, calendar, url, user_id) VALUES (12, 'Тестовая запись', '', '2021-07-22 12:00:00', '2021-07-22 12:00:00', '', 'Danger', '', 0);
+INSERT INTO isp.sdc_calendar (id, title, description, start, end, allDay, calendar, url, user_id) VALUES (13, 'Тестовая запись', '', '2021-08-19 12:00:00', '2021-08-19 12:00:00', '', 'Warning', '', 0);
+INSERT INTO isp.sdc_calendar (id, title, description, start, end, allDay, calendar, url, user_id) VALUES (14, 'Тестовая запись', '', '2021-05-12 12:00:00', '2021-05-12 12:00:00', '', 'Info', '', 0);
+INSERT INTO isp.sdc_calendar (id, title, description, start, end, allDay, calendar, url, user_id) VALUES (15, 'Тестовая запись', '', '2021-05-13 12:00:00', '2021-05-13 12:00:00', '', 'Warning', '', 0);
+INSERT INTO isp.sdc_calendar (id, title, description, start, end, allDay, calendar, url, user_id) VALUES (16, 'Тестовая запись', '', '2021-05-05 12:00:00', '2021-05-05 12:00:00', '', 'Primary', '', 0);
+INSERT INTO isp.sdc_calendar (id, title, description, start, end, allDay, calendar, url, user_id) VALUES (17, 'Тестовая запись', '', '2021-05-04 12:00:00', '2021-05-04 12:00:00', '', 'Info', '', 0);
+INSERT INTO isp.sdc_calendar (id, title, description, start, end, allDay, calendar, url, user_id) VALUES (18, 'Тестовая запись', '', '2021-05-03 12:00:00', '2021-05-03 12:00:00', '', 'Success', '', 0);
+INSERT INTO isp.sdc_calendar (id, title, description, start, end, allDay, calendar, url, user_id) VALUES (19, 'Тестовая запись', '', '2021-05-07 12:00:00', '2021-05-07 12:00:00', '', 'Success', '', 0);
+INSERT INTO isp.sdc_calendar (id, title, description, start, end, allDay, calendar, url, user_id) VALUES (20, 'Запись пользователя 2', '', '2021-05-08 12:00:00', '2021-05-08 12:00:00', '', 'Primary', '', 2);
+INSERT INTO isp.sdc_calendar (id, title, description, start, end, allDay, calendar, url, user_id) VALUES (21, 'Тестовая Запись пользователя 3', '', '2021-05-10 12:00:00', '2021-05-10 12:00:00', '', 'Primary', '', 3);
+INSERT INTO isp.sdc_calendar (id, title, description, start, end, allDay, calendar, url, user_id) VALUES (22, 'Запись пользователя 4', '', '2021-05-11 12:00:00', '2021-05-11 12:00:00', '', 'Warning', '', 4);
+INSERT INTO isp.sdc_calendar (id, title, description, start, end, allDay, calendar, url, user_id) VALUES (23, 'Запись пользователя 5', '', '2021-05-14 12:00:00', '2021-05-14 12:00:00', '', 'Warning', '', 5);
+INSERT INTO isp.sdc_calendar (id, title, description, start, end, allDay, calendar, url, user_id) VALUES (24, 'Тестовая запись', '', '2021-05-15 12:00:00', '2021-05-15 12:00:00', '', 'Danger', '', 0);
+INSERT INTO isp.sdc_calendar (id, title, description, start, end, allDay, calendar, url, user_id) VALUES (25, 'Тестовая запись', '', '2021-05-17 12:00:00', '2021-05-17 12:00:00', '', 'Warning', '', 0);
+INSERT INTO isp.sdc_calendar (id, title, description, start, end, allDay, calendar, url, user_id) VALUES (26, 'Тестовая запись', '', '2021-06-18 12:00:00', '2021-06-18 12:00:00', '', 'Primary', '', 0);
+INSERT INTO isp.sdc_calendar (id, title, description, start, end, allDay, calendar, url, user_id) VALUES (27, 'Тестовая запись', '', '2021-05-19 12:00:00', '2021-05-19 12:00:00', '', 'Info', '', 0);
+INSERT INTO isp.sdc_calendar (id, title, description, start, end, allDay, calendar, url, user_id) VALUES (28, 'Тестовая запись', '', '2021-05-20 12:00:00', '2021-05-20 12:00:00', '', 'Danger', '', 0);
+INSERT INTO isp.sdc_calendar (id, title, description, start, end, allDay, calendar, url, user_id) VALUES (29, 'Тестовая запись', '', '2021-05-21 12:00:00', '2021-05-21 12:00:00', '', 'Warning', '', 0);
+INSERT INTO isp.sdc_calendar (id, title, description, start, end, allDay, calendar, url, user_id) VALUES (30, 'Тестовая запись', '', '2021-05-24 12:00:00', '2021-05-24 12:00:00', '', 'Info', '', 0);
+INSERT INTO isp.sdc_calendar (id, title, description, start, end, allDay, calendar, url, user_id) VALUES (31, 'Тестовая запись', '', '2021-05-25 12:00:00', '2021-05-25 12:00:00', '', 'Danger', '', 0);
+INSERT INTO isp.sdc_calendar (id, title, description, start, end, allDay, calendar, url, user_id) VALUES (32, 'Тестовая запись', '', '2021-08-24 12:00:00', '2021-08-24 12:00:00', '', 'Warning', '', 0);
+INSERT INTO isp.sdc_calendar (id, title, description, start, end, allDay, calendar, url, user_id) VALUES (33, 'Тестовая запись', '', '2021-08-25 12:00:00', '2021-08-25 12:00:00', '', 'Primary', '', 0);
+INSERT INTO isp.sdc_calendar (id, title, description, start, end, allDay, calendar, url, user_id) VALUES (34, 'Тестовое событие', 'Описание', '2021-08-13 12:00:00', '2021-08-13 12:00:00', '1', 'Info', '', 1);
 
+CREATE TABLE sdc_proxy_list (
+  id int(11) UNSIGNED NOT NULL,
+  menuindex varchar(10) NOT NULL,
+  name_href varchar(200) NOT NULL,
+  id_group int(10) NOT NULL DEFAULT 0,
+  href varchar(200) NOT NULL DEFAULT '',
+  proxy_href text NOT NULL
+);
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- База данных: `isp`
---
-<<<<<<< HEAD
-CREATE DATABASE IF NOT EXISTS `isp` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `isp`;
-=======
->>>>>>> 0ba1fbf2b39529341eb1cdd2f05702d9af4c0178
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `sdc_calendar`
---
-
-CREATE TABLE `sdc_calendar` (
-  `id` int(10) NOT NULL,
-  `title` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `start` datetime DEFAULT NULL,
-  `end` datetime DEFAULT NULL,
-  `allDay` varchar(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `calendar` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `url` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `user_id` int(10) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Дамп данных таблицы `sdc_calendar`
---
-
-INSERT INTO `sdc_calendar` (`id`, `title`, `description`, `start`, `end`, `allDay`, `calendar`, `url`, `user_id`) VALUES
-<<<<<<< HEAD
-(2, 'Справка к совещанию судей', '', '2021-08-06 00:00:00', '2021-08-06 00:00:00', '0', 'Primary', '', 0),
-(3, 'Закрытие суда', 'Чернов Роман Александрович', '2021-08-01 00:00:00', '2021-08-08 00:00:00', '0', 'Primary', '', 0),
-(4, 'Консультант +', 'Отправить статистику Консультант+', '2021-08-20 12:00:00', '2021-08-20 12:30:00', '0', 'Primary', 'sobyitiya/konsultant', 0),
-(5, 'Справка к совещанию председателей', 'Подготовить справку отправить на Смоленский областной суд; \'gk_smoloblsud@mail.ru\'; \'uk_smoloblsud@mail.ru\'; \'adm_smoloblsud@mail.ru\'; \'ok_smoloblsud@mail.ru\'; \'smoloblsud@mail.ru \'', '2021-08-16 00:00:00', '2021-08-16 00:00:00', '', 'Primary', '', 0),
-(6, 'Статистическая отчетность', 'До 10 июля', '2021-08-09 00:00:00', '2021-08-09 00:00:00', '', 'Primary', 'sobyitiya/polugodovaya-otchetnost', 0),
-(7, 'Справка', 'Отправить подготовленные спраки', '2021-08-21 00:00:00', '2021-08-21 00:00:00', '', 'Primary', 'sobyitiya/spravka-k-soveshhaniyu-predsedatelej', 0),
-(8, 'Видеоконференц-связь', 'Проведение тестового сеанса ВКС перед совещанием председателей в 14:00', '2021-08-09 00:00:00', '2021-08-09 00:00:00', '', 'Primary', '', 0),
-(9, 'Видеоконференц-связь', 'Проведение тестового сеанса ВКС перед совещанием председателей в 14:00', '2021-08-16 00:00:00', '2021-08-16 00:00:00', '', 'Primary', '', 0),
-(10, 'Видеоконференц-связь', 'Проведение тестового сеанса ВКС перед совещанием по СМИ в 14:00', '2021-08-27 00:00:00', '2021-08-27 00:00:00', '', 'Primary', '', 0),
-(65, '222222222222', '', '2021-08-24 12:00:00', '2021-08-24 12:00:00', '', 'Primary', '', 0),
-(64, '111111111111', '', '2021-08-23 12:00:00', '2021-08-23 12:00:00', '', 'Primary', '', 0);
-=======
-(2, 'Справка к совещанию судей', '', '2021-08-06 00:00:00', '2021-05-06 00:00:00', '0', 'Primary', '', 0),
-(3, 'Закрытие суда', 'Чернов Роман Александрович', '2021-08-01 00:00:00', '2021-05-08 00:00:00', '0', 'Primary', '', 0),
-(4, 'Консультант +', 'Отправить статистику Консультант+', '2021-08-20 12:00:00', '2021-05-20 12:30:00', '0', 'Primary', 'sobyitiya/konsultant', 0),
-(5, 'Справка к совещанию председателей', 'Подготовить справку отправить на Смоленский областной суд; \'gk_smoloblsud@mail.ru\'; \'uk_smoloblsud@mail.ru\'; \'adm_smoloblsud@mail.ru\'; \'ok_smoloblsud@mail.ru\'; \'smoloblsud@mail.ru \'', '2021-08-16 00:00:00', NULL, '0', 'Primary', '', 0),
-(6, 'Статистическая отчетность', 'До 10 июля', '2021-08-09 00:00:00', NULL, '0', 'Primary', 'sobyitiya/polugodovaya-otchetnost', 0),
-(7, 'Справка', 'Отправить подготовленные спраки', '2021-08-21 00:00:00', NULL, '0', 'Primary', 'sobyitiya/spravka-k-soveshhaniyu-predsedatelej', 0),
-(8, 'Видеоконференц-связь', 'Проведение тестового сеанса ВКС перед совещанием председателей в 14:00', '2021-08-09 00:00:00', NULL, '0', 'Primary', '', 0),
-(9, 'Видеоконференц-связь', 'Проведение тестового сеанса ВКС перед совещанием председателей в 14:00', '2021-08-16 00:00:00', NULL, '0', 'Primary', '', 0),
-(10, 'Видеоконференц-связь', 'Проведение тестового сеанса ВКС перед совещанием по СМИ в 14:00', '2021-08-27 00:00:00', NULL, '0', 'Primary', '', 0),
-(33, 'Тестовая запись', '', '2021-08-03 12:00:00', '2021-08-11 12:00:00', '', 'Warning', '', 0),
-(42, '1', '', '2021-05-06 12:00:00', '2021-05-06 12:00:00', '', 'Primary', '', 0),
-(35, 'Тестовое событие', '', '2021-08-05 12:00:00', '2021-08-05 12:00:00', '', 'Primary', '', 0),
-(40, '1', '', '2021-07-22 12:00:00', '2021-07-22 12:00:00', '', 'Primary', '', 0),
-(41, '1', '', '2021-08-19 12:00:00', '2021-08-19 12:00:00', '', 'Primary', '', 0),
-(43, '1', '', '2021-05-12 12:00:00', '2021-05-12 12:00:00', '', 'Primary', '', 0),
-(44, '1', '', '2021-05-13 12:00:00', '2021-05-13 12:00:00', '', 'Primary', '', 0),
-(45, '1', '', '2021-05-05 12:00:00', '2021-05-05 12:00:00', '', 'Primary', '', 0),
-(46, '1', '', '2021-05-04 12:00:00', '2021-05-04 12:00:00', '', 'Primary', '', 0),
-(47, '1', '', '2021-05-03 12:00:00', '2021-05-03 12:00:00', '', 'Primary', '', 0),
-(48, '1', '', '2021-05-07 12:00:00', '2021-05-07 12:00:00', '', 'Primary', '', 0),
-(49, '1', '', '2021-05-08 12:00:00', '2021-05-08 12:00:00', '', 'Primary', '', 0),
-(50, '1', '', '2021-05-10 12:00:00', '2021-05-10 12:00:00', '', 'Primary', '', 0),
-(51, '1', '', '2021-05-11 12:00:00', '2021-05-11 12:00:00', '', 'Primary', '', 0),
-(52, '2', '', '2021-05-14 12:00:00', '2021-05-14 12:00:00', '', 'Primary', '', 0),
-(53, '3', '', '2021-05-15 12:00:00', '2021-05-15 12:00:00', '', 'Primary', '', 0),
-(54, '1', '', '2021-05-17 12:00:00', '2021-05-17 12:00:00', '', 'Primary', '', 0),
-(55, '1', '', '2021-05-18 12:00:00', '2021-05-18 12:00:00', '', 'Primary', '', 0),
-(56, '1', '', '2021-05-19 12:00:00', '2021-05-19 12:00:00', '', 'Primary', '', 0),
-(57, '1', '', '2021-05-20 12:00:00', '2021-05-20 12:00:00', '', 'Primary', '', 0),
-(58, '3', '', '2021-05-21 12:00:00', '2021-05-21 12:00:00', '', 'Primary', '', 0),
-(59, '1', '', '2021-05-24 12:00:00', '2021-05-24 12:00:00', '', 'Primary', '', 0),
-(60, '123', '', '2021-05-25 12:00:00', '2021-05-25 12:00:00', '', 'Primary', '', 0),
-(61, '1111111111111111', '', '2021-08-24 12:00:00', '2021-08-24 12:00:00', '', 'Primary', '', 0),
-(62, '2222222222222', '', '2021-08-25 12:00:00', '2021-08-25 12:00:00', '', 'Primary', '', 0);
->>>>>>> 0ba1fbf2b39529341eb1cdd2f05702d9af4c0178
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `sdc_proxy_list`
---
-
-CREATE TABLE `sdc_proxy_list` (
-  `id` int(11) UNSIGNED NOT NULL,
-  `menuindex` varchar(10) NOT NULL,
-  `name_href` varchar(200) NOT NULL,
-  `id_group` int(10) NOT NULL DEFAULT 0,
-  `href` varchar(200) NOT NULL DEFAULT '',
-  `proxy_href` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Дамп данных таблицы `sdc_proxy_list`
---
-
-INSERT INTO `sdc_proxy_list` (`id`, `menuindex`, `name_href`, `id_group`, `href`, `proxy_href`) VALUES
+INSERT INTO sdc_proxy_list (`id`, `menuindex`, `name_href`, `id_group`, `href`, `proxy_href`) VALUES
 (1, '1', 'Сервисы', 0, '', ''),
 (2, '2', 'Судебная система, госслужба, адвокаты, нотариусы', 0, '', 'sudrf.ru;*.sudrf.ru;arbitr.ru;*.arbitr.ru;*msudrf.ru;*.ssrf.ru;mos-gorsud.ru;'),
 (3, '3', 'Органы государственной власти', 0, '', 'gov.ru;*.gov.ru;'),
@@ -170,25 +106,16 @@ INSERT INTO `sdc_proxy_list` (`id`, `menuindex`, `name_href`, `id_group`, `href`
 (51, '0', 'СПО ПТК ВИВ', 1, 'http://10.224.0.36:8080/ptkviv/', ''),
 (52, '6', 'Управление Судебного департамента в Смоленской области', 2, 'http://usd.sml.sudrf.ru/', '');
 
--- --------------------------------------------------------
+CREATE TABLE sdc_room (
+  id int(10) UNSIGNED NOT NULL,
+  jupiter_tab_num varchar(2) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  ip varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  position varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
+  alarm_button int(2) DEFAULT NULL,
+  phone_worck varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL,
+  building_number int(1) NOT NULL DEFAULT 1
+);
 
---
--- Структура таблицы `sdc_room`
---
-
-CREATE TABLE `sdc_room` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `jupiter_tab_num` varchar(2) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `ip` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `position` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `alarm_button` int(2) DEFAULT NULL,
-  `phone_worck` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `building_number` int(1) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Дамп данных таблицы `sdc_room`
---
 
 INSERT INTO `sdc_room` (`id`, `jupiter_tab_num`, `ip`, `position`, `alarm_button`, `phone_worck`, `building_number`) VALUES
 (1, '20', '192.168.2.1', 'серв', NULL, '', 1),
@@ -240,24 +167,14 @@ INSERT INTO `sdc_room` (`id`, `jupiter_tab_num`, `ip`, `position`, `alarm_button
 (47, '', '192.168.2.71', 'к3_8', NULL, '4-17-94', 1),
 (48, '', '192.168.2.61', 'к12_1', 12, '2-15-10', 1);
 
--- --------------------------------------------------------
-
---
--- Структура таблицы `sdc_users`
---
-
-CREATE TABLE `sdc_users` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `username` varchar(100) NOT NULL DEFAULT '',
-  `password` varchar(255) NOT NULL DEFAULT '',
-  `active` tinyint(1) UNSIGNED NOT NULL DEFAULT 1,
-  `primary_group` int(10) UNSIGNED NOT NULL DEFAULT 0,
-  `sudo` tinyint(1) UNSIGNED NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Дамп данных таблицы `sdc_users`
---
+CREATE TABLE sdc_users (
+  id int(10) UNSIGNED NOT NULL,
+  username varchar(100) NOT NULL DEFAULT '',
+  password varchar(255) NOT NULL DEFAULT '',
+  active tinyint(1) UNSIGNED NOT NULL DEFAULT 1,
+  primary_group int(10) UNSIGNED NOT NULL DEFAULT 0,
+  sudo tinyint(1) UNSIGNED NOT NULL DEFAULT 0
+);
 
 INSERT INTO `sdc_users` (`id`, `username`, `password`, `active`, `primary_group`, `sudo`) VALUES
 (1, 'chainik', '$2y$10$ajAnKFrS/4p4Vc3IWZCfwug2HOVWoN6mf0/IeltVpaT3R7lJq21N2', 1, 3, 1),
@@ -312,12 +229,6 @@ INSERT INTO `sdc_users` (`id`, `username`, `password`, `active`, `primary_group`
 (51, 'Kostenkova_NA', '', 1, 3, 0),
 (52, 'Semenova_MN', '', 1, 2, 0);
 
--- --------------------------------------------------------
-
---
--- Структура таблицы `sdc_user_attributes`
---
-
 CREATE TABLE `sdc_user_attributes` (
   `id` int(10) UNSIGNED NOT NULL,
   `internalKey` int(10) NOT NULL,
@@ -336,11 +247,7 @@ CREATE TABLE `sdc_user_attributes` (
   `profession` varchar(2) NOT NULL DEFAULT '',
   `affiliation` varchar(2) CHARACTER SET utf8 NOT NULL DEFAULT '',
   `room` int(3) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Дамп данных таблицы `sdc_user_attributes`
---
+);
 
 INSERT INTO `sdc_user_attributes` (`id`, `internalKey`, `fullname`, `gender`, `dob`, `email`, `mobilephone`, `zip`, `state`, `city`, `address`, `photo`, `comment`, `website`, `profession`, `affiliation`, `room`) VALUES
 (1, 1, 'Супер Админ ИСП', 1, '1987-03-17', 'admin@net.ru', '+7(007)', '215500', '67', 'Сафоново', 'серверная в суде', 'assets/img/avatars/default.svg', 'Учетная запись супер-пользователя', 'sudrf.ru/superadmin)', '', '', NULL),
@@ -395,82 +302,36 @@ INSERT INTO `sdc_user_attributes` (`id`, `internalKey`, `fullname`, `gender`, `d
 (50, 51, 'Костенкова Наталья Александровна', 2, '1975-06-17', 'Kostenkova_NA@net.ru', '', '', '67', 'Сафоново', '', 'assets/img/avatars/default.svg', '', '', '9', '46', 37),
 (51, 52, 'Семенова Марина Николаевна', 2, '1976-07-25', 'Semenova_MN@net.ru', '', '', '67', 'Сафоново', '', 'assets/img/avatars/default.svg', '', '', '7', '42', 13);
 
---
--- Индексы сохранённых таблиц
---
-
---
--- Индексы таблицы `sdc_calendar`
---
 ALTER TABLE `sdc_calendar`
   ADD UNIQUE KEY `id` (`id`);
 
---
--- Индексы таблицы `sdc_proxy_list`
---
 ALTER TABLE `sdc_proxy_list`
   ADD PRIMARY KEY (`id`);
 
---
--- Индексы таблицы `sdc_room`
---
 ALTER TABLE `sdc_room`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
---
--- Индексы таблицы `sdc_users`
---
 ALTER TABLE `sdc_users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `username` (`username`);
 
---
--- Индексы таблицы `sdc_user_attributes`
---
 ALTER TABLE `sdc_user_attributes`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `internalKey` (`internalKey`),
   ADD UNIQUE KEY `room` (`room`);
 
---
--- AUTO_INCREMENT для сохранённых таблиц
---
-
---
--- AUTO_INCREMENT для таблицы `sdc_calendar`
---
 ALTER TABLE `sdc_calendar`
-<<<<<<< HEAD
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
-=======
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
->>>>>>> 0ba1fbf2b39529341eb1cdd2f05702d9af4c0178
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
---
--- AUTO_INCREMENT для таблицы `sdc_proxy_list`
---
 ALTER TABLE `sdc_proxy_list`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
---
--- AUTO_INCREMENT для таблицы `sdc_room`
---
 ALTER TABLE `sdc_room`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
---
--- AUTO_INCREMENT для таблицы `sdc_users`
---
 ALTER TABLE `sdc_users`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
---
--- AUTO_INCREMENT для таблицы `sdc_user_attributes`
---
 ALTER TABLE `sdc_user_attributes`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
