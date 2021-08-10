@@ -289,24 +289,6 @@ const calendmodulehandler = () => {
      // }*/
   }
 
-  const bgevents = [
-    {
-      id: 1001,
-      start: "2021-08-01",
-      end: "2021-08-01",
-      allDay: true,
-      display: "background"
-    },
-    {
-      id: 1002,
-      start: "2021-08-07",
-      end: "2021-08-07",
-      allDay: true,
-      display: "background"
-    },
-  ];
-
-
   const calendar = new FullCalendar.Calendar(calendarEl, {
     locale: 'ru',
     timeZone: 'Europe/Moscow',
@@ -331,7 +313,8 @@ const calendmodulehandler = () => {
 
     eventSources: [
       fetchEvents,
-      bgevents
+      // Фоновые события
+      assets/js/testbgevents.js
 ],
   //  events: fetchEvents,
     headerToolbar: {

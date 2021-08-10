@@ -40,8 +40,7 @@
 
 	//приводит Фамилию Имя Отчество к виду Фамилия И.О.
 	function shortFIO($fullname) {
-		$shortFIO = preg_replace('#(.*)\s+(.).*\s+(.).*#usi', '$1 $2.$3.', $fullname);
-		return $shortFIO;
+    return preg_replace('#(.*)\s+(.).*\s+(.).*#usi', '$1 $2.$3.', $fullname);
 	}
 
 	// выводит статус

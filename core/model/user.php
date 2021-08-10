@@ -52,8 +52,7 @@
 
 	    //приводит Фамилию Имя Отчество к виду Фамилия И.О.
 	    public function getShortFIO($fullname) {
-			$shortFIO = preg_replace('#(.*)\s+(.).*\s+(.).*#usi', '$1 $2.$3.', $fullname);
-			return $shortFIO;
+        return preg_replace('#(.*)\s+(.).*\s+(.).*#usi', '$1 $2.$3.', $fullname);
 		}
 
 		//Номера комнат для человека
@@ -85,6 +84,6 @@
 	            }
 	        }
 		}
-		
+
 
 	}

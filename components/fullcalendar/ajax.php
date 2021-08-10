@@ -23,16 +23,15 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/core/extension/reference_book.php";
   $url = isset($_POST['url']) ? $_POST['url'] : "";
 
   // Если в полученном post user_id = 999999999, то меняем на id пользователя из куки, ессли 0, то user_id =0
-  if
-  ($_POST['user_id'] === "999999999") {
-    $user_id = $_COOKIE['aut']['id'];
-  } else
-    if ($_POST['user_id'] === "0") {
-      $user_id = "0";
-    };
-
  
-
+switch ($_POST['user_id']) {
+  case 999999999:
+    $user_id = $_COOKIE['aut']['id'];
+    break;
+  case 0:
+    $user_id = "0";
+    break;
+}
 
   
 
