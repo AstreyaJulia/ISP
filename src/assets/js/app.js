@@ -263,17 +263,21 @@ const calendmodulehandler = () => {
         },*/
 
         data: {
-          startParam: moment(info.start).format('YYYY-MM-DD hh:mm'),
-          endParam: moment(info.end).format('YYYY-MM-DD hh:mm'),
+          startParam: moment(info.start).format('YYYY-MM-DD'),
+          endParam: moment(info.end).format('YYYY-MM-DD'),
         },
         success: function (result) {
           // Получение запрашиваемых календарей(категорий событий)
           /*const calendars = selectedCalendars();*/
           successCallback(result);
+          console.log(result);
+          console.log(moment(info.start).format('YYYY-MM-DD'), moment(info.end).format('YYYY-MM-DD'),);
           /*return [result.events.filter(event => (calendars.includes(event.extendedProps.calendar)))];*/
         },
         error: function (error) {
-          //console.log(error);
+          alert("Ошибка" + error.responseText);
+          console.log(moment(info.start).format('YYYY-MM-DD'), moment(info.end).format('YYYY-MM-DD'),);
+
         }
       }
     );
@@ -288,6 +292,30 @@ const calendmodulehandler = () => {
      successCallback(selectedEvents);
      // }*/
   }
+
+  const bgevents = [
+    {
+      id: 1001,
+      start: "2021-08-01",
+      end: "2021-08-01",
+      allDay: true,
+      display: "background"
+    },
+    {
+      id: 1002,
+      start: "2021-08-07",
+      end: "2021-08-07",
+      allDay: true,
+      display: "background"
+    },
+    {
+      id: 1003,
+      start: "2021-08-08",
+      end: "2021-08-08",
+      display: "background"
+    },
+  ];
+
 
   const calendar = new FullCalendar.Calendar(calendarEl, {
     locale: 'ru',
@@ -313,10 +341,9 @@ const calendmodulehandler = () => {
 
     eventSources: [
       fetchEvents,
-      // Фоновые события
-      assets/js/testbgevents.js
-],
-  //  events: fetchEvents,
+      bgevents
+    ],
+    //  events: fetchEvents,
     headerToolbar: {
       left: 'title',
       center: '',
@@ -519,7 +546,7 @@ const calendmodulehandler = () => {
         'Accept': 'application/json;odata=nometadata'
       },
       success: function (response) {
-      removeEvent(Event);
+        removeEvent(Event);
       },
       error: function (jqXHR, textStatus, errorThrown) {
         alert("Ошибка" + jqXHR + textStatus + errorThrown);
