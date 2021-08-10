@@ -22,7 +22,15 @@ VALUES (:title, :start, :end, :calendar, :description, :url, :user_id, :allDay)"
 	        return $this->db->run($sql, $params);
 	    }
 
+	    //Вносим изменения в событие
+	    public function setUpdateEvents($params) {
+	        $sql = "UPDATE sdc_calendar SET `title`=:title, `start`=:start, `end`=:end, `calendar`=:calendar, `description`=:description, `url`=:url, `user_id`=:user_id, `allDay`=:allDay WHERE `id` = :id";
+	        return $this->db->run($sql, $params);
+	    }
 
-
-
+	    //Удаляем событие
+	    public function setDelEvents($params) {
+	        $sql = "DELETE FROM `sdc_calendar` WHERE `id` = ?";
+	        return $this->db->run($sql, $params);
+	    }
 	}
