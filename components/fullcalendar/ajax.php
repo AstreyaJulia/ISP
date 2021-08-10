@@ -1,105 +1,59 @@
 <?php
-//namespace Core\Model;
-//spl_autoload_register(); // включаем автозагрузку классов
+// включаем автозагрузку классов
+spl_autoload_register(function($class) {
+  require (mb_strtolower($_SERVER['DOCUMENT_ROOT'] . '/' . str_replace('\\', '/', $class) . '.php'));
+});
 error_reporting(E_ALL);
 ini_set("display_errors", "on");
 //подключаемся к базе
-require_once $_SERVER["DOCUMENT_ROOT"] . "/core/config/db_config.php";
-//подключаем функции
-require_once $_SERVER["DOCUMENT_ROOT"] . "/core/extension/custom_functions.php";
-//подключаем справочники
-require_once $_SERVER["DOCUMENT_ROOT"] . "/core/extension/reference_book.php";
-//подключаем классы
+require_once $_SERVER['DOCUMENT_ROOT'] . "/conection.php";
+
+//Подключаемся  базе
+$db = new \Core\Config\DB($dbname, $user, $password, $host);
+//Вызываем класс Fullcalendar
+$FullcalendarClass = new \Core\Model\Fullcalendar($db);
 
 
-
-
+  $operation = isset($_POST['operation']) ? $_POST['operation'] : "";
   $title = isset($_POST['title']) ? $_POST['title'] : "";
   $start = isset($_POST['start']) ? $_POST['start'] : "";
   $end = isset($_POST['end']) ? $_POST['end'] : "";
   $calendar = isset($_POST['calendar']) ? $_POST['calendar'] : "";
-  $allDay = $_POST['allDay'];
   $description = isset($_POST['description']) ? $_POST['description'] : "";
   $url = isset($_POST['url']) ? $_POST['url'] : "";
+  $user_id = isset($_POST['user_id']) ? $_POST['user_id'] : "";
+  $allDay = isset($_POST['allDay']) ? $_POST['allDay'] : "";
 
   // Если в полученном post user_id = 999999999, то меняем на id пользователя из куки, ессли 0, то user_id =0
- 
-switch ($_POST['user_id']) {
-  case 999999999:
-    $user_id = $_COOKIE['aut']['id'];
-    break;
-  case 0:
-    $user_id = "0";
-    break;
-}
-
-  
-
-
-
-
-switch ($_POST['operation']) {
-    case add:
-         $sql = "INSERT INTO `sdc_calendar`
-  (`title`, `start`, `end`, `calendar`, `description`, `url`, `user_id`, `allDay`)
-VALUES
-  ('".$title."','".$start."','".$end ."','".$calendar."','".$description."','".$url."','".$user_id."','".$allDay."');";
-  $stmt = $link->prepare($sql);
-
-  $stmt->execute();
-  return $stmt->rowCount($params);
+    switch ($user_id) {
+      case 999999999:
+        $user_id = $_COOKIE['aut']['id'];
         break;
-    case 1:
-        echo "i равно 1";
+      case 0:
+        $user_id = "0";
         break;
-    case 2:
-        echo "i равно 2";
-        break;
-}
+    }
+
+    $params = [
+        ':title' => $title,
+        ':start' => $start,
+        ':end' => $end,
+        ':calendar' => $calendar,
+        ':description' => $description,
+        ':url' => $url,
+        ':user_id' => $user_id,
+        ':allDay' => $allDay
+    ];
 
 
 
-
-/* Прежний код
-<?php
-//namespace Core\Model;
-//spl_autoload_register(); // включаем автозагрузку классов
-error_reporting(E_ALL);
-ini_set("display_errors", "on");
-//подключаемся к базе
-require_once $_SERVER["DOCUMENT_ROOT"] ."/core/config/db_config.php";
-//подключаем функции
-require_once $_SERVER["DOCUMENT_ROOT"] ."/core/extension/custom_functions.php";
-//подключаем справочники
-require_once $_SERVER["DOCUMENT_ROOT"] ."/core/extension/reference_book.php";
-//подключаем классы
-
-if (!empty($_POST["title"])) {
-  //print_r($_POST);
-  //echo "событие добавлено";
-
-  //добавляем запись в таблицу sdc_calendar
-  $query = "INSERT INTO `sdc_calendar` (`title`, `description`, `start`, `end`, `user_id`) VALUES (:title, :description, :start, :end, :user_id)";
-  $params = [
-    ':title' => $_POST["title"],
-    ':description' => $_POST["description"],
-    ':start' => $_POST["start-date"].' '.$_POST["start-time"],
-    ':end' => $_POST["end-date"].' '.$_POST["end-time"],
-    ':user_id' => $_COOKIE['aut']['id']
-  ];
-  $stmt = $link->prepare($query);
-  $stmt->execute($params);
-  //получаем id вставленной записи. Если запрос не выполнен вернёт 0. Используется после запроса INSERT
-  $LAST_ID = $link->lastInsertId();
-
-  echo $LAST_ID;
-}
-
-
-//?filter[judges]=1&filter[assistants]=2&filter[secretary]=3
-//var_dump($_GET["filter"]);
-
-//echo $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . 'core' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'db_config.php';
-
-
-*/
+    switch ($operation) {
+        case 'add':
+            $FullcalendarClass->setInsertEvents($params);
+        case 1:
+            echo "i равно 1";
+            break;
+        case 2:
+            echo "i равно 2";
+            break;
+    }
