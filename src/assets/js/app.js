@@ -371,12 +371,12 @@ const calendmodulehandler = () => {
     },
   ];
 
-
-
   // Показать popover
   function showPopover(event) {
+    console.log(event.event.extendedProps.calendar.toLowerCase());
+    const classpopover = "popover-" + event.event.extendedProps.calendar.toLowerCase();
     let tooltip = new bootstrap.Popover(event.el, {
-      template: '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>',
+      template: '<div class="popover ' + classpopover + '" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>',
       title: event.event.title,
       content: event.event.extendedProps.description,
       placement: 'top',
@@ -485,9 +485,6 @@ const calendmodulehandler = () => {
   // Функция - Обновление события
   function updateEvent(eventData) {
     calendar.refetchEvents(eventData);
-    /* const propsToUpdate = ['id', 'title', 'url'];
-     const extendedPropsToUpdate = ['calendar', 'description', 'user_id'];
-     updateEventInCalendar(eventData, propsToUpdate, extendedPropsToUpdate);*/
     hideModal();
     resetValues();
   }
@@ -495,42 +492,8 @@ const calendmodulehandler = () => {
   // Функция - Удаление события
   function removeEvent(eventId) {
     calendar.refetchEvents(eventId);
-    //removeEventInCalendar(eventId);
     hideModal();
     resetValues();
-  }
-
-  // (UI) updateEventInCalendar
-  const updateEventInCalendar = (updatedEventData, propsToUpdate, extendedPropsToUpdate) => {
-    let propName;
-    let index;
-    const existingEvent = calendar.getEventById(updatedEventData.id);
-
-    // --- Установить параметры события, не связанные с датой ----- //
-    // ? Документация: https://fullcalendar.io/docs/Event-setProp
-    // dateRelatedProps => ['start', 'end', 'allDay']
-    // eslint-disable-next-line no-plusplus
-    for (index = 0; index < propsToUpdate.length; index++) {
-      propName = propsToUpdate[index];
-      existingEvent.setProp(propName, updatedEventData[propName]);
-    }
-
-    // --- Установить параметры события, связанные с датой ----- //
-    // ? Документация: https://fullcalendar.io/docs/Event-setDates
-    existingEvent.setDates(updatedEventData.start, updatedEventData.end);
-
-    // --- Установить расширенные параметры события ----- //
-    // ? Документация: https://fullcalendar.io/docs/Event-setExtendedProp
-    // eslint-disable-next-line no-plusplus
-    for (index = 0; index < extendedPropsToUpdate.length; index++) {
-      propName = extendedPropsToUpdate[index];
-      existingEvent.setExtendedProp(propName, updatedEventData.extendedProps[propName]);
-    }
-  };
-
-  // (UI) removeEventInCalendar Удаление события
-  function removeEventInCalendar(eventId) {
-    $(calendar).getEventById(eventId).remove();
   }
 
   // Кнопка - Добавление нового события
@@ -587,13 +550,6 @@ const calendmodulehandler = () => {
         start: $(modal).find(startDate).val(),
         end: $(modal).find(endDate).val(),
         url: $(eventUrl).val(),
-
-        /* extendedProps: {
-           calendar: $(eventLabel).val(),
-           user_id: $(privateSwitch).prop('checked') ? "999999999" : "0",
-           description: $(calendarEditor).val(),
-         },*/
-
         calendar: $(eventLabel).val(),
         user_id: $(privateSwitch).prop('checked') ? "999999999" : "0",
         description: $(calendarEditor).val(),
@@ -620,7 +576,6 @@ const calendmodulehandler = () => {
           alert("Ошибка" + jqXHR + textStatus + errorThrown);
         }
       });
-      //updateEvent(eventData);
     }
   });
 
