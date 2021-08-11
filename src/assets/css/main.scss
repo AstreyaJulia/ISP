@@ -1549,13 +1549,11 @@ td .badge-big {
 .filter-group {
   display: flex;
   align-items: center;
-  margin: 10px 20px 0 20px;
   border-bottom: 1px solid $line;
   padding-bottom: 10px;
 
   &.calendar-events-filter {
     border-bottom: none;
-    margin: 0 20px;
     padding: 10px 0 0 0;
   }
 

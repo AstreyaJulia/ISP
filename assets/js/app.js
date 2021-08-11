@@ -372,6 +372,26 @@ const calendmodulehandler = () => {
   ];
 
 
+
+  // Показать popover
+    function showPopover(event) {
+      let tooltip = new bootstrap.Popover(event.el, {
+        template: '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>',
+        title: event.event.title,
+        content: event.event.extendedProps.description,
+        placement: 'top',
+    });
+    tooltip.show();
+  }
+
+  // Скрыть popover
+  function hidePopover() {
+    let tooltips = document.querySelectorAll(".popover");
+    tooltips.forEach(function (tooltip) {
+        document.body.removeChild(tooltip);
+});
+}
+
   const calendar = new FullCalendar.Calendar(calendarEl, {
     locale: 'ru',
     timeZone: 'Europe/Moscow',
@@ -404,6 +424,14 @@ const calendmodulehandler = () => {
       center: '',
       right: 'prev,next,today dayGridMonth,timeGridWeek,timeGridDay,listWeek'
     },
+    eventMouseEnter: function(event,) {
+      if (event.event.display !== "background") {
+        showPopover(event);
+      }
+  },
+  eventMouseLeave: function() {
+  hidePopover();
+  },
     dateClick: function (info) {
       // Клик на пустую дату
       const date = moment(info.date).format('YYYY-MM-DD hh:mm');

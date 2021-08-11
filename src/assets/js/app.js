@@ -187,6 +187,7 @@ const calendmodulehandler = () => {
       // window.open((eventToUpdate).url, '_blank');
     }
     console.log(eventToUpdate);
+    console.log("id: " + eventToUpdate.extendedProps.user_id);
     showModal();
     addEventBtn.style.display = "none";
     cancelBtn.style.display = "none";
@@ -196,13 +197,13 @@ const calendmodulehandler = () => {
     editEventTitle.style.display = "block";
 
     $(eventTitle).val(eventToUpdate.title);
-    if (eventToUpdate.extendedProps.user_id === "0") {
+    if (eventToUpdate.extendedProps.user_id === 0) {
       $(privateSwitch).prop('checked', false)
     } else {
       $(privateSwitch).prop('checked', true)
     }
     start.setDate(eventToUpdate.start, true, 'YYYY-MM-DD hh:mm');
-    if (eventToUpdate.allDay === "true") {
+    if (eventToUpdate.allDay === true) {
       $(allDaySwitch).prop('checked', true)
     } else {
       $(allDaySwitch).prop('checked', false)
@@ -371,6 +372,26 @@ const calendmodulehandler = () => {
   ];
 
 
+
+  // Показать popover
+  function showPopover(event) {
+    let tooltip = new bootstrap.Popover(event.el, {
+      template: '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>',
+      title: event.event.title,
+      content: event.event.extendedProps.description,
+      placement: 'top',
+    });
+    tooltip.show();
+  }
+
+  // Скрыть popover
+  function hidePopover() {
+    let tooltips = document.querySelectorAll(".popover");
+    tooltips.forEach(function (tooltip) {
+      document.body.removeChild(tooltip);
+    });
+  }
+
   const calendar = new FullCalendar.Calendar(calendarEl, {
     locale: 'ru',
     timeZone: 'Europe/Moscow',
@@ -402,6 +423,14 @@ const calendmodulehandler = () => {
       left: 'title',
       center: '',
       right: 'prev,next,today dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+    },
+    eventMouseEnter: function(event,) {
+      if (event.event.display !== "background") {
+        showPopover(event);
+      }
+    },
+    eventMouseLeave: function() {
+      hidePopover();
     },
     dateClick: function (info) {
       // Клик на пустую дату
@@ -455,16 +484,18 @@ const calendmodulehandler = () => {
 
   // Функция - Обновление события
   function updateEvent(eventData) {
-    const propsToUpdate = ['id', 'title', 'url'];
-    const extendedPropsToUpdate = ['calendar', 'description', 'user_id'];
-    updateEventInCalendar(eventData, propsToUpdate, extendedPropsToUpdate);
+    calendar.refetchEvents(eventData);
+    /* const propsToUpdate = ['id', 'title', 'url'];
+     const extendedPropsToUpdate = ['calendar', 'description', 'user_id'];
+     updateEventInCalendar(eventData, propsToUpdate, extendedPropsToUpdate);*/
     hideModal();
     resetValues();
   }
 
   // Функция - Удаление события
   function removeEvent(eventId) {
-    removeEventInCalendar(eventId);
+    calendar.refetchEvents(eventId);
+    //removeEventInCalendar(eventId);
     hideModal();
     resetValues();
   }
@@ -556,6 +587,13 @@ const calendmodulehandler = () => {
         start: $(modal).find(startDate).val(),
         end: $(modal).find(endDate).val(),
         url: $(eventUrl).val(),
+
+        /* extendedProps: {
+           calendar: $(eventLabel).val(),
+           user_id: $(privateSwitch).prop('checked') ? "999999999" : "0",
+           description: $(calendarEditor).val(),
+         },*/
+
         calendar: $(eventLabel).val(),
         user_id: $(privateSwitch).prop('checked') ? "999999999" : "0",
         description: $(calendarEditor).val(),
@@ -576,6 +614,7 @@ const calendmodulehandler = () => {
         },
         success: function (response) {
           updateEvent(Event);
+          console.log(Event);
         },
         error: function (jqXHR, textStatus, errorThrown) {
           alert("Ошибка" + jqXHR + textStatus + errorThrown);
