@@ -60,7 +60,7 @@ if($_COOKIE['aut']['sudo'] == 1) {
                 $ProxyListClass->setUpdateLink($params);
                 
                 //переписываем файлы для CCProxy
-                WriteProxyList ($link);
+                WriteProxyList ($db);
                 //переходим в раздел
                 header("Location: /?page=proxylist");
             }
@@ -92,7 +92,7 @@ if($_COOKIE['aut']['sudo'] == 1) {
                 $ProxyListClass->setInsertLink($params);
                 
                 //переписываем файлы для CCProxy
-                WriteProxyList ($link);
+                WriteProxyList ($db);
                 //переходим в раздел
                 header("Location: /?page=proxylist");
             }
@@ -123,7 +123,7 @@ if($_COOKIE['aut']['sudo'] == 1) {
                 //Выполняем запрос на обновление группы
                 $ProxyListClass->setUpdateGroup($params);
                 //переписываем файлы для CCProxy
-                WriteProxyList ($link);
+                WriteProxyList ($db);
                 //переходим в раздел
                 header("Location: /?page=proxylist");
             }
@@ -148,7 +148,7 @@ if($_COOKIE['aut']['sudo'] == 1) {
                 //добавляем группу
                 $ProxyListClass->setInsertGroup($params);
                 //переписываем файлы для CCProxy
-                WriteProxyList ($link);
+                WriteProxyList ($db);
                 //переходим в раздел
                 header("Location: /?page=proxylist");
             }
@@ -157,27 +157,22 @@ if($_COOKIE['aut']['sudo'] == 1) {
 
     //Удаляем ссылку
     if (!empty($_GET["delLink"])) {
-        $query_delete = "DELETE FROM `sdc_proxy_list` WHERE `id` = ?";
-        $params = [$_GET['delLink']];
-        $stmt = $link->prepare($query_delete);
-        $stmt->execute($params);
+        $ProxyListClass->setDelLink([$_GET['delLink']]);
         //переписываем файлы для CCProxy
-        WriteProxyList ($link);
+        WriteProxyList ($db);
         //переходим в раздел
         header("Location: /?page=proxylist");
     }
 
     //Удаляем группу и все принадлежащие ей ссылки
     if (!empty($_GET["delGroup"])) {
-        $query_delete = "DELETE FROM `sdc_proxy_list` WHERE `id` = :id or `id_group` = :id_group";
         $params = [
             ':id' => $_GET['delGroup'],
             ':id_group' => $_GET['delGroup']
         ];
-        $stmt = $link->prepare($query_delete);
-        $stmt->execute($params);
+        $ProxyListClass->setDelGroup($params);
         //переписываем файлы для CCProxy
-        WriteProxyList ($link);
+        WriteProxyList ($db);
         //переходим в раздел
         header("Location: /?page=proxylist");
     }
@@ -191,7 +186,7 @@ if($_COOKIE['aut']['sudo'] == 1) {
 
 function WriteProxyList ($link) {
         //Получаем все name_href
-        $all_name_href = $link->query("SELECT id, id_group, proxy_href FROM sdc_proxy_list WHERE name_href IS NOT NULL")->fetchAll(PDO::FETCH_ASSOC);
+        $all_name_href = $link->run("SELECT id, id_group, proxy_href FROM sdc_proxy_list WHERE name_href IS NOT NULL")->fetchAll(\PDO::FETCH_ASSOC);
         $id = 6; //Группа blacklist 
         $id_group = 6; //Ссылки из группы blacklist
         $output_whitelist = "";
