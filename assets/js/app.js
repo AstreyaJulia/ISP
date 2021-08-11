@@ -186,8 +186,7 @@ const calendmodulehandler = () => {
       info.jsEvent.preventDefault();
       // window.open((eventToUpdate).url, '_blank');
     }
-    console.log(eventToUpdate);
-    console.log("id: " + eventToUpdate.extendedProps.user_id);
+    //console.log(eventToUpdate);
     showModal();
     addEventBtn.style.display = "none";
     cancelBtn.style.display = "none";
@@ -258,11 +257,6 @@ const calendmodulehandler = () => {
         type: "GET",
         dataType: "json",
 
-        /*data: {
-          startParam: "2021-01-01",
-          endParam: "2021-12-31",
-        },*/
-
         data: {
           startParam: moment(info.start).format('YYYY-MM-DD'),
           endParam: moment(info.end).format('YYYY-MM-DD'),
@@ -271,13 +265,13 @@ const calendmodulehandler = () => {
           // Получение запрашиваемых календарей(категорий событий)
           /*const calendars = selectedCalendars();*/
           successCallback(result);
-          console.log(result);
-          console.log(moment(info.start).format('YYYY-MM-DD'), moment(info.end).format('YYYY-MM-DD'),);
+          //console.log(result);
+          //console.log(moment(info.start).format('YYYY-MM-DD'), moment(info.end).format('YYYY-MM-DD'),);
           /*return [result.events.filter(event => (calendars.includes(event.extendedProps.calendar)))];*/
         },
         error: function (error) {
           alert("Ошибка" + error.responseText);
-          console.log(moment(info.start).format('YYYY-MM-DD'), moment(info.end).format('YYYY-MM-DD'),);
+          //console.log(moment(info.start).format('YYYY-MM-DD'), moment(info.end).format('YYYY-MM-DD'),);
 
         }
       }
@@ -373,7 +367,6 @@ const calendmodulehandler = () => {
 
   // Показать popover
   function showPopover(event) {
-    console.log(event.event.extendedProps.calendar.toLowerCase());
     const classpopover = "popover-" + event.event.extendedProps.calendar.toLowerCase();
     let tooltip = new bootstrap.Popover(event.el, {
       template: '<div class="popover ' + classpopover + '" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>',
@@ -570,7 +563,6 @@ const calendmodulehandler = () => {
         },
         success: function (response) {
           updateEvent(Event);
-          console.log(Event);
         },
         error: function (jqXHR, textStatus, errorThrown) {
           alert("Ошибка" + jqXHR + textStatus + errorThrown);
