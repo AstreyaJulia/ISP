@@ -17,16 +17,20 @@
     </ul>
   </div>
 </header>
-<div class="card">
-  <div class="filter-group phonebook-filter">
-    <p class="group-title">Фильтр:</p>
-    <?php foreach (getGroupReplace() as $key => $value): ?>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="<?= $key; ?>" name="<?= $key; ?>" value="<?= getGroupReplace() [$key]["id"]; ?>">
-        <label class="form-check-label"  for="<?= $key; ?>"><?= getGroupReplace() [$key]["name"]; ?></label>
-      </div>
-    <?php endforeach ?>
+<div class="card mb-3">
+  <div class="card-body">
+    <div class="filter-group phonebook-filter">
+      <p class="group-title">Фильтр:</p>
+      <?php foreach (getGroupReplace() as $key => $value): ?>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="<?= $key; ?>" name="<?= $key; ?>" value="<?= getGroupReplace() [$key]["id"]; ?>">
+          <label class="form-check-label"  for="<?= $key; ?>"><?= getGroupReplace() [$key]["name"]; ?></label>
+        </div>
+      <?php endforeach ?>
+    </div>
   </div>
+</div>
+<div class="card">
   <table class="table dataTable sort table-users">
     <thead>
     <tr>

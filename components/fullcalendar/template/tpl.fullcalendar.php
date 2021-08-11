@@ -33,27 +33,27 @@
         <p class="group-title">Календарь:</p>
         <div class="form-check">
           <input class="form-check-input input-filter bg-dark select-all" type="checkbox" id="select-all"
-                 name="select-all">
+                 name="select-all" checked>
           <label class="form-check-label" for="select-all">Все</label>
         </div>
         <div class="form-check">
-          <input class="form-check-input input-filter bg-primary" type="checkbox" id="Primary" name="Primary">
+          <input class="form-check-input input-filter bg-primary" type="checkbox" id="Primary" name="Primary" checked>
           <label class="form-check-label" for="Primary">События</label>
         </div>
         <div class="form-check">
-          <input class="form-check-input input-filter bg-danger" type="checkbox" id="Danger" name="Danger">
+          <input class="form-check-input input-filter bg-danger" type="checkbox" id="Danger" name="Danger" checked>
           <label class="form-check-label" for="Danger">Праздники</label>
         </div>
         <div class="form-check">
-          <input class="form-check-input input-filter bg-warning" type="checkbox" id="Warning" name="Warning">
+          <input class="form-check-input input-filter bg-warning" type="checkbox" id="Warning" name="Warning" checked>
           <label class="form-check-label" for="Warning">Важно</label>
         </div>
         <div class="form-check">
-          <input class="form-check-input input-filter bg-success" type="checkbox" id="Success" name="Success">
+          <input class="form-check-input input-filter bg-success" type="checkbox" id="Success" name="Success" checked>
           <label class="form-check-label" for="Success">Личное</label>
         </div>
         <div class="form-check">
-          <input class="form-check-input input-filter bg-info" type="checkbox" id="Info" name="Info">
+          <input class="form-check-input input-filter bg-info" type="checkbox" id="Info" name="Info" checked>
           <label class="form-check-label" for="Info">Разное</label>
         </div>
         <button type="button" class="btn btn-primary ms-auto me-3" data-bs-toggle="modal" data-bs-target="#addEventsModal"

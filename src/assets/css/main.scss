@@ -1140,12 +1140,19 @@ a {
       }
     }
 
-    &-toolbar {
+    &-toolbar,
+    &-number {
       display: flex;
       align-items: center;
       justify-content: space-between;
       margin-left: 7px;
       margin-right: 20px;
+
+      p {
+        padding: 0;
+        margin: 0 5px;
+        font-size: 0.8em;
+      }
     }
 
     &-toolbutton {
@@ -1188,12 +1195,6 @@ a {
     position: absolute;
     right: 7px;
   }
-
-}
-
-// Full calendar
-
-.fc {
 
 }
 
@@ -1549,8 +1550,6 @@ td .badge-big {
 .filter-group {
   display: flex;
   align-items: center;
-  border-bottom: 1px solid $line;
-  padding-bottom: 10px;
 
   &.calendar-events-filter {
     border-bottom: none;
@@ -1884,6 +1883,10 @@ td .badge-big {
 
   .fc {
 
+    .fc-popover {
+      z-index: 1000;
+    }
+
     .fc-button {
       border: none;
 
@@ -2025,6 +2028,7 @@ td .badge-big {
   .fc-daygrid-dot-event {
     border-radius: 50%;
     padding: 2px 2px;
+
     .fc-event-title {
       font-weight: 400;
     }
@@ -4024,6 +4028,87 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
       &:hover {
         background-color: $primary-dark;
       }
+    }
+  }
+
+}
+
+// Popover
+
+.popover {
+  background-color: $off-white;
+  font-family: "TT Norms Pro", "Arial", sans-serif;
+  font-size: 0.9em;
+  box-shadow: $grey-shadow-3;
+  color: $body;
+
+  &-header {
+    padding: 0.3rem 0.75rem;
+    font-size: 1em;
+    border-bottom: none;
+  }
+
+  &-body {
+    padding: 0.75rem 0.75rem;
+  }
+
+  &-primary {
+    border-color: $primary;
+
+    .popover-arrow::before {
+      border-top-color: $primary;
+    }
+
+    .popover-header {
+      background-color: $primary-light;
+    }
+  }
+
+  &-danger {
+    border-color: $danger;
+
+    .popover-arrow::before {
+      border-top-color: $danger;
+    }
+
+    .popover-header {
+      background-color: $danger-light;
+    }
+  }
+
+  &-warning {
+    border-color: $warning;
+
+    .popover-arrow::before {
+      border-top-color: $warning;
+    }
+
+    .popover-header {
+      background-color: $warning-light;
+    }
+  }
+
+  &-success {
+    border-color: $success;
+
+    .popover-arrow::before {
+      border-top-color: $success;
+    }
+
+    .popover-header {
+      background-color: $success-light;
+    }
+  }
+
+  &-info {
+    border-color: $info;
+
+    .popover-arrow::before {
+      border-top-color: $info;
+    }
+
+    .popover-header {
+      background-color: $info-light;
     }
   }
 
