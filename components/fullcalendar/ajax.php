@@ -35,7 +35,19 @@
         break;
     }
 
-    $params = [
+    $paramsAdd = [
+        ':title' => $title,
+        ':start' => $start,
+        ':end' => $end,
+        ':calendar' => $calendar,
+        ':description' => $description,
+        ':url' => $url,
+        ':user_id' => $user_id,
+        ':allDay' => $allDay
+    ];
+
+    $paramsUpd = [
+        ':id' => $id,
         ':title' => $title,
         ':start' => $start,
         ':end' => $end,
@@ -48,9 +60,12 @@
 
     switch ($operation) {
         case 'add':
-            $FullcalendarClass->setInsertEvents($params);
+            $add = $FullcalendarClass->setInsertEvents($paramsAdd);
+            break;
         case 'upd':
-            $FullcalendarClass->setUpdateEvents([':id' => $id, ':title' => $title, ':start' => $start, ':end' => $end, ':calendar' => $calendar, ':description' => $description, ':url' => $url, ':user_id' => $user_id, ':allDay' => $allDay]);
+            $upd = $FullcalendarClass->setUpdateEvents($paramsUpd);
+            break;
         case 'del':
-            $FullcalendarClass->setDeltEvents([$id]);
+            $del = $FullcalendarClass->setDeltEvents([$id]);
+            break;
     }

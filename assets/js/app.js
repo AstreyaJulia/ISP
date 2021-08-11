@@ -187,6 +187,7 @@ const calendmodulehandler = () => {
       // window.open((eventToUpdate).url, '_blank');
     }
     console.log(eventToUpdate);
+    console.log("id: " + eventToUpdate.extendedProps.user_id);
     showModal();
     addEventBtn.style.display = "none";
     cancelBtn.style.display = "none";
@@ -196,13 +197,13 @@ const calendmodulehandler = () => {
     editEventTitle.style.display = "block";
 
     $(eventTitle).val(eventToUpdate.title);
-    if (eventToUpdate.extendedProps.user_id === "0") {
+    if (eventToUpdate.extendedProps.user_id === 0) {
       $(privateSwitch).prop('checked', false)
     } else {
       $(privateSwitch).prop('checked', true)
     }
     start.setDate(eventToUpdate.start, true, 'YYYY-MM-DD hh:mm');
-    if (eventToUpdate.allDay === "true") {
+    if (eventToUpdate.allDay === true) {
       $(allDaySwitch).prop('checked', true)
     } else {
       $(allDaySwitch).prop('checked', false)
@@ -455,9 +456,10 @@ const calendmodulehandler = () => {
 
   // Функция - Обновление события
   function updateEvent(eventData) {
-    const propsToUpdate = ['id', 'title', 'url'];
+    calendar.refetchEvents(eventData);
+   /* const propsToUpdate = ['id', 'title', 'url'];
     const extendedPropsToUpdate = ['calendar', 'description', 'user_id'];
-    updateEventInCalendar(eventData, propsToUpdate, extendedPropsToUpdate);
+    updateEventInCalendar(eventData, propsToUpdate, extendedPropsToUpdate);*/
     hideModal();
     resetValues();
   }
@@ -556,6 +558,13 @@ const calendmodulehandler = () => {
         start: $(modal).find(startDate).val(),
         end: $(modal).find(endDate).val(),
         url: $(eventUrl).val(),
+
+       /* extendedProps: {
+          calendar: $(eventLabel).val(),
+          user_id: $(privateSwitch).prop('checked') ? "999999999" : "0",
+          description: $(calendarEditor).val(),
+        },*/
+
         calendar: $(eventLabel).val(),
         user_id: $(privateSwitch).prop('checked') ? "999999999" : "0",
         description: $(calendarEditor).val(),
@@ -576,6 +585,7 @@ const calendmodulehandler = () => {
         },
         success: function (response) {
           updateEvent(Event);
+          console.log(Event);
         },
         error: function (jqXHR, textStatus, errorThrown) {
           alert("Ошибка" + jqXHR + textStatus + errorThrown);
