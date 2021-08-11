@@ -28,6 +28,9 @@
       <ul class="list-group col-5">
         <?php foreach ($family as $goodname => $properties): ?>
           <li class="list-group-item" id="<?= $properties['id']; ?>">
+            <div class="list-group-number">
+              <p><?= $properties['menuindex']; ?></p>
+            </div>
             <div class="list-group-body">
               <a class="list-group-link"><?= $properties['name_href']; ?></a>
               <i class="menu-arrow mdi mdi-chevron-right"></i>
@@ -54,6 +57,9 @@
                 foreach ($value as $property_list_array => $value_list_array): ?>
 
                   <li class="list-group-item">
+                    <div class="list-group-number">
+                      <p><?= $value_list_array['menuindex']; ?></p>
+                    </div>
                     <div class="list-group-body">
                       <a class="list-group-link" href="<?= $value_list_array['href'] ?>"
                          target="_blank"><?= $value_list_array['name_href']; ?></a>

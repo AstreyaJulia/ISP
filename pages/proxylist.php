@@ -38,7 +38,7 @@ if($_COOKIE['aut']['sudo'] == 1) {
         //редактируем ссылку
         if (!empty($_GET["editLink"]) and $_GET["editLink"] !== "add"){
             //получаем запись для редактирования
-            $editLink = $ProxyListClass->getSelectLink($_GET["editLink"]);
+            $editLink = $ProxyListClass->getSelectId($_GET["editLink"]);
 
             foreach ($editLink as $row) {
                 ob_start();
@@ -106,33 +106,28 @@ if($_COOKIE['aut']['sudo'] == 1) {
         if (!empty($_GET["editGroup"]) and $_GET["editGroup"] !== "add"){
             $id = $_GET["editGroup"];
             //получаем запись для редактирования
-            $editGroup = $link->prepare("SELECT menuindex, name_href, proxy_href FROM sdc_proxy_list WHERE `id` = ?");
-            $editGroup->execute([$id]);
-            while ($row = $editGroup->fetch(PDO::FETCH_LAZY)) {
+            $editGroup = $ProxyListClass->getSelectId($_GET["editGroup"]);
+            foreach ($editGroup as $row) {
                 ob_start();
                     include "components/proxylist/template/tpl.form-editGroup.php";
                     $content = ob_get_contents();
                 ob_end_clean();
             }
             if (!empty($_POST["name_href"]) and $_GET["editGroup"] !== "add") {
-                $menuindex = $_POST["menuindex"];
-                $name_href = $_POST["name_href"];
-                $proxy_href = $_POST["proxy_href"];
-                $query_update = "UPDATE sdc_proxy_list SET `menuindex`=:menuindex, `name_href`=:name_href, `proxy_href`=:proxy_href WHERE `id` = :id";
                 $params = [
                     ':id' => $id,
-                    ':menuindex' => $menuindex,
-                    ':name_href' => $name_href,
-                    ':proxy_href' => $proxy_href
+                    ':menuindex' => $_POST["menuindex"],
+                    ':name_href' => $_POST["name_href"],
+                    ':proxy_href' => $_POST["proxy_href"]
                 ];
-                $stmt = $link->prepare($query_update);
-                $stmt->execute($params);
+                //Выполняем запрос на обновление группы
+                $ProxyListClass->setUpdateGroup($params);
                 //переписываем файлы для CCProxy
                 WriteProxyList ($link);
                 //переходим в раздел
                 header("Location: /?page=proxylist");
             }
-        } else {//добавляем ссылку
+        } else {//добавляем группу
 
             // устанавливаем значения по умолчанию
             $row = new class {
@@ -145,18 +140,13 @@ if($_COOKIE['aut']['sudo'] == 1) {
                 $content = ob_get_contents();
             ob_end_clean();
             if (!empty($_POST["name_href"]) and $_POST["editGroup"] == "add") {
-                $menuindex = $_POST["menuindex"];
-                $name_href = $_POST["name_href"];
-                $proxy_href = $_POST["proxy_href"];
-                //добавляем запись
-                $query = "INSERT INTO `sdc_proxy_list` (`menuindex`, `name_href`, `proxy_href`) VALUES (:menuindex, :name_href, :proxy_href)";
                 $params = [
-                    ':menuindex' => $menuindex,
-                    ':name_href' => $name_href,
-                    ':proxy_href' => $proxy_href
+                    ':menuindex' => $_POST["menuindex"],
+                    ':name_href' => $_POST["name_href"],
+                    ':proxy_href' => $_POST["proxy_href"]
                 ];
-                $stmt = $link->prepare($query);
-                $stmt->execute($params);
+                //добавляем группу
+                $ProxyListClass->setInsertGroup($params);
                 //переписываем файлы для CCProxy
                 WriteProxyList ($link);
                 //переходим в раздел

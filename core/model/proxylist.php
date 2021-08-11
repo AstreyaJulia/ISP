@@ -21,14 +21,14 @@
 	        return $this->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
 	    }
 
-	    //Получаем записи без гуппы blacklist
+	    //Получаем все группы
 	    public function getSelectGroup() {
 	        $sql = "SELECT id, name_href FROM sdc_proxy_list WHERE id_group=0";
 	        return $this->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
 	    }
 
 	    //Получаем запись по ID
-	    public function getSelectLink($id) {
+	    public function getSelectId($id) {
 	        $sql = "SELECT * FROM sdc_proxy_list WHERE `id` = ?";
 	        return $this->db->run($sql, [$id])->fetchAll(\PDO::FETCH_CLASS);
 	    }
@@ -39,9 +39,21 @@
 	        return $this->db->run($sql, $params);
 	    }
 
+	    //Вносим изменения в группу
+	    public function setUpdateGroup($params) {
+	        $sql = "UPDATE sdc_proxy_list SET `menuindex`=:menuindex, `name_href`=:name_href, `proxy_href`=:proxy_href WHERE `id` = :id";
+	        return $this->db->run($sql, $params);
+	    }
+
 	    //Добавляем ссылку
 	    public function setInsertLink($params) {
 	        $sql = "INSERT INTO `sdc_proxy_list` (`menuindex`, `id_group`, `href`, `name_href`, `proxy_href`) VALUES (:menuindex, :id_group, :href, :name_href, :proxy_href)";
+	        return $this->db->run($sql, $params);
+	    }
+
+	    //Добавляем группу
+	    public function setInsertGroup($params) {
+	        $sql = "INSERT INTO `sdc_proxy_list` (`menuindex`, `name_href`, `proxy_href`) VALUES (:menuindex, :name_href, :proxy_href)";
 	        return $this->db->run($sql, $params);
 	    }
 
