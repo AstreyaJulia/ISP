@@ -466,7 +466,8 @@ const calendmodulehandler = () => {
 
   // Функция - Удаление события
   function removeEvent(eventId) {
-    removeEventInCalendar(eventId);
+    calendar.refetchEvents(eventId);
+    //removeEventInCalendar(eventId);
     hideModal();
     resetValues();
   }
