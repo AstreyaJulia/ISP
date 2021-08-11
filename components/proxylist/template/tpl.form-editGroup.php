@@ -23,6 +23,11 @@
                placeholder="Введите название группы" id="group-title" required>
       </div>
       <div class="form-group">
+        <label class="form-label" for="menuindex">Позиция в меню</label>
+        <input class="form-control" type="text" value="<?= $row->menuindex; ?>" name="menuindex" autocomplete="off"
+               placeholder="Введите название группы" id="menuindex">
+      </div>
+      <div class="form-group">
         <label class="form-label" for="ccproxy">Запись для Ccproxy</label>
         <textarea class="form-control" name="proxy_href" id="ccproxy"
                   placeholder="Введите адреса или домены сайтов для списка разрешенных сайтов Ccproxy, разделяя записи точкой с запятой - ; без разделения записи пробелами. Например: *google.com;*google.com;"><?= $row->proxy_href; ?></textarea>
