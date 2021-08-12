@@ -17,15 +17,19 @@
 <div class="card">
   <form action="" method="post" class="form form-editlink">
     <div class="card-body">
-      <div class="form-group">
-        <label class="form-label" for="group-title">Заголовок (название) группы</label>
-        <input class="form-control" type="text" value="<?= $row->name_href; ?>" name="name_href" autocomplete="off"
-               placeholder="Введите название группы" id="group-title" required>
-      </div>
-      <div class="form-group">
-        <label class="form-label" for="menuindex">Позиция в меню</label>
-        <input class="form-control" type="text" value="<?= $row->menuindex; ?>" name="menuindex" autocomplete="off"
-               placeholder="Введите название группы" id="menuindex">
+      <div class="form-group row">
+        <div class="col-10">
+          <label class="form-label" for="group-title">Заголовок (название) группы</label>
+          <input class="form-control" type="text" value="<?= $row->name_href; ?>" name="name_href" autocomplete="off"
+                 placeholder="Введите название группы" id="group-title" required>
+        </div>
+        <div class="col-2">
+          <label class="form-label" for="menuindex">Позиция в меню</label>
+          <input class="form-control" type="number" id="menuindex" value="<?= $row->menuindex; ?>"
+                 placeholder="Например: 12" name="menuindex"
+                 autocomplete="off" required>
+
+        </div>
       </div>
       <div class="form-group">
         <label class="form-label" for="ccproxy">Запись для Ccproxy</label>

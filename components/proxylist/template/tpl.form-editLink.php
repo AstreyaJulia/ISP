@@ -21,23 +21,26 @@
         <label class="form-label" for="link-title">Заголовок (название) ссылки</label>
         <input class="form-control" type="text" value="<?= $row->name_href; ?>" name="name_href" autocomplete="off"
                placeholder="Введите название ссылки" id="link-title" required>
-        <div class="form-group">
-          <label class="form-label" for="category">Категория (каталог)</label>
-          <select class="form-select" id="category" name="id_group" required>
-            <option
-              value="<?= $row->id_group; ?>"><?= $group[array_search($row->id_group, array_column($group, 'id'))]['name_href']; ?></option>
-            <?php foreach ($group as $group_key => $group_value): ?>
-              <?php if (!empty($group_value) and $group_value["id"] !== $group[array_search($row->id_group, array_column($group, 'id'))]["id"]): ?>
-                <option value="<?= $group_value['id']; ?>"><?= $group_value['name_href']; ?></option>
-              <?php endif; ?>
-            <?php endforeach ?>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="menuindex">Позиция в меню</label>
-          <input class="form-control" type="menuindex" id="menuindex" value="<?= $row->menuindex; ?>"
-                 placeholder="Например: 12" name="menuindex"
-                 autocomplete="off" required>
+      </div>
+        <div class="form-group row">
+          <div class="col-10">
+            <label class="form-label" for="category">Категория (каталог)</label>
+            <select class="form-select" id="category" name="id_group" required>
+              <option
+                value="<?= $row->id_group; ?>"><?= $group[array_search($row->id_group, array_column($group, 'id'))]['name_href']; ?></option>
+              <?php foreach ($group as $group_key => $group_value): ?>
+                <?php if (!empty($group_value) and $group_value["id"] !== $group[array_search($row->id_group, array_column($group, 'id'))]["id"]): ?>
+                  <option value="<?= $group_value['id']; ?>"><?= $group_value['name_href']; ?></option>
+                <?php endif; ?>
+              <?php endforeach ?>
+            </select>
+          </div>
+          <div class="col-2">
+            <label class="form-label" for="menuindex">Позиция в меню</label>
+            <input class="form-control" type="number" id="menuindex" value="<?= $row->menuindex; ?>"
+                   placeholder="Например: 12" name="menuindex"
+                   autocomplete="off" required>
+          </div>
         </div>
         <div class="form-group">
           <label class="form-label" for="url">Адрес (URL) ссылки</label>

@@ -52,6 +52,13 @@ const spinnerloader = document.querySelector('.spinner-wrapper');
 // Виджет событий и дней рождения скрывается сам, если остальные скрыты
 const todayeventswidget = document.querySelector('.today-events');
 
+// Модалы для списка ссылок
+const multimodal = document.querySelector('.modal-multiaction');
+const multimodalbtns = document.querySelectorAll('.btnmodal-multiaction');
+
+// Tasks задачи
+const todowrapper = document.querySelector('.todo-wrapper');
+
 // Календарь на главной
 // Контейнер для календаря
 const minicalendar = document.querySelector('.today-calendar-widget');
@@ -390,8 +397,8 @@ const calendmodulehandler = () => {
     timeZone: 'Europe/Moscow',
     initialView: 'dayGridMonth',
     editable: true,
-    dragScroll: true,
-    eventResizableFromStart: true,
+    dragScroll: false,
+    eventResizableFromStart: false,
     selectable: true,
     selectMirror: true,
     businessHours: false,
@@ -663,6 +670,83 @@ const minicalendarhandler = () => {
   calendar.render();
 }
 
+// Мульти модал для каталога ссылок
+const multimodalhandler = (evt) => {
+  const link = evt.target.closest('a');
+  const delbtn = multimodal.querySelector('.btn-del');
+  const header1 = multimodal.querySelector('.header-1');
+  const header2 = multimodal.querySelector('.header-2');
+  const text1 = multimodal.querySelector('.text-1');
+  const text2 = multimodal.querySelector('.text-2');
+  const cancelBtn = multimodal.querySelector('.btn-discard');
+  const span = multimodal.querySelector('.btn-close');
+
+
+  // Функции
+
+  // Скрыть модал
+  function hideModal() {
+    multimodal.style.display = "none";
+    multimodal.classList.remove('show');
+    const btn = document.querySelector('.modal-backdrop');
+    if (btn) {
+      document.body.removeChild(btn);
+    }
+  }
+
+  // Показать модал
+  function showModal() {
+    multimodal.classList.add('show');
+    multimodal.style.display = "block";
+    const btn = document.createElement("div");
+    btn.setAttribute('class', 'modal-backdrop fade show')
+    document.body.appendChild(btn);
+  }
+
+  // Кнопка закрыть
+  $(span).on('click', function () {
+    hideModal();
+    delbtn.href = '';
+  });
+
+  // Кнопка отмены
+  $(cancelBtn).on('click', function () {
+    hideModal();
+    delbtn.href = '';
+  });
+
+  if (!link) {
+    return;
+  }
+
+  const datalink = link.dataset.link;
+  const dataaction = link.dataset.modaction;
+
+  if (!datalink && !dataaction) {
+    return;
+  }
+
+if (dataaction === "1") {
+  // 1 действие. Удалить группу
+  header2.style.display = "none";
+  text2.style.display = "none";
+  header1.style.display = "block";
+  text1.style.display = "block";
+}
+
+  if (dataaction === "2") {
+    // 1 действие. Удалить группу
+    header1.style.display = "none";
+    text1.style.display = "none";
+    header2.style.display = "block";
+    text2.style.display = "block";
+  }
+
+  delbtn.href = datalink;
+  showModal()
+}
+
+
 // Виджет событий
 const todayeventswidgethandler = () => {
   // Если списки дней рождения скрыты и событий, то список скрывается польностью
@@ -758,6 +842,102 @@ function CreateTodo() {
   RenderAllTodos();
 }
 */
+
+// Tasks list
+const tasksHandler = () => {
+  let taskTitle,
+    // Модал
+    newTaskModal = $('.sidebar-todo-modal'),
+// Поле ввода срока исполнения
+    flatPickr = $('.task-due-date'),
+    newTaskForm = $('#form-modal-todo'),
+    favoriteStar = $('.todo-item-favorite'),
+    modalTitle = $('.modal-title'),
+    addBtn = $('.add-todo-item'),
+    addTaskBtn = $('.add-task button'),
+    updateTodoItem = $('.update-todo-item'),
+    updateBtns = $('.update-btn'),
+    taskDesc = $('#task-desc'),
+    taskAssignSelect = $('#task-assigned'),
+    taskTag = $('#task-tag'),
+    overlay = $('.body-content-overlay'),
+    menuToggle = $('.menu-toggle'),
+    sidebarToggle = $('.sidebar-toggle'),
+    sidebarLeft = $('.sidebar-left'),
+    sidebarMenuList = $('.sidebar-menu-list'),
+    todoFilter = $('#todo-search'),
+    sortAsc = $('.sort-asc'),
+    sortDesc = $('.sort-desc'),
+    todoTaskList = $('.todo-task-list'),
+    todoTaskListWrapper = $('.todo-task-list-wrapper'),
+    listItemFilter = $('.list-group-filters'),
+    noResults = $('.no-results'),
+    span = $('.btn-close'),
+    checkboxId = 100;
+
+  // Функции
+
+  // Скрыть модал
+  function hideModal() {
+    newTaskModal.style.display = "none";
+    newTaskModal.classList.remove('show');
+    const btn = document.querySelector('.modal-backdrop');
+    if (btn) {
+      document.body.removeChild(btn);
+    }
+  }
+
+  // Показать модал
+  function showModal() {
+    newTaskModal.classList.add('show');
+    newTaskModal.style.display = "block";
+    const btn = document.createElement("div");
+    btn.setAttribute('class', 'modal-backdrop fade show')
+    document.body.appendChild(btn);
+  }
+
+  // Кнопка закрыть
+  $(span).on('click', function () {
+    hideModal();
+    delbtn.href = '';
+  });
+
+  // Кнопка отмены
+  $(cancelBtn).on('click', function () {
+    hideModal();
+    delbtn.href = '';
+  });
+
+
+  // Добавляет класс active при клике на список фильтров сайдбара
+  if (listItemFilter.length) {
+    listItemFilter.find('a').on('click', function () {
+      if (listItemFilter.find('a').hasClass('active')) {
+        listItemFilter.find('a').removeClass('active');
+      }
+      $(this).addClass('active');
+    });
+  }
+
+  // Инициализация Drag'n'Drop. Нужен dragula
+ /* const dndContainer = document.getElementById('todo-task-list');
+  if (typeof dndContainer !== undefined && dndContainer !== null) {
+    dragula([dndContainer], {
+      moves: function (el, container, handle) {
+        return handle.classList.contains('drag-icon');
+      }
+    });
+  }*/
+
+
+  // Сброс значений модала
+  function resetValues() {
+    $(flatPickr).val('');
+    $(allDaySwitch).prop('checked', false);
+    $(privateSwitch).prop('checked', false);
+  }
+
+}
 
 
 // FAQ
@@ -1602,6 +1782,18 @@ if (minicalendar) {
 
 if (todayeventswidget) {
   todayeventswidgethandler();
+}
+
+if (multimodal && multimodalbtns) {
+  multimodalbtns.forEach((multimodalbtn) => {
+    multimodalbtn.addEventListener('click', (evt) => {
+      multimodalhandler(evt);
+    });
+  });
+}
+
+if (todowrapper) {
+  tasksHandler()
 }
 
 datatablesHandler();

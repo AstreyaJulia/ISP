@@ -80,7 +80,7 @@
     <li class="menu-item with-sub dev">
       <a class="menu-link">
         <i class="mdi mdi-xml"></i>
-        <span>В разработке</span>
+        <span>Разработка</span>
         <i class="menu-arrow mdi mdi-chevron-right"></i>
       </a>
       <ul class="sub-menu">
