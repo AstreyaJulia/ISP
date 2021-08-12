@@ -52,7 +52,7 @@
 
 	    //приводит Фамилию Имя Отчество к виду Фамилия И.О.
 	    public function getShortFIO($fullname) {
-        return preg_replace('#(.*)\s+(.).*\s+(.).*#usi', '$1 $2.$3.', $fullname);
+        	return preg_replace('#(.*)\s+(.).*\s+(.).*#usi', '$1 $2.$3.', $fullname);
 		}
 
 		//Номера комнат для человека
@@ -76,7 +76,7 @@
 				return "Сов. ком.$num_room";
 			}
 		}
-		//Профессии для человека
+		//Получаем профессию из кодового значения с помощью справочника prof_array()
 		public function getProfession($profession) {
 			foreach (prof_array() as $key => $value) {
 	            if ($key == $profession){

@@ -22,7 +22,6 @@
     <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="contentmenu">
       <a href="#" class="dropdown-item btn-print">Печать</a>
     </ul>
-
   </div>
 </header>
 <div class="card">
@@ -39,15 +38,14 @@
     </tr>
     </thead>
     <tbody>
-    <?php foreach ($staff as $key => $value): ?>
-
+    <?php foreach ($staff as $row): ?>
     <tr>
       <td><?= $i++; ?></td>
       <td>
-        <span class="badge-status <?= status($value['active'], $_GET['page']); ?>"></span>
-        <a href="?editStaff=<?= $value['id']; ?>"><?= $value['username']; ?></a><?= statusSudo($value['sudo'], $_GET['page']); ?>
+        <span class="badge-status <?= status($row->active, $_GET['page']); ?>"></span>
+        <a href="?editStaff=<?= $row->id; ?>"><?= $row->username; ?></a><?= statusSudo($row->sudo, $_GET['page']); ?>
         <div class="table-toolbar">
-          <a class="table-toolbutton" href="?editStaff=<?= $value['id']; ?>">
+          <a class="table-toolbutton" href="?editStaff=<?= $row->id; ?>">
             <i class="mdi mdi-pencil-outline"></i>
           </a>
           <a class="table-toolbutton" data-bs-toggle="modal" data-bs-target="#delusermodal">
@@ -55,12 +53,13 @@
           </a>
         </div>
       </td>
-      <td><?= shortFIO($value['fullname'])/*доделать как в дизайне*/; ?></td>
-      <td><?= $value['dob']; ?></td>
-      <td><?= profession($value['profession'], $_GET['page'])/*доделать как в дизайне*/; ?></td>
-      <td><?= $value['ip']; ?></td>
-      <td><?= $value['jupiter_tab_num']; ?></td>
+      <td><?= $staffClass->getShortFIO($row->fullname)/*доделать как в дизайне*/; ?></td>
+      <td><?= $row->dob; ?></td>
+      <td><?= $staffClass->getProfession($row->profession)/*доделать как в дизайне*/; ?></td>
+      <td><?= $row->ip; ?></td>
+      <td><?= $row->jupiter_tab_num; ?></td>
     </tr>
     <?php endforeach ?>
-    </tbody></table>
+    </tbody>
+  </table>
 </div>

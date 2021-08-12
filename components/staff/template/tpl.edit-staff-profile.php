@@ -121,7 +121,7 @@
               <div class="form-group">
                 <label class="form-label" for="profession">Должность</label>
                 <select class="form-select" id="profession" name="profession">
-                  <?= selectOption(profession($row['profession'], $_GET), $row['profession']); ?>
+                  <?= selectOption(prof_array(), $row['profession']); ?>
                 </select>
               </div>
               <div class="form-group">

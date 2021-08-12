@@ -78,7 +78,7 @@
 	}
 
 	//Список профессий
-	function profession($profession, $metod) {
+	/*function profession($profession, $metod) {
         if ($metod == "staff") {
 	        foreach (prof_array() as $key => $value) {
 	            if ($key == $profession){
@@ -89,7 +89,7 @@
 	    if (array_key_exists("editStaff", $_GET)) {
 	    	return prof_array();
 	    }
-    }
+    }*/
 
 	//Устанавливает в выпадающем списке значение из базы данных
 	function selectOption($array, $selected){
