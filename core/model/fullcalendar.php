@@ -8,10 +8,16 @@
 	    public function __construct(DB $db) {
 	        $this->db = $db;
 	    }
-	    
+
 	    //Получаем все записи
 	    public function getEvents($params) {
 	        $sql = "SELECT * FROM sdc_calendar where user_id in (0, :user) and start >= :start AND end <= :end";
+	        return $this->db->run($sql, $params)->fetchAll(\PDO::FETCH_ASSOC);
+	    }
+
+	    //Получаем дни рождения
+	    public function getBirthday($params) {
+	        $sql = "SELECT * FROM sdc_user_attributes WHERE MONTH(dob) BETWEEN start >= :start AND end <= :end";
 	        return $this->db->run($sql, $params)->fetchAll(\PDO::FETCH_ASSOC);
 	    }
 
