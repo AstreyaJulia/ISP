@@ -66,6 +66,6 @@
             $upd = $FullcalendarClass->setUpdateEvents($paramsUpd);
             break;
         case 'del':
-            $del = $FullcalendarClass->setDeltEvents([$id]);
+            $del = $FullcalendarClass->setDelEvents([$id]);
             break;
     }
