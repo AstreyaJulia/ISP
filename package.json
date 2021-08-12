@@ -24,6 +24,7 @@
     "csscomb": "^4.3.0",
     "datatables.net-bs5": "^1.10.25",
     "del": "^6.0.0",
+    "dragula": "^3.7.3",
     "flatpickr": "^4.6.9",
     "fullcalendar": "^5.9.0",
     "glob": "^7.1.7",

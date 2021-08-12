@@ -19,3 +19,4 @@ XCOPY /Y /H /R node_modules\jquery-validation\dist\jquery.validate.js src\assets
 XCOPY /Y /H /R node_modules\jquery-validation\dist\localization\messages_ru.js src\assets\modules\jquery-validation\
 XCOPY /Y /H /R node_modules\moment-timezone\builds\moment-timezone-with-data.js src\assets\modules\moment-timezone\
 XCOPY /Y /H /R node_modules\@fullcalendar\moment-timezone\main.global.js src\assets\modules\moment-timezone\
+XCOPY /Y /H /R node_modules\dragula\dist\dragula.js src\assets\modules\dragula\

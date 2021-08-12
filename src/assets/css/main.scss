@@ -3865,6 +3865,21 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
 .todo-wrapper {
   height: 100%;
 
+  .no-results {
+    display: none;
+    padding: 1rem;
+    text-align: center;
+
+    p {
+      margin: 0;
+      padding: 0;
+    }
+
+    &.show {
+      display: block;
+    }
+  }
+
   .col-9,
   .col-3 {
     height: 100%;
@@ -3901,7 +3916,7 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
 
     input {
       border-color: transparent;
-      height: 50px;
+      height: 35px;
     }
   }
 

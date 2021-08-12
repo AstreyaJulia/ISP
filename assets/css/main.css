@@ -40732,6 +40732,18 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
 .todo-wrapper {
   height: 100%;
 }
+.todo-wrapper .no-results {
+  display: none;
+  padding: 1rem;
+  text-align: center;
+}
+.todo-wrapper .no-results p {
+  margin: 0;
+  padding: 0;
+}
+.todo-wrapper .no-results.show {
+  display: block;
+}
 .todo-wrapper .col-9,
 .todo-wrapper .col-3 {
   height: 100%;
@@ -40762,7 +40774,7 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
 }
 .todo-wrapper .app-fixed-search input {
   border-color: transparent;
-  height: 50px;
+  height: 35px;
 }
 .todo-wrapper .todo-task-list-wrapper {
   position: relative;

@@ -6,6 +6,7 @@
 <script src="assets/modules/flatpickr/flatpickr.js"></script>
 <script src="assets/modules/select2/select2.full.js"></script>
 <script src="assets/modules/flatpickr/ru.js"></script>
+<script src="assets/modules/dragula/dragula.js"></script>
 <script src="assets/modules/moment/moment.js"></script>
 <script src="assets/modules/moment/ru.js"></script>
 <script src="assets/modules/rrule/rrule-tz.js"></script>

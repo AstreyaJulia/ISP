@@ -52,6 +52,13 @@ const spinnerloader = document.querySelector('.spinner-wrapper');
 // Виджет событий и дней рождения скрывается сам, если остальные скрыты
 const todayeventswidget = document.querySelector('.today-events');
 
+// Модалы для списка ссылок
+const multimodal = document.querySelector('.modal-multiaction');
+const multimodalbtns = document.querySelectorAll('.btnmodal-multiaction');
+
+// Tasks задачи
+const todowrapper = document.querySelector('.todo-wrapper');
+
 // Календарь на главной
 // Контейнер для календаря
 const minicalendar = document.querySelector('.today-calendar-widget');
@@ -103,14 +110,8 @@ const calendmodulehandler = () => {
   // Переключатель Вижу только я (приватное событие)
   const privateSwitch = document.querySelector(".private-switch");
 
-  // Все элементы <input> в модале
-  const input = modal.querySelectorAll('input[type="text"]');
-  const selectInput = modal.querySelectorAll('select');
   // Все элементы <textarea> в модале
   const calendarEditor = document.getElementById('event-description-editor');
-
-  // Кнопка, открывающая модал
-  const toggleSidebarBtn = document.getElementById("myBtn");
 
   // Фильтр событий
   const calEventFilter = document.querySelector(".calendar-events-filter");
@@ -118,10 +119,6 @@ const calendmodulehandler = () => {
   const filterInput = document.querySelectorAll('.input-filter');
   // Чекбокс Все в фильтре
   const selectAll = document.querySelector(".select-all");
-
-  // Тип операции события
-
-  const eventOperation = "";
 
   // Цвета событий, названия менять в разметке, в js менять не надо
 
@@ -390,8 +387,8 @@ const calendmodulehandler = () => {
     timeZone: 'Europe/Moscow',
     initialView: 'dayGridMonth',
     editable: true,
-    dragScroll: true,
-    eventResizableFromStart: true,
+    dragScroll: false,
+    eventResizableFromStart: false,
     selectable: true,
     selectMirror: true,
     businessHours: false,
@@ -417,12 +414,12 @@ const calendmodulehandler = () => {
       center: '',
       right: 'prev,next,today dayGridMonth,timeGridWeek,timeGridDay,listWeek'
     },
-    eventMouseEnter: function(event,) {
+    eventMouseEnter: function (event,) {
       if (event.event.display !== "background") {
         showPopover(event);
       }
     },
-    eventMouseLeave: function() {
+    eventMouseLeave: function () {
       hidePopover();
     },
     dateClick: function (info) {
@@ -663,6 +660,83 @@ const minicalendarhandler = () => {
   calendar.render();
 }
 
+// Мульти модал для каталога ссылок
+const multimodalhandler = (evt) => {
+  const link = evt.target.closest('a');
+  const delbtn = multimodal.querySelector('.btn-del');
+  const header1 = multimodal.querySelector('.header-1');
+  const header2 = multimodal.querySelector('.header-2');
+  const text1 = multimodal.querySelector('.text-1');
+  const text2 = multimodal.querySelector('.text-2');
+  const cancelBtn = multimodal.querySelector('.btn-discard');
+  const span = multimodal.querySelector('.btn-close');
+
+
+  // Функции
+
+  // Скрыть модал
+  function hideModal() {
+    multimodal.style.display = "none";
+    multimodal.classList.remove('show');
+    const btn = document.querySelector('.modal-backdrop');
+    if (btn) {
+      document.body.removeChild(btn);
+    }
+  }
+
+  // Показать модал
+  function showModal() {
+    multimodal.classList.add('show');
+    multimodal.style.display = "block";
+    const btn = document.createElement("div");
+    btn.setAttribute('class', 'modal-backdrop fade show')
+    document.body.appendChild(btn);
+  }
+
+  // Кнопка закрыть
+  $(span).on('click', function () {
+    hideModal();
+    delbtn.href = '';
+  });
+
+  // Кнопка отмены
+  $(cancelBtn).on('click', function () {
+    hideModal();
+    delbtn.href = '';
+  });
+
+  if (!link) {
+    return;
+  }
+
+  const datalink = link.dataset.link;
+  const dataaction = link.dataset.modaction;
+
+  if (!datalink && !dataaction) {
+    return;
+  }
+
+  if (dataaction === "1") {
+    // 1 действие. Удалить группу
+    header2.style.display = "none";
+    text2.style.display = "none";
+    header1.style.display = "block";
+    text1.style.display = "block";
+  }
+
+  if (dataaction === "2") {
+    // 1 действие. Удалить группу
+    header1.style.display = "none";
+    text1.style.display = "none";
+    header2.style.display = "block";
+    text2.style.display = "block";
+  }
+
+  delbtn.href = datalink;
+  showModal()
+}
+
+
 // Виджет событий
 const todayeventswidgethandler = () => {
   // Если списки дней рождения скрыты и событий, то список скрывается польностью
@@ -693,47 +767,36 @@ var currentTodo = {
 document.getElementById("todo-input").oninput = function (e) {
   currentTodo.text = e.target.value;
 };
-
 function DrawTodo(todo) {
   var newTodoHTML = `
 				  <div class="pb-3 todo-item" todo-id="${todo.id}">
 				  <div class="input-group">
-
 					<div class="input-group-text">
 					  <input type="checkbox" onchange="TodoChecked(${todo.id})" aria-label="Checkbox for following text input" ${todo.done && "checked"} >
 					</div>
-
 				  <input type="text" readonly class="form-control ${todo.done && "todo-done"} " aria-label="Text input with checkbox"
 					value="${todo.text}">
-
 					<button todo-id="${todo.id}" class="btn btn-outline-secondary bg-danger text-white" type="button" onclick="DeleteTodo(this);"
 					  id="button-addon2 ">X</button>
-
 				  </div>
 				  </div>
 				  `;
   var dummy = document.createElement("DIV");
   dummy.innerHTML = newTodoHTML;
   document.getElementById("todo-container").appendChild(dummy.children[0]);
-
 }
-
 function RenderAllTodos() {
   var container = document.getElementById("todo-container");
   while (container.firstChild) {
     container.removeChild(container.firstChild);
   }
-
   for (var i = 0; i < todos.length; i++) {
     DrawTodo(todos[i]);
   }
 }
-
 RenderAllTodos();
-
 function DeleteTodo(button) {
   var deleteID = parseInt(button.getAttribute("todo-id"));
-
   for (let i = 0; i < todos.length; i++) {
     if (todos[i].id === deleteID) {
       todos.splice(i, 1);
@@ -742,12 +805,10 @@ function DeleteTodo(button) {
     }
   }
 }
-
 function TodoChecked(id) {
   todos[id].done = !todos[id].done;
   RenderAllTodos();
 }
-
 function CreateTodo() {
   newtodo = {
     text: currentTodo.text,
@@ -758,6 +819,358 @@ function CreateTodo() {
   RenderAllTodos();
 }
 */
+
+// Tasks list
+
+// Поля: id, title, duedate (дата),
+const tasksHandler = () => {
+  // Заголовок задачи
+  let taskTitle;
+  // Кнопка Добавить задачу
+  const addTaskBtn = document.querySelector('.add-task');
+
+  // Модал
+  const newTaskModal = document.getElementById('new-task-modal');
+  // Форма в модале
+  const newTaskForm = document.getElementById('form-modal-todo');
+  // Кнопка добавить в избранное
+  const favoriteStar = document.querySelector('.todo-item-favorite');
+  // Заголовок модала
+  const modalTitle = document.querySelector('.modal-title');
+  // Кнопка закрыть на модале
+  const span = document.querySelector('.btn-close');
+
+  // Кнопка Добавить на модале
+  const addBtn = document.querySelector('.add-todo-item');
+  // Кнопка Обновить на модале
+  const updateTodoItem = document.querySelector('.update-todo-item');
+  // Кнопка Удалить на модале
+  const updateBtns = document.querySelector('.update-btn');
+  // Кнопка Отмена на модале
+  const cancelBtn = document.querySelector('.btn-dismiss');
+
+
+  // Сайдбар с фильтрами и метками
+  const sidebarLeft = document.querySelector('.sidebar-left');
+  // Меню сайдбара
+  const sidebarMenuList = document.querySelector('.sidebar-menu-list');
+  // Меню фильтров в сайдбаре
+  const listItemFilter = document.querySelector('.list-group-filters');
+
+  // Поле поиска по задачам
+  const todoFilter = document.getElementById('todo-search');
+  // Надпись Ничего не найдено в поиске
+  const noResults = document.querySelector('.no-results');
+
+  // Сортировка А - Я
+  const sortAsc = document.querySelector('.sort-asc');
+  // Сортировка Я - А
+  const sortDesc = document.querySelector('.sort-desc');
+
+  // Список задач
+  const todoTaskList = document.querySelector('.todo-task-list');
+  // Обертка списка задач
+  const todoTaskListWrapper = document.querySelector('.todo-task-list-wrapper');
+
+  // Поля модала
+  // Поле ввода срока исполнения
+  const flatPickr = document.querySelector('.task-due-date');
+  // Описание события
+  const taskDesc = document.getElementById('task-desc');
+  // Метки
+  const taskTag = document.getElementById('task-tag');
+  // Переключатель Вижу только я (приватное событие)
+  const privateSwitch = document.querySelector(".private-switch");
+  const checkboxId = 100;
+
+  // Функции
+
+  // Скрыть модал
+  function hideModal() {
+    newTaskModal.style.display = "none";
+    newTaskModal.classList.remove('show');
+    const btn = document.querySelector('.modal-backdrop');
+    if (btn) {
+      document.body.removeChild(btn);
+    }
+  }
+
+  // Показать модал
+  function showModal() {
+    newTaskModal.classList.add('show');
+    newTaskModal.style.display = "block";
+    const btn = document.createElement("div");
+    btn.setAttribute('class', 'modal-backdrop fade show')
+    document.body.appendChild(btn);
+  }
+
+  // Кнопка закрыть
+  $(span).on('click', function () {
+    hideModal();
+    // сбросить модал
+    resetValues()
+  });
+
+  // Кнопка отмены
+  $(cancelBtn).on('click', function () {
+    hideModal();
+    // сбросить модал
+    resetValues()
+  });
+
+  // Добавляет класс active при клике на список фильтров сайдбара
+  if (listItemFilter.length) {
+    listItemFilter.find('a').on('click', function () {
+      if (listItemFilter.find('a').hasClass('active')) {
+        listItemFilter.find('a').removeClass('active');
+      }
+      $(this).addClass('active');
+    });
+  }
+
+  // Инициализация Drag'n'Drop. Нужен dragula
+  const dndContainer = document.getElementById('todo-task-list');
+  if (typeof dndContainer !== undefined && dndContainer !== null) {
+    dragula([dndContainer], {
+      moves: function (el, container, handle) {
+        return handle.classList.contains('drag-icon');
+      }
+    });
+  }
+
+  // Метки задач
+  if (taskTag) {
+    $(taskTag).wrap('<div class="position-relative"></div>');
+    $(taskTag).select2({
+      placeholder: 'Выберите метку'
+    });
+  }
+
+  // Нажатие на кнопку избранного - звезду
+  if (favoriteStar) {
+    $(favoriteStar).on('click', function () {
+      $(this).toggleClass('text-warning');
+    });
+  }
+
+  // Датапикер
+  if (flatPickr) {
+    $(flatPickr).flatpickr({
+      dateFormat: 'Y-m-d',
+      defaultDate: 'today',
+      onReady: function (selectedDates, dateStr, instance) {
+        if (instance.isMobile) {
+          $(instance.mobileInput).attr('step', null);
+        }
+      }
+    });
+  }
+
+  // Добавление новой задачи в список
+
+  // To add new task form
+  if (newTaskForm) {
+    $(newTaskForm).validate({
+      rules: {
+        todoTitleAdd: {
+          required: true
+        },
+        'task-due-date': {
+          required: true
+        }
+      }
+    });
+
+    $(newTaskForm).on('submit', function (e) {
+      e.preventDefault();
+      const isValid = newTaskForm.valid();
+      if (isValid) {
+        //let checkboxId++;
+        const todoTitle = $('.sidebar-todo-modal .new-todo-item-title').val();
+        const date = $('.sidebar-todo-modal .task-due-date').val(),
+          selectedDate = new Date(date),
+          month = new Intl.DateTimeFormat('en', {month: 'short'}).format(selectedDate),
+          day = new Intl.DateTimeFormat('en', {day: '2-digit'}).format(selectedDate),
+          todoDate = month + ' ' + day;
+
+        // Badge calculation loop
+        const selected = $('.task-tag').val();
+        const badgeColor = {
+          Team: 'primary',
+          Low: 'success',
+          Medium: 'warning',
+          High: 'danger',
+          Update: 'info'
+        };
+        $.each(selected, function (index, value) {
+          let todoBadge = '<div class="badge badge-pill badge-light-' + badgeColor[value] + ' mr-50">' + value + '</div>';
+        });
+        // HTML Output
+        if (todoTitle !== '') {
+          $(todoTaskList).prepend(
+            '<li class="todo-item">' +
+            '<div class="todo-title-wrapper">' +
+            '<div class="todo-title-area">' +
+            /*feather.icons['more-vertical'].toSvg({ class: 'drag-icon' }) +*/
+            '<div class="title-wrapper">' +
+            '<div class="custom-control custom-checkbox">' +
+            '<input type="checkbox" class="custom-control-input" id="customCheck' +
+            checkboxId +
+            '" />' +
+            '<label class="custom-control-label" for="customCheck' +
+            checkboxId +
+            '"></label>' +
+            '</div>' +
+            '<span class="todo-title">' +
+            todoTitle +
+            '</span>' +
+            '</div>' +
+            '</div>' +
+            '<div class="todo-item-action">' +
+            '<div class="badge-wrapper mr-1">' +
+            todoBadge +
+            '</div>' +
+            '<small class="text-nowrap text-muted mr-1">' +
+            todoDate +
+            '</small>' +
+            '</div>' +
+            '</div>' +
+            '</li>'
+          );
+        }
+        toastr['success']('Data Saved', '💾 Task Action!', {
+          closeButton: true,
+          tapToDismiss: false
+        });
+        hideModal();
+      }
+    });
+  }
+
+  // Task checkbox change
+  $(todoTaskListWrapper).on('change', '.custom-checkbox', function (event) {
+    const $this = $(this).find('input');
+    if ($this.prop('checked')) {
+      $this.closest('.todo-item').addClass('completed');
+      toastr['success']('Task Completed', 'Congratulations!! 🎉', {
+        closeButton: true,
+        tapToDismiss: false
+      });
+    } else {
+      $this.closest('.todo-item').removeClass('completed');
+    }
+  });
+  $(todoTaskListWrapper).on('click', '.custom-checkbox', function (event) {
+    event.stopPropagation();
+  });
+
+  // To open todo list item modal on click of item
+  $(document).on('click', '.todo-task-list-wrapper .todo-item', function (e) {
+    showModal();
+    addBtn.addClass('d-none');
+    updateBtns.removeClass('d-none');
+    if ($(this).hasClass('completed')) {
+      modalTitle.html(
+        '<button type="button" class="btn btn-sm btn-outline-success complete-todo-item waves-effect waves-float waves-light" data-dismiss="modal">Completed</button>'
+      );
+    } else {
+      modalTitle.html(
+        '<button type="button" class="btn btn-sm btn-outline-secondary complete-todo-item waves-effect waves-float waves-light" data-dismiss="modal">Mark Complete</button>'
+      );
+    }
+    $(taskTag).val('').trigger('change');
+    const quill_editor = $('#task-desc .ql-editor'); // ? Dummy data as not connected with API or anything else
+    quill_editor[0].innerHTML =
+      'Chocolate cake topping bonbon jujubes donut sweet wafer. Marzipan gingerbread powder brownie bear claw. Chocolate bonbon sesame snaps jelly caramels oat cake.';
+    taskTitle = $(this).find('.todo-title');
+    const $title = $(this).find('.todo-title').html();
+
+    // apply all variable values to fields
+    $(newTaskForm).find('.new-todo-item-title').val($title);
+  });
+
+  // Updating Data Values to Fields
+  if (updateTodoItem.length) {
+    updateTodoItem.on('click', function (e) {
+      const isValid = newTaskForm.valid();
+      e.preventDefault();
+      if (isValid) {
+        const $edit_title = newTaskForm.find('.new-todo-item-title').val();
+        $(taskTitle).text($edit_title);
+
+        toastr['success']('Data Saved', '💾 Task Action!', {
+          closeButton: true,
+          tapToDismiss: false
+        });
+        hideModal();
+      }
+    });
+  }
+
+  // Sort Ascending
+  if (sortAsc.length) {
+    sortAsc.on('click', function () {
+      todoTaskListWrapper
+        .find('li')
+        .sort(function (a, b) {
+          return $(b).find('.todo-title').text().toUpperCase() < $(a).find('.todo-title').text().toUpperCase() ? 1 : -1;
+        })
+        .appendTo(todoTaskList);
+    });
+  }
+  // Sort Descending
+  if (sortDesc.length) {
+    sortDesc.on('click', function () {
+      todoTaskListWrapper
+        .find('li')
+        .sort(function (a, b) {
+          return $(b).find('.todo-title').text().toUpperCase() > $(a).find('.todo-title').text().toUpperCase() ? 1 : -1;
+        })
+        .appendTo(todoTaskList);
+    });
+  }
+
+  // Filter task
+  if (todoFilter.length) {
+    todoFilter.on('keyup', function () {
+      const value = $(this).val().toLowerCase();
+      if (value !== '') {
+        $('.todo-item').filter(function () {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+        });
+        const tbl_row = $('.todo-item:visible').length; //here tbl_test is table name
+
+        //Check if table has row or not
+        if (tbl_row === 0) {
+          if (!$(noResults).hasClass('show')) {
+            $(noResults).addClass('show');
+          }
+        } else {
+          $(noResults).removeClass('show');
+        }
+      } else {
+        // If filter box is empty
+        $('.todo-item').show();
+        if ($(noResults).hasClass('show')) {
+          $(noResults).removeClass('show');
+        }
+      }
+    });
+  }
+
+  $(addTaskBtn).on('click', function () {
+    showModal(newTaskModal);
+  });
+
+
+  // Сброс значений модала
+  function resetValues() {
+    $(flatPickr).val('');
+    $(taskDesc).val('');
+    $(taskTag).val('');
+    $(privateSwitch).prop('checked', false);
+  }
+}
 
 
 // FAQ
@@ -1602,6 +2015,18 @@ if (minicalendar) {
 
 if (todayeventswidget) {
   todayeventswidgethandler();
+}
+
+if (multimodal && multimodalbtns) {
+  multimodalbtns.forEach((multimodalbtn) => {
+    multimodalbtn.addEventListener('click', (evt) => {
+      multimodalhandler(evt);
+    });
+  });
+}
+
+if (todowrapper) {
+  tasksHandler()
 }
 
 datatablesHandler();

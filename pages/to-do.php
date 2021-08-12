@@ -31,11 +31,14 @@ $content = '
   <div class="row todo-wrapper">
 
     <!-- Модал -->
-    <div class="modal sidebar-todo-modal" id="new-task-modal" style="display: block">
+    <div class="modal sidebar-todo-modal" id="new-task-modal" style="display: none">
       <div class="modal-dialog sidebar-lg">
         <div class="modal-content p-0">
           <form id="form-modal-todo" class="todo-modal needs-validation" novalidate onsubmit="return false">
             <div class="modal-header align-items-center mb-1">
+            <div class="todo-item-action d-flex align-items-center justify-content-between ml-auto">
+                                              <!--  <i class="mdi mdi-star-outline"</i> -->
+                                            </div>
               <h5 class="modal-title">Добавить Задачу</h5>
               <div class="todo-item-action d-flex align-items-center justify-content-between ml-auto">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
@@ -75,7 +78,7 @@ $content = '
               </div>
               <div class="modal-footer my-1">
                 <button type="submit" class="btn btn-primary add-todo-item mr-1">Добавить</button>
-                <button type="button" class="btn btn-secondary add-todo-item" data-dismiss="modal">
+                <button type="button" class="btn btn-secondary btn-dismiss" data-dismiss="modal">
                   Отмена
                 </button>
                 <button type="button" class="btn btn-primary update-btn update-todo-item me-1">Обновить</button>
@@ -92,10 +95,11 @@ $content = '
     <div class="col-3">
       <div class="card">
         <div class="card-header">
-          <button class="btn btn-primary btn-block mt-1 mb-1">Добавить задачу</button>
+          <button class="btn btn-primary btn-block mt-1 mb-1 add-task">Добавить задачу</button>
         </div>
 
-        <div class="sidebar-menu">
+        <div class="sidebar-left">
+                <div class="sidebar-menu-list">
           <div class="list-group list-group-filters">
             <a class="list-group-item list-group-item-action" href="javascript:void(0)"><i
               class="mdi mdi-shape-outline me-2"></i> Все задачи</a>
@@ -116,22 +120,25 @@ $content = '
           </div>
           <div class="list-group list-group-labels">
             <a class="list-group-item list-group-item-action d-flex align-items-center" href="javascript:void(0)">
-              <span class="bullet bullet-sm bullet-primary me-2"></span>Метка
+              <span class="bullet bullet-sm bullet-primary me-2"></span>Team
             </a>
             <a class="list-group-item list-group-item-action d-flex align-items-center" href="javascript:void(0)">
-              <span class="bullet bullet-sm bullet-danger me-2"></span>Метка
+              <span class="bullet bullet-sm bullet-danger me-2"></span>Low
             </a>
             <a class="list-group-item list-group-item-action d-flex align-items-center" href="javascript:void(0)">
-              <span class="bullet bullet-sm bullet-warning me-2"></span>Метка
+              <span class="bullet bullet-sm bullet-warning me-2"></span>Medium
             </a>
             <a class="list-group-item list-group-item-action d-flex align-items-center" href="javascript:void(0)">
-              <span class="bullet bullet-sm bullet-success me-2"></span>Метка
+              <span class="bullet bullet-sm bullet-success me-2"></span>High
             </a>
             <a class="list-group-item list-group-item-action d-flex align-items-center" href="javascript:void(0)">
-              <span class="bullet bullet-sm bullet-info me-2"></span>Метка
+              <span class="bullet bullet-sm bullet-info me-2"></span>Update
             </a>
           </div>
         </div>
+
+</div>
+
 
       </div>
     </div>
@@ -186,6 +193,9 @@ $content = '
             </li>
 
           </ul>
+          <div class="no-results">
+                                    <p>Ничего не найдено</p>
+                                </div>
         </div>
       </div>
     </div>
