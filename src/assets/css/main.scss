@@ -2125,6 +2125,7 @@ td .badge-big {
   position: absolute;
   z-index: 9999;
   right: 0;
+  top: $header-height;
   height: auto;
 
   .toast {

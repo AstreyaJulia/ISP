@@ -31,13 +31,4 @@
 </main>
 <!-- Контейнер для всплывашек -->
 <div class="toasts-container">
-  <div class="toast fade hide" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="toast-header">
-      <i class="mdi mdi-alert-circle-outline"></i>
-      <strong class="me-auto"></strong> <small class="text-muted"></small>
-      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть"></button>
-    </div>
-    <div class="toast-body"></div>
-  </div>
-
 </div>

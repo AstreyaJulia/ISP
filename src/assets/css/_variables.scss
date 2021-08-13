@@ -41,7 +41,7 @@ $grey-shadow-6: 0 8px 24px -4px rgba(27, 46, 94, 0.12);
 // Первичный цвет
 $theme-primary: rgba(85, 82, 217, 1);
 $primary-dark: darken($theme-primary, 20%);
-$primary-light: lighten($theme-primary, 20%);
+$primary-light: rgba(170,168,236, 1);
 $primary-50: rgba(85, 82, 217, 0.5);
 $primary-20: rgba(85, 82, 217, 0.2);
 
@@ -54,28 +54,28 @@ $secondary-20: rgba(90, 100, 116, 0.2);
 // Состояния ошибки, красный
 $theme-danger: rgba(244, 60, 60, 1);
 $danger-dark: darken($theme-danger, 20%);
-$danger-light: lighten($theme-danger, 20%);
+$danger-light: rgba(249,157,157, 1);
 $danger-50: rgba(244, 60, 60, 0.5);
 $danger-20: rgba(244, 60, 60, 0.2);
 
 // Состояния успеха, зеленый
 $theme-success: rgba(0, 186, 136, 1);
 $success-dark: darken($theme-success, 20%);
-$success-light: lighten($theme-success, 20%);
+$success-light: rgba(127,220,195, 1);
 $success-50: rgba(0, 186, 136, 0.5);
 $success-20: rgba(0, 186, 136, 0.2);
 
 // Повышение внимания, желтый
 $theme-warning: rgba(252, 165, 73, 1);
 $warning-dark: darken($theme-warning, 30%);
-$warning-light: lighten($theme-warning, 20%);
+$warning-light: rgba(253,210,164, 1);
 $warning-50: rgba(252, 165, 73, 0.5);
 $warning-20: rgba(252, 165, 73, 0.2);
 
 // Информация
 $theme-secondary: rgba(0, 207, 232, 1);
 $info-dark: darken($theme-secondary, 30%);
-$info-light: lighten($theme-secondary, 20%);
+$info-light: rgba(127,231,243, 1);
 $info-50: rgba(0, 207, 232, 0.5);
 $info-20: rgba(0, 207, 232, 0.2);
 

@@ -56,55 +56,53 @@ const todayeventswidget = document.querySelector('.today-events');
 const multimodal = document.querySelector('.modal-multiaction');
 const multimodalbtns = document.querySelectorAll('.btnmodal-multiaction');
 
-// Toast
-// Всплывашка. Принимает заголовок header, текст text, время time в виде строки, значок icon (danger)
-function showToast(header,text,time,icon,iconcolor) {
-  /*
-  document.getElementById("toastbtn").onclick = function() {
-        var toastElList = [].slice.call(document.querySelectorAll('.toast'))
-        var toastList = toastElList.map(function(toastEl) {
-        // Creates an array of toasts (it only initializes them)
-          return new bootstrap.Toast(toastEl) // No need for options; use the default options
-        });
-       toastList.forEach(toast => toast.show()); // This show them
+// Toast. Большие всплывашки с заголовком и временем
+// Всплывашка. Принимает заголовок header, текст text, время time в виде строки
+function showToast(header,text,time) {
 
-        console.log(toastList); // Testing to see if it works
-      };
+  const toastcontainer = document.querySelector('.toasts-container');
 
-          const btn = document.createElement("div");
-    document.querySelector('.toasts-container').appendChild(toast);
-   */
+  // Удаляем скрытые всплывашки
+  const hiddentoasts = toastcontainer.querySelectorAll('.hide');
+  if (hiddentoasts) {
+    hiddentoasts.forEach((hiddentoast) => {
+      toastcontainer.removeChild(hiddentoast);
+    });
+  }
 
-  //const toast = document.querySelector('.toast');
- /* const toastheader = toast.querySelector('.toast-header strong');
-  const toasttext = toast.querySelector('.toast-body');
-  const toasttime = toast.querySelector('.toast-header small');
-  const toasticon = toast.querySelector('.toast-header i');
-  toastheader.textContent = header;
-  toasttext.textContent = text;
-  toasttime.textContent = time;*/
-  //toasticon.classList.add('mdi-' + icon);
-  //toasticon.classList.add('text-' + iconcolor);
-  /*const bstoast = new bootstrap.Toast(toast);
-  bstoast.show()*/
-  const toast = '  <div class="toast fade hide" role="alert" aria-live="assertive" aria-atomic="true">\n' +
-    '    <div class="toast-header">\n' +
-    '      <i class="mdi mdi-alert-circle-outline"></i>\n' +
-    '      <strong class="me-auto">' + header + '</strong> <small class="text-muted">'  + time +  '</small>\n' +
-    '      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть"></button>\n' +
-    '    </div>\n' +
-    '    <div class="toast-body">'  + text +  '</div>\n' +
-    '  </div>'
+  const toastElement = '<div class="toast fade hide" role="alert" aria-live="assertive" aria-atomic="true"><div class="toast-header"><i class="mdi mdi-message-alert-outline"></i><strong class="me-auto">' + header + '</strong><small class="text-muted">' + time + '</small><button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть"></button></div><div class="toast-body">' + text + '</div></div>';
+  toastcontainer.insertAdjacentHTML('beforeend', toastElement);
 
-
-  document.querySelector('.toasts-container').appendChild(toast);
   const toastElList = [].slice.call(document.querySelectorAll('.toast'));
   const toastList = toastElList.map(function (toastEl) {
-    // Creates an array of toasts (it only initializes them)
-    return new bootstrap.Toast(toastEl) // No need for options; use the default options
+    return new bootstrap.Toast(toastEl)
   });
-  toastList.forEach(toast => toast.show()); // This show them
+  toastList.forEach(toast => toast.show());
 }
+
+// Toast mini. Маленькие цветные всплывашки без заголовка и времени
+function showMiniToast(text,color) {
+
+  const toastcontainer = document.querySelector('.toasts-container');
+
+  // Удаляем скрытые всплывашки
+  const hiddentoasts = toastcontainer.querySelectorAll('.hide');
+  if (hiddentoasts) {
+    hiddentoasts.forEach((hiddentoast) => {
+      toastcontainer.removeChild(hiddentoast);
+    });
+  }
+
+  const toastElement = '<div class="toast align-items-center bg-' + color +'-light" role="alert" aria-live="assertive" aria-atomic="true"><div class="d-flex"><div class="toast-body">' + text + '</div><button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Закрыть"></button></div></div>';
+  toastcontainer.insertAdjacentHTML('beforeend', toastElement);
+
+  const toastElList = [].slice.call(document.querySelectorAll('.toast'));
+  const toastList = toastElList.map(function (toastEl) {
+    return new bootstrap.Toast(toastEl)
+  });
+  toastList.forEach(toast => toast.show());
+}
+
 
 
 // Tasks задачи
@@ -572,6 +570,7 @@ const calendmodulehandler = () => {
         },
         success: function (response) {
           addEvent(Event);
+          showMiniToast( 'Событие ' + Event.title + ' добавлено',"success");
         },
         error: function (jqXHR, textStatus, errorThrown) {
           alert("Ошибка" + jqXHR + textStatus + errorThrown);
@@ -611,6 +610,7 @@ const calendmodulehandler = () => {
         },
         success: function (response) {
           updateEvent(Event);
+          showMiniToast('Событие ' + Event.title + ' обновлено',"info");
         },
         error: function (jqXHR, textStatus, errorThrown) {
           alert("Ошибка" + jqXHR + textStatus + errorThrown);
@@ -635,6 +635,7 @@ const calendmodulehandler = () => {
       },
       success: function (response) {
         removeEvent(Event);
+        showMiniToast('Событие ' + eventToUpdate.title + ' удалено',"danger");
       },
       error: function (jqXHR, textStatus, errorThrown) {
         alert("Ошибка" + jqXHR + textStatus + errorThrown);
@@ -1103,7 +1104,7 @@ const tasksHandler = () => {
     const $this = $(this).find('input');
     if ($this.prop('checked')) {
       $this.closest('.todo-item').addClass('completed');
-      showToast('Задача завершена', 'Поздравляем 🎉',"Сейчас", "checkbox-outline", "success");
+      showToast('Задача завершена', 'Поздравляем 🎉',"Сейчас");
     } else {
       $this.closest('.todo-item').removeClass('completed');
     }
