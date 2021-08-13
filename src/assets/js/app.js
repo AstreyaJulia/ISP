@@ -56,6 +56,57 @@ const todayeventswidget = document.querySelector('.today-events');
 const multimodal = document.querySelector('.modal-multiaction');
 const multimodalbtns = document.querySelectorAll('.btnmodal-multiaction');
 
+// Toast
+// Всплывашка. Принимает заголовок header, текст text, время time в виде строки, значок icon (danger)
+function showToast(header,text,time,icon,iconcolor) {
+  /*
+  document.getElementById("toastbtn").onclick = function() {
+        var toastElList = [].slice.call(document.querySelectorAll('.toast'))
+        var toastList = toastElList.map(function(toastEl) {
+        // Creates an array of toasts (it only initializes them)
+          return new bootstrap.Toast(toastEl) // No need for options; use the default options
+        });
+       toastList.forEach(toast => toast.show()); // This show them
+
+        console.log(toastList); // Testing to see if it works
+      };
+
+          const btn = document.createElement("div");
+    document.querySelector('.toasts-container').appendChild(toast);
+   */
+
+  //const toast = document.querySelector('.toast');
+ /* const toastheader = toast.querySelector('.toast-header strong');
+  const toasttext = toast.querySelector('.toast-body');
+  const toasttime = toast.querySelector('.toast-header small');
+  const toasticon = toast.querySelector('.toast-header i');
+  toastheader.textContent = header;
+  toasttext.textContent = text;
+  toasttime.textContent = time;*/
+  //toasticon.classList.add('mdi-' + icon);
+  //toasticon.classList.add('text-' + iconcolor);
+  /*const bstoast = new bootstrap.Toast(toast);
+  bstoast.show()*/
+  const toast = '  <div class="toast fade hide" role="alert" aria-live="assertive" aria-atomic="true">\n' +
+    '    <div class="toast-header">\n' +
+    '      <i class="mdi mdi-alert-circle-outline"></i>\n' +
+    '      <strong class="me-auto">' + header + '</strong> <small class="text-muted">'  + time +  '</small>\n' +
+    '      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть"></button>\n' +
+    '    </div>\n' +
+    '    <div class="toast-body">'  + text +  '</div>\n' +
+    '  </div>'
+
+
+  document.querySelector('.toasts-container').appendChild(toast);
+  const toastElList = [].slice.call(document.querySelectorAll('.toast'));
+  const toastList = toastElList.map(function (toastEl) {
+    // Creates an array of toasts (it only initializes them)
+    return new bootstrap.Toast(toastEl) // No need for options; use the default options
+  });
+  toastList.forEach(toast => toast.show()); // This show them
+}
+
+
 // Tasks задачи
 const todowrapper = document.querySelector('.todo-wrapper');
 
@@ -919,10 +970,10 @@ const tasksHandler = () => {
   });
 
   // Добавляет класс active при клике на список фильтров сайдбара
-  if (listItemFilter.length) {
-    listItemFilter.find('a').on('click', function () {
-      if (listItemFilter.find('a').hasClass('active')) {
-        listItemFilter.find('a').removeClass('active');
+  if (listItemFilter) {
+    $(listItemFilter).find('a').on('click', function () {
+      if ($(listItemFilter).find('a').hasClass('active')) {
+        $(listItemFilter).find('a').removeClass('active');
       }
       $(this).addClass('active');
     });
@@ -1047,15 +1098,12 @@ const tasksHandler = () => {
     });
   }
 
-  // Task checkbox change
+  // Чекбокс завершения задачи
   $(todoTaskListWrapper).on('change', '.custom-checkbox', function (event) {
     const $this = $(this).find('input');
     if ($this.prop('checked')) {
       $this.closest('.todo-item').addClass('completed');
-      toastr['success']('Task Completed', 'Congratulations!! 🎉', {
-        closeButton: true,
-        tapToDismiss: false
-      });
+      showToast('Задача завершена', 'Поздравляем 🎉',"Сейчас", "checkbox-outline", "success");
     } else {
       $this.closest('.todo-item').removeClass('completed');
     }
@@ -1159,6 +1207,7 @@ const tasksHandler = () => {
   }
 
   $(addTaskBtn).on('click', function () {
+    console.log(newTaskModal);
     showModal(newTaskModal);
   });
 

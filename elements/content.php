@@ -34,26 +34,10 @@
   <div class="toast fade hide" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="toast-header">
       <i class="mdi mdi-alert-circle-outline"></i>
-      <strong class="me-auto">Всплывашка 1</strong> <small class="text-muted">11 минут назад</small>
+      <strong class="me-auto"></strong> <small class="text-muted"></small>
       <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть"></button>
     </div>
-    <div class="toast-body">Это всплывашки.</div>
-  </div>
-  <div class="toast fade hide" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="toast-header">
-      <i class="mdi mdi-alert-circle-outline"></i>
-      <strong class="me-auto">Всплывашка 2</strong> <small class="text-muted">5 минут назад</small>
-      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть"></button>
-    </div>
-    <div class="toast-body">Думаю, что положение сверху справа для них самое то.</div>
-  </div>
-  <div class="toast fade hide" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="toast-header">
-      <i class="mdi mdi-alert-circle-outline"></i>
-      <strong class="me-auto">Всплывашка 3</strong> <small class="text-muted">Сейчас</small>
-      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть"></button>
-    </div>
-    <div class="toast-body">Еще одна всплывашка.</div>
+    <div class="toast-body"></div>
   </div>
 
 </div>

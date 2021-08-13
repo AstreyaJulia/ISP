@@ -9,7 +9,7 @@
     "update modules": "npm update"
   },
   "keywords": [],
-  "author": "autors",
+  "author": "Chernov R.A, Latysheva Y.A.",
   "license": "ISC",
   "dependencies": {
     "@babel/cli": "^7.14.8",
