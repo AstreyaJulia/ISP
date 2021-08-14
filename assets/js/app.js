@@ -59,9 +59,7 @@ const multimodalbtns = document.querySelectorAll('.btnmodal-multiaction');
 // Toast. Большие всплывашки с заголовком и временем
 // Всплывашка. Принимает заголовок header, текст text, время time в виде строки
 function showToast(header,text,time) {
-
   const toastcontainer = document.querySelector('.toasts-container');
-
   // Удаляем скрытые всплывашки
   const hiddentoasts = toastcontainer.querySelectorAll('.hide');
   if (hiddentoasts) {
@@ -72,7 +70,6 @@ function showToast(header,text,time) {
 
   const toastElement = '<div class="toast fade hide" role="alert" aria-live="assertive" aria-atomic="true"><div class="toast-header"><i class="mdi mdi-message-alert-outline"></i><strong class="me-auto">' + header + '</strong><small class="text-muted">' + time + '</small><button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть"></button></div><div class="toast-body">' + text + '</div></div>';
   toastcontainer.insertAdjacentHTML('beforeend', toastElement);
-
   const toastElList = [].slice.call(document.querySelectorAll('.toast'));
   const toastList = toastElList.map(function (toastEl) {
     return new bootstrap.Toast(toastEl)
@@ -82,9 +79,7 @@ function showToast(header,text,time) {
 
 // Toast mini. Маленькие цветные всплывашки без заголовка и времени
 function showMiniToast(text,color) {
-
   const toastcontainer = document.querySelector('.toasts-container');
-
   // Удаляем скрытые всплывашки
   const hiddentoasts = toastcontainer.querySelectorAll('.hide');
   if (hiddentoasts) {
@@ -93,7 +88,7 @@ function showMiniToast(text,color) {
     });
   }
 
-  const toastElement = '<div class="toast align-items-center bg-' + color +'-light" role="alert" aria-live="assertive" aria-atomic="true"><div class="d-flex"><div class="toast-body">' + text + '</div><button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Закрыть"></button></div></div>';
+  const toastElement = '<div class="toast align-items-center bg-' + color +'-50" role="alert" aria-live="assertive" aria-atomic="true"><div class="d-flex"><div class="toast-body">' + text + '</div><button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Закрыть"></button></div></div>';
   toastcontainer.insertAdjacentHTML('beforeend', toastElement);
 
   const toastElList = [].slice.call(document.querySelectorAll('.toast'));
@@ -119,7 +114,7 @@ const calendarEl = document.getElementById('calendar');
 
 const calendmodulehandler = () => {
   //Элементы
-
+const neweventbtn = document.getElementById("myBtn");
   //Модал и его элементы
   // Модал добавления события
   const modal = document.getElementById("addEventsModal");
@@ -452,12 +447,10 @@ const calendmodulehandler = () => {
         'bg-' + colorName + '-50'
       ];
     },
-
     eventSources: [
       fetchEvents,
       bgevents
     ],
-    //  events: fetchEvents,
     headerToolbar: {
       left: 'title',
       center: '',
@@ -472,24 +465,12 @@ const calendmodulehandler = () => {
       hidePopover();
     },
     dateClick: function (info) {
-      // Клик на пустую дату
-      const date = moment(info.date).format('YYYY-MM-DD hh:mm');
-      resetValues();
-      showModal();
-      // Показываем кнопку Добавить
-      addEventBtn.style.display = "block";
-      // Скрываем кнопку Сохранить
-      updateEventBtn.style.display = "none";
-      // Скрываем кнопку Удалить
-      btnDeleteEvent.style.display = "none";
-      $(startDate).val(date);
-      $(endDate).val(date);
+      neweventmodal(info);
     },
     eventClick: function (info) {
       eventClick(info);
     }
   });
-
   // Рендеринг календаря
   calendar.render();
 
@@ -514,26 +495,31 @@ const calendmodulehandler = () => {
     });
   }
 
-  // Функция - Добавление события
-  function addEvent(eventData) {
-    calendar.refetchEvents(eventData);
-    hideModal();
+  function neweventmodal (info) {
     resetValues();
+    showModal();
+    // Показываем кнопку Добавить
+    addEventBtn.style.display = "block";
+    // Скрываем кнопку Сохранить
+    updateEventBtn.style.display = "none";
+    // Скрываем кнопку Удалить
+    btnDeleteEvent.style.display = "none";
+
+    if (info == null) {
+      const date = moment().format('YYYY-MM-DD hh:mm');
+      $(startDate).val(date);
+      $(endDate).val(date);
+    } else
+    {
+      const date = moment(info.date).format('YYYY-MM-DD hh:mm');
+      $(startDate).val(date);
+      $(endDate).val(date);
+    }
   }
 
-  // Функция - Обновление события
-  function updateEvent(eventData) {
-    calendar.refetchEvents(eventData);
-    hideModal();
-    resetValues();
-  }
-
-  // Функция - Удаление события
-  function removeEvent(eventId) {
-    calendar.refetchEvents(eventId);
-    hideModal();
-    resetValues();
-  }
+  $(neweventbtn).on('click', function () {
+    neweventmodal(null);
+  });
 
   // Кнопка - Добавление нового события
   $(addEventBtn).on('click', function () {
@@ -569,7 +555,10 @@ const calendmodulehandler = () => {
           'Accept': 'application/json;odata=nometadata'
         },
         success: function (response) {
-          addEvent(Event);
+          //addEvent(Event);
+          calendar.refetchEvents(Event);
+          hideModal();
+          resetValues();
           showMiniToast( 'Событие ' + Event.title + ' добавлено',"success");
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -609,7 +598,10 @@ const calendmodulehandler = () => {
           'Accept': 'application/json;odata=nometadata'
         },
         success: function (response) {
-          updateEvent(Event);
+          //updateEvent(Event);
+          calendar.refetchEvents(Event);
+          hideModal();
+          resetValues();
           showMiniToast('Событие ' + Event.title + ' обновлено',"info");
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -634,7 +626,10 @@ const calendmodulehandler = () => {
         'Accept': 'application/json;odata=nometadata'
       },
       success: function (response) {
-        removeEvent(Event);
+        //removeEvent(Event);
+        calendar.refetchEvents(Event);
+        hideModal();
+        resetValues();
         showMiniToast('Событие ' + eventToUpdate.title + ' удалено',"danger");
       },
       error: function (jqXHR, textStatus, errorThrown) {

@@ -56,10 +56,7 @@
           <input class="form-check-input input-filter bg-info" type="checkbox" id="Info" name="Info" checked>
           <label class="form-check-label" for="Info">Разное</label>
         </div>
-        <button type="button" class="btn btn-primary ms-auto me-3" data-bs-toggle="modal" data-bs-target="#addEventsModal"
-                id="myBtn">Добавить
-          событие
-        </button>
+        <button type="button" class="btn btn-primary ms-auto me-3" id="myBtn">Добавить событие</button>
       </div>
 
 
