@@ -58,7 +58,7 @@ const multimodalbtns = document.querySelectorAll('.btnmodal-multiaction');
 
 // Toast. Большие всплывашки с заголовком и временем
 // Всплывашка. Принимает заголовок header, текст text, время time в виде строки
-function showToast(header,text,time) {
+function showToast(header, text, time) {
   const toastcontainer = document.querySelector('.toasts-container');
   // Удаляем скрытые всплывашки
   const hiddentoasts = toastcontainer.querySelectorAll('.hide');
@@ -78,7 +78,7 @@ function showToast(header,text,time) {
 }
 
 // Toast mini. Маленькие цветные всплывашки без заголовка и времени
-function showMiniToast(text,color) {
+function showMiniToast(text, color) {
   const toastcontainer = document.querySelector('.toasts-container');
   // Удаляем скрытые всплывашки
   const hiddentoasts = toastcontainer.querySelectorAll('.hide');
@@ -88,7 +88,7 @@ function showMiniToast(text,color) {
     });
   }
 
-  const toastElement = '<div class="toast align-items-center bg-' + color +'-50" role="alert" aria-live="assertive" aria-atomic="true"><div class="d-flex"><div class="toast-body">' + text + '</div><button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Закрыть"></button></div></div>';
+  const toastElement = '<div class="toast align-items-center bg-' + color + '-50" role="alert" aria-live="assertive" aria-atomic="true"><div class="d-flex"><div class="toast-body">' + text + '</div><button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Закрыть"></button></div></div>';
   toastcontainer.insertAdjacentHTML('beforeend', toastElement);
 
   const toastElList = [].slice.call(document.querySelectorAll('.toast'));
@@ -97,7 +97,6 @@ function showMiniToast(text,color) {
   });
   toastList.forEach(toast => toast.show());
 }
-
 
 
 // Tasks задачи
@@ -114,7 +113,7 @@ const calendarEl = document.getElementById('calendar');
 
 const calendmodulehandler = () => {
   //Элементы
-const neweventbtn = document.getElementById("myBtn");
+  const neweventbtn = document.getElementById("myBtn");
   //Модал и его элементы
   // Модал добавления события
   const modal = document.getElementById("addEventsModal");
@@ -495,7 +494,7 @@ const neweventbtn = document.getElementById("myBtn");
     });
   }
 
-  function neweventmodal (info) {
+  function neweventmodal(info) {
     resetValues();
     showModal();
     // Показываем кнопку Добавить
@@ -509,8 +508,7 @@ const neweventbtn = document.getElementById("myBtn");
       const date = moment().format('YYYY-MM-DD hh:mm');
       $(startDate).val(date);
       $(endDate).val(date);
-    } else
-    {
+    } else {
       const date = moment(info.date).format('YYYY-MM-DD hh:mm');
       $(startDate).val(date);
       $(endDate).val(date);
@@ -559,7 +557,7 @@ const neweventbtn = document.getElementById("myBtn");
           calendar.refetchEvents(Event);
           hideModal();
           resetValues();
-          showMiniToast( 'Событие ' + Event.title + ' добавлено',"success");
+          showMiniToast('Событие ' + Event.title + ' добавлено', "success");
         },
         error: function (jqXHR, textStatus, errorThrown) {
           alert("Ошибка" + jqXHR + textStatus + errorThrown);
@@ -602,7 +600,7 @@ const neweventbtn = document.getElementById("myBtn");
           calendar.refetchEvents(Event);
           hideModal();
           resetValues();
-          showMiniToast('Событие ' + Event.title + ' обновлено',"info");
+          showMiniToast('Событие ' + Event.title + ' обновлено', "info");
         },
         error: function (jqXHR, textStatus, errorThrown) {
           alert("Ошибка" + jqXHR + textStatus + errorThrown);
@@ -630,7 +628,7 @@ const neweventbtn = document.getElementById("myBtn");
         calendar.refetchEvents(Event);
         hideModal();
         resetValues();
-        showMiniToast('Событие ' + eventToUpdate.title + ' удалено',"danger");
+        showMiniToast('Событие ' + eventToUpdate.title + ' удалено', "danger");
       },
       error: function (jqXHR, textStatus, errorThrown) {
         alert("Ошибка" + jqXHR + textStatus + errorThrown);
@@ -798,74 +796,7 @@ const todayeventswidgethandler = () => {
   }
 }
 
-//
-// to do list
-/*
-var todos = [{
-  text: "вынести мусор",
-  done: false,
-  id: 0
-}];
-var currentTodo = {
-  text: "",
-  done: false,
-  id: 0
-}
-document.getElementById("todo-input").oninput = function (e) {
-  currentTodo.text = e.target.value;
-};
-function DrawTodo(todo) {
-  var newTodoHTML = `
-				  <div class="pb-3 todo-item" todo-id="${todo.id}">
-				  <div class="input-group">
-					<div class="input-group-text">
-					  <input type="checkbox" onchange="TodoChecked(${todo.id})" aria-label="Checkbox for following text input" ${todo.done && "checked"} >
-					</div>
-				  <input type="text" readonly class="form-control ${todo.done && "todo-done"} " aria-label="Text input with checkbox"
-					value="${todo.text}">
-					<button todo-id="${todo.id}" class="btn btn-outline-secondary bg-danger text-white" type="button" onclick="DeleteTodo(this);"
-					  id="button-addon2 ">X</button>
-				  </div>
-				  </div>
-				  `;
-  var dummy = document.createElement("DIV");
-  dummy.innerHTML = newTodoHTML;
-  document.getElementById("todo-container").appendChild(dummy.children[0]);
-}
-function RenderAllTodos() {
-  var container = document.getElementById("todo-container");
-  while (container.firstChild) {
-    container.removeChild(container.firstChild);
-  }
-  for (var i = 0; i < todos.length; i++) {
-    DrawTodo(todos[i]);
-  }
-}
-RenderAllTodos();
-function DeleteTodo(button) {
-  var deleteID = parseInt(button.getAttribute("todo-id"));
-  for (let i = 0; i < todos.length; i++) {
-    if (todos[i].id === deleteID) {
-      todos.splice(i, 1);
-      RenderAllTodos();
-      break;
-    }
-  }
-}
-function TodoChecked(id) {
-  todos[id].done = !todos[id].done;
-  RenderAllTodos();
-}
-function CreateTodo() {
-  newtodo = {
-    text: currentTodo.text,
-    done: false,
-    id: todos.length
-  }
-  todos.push(newtodo);
-  RenderAllTodos();
-}
-*/
+
 
 // Tasks list
 
@@ -879,23 +810,24 @@ const tasksHandler = () => {
   // Модал
   const newTaskModal = document.getElementById('new-task-modal');
   // Форма в модале
-  const newTaskForm = document.getElementById('form-modal-todo');
-  // Кнопка добавить в избранное
-  const favoriteStar = document.querySelector('.todo-item-favorite');
-  // Заголовок модала
-  const modalTitle = document.querySelector('.modal-title');
+  const newTaskForm = document.getElementById('task-form');
+  // Заголовок модала статус задачи
+  const modalTitle = document.querySelector('.task-title-status');
+  // Заголовок модала Добавить
+  const addmodalTitle = document.querySelector('.add-task-title');
+  // Заголовок модала Редактировать
+  const editmodalTitle = document.querySelector('.edit-task-title');
   // Кнопка закрыть на модале
   const span = document.querySelector('.btn-close');
 
   // Кнопка Добавить на модале
-  const addBtn = document.querySelector('.add-todo-item');
-  // Кнопка Обновить на модале
-  const updateTodoItem = document.querySelector('.update-todo-item');
+  const addBtn = document.querySelector('.add-task-btn');
+  // Кнопка Сохранить на модале
+  const updateTodoItem = document.querySelector('.edit-task');
   // Кнопка Удалить на модале
-  const updateBtns = document.querySelector('.update-btn');
+  const updateBtns = document.querySelector('.btn-delete-task');
   // Кнопка Отмена на модале
   const cancelBtn = document.querySelector('.btn-dismiss');
-
 
   // Сайдбар с фильтрами и метками
   const sidebarLeft = document.querySelector('.sidebar-left');
@@ -903,6 +835,8 @@ const tasksHandler = () => {
   const sidebarMenuList = document.querySelector('.sidebar-menu-list');
   // Меню фильтров в сайдбаре
   const listItemFilter = document.querySelector('.list-group-filters');
+  // Меню меток в сайдбаре
+  const listItemLabel = document.querySelector('.list-group-labels');
 
   // Поле поиска по задачам
   const todoFilter = document.getElementById('todo-search');
@@ -921,16 +855,134 @@ const tasksHandler = () => {
 
   // Поля модала
   // Поле ввода срока исполнения
-  const flatPickr = document.querySelector('.task-due-date');
+  const flatPickr = document.querySelector('.due-date');
   // Описание события
-  const taskDesc = document.getElementById('task-desc');
+  const taskDesc = document.getElementById('ask-description');
   // Метки
-  const taskTag = document.getElementById('task-tag');
+  const taskTag = document.getElementById('cat-select');
   // Переключатель Вижу только я (приватное событие)
   const privateSwitch = document.querySelector(".private-switch");
   const checkboxId = 100;
 
+  //Массив задач. Заменить на обращение к базе
+  const tasksSource = [
+    {
+      id: 1,
+      title: 'Задача',
+      created: "2021-08-13 09:00:00",
+      deadline: "2021-08-31 09:00:00",
+      tag: 'primary',
+      user_id: '1',
+      completed: 'false',
+      deleted: 'false',
+      description: 'описание'
+    },
+    {
+      id: 2,
+      title: 'Задача 2',
+      created: "2021-08-12 09:00:00",
+      deadline: "2021-08-18 09:00:00",
+      tag: 'danger',
+      user_id: '1',
+      completed: 'true',
+      deleted: 'true',
+      description: ''
+    },
+    {
+      id: 3,
+      title: 'Задача с большим описанием, которое надо обрезать в ращметке, чтобы не разывало контейнер',
+      created: "2021-08-12 09:00:00",
+      deadline: "2021-08-10 09:00:00",
+      tag: 'warning',
+      user_id: '1',
+      completed: 'false',
+      deleted: 'false',
+      description: ''
+    },
+    {
+      id: 4,
+      title: 'Просто задача без названия',
+      created: "2021-08-14 09:00:00",
+      deadline: "2021-08-23 09:00:00",
+      tag: 'success',
+      user_id: '1',
+      completed: 'false',
+      deleted: 'false',
+      description: ''
+    },
+    {
+      id: 5,
+      title: 'Задача с "кавычками"',
+      created: "2021-08-01 09:00:00",
+      deadline: "2021-09-18 09:00:00",
+      tag: 'info',
+      user_id: '1',
+      completed: 'true',
+      deleted: 'true',
+      description: ''
+    },
+    {
+      id: 6,
+      title: 'Задача 2',
+      created: "2021-08-12 09:00:00",
+      deadline: "2021-08-18 09:00:00",
+      tag: 'primary',
+      user_id: '1',
+      completed: 'true',
+      deleted: 'true',
+      description: ''
+    }
+  ];
+
+  let tasksList = tasksSource;
+
+
   // Функции
+
+  const createTaskItemString = ({id, deadline, tag, title}) =>
+    `<li class="todo-item">
+              <div class="todo-title-wrapper">
+                <div class="todo-title-area">
+                  <div class="title-wrapper">
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" class="form-check-input" id="task-${id}">
+                      <label class="custom-control-label" for="task-${id}"></label>
+                    </div>
+                    <span class="todo-title">${title}</span>
+                  </div>
+                </div>
+                <div class="todo-item-action">
+                <div class="tag-container">
+                <span class="bullet bullet-sm bullet-${tag} me-2" id="tag-${id}"></span>
+</div>
+                  <small class="text-nowrap text-muted me-1">${moment(deadline).format('LLL')}</small>
+                </div>
+              </div>
+            </li>`;
+
+
+  // Рендеринг задач
+  const tasksRender = () => {
+    todoTaskList.innerHTML = '';
+    const taskElementsString = tasksList.map((title) => createTaskItemString(title)).join('');
+    todoTaskList.insertAdjacentHTML('beforeend', taskElementsString);
+
+    /*
+    // Множественный массив
+    контейнер тегов
+    const tagscontainers = todoTaskList.querySelectorAll('.tag-container');
+    tagscontainers.forEach((tagscontainer) => {
+      tagscontainer.innerHTML = '';
+      for (let key in tasksList) {
+        // если products[key]['category'] не равно 'vegetable', то тогда переходим к следующей итерации
+        if (tasksList[key]['tags']) {
+          console.log(tasksList[key]['tags']);
+        }
+        continue;
+      }
+      // тут нужен сброщик тегов
+    });*/
+  }
 
   // Скрыть модал
   function hideModal() {
@@ -975,7 +1027,17 @@ const tasksHandler = () => {
     });
   }
 
-  // Инициализация Drag'n'Drop. Нужен dragula
+  // Добавляет класс active при клике на список меток сайдбара
+  if (listItemLabel) {
+    $(listItemLabel).find('a').on('click', function () {
+      if ($(listItemLabel).find('a').hasClass('active')) {
+        $(listItemLabel).find('a').removeClass('active');
+      }
+      $(this).addClass('active');
+    });
+  }
+
+ /* // Инициализация Drag'n'Drop. Нужен dragula
   const dndContainer = document.getElementById('todo-task-list');
   if (typeof dndContainer !== undefined && dndContainer !== null) {
     dragula([dndContainer], {
@@ -983,7 +1045,7 @@ const tasksHandler = () => {
         return handle.classList.contains('drag-icon');
       }
     });
-  }
+  }*/
 
   // Метки задач
   if (taskTag) {
@@ -993,23 +1055,13 @@ const tasksHandler = () => {
     });
   }
 
-  // Нажатие на кнопку избранного - звезду
-  if (favoriteStar) {
-    $(favoriteStar).on('click', function () {
-      $(this).toggleClass('text-warning');
-    });
-  }
-
-  // Датапикер
+  // Датапикер даты исполнения
   if (flatPickr) {
     $(flatPickr).flatpickr({
-      dateFormat: 'Y-m-d',
-      defaultDate: 'today',
-      onReady: function (selectedDates, dateStr, instance) {
-        if (instance.isMobile) {
-          $(instance.mobileInput).attr('step', null);
-        }
-      }
+      locale: "ru",
+      enableTime: true,
+      dateFormat: 'Y-m-d H:i',
+      defaultDate: 'today'
     });
   }
 
@@ -1030,7 +1082,7 @@ const tasksHandler = () => {
 
     $(newTaskForm).on('submit', function (e) {
       e.preventDefault();
-      const isValid = newTaskForm.valid();
+      const isValid = $(newTaskForm).valid();
       if (isValid) {
         //let checkboxId++;
         const todoTitle = $('.sidebar-todo-modal .new-todo-item-title').val();
@@ -1052,13 +1104,14 @@ const tasksHandler = () => {
         $.each(selected, function (index, value) {
           let todoBadge = '<div class="badge badge-pill badge-light-' + badgeColor[value] + ' mr-50">' + value + '</div>';
         });
-        // HTML Output
+
+        // HTML Вывод
         if (todoTitle !== '') {
           $(todoTaskList).prepend(
             '<li class="todo-item">' +
             '<div class="todo-title-wrapper">' +
             '<div class="todo-title-area">' +
-            /*feather.icons['more-vertical'].toSvg({ class: 'drag-icon' }) +*/
+            '<i class="mdi mdi-dots-vertical"></i>' +
             '<div class="title-wrapper">' +
             '<div class="custom-control custom-checkbox">' +
             '<input type="checkbox" class="custom-control-input" id="customCheck' +
@@ -1085,10 +1138,7 @@ const tasksHandler = () => {
             '</li>'
           );
         }
-        toastr['success']('Data Saved', '💾 Task Action!', {
-          closeButton: true,
-          tapToDismiss: false
-        });
+        showToast('Задача сохранена', 'Сохранено 💾', "Сейчас");
         hideModal();
       }
     });
@@ -1099,7 +1149,7 @@ const tasksHandler = () => {
     const $this = $(this).find('input');
     if ($this.prop('checked')) {
       $this.closest('.todo-item').addClass('completed');
-      showToast('Задача завершена', 'Поздравляем 🎉',"Сейчас");
+      showToast('Задача завершена', 'Поздравляем 🎉', "Сейчас");
     } else {
       $this.closest('.todo-item').removeClass('completed');
     }
@@ -1111,50 +1161,47 @@ const tasksHandler = () => {
   // To open todo list item modal on click of item
   $(document).on('click', '.todo-task-list-wrapper .todo-item', function (e) {
     showModal();
-    addBtn.addClass('d-none');
-    updateBtns.removeClass('d-none');
+    $(addBtn).style.display = "none";
+    $(cancelBtn).style.display = "none";
+    $(updateTodoItem).style.display = "block";
+    $(updateBtns).style.display = "block";
+    $(addmodalTitle).style.display = "none";
+    $(editmodalTitle).style.display = "block";
     if ($(this).hasClass('completed')) {
-      modalTitle.html(
-        '<button type="button" class="btn btn-sm btn-outline-success complete-todo-item waves-effect waves-float waves-light" data-dismiss="modal">Completed</button>'
+      $(modalTitle).html(
+        '<button type="button" class="btn btn-sm btn-outline-success complete-todo-item waves-effect waves-float waves-light" data-dismiss="modal">Завершена</button>'
       );
     } else {
-      modalTitle.html(
-        '<button type="button" class="btn btn-sm btn-outline-secondary complete-todo-item waves-effect waves-float waves-light" data-dismiss="modal">Mark Complete</button>'
+      $(modalTitle).html(
+        '<button type="button" class="btn btn-sm btn-outline-secondary complete-todo-item waves-effect waves-float waves-light" data-dismiss="modal">Не завершена</button>'
       );
     }
     $(taskTag).val('').trigger('change');
-    const quill_editor = $('#task-desc .ql-editor'); // ? Dummy data as not connected with API or anything else
-    quill_editor[0].innerHTML =
-      'Chocolate cake topping bonbon jujubes donut sweet wafer. Marzipan gingerbread powder brownie bear claw. Chocolate bonbon sesame snaps jelly caramels oat cake.';
     taskTitle = $(this).find('.todo-title');
-    const $title = $(this).find('.todo-title').html();
+    const title = $(this).find('.todo-title').html();
 
     // apply all variable values to fields
-    $(newTaskForm).find('.new-todo-item-title').val($title);
+    $(newTaskForm).find('.new-todo-item-title').val(title);
   });
 
   // Updating Data Values to Fields
-  if (updateTodoItem.length) {
-    updateTodoItem.on('click', function (e) {
-      const isValid = newTaskForm.valid();
+  if (updateTodoItem) {
+    $(updateTodoItem).on('click', function (e) {
+      const isValid = $(newTaskForm).valid();
       e.preventDefault();
       if (isValid) {
         const $edit_title = newTaskForm.find('.new-todo-item-title').val();
         $(taskTitle).text($edit_title);
-
-        toastr['success']('Data Saved', '💾 Task Action!', {
-          closeButton: true,
-          tapToDismiss: false
-        });
+        showToast('Задача сохранена', 'Сохранено 💾', "Сейчас");
         hideModal();
       }
     });
   }
 
-  // Sort Ascending
-  if (sortAsc.length) {
-    sortAsc.on('click', function () {
-      todoTaskListWrapper
+  // Сортировка по возрастанию А-Я. Работает
+  if (sortAsc) {
+    $(sortAsc).on('click', function () {
+      $(todoTaskListWrapper)
         .find('li')
         .sort(function (a, b) {
           return $(b).find('.todo-title').text().toUpperCase() < $(a).find('.todo-title').text().toUpperCase() ? 1 : -1;
@@ -1162,10 +1209,10 @@ const tasksHandler = () => {
         .appendTo(todoTaskList);
     });
   }
-  // Sort Descending
-  if (sortDesc.length) {
-    sortDesc.on('click', function () {
-      todoTaskListWrapper
+  // Сортировка по убыванию Я-А. Работает
+  if (sortDesc) {
+    $(sortDesc).on('click', function () {
+      $(todoTaskListWrapper)
         .find('li')
         .sort(function (a, b) {
           return $(b).find('.todo-title').text().toUpperCase() > $(a).find('.todo-title').text().toUpperCase() ? 1 : -1;
@@ -1174,17 +1221,17 @@ const tasksHandler = () => {
     });
   }
 
-  // Filter task
-  if (todoFilter.length) {
-    todoFilter.on('keyup', function () {
+  // Фильтр задач. Поиск. Работает
+  if (todoFilter) {
+    $(todoFilter).on('keyup', function () {
       const value = $(this).val().toLowerCase();
       if (value !== '') {
         $('.todo-item').filter(function () {
           $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
         });
-        const tbl_row = $('.todo-item:visible').length; //here tbl_test is table name
+        const tbl_row = $('.todo-item:visible').length; // тут tbl_test название таблицы
 
-        //Check if table has row or not
+        //Проверка имеет ли таблица строку или нет
         if (tbl_row === 0) {
           if (!$(noResults).hasClass('show')) {
             $(noResults).addClass('show');
@@ -1193,7 +1240,7 @@ const tasksHandler = () => {
           $(noResults).removeClass('show');
         }
       } else {
-        // If filter box is empty
+        // Если поле поиска пустое
         $('.todo-item').show();
         if ($(noResults).hasClass('show')) {
           $(noResults).removeClass('show');
@@ -1203,8 +1250,14 @@ const tasksHandler = () => {
   }
 
   $(addTaskBtn).on('click', function () {
-    console.log(newTaskModal);
     showModal(newTaskModal);
+    $(addBtn).style.display = "block";
+    $(cancelBtn).style.display = "none";
+    $(updateTodoItem).style.display = "block";
+    $(updateBtns).style.display = "none";
+    $(addmodalTitle).style.display = "block";
+    $(editmodalTitle).style.display = "none";
+
   });
 
 
@@ -1215,6 +1268,8 @@ const tasksHandler = () => {
     $(taskTag).val('');
     $(privateSwitch).prop('checked', false);
   }
+
+  tasksRender();
 }
 
 

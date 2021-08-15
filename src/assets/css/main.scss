@@ -3886,12 +3886,33 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
     height: 100%;
   }
 
+  .col-9 {
+    .card {
+      margin-left: -1px;
+    }
+  }
+
+
   .list-group {
     border-radius: 0;
 
     .list-group-item {
       color: $label;
-      border: none;
+      border-color: transparent;
+
+      &:hover {
+        background-color: $primary-20;
+        color: $primary-dark;
+      }
+
+      &.active {
+        background-color: $primary-50;
+        color: $primary-dark;
+
+        &:hover {
+          color: $primary-dark;
+        }
+      }
 
       i {
         font-size: 1.2em;
@@ -3918,6 +3939,7 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
     input {
       border-color: transparent;
       height: 35px;
+      margin: 8px 0;
     }
   }
 
@@ -3938,7 +3960,26 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
         cursor: pointer;
         transition: all 0.2s, border-color 0s;
         position: relative;
-        padding: 0.893rem 1rem;
+        padding: 0.893rem 0.893rem;
+        border-top: 1px solid $line;
+
+        &:first-of-type {
+          border-color: transparent;
+        }
+
+        &:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 3px 10px 0 $line;
+          transition: all 0.2s;
+          border-color: transparent;
+        }
+
+        &.completed {
+          .todo-title {
+            color: $placeholder;
+            text-decoration: line-through;
+          }
+        }
 
         .todo-title-wrapper {
           display: flex;
@@ -3963,6 +4004,10 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
             .todo-title {
               margin-left: 0.5rem;
               margin-right: 0.5rem;
+              overflow: hidden;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              max-width: 400px;
             }
           }
         }
@@ -4011,8 +4056,8 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
   }
 
   &.bullet-sm {
-    width: 0.714rem;
-    height: 0.714rem;
+    width: 10px;
+    height: 10px;
   }
 }
 
