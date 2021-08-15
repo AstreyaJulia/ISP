@@ -41,6 +41,37 @@
 	    public function __construct(DB $db) {
 	        $this->db = $db;
 	    }
+	    
+	    //Массив статусов поля sudo
+		public function getSudoArr() {
+			return array (
+				"0" => "Пользователь",
+                "1" => "Админ");
+		}
+
+		//Массив статусов поля active
+		public function getActiveArr() {
+			return array (
+				"0" => "доступ запрещён",
+                "1" => "доступ разрешён");
+		}
+
+	    // выводит статус пользователя (доступ разрешен - success; доступ запрещён - error)
+	    public function getStatus ($active){
+			if ($active == 1){
+				return "success";
+			} else {
+				return "error";
+			}
+		}
+
+	    // выводит роль пользователя
+	    public function getSudo ($sudo){
+			if ($sudo == 1){
+				return '<span class="badge-big secondary">Админ</span>';
+			}
+		}
+
 	    //Выводит дни рождения сегодня
 	    public function getBirthday() {
 	        $sql = "SELECT sdc_user_attributes.fullname, DATE_FORMAT(dob, '%d.%m.%Y') as dob FROM sdc_users
@@ -55,7 +86,7 @@
         	return preg_replace('#(.*)\s+(.).*\s+(.).*#usi', '$1 $2.$3.', $fullname);
 		}
 
-		//Номера комнат для человека
+		//Номера комнат сокращённо
 		public function getPosition($position){
 			//Получаем номер комнаты
 			$num_room = mb_substr($position, 1, strpos($position, '_') -2);

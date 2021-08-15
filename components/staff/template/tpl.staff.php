@@ -3,8 +3,7 @@
     <p class="h5 main-content-title"><?= $title; ?></p>
     <nav>
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/" data-bs-toggle="tooltip" data-bs-placement="top"
-                                       title="Главная страница">
+        <li class="breadcrumb-item"><a href="/" data-bs-toggle="tooltip" data-bs-placement="top" title="Главная страница">
             <i class="mdi mdi-home-outline"></i>
           </a>
         </li>
@@ -12,11 +11,10 @@
     </nav>
   </div>
   <div class="header-right">
-    <form method="get">
+    <form method="POST">
       <button type="submit" class="btn btn-primary" name="editStaff" value="add">Добавить сотрудника</button>
     </form>
-    <button class="btn btn-primary ms-2" type="button" id="contentmenu" data-bs-toggle="dropdown" data-bs-placement="top"
-            title="Меню">
+    <button class="btn btn-primary ms-2" type="button" id="contentmenu" data-bs-toggle="dropdown" data-bs-placement="top" title="Меню">
       <i class="mdi mdi-cog-outline"></i>
     </button>
     <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="contentmenu">
@@ -42,10 +40,10 @@
     <tr>
       <td><?= $i++; ?></td>
       <td>
-        <span class="badge-status <?= status($row->active, $_GET['page']); ?>"></span>
-        <a href="?editStaff=<?= $row->id; ?>"><?= $row->username; ?></a><?= statusSudo($row->sudo, $_GET['page']); ?>
+        <span class="badge-status <?= $staffClass->getStatus($row->active) ?>"></span>
+        <a href="?page=staff&editStaff=<?= $row->id; ?>"><?= $row->username; ?></a><?= $staffClass->getSudo($row->sudo); ?>
         <div class="table-toolbar">
-          <a class="table-toolbutton" href="?editStaff=<?= $row->id; ?>">
+          <a class="table-toolbutton" href="?page=staff&editStaff=<?= $row->id; ?>">
             <i class="mdi mdi-pencil-outline"></i>
           </a>
           <a class="table-toolbutton" data-bs-toggle="modal" data-bs-target="#delusermodal">
