@@ -17,7 +17,7 @@
 
 	    //Получаем дни рождения
 	    public function getBirthday($params) {
-	        $sql = "SELECT * FROM sdc_user_attributes WHERE MONTH(dob) BETWEEN start >= :start AND end <= :end";
+	        $sql = "SELECT * FROM sdc_user_attributes WHERE MONTH(dob) BETWEEN ? AND ?";
 	        return $this->db->run($sql, $params)->fetchAll(\PDO::FETCH_ASSOC);
 	    }
 

@@ -32,11 +32,6 @@ if (isset($_GET["faq"])) {
     $path = "components/faq/index.php";
 }
 
-//формируем путь для редактирования staff
-if (isset($_GET["editStaff"])) {
-    $path = "components/staff/edit-staff-profile.php";
-}
-
 //проверяем наличие куки аторизации
 if (isset($_COOKIE['aut'])) {
     /*--------------------------------------*/
