@@ -1,5 +1,5 @@
 <?php
-//$start = microtime(true);
+$start = microtime(true);
 spl_autoload_register(function($class) {
     require (mb_strtolower($_SERVER['DOCUMENT_ROOT'] . '/' . str_replace('\\', '/', $class) . '.php'));
 });
@@ -11,8 +11,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/conection.php";
 //Подключаемся  базе
 $db = new \Core\Config\DB($dbname, $user, $password, $host);
 
-//подключаемся к базе
-require_once "core/config/db_config.php";
 //подключаем функции
 require_once "core/extension/custom_functions.php";
 //подключаем справочники
@@ -54,4 +52,4 @@ if (isset($_COOKIE['aut'])) {
 } else {
     include "pages/autorization.php";
 }
-//echo '<div style="text-align:right;">Время выполнения скрипта: '.(microtime(true) - $start).' сек.</div>';
+echo '<div style="text-align:right;">Время выполнения скрипта: '.(microtime(true) - $start).' сек.</div>';
