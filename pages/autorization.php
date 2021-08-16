@@ -85,7 +85,7 @@ if (isset($_COOKIE['aut'])) {
     <form action="" method="post" class="form auth-form">
       <div class="form-group">
         <label class="form-label" for="login">Имя пользователя</label>
-        <input name="login" value="<?= @$_POST['login'] ?>" class="form-control" id="login" type="text"
+        <input name="login" value="<?php if (isset($_POST['login'])) echo $_POST['login'] ; ?>" class="form-control" id="login" type="text"
                placeholder="Введите логин" required>
       </div>
       <p class="error-message"><?php if (isset($error_login)) echo $error_login; ?></p>
