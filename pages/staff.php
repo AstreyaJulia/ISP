@@ -22,12 +22,12 @@ if ($_COOKIE['aut']['sudo'] == 1) {
 
 
 //Редактируем ссылку
-if (!empty($_GET["editStaff"]) or !empty($_POST["editStaff"])) {
+if (!empty($_GET["editStaff"])) {
   $title = "Редактировать запись";
   $desc = "Описание чего-то коротко";
   $roomClass = new \Core\Model\Room($db);
   //редактируем ссылку
-  if (isset($_GET["editStaff"]) and $_GET["editStaff"] !== "add" and empty($_POST["editStaff"])) {
+  if (isset($_GET["editStaff"]) and $_GET["editStaff"] !== "add") {
     //получаем запись для редактирования
     $editStaf = $staffClass->getSelectId([$_GET["editStaff"]]);
     foreach ($editStaf as $row) {
@@ -36,8 +36,29 @@ if (!empty($_GET["editStaff"]) or !empty($_POST["editStaff"])) {
         $content = ob_get_contents();
       ob_end_clean();
     }
-    if (!empty($_POST["username"]) and !empty($_POST["fullname"]) and $_POST["editStaff"] !== "add") {
+    if (!empty($_POST["username"]) and !empty($_POST["fullname"]) and $_GET["editStaff"] !== "add") {
       //Редактируем запись в таблице sdc_users
+
+      if ($_POST["active"] == 1) {
+          $room = [
+            ':room' => $_POST["room"]
+          ];
+      } else {
+          $room = [
+            ':room' => NULL
+          ];
+      }
+      //Проверяем на отсутствие принадлежности судье
+      if (in_array($_POST["profession"], [6, 7, 9])) {
+          $affiliation = [
+            ':affiliation' => $_POST["affiliation"]
+          ];
+      } else {
+          $affiliation = [
+            ':affiliation' => ""
+          ];
+      }
+
       $params = [
         //для таблицы sdc_users
         ':id' => $_GET["editStaff"],
@@ -60,12 +81,14 @@ if (!empty($_GET["editStaff"]) or !empty($_POST["editStaff"])) {
         ':comment' => $_POST["comment"],
         ':website' => $_POST["website"],
         ':profession' => $_POST["profession"],
-        ':affiliation' => $_POST["affiliation"],
-        ':room' => $_POST["room"]
+        ':affiliation' => "",
+        ':room' => ""
       ];
+      $params = array_replace($params, $room, $affiliation);
       $staffClass->setUpdateUser($params);
 
       
+
       //Редактируем запись в таблице sdc_user_attributes
       $staffClass->setUpdateUserAtr($params);
 
@@ -101,7 +124,7 @@ if (!empty($_GET["editStaff"]) or !empty($_POST["editStaff"])) {
       $content = ob_get_contents();
     ob_end_clean();
 
-    if (!empty($_POST["username"]) and !empty($_POST["fullname"]) and $_POST["editStaff"] == "add") {
+    if (!empty($_POST["username"]) and !empty($_POST["fullname"]) and $_GET["editStaff"] == "add") {
       $params = [
         ':username' => $_POST["username"],
         ':active' => $_POST["active"],
@@ -111,8 +134,28 @@ if (!empty($_GET["editStaff"]) or !empty($_POST["editStaff"])) {
       //добавляем запись в таблицу sdc_users
       $staffClass->setInsertUser($params);
       //получаем id вставленной записи. Если запрос не выполнен вернёт 0. Используется после запроса INSERT
-      $LAST_ID = $db->lastInsertId();
+      $LAST_ID = $db->pdo->lastInsertId();
       
+      if ($_POST["active"] == 1) {
+          $room = [
+            ':room' => $_POST["room"]
+          ];
+      } else {
+          $room = [
+            ':room' => NULL
+          ];
+      }
+      //Проверяем на отсутствие принадлежности судье
+      if (in_array($_POST["profession"], [6, 7, 9])) {
+          $affiliation = [
+            ':affiliation' => $_POST["affiliation"]
+          ];
+      } else {
+          $affiliation = [
+            ':affiliation' => ""
+          ];
+      }
+
       $params = [
         ':internalKey' => $LAST_ID,
         ':fullname' => $_POST["fullname"],
@@ -128,9 +171,12 @@ if (!empty($_GET["editStaff"]) or !empty($_POST["editStaff"])) {
         ':comment' => $_POST["comment"],
         ':website' => $_POST["website"],
         ':profession' => $_POST["profession"],
-        ':affiliation' => $_POST["affiliation"],
-        ':room' => $_POST["room"]
+        ':affiliation' => "",
+        ':room' => ""
       ];
+
+      $params = array_replace($params, $room, $affiliation);
+
       //добавляем запись в таблицу sdc_user_attributes
       $staffClass->setInsertUserAtr($params);
       //переходим в раздел

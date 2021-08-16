@@ -11,9 +11,7 @@
     </nav>
   </div>
   <div class="header-right">
-    <form method="POST">
-      <button type="submit" class="btn btn-primary" name="editStaff" value="add">Добавить сотрудника</button>
-    </form>
+    <a class="btn btn-primary" href="?page=staff&editStaff=add">Добавить сотрудника</a>
     <button class="btn btn-primary ms-2" type="button" id="contentmenu" data-bs-toggle="dropdown" data-bs-placement="top" title="Меню">
       <i class="mdi mdi-cog-outline"></i>
     </button>

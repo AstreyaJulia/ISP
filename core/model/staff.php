@@ -37,28 +37,9 @@
 
 	    //Вносим изменения в таблицу sdc_user_attributes
 	    public function setUpdateUserAtr($params) {
-	    	if ($params[":active"] == 1) {
-		        $room = [
-		        	':room' => $params[":room"]
-		        ];
-		    } else {
-		        $room = [
-		        	':room' => NULL
-		        ];
-		    }
-		    //Проверяем на отсутствие принадлежности судье
-		    if (in_array($params[":profession"], [6, 7, 9])) {
-		        $affiliation = [
-		        	':affiliation' => $params[":affiliation"]
-		        ];
-		    } else {
-		        $affiliation = [
-		        	':affiliation' => ""
-		        ];
-		    }
+	    	
 		    unset($params[':id'],$params[':username'],$params[':active'],$params[':primary_group'],$params[':sudo']);
-		    //переписываем массив
-		    $params = array_replace($params, $room, $affiliation);
+		    
 
 	        $sql = "UPDATE sdc_user_attributes SET `fullname`=:fullname, `gender`=:gender, `dob`=:dob, `email`=:email, `mobilephone`=:mobilephone, `zip`=:zip, `state`=:state, `city`=:city, `address`=:address, `photo`=:photo, `comment`=:comment, `website`=:website, `profession`=:profession, `affiliation`=:affiliation, `room`=:room WHERE `internalKey` = :internalKey";
 	        return $this->db->run($sql, $params);
