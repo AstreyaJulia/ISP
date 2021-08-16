@@ -24,7 +24,25 @@ $description = "Фамилия И.О. возраст";
 
 $events = $FullcalendarClass->getBirthday($params);
 
-var_dump($events);
+foreach ($events as $key => $value) {
+	$json[] = [
+	'td' => "",
+    'title' => "День рождения",
+    'start' => $startParam,
+    'end' => $endParam,
+    'allDay' => "1",
+    'calendar' => 'Danger',
+    'description' => $value['fullname'],
+    'url' => "",
+    'user_id' => "0"
+  ];
+}
+
+if ($data) {
+  $content = json_encode($json, JSON_UNESCAPED_UNICODE);
+} else {
+  echo "[]";
+}
 
 
 
@@ -34,7 +52,7 @@ var_dump($events);
 
 
 
-    $content = $data->format('m');
+
 
 
 
