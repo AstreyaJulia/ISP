@@ -31,18 +31,25 @@
               </div>
             </li>
           </ul>
-          <ul class="today-birthdays-list <?php visuallyHidden($birthday); ?>">
-            <?php foreach ($birthday as $row): ?>
-              <li class="today-birthdays-item">
-                <i class="mdi mdi-cake"></i>
-                <div class="bday-group primary">
-                  <p class="today-birthdays-username"><?= $userClass->getShortFIO($row->fullname) ?></p>
-                  <p class="today-birthdays-date"><?= $row->dob ?></p>
-                </div>
-              </li>
-            <?php endforeach ?>
-          </ul>
         </div>
+      </div>
+    </div>
+
+    <div class="card <?php visuallyHidden($birthday); ?>">
+      <div class="card-body">
+        <h5 class="widget-title">Дни рождения сегодня</h5>
+        <ul class="today-birthdays-list">
+          <?php foreach ($birthday as $row): ?>
+            <li class="today-birthdays-item">
+              <i class="mdi mdi-cake"></i>
+              <div class="bday-group primary">
+                <p class="today-birthdays-username"><?= $userClass->getShortFIO($row->fullname) ?></p>
+                <p class="today-birthdays-date"><?= $row->dob ?></p>
+              </div>
+            </li>
+          <?php endforeach ?>
+        </ul>
+
       </div>
     </div>
   </div>

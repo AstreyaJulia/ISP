@@ -70,11 +70,34 @@ function showToast(header, text, time) {
     });
   }
 
-  const toastElement = '<div class="toast fade hide" role="alert" aria-live="assertive" aria-atomic="true"><div class="toast-header"><i class="mdi mdi-message-alert-outline"></i><strong class="me-auto">' + header + '</strong><small class="text-muted">' + time + '</small><button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть"></button></div><div class="toast-body">' + text + '</div></div>';
+  const toastElement = '<div class="toast fade" role="alert" aria-live="assertive" aria-atomic="true"><div class="toast-header"><i class="mdi mdi-message-alert-outline"></i><strong class="me-auto">' + header + '</strong><small class="text-muted">' + time + '</small><button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть"></button></div><div class="toast-body">' + text + '</div></div>';
   toastcontainer.insertAdjacentHTML('beforeend', toastElement);
   const toastElList = [].slice.call(document.querySelectorAll('.toast'));
   const toastList = toastElList.map(function (toastEl) {
     return new bootstrap.Toast(toastEl)
+  });
+  toastList.forEach(toast => toast.show());
+}
+
+// Ошибки Toast. Большие всплывашки с заголовком и временем
+// Всплывашка. Принимает заголовок header, текст text, время time в виде строки
+function showErrorToast(header, text, time) {
+  const toastcontainer = document.querySelector('.toasts-container');
+  // Удаляем скрытые всплывашки
+  const hiddentoasts = toastcontainer.querySelectorAll('.hide');
+  if (hiddentoasts) {
+    hiddentoasts.forEach((hiddentoast) => {
+      toastcontainer.removeChild(hiddentoast);
+    });
+  }
+
+  const toastElement = '<div class="toast fade" role="alert" aria-live="assertive" aria-atomic="true"><div class="toast-header"><i class="mdi mdi-alert text-danger"></i><strong class="me-auto text-danger">' + header + '</strong><small class="text-muted">' + time + '</small><button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть"></button></div><div class="toast-body">' + text + '</div></div>';
+  toastcontainer.insertAdjacentHTML('beforeend', toastElement);
+  const toastElList = [].slice.call(document.querySelectorAll('.toast'));
+  const toastList = toastElList.map(function (toastEl) {
+    return new bootstrap.Toast(toastEl, {
+      autohide: false
+    })
   });
   toastList.forEach(toast => toast.show());
 }
@@ -118,7 +141,8 @@ function ajaxQuery(url, data, type, success, successparams) {
       success(successparams);
     },
     error: function (jqXHR, textStatus, errorThrown) {
-      alert("Ошибка" + jqXHR + textStatus + errorThrown);
+      showErrorToast("Ошибка", jqXHR + textStatus + errorThrown, moment().format('LLL'))
+      //alert("Ошибка" + jqXHR + textStatus + errorThrown);
     }
   });
 }
@@ -338,8 +362,9 @@ const calendmodulehandler = () => {
           console.log(moment(info.start).format('YYYY-MM-DD'), moment(info.end).format('YYYY-MM-DD'),);
           /*return [result.events.filter(event => (calendars.includes(event.extendedProps.calendar)))];*/
         },
-        error: function (error) {
-          alert("Ошибка " + error.responseText);
+        error: function (jqXHR, textStatus, errorThrown) {
+          showErrorToast("Ошибка", jqXHR + textStatus + errorThrown, moment().format('LLL'))
+          //alert("Ошибка " + error.responseText);
           //console.log(moment(info.start).format('YYYY-MM-DD'), moment(info.end).format('YYYY-MM-DD'),);
 
         }
@@ -590,7 +615,8 @@ const calendmodulehandler = () => {
           showMiniToast('Событие ' + Event.title + ' добавлено', "success");
         },
         error: function (jqXHR, textStatus, errorThrown) {
-          alert("Ошибка" + jqXHR + textStatus + errorThrown);
+          showErrorToast("Ошибка", jqXHR + textStatus + errorThrown, moment().format('LLL'))
+          //alert("Ошибка" + jqXHR + textStatus + errorThrown);
         }
       });
     }
@@ -633,7 +659,8 @@ const calendmodulehandler = () => {
           showMiniToast('Событие ' + Event.title + ' обновлено', "info");
         },
         error: function (jqXHR, textStatus, errorThrown) {
-          alert("Ошибка" + jqXHR + textStatus + errorThrown);
+          showErrorToast("Ошибка", jqXHR + textStatus + errorThrown, moment().format('LLL'))
+          //alert("Ошибка" + jqXHR + textStatus + errorThrown);
         }
       });
     }
@@ -660,7 +687,8 @@ const calendmodulehandler = () => {
         showMiniToast('Событие ' + eventToUpdate.title + ' удалено', "danger");
       },
       error: function (jqXHR, textStatus, errorThrown) {
-        alert("Ошибка" + jqXHR + textStatus + errorThrown);
+        showErrorToast("Ошибка", jqXHR + textStatus + errorThrown, moment().format('LLL'))
+        //alert("Ошибка" + jqXHR + textStatus + errorThrown);
       }
     });
   });
@@ -810,7 +838,7 @@ const multimodalhandler = (evt) => {
   showModal()
 }
 
-
+/*
 // Виджет событий
 const todayeventswidgethandler = () => {
   // Если списки дней рождения скрыты и событий, то список скрывается польностью
@@ -824,7 +852,7 @@ const todayeventswidgethandler = () => {
     todayeventswidget.style = '';
   }
 }
-
+*/
 
 
 // Tasks list
@@ -894,7 +922,7 @@ const tasksHandler = () => {
   const checkboxId = 100;
 
   //Массив задач. Заменить на обращение к базе
-  const tasksSource = [
+  let tasksList = [
     {
       id: 1,
       title: 'Задача',
@@ -962,8 +990,6 @@ const tasksHandler = () => {
       description: ''
     }
   ];
-
-  let tasksList = tasksSource;
 
 
   // Функции
@@ -1174,7 +1200,7 @@ const tasksHandler = () => {
   }
 
   // Чекбокс завершения задачи
-  $(todoTaskListWrapper).on('change', '.custom-checkbox', function (event) {
+  $(todoTaskListWrapper).on('change', '.custom-checkbox', function () {
     const $this = $(this).find('input');
     if ($this.prop('checked')) {
       $this.closest('.todo-item').addClass('completed');
@@ -1188,7 +1214,7 @@ const tasksHandler = () => {
   });
 
   // To open todo list item modal on click of item
-  $(document).on('click', '.todo-task-list-wrapper .todo-item', function (e) {
+  $(document).on('click', '.todo-task-list-wrapper .todo-item', function () {
     showModal();
     addBtn.style.display = "none";
     cancelBtn.style.display = "none";
@@ -1733,30 +1759,6 @@ const datatablesHandler = () => {
   });
 }
 
-// Меню демо администратора
-// Кнопки
-const toastoffbtn = document.querySelector('.toasts-off');
-const alertoffbtn = document.querySelector('.alerts-off');
-// Элементы
-const toastselem = document.querySelectorAll('.toast');
-
-const toastsoffHandler = () => {
-  for (let i = 0, len = toastselem.length; i < len; i++) {
-    toastselem[i].classList.toggle("show");
-    toastselem[i].classList.toggle("hide");
-  }
-};
-
-const alertoffHandler = () => {
-  document.querySelectorAll('.alert')
-    .forEach(function (alertNode) {
-      const alert = new bootstrap.Alert(alertNode, {
-        autohide: false
-      });
-      alert.close()
-    })
-};
-
 // При прокручивании вниз на 20px от верхнего края элемента с классом main-content, показывает кнопку
 const maincontentscroll = () => {
   if (maincontent.scrollTop > 20) {
@@ -1831,33 +1833,9 @@ if (activeselect && roomselect) {
 *  today-group-month, today-group-dayw */
 
 const datarenderHandler = () => {
-  const d = new Date();
-  const month = ["января",
-    "февраля",
-    "марта",
-    "апреля",
-    "мая",
-    "июня",
-    "июля",
-    "августа",
-    "сентября",
-    "октября",
-    "ноября",
-    "декабря"];
-  const day = ["воскресенье",
-    "понедельник",
-    "вторник",
-    "среда",
-    "четверг",
-    "пятница",
-    "суббота"];
-  let curdayw = day[d.getDay()];
-  let curmonth = month[d.getMonth()];
-  let curday = d.getDate();
-  document.querySelector(".today-group-dayw").innerHTML = curdayw;
-  document.querySelector(".today-group-day").innerHTML = curday;
-  document.querySelector(".today-group-month").innerHTML = curmonth;
-  return curday;
+  document.querySelector(".today-group-dayw").innerHTML = moment().format('dddd');
+  document.querySelector(".today-group-day").innerHTML = moment().format('D');
+  document.querySelector(".today-group-month").innerHTML = moment().format('MMMM');
 };
 
 // Список ссылок
@@ -2097,25 +2075,6 @@ document.querySelectorAll('[data-bs-toggle="popover"]')
     new bootstrap.Popover(popover)
   })
 
-document.querySelectorAll('.toast')
-  .forEach(function (toastNode) {
-    new bootstrap.Toast(toastNode, {
-      autohide: false
-    });
-// Показывает всплывашки при загрузке страницы
-    //  toast.show()
-  })
-
-
-// Меню демо администратора
-
-if (toastoffbtn) {
-  toastoffbtn.addEventListener('click', toastsoffHandler);
-}
-if (alertoffbtn) {
-  alertoffbtn.addEventListener('click', alertoffHandler);
-}
-
 //FAQ
 if (faqcard && cont && loading && faqlinks) {
   faqlinks.forEach((faqlink) => {
@@ -2142,9 +2101,9 @@ if (minicalendar) {
   minicalendarhandler();
 }
 
-if (todayeventswidget) {
+/*if (todayeventswidget) {
   todayeventswidgethandler();
-}
+}*/
 
 if (multimodal && multimodalbtns) {
   multimodalbtns.forEach((multimodalbtn) => {
