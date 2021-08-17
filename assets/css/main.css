@@ -11227,31 +11227,31 @@ textarea.form-control-lg {
 }
 
 .fc-icon-chevron-left:before {
-  content: "";
+  content: "\e900";
 }
 
 .fc-icon-chevron-right:before {
-  content: "";
+  content: "\e901";
 }
 
 .fc-icon-chevrons-left:before {
-  content: "";
+  content: "\e902";
 }
 
 .fc-icon-chevrons-right:before {
-  content: "";
+  content: "\e903";
 }
 
 .fc-icon-minus-square:before {
-  content: "";
+  content: "\e904";
 }
 
 .fc-icon-plus-square:before {
-  content: "";
+  content: "\e905";
 }
 
 .fc-icon-x:before {
-  content: "";
+  content: "\e906";
 }
 
 /*
@@ -36942,7 +36942,7 @@ div.table-responsive > div.dataTables_wrapper > div.row > div[class^=col-]:last-
 }
 
 .mdi-blank::before {
-  content: "";
+  content: "\f68c";
   visibility: hidden;
 }
 
@@ -37672,10 +37672,10 @@ td:last-child {
   -moz-osx-font-smoothing: grayscale;
 }
 .fa.fa-chevron-left:before {
-  content: "󰅁";
+  content: "\f0141";
 }
 .fa.fa-chevron-right:before {
-  content: "󰅂";
+  content: "\f0142";
 }
 
 .table-toolbar {
@@ -38363,7 +38363,7 @@ table.dataTable > thead .sorting_desc_disabled:before {
   line-height: inherit;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  content: "󰜷";
+  content: "\f0737";
 }
 
 table.dataTable > thead .sorting:after,
@@ -38378,7 +38378,7 @@ table.dataTable > thead .sorting_desc_disabled:after {
   line-height: inherit;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  content: "󰜮";
+  content: "\f072e";
 }
 
 div.dataTables_wrapper div.dataTables_filter input[type=search] {
@@ -38621,7 +38621,7 @@ td .badge-big {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   position: absolute;
-  content: "󰧮";
+  content: "\f09ee";
   top: 22%;
   left: 5px;
 }
@@ -38635,7 +38635,7 @@ td .badge-big {
   line-height: inherit;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  content: "󰅂";
+  content: "\f0142";
   top: 22%;
   right: 7px;
 }
@@ -38656,7 +38656,7 @@ td .badge-big {
   line-height: inherit;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  content: "󰅀";
+  content: "\f0140";
   top: 22%;
   right: 7px;
 }

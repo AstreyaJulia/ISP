@@ -56,6 +56,8 @@ const todayeventswidget = document.querySelector('.today-events');
 const multimodal = document.querySelector('.modal-multiaction');
 const multimodalbtns = document.querySelectorAll('.btnmodal-multiaction');
 
+// ФУНКЦИИ
+
 // Toast. Большие всплывашки с заголовком и временем
 // Всплывашка. Принимает заголовок header, текст text, время time в виде строки
 function showToast(header, text, time) {
@@ -98,6 +100,30 @@ function showMiniToast(text, color) {
   toastList.forEach(toast => toast.show());
 }
 
+// Ajax. Передача GET и POST запросов
+// url - ссылка на скрипт/страницу; data - данные для передачи; type - GET или POST;
+// success - ф-я к-рая выполняется в случае успешного запроса;
+// successparams - параметры для передачи в ф-ю success
+function ajaxQuery(url, data, type, success, successparams) {
+
+  $.ajax({
+    url: url,
+    data: data,
+    dataType: "json",
+    type: type,
+    headers: {
+      'Accept': 'application/json;odata=nometadata'
+    },
+    success: function (response) {
+      success(successparams);
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      alert("Ошибка" + jqXHR + textStatus + errorThrown);
+    }
+  });
+}
+
+// КОМПОНЕНТЫ
 
 // Tasks задачи
 const todowrapper = document.querySelector('.todo-wrapper');
@@ -220,6 +246,7 @@ const calendmodulehandler = () => {
   // Событие при нажатии на событие
   function eventClick(info) {
     eventToUpdate = info.event;
+    console.log(eventToUpdate.id);
 
     // Открывает ссылку в новом окне
     if ((eventToUpdate).url) {
@@ -227,32 +254,34 @@ const calendmodulehandler = () => {
       // window.open((eventToUpdate).url, '_blank');
     }
     //console.log(eventToUpdate);
-    showModal();
-    addEventBtn.style.display = "none";
-    cancelBtn.style.display = "none";
-    updateEventBtn.style.display = "block";
-    btnDeleteEvent.style.display = "block";
-    addEventTitle.style.display = "none";
-    editEventTitle.style.display = "block";
+    if (eventToUpdate.id !== "") {
+      showModal();
+      addEventBtn.style.display = "none";
+      cancelBtn.style.display = "none";
+      updateEventBtn.style.display = "block";
+      btnDeleteEvent.style.display = "block";
+      addEventTitle.style.display = "none";
+      editEventTitle.style.display = "block";
 
-    $(eventTitle).val(eventToUpdate.title);
-    if (eventToUpdate.extendedProps.user_id === 0) {
-      $(privateSwitch).prop('checked', false)
-    } else {
-      $(privateSwitch).prop('checked', true)
+      $(eventTitle).val(eventToUpdate.title);
+      if (eventToUpdate.extendedProps.user_id === 0) {
+        $(privateSwitch).prop('checked', false)
+      } else {
+        $(privateSwitch).prop('checked', true)
+      }
+      start.setDate(eventToUpdate.start, true, 'YYYY-MM-DD hh:mm');
+      if (eventToUpdate.allDay === true) {
+        $(allDaySwitch).prop('checked', true)
+      } else {
+        $(allDaySwitch).prop('checked', false)
+      }
+      eventToUpdate.end !== null
+        ? end.setDate(eventToUpdate.end, true, 'YYYY-MM-DD hh:mm')
+        : end.setDate(eventToUpdate.start, true, 'YYYY-MM-DD hh:mm');
+      $(modal).find(eventLabel).val(eventToUpdate.extendedProps.calendar).trigger('change');
+      $(modal).find(calendarEditor).val(eventToUpdate.extendedProps.description);
+      $(modal).find(eventUrl).val(eventToUpdate.url);
     }
-    start.setDate(eventToUpdate.start, true, 'YYYY-MM-DD hh:mm');
-    if (eventToUpdate.allDay === true) {
-      $(allDaySwitch).prop('checked', true)
-    } else {
-      $(allDaySwitch).prop('checked', false)
-    }
-    eventToUpdate.end !== null
-      ? end.setDate(eventToUpdate.end, true, 'YYYY-MM-DD hh:mm')
-      : end.setDate(eventToUpdate.start, true, 'YYYY-MM-DD hh:mm');
-    $(modal).find(eventLabel).val(eventToUpdate.extendedProps.calendar).trigger('change');
-    $(modal).find(calendarEditor).val(eventToUpdate.extendedProps.description);
-    $(modal).find(eventUrl).val(eventToUpdate.url);
 
     //  Удаление события
     $(btnDeleteEvent).on('click', function () {
@@ -305,17 +334,18 @@ const calendmodulehandler = () => {
           // Получение запрашиваемых календарей(категорий событий)
           /*const calendars = selectedCalendars();*/
           successCallback(result);
-          //console.log(result);
-          //console.log(moment(info.start).format('YYYY-MM-DD'), moment(info.end).format('YYYY-MM-DD'),);
+          console.log(result);
+          console.log(moment(info.start).format('YYYY-MM-DD'), moment(info.end).format('YYYY-MM-DD'),);
           /*return [result.events.filter(event => (calendars.includes(event.extendedProps.calendar)))];*/
         },
         error: function (error) {
-          alert("Ошибка" + error.responseText);
+          alert("Ошибка " + error.responseText);
           //console.log(moment(info.start).format('YYYY-MM-DD'), moment(info.end).format('YYYY-MM-DD'),);
 
         }
       }
     );
+
 
     /* const calendars = selectedCalendars();
      // Сделать API вызов
@@ -624,7 +654,6 @@ const calendmodulehandler = () => {
         'Accept': 'application/json;odata=nometadata'
       },
       success: function (response) {
-        //removeEvent(Event);
         calendar.refetchEvents(Event);
         hideModal();
         resetValues();
@@ -1161,12 +1190,12 @@ const tasksHandler = () => {
   // To open todo list item modal on click of item
   $(document).on('click', '.todo-task-list-wrapper .todo-item', function (e) {
     showModal();
-    $(addBtn).style.display = "none";
-    $(cancelBtn).style.display = "none";
-    $(updateTodoItem).style.display = "block";
-    $(updateBtns).style.display = "block";
-    $(addmodalTitle).style.display = "none";
-    $(editmodalTitle).style.display = "block";
+    addBtn.style.display = "none";
+    cancelBtn.style.display = "none";
+    updateTodoItem.style.display = "block";
+    updateBtns.style.display = "block";
+    addmodalTitle.style.display = "none";
+    editmodalTitle.style.display = "block";
     if ($(this).hasClass('completed')) {
       $(modalTitle).html(
         '<button type="button" class="btn btn-sm btn-outline-success complete-todo-item waves-effect waves-float waves-light" data-dismiss="modal">Завершена</button>'
