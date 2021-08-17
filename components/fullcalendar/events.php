@@ -39,9 +39,11 @@ foreach ($sdc_calendar as $myCalendar) {
 
 /*Дни рождения
     Выводить только активных пользователей
-    Доделать дни рождения для декабля
+    Доделать дни рождения для декабря
     Расчитать возраст
-*/ 
+*/
+$events = $FullcalendarClass->getBirthday($_GET['startParam'], $_GET['endParam']);
+
 
 
 
@@ -82,7 +84,4 @@ if ($birthday) {
 } else {
   echo "[]";
 }
-
-
-
 
