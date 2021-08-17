@@ -21,7 +21,7 @@ $data = $FullcalendarClass->getEvents($params);
     Выводить только активных пользователей
     Доделать статичный год 2021
     Расчитать возраст
-*/ 
+*/
 /*$events = $FullcalendarClass->getBirthday($_GET['startParam'], $_GET['endParam']);
 
 foreach ($events as $key => $value) {
