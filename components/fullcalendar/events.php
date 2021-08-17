@@ -9,46 +9,19 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/conection.php";
 //Подключаемся  базе
 $db = new \Core\Config\DB($dbname, $user, $password, $host);
 
+$startParam = isset($_GET['startParam']) ? $_GET['startParam'] : "";
+$endParam = isset($_GET['endParam']) ? $_GET['endParam'] : "";
+
 $params = [
     ':user' => $_COOKIE['aut']['id'],
-    ':start' => $_GET['startParam'],
-    ':end' => $_GET['endParam']
+    ':start' => $startParam,
+    ':end' => $endParam
 ];
 $FullcalendarClass = new \Core\Model\Fullcalendar($db);
-$data = $FullcalendarClass->getEvents($params);
-
-/*Дни рождения
-    Выводить только активных пользователей
-    Доделать статичный год 2021
-    Расчитать возраст
-*/
-/*$events = $FullcalendarClass->getBirthday($_GET['startParam'], $_GET['endParam']);
-
-foreach ($events as $key => $value) {
-  $data = DateTime::createFromFormat('Y-m-d', $value->dob);
-  $startParam = "2021-".$data->format('m-d');
-  $json[] = [
-    'td' => "",
-    'title' => "День рождения",
-    'start' => $startParam,
-    'end' => $startParam,
-    'allDay' => "1",
-    'calendar' => 'Danger',
-    'description' => $value->fullname. ". Возраст: ",
-    'url' => "",
-    'user_id' => "0"
-  ];
-}
-
-if ($events) {
-  echo json_encode($json, JSON_UNESCAPED_UNICODE);
-} else {
-  echo "[]";
-}*/
-
+$sdc_calendar = $FullcalendarClass->getEvents($params);
 
 // Передвать можно склько угодно данных, js обработает только те, которые указаны
-foreach ($data as $myCalendar) {
+foreach ($sdc_calendar as $myCalendar) {
   $json[] = [
     'id' => $myCalendar['id'],
     'title' => $myCalendar['title'],
@@ -62,8 +35,53 @@ foreach ($data as $myCalendar) {
   ];
 }
 
-if ($data) {
+
+
+/*Дни рождения
+    Выводить только активных пользователей
+    Доделать дни рождения для декабря
+    Расчитать возраст
+*/
+$events = $FullcalendarClass->getBirthday($_GET['startParam'], $_GET['endParam']);
+
+
+
+
+
+
+
+
+
+$birthday = $FullcalendarClass->getBirthday($startParam, $endParam);
+
+foreach ($birthday as $key => $value) {
+  $paramBirthday = DateTime::createFromFormat('Y-m-d', $value->dob)->format('m-d');
+
+  if (DateTime::createFromFormat('Y-m-d', $startParam)->format('m-d') > DateTime::createFromFormat('Y-m-d', $endParam)->format('m-d') and ($paramBirthday <= "01-31")) {
+    $startParam = DateTime::createFromFormat('Y-m-d', $endParam)->format('Y')."-".$paramBirthday;
+  } else {
+    $startParam = DateTime::createFromFormat('Y-m-d', $startParam)->format('Y')."-".$paramBirthday;
+  }
+
+
+
+  
+  $json[] = [
+    'td' => "",
+    'title' => "День рождения",
+    'start' => $startParam,
+    'end' => $startParam,
+    'allDay' => "1",
+    'calendar' => 'Danger',
+    'description' => $value->fullname. ". Возраст: ",
+    'url' => "",
+    'user_id' => "0"
+  ];
+}
+
+if ($birthday) {
   echo json_encode($json, JSON_UNESCAPED_UNICODE);
 } else {
   echo "[]";
 }
+
