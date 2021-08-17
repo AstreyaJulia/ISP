@@ -16,9 +16,26 @@
 	    }
 
 	    //Получаем дни рождения
-	    public function getBirthday($params) {
-	        $sql = "SELECT * FROM sdc_user_attributes WHERE MONTH(dob) BETWEEN ? AND ?";
-	        return $this->db->run($sql, $params)->fetchAll(\PDO::FETCH_ASSOC);
+	    public function getBirthday($startParam, $endParam) {
+	        $sql = "SELECT * FROM `sdc_user_attributes` 
+						WHERE 
+						 (
+						(date_format('$startParam','%m-%d') < date_format('$endParam','%m-%d'))
+						 AND
+						(date_format(dob,'%m-%d') between date_format('$startParam','%m-%d') AND date_format('$endParam','%m-%d'))
+						)
+						OR 
+						(
+
+						 (date_format('$startParam','%m-%d') > date_format('$endParam','%m-%d')) 
+						  AND
+						   (
+						       (date_format(dob,'%m-%d') between date_format('$startParam','%m-%d') AND date_format('2021-12-31','%m-%d'))
+						OR 
+						       (date_format(dob,'%m-%d') between date_format('2021-01-01','%m-%d') AND date_format('$endParam','%m-%d'))
+						   )
+						    )";
+	        return $this->db->run($sql)->fetchAll(\PDO::FETCH_CLASS);
 	    }
 
 	    //Добавляем событие
