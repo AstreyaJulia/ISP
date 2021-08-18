@@ -1,5 +1,5 @@
 <header class="main-content-header">
-  <div class="header-left"><p class="h5 main-content-title"><?= $row["fullname"]; ?></p>
+  <div class="header-left"><p class="h5 main-content-title"><?= $row->fullname; ?></p>
     <nav>
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/" data-bs-toggle="tooltip" data-bs-placement="top"
@@ -10,7 +10,7 @@
   <div class="header-right"></div>
 </header>
 <div class="card">
-  <form class="form userinfo-form" action="?page=user-profile" method="post">
+  <form class="form userinfo-form" action="" method="post">
     <div class="card-body">
       <div class="row">
         <div class="col">
@@ -18,11 +18,10 @@
             <label class="form-label" for="login">Логин</label>
 
             <div class="input-group">
-              <input class="form-control" type="text" name="username" value="<?= $row["username"]; ?>" placeholder="Введите логин"
+              <input class="form-control" type="text" name="username" value="<?= $row->username; ?>" placeholder="Введите логин"
                      id="login" required disabled>
               <div class="input-group-prepend">
-                <button type="button" class="btn btn-primary btn-block">Сброс пароля</button>
-
+                <a class="btn btn-primary btn-block" href="?page=user-profile&DropPass">Сброс пароля</a>
               </div>
             </div>
 
@@ -30,14 +29,14 @@
           </div>
           <div class="form-group">
             <label class="form-label" for="name">Фамилия, имя, отчество</label>
-            <input class="form-control" type="text" name="fullname" value="<?= $row["fullname"]; ?>"
+            <input class="form-control" type="text" name="fullname" value="<?= $row->fullname; ?>"
                    placeholder="Введите фамилию, имя, отчество" id="name" required>
           </div>
           <div class="form-group">
             <label class="form-label" for="gender">Пол</label>
             <select class="form-select" id="gender" name="gender">
               <?php foreach (gender_array() as $key => $value): ?>
-                <?php if ($key == $row["gender"]): ?>
+                <?php if ($key == $row->gender): ?>
                   <option value="<?= $key; ?>" selected><?= $value; ?></option>
                 <?php else: ?>
                   <option value="<?= $key; ?>"><?= $value; ?></option>
@@ -47,28 +46,28 @@
           </div>
           <div class="form-group">
             <label class="form-label" for="dob">Дата рождения</label>
-            <input class="form-control" type="date" id="dob" name="dob" value="<?= $row["dob"]; ?>" required>
+            <input class="form-control" type="date" id="dob" name="dob" value="<?= $row->dob; ?>" required>
           </div>
         </div>
         <div class="col">
           <div class="form-group">
             <label class="form-label" for="mobile">Мобильный телефон</label>
-            <input class="form-control" type="tel" id="mobile" name="mobilephone" value="<?= $row["mobilephone"]; ?>">
+            <input class="form-control" type="tel" id="mobile" name="mobilephone" value="<?= $row->mobilephone; ?>">
           </div>
           <div class="form-group">
             <label class="form-label" for="email">Адрес электронной почты</label>
-            <input class="form-control" type="email" name="email" value="<?= $row["email"]; ?>" id="email"
+            <input class="form-control" type="email" name="email" value="<?= $row->email; ?>" id="email"
                    placeholder="Введите адрес электронной почты">
           </div>
           <div class="form-group">
             <label class="form-label" for="website">Социальные сети</label>
-            <input class="form-control" type="text" name="website" value="<?= $row['website']; ?>" id="website">
+            <input class="form-control" type="text" name="website" value="<?= $row->website; ?>" id="website">
           </div>
           <div class="form-group">
             <label class="form-label" for="region">Область</label>
             <select class="form-select" id="region" name="state">
               <?php foreach (region_array() as $key => $value): ?>
-                <?php if ($key == $row["state"]): ?>
+                <?php if ($key == $row->state): ?>
                   <option value="<?= $key; ?>" selected><?= $value; ?></option>
                 <?php else: ?>
                   <option value="<?= $key; ?>"><?= $value; ?></option>
@@ -78,15 +77,15 @@
           </div>
           <div class="form-group">
             <label class="form-label" for="index">Индекс</label>
-            <input class="form-control" type="number" id="index" name="zip" value="<?= $row["zip"]; ?>">
+            <input class="form-control" type="number" id="index" name="zip" value="<?= $row->zip; ?>">
           </div>
           <div class="form-group">
             <label class="form-label" for="town">Город</label>
-            <input class="form-control" type="text" id="town" name="city" value="<?= $row["city"]; ?>">
+            <input class="form-control" type="text" id="town" name="city" value="<?= $row->city; ?>">
           </div>
           <div class="form-group">
             <label class="form-label" for="address">Улица, дом, квартира</label>
-            <input class="form-control" type="text" id="address" name="address" value="<?= $row["address"]; ?>">
+            <input class="form-control" type="text" id="address" name="address" value="<?= $row->address; ?>">
           </div>
         </div>
       </div>
