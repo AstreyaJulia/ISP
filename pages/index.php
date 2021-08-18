@@ -1,8 +1,8 @@
 <?php
 $title = "Главная страница";
 
-$userClass = new \Core\Model\User($db);
-$birthday = $userClass->getBirthday();
+$UserAttributes = new \Core\Model\UserAttributes($db);
+$birthday = $UserAttributes->getBirthday();
 
 ob_start();
 include "components/index/template/tpl.index.php";

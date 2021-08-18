@@ -1,6 +1,9 @@
 <?php
 /*
 Ноги растут из этой статьи: https://phpdelusions.net/pdo/pdo_wrapper
+
+Пример запроса:
+$data = $db->run("SELECT * FROM sdc_users WHERE id=?",[$id])->fetchAll();
 */
 
 namespace Core\Config;

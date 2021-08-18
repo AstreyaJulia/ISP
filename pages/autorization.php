@@ -1,40 +1,39 @@
 <?php
-$start = microtime(true);
+spl_autoload_register(function($class) {
+    require (mb_strtolower($_SERVER['DOCUMENT_ROOT'] . '/' . str_replace('\\', '/', $class) . '.php'));
+});
 error_reporting(E_ALL);
 ini_set("display_errors", "on");
 
-require_once "core/config/db_config.php";
+//Параметры для подключения к базе
+require_once $_SERVER['DOCUMENT_ROOT'] . "/conection.php";
+//Подключаемся  базе
+$db = new \Core\Config\DB($dbname, $user, $password, $host);
 //подключаем функции
-require_once "core/extension/custom_functions.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/core/extension/custom_functions.php";
 
 if (!empty($_POST['login']) and !empty($_POST['password'])) {
   // Пишем логин из формы в переменную для удобства работы:
   $login = $_POST['login'];
   // Формируем и отсылаем SQL запрос:
-  $query_select = $link->prepare("SELECT * FROM sdc_users WHERE `username` = ?");
-  $query_select->execute([$login]);
-  //извлекаем резултаты запроса
-  $user = $query_select->fetch(PDO::FETCH_LAZY);
+  $user = $db->run("SELECT * FROM sdc_users WHERE `username` = ?",[$login])->fetch(\PDO::FETCH_LAZY);
   //Если пользователь с таким логином есть
   if (!empty($user)) {
-    $hash = $user['password']; // соленый пароль из БД
+    $hash = $user->password; // соленый пароль из БД
     // Проверяем соответствие хеша из базы введенному паролю
     if (password_verify($_POST['password'], $hash)) {
       // Пользователь прошел авторизацию получим fullname
-      $query_select = $link->prepare("SELECT fullname FROM sdc_user_attributes WHERE `internalKey` = ?");
-      $query_select->execute([$user['id']]);
-      //извлекаем резултаты запроса
-      $user_attributes = $query_select->fetch(PDO::FETCH_LAZY);
+      $user_attributes = $db->run("SELECT fullname FROM sdc_user_attributes WHERE `internalKey` = ?",[$user->id])->fetch(\PDO::FETCH_LAZY);
       //Приводим к виду Фамилия И.О.
-      $fullname = shortFIO($user_attributes['fullname']);
+      $fullname = shortFIO($user_attributes->fullname);
 
       //запишем setcookie
-      setcookie("aut[id]", "$user[id]", time() + 3600 * 24 * 30);
+      setcookie("aut[id]", "$user->id", time() + 3600 * 24 * 30);
       setcookie("aut[login]", "$login", time() + 3600 * 24 * 30);
       setcookie("aut[fullname]", "$fullname", time() + 3600 * 24 * 30);
-      setcookie("aut[active]", "$user[active]", time() + 3600 * 24 * 30);
-      setcookie("aut[primary_group]", "$user[primary_group]", time() + 3600 * 24 * 30);
-      setcookie("aut[sudo]", "$user[sudo]", time() + 3600 * 24 * 30);
+      setcookie("aut[active]", "$user->active", time() + 3600 * 24 * 30);
+      setcookie("aut[primary_group]", "$user->primary_group", time() + 3600 * 24 * 30);
+      setcookie("aut[sudo]", "$user->sudo", time() + 3600 * 24 * 30);
       header("refresh:1;url=/");
     } else {
       // Пароль не подошел

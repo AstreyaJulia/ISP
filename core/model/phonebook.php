@@ -1,7 +1,7 @@
 <?php
 	namespace Core\Model;
 	use Core\Config\DB;
-	class Phonebook extends User {
+	class Phonebook extends UserAttributes {
 
 		protected $db;
 
