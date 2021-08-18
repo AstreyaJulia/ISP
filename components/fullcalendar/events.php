@@ -2,8 +2,8 @@
 spl_autoload_register(function($class) {
     require (mb_strtolower($_SERVER['DOCUMENT_ROOT'] . '/' . str_replace('\\', '/', $class) . '.php'));
 });
-error_reporting(E_ALL);
-ini_set("display_errors", "on");
+/*error_reporting(E_ALL);
+ini_set("display_errors", "on");*/
 //Параметры для подключения к базе
 require_once $_SERVER['DOCUMENT_ROOT'] . "/conection.php";
 //Подключаемся  базе
@@ -18,9 +18,9 @@ $params = [
     ':end' => $endParam
 ];
 $FullcalendarClass = new \Core\Model\Fullcalendar($db);
+//Получаем события из таблицы с событиями
 $sdc_calendar = $FullcalendarClass->getEvents($params);
-
-// Передвать можно склько угодно данных, js обработает только те, которые указаны
+//Переписываем массив для fullcaltndar 
 foreach ($sdc_calendar as $myCalendar) {
   $json[] = [
     'id' => $myCalendar['id'],
@@ -35,45 +35,29 @@ foreach ($sdc_calendar as $myCalendar) {
   ];
 }
 
-
-
-/*Дни рождения
-    Выводить только активных пользователей
-    Доделать дни рождения для декабря
-    Расчитать возраст
-*/
-$events = $FullcalendarClass->getBirthday($_GET['startParam'], $_GET['endParam']);
-
-
-
-
-
-
-
-
-
+//Получаем дни рождения из таблицы sdc_user_attributes
 $birthday = $FullcalendarClass->getBirthday($startParam, $endParam);
 
 foreach ($birthday as $key => $value) {
-  $paramBirthday = DateTime::createFromFormat('Y-m-d', $value->dob)->format('m-d');
-
-  if (DateTime::createFromFormat('Y-m-d', $startParam)->format('m-d') > DateTime::createFromFormat('Y-m-d', $endParam)->format('m-d') and ($paramBirthday <= "01-31")) {
-    $startParam = DateTime::createFromFormat('Y-m-d', $endParam)->format('Y')."-".$paramBirthday;
-  } else {
-    $startParam = DateTime::createFromFormat('Y-m-d', $startParam)->format('Y')."-".$paramBirthday;
+  //Собираем даты дней рождения для fullcalendar
+  if (in_array(DateTime::createFromFormat('Y-m-d', $value->dob)->format('m'), ['01','02'])) {
+    $startParamPrep = DateTime::createFromFormat('Y-m-d', $endParam)->format('Y')."-".DateTime::createFromFormat('Y-m-d', $value->dob)->format('m-d');
   }
+  else {
+    $startParamPrep = DateTime::createFromFormat('Y-m-d', $startParam)->format('Y')."-".DateTime::createFromFormat('Y-m-d', $value->dob)->format('m-d');
+  }
+  //Считаем возраст относительно даты в fullcalendar
+  $age = DateTime::createFromFormat('Y-m-d', $startParamPrep)->format('Y') - DateTime::createFromFormat('Y-m-d', $value->dob)->format('Y');
 
-
-
-  
+  //Переписываем массив для fullcaltndar 
   $json[] = [
     'td' => "",
     'title' => "День рождения",
-    'start' => $startParam,
-    'end' => $startParam,
+    'start' => $startParamPrep,
+    'end' => $startParamPrep,
     'allDay' => "1",
-    'calendar' => 'Danger',
-    'description' => $value->fullname. ". Возраст: ",
+    'calendar' => 'Danger', 
+    'description' => $value->fullname. ". Возраст: ". $age,
     'url' => "",
     'user_id' => "0"
   ];
@@ -84,4 +68,3 @@ if ($birthday) {
 } else {
   echo "[]";
 }
-
