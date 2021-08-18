@@ -38812,6 +38812,12 @@ td .badge-big {
   text-align: center;
 }
 
+#daynum-error {
+  position: absolute;
+  left: 0;
+  top: 75px;
+}
+
 .today-calendar .fc-h-event,
 .calendar-module .fc-h-event {
   display: block;

@@ -1859,8 +1859,17 @@ td .badge-big {
 
 // Fullcalendar
 
+#daynum-error {
+  position: absolute;
+  left: 0;
+  top: 75px;
+}
+
 .today-calendar,
 .calendar-module {
+
+
+
   .fc-h-event {
     display: block;
     border-radius: 4px;

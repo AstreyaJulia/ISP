@@ -20,3 +20,4 @@ XCOPY /Y /H /R node_modules\jquery-validation\dist\localization\messages_ru.js s
 XCOPY /Y /H /R node_modules\moment-timezone\builds\moment-timezone-with-data.js src\assets\modules\moment-timezone\
 XCOPY /Y /H /R node_modules\@fullcalendar\moment-timezone\main.global.js src\assets\modules\moment-timezone\
 XCOPY /Y /H /R node_modules\dragula\dist\dragula.js src\assets\modules\dragula\
+XCOPY /Y /H /R node_modules\@fullcalendar\rrule\main.global.js src\assets\modules\rrule\

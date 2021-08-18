@@ -17,8 +17,8 @@
 
 	    //Получаем дни рождения
 	    public function getBirthday($startParam, $endParam) {
-	        $sql = "SELECT * FROM `sdc_user_attributes` 
-						WHERE 
+	        $sql = "SELECT fullname, dob FROM `sdc_user_attributes` 
+						WHERE room IS NOT NULL and
 						 (
 						(date_format('$startParam','%m-%d') < date_format('$endParam','%m-%d'))
 						 AND
