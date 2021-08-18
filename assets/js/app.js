@@ -218,6 +218,17 @@ const calendmodulehandler = () => {
   // Колонки с параметрами повторения
   const repeatparams = document.querySelectorAll(".repeat-col");
 
+  // Переключатели повторения
+  const repparamSwitch = document.querySelector(".repeat-options input[type=radio]");
+  // Выбор повторения для дня
+  const dayrepselect = document.getElementById('dayrepopt');
+  // Метки повторения
+  const dayreplabel = document.getElementById('daynum');
+  // Метки повторения
+  const dayreplabel2 = document.getElementById('daynum-label');
+
+
+
   // Цвета событий, названия менять в разметке, в js менять не надо
 
   const calendarsColor = {
@@ -711,6 +722,20 @@ const calendmodulehandler = () => {
       });
     }
   })
+
+  // Выбор повторения для дня
+  $(dayrepselect).on('change', function () {
+    if (
+      dayrepselect.options[dayrepselect.selectedIndex].value === '2' || dayrepselect.options[dayrepselect.selectedIndex].value === '3') {
+      dayreplabel.style.display = "none";
+      dayreplabel2.style.display = "none";
+    } else {
+      dayreplabel.style.display = "inline-flex";
+      dayreplabel2.style.display = "inline-flex";
+    }
+  })
+
+
 
   // Сброс значений модала
   function resetValues() {

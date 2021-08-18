@@ -131,7 +131,7 @@
 
                     <div class="row">
                       <div class="form-group">
-                        <label for="event-url" class="form-label">URL (откроется в новом окне при нажатии на событие)</label>
+                        <label for="event-url" class="form-label">URL</label>
                         <input type="url" class="form-control" id="event-url" placeholder="">
                       </div>
                       <div class="col-md-12">
@@ -150,42 +150,45 @@
                         </div>
                       </div>
 
-                      <div class="col-4 repeat-col" style="display: none">
-                        <div class="form-group">
-                          <div class="form-check">
+                      <div class="col-4 repeat-col pe-0" style="display: none">
+                        <div class="form-group repeat-options">
+                          <div class="form-check mb-2">
                             <input type="radio" name="radios" class="form-check-input" id="daily">
                             <label class="form-check-label" for="daily">Ежедневно</label>
                           </div>
-                          <div class="form-check">
+                          <div class="form-check mb-2">
                             <input type="radio" name="radios" class="form-check-input" id="weekly">
                             <label class="form-check-label" for="weekly">Еженедельно</label>
                           </div>
-                          <div class="form-check">
+                          <div class="form-check mb-2">
                             <input type="radio" name="radios" class="form-check-input" id="monthly">
                             <label class="form-check-label" for="monthly">Ежемесячно</label>
                           </div>
-                          <div class="form-check">
+                          <div class="form-check mb-2">
                             <input type="radio" name="radios" class="form-check-input" id="yearly">
                             <label class="form-check-label" for="yearly">Ежегодно</label>
                           </div>
                         </div>
 
                       </div>
-                      <div class="col-8 repeat-col" style="display: none">
+                      <div class="col-8 repeat-col ps-0" style="display: none">
 
-                        <div class="daily" style="display: none">
-                          <div class="form-group">
-                            <select class="form-control">
-                              <option>Каждый(е)</option>
-                              <option>Каждый рабоч. день</option>
-                              <option>Каждый выход. день</option>
-                            </select>
-                            <input id="daynum" class="form-control">
-                            <label for="daynum" class="form-label">день(дней)</label>
+                        <div class="daily" style="display: block">
+                          <div class="form-group d-flex align-items-end position-relative">
+                            <div class="form-group mb-0 me-2">
+                              <label for="dayrepopt">Выберите:</label>
+                              <select class="form-control" id="dayrepopt">
+                                <option value="1">Каждый(е)</option>
+                                <option value="2">Каждый рабоч. день</option>
+                                <option value="3">Каждый выход. день</option>
+                              </select>
+                            </div>
+                            <input type="number" id="daynum" class="form-control me-2" style="width: 75px; display: inline-flex" max="365" min="1" value="1">
+                            <label for="daynum" class="form-label mb-0" id="daynum-label" style="display: inline-flex">день(дней)</label>
                         </div>
                       </div>
 
-                        <div class="weekly" style="display: block">
+                        <div class="weekly" style="display: none">
                           <div class="form-group">
 
                             <label for="weeknum" class="form-label">Повторять кажд. неделю</label>
