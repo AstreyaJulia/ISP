@@ -82,7 +82,7 @@
                         </div>
                       </div>
                       <div class="form-group">
-                                                                              <div class="form-check form-switch">
+                         <div class="form-check form-switch">
                           <input type="checkbox" class="form-check-input private-switch" id="customSwitch4">
                           <label class="form-check-label" for="customSwitch4">Вижу только я (приватное событие)</label>
                         </div>
@@ -141,6 +141,96 @@
                                     class="form-control" name="event-description-editor"></textarea>
                         </div>
                       </div>
+                    </div>
+                    <div class="row mt-3">
+                      <div class="form-group">
+                        <div class="form-check form-switch">
+                          <input type="checkbox" class="form-check-input repeat-switch" id="customSwitch4">
+                          <label class="form-check-label" for="customSwitch4">Это событие повторяется</label>
+                        </div>
+                      </div>
+
+                      <div class="col-4 repeat-col" style="display: none">
+                        <div class="form-group">
+                          <div class="form-check">
+                            <input type="radio" name="radios" class="form-check-input" id="daily">
+                            <label class="form-check-label" for="daily">Ежедневно</label>
+                          </div>
+                          <div class="form-check">
+                            <input type="radio" name="radios" class="form-check-input" id="weekly">
+                            <label class="form-check-label" for="weekly">Еженедельно</label>
+                          </div>
+                          <div class="form-check">
+                            <input type="radio" name="radios" class="form-check-input" id="monthly">
+                            <label class="form-check-label" for="monthly">Ежемесячно</label>
+                          </div>
+                          <div class="form-check">
+                            <input type="radio" name="radios" class="form-check-input" id="yearly">
+                            <label class="form-check-label" for="yearly">Ежегодно</label>
+                          </div>
+                        </div>
+
+                      </div>
+                      <div class="col-8 repeat-col" style="display: none">
+
+                        <div class="daily" style="display: none">
+                          <div class="form-group">
+                            <select class="form-control">
+                              <option>Каждый(е)</option>
+                              <option>Каждый рабоч. день</option>
+                              <option>Каждый выход. день</option>
+                            </select>
+                            <input id="daynum" class="form-control">
+                            <label for="daynum" class="form-label">день(дней)</label>
+                        </div>
+                      </div>
+
+                        <div class="weekly" style="display: block">
+                          <div class="form-group">
+
+                            <label for="weeknum" class="form-label">Повторять кажд. неделю</label>
+                            <input id="weeknum" class="form-control">
+
+                            <div class="mb-3 form-check">
+                              <input type="checkbox" class="form-check-input" id="monday">
+                              <label class="form-check-label" for="monday">Пн</label>
+                            </div>
+                            <div class="mb-3 form-check">
+                              <input type="checkbox" class="form-check-input" id="tuesday">
+                              <label class="form-check-label" for="tuesday">Вт</label>
+                            </div>
+                            <div class="mb-3 form-check">
+                              <input type="checkbox" class="form-check-input" id="wednesday">
+                              <label class="form-check-label" for="wednesday">Ср</label>
+                            </div>
+                            <div class="mb-3 form-check">
+                              <input type="checkbox" class="form-check-input" id="thursday">
+                              <label class="form-check-label" for="thursday">Чт</label>
+                            </div>
+                            <div class="mb-3 form-check">
+                              <input type="checkbox" class="form-check-input" id="friday">
+                              <label class="form-check-label" for="friday">Пт</label>
+                            </div>
+                            <div class="mb-3 form-check">
+                              <input type="checkbox" class="form-check-input" id="saturday">
+                              <label class="form-check-label" for="saturday">Сб</label>
+                            </div>
+                            <div class="mb-3 form-check">
+                              <input type="checkbox" class="form-check-input" id="sunday">
+                              <label class="form-check-label" for="sunday">Вс</label>
+                            </div>
+
+                          </div>
+                        </div>
+
+                        <div class="monthly" style="display: none">
+
+                        </div>
+
+                        <div class="yearly" style="display: none">
+
+                        </div>
+
                     </div>
                   </form>
                 </div>

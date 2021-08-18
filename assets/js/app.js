@@ -213,6 +213,11 @@ const calendmodulehandler = () => {
   // Чекбокс Все в фильтре
   const selectAll = document.querySelector(".select-all");
 
+  // Чекбокс повторяющееся событие
+  const repeatSwitch = document.querySelector(".repeat-switch");
+  // Колонки с параметрами повторения
+  const repeatparams = document.querySelectorAll(".repeat-col");
+
   // Цвета событий, названия менять в разметке, в js менять не надо
 
   const calendarsColor = {
@@ -692,6 +697,20 @@ const calendmodulehandler = () => {
       }
     });
   });
+
+
+// Переключатель повторения
+  $(repeatSwitch).on('click', function () {
+    if ($(repeatSwitch).prop('checked')) {
+      repeatparams.forEach((repeatparam) => {
+        repeatparam.style.display = "block";
+      });
+    } else {
+      repeatparams.forEach((repeatparam) => {
+        repeatparam.style.display = "none";
+      });
+    }
+  })
 
   // Сброс значений модала
   function resetValues() {
@@ -1833,38 +1852,9 @@ if (activeselect && roomselect) {
 *  today-group-month, today-group-dayw */
 
 const datarenderHandler = () => {
-
   document.querySelector(".today-group-dayw").innerHTML = moment().format('dddd');
   document.querySelector(".today-group-day").innerHTML = moment().format('D');
   document.querySelector(".today-group-month").innerHTML = moment().format('MMMM');
-
- /* const d = new Date();
-  const month = ["января",
-    "февраля",
-    "марта",
-    "апреля",
-    "мая",
-    "июня",
-    "июля",
-    "августа",
-    "сентября",
-    "октября",
-    "ноября",
-    "декабря"];
-  const day = ["воскресенье",
-    "понедельник",
-    "вторник",
-    "среда",
-    "четверг",
-    "пятница",
-    "суббота"];
-  let curdayw = day[d.getDay()];
-  let curmonth = month[d.getMonth()];
-  let curday = d.getDate();
-  document.querySelector(".today-group-dayw").innerHTML = curdayw;
-  document.querySelector(".today-group-day").innerHTML = curday;
-  document.querySelector(".today-group-month").innerHTML = curmonth;
-  return curday;*/
 };
 
 // Список ссылок

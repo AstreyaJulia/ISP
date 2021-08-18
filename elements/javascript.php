@@ -14,6 +14,7 @@
 <script src="assets/modules/fullcalendar/main.js"></script>
 <script src="assets/modules/fullcalendar/locales/ru.js"></script>
 <script src="assets/modules/moment-timezone/main.global.js"></script>
+<script src="assets/modules/rrule/main.global.js"></script>
 <script src="assets/js/app.js"></script>
 <?php
 	$path = "assets/js/$page.js";

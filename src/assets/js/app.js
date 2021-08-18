@@ -213,6 +213,11 @@ const calendmodulehandler = () => {
   // Чекбокс Все в фильтре
   const selectAll = document.querySelector(".select-all");
 
+  // Чекбокс повторяющееся событие
+  const repeatSwitch = document.querySelector(".repeat-switch");
+  // Колонки с параметрами повторения
+  const repeatparams = document.querySelectorAll(".repeat-col");
+
   // Цвета событий, названия менять в разметке, в js менять не надо
 
   const calendarsColor = {
@@ -692,6 +697,20 @@ const calendmodulehandler = () => {
       }
     });
   });
+
+
+// Переключатель повторения
+  $(repeatSwitch).on('click', function () {
+    if ($(repeatSwitch).prop('checked')) {
+      repeatparams.forEach((repeatparam) => {
+        repeatparam.style.display = "block";
+      });
+    } else {
+      repeatparams.forEach((repeatparam) => {
+        repeatparam.style.display = "none";
+      });
+    }
+  })
 
   // Сброс значений модала
   function resetValues() {
