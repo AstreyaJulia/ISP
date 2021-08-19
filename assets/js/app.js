@@ -216,17 +216,18 @@ const calendmodulehandler = () => {
   // Чекбокс повторяющееся событие
   const repeatSwitch = document.querySelector(".repeat-switch");
   // Колонки с параметрами повторения
-  const repeatparams = document.querySelectorAll(".repeat-col");
+  const repeatparams = document.querySelector(".repeat-col");
 
   // Переключатели повторения
-  const repparamSwitch = document.querySelector(".repeat-options input[type=radio]");
-  // Выбор повторения для дня
-  const dayrepselect = document.getElementById('dayrepopt');
-  // Метки повторения
-  const dayreplabel = document.getElementById('daynum');
-  // Метки повторения
-  const dayreplabel2 = document.getElementById('daynum-label');
-
+  const repparamSwitch = document.getElementById("dayrepopt");
+  // Секции с параметрами повторения по неделям, месяцам, годам
+  const weeklysection = document.getElementById("weekly-section");
+  const monthlysection = document.getElementById("monthly-section");
+  const yearlysection = document.getElementById("yearly-section");
+  // поле ввода начала повторения
+  const startrepDate = document.getElementById("startrep-date");
+  // поле ввода окончания повторения
+  const endrepDate = document.getElementById("endrep-date");
 
 
   // Цвета событий, названия менять в разметке, в js менять не надо
@@ -323,6 +324,7 @@ const calendmodulehandler = () => {
       $(modal).find(eventUrl).val(eventToUpdate.url);
     }
 
+
     //  Удаление события
     $(btnDeleteEvent).on('click', function () {
       eventToUpdate.remove(eventToUpdate.id);
@@ -345,6 +347,20 @@ const calendmodulehandler = () => {
     dateFormat: 'Y-m-d H:i',
     onReady: function (selectedDates, dateStr, instance) {
     }
+  });
+
+  // Датапикер начало повторения
+  const startrep = startrepDate.flatpickr({
+    locale: "ru",
+    enableTime: true,
+    dateFormat: 'Y-m-d H:i',
+  });
+
+  // Датапикер rjytw повторения
+  const endrep = endrepDate.flatpickr({
+    locale: "ru",
+    enableTime: true,
+    dateFormat: 'Y-m-d H:i',
   });
 
   // Выбранные чекбоксы
@@ -711,30 +727,52 @@ const calendmodulehandler = () => {
 
 
 // Переключатель повторения
-  $(repeatSwitch).on('click', function () {
+  $(repeatSwitch).on('click', function (info) {
     if ($(repeatSwitch).prop('checked')) {
-      repeatparams.forEach((repeatparam) => {
-        repeatparam.style.display = "block";
-      });
+
+      if (info == null) {
+        const date = moment().format('YYYY-MM-DD hh:mm');
+        $(startrepDate).val(date);
+      } else {
+        const date = moment(info.date).format('YYYY-MM-DD hh:mm');
+        $(startrepDate).val(date);
+      }
+
+      repeatparams.style.display = "block";
     } else {
-      repeatparams.forEach((repeatparam) => {
-        repeatparam.style.display = "none";
-      });
+      repeatparams.style.display = "none";
+      $(startrepDate).val('');
     }
   })
+
 
   // Выбор повторения для дня
-  $(dayrepselect).on('change', function () {
+  $(repparamSwitch).on('change', function () {
     if (
-      dayrepselect.options[dayrepselect.selectedIndex].value === '2' || dayrepselect.options[dayrepselect.selectedIndex].value === '3') {
-      dayreplabel.style.display = "none";
-      dayreplabel2.style.display = "none";
-    } else {
-      dayreplabel.style.display = "inline-flex";
-      dayreplabel2.style.display = "inline-flex";
+      repparamSwitch.options[repparamSwitch.selectedIndex].value === 'none') {
+      weeklysection.style.display = "none";
+      monthlysection.style.display = "none";
+      yearlysection.style.display = "none";
+    }
+    if (
+      repparamSwitch.options[repparamSwitch.selectedIndex].value === 'weekly-section') {
+      weeklysection.style.display = "block";
+      monthlysection.style.display = "none";
+      yearlysection.style.display = "none";
+    }
+    if (
+      repparamSwitch.options[repparamSwitch.selectedIndex].value === 'monthly-section') {
+      weeklysection.style.display = "none";
+      monthlysection.style.display = "block";
+      yearlysection.style.display = "none";
+    }
+    if (
+      repparamSwitch.options[repparamSwitch.selectedIndex].value === 'yearly-section') {
+      weeklysection.style.display = "none";
+      monthlysection.style.display = "none";
+      yearlysection.style.display = "block";
     }
   })
-
 
 
   // Сброс значений модала
@@ -745,7 +783,9 @@ const calendmodulehandler = () => {
     $(eventTitle).val('');
     $(allDaySwitch).prop('checked', false);
     $(privateSwitch).prop('checked', false);
+    $(repeatSwitch).prop('checked', false);
     $(calendarEditor).val('');
+    repeatparams.style.display = "none";
   }
 
   // Когда модал закрыт, сбросить значения
@@ -1136,15 +1176,15 @@ const tasksHandler = () => {
     });
   }
 
- /* // Инициализация Drag'n'Drop. Нужен dragula
-  const dndContainer = document.getElementById('todo-task-list');
-  if (typeof dndContainer !== undefined && dndContainer !== null) {
-    dragula([dndContainer], {
-      moves: function (el, container, handle) {
-        return handle.classList.contains('drag-icon');
-      }
-    });
-  }*/
+  /* // Инициализация Drag'n'Drop. Нужен dragula
+   const dndContainer = document.getElementById('todo-task-list');
+   if (typeof dndContainer !== undefined && dndContainer !== null) {
+     dragula([dndContainer], {
+       moves: function (el, container, handle) {
+         return handle.classList.contains('drag-icon');
+       }
+     });
+   }*/
 
   // Метки задач
   if (taskTag) {
