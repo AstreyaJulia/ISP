@@ -36,6 +36,11 @@ if (!empty($_GET["editStaff"])) {
         $content = ob_get_contents();
       ob_end_clean();
     }
+    //Сбрасываем пароль
+    if (array_key_exists('DropPass',$_POST)) {
+      $staffClass->setDropPass([$_GET["editStaff"]]);
+    }
+    
     if (!empty($_POST["username"]) and !empty($_POST["fullname"]) and $_GET["editStaff"] !== "add") {
       //Редактируем запись в таблице sdc_users
 

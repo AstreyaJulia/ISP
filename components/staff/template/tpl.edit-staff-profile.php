@@ -66,11 +66,10 @@
                   </div>
                 </div>
               </div>
-              <div class="form-group">
-                <button type="button" class="btn btn-primary btn-block">Сброс пароля</button>
-              </div>
+              <form class="form-group" action="" method="post">
+                <button type="submit" name="DropPass" class="btn btn-primary btn-block">Сброс пароля</button>
+              </form>
             </div>
-
             <div class="col">
               <div class="form-group">
                 <label class="form-label" for="primary_group">Группа</label>
