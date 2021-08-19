@@ -142,7 +142,6 @@ function ajaxQuery(url, data, type, success, successparams) {
     },
     error: function (jqXHR, textStatus, errorThrown) {
       showErrorToast("Ошибка", jqXHR + textStatus + errorThrown, moment().format('LLL'))
-      //alert("Ошибка" + jqXHR + textStatus + errorThrown);
     }
   });
 }
@@ -396,7 +395,6 @@ const calendmodulehandler = () => {
         },
         error: function (jqXHR, textStatus, errorThrown) {
           showErrorToast("Ошибка", jqXHR + textStatus + errorThrown, moment().format('LLL'))
-          //alert("Ошибка " + error.responseText);
           //console.log(moment(info.start).format('YYYY-MM-DD'), moment(info.end).format('YYYY-MM-DD'),);
 
         }
@@ -648,7 +646,6 @@ const calendmodulehandler = () => {
         },
         error: function (jqXHR, textStatus, errorThrown) {
           showErrorToast("Ошибка", jqXHR + textStatus + errorThrown, moment().format('LLL'))
-          //alert("Ошибка" + jqXHR + textStatus + errorThrown);
         }
       });
     }
@@ -692,7 +689,6 @@ const calendmodulehandler = () => {
         },
         error: function (jqXHR, textStatus, errorThrown) {
           showErrorToast("Ошибка", jqXHR + textStatus + errorThrown, moment().format('LLL'))
-          //alert("Ошибка" + jqXHR + textStatus + errorThrown);
         }
       });
     }
@@ -720,7 +716,6 @@ const calendmodulehandler = () => {
       },
       error: function (jqXHR, textStatus, errorThrown) {
         showErrorToast("Ошибка", jqXHR + textStatus + errorThrown, moment().format('LLL'))
-        //alert("Ошибка" + jqXHR + textStatus + errorThrown);
       }
     });
   });
@@ -729,19 +724,23 @@ const calendmodulehandler = () => {
 // Переключатель повторения
   $(repeatSwitch).on('click', function (info) {
     if ($(repeatSwitch).prop('checked')) {
-
       if (info == null) {
         const date = moment().format('YYYY-MM-DD hh:mm');
         $(startrepDate).val(date);
+        const enddate = moment(date).add(9, 'years').format('YYYY-MM-DD hh:mm');
+        $(endrepDate).val(enddate);
       } else {
         const date = moment(info.date).format('YYYY-MM-DD hh:mm');
         $(startrepDate).val(date);
+        const enddate = moment(date).add(9, 'years').format('YYYY-MM-DD hh:mm');
+        $(endrepDate).val(enddate);
       }
-
       repeatparams.style.display = "block";
     } else {
       repeatparams.style.display = "none";
       $(startrepDate).val('');
+      $(endrepDate).val('');
+      $(repparamSwitch).val('none');
     }
   })
 
@@ -786,6 +785,7 @@ const calendmodulehandler = () => {
     $(repeatSwitch).prop('checked', false);
     $(calendarEditor).val('');
     repeatparams.style.display = "none";
+    $(repparamSwitch).val('none');
   }
 
   // Когда модал закрыт, сбросить значения
