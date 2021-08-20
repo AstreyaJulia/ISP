@@ -197,6 +197,8 @@ const calendmodulehandler = () => {
   const endDate = document.getElementById("end-date");
   // URL события
   const eventUrl = document.getElementById("event-url");
+  // Кнопка открыть ссылку
+  const urlopen = document.getElementById("urlopen");
   // Переключатель Весь день
   const allDaySwitch = document.querySelector(".allDay-switch");
   // Переключатель Вижу только я (приватное событие)
@@ -227,6 +229,34 @@ const calendmodulehandler = () => {
   const startrepDate = document.getElementById("startrep-date");
   // поле ввода окончания повторения
   const endrepDate = document.getElementById("endrep-date");
+  // Таб Основное на модале
+  const maintab = document.getElementById("nav-main-tab");
+  // Таб Повторение на модале
+  const reptab = document.getElementById("nav-rep-tab");
+  // Вкладка Основное на модале
+  const mainpane = document.getElementById("nav-main");
+  // Вкладка Повторение на модале
+  const reppane = document.getElementById("nav-rep");
+  // Чекбокс Кажд. день
+  const daily = document.getElementById("daily");
+  // Чекбокс Кажд. рабоч. день
+  const workdaily = document.getElementById("workdaily");
+  // Чекбокс Кажд. выходн. день
+  const holydaily = document.getElementById("holydaily");
+  // Чекбокс Пн
+  const monday = document.getElementById("monday");
+  // Чекбокс Вт
+  const tuesday = document.getElementById("tuesday");
+  // Чекбокс Ср
+  const wednesday = document.getElementById("wednesday");
+  // Чекбокс Чт
+  const thursday = document.getElementById("thursday");
+  // Чекбокс Пт
+  const friday = document.getElementById("friday");
+  // Чекбокс Сб
+  const saturday = document.getElementById("saturday");
+  // Чекбокс Вс
+  const sunday = document.getElementById("sunday");
 
 
   // Цвета событий, названия менять в разметке, в js менять не надо
@@ -266,14 +296,14 @@ const calendmodulehandler = () => {
   function repswitch(info) {
     if ($(repeatSwitch).prop('checked')) {
       if (info == null) {
-        const date = moment().format('YYYY-MM-DD hh:mm');
+        const date = moment().format('YYYY-MM-DD HH:mm');
         $(startrepDate).val(date);
-        const enddate = moment(date).add(9, 'years').format('YYYY-MM-DD hh:mm');
+        const enddate = moment(date).add(9, 'years').format('YYYY-MM-DD HH:mm');
         $(endrepDate).val(enddate);
       } else {
-        const date = moment(info).format('YYYY-MM-DD hh:mm');
+        const date = moment(info).format('YYYY-MM-DD HH:mm');
         $(startrepDate).val(date);
-        const enddate = moment(date).add(9, 'years').format('YYYY-MM-DD hh:mm');
+        const enddate = moment(date).add(9, 'years').format('YYYY-MM-DD HH:mm');
         $(endrepDate).val(enddate);
       }
       repeatparams.style.display = "block";
@@ -308,21 +338,22 @@ const calendmodulehandler = () => {
   // Событие при нажатии на событие
   function eventClick(info) {
     eventToUpdate = info.event;
-    console.log(eventToUpdate.id);
 
     // Открывает ссылку в новом окне
     if ((eventToUpdate).url) {
       info.jsEvent.preventDefault();
-      // window.open((eventToUpdate).url, '_blank');
     }
+    // Открывашка ссылки
+    $(urlopen).on('click', function () {
+      window.open((eventToUpdate).url, '_blank');
+    });
+
     //console.log(eventToUpdate);
-    if (eventToUpdate.id !== "") {
+    // Запрет на редактирование событий без id и фоновых
+    if (eventToUpdate.id !== "" || eventToUpdate.display !== "background") {
       showModal();
-      addEventBtn.style.display = "none";
-      cancelBtn.style.display = "none";
       updateEventBtn.style.display = "block";
       btnDeleteEvent.style.display = "block";
-      addEventTitle.style.display = "none";
       editEventTitle.style.display = "block";
 
       $(eventTitle).val(eventToUpdate.title);
@@ -331,22 +362,86 @@ const calendmodulehandler = () => {
       } else {
         $(privateSwitch).prop('checked', true)
       }
-      start.setDate(eventToUpdate.start, true, 'YYYY-MM-DD hh:mm');
+      start.setDate(eventToUpdate.start, true, 'YYYY-MM-DD HH:mm');
       if (eventToUpdate.allDay === true) {
         $(allDaySwitch).prop('checked', true)
       } else {
         $(allDaySwitch).prop('checked', false)
       }
       eventToUpdate.end !== null
-        ? end.setDate(eventToUpdate.end, true, 'YYYY-MM-DD hh:mm')
-        : end.setDate(eventToUpdate.start, true, 'YYYY-MM-DD hh:mm');
+        ? end.setDate(eventToUpdate.end, true, 'YYYY-MM-DD HH:mm')
+        : end.setDate(eventToUpdate.start, true, 'YYYY-MM-DD HH:mm');
       $(modal).find(eventLabel).val(eventToUpdate.extendedProps.calendar).trigger('change');
       $(modal).find(calendarEditor).val(eventToUpdate.extendedProps.description);
       $(modal).find(eventUrl).val(eventToUpdate.url);
 
       $(repeatSwitch).on('click', function () {
-        repswitch((eventToUpdate.start, true, 'YYYY-MM-DD hh:mm'));
+        repswitch((eventToUpdate.start, true, 'YYYY-MM-DD HH:mm'));
       })
+
+      $(daily).on('change', function () {
+        const $this = $(this);
+        if ($this.prop('checked')) {
+          $(monday).prop('checked', true);
+          $(tuesday).prop('checked', true);
+          $(wednesday).prop('checked', true);
+          $(thursday).prop('checked', true);
+          $(friday).prop('checked', true);
+          $(saturday).prop('checked', true);
+          $(sunday).prop('checked', true);
+        } else {
+          $(monday).prop('checked', false);
+          $(tuesday).prop('checked', false);
+          $(wednesday).prop('checked', false);
+          $(thursday).prop('checked', false);
+          $(friday).prop('checked', false);
+          $(saturday).prop('checked', false);
+          $(sunday).prop('checked', false);
+        }
+      });
+
+      $(workdaily).on('change', function () {
+        const $this = $(this);
+        if ($this.prop('checked')) {
+          $(monday).prop('checked', true);
+          $(tuesday).prop('checked', true);
+          $(wednesday).prop('checked', true);
+          $(thursday).prop('checked', true);
+          $(friday).prop('checked', true);
+          $(saturday).prop('checked', false);
+          $(sunday).prop('checked', false);
+        } else {
+          $(monday).prop('checked', false);
+          $(tuesday).prop('checked', false);
+          $(wednesday).prop('checked', false);
+          $(thursday).prop('checked', false);
+          $(friday).prop('checked', false);
+          $(saturday).prop('checked', false);
+          $(sunday).prop('checked', false);
+        }
+      });
+
+      $(holydaily).on('change', function () {
+        const $this = $(this);
+        if ($this.prop('checked')) {
+          $(monday).prop('checked', false);
+          $(tuesday).prop('checked', false);
+          $(wednesday).prop('checked', false);
+          $(thursday).prop('checked', false);
+          $(friday).prop('checked', false);
+          $(saturday).prop('checked', true);
+          $(sunday).prop('checked', true);
+        } else {
+          $(monday).prop('checked', false);
+          $(tuesday).prop('checked', false);
+          $(wednesday).prop('checked', false);
+          $(thursday).prop('checked', false);
+          $(friday).prop('checked', false);
+          $(saturday).prop('checked', false);
+          $(sunday).prop('checked', false);
+        }
+      });
+
     }
 
 
@@ -381,7 +476,7 @@ const calendmodulehandler = () => {
     dateFormat: 'Y-m-d H:i',
   });
 
-  // Датапикер rjytw повторения
+  // Датапикер конца повторения
   const endrep = endrepDate.flatpickr({
     locale: "ru",
     enableTime: true,
@@ -416,7 +511,6 @@ const calendmodulehandler = () => {
           /*const calendars = selectedCalendars();*/
           successCallback(result);
           console.log(result);
-          console.log(moment(info.start).format('YYYY-MM-DD'), moment(info.end).format('YYYY-MM-DD'),);
           /*return [result.events.filter(event => (calendars.includes(event.extendedProps.calendar)))];*/
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -610,29 +704,91 @@ const calendmodulehandler = () => {
     showModal();
     // Показываем кнопку Добавить
     addEventBtn.style.display = "block";
-    // Скрываем кнопку Сохранить
-    updateEventBtn.style.display = "none";
-    // Скрываем кнопку Удалить
-    btnDeleteEvent.style.display = "none";
+    // Показываем кнопку Отмена
+    cancelBtn.style.display = "block";
+    addEventTitle.style.display = "block";
 
     if (info == null) {
-      const date = moment().format('YYYY-MM-DD hh:mm');
+      const date = moment().format('YYYY-MM-DD HH:mm');
       $(startDate).val(date);
       $(endDate).val(date);
     } else {
-      const date = moment(info.date).format('YYYY-MM-DD hh:mm');
+      const date = moment(info.date).format('YYYY-MM-DD HH:mm');
       $(startDate).val(date);
       $(endDate).val(date);
     }
     $(repeatSwitch).on('click', function () {
       if (info == null) {
-        const date = moment().format('YYYY-MM-DD hh:mm');
+        const date = moment().format('YYYY-MM-DD HH:mm');
         repswitch(date);
       } else {
-        const date = moment(info.date).format('YYYY-MM-DD hh:mm');
+        const date = moment(info.date).format('YYYY-MM-DD HH:mm');
         repswitch(date);
       }
     })
+    $(daily).on('change', function () {
+      const $this = $(this);
+      if ($this.prop('checked')) {
+        $(monday).prop('checked', true);
+        $(tuesday).prop('checked', true);
+        $(wednesday).prop('checked', true);
+        $(thursday).prop('checked', true);
+        $(friday).prop('checked', true);
+        $(saturday).prop('checked', true);
+        $(sunday).prop('checked', true);
+      } else {
+        $(monday).prop('checked', false);
+        $(tuesday).prop('checked', false);
+        $(wednesday).prop('checked', false);
+        $(thursday).prop('checked', false);
+        $(friday).prop('checked', false);
+        $(saturday).prop('checked', false);
+        $(sunday).prop('checked', false);
+      }
+    });
+
+    $(workdaily).on('change', function () {
+      const $this = $(this);
+      if ($this.prop('checked')) {
+        $(monday).prop('checked', true);
+        $(tuesday).prop('checked', true);
+        $(wednesday).prop('checked', true);
+        $(thursday).prop('checked', true);
+        $(friday).prop('checked', true);
+        $(saturday).prop('checked', false);
+        $(sunday).prop('checked', false);
+      } else {
+        $(monday).prop('checked', false);
+        $(tuesday).prop('checked', false);
+        $(wednesday).prop('checked', false);
+        $(thursday).prop('checked', false);
+        $(friday).prop('checked', false);
+        $(saturday).prop('checked', false);
+        $(sunday).prop('checked', false);
+      }
+    });
+
+    $(holydaily).on('change', function () {
+      console.log(holydaily);
+      const $this = $(this);
+      if ($this.prop('checked')) {
+        $(monday).prop('checked', false);
+        $(tuesday).prop('checked', false);
+        $(wednesday).prop('checked', false);
+        $(thursday).prop('checked', false);
+        $(friday).prop('checked', false);
+        $(saturday).prop('checked', true);
+        $(sunday).prop('checked', true);
+      } else {
+        $(monday).prop('checked', false);
+        $(tuesday).prop('checked', false);
+        $(wednesday).prop('checked', false);
+        $(thursday).prop('checked', false);
+        $(friday).prop('checked', false);
+        $(saturday).prop('checked', false);
+        $(sunday).prop('checked', false);
+      }
+    });
   }
 
   $(neweventbtn).on('click', function () {
@@ -641,18 +797,14 @@ const calendmodulehandler = () => {
 
   // Кнопка - Добавление нового события
   $(addEventBtn).on('click', function () {
-    // Показываем на модале кнопку Отмена
-    cancelBtn.style.display = "block";
-    // Скрываем на модале кнопку Удалить
-    btnDeleteEvent.style.display = "none";
     if ($(eventForm).valid()) {
       // Задаем переменную. На данный момент она пустая.
       let allDay;
       const Event = {
         operation: "add",
         title: $(eventTitle).val(),
-        start: moment($(startDate).val()).format('YYYY-MM-DD hh:mm:ss'),
-        end: moment($(endDate).val()).format('YYYY-MM-DD hh:mm:ss'),
+        start: moment($(startDate).val()).format('YYYY-MM-DD HH:mm:ss'),
+        end: moment($(endDate).val()).format('YYYY-MM-DD HH:mm:ss'),
         calendar: $(eventLabel).val(),
         description: $(calendarEditor).val(),
         url: $(eventUrl).val(),
@@ -798,6 +950,20 @@ const calendmodulehandler = () => {
     $(repparamSwitch).val('none');
     $(startrepDate).val('');
     $(endrepDate).val('');
+    // Скрытие заголовков и кнопок
+    updateEventBtn.style.display = "none";
+    btnDeleteEvent.style.display = "none";
+    addEventBtn.style.display = "none";
+    cancelBtn.style.display = "none";
+    addEventTitle.style.display = "none";
+    editEventTitle.style.display = "none";
+    // Переключить вкладку на Основное
+    maintab.classList.add('active');
+    mainpane.classList.add('show');
+    mainpane.classList.add('active');
+    reptab.classList.remove('active');
+    reppane.classList.remove('show');
+    reppane.classList.remove('active');
   }
 
   // Когда модал закрыт, сбросить значения
@@ -806,7 +972,7 @@ const calendmodulehandler = () => {
   });
 
   // Выбрать все и другие фильтры
-  if ($(selectAll).length) {
+  if ($(selectAll)) {
     $(selectAll).on('change', function () {
       const $this = $(this);
       if ($this.prop('checked')) {
@@ -818,7 +984,7 @@ const calendmodulehandler = () => {
     });
   }
 
-  if ($(filterInput).length) {
+  if ($(filterInput)) {
     $(filterInput).on('change', function () {
       $('.input-filter:checked').length < $(calEventFilter).find('input').length
         ? $(selectAll).prop('checked', false)

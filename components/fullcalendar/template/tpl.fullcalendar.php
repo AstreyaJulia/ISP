@@ -65,7 +65,7 @@
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content add-edit-event-content">
           <div class="modal-header">
-            <h5 class="add-event-title modal-title" style="display: block;">Добавить событие</h5>
+            <h5 class="add-event-title modal-title" style="display: none;">Добавить событие</h5>
             <h5 class="edit-event-title modal-title" style="display: none;">Редактировать событие</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
           </div>
@@ -115,7 +115,7 @@
                         </div>
                         <div class="col-md-6 col-sm-6 col-12">
                           <div class="form-group start-date ">
-                            <label for="start-date" class="">От:</label>
+                            <label for="start-date" class="">Начало события:</label>
                             <div>
                               <input id="start-date" placeholder="Дата начала"
                                      class="form-control flatpickr-input position-relative"
@@ -125,7 +125,7 @@
                         </div>
                         <div class="col-md-6 col-sm-6 col-12">
                           <div class="form-group end-date ">
-                            <label for="end-date" class="">До:</label>
+                            <label for="end-date" class="">Конец события:</label>
                             <div>
                               <input id="end-date" placeholder="Дата окончания" type="text"
                                      class="form-control flatpickr-input position-relative" required>
@@ -143,7 +143,7 @@
                             <label for="event-url">URL</label>
                           <div class="input-group">
                           <input type="url" class="form-control" id="event-url" placeholder="Введите ссылку в формате http://google.com">
-                            <button type="button" class="btn btn-primary"><i class="mdi mdi-web"></i></button>
+                            <button type="button" class="btn btn-primary" id="urlopen"><i class="mdi mdi-web"></i></button>
                           </div>
                         </div>
                         <div class="col-md-12">
@@ -321,11 +321,11 @@
           </div>
 
           <div class="modal-footer mt-3">
-            <button id="add-event-btn" class="btn btn-primary add-event-btn" style="display: block;">Добавить
+            <button id="add-event-btn" class="btn btn-primary add-event-btn" style="display: none;">Добавить
               событие
             </button>
             <button id="edit-event" class="btn btn-primary edit-event" style="display: none;">Сохранить</button>
-            <button id="discard" class="btn btn-danger" data-dismiss="modal" style="display: block;">Отмена
+            <button id="discard" class="btn btn-danger" data-dismiss="modal" style="display: none;">Отмена
             </button>
             <button id="delete" class="btn btn-danger btn-delete-event" data-dismiss="modal"
                     style="display: none;">Удалить
