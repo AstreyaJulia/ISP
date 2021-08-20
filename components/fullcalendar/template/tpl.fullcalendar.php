@@ -182,20 +182,6 @@
                                        style="width: 75px; display: inline-flex" max="52" min="1" value="1">
                                 <label for="daynum" class="form-label mb-0" id="daynum-label" style="display: inline-flex">неделю</label>
                               </div>
-                              <div class="d-week-check d-flex">
-                                <div class="mb-3 form-check me-2">
-                                  <input type="checkbox" class="form-check-input" id="daily">
-                                  <label class="form-check-label" for="daily">Кажд. день</label>
-                                </div>
-                                <div class="mb-3 form-check me-2">
-                                  <input type="checkbox" class="form-check-input" id="workdaily">
-                                  <label class="form-check-label" for="workdaily">Кажд. рабоч. день</label>
-                                </div>
-                                <div class="mb-3 form-check me-2">
-                                  <input type="checkbox" class="form-check-input" id="holydaily">
-                                  <label class="form-check-label" for="holydaily">Кажд. выходн. день</label>
-                                </div>
-                              </div>
 
                               <div class="d-week-check d-flex">
                                 <div class="mb-3 form-check me-2">
