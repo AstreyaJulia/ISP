@@ -263,6 +263,28 @@ const calendmodulehandler = () => {
     document.body.appendChild(btn);
   }
 
+  function repswitch(info) {
+    if ($(repeatSwitch).prop('checked')) {
+      if (info == null) {
+        const date = moment().format('YYYY-MM-DD hh:mm');
+        $(startrepDate).val(date);
+        const enddate = moment(date).add(9, 'years').format('YYYY-MM-DD hh:mm');
+        $(endrepDate).val(enddate);
+      } else {
+        const date = moment(info).format('YYYY-MM-DD hh:mm');
+        $(startrepDate).val(date);
+        const enddate = moment(date).add(9, 'years').format('YYYY-MM-DD hh:mm');
+        $(endrepDate).val(enddate);
+      }
+      repeatparams.style.display = "block";
+    } else {
+      repeatparams.style.display = "none";
+      $(startrepDate).val('');
+      $(endrepDate).val('');
+      $(repparamSwitch).val('none');
+    }
+  }
+
   // Кнопка закрыть
   $(span).on('click', function () {
     hideModal();
@@ -321,6 +343,10 @@ const calendmodulehandler = () => {
       $(modal).find(eventLabel).val(eventToUpdate.extendedProps.calendar).trigger('change');
       $(modal).find(calendarEditor).val(eventToUpdate.extendedProps.description);
       $(modal).find(eventUrl).val(eventToUpdate.url);
+
+      $(repeatSwitch).on('click', function () {
+        repswitch((eventToUpdate.start, true, 'YYYY-MM-DD hh:mm'));
+      })
     }
 
 
@@ -598,6 +624,15 @@ const calendmodulehandler = () => {
       $(startDate).val(date);
       $(endDate).val(date);
     }
+    $(repeatSwitch).on('click', function () {
+      if (info == null) {
+        const date = moment().format('YYYY-MM-DD hh:mm');
+        repswitch(date);
+      } else {
+        const date = moment(info.date).format('YYYY-MM-DD hh:mm');
+        repswitch(date);
+      }
+    })
   }
 
   $(neweventbtn).on('click', function () {
@@ -720,31 +755,6 @@ const calendmodulehandler = () => {
     });
   });
 
-
-// Переключатель повторения
-  $(repeatSwitch).on('click', function (info) {
-    if ($(repeatSwitch).prop('checked')) {
-      if (info == null) {
-        const date = moment().format('YYYY-MM-DD hh:mm');
-        $(startrepDate).val(date);
-        const enddate = moment(date).add(9, 'years').format('YYYY-MM-DD hh:mm');
-        $(endrepDate).val(enddate);
-      } else {
-        const date = moment(info.date).format('YYYY-MM-DD hh:mm');
-        $(startrepDate).val(date);
-        const enddate = moment(date).add(9, 'years').format('YYYY-MM-DD hh:mm');
-        $(endrepDate).val(enddate);
-      }
-      repeatparams.style.display = "block";
-    } else {
-      repeatparams.style.display = "none";
-      $(startrepDate).val('');
-      $(endrepDate).val('');
-      $(repparamSwitch).val('none');
-    }
-  })
-
-
   // Выбор повторения для дня
   $(repparamSwitch).on('change', function () {
     if (
@@ -786,6 +796,8 @@ const calendmodulehandler = () => {
     $(calendarEditor).val('');
     repeatparams.style.display = "none";
     $(repparamSwitch).val('none');
+    $(startrepDate).val('');
+    $(endrepDate).val('');
   }
 
   // Когда модал закрыт, сбросить значения
