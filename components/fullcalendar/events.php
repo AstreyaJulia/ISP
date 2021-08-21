@@ -20,19 +20,44 @@ $params = [
 $FullcalendarClass = new \Core\Model\Fullcalendar($db);
 //Получаем события из таблицы с событиями
 $sdc_calendar = $FullcalendarClass->getEvents($params);
-//Переписываем массив для fullcaltndar 
+//Переписываем массив для fullcaltndar
 foreach ($sdc_calendar as $myCalendar) {
-  $json[] = [
-    'id' => $myCalendar['id'],
-    'title' => $myCalendar['title'],
-    'start' => $myCalendar['start'],
-    'end' => $myCalendar['end'],
-    'allDay' => $myCalendar['allDay'],
-    'calendar' => $myCalendar['calendar'],
-    'description' => $myCalendar['description'],
-    'url' => $myCalendar['url'],
-    'user_id' => $myCalendar['user_id']
-  ];
+  if($myCalendar['freq'] === null) {
+    $json[] = [
+      'id' => $myCalendar['id'],
+      'title' => $myCalendar['title'],
+      'start' => $myCalendar['start'],
+      'end' => $myCalendar['end'],
+      'allDay' => $myCalendar['allDay'],
+      'calendar' => $myCalendar['calendar'],
+      'description' => $myCalendar['description'],
+      'url' => $myCalendar['url'],
+      'user_id' => $myCalendar['user_id']
+    ];
+  } else {
+    $json[] = [
+      'id' => $myCalendar['id'],
+      'title' => $myCalendar['title'],
+      'start' => $myCalendar['start'],
+      'end' => $myCalendar['end'],
+      'allDay' => $myCalendar['allDay'],
+      'calendar' => $myCalendar['calendar'],
+      'description' => $myCalendar['description'],
+      'url' => $myCalendar['url'],
+      'user_id' => $myCalendar['user_id'],
+      'rrule' => [
+        'freq' => $myCalendar['freq'],
+        'tzid' => $myCalendar['tzid'],
+        'count' => $myCalendar['count'],
+        'interval' => $myCalendar['interval'],
+        'dtstart' => $myCalendar['dtstart'],
+        'until' => $myCalendar['until'],
+        'bymonth' => $myCalendar['bymonth'],
+        'byweekday' => $myCalendar['byweekday']
+      ]
+    ];
+  }
+
 }
 
 //Получаем дни рождения из таблицы sdc_user_attributes
@@ -49,15 +74,14 @@ foreach ($birthday as $key => $value) {
   //Считаем возраст относительно даты в fullcalendar
   $age = DateTime::createFromFormat('Y-m-d', $startParamPrep)->format('Y') - DateTime::createFromFormat('Y-m-d', $value->dob)->format('Y');
 
-  //Переписываем массив для fullcaltndar 
+  //Переписываем массив для fullcaltndar
   $json[] = [
-    'td' => "",
     'title' => "День рождения",
     'start' => $startParamPrep,
     'end' => $startParamPrep,
     'allDay' => "1",
-    'calendar' => 'Danger', 
-    'description' => $value->fullname. ". Возраст: ". $age,
+    'calendar' => 'Danger',
+    'description' => $value->fullname. ". Исполняется: ". $age,
     'url' => "",
     'user_id' => "0"
   ];

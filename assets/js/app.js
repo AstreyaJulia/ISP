@@ -137,7 +137,7 @@ function ajaxQuery(url, data, type, success, successparams) {
     headers: {
       'Accept': 'application/json;odata=nometadata'
     },
-    success: function (response) {
+    success: function () {
       success(successparams);
     },
     error: function (jqXHR, textStatus, errorThrown) {
@@ -221,7 +221,11 @@ const calendmodulehandler = () => {
 
   // Переключатели повторения
   const repparamSwitch = document.getElementById("dayrepopt");
+  // Секция окончания повторения
+  const repdiapsection = document.getElementById("repdiap");
+
   // Секции с параметрами повторения по неделям, месяцам, годам
+  const dailysection = document.getElementById("daily-section");
   const weeklysection = document.getElementById("weekly-section");
   const monthlysection = document.getElementById("monthly-section");
   const yearlysection = document.getElementById("yearly-section");
@@ -237,12 +241,6 @@ const calendmodulehandler = () => {
   const mainpane = document.getElementById("nav-main");
   // Вкладка Повторение на модале
   const reppane = document.getElementById("nav-rep");
-  // Чекбокс Кажд. день
-  const daily = document.getElementById("daily");
-  // Чекбокс Кажд. рабоч. день
-  const workdaily = document.getElementById("workdaily");
-  // Чекбокс Кажд. выходн. день
-  const holydaily = document.getElementById("holydaily");
   // Чекбокс Пн
   const monday = document.getElementById("monday");
   // Чекбокс Вт
@@ -257,6 +255,14 @@ const calendmodulehandler = () => {
   const saturday = document.getElementById("saturday");
   // Чекбокс Вс
   const sunday = document.getElementById("sunday");
+  // Радио Закончить после даты
+  const repdate = document.getElementById("Radio5");
+  // Радио Закончить после повторений
+  const repcount = document.getElementById("Radio6");
+  // Инпут Закончить после даты
+  const repdateinp = document.getElementById("endrep-date");
+  // Инпут Закончить после повторений
+  const repcountinp = document.getElementById("repcount");
 
 
   // Цвета событий, названия менять в разметке, в js менять не надо
@@ -307,11 +313,13 @@ const calendmodulehandler = () => {
         $(endrepDate).val(enddate);
       }
       repeatparams.style.display = "block";
+      $(repparamSwitch).prop('required',true);
     } else {
       repeatparams.style.display = "none";
       $(startrepDate).val('');
       $(endrepDate).val('');
       $(repparamSwitch).val('none');
+      $(repparamSwitch).prop('required',false);
     }
   }
 
@@ -327,13 +335,14 @@ const calendmodulehandler = () => {
     resetValues()
   });
 
-  // Очистить данные и закрыть модал, если нажали вне модала
+/*  // Очистить данные и закрыть модал, если нажали вне модала
   window.onclick = function (event) {
     if (event.target === modal) {
       resetValues();
       hideModal();
     }
   };
+*/
 
   // Событие при нажатии на событие
   function eventClick(info) {
@@ -348,9 +357,9 @@ const calendmodulehandler = () => {
       window.open((eventToUpdate).url, '_blank');
     });
 
-    //console.log(eventToUpdate);
+    console.log(info.event);
     // Запрет на редактирование событий без id и фоновых
-    if (eventToUpdate.id !== "" || eventToUpdate.display !== "background") {
+    if (info.event.id !== "" && info.event.display !== "background") {
       showModal();
       updateEventBtn.style.display = "block";
       btnDeleteEvent.style.display = "block";
@@ -376,8 +385,34 @@ const calendmodulehandler = () => {
       $(modal).find(eventUrl).val(eventToUpdate.url);
 
       $(repeatSwitch).on('click', function () {
-        repswitch((eventToUpdate.start, true, 'YYYY-MM-DD HH:mm'));
+        repswitch(moment($(startDate).val).format('YYYY-MM-DD HH:mm'));
       })
+
+      /*$(startDate).change(function () {
+        if (moment($(endDate).val).format('YYYY-MM-DD') > moment($(startDate).val).format('YYYY-MM-DD')) {
+          $(endDate).val($(startDate).val);
+        }
+      })*/
+
+      $(repdate).on('click', function () {
+        if ($(repdate).is(':checked')) {
+          $(repdateinp).prop("disabled", false);
+          $(repcount).prop("checked", false);
+        } else {
+          $(repdateinp).prop("disabled", true);
+        }
+      })
+      $(repcount).on('click', function () {
+        if ($(repcount).is(':checked')) {
+          $(repcountinp).prop("disabled", false);
+          $(repdate).prop("checked", false);
+        } else {
+          $(repcountinp).prop("disabled", true);
+        }
+      })
+
+    } else {
+      return;
     }
 
 
@@ -662,6 +697,22 @@ const calendmodulehandler = () => {
         repswitch(date);
       }
     })
+    $(repdate).on('click', function () {
+      if ($(repdate).is(':checked')) {
+        $(repdateinp).prop("disabled", false);
+        $(repcount).prop("checked", false);
+      } else {
+        $(repdateinp).prop("disabled", true);
+      }
+    })
+    $(repcount).on('click', function () {
+      if ($(repcount).is(':checked')) {
+        $(repcountinp).prop("disabled", false);
+        $(repdate).prop("checked", false);
+      } else {
+        $(repcountinp).prop("disabled", true);
+      }
+    })
   }
 
   $(neweventbtn).on('click', function () {
@@ -784,24 +835,35 @@ const calendmodulehandler = () => {
   $(repparamSwitch).on('change', function () {
     if (
       repparamSwitch.options[repparamSwitch.selectedIndex].value === 'none') {
+      dailysection.style.display = "none";
+      weeklysection.style.display = "none";
+      monthlysection.style.display = "none";
+      yearlysection.style.display = "none";
+    }
+    if (
+      repparamSwitch.options[repparamSwitch.selectedIndex].value === 'daily-section') {
+      dailysection.style.display = "block";
       weeklysection.style.display = "none";
       monthlysection.style.display = "none";
       yearlysection.style.display = "none";
     }
     if (
       repparamSwitch.options[repparamSwitch.selectedIndex].value === 'weekly-section') {
+      dailysection.style.display = "none";
       weeklysection.style.display = "block";
       monthlysection.style.display = "none";
       yearlysection.style.display = "none";
     }
     if (
       repparamSwitch.options[repparamSwitch.selectedIndex].value === 'monthly-section') {
+      dailysection.style.display = "none";
       weeklysection.style.display = "none";
       monthlysection.style.display = "block";
       yearlysection.style.display = "none";
     }
     if (
       repparamSwitch.options[repparamSwitch.selectedIndex].value === 'yearly-section') {
+      dailysection.style.display = "none";
       weeklysection.style.display = "none";
       monthlysection.style.display = "none";
       yearlysection.style.display = "block";
