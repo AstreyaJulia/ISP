@@ -196,22 +196,34 @@
                               <label for="monthnum" class="form-label mb-0" id="monthnum-label"
                                      style="display: inline-flex">месяц</label>
                             </div>
-                            <div class="form-check">
+                            <div class="form-check mb-3">
                               <div class="form-group d-flex align-items-end position-relative mb-0">
                                 <input type="radio" name="radios" class="form-check-input me-2" id="Radio1">
                                 <label class="form-check-label me-2" for="Radio1">Каждое</label>
-                                <input class="form-control me-2" type="number" max="31" id="dayofmonth"
+                                <input class="form-control me-2" type="number" max="31" min="1" id="dayofmonth"
                                        style="width: 75px">
                                 <label for="dayofmonth">число месяца</label>
                               </div>
                             </div>
-                            <div class="form-check">
-                              <input type="radio" name="radios" class="form-check-input me-2" id="Radio2">
-                              <label class="form-check-label me-2" for="Radio2">Последний день месяца</label>
+                            <div class="form-check mb-3">
+                              <input type="radio" name="radios" class="form-check-input me-2" id="month1">
+                              <label class="form-check-label me-2" for="month1">Последний день месяца</label>
                             </div>
-                            <div class="form-check">
-                              <input type="radio" name="radios" class="form-check-input me-2" id="Radio3">
-                              <label class="form-check-label me-2 mb-3" for="Radio3">Первый день месяца</label>
+                            <div class="form-check mb-3">
+                              <input type="radio" name="radios" class="form-check-input me-2" id="month2">
+                              <label class="form-check-label me-2" for="month2">Предоследний рабочий день месяца</label>
+                            </div>
+                            <div class="form-check mb-3">
+                              <input type="radio" name="radios" class="form-check-input me-2" id="month3">
+                              <label class="form-check-label me-2" for="month3">Первый день месяца</label>
+                            </div>
+                            <div class="form-check mb-3">
+                              <input type="radio" name="radios" class="form-check-input me-2" id="month4">
+                              <label class="form-check-label me-2" for="month4">Первый рабочий день месяца</label>
+                            </div>
+                            <div class="form-check mb-3">
+                              <input type="radio" name="radios" class="form-check-input me-2" id="month5">
+                              <label class="form-check-label me-2" for="month5">Последний рабочий день месяца</label>
                             </div>
                           </div>
 

@@ -15,6 +15,37 @@ _def.recurringDef.typeData.rruleSet._rrule[0].options.tzid
 
 _def.recurringDef.typeData.rruleSet._rrule[0].options.until
 повторение до даты
+
+_def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday
+повторение по дням недели.
+0-пн, 1-вт и т.д.
+
+rrule:
+
+последний рабочий день месяца:
+freq: MONTHLY,
+byweekday: [RRule.MO, RRule.TU, RRule.WE, RRule.TH, RRule.FR],
+bysetpos: [-1]
+
+первый рабочий день месяца:
+freq: MONTHLY,
+byweekday: [RRule.MO, RRule.TU, RRule.WE, RRule.TH, RRule.FR],
+bysetpos: [1]
+
+последний вторник месяца
+freq: RRule.MONTHLY,
+byweekday: RRule.TU,
+bymonth: [7],
+bysetpos: [-1]
+
+каждая четная неделя месяца
+
+каждая нечетная неделя месяца
+
+последний день месяца
+
+предпоследний день месяца
+
 */
 
 /*

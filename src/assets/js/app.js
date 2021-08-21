@@ -141,7 +141,7 @@ function ajaxQuery(url, data, type, success, successparams) {
       success(successparams);
     },
     error: function (jqXHR, textStatus, errorThrown) {
-      showErrorToast("Ошибка", jqXHR + textStatus + errorThrown, moment().format('LLL'))
+      showErrorToast("Ошибка", jqXHR + textStatus + errorThrown, moment().tz('Europe/Moscow').format('LLL'))
     }
   });
 }
@@ -263,6 +263,14 @@ const calendmodulehandler = () => {
   const repdateinp = document.getElementById("endrep-date");
   // Инпут Закончить после повторений
   const repcountinp = document.getElementById("repcount");
+  // Интервал повторений для ежедневного
+  const daynum = document.getElementById("daynum");
+  // Интервал повторений для еженедельного
+  const weeknum = document.getElementById("weeknum");
+  // Интервал повторений для ежемесячного
+  const monthnum = document.getElementById("monthnum");
+  // Интервал повторений для ежегодного
+  const yearnum = document.getElementById("yearnum");
 
 
   // Цвета событий, названия менять в разметке, в js менять не надо
@@ -302,14 +310,14 @@ const calendmodulehandler = () => {
   function repswitch(info) {
     if ($(repeatSwitch).prop('checked')) {
       if (info == null) {
-        const date = moment().format('YYYY-MM-DD HH:mm');
+        const date = moment().tz('Europe/Moscow').format('YYYY-MM-DD HH:mm');
         $(startrepDate).val(date);
-        const enddate = moment(date).add(9, 'years').format('YYYY-MM-DD HH:mm');
+        const enddate = moment(date).tz('Europe/Moscow').add(9, 'years').format('YYYY-MM-DD HH:mm');
         $(endrepDate).val(enddate);
       } else {
-        const date = moment(info).format('YYYY-MM-DD HH:mm');
+        const date = moment(info).tz('Europe/Moscow').format('YYYY-MM-DD HH:mm');
         $(startrepDate).val(date);
-        const enddate = moment(date).add(9, 'years').format('YYYY-MM-DD HH:mm');
+        const enddate = moment(date).tz('Europe/Moscow').add(9, 'years').format('YYYY-MM-DD HH:mm');
         $(endrepDate).val(enddate);
       }
       repeatparams.style.display = "block";
@@ -373,12 +381,13 @@ const calendmodulehandler = () => {
       }
 // Повторять до даты
       if (eventToUpdate._def.recurringDef !== null) {
+        console.log(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday);
         $(repeatSwitch).prop('checked', true);
         repeatparams.style.display = "block";
         $(repparamSwitch).prop('required',true);
-        $(startrepDate).val(moment(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.dtstart).format('YYYY-MM-DD HH:mm'));
+        $(startrepDate).val(moment(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.dtstart).tz('Europe/Moscow').format('YYYY-MM-DD HH:mm'));
         if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.until) {
-          $(endrepDate).val(moment(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.until).format('YYYY-MM-DD HH:mm'));
+          $(endrepDate).val(moment(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.until).tz('Europe/Moscow').format('YYYY-MM-DD HH:mm'));
           $(repdate).prop('checked', true);
         } else {
           $(endrepDate).val("");
@@ -399,24 +408,28 @@ const calendmodulehandler = () => {
           weeklysection.style.display = "none";
           monthlysection.style.display = "none";
           yearlysection.style.display = "none";
+          $(daynum).val(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.interval);
         } else if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.freq === 2) {
           $(repparamSwitch).val('weekly-section');
           weeklysection.style.display = "block";
           dailysection.style.display = "none";
           monthlysection.style.display = "none";
           yearlysection.style.display = "none";
+          $(weeknum).val(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.interval);
         } else if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.freq === 1) {
           $(repparamSwitch).val('monthly-section');
           monthlysection.style.display = "block";
           dailysection.style.display = "none";
           weeklysection.style.display = "none";
           yearlysection.style.display = "none";
+          $(monthnum).val(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.interval);
         } else if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.freq === 0) {
           $(repparamSwitch).val('yearly-section');
           yearlysection.style.display = "block";
           dailysection.style.display = "none";
           weeklysection.style.display = "none";
           monthlysection.style.display = "none";
+          $(yearnum).val(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.interval);
         } else if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.freq === null) {
           return;
         }
@@ -437,11 +450,11 @@ const calendmodulehandler = () => {
       $(modal).find(eventUrl).val(eventToUpdate.url);
 
    /*   $(repeatSwitch).on('click', function () {
-        repswitch(moment($(startDate).val).format('YYYY-MM-DD HH:mm'));
+        repswitch(moment($(startDate).val).tz('Europe/Moscow').format('YYYY-MM-DD HH:mm'));
       })*/
 
       /*$(startDate).change(function () {
-        if (moment($(endDate).val).format('YYYY-MM-DD') > moment($(startDate).val).format('YYYY-MM-DD')) {
+        if (moment($(endDate).val).tz('Europe/Moscow').format('YYYY-MM-DD') > moment($(startDate).val).tz('Europe/Moscow').format('YYYY-MM-DD')) {
           $(endDate).val($(startDate).val);
         }
       })*/
@@ -526,8 +539,8 @@ const calendmodulehandler = () => {
         dataType: "json",
 
         data: {
-          startParam: moment(info.start).format('YYYY-MM-DD'),
-          endParam: moment(info.end).format('YYYY-MM-DD'),
+          startParam: moment(info.start).tz('Europe/Moscow').format('YYYY-MM-DD'),
+          endParam: moment(info.end).tz('Europe/Moscow').format('YYYY-MM-DD'),
         },
         success: function (result) {
           // Получение запрашиваемых календарей(категорий событий)
@@ -537,8 +550,8 @@ const calendmodulehandler = () => {
           /*return [result.events.filter(event => (calendars.includes(event.extendedProps.calendar)))];*/
         },
         error: function (jqXHR, textStatus, errorThrown) {
-          showErrorToast("Ошибка", jqXHR + textStatus + errorThrown, moment().format('LLL'))
-          //console.log(moment(info.start).format('YYYY-MM-DD'), moment(info.end).format('YYYY-MM-DD'),);
+          showErrorToast("Ошибка", jqXHR + textStatus + errorThrown, moment().tz('Europe/Moscow').format('LLL'))
+          //console.log(moment(info.start).tz('Europe/Moscow').format('YYYY-MM-DD'), moment(info.end).tz('Europe/Moscow').format('YYYY-MM-DD'),);
 
         }
       }
@@ -732,20 +745,20 @@ const calendmodulehandler = () => {
     addEventTitle.style.display = "block";
 
     if (info == null) {
-      const date = moment().format('YYYY-MM-DD HH:mm');
+      const date = moment().tz('Europe/Moscow').format('YYYY-MM-DD HH:mm');
       $(startDate).val(date);
       $(endDate).val(date);
     } else {
-      const date = moment(info.date).format('YYYY-MM-DD HH:mm');
+      const date = moment(info.date).tz('Europe/Moscow').format('YYYY-MM-DD HH:mm');
       $(startDate).val(date);
       $(endDate).val(date);
     }
     $(repeatSwitch).on('click', function () {
       if (info == null) {
-        const date = moment().format('YYYY-MM-DD HH:mm');
+        const date = moment().tz('Europe/Moscow').format('YYYY-MM-DD HH:mm');
         repswitch(date);
       } else {
-        const date = moment(info.date).format('YYYY-MM-DD HH:mm');
+        const date = moment(info.date).tz('Europe/Moscow').format('YYYY-MM-DD HH:mm');
         repswitch(date);
       }
     })
@@ -779,8 +792,8 @@ const calendmodulehandler = () => {
       const Event = {
         operation: "add",
         title: $(eventTitle).val(),
-        start: moment($(startDate).val()).format('YYYY-MM-DD HH:mm:ss'),
-        end: moment($(endDate).val()).format('YYYY-MM-DD HH:mm:ss'),
+        start: moment($(startDate).val()).tz('Europe/Moscow').format('YYYY-MM-DD HH:mm:ss'),
+        end: moment($(endDate).val()).tz('Europe/Moscow').format('YYYY-MM-DD HH:mm:ss'),
         calendar: $(eventLabel).val(),
         description: $(calendarEditor).val(),
         url: $(eventUrl).val(),
@@ -808,7 +821,7 @@ const calendmodulehandler = () => {
           showMiniToast('Событие ' + Event.title + ' добавлено', "success");
         },
         error: function (jqXHR, textStatus, errorThrown) {
-          showErrorToast("Ошибка", jqXHR + textStatus + errorThrown, moment().format('LLL'))
+          showErrorToast("Ошибка", jqXHR + textStatus + errorThrown, moment().tz('Europe/Moscow').format('LLL'))
         }
       });
     }
@@ -851,7 +864,7 @@ const calendmodulehandler = () => {
           showMiniToast('Событие ' + Event.title + ' обновлено', "info");
         },
         error: function (jqXHR, textStatus, errorThrown) {
-          showErrorToast("Ошибка", jqXHR + textStatus + errorThrown, moment().format('LLL'))
+          showErrorToast("Ошибка", jqXHR + textStatus + errorThrown, moment().tz('Europe/Moscow').format('LLL'))
         }
       });
     }
@@ -878,7 +891,7 @@ const calendmodulehandler = () => {
         showMiniToast('Событие ' + eventToUpdate.title + ' удалено', "danger");
       },
       error: function (jqXHR, textStatus, errorThrown) {
-        showErrorToast("Ошибка", jqXHR + textStatus + errorThrown, moment().format('LLL'))
+        showErrorToast("Ошибка", jqXHR + textStatus + errorThrown, moment().tz('Europe/Moscow').format('LLL'))
       }
     });
   });
@@ -1259,7 +1272,7 @@ const tasksHandler = () => {
                 <div class="tag-container">
                 <span class="bullet bullet-sm bullet-${tag} me-2" id="tag-${id}"></span>
 </div>
-                  <small class="text-nowrap text-muted me-1">${moment(deadline).format('LLL')}</small>
+                  <small class="text-nowrap text-muted me-1">${moment(deadline).tz('Europe/Moscow').format('LLL')}</small>
                 </div>
               </div>
             </li>`;
@@ -2082,9 +2095,9 @@ if (activeselect && roomselect) {
 *  today-group-month, today-group-dayw */
 
 const datarenderHandler = () => {
-  document.querySelector(".today-group-dayw").innerHTML = moment().format('dddd');
-  document.querySelector(".today-group-day").innerHTML = moment().format('D');
-  document.querySelector(".today-group-month").innerHTML = moment().format('MMMM');
+  document.querySelector(".today-group-dayw").innerHTML = moment().tz('Europe/Moscow').format('dddd');
+  document.querySelector(".today-group-day").innerHTML = moment().tz('Europe/Moscow').format('D');
+  document.querySelector(".today-group-month").innerHTML = moment().tz('Europe/Moscow').format('MMMM');
 };
 
 // Список ссылок

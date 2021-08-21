@@ -38815,10 +38815,12 @@ td .badge-big {
 #daynum-error,
 #weeknum-error,
 #monthnum-error,
-#yearnum-error {
+#yearnum-error,
+#dayofmonth-error {
   position: absolute;
   left: 0;
   top: 34px;
+  font-size: 14px;
 }
 
 .today-calendar .fc-h-event,
