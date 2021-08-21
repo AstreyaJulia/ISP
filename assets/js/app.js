@@ -357,19 +357,71 @@ const calendmodulehandler = () => {
       window.open((eventToUpdate).url, '_blank');
     });
 
-    console.log(info.event);
+    console.log(eventToUpdate);
     // Запрет на редактирование событий без id и фоновых
     if (info.event.id !== "" && info.event.display !== "background") {
       showModal();
       updateEventBtn.style.display = "block";
       btnDeleteEvent.style.display = "block";
       editEventTitle.style.display = "block";
-
       $(eventTitle).val(eventToUpdate.title);
+// Приватное событие
       if (eventToUpdate.extendedProps.user_id === 0) {
         $(privateSwitch).prop('checked', false)
       } else {
         $(privateSwitch).prop('checked', true)
+      }
+// Повторять до даты
+      if (eventToUpdate._def.recurringDef !== null) {
+        $(repeatSwitch).prop('checked', true);
+        repeatparams.style.display = "block";
+        $(repparamSwitch).prop('required',true);
+        $(startrepDate).val(moment(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.dtstart).format('YYYY-MM-DD HH:mm'));
+        if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.until) {
+          $(endrepDate).val(moment(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.until).format('YYYY-MM-DD HH:mm'));
+          $(repdate).prop('checked', true);
+        } else {
+          $(endrepDate).val("");
+          $(repdate).prop('checked', false);
+        }
+// Кол-во повторений
+        if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.count) {
+          $(repcountinp).val(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.count);
+          $(repcount).prop('checked', true);
+        } else {
+          $(repcountinp).val("");
+          $(repcount).prop('checked', false);
+        }
+
+        if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.freq === 3) {
+          $(repparamSwitch).val('daily-section');
+          dailysection.style.display = "block";
+          weeklysection.style.display = "none";
+          monthlysection.style.display = "none";
+          yearlysection.style.display = "none";
+        } else if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.freq === 2) {
+          $(repparamSwitch).val('weekly-section');
+          weeklysection.style.display = "block";
+          dailysection.style.display = "none";
+          monthlysection.style.display = "none";
+          yearlysection.style.display = "none";
+        } else if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.freq === 1) {
+          $(repparamSwitch).val('monthly-section');
+          monthlysection.style.display = "block";
+          dailysection.style.display = "none";
+          weeklysection.style.display = "none";
+          yearlysection.style.display = "none";
+        } else if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.freq === 0) {
+          $(repparamSwitch).val('yearly-section');
+          yearlysection.style.display = "block";
+          dailysection.style.display = "none";
+          weeklysection.style.display = "none";
+          monthlysection.style.display = "none";
+        } else if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.freq === null) {
+          return;
+        }
+      } else {
+        $(repeatSwitch).prop('checked', false);
       }
       start.setDate(eventToUpdate.start, true, 'YYYY-MM-DD HH:mm');
       if (eventToUpdate.allDay === true) {
@@ -384,9 +436,9 @@ const calendmodulehandler = () => {
       $(modal).find(calendarEditor).val(eventToUpdate.extendedProps.description);
       $(modal).find(eventUrl).val(eventToUpdate.url);
 
-      $(repeatSwitch).on('click', function () {
+   /*   $(repeatSwitch).on('click', function () {
         repswitch(moment($(startDate).val).format('YYYY-MM-DD HH:mm'));
-      })
+      })*/
 
       /*$(startDate).change(function () {
         if (moment($(endDate).val).format('YYYY-MM-DD') > moment($(startDate).val).format('YYYY-MM-DD')) {

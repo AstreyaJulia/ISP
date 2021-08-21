@@ -1,3 +1,22 @@
+/*_def.recurringDef.typeData.rruleSet._rrule[0].options.count
+кол-во повторений
+
+_def.recurringDef.typeData.rruleSet._rrule[0].options.dtstart
+начало повторения
+
+_def.recurringDef.typeData.rruleSet._rrule[0].options.freq
+шаблон повторения 3 - день, 2 - неделя, 1- месяц, 0 - год
+
+_def.recurringDef.typeData.rruleSet._rrule[0].options.interval
+интервал
+
+_def.recurringDef.typeData.rruleSet._rrule[0].options.tzid
+часовой пояс
+
+_def.recurringDef.typeData.rruleSet._rrule[0].options.until
+повторение до даты
+*/
+
 /*
 Дата начала Дата окончания Продолжительность
 

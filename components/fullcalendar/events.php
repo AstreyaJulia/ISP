@@ -45,6 +45,7 @@ foreach ($sdc_calendar as $myCalendar) {
       'description' => $myCalendar['description'],
       'url' => $myCalendar['url'],
       'user_id' => $myCalendar['user_id'],
+      'duration' => $myCalendar['duration'],
       'rrule' => [
         'freq' => $myCalendar['freq'],
         'tzid' => $myCalendar['tzid'],
