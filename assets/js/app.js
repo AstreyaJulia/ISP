@@ -140,8 +140,24 @@ function ajaxQuery(url, data, type, success, successparams) {
     success: function () {
       success(successparams);
     },
-    error: function (jqXHR, textStatus, errorThrown) {
-      showErrorToast("Ошибка", jqXHR + textStatus + errorThrown, moment().tz('Europe/Moscow').format('LLL'))
+    error: function (jqXHR, textStatus, errorThrown, exception) {
+      let header = '';
+      if (jqXHR.status === 0) {
+        header = 'Не подключено. Проверьте сеть';
+      } else if (jqXHR.status === 404) {
+        header = 'Запрашиваемая страница не найдена [404]';
+      } else if (jqXHR.status === 500) {
+        header = 'Внутренняя ошибка сервера [500]';
+      } else if (exception === 'parsererror') {
+        header = 'Запрошенный синтаксический анализ JSON завершился неудачно';
+      } else if (exception === 'timeout') {
+        header = 'Ошибка тайм-аута';
+      } else if (exception === 'abort') {
+        header = 'Ajax запрос прерван';
+      } else {
+        header = 'Неперехваченная ошибка';
+      }
+      showErrorToast(header, textStatus + errorThrown + jqXHR.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
     }
   });
 }
@@ -321,13 +337,13 @@ const calendmodulehandler = () => {
         $(endrepDate).val(enddate);
       }
       repeatparams.style.display = "block";
-      $(repparamSwitch).prop('required',true);
+      $(repparamSwitch).prop('required', true);
     } else {
       repeatparams.style.display = "none";
       $(startrepDate).val('');
       $(endrepDate).val('');
       $(repparamSwitch).val('none');
-      $(repparamSwitch).prop('required',false);
+      $(repparamSwitch).prop('required', false);
     }
   }
 
@@ -342,15 +358,6 @@ const calendmodulehandler = () => {
     hideModal();
     resetValues()
   });
-
-/*  // Очистить данные и закрыть модал, если нажали вне модала
-  window.onclick = function (event) {
-    if (event.target === modal) {
-      resetValues();
-      hideModal();
-    }
-  };
-*/
 
   // Событие при нажатии на событие
   function eventClick(info) {
@@ -373,27 +380,27 @@ const calendmodulehandler = () => {
       btnDeleteEvent.style.display = "block";
       editEventTitle.style.display = "block";
       $(eventTitle).val(eventToUpdate.title);
-// Приватное событие
+      // Приватное событие
       if (eventToUpdate.extendedProps.user_id === 0) {
         $(privateSwitch).prop('checked', false)
       } else {
         $(privateSwitch).prop('checked', true)
       }
-// Повторять до даты
+      // Повторять до даты
       if (eventToUpdate._def.recurringDef !== null) {
         console.log(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday);
         $(repeatSwitch).prop('checked', true);
         repeatparams.style.display = "block";
-        $(repparamSwitch).prop('required',true);
-        $(startrepDate).val(moment(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.dtstart).tz('Europe/Moscow').format('YYYY-MM-DD HH:mm'));
+        $(repparamSwitch).prop('required', true);
+        $(startrepDate).val(moment(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.dtstart).format('YYYY-MM-DD HH:mm'));
         if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.until) {
-          $(endrepDate).val(moment(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.until).tz('Europe/Moscow').format('YYYY-MM-DD HH:mm'));
+          $(endrepDate).val(moment(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.until).format('YYYY-MM-DD HH:mm'));
           $(repdate).prop('checked', true);
         } else {
           $(endrepDate).val("");
           $(repdate).prop('checked', false);
         }
-// Кол-во повторений
+        // Кол-во повторений
         if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.count) {
           $(repcountinp).val(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.count);
           $(repcount).prop('checked', true);
@@ -449,9 +456,9 @@ const calendmodulehandler = () => {
       $(modal).find(calendarEditor).val(eventToUpdate.extendedProps.description);
       $(modal).find(eventUrl).val(eventToUpdate.url);
 
-   /*   $(repeatSwitch).on('click', function () {
-        repswitch(moment($(startDate).val).tz('Europe/Moscow').format('YYYY-MM-DD HH:mm'));
-      })*/
+      /*   $(repeatSwitch).on('click', function () {
+           repswitch(moment($(startDate).val).tz('Europe/Moscow').format('YYYY-MM-DD HH:mm'));
+         })*/
 
       /*$(startDate).change(function () {
         if (moment($(endDate).val).tz('Europe/Moscow').format('YYYY-MM-DD') > moment($(startDate).val).tz('Europe/Moscow').format('YYYY-MM-DD')) {
@@ -476,8 +483,6 @@ const calendmodulehandler = () => {
         }
       })
 
-    } else {
-      return;
     }
 
 
@@ -488,6 +493,28 @@ const calendmodulehandler = () => {
       resetValues();
     });
   }
+
+  // Label  select
+    function renderBullets(option) {
+      if (!option.id) {
+        return option.text;
+      }
+      return "<span class='bullet bullet-" +
+        $(option.element).data('label') +
+        " bullet-sm me-2 ms-2'> " +
+        '</span>' +
+        option.text;
+    }
+    $(eventLabel).wrap('<div class="position-relative"></div>').select2({
+      placeholder: 'Выберите значение',
+      dropdownParent: $(eventLabel).parent(),
+      templateResult: renderBullets,
+      templateSelection: renderBullets,
+      minimumResultsForSearch: -1,
+      escapeMarkup: function (es) {
+        return es;
+      }
+    });
 
   // Датапикер начало события
   const start = startDate.flatpickr({
@@ -543,30 +570,30 @@ const calendmodulehandler = () => {
           endParam: moment(info.end).tz('Europe/Moscow').format('YYYY-MM-DD'),
         },
         success: function (result) {
-          // Получение запрашиваемых календарей(категорий событий)
-          /*const calendars = selectedCalendars();*/
           successCallback(result);
           console.log(result);
-          /*return [result.events.filter(event => (calendars.includes(event.extendedProps.calendar)))];*/
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-          showErrorToast("Ошибка", jqXHR + textStatus + errorThrown, moment().tz('Europe/Moscow').format('LLL'))
-          //console.log(moment(info.start).tz('Europe/Moscow').format('YYYY-MM-DD'), moment(info.end).tz('Europe/Moscow').format('YYYY-MM-DD'),);
-
+        error: function (jqXHR, textStatus, errorThrown, exception) {
+          let header = '';
+          if (jqXHR.status === 0) {
+            header = 'Не подключено. Проверьте сеть';
+          } else if (jqXHR.status === 404) {
+            header = 'Запрашиваемая страница не найдена [404]';
+          } else if (jqXHR.status === 500) {
+            header = 'Внутренняя ошибка сервера [500]';
+          } else if (exception === 'parsererror') {
+            header = 'Запрос синтаксического анализа JSON завершился неудачно';
+          } else if (exception === 'timeout') {
+            header = 'Ошибка тайм-аута';
+          } else if (exception === 'abort') {
+            header = 'Ajax запрос прерван';
+          } else {
+            header = 'Неперехваченная ошибка';
+          }
+          showErrorToast(header, textStatus + errorThrown + jqXHR.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
         }
       }
     );
-
-
-    /* const calendars = selectedCalendars();
-     // Сделать API вызов
-     let selectedEvents = $(events).filter(function (event) {
-       // console.log(event.extendedProps.calendar.toLowerCase());
-       return calendars.includes(event.extendedProps.calendar.toLowerCase());
-     });
-     // if (selectedEvents.length > 0) {
-     successCallback(selectedEvents);
-     // }*/
   }
 
   const bgevents = [
@@ -744,24 +771,29 @@ const calendmodulehandler = () => {
     cancelBtn.style.display = "block";
     addEventTitle.style.display = "block";
 
+    // Разные даты начала и конца события для создаваемых событий при нажатии на кнопку создания и на день
     if (info == null) {
-      const date = moment().tz('Europe/Moscow').format('YYYY-MM-DD HH:mm');
+      const date = moment().format('YYYY-MM-DD HH:mm');
       $(startDate).val(date);
       $(endDate).val(date);
     } else {
-      const date = moment(info.date).tz('Europe/Moscow').format('YYYY-MM-DD HH:mm');
+      const date = moment(info.date).format('YYYY-MM-DD HH:mm');
       $(startDate).val(date);
       $(endDate).val(date);
     }
+
+    // Если включили повторение, то дата начала повторения берется из даты начала события
     $(repeatSwitch).on('click', function () {
       if (info == null) {
-        const date = moment().tz('Europe/Moscow').format('YYYY-MM-DD HH:mm');
+        const date = moment().format('YYYY-MM-DD HH:mm');
         repswitch(date);
       } else {
-        const date = moment(info.date).tz('Europe/Moscow').format('YYYY-MM-DD HH:mm');
+        const date = moment(info.date).format('YYYY-MM-DD HH:mm');
         repswitch(date);
       }
     })
+
+    // Если в конце повторения включена дата, то блокируется ввоб кол-ва повторений и наоборот
     $(repdate).on('click', function () {
       if ($(repdate).is(':checked')) {
         $(repdateinp).prop("disabled", false);
@@ -778,6 +810,30 @@ const calendmodulehandler = () => {
         $(repcountinp).prop("disabled", true);
       }
     })
+
+    // Если переключают на весь день, то меняется диапазон времени на весь день, и наоборот, на текущее время, не меняя введенной даты
+    $(allDaySwitch).on('click', function () {
+      if ($(allDaySwitch).prop('checked')) {
+        $(startDate).val(moment($(startDate).val()).hour(0).minutes(0).format('YYYY-MM-DD HH:mm'));
+        $(endDate).val(moment($(endDate).val()).hour(23).minutes(59).format('YYYY-MM-DD HH:mm'));
+      } else {
+        $(startDate).val(moment($(startDate).val()).hour(moment().hour()).minutes(moment().minutes()).format('YYYY-MM-DD HH:mm'));
+        $(endDate).val(moment($(endDate).val()).hour(moment().hour()).minutes(moment().minutes()).format('YYYY-MM-DD HH:mm'));
+      }
+    })
+
+    // Проверка дат начала и конца, при изменении даты, меняет неправильную
+    $(startDate).on('change', function () {
+      if ($(startDate).val() > $(endDate).val()) {
+        $(endDate).val($(startDate).val());
+      }
+    })
+    $(endDate).on('change', function () {
+      if ($(startDate).val() > $(endDate).val()) {
+        $(startDate).val($(endDate).val());
+      }
+    })
+
   }
 
   $(neweventbtn).on('click', function () {
@@ -792,19 +848,71 @@ const calendmodulehandler = () => {
       const Event = {
         operation: "add",
         title: $(eventTitle).val(),
-        start: moment($(startDate).val()).tz('Europe/Moscow').format('YYYY-MM-DD HH:mm:ss'),
-        end: moment($(endDate).val()).tz('Europe/Moscow').format('YYYY-MM-DD HH:mm:ss'),
+        start: moment($(startDate).val()).format('YYYY-MM-DD HH:mm:ss'),
+        end: moment($(endDate).val()).format('YYYY-MM-DD HH:mm:ss'),
         calendar: $(eventLabel).val(),
         description: $(calendarEditor).val(),
         url: $(eventUrl).val(),
         user_id: $(privateSwitch).prop('checked') ? "999999999" : "0",
         // Тут тоже она пустая, но без ее объявления нельзя
         allDay: allDay,
+        tzid: "Europe/Moscow",
       }
       if ($(allDaySwitch).prop('checked')) {
         // Если Весь день, то меняем переменную
         Event.allDay = '1';
+      } else {
+        return;
       }
+
+      // Параметры повторения. Если галочка включена
+      if ($(repeatSwitch).prop('checked')) {
+        if ($(repparamSwitch).val('daily-section')) {
+          // Ежедневно
+          Event.freq = 'DAILY';
+          Event.interval = $(daynum).val();
+        } else if ($(repparamSwitch).val('weekly-section')) {
+          // Еженедельно
+          Event.freq = 'WEEKLY';
+          Event.interval = $(weeknum).val();
+        } else if ($(repparamSwitch).val('monthly-section')) {
+          // Ежемесячно
+          Event.freq = 'MONTHLY';
+          Event.interval = $(monthnum).val();
+        } else if ($(repparamSwitch).val('yearly-section')) {
+          // Ежегодно
+          Event.freq = 'YEARLY';
+          Event.interval = $(yearnum).val();
+        } else if ($(repparamSwitch).val('none')) {
+          // Без повторения, но галочку поставили
+          Event.freq = '';
+          Event.interval = '';
+        }
+
+        // Начало повторения
+        Event.dtstart = moment($(startrepDate).val()).format('YYYY-MM-DD HH:mm:ss');
+
+        // Диапазон повторения
+        if ($(repdate).prop('checked')) {
+          Event.until = moment($(endrepDate).val()).format('YYYY-MM-DD HH:mm:ss');
+        } else  {
+          Event.until = '';
+        }
+        // Кол-во повторений
+        if ($(repcount).prop('checked')) {
+          Event.count = $(repcountinp).val();
+        } else  {
+          Event.count = '';
+        }
+
+      } else {
+        Event.freq = '';
+        Event.dtstart = '';
+        Event.until = '';
+        Event.count = '';
+        Event.interval = '';
+      }
+      console.log(Event);
       // Пишем в базу новое событие методом POST
       $.ajax({
         url: 'components/fullcalendar/ajax.php',

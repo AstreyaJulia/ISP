@@ -38846,6 +38846,10 @@ td .badge-big {
 .calendar-module .fc .fc-popover {
   z-index: 1000;
 }
+.today-calendar .fc .fc-event-time,
+.calendar-module .fc .fc-event-time {
+  font-size: 12px;
+}
 .today-calendar .fc .fc-button,
 .calendar-module .fc .fc-button {
   border: none;
@@ -40088,8 +40092,12 @@ span.flatpickr-weekday {
   }
 }
 .select2-container {
+  display: block;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
   box-sizing: border-box;
-  display: inline-block;
   margin: 0;
   position: relative;
   vertical-align: middle;
@@ -40106,7 +40114,6 @@ span.flatpickr-weekday {
 
 .select2-container .select2-selection--single .select2-selection__rendered {
   display: block;
-  padding-left: 8px;
   padding-right: 20px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -40156,8 +40163,8 @@ span.flatpickr-weekday {
 }
 
 .select2-dropdown {
-  background-color: white;
-  border: 1px solid #aaa;
+  background-color: #fcfcfc;
+  border: 1px solid #d9dbe9;
   border-radius: 4px;
   box-sizing: border-box;
   display: block;
@@ -40236,7 +40243,7 @@ span.flatpickr-weekday {
   width: auto;
   opacity: 0;
   z-index: 99;
-  background-color: #fff;
+  background-color: #fcfcfc;
   filter: alpha(opacity=0);
 }
 
@@ -40254,13 +40261,19 @@ span.flatpickr-weekday {
 }
 
 .select2-container--default .select2-selection--single {
-  background-color: #fff;
-  border: 1px solid #aaa;
-  border-radius: 4px;
+  padding: 0.25rem 0.75rem;
+  height: 100%;
+  color: #404d61;
+  background-color: #fcfcfc;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  appearance: none;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 .select2-container--default .select2-selection--single .select2-selection__rendered {
-  color: #444;
+  color: #5a6474;
   line-height: 28px;
 }
 
@@ -40271,11 +40284,11 @@ span.flatpickr-weekday {
 }
 
 .select2-container--default .select2-selection--single .select2-selection__placeholder {
-  color: #999;
+  color: #a0a3bd;
 }
 
 .select2-container--default .select2-selection--single .select2-selection__arrow {
-  height: 26px;
+  height: 100%;
   position: absolute;
   top: 1px;
   right: 1px;
@@ -40283,16 +40296,17 @@ span.flatpickr-weekday {
 }
 
 .select2-container--default .select2-selection--single .select2-selection__arrow b {
-  border-color: #888 transparent transparent transparent;
-  border-style: solid;
-  border-width: 5px 4px 0 4px;
-  height: 0;
-  left: 50%;
-  margin-left: -4px;
-  margin-top: -2px;
+  margin-left: -10px;
+  margin-top: -15px;
   position: absolute;
   top: 50%;
-  width: 0;
+  padding: 1rem;
+  -moz-padding-start: calc(0.75rem - 3px);
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 16px 12px;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 .select2-container--default[dir=rtl] .select2-selection--single .select2-selection__clear {
@@ -40305,7 +40319,7 @@ span.flatpickr-weekday {
 }
 
 .select2-container--default.select2-container--disabled .select2-selection--single {
-  background-color: #eee;
+  background-color: #fcfcfc;
   cursor: default;
 }
 
@@ -40314,13 +40328,13 @@ span.flatpickr-weekday {
 }
 
 .select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
-  border-color: transparent transparent #888 transparent;
+  border-color: transparent transparent #a0a3bd transparent;
   border-width: 0 4px 5px 4px;
 }
 
 .select2-container--default .select2-selection--multiple {
-  background-color: white;
-  border: 1px solid #aaa;
+  background-color: 0.5;
+  border: 1px solid #d9dbe9;
   border-radius: 4px;
   cursor: text;
 }
@@ -40347,8 +40361,8 @@ span.flatpickr-weekday {
 }
 
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
-  background-color: #e4e4e4;
-  border: 1px solid #aaa;
+  background-color: #fcfcfc;
+  border: 1px solid #d9dbe9;
   border-radius: 4px;
   cursor: default;
   float: left;
@@ -40358,7 +40372,7 @@ span.flatpickr-weekday {
 }
 
 .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
-  color: #999;
+  color: #d9dbe9;
   cursor: pointer;
   display: inline-block;
   font-weight: bold;
@@ -40366,7 +40380,7 @@ span.flatpickr-weekday {
 }
 
 .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover {
-  color: #333;
+  color: #5a6474;
 }
 
 .select2-container--default[dir=rtl] .select2-selection--multiple .select2-selection__choice, .select2-container--default[dir=rtl] .select2-selection--multiple .select2-search--inline {
@@ -40384,12 +40398,12 @@ span.flatpickr-weekday {
 }
 
 .select2-container--default.select2-container--focus .select2-selection--multiple {
-  border: solid black 1px;
+  border: solid #5a6474 1px;
   outline: 0;
 }
 
 .select2-container--default.select2-container--disabled .select2-selection--multiple {
-  background-color: #eee;
+  background-color: #fcfcfc;
   cursor: default;
 }
 
@@ -40408,7 +40422,7 @@ span.flatpickr-weekday {
 }
 
 .select2-container--default .select2-search--dropdown .select2-search__field {
-  border: 1px solid #aaa;
+  border: 1px solid #d9dbe9;
 }
 
 .select2-container--default .select2-search--inline .select2-search__field {
@@ -40429,11 +40443,11 @@ span.flatpickr-weekday {
 }
 
 .select2-container--default .select2-results__option[aria-disabled=true] {
-  color: #999;
+  color: #d9dbe9;
 }
 
 .select2-container--default .select2-results__option[aria-selected=true] {
-  background-color: #ddd;
+  background-color: #fcfcfc;
 }
 
 .select2-container--default .select2-results__option .select2-results__option {
@@ -40470,7 +40484,7 @@ span.flatpickr-weekday {
 }
 
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
-  background-color: #5897fb;
+  background-color: #5552d9;
   color: white;
 }
 

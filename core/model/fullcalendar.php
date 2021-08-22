@@ -17,21 +17,21 @@
 
 	    //Получаем дни рождения
 	    public function getBirthday($startParam, $endParam) {
-	        $sql = "SELECT fullname, dob FROM `sdc_user_attributes` 
+	        $sql = "SELECT fullname, dob FROM `sdc_user_attributes`
 						WHERE room IS NOT NULL and
 						 (
 						(date_format('$startParam','%m-%d') < date_format('$endParam','%m-%d'))
 						 AND
 						(date_format(dob,'%m-%d') between date_format('$startParam','%m-%d') AND date_format('$endParam','%m-%d'))
 						)
-						OR 
+						OR
 						(
 
-						 (date_format('$startParam','%m-%d') > date_format('$endParam','%m-%d')) 
+						 (date_format('$startParam','%m-%d') > date_format('$endParam','%m-%d'))
 						  AND
 						   (
 						       (date_format(dob,'%m-%d') between date_format('$startParam','%m-%d') AND date_format('2021-12-31','%m-%d'))
-						OR 
+						OR
 						       (date_format(dob,'%m-%d') between date_format('2021-01-01','%m-%d') AND date_format('$endParam','%m-%d'))
 						   )
 						    )";
@@ -40,8 +40,8 @@
 
 	    //Добавляем событие
 	    public function setInsertEvents($params) {
-	        $sql = "INSERT INTO `sdc_calendar` (`title`, `start`, `end`, `calendar`, `description`, `url`, `user_id`, `allDay`)
-VALUES (:title, :start, :end, :calendar, :description, :url, :user_id, :allDay)";
+	        $sql = "INSERT INTO `sdc_calendar` (`title`, `start`, `end`, `calendar`, `description`, `url`, `user_id`, `allDay`, `freq`, `dtstart`, `tzid`, `until`, `count`, `interval`)
+VALUES (:title, :start, :end, :calendar, :description, :url, :user_id, :allDay, :freq, :dtstart, :tzid, :until, :count, :interval)";
 	        return $this->db->run($sql, $params);
 	    }
 

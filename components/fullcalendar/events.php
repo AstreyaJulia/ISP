@@ -45,7 +45,6 @@ foreach ($sdc_calendar as $myCalendar) {
       'description' => $myCalendar['description'],
       'url' => $myCalendar['url'],
       'user_id' => $myCalendar['user_id'],
-      'duration' => $myCalendar['duration'],
       'rrule' => [
         'freq' => $myCalendar['freq'],
         'tzid' => $myCalendar['tzid'],
@@ -54,6 +53,8 @@ foreach ($sdc_calendar as $myCalendar) {
         'dtstart' => $myCalendar['dtstart'],
         'until' => $myCalendar['until'],
         'bymonth' => $myCalendar['bymonth'],
+        // нужен массив вида byweekday: ['mo','tu'],
+        // не работает 'byweekday' => explode(",", $myCalendar['byweekday'])
         'byweekday' => $myCalendar['byweekday']
       ]
     ];
