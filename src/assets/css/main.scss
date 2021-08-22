@@ -3431,7 +3431,6 @@ span.flatpickr-weekday {
   margin-top: -15px;
   position: absolute;
   top: 50%;
-
   padding: 1rem;
   -moz-padding-start: calc(0.75rem - 3px);
   background-image: escape-svg($form-select-indicator);
@@ -3616,8 +3615,8 @@ span.flatpickr-weekday {
 }
 
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
-  background-color: $primary;
-  color: white;
+  background-color: $primary-20;
+  color: $primary-dark;
 }
 
 .select2-container--default .select2-results__group {

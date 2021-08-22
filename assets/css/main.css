@@ -40484,8 +40484,8 @@ span.flatpickr-weekday {
 }
 
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
-  background-color: #5552d9;
-  color: white;
+  background-color: rgba(85, 82, 217, 0.2);
+  color: #2623a2;
 }
 
 .select2-container--default .select2-results__group {

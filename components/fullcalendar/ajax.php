@@ -30,7 +30,7 @@ $tzid = isset($_POST['tzid']) ? $_POST['tzid'] : "";
 $until = isset($_POST['until']) ? $_POST['until'] : "";
 $count = isset($_POST['count']) ? $_POST['count'] : "";
 $interval = isset($_POST['interval']) ? $_POST['interval'] : "";
-
+$display = isset($_POST['display']) ? $_POST['display'] : "";
 
 // Если в полученном post user_id = 999999999, то меняем на id пользователя из куки, ессли 0, то user_id =0
 switch ($user_id) {
@@ -56,7 +56,8 @@ $paramsAdd = [
   ':tzid' => $tzid,
   ':until' => $until,
   ':count' => $count,
-  ':interval' => $interval
+  ':interval' => $interval,
+  ':display' => $display
 ];
 
 $paramsUpd = [

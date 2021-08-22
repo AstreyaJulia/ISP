@@ -308,7 +308,7 @@
 
     <div class="card-body">
       <div class="filter-group calendar-private-filter flex-column align-items-start">
-        <p class="group-title">События:</p>
+        <p class="group-title mb-2">События:</p>
         <div class="form-check">
           <input class="form-check-input input-filter bg-primary" type="checkbox" id="Private" name="Private">
           <label class="form-check-label" for="Private">Только мои</label>
@@ -316,31 +316,31 @@
 
       </div>
       <div class="filter-group calendar-events-filter flex-column align-items-start">
-        <p class="group-title">Календарь:</p>
+        <p class="group-title mb-2">Календарь:</p>
         <div class="form-check">
           <input class="form-check-input input-filter bg-dark select-all" type="checkbox" id="select-all"
                  name="select-all" checked>
-          <label class="form-check-label" for="select-all">Все</label>
+          <label class="form-check-label mb-2" for="select-all">Все</label>
         </div>
         <div class="form-check">
           <input class="form-check-input input-filter bg-primary" type="checkbox" id="Primary" name="Primary" checked>
-          <label class="form-check-label" for="Primary">События</label>
+          <label class="form-check-label mb-2" for="Primary">События</label>
         </div>
         <div class="form-check">
           <input class="form-check-input input-filter bg-danger" type="checkbox" id="Danger" name="Danger" checked>
-          <label class="form-check-label" for="Danger">Праздники</label>
+          <label class="form-check-label mb-2" for="Danger">Праздники</label>
         </div>
         <div class="form-check">
           <input class="form-check-input input-filter bg-warning" type="checkbox" id="Warning" name="Warning" checked>
-          <label class="form-check-label" for="Warning">Важно</label>
+          <label class="form-check-label mb-2" for="Warning">Важно</label>
         </div>
         <div class="form-check">
           <input class="form-check-input input-filter bg-success" type="checkbox" id="Success" name="Success" checked>
-          <label class="form-check-label" for="Success">Личное</label>
+          <label class="form-check-label mb-2" for="Success">Личное</label>
         </div>
         <div class="form-check">
           <input class="form-check-input input-filter bg-info" type="checkbox" id="Info" name="Info" checked>
-          <label class="form-check-label" for="Info">Разное</label>
+          <label class="form-check-label mb-2" for="Info">Разное</label>
         </div>
       </div>
 

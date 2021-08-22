@@ -494,7 +494,7 @@ const calendmodulehandler = () => {
     });
   }
 
-  // Label  select
+  // Селект для меток в модале
     function renderBullets(option) {
       if (!option.id) {
         return option.text;
@@ -596,83 +596,6 @@ const calendmodulehandler = () => {
     );
   }
 
-  const bgevents = [
-    {
-      id: 1000,
-      start: "2021-07-31",
-      end: "2021-07-31",
-      display: "background"
-    },
-    {
-      id: 1001,
-      start: "2021-08-01",
-      end: "2021-08-01",
-      allDay: true,
-      display: "background"
-    },
-    {
-      id: 1002,
-      start: "2021-08-07",
-      end: "2021-08-07",
-      allDay: true,
-      display: "background"
-    },
-    {
-      id: 1003,
-      start: "2021-08-08",
-      end: "2021-08-08",
-      display: "background"
-    },
-    {
-      id: 1004,
-      start: "2021-08-14",
-      end: "2021-08-15",
-      display: "background"
-    },
-    {
-      id: 1005,
-      start: "2021-08-15",
-      end: "2021-08-15",
-      display: "background"
-    },
-    {
-      id: 1006,
-      start: "2021-08-21",
-      end: "2021-08-21",
-      display: "background"
-    },
-    {
-      id: 1007,
-      start: "2021-08-22",
-      end: "2021-08-22",
-      display: "background"
-    },
-    {
-      id: 1008,
-      start: "2021-08-28",
-      end: "2021-08-28",
-      display: "background"
-    },
-    {
-      id: 1009,
-      start: "2021-08-29",
-      end: "2021-08-29",
-      display: "background"
-    },
-    {
-      id: 1010,
-      start: "2021-09-04",
-      end: "2021-09-04",
-      display: "background"
-    },
-    {
-      id: 1011,
-      start: "2021-09-05",
-      end: "2021-09-05",
-      display: "background"
-    },
-  ];
-
   // Показать popover
   function showPopover(event) {
     const classpopover = "popover-" + event.event.extendedProps.calendar.toLowerCase();
@@ -714,10 +637,7 @@ const calendmodulehandler = () => {
         'bg-' + colorName + '-50'
       ];
     },
-    eventSources: [
-      fetchEvents,
-      bgevents
-    ],
+    eventSources: [fetchEvents],
     headerToolbar: {
       left: 'title',
       center: '',
@@ -861,8 +781,6 @@ const calendmodulehandler = () => {
       if ($(allDaySwitch).prop('checked')) {
         // Если Весь день, то меняем переменную
         Event.allDay = '1';
-      } else {
-        return;
       }
 
       // Параметры повторения. Если галочка включена

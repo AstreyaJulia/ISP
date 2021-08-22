@@ -32,7 +32,8 @@ foreach ($sdc_calendar as $myCalendar) {
       'calendar' => $myCalendar['calendar'],
       'description' => $myCalendar['description'],
       'url' => $myCalendar['url'],
-      'user_id' => $myCalendar['user_id']
+      'user_id' => $myCalendar['user_id'],
+      'display' => $myCalendar['display']
     ];
   } else {
     $json[] = [
@@ -45,6 +46,7 @@ foreach ($sdc_calendar as $myCalendar) {
       'description' => $myCalendar['description'],
       'url' => $myCalendar['url'],
       'user_id' => $myCalendar['user_id'],
+      'display' => $myCalendar['display'],
       'rrule' => [
         'freq' => $myCalendar['freq'],
         'tzid' => $myCalendar['tzid'],
