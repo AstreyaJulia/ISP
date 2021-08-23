@@ -389,6 +389,31 @@ const calendmodulehandler = () => {
       // Повторять до даты
       if (eventToUpdate._def.recurringDef !== null) {
         console.log(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday);
+
+        // Чекбоксы дней недель
+        // Для еженедельного
+        if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.freq === 2) {
+          let array = eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday;
+          for (let i = 0; i <array.length; i++) {
+            console.log(array[i]);
+            if (array[i] === 0) {
+              $(monday).prop('checked', true)
+            } if (array[i] === 1) {
+              $(tuesday).prop('checked', true)
+            } if (array[i] === 2) {
+              $(wednesday).prop('checked', true)
+            }  if (array[i] === 3) {
+              $(thursday).prop('checked', true)
+            }  if (array[i] === 4) {
+              $(friday).prop('checked', true)
+            }  if (array[i] === 5) {
+              $(saturday).prop('checked', true)
+            }  if (array[i] === 6) {
+              $(sunday).prop('checked', true)
+            }
+          }
+        }
+
         $(repeatSwitch).prop('checked', true);
         repeatparams.style.display = "block";
         $(repparamSwitch).prop('required', true);
