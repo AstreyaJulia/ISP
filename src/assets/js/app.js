@@ -390,12 +390,11 @@ const calendmodulehandler = () => {
       if (eventToUpdate._def.recurringDef !== null) {
         console.log(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday);
 
-        // Чекбоксы дней недель
         // Для еженедельного
         if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.freq === 2) {
+          // Чекбоксы дней недель
           let array = eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday;
           for (let i = 0; i <array.length; i++) {
-            console.log(array[i]);
             if (array[i] === 0) {
               $(monday).prop('checked', true)
             } if (array[i] === 1) {

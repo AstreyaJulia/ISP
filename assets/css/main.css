@@ -40608,15 +40608,15 @@ span.flatpickr-weekday {
 }
 
 .select2-container--classic .select2-selection--multiple {
-  background-color: white;
-  border: 1px solid #aaa;
+  background-color: #fcfcfc;
+  border: 1px solid #a0a3bd;
   border-radius: 4px;
   cursor: text;
   outline: 0;
 }
 
 .select2-container--classic .select2-selection--multiple:focus {
-  border: 1px solid #5897fb;
+  border: 1px solid #5552d9;
 }
 
 .select2-container--classic .select2-selection--multiple .select2-selection__rendered {
@@ -40630,8 +40630,8 @@ span.flatpickr-weekday {
 }
 
 .select2-container--classic .select2-selection--multiple .select2-selection__choice {
-  background-color: #e4e4e4;
-  border: 1px solid #aaa;
+  background-color: #fcfcfc;
+  border: 1px solid #a0a3bd;
   border-radius: 4px;
   cursor: default;
   float: left;
@@ -40641,7 +40641,7 @@ span.flatpickr-weekday {
 }
 
 .select2-container--classic .select2-selection--multiple .select2-selection__choice__remove {
-  color: #888;
+  color: #a0a3bd;
   cursor: pointer;
   display: inline-block;
   font-weight: bold;
@@ -40649,7 +40649,7 @@ span.flatpickr-weekday {
 }
 
 .select2-container--classic .select2-selection--multiple .select2-selection__choice__remove:hover {
-  color: #555;
+  color: #a0a3bd;
 }
 
 .select2-container--classic[dir=rtl] .select2-selection--multiple .select2-selection__choice {
@@ -40664,7 +40664,7 @@ span.flatpickr-weekday {
 }
 
 .select2-container--classic.select2-container--open .select2-selection--multiple {
-  border: 1px solid #5897fb;
+  border: 1px solid #5552d9;
 }
 
 .select2-container--classic.select2-container--open.select2-container--above .select2-selection--multiple {
@@ -40680,7 +40680,7 @@ span.flatpickr-weekday {
 }
 
 .select2-container--classic .select2-search--dropdown .select2-search__field {
-  border: 1px solid #aaa;
+  border: 1px solid #a0a3bd;
   outline: 0;
 }
 
@@ -40690,7 +40690,7 @@ span.flatpickr-weekday {
 }
 
 .select2-container--classic .select2-dropdown {
-  background-color: #fff;
+  background-color: #fcfcfc;
   border: 1px solid transparent;
 }
 
@@ -40712,12 +40712,12 @@ span.flatpickr-weekday {
 }
 
 .select2-container--classic .select2-results__option[aria-disabled=true] {
-  color: grey;
+  color: #a0a3bd;
 }
 
 .select2-container--classic .select2-results__option--highlighted[aria-selected] {
-  background-color: #3875d7;
-  color: #fff;
+  background-color: #5552d9;
+  color: #fcfcfc;
 }
 
 .select2-container--classic .select2-results__group {
@@ -40727,7 +40727,15 @@ span.flatpickr-weekday {
 }
 
 .select2-container--classic.select2-container--open .select2-dropdown {
-  border-color: #5897fb;
+  border-color: #5552d9;
+}
+
+.select2.select2-container--open .select2-selection.select2-selection--single {
+  color: #5a6474;
+  background-color: #fcfcfc;
+  border-color: #aaa8ec;
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(85, 82, 217, 0.25);
 }
 
 form span.error {
