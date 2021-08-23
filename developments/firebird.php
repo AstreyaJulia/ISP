@@ -4,7 +4,7 @@
     	<meta charset="utf-8">
     </head>
 <?php
-	
+	$start = microtime(true);
 /* Запрос для категорий гражданских дел
 
 select c.name, c.prefix, c.parent_va_code, 
@@ -29,12 +29,12 @@ from uni_show_category323_tree(:on_date) c
 							FROM catalogcontent c
 							WHERE catalogid = 5401")->fetchAll(PDO::FETCH_ASSOC);
         $ourDataPHP = serialize(mb_convert_encoding($row, "utf8", "windows-1251"));
-        file_put_contents('data/categories-material.php', $ourDataPHP);
+        file_put_contents('../data/categories-material.php', $ourDataPHP);
         
 
 
         $ourDataJson = json_encode(mb_convert_encoding($row, "utf8", "windows-1251"));
-        file_put_contents('data/categories-material.json', $ourDataJson);
+        file_put_contents('../data/categories-material.json', $ourDataJson);
 
         //$row->closeCursor(); // Закрываем курсор
         
@@ -104,3 +104,4 @@ from uni_show_category323_tree(:on_date) c
 
 
 
+echo '<div style="text-align:right;">Время выполнения скрипта: '.(microtime(true) - $start).' сек.</div>';

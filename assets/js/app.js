@@ -845,6 +845,9 @@ const calendmodulehandler = () => {
           hideModal();
           resetValues();
           showMiniToast('Событие ' + Event.title + ' добавлено', "success");
+          if (response) {
+            showErrorToast("Всплывашка", response, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
+          }
         },
         error: function (jqXHR, textStatus, errorThrown) {
           showErrorToast("Ошибка", jqXHR + textStatus + errorThrown, moment().tz('Europe/Moscow').format('LLL'))

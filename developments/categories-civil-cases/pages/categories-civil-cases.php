@@ -2,16 +2,16 @@
 	$title = "Ктегории гражданских дел";
 	$info = "";
 	// получаем данные из JSON файла 
-	$ourData = file_get_contents("../../data/categories-civil-cases.json");
+/*	$ourData = file_get_contents("../../data/categories-civil-cases.json");
 	$row = json_decode($ourData);
 	ob_start();
 		include "components/categories-civil-cases/template/tpl.categories-civil-cases.php";
 		$content = ob_get_contents();
-	ob_end_clean();
+	ob_end_clean();*/
 
 
 
-	/*$dsn = 'firebird:dbname=192.168.0.254:C:\Data\Justice\UNI_WORK2003.GDB;charset=utf8;';
+	$dsn = 'firebird:dbname=192.168.0.254:C:\Data\Justice\UNI_WORK2003.GDB;charset=utf8;';
 	$username = 'SYSDBA';
 	$password = 'm';
 	try {
@@ -24,10 +24,10 @@
 
 		// Получаем результат построчно в виде объекта
 		ob_start();
-			include "components/categories-civil-cases/template/tpl.categories-civil-cases.php";
+			include $_SERVER['DOCUMENT_ROOT']."/components/categories-civil-cases/template/tpl.categories-civil-cases.php";
 			$content = ob_get_contents();
 		ob_end_clean();
 		$query->closeCursor(); // Закрываем курсор
 	} catch (\PDOException $e) {
 		echo $e->getMessage();
-	}*/
+	}
