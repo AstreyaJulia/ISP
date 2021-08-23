@@ -55,9 +55,7 @@ foreach ($sdc_calendar as $myCalendar) {
         'dtstart' => $myCalendar['dtstart'],
         'until' => $myCalendar['until'],
         'bymonth' => $myCalendar['bymonth'],
-        // нужен массив вида byweekday: ['mo','tu'],
-        // не работает 'byweekday' => explode(",", $myCalendar['byweekday'])
-        'byweekday' => $myCalendar['byweekday']
+        'byweekday' => FnByweekday($myCalendar['byweekday'])
       ]
     ];
   }
@@ -95,4 +93,15 @@ if ($birthday) {
   echo json_encode($json, JSON_UNESCAPED_UNICODE);
 } else {
   echo "[]";
+}
+
+
+
+//Создаёт из строки массив с разбивкой по ',' если строка пустая возвращает NULL
+function FnByweekday($value){
+  if ($value) {
+    return explode(",", $value);
+  } else {
+    return null;
+  }
 }

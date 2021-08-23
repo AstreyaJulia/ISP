@@ -1,90 +1,43 @@
 <?php
 $title = "title Тестовой страницы";
 $info = "Блок info для тестовой страницы";
-
-
-$FullcalendarClass = new \Core\Model\Fullcalendar($db);
-
-
-$startParam = "2021-12-01";
-$endParam = "2022-01-31";
-
-
-/*$data = DateTime::createFromFormat('Y-m-d', $startParam);
-$startParam = $data->format('m-d');
-
-
-$data = DateTime::createFromFormat('Y-m-d', $endParam);
-$endParam = $data->format('m-d');
-
-*/
-
-$params = [
-    'startParam' => $startParam,
-    'endParam' => $endParam
-];
-
-//$params = [$startParam, $endParam];
-
-
-$title = "День рождения";
-$description = "Фамилия И.О. возраст";
-
 $content = "";
-$events = $FullcalendarClass->getBirthday($startParam, $endParam);
-
-/*$events = $db->run("SELECT * FROM `sdc_user_attributes` 
-WHERE 
- (
-(date_format('$startParam','%m-%d') < date_format('$endParam','%m-%d'))
- AND
-(date_format(dob,'%m-%d') between date_format('$startParam','%m-%d') AND date_format('$endParam','%m-%d'))
-)
-OR 
-(
-
- (date_format('$startParam','%m-%d') > date_format('$endParam','%m-%d')) 
-  AND
-   (
-       (date_format(dob,'%m-%d') between date_format('$startParam','%m-%d') AND date_format('2021-12-31','%m-%d'))
-OR 
-       (date_format(dob,'%m-%d') between date_format('2021-01-01','%m-%d') AND date_format('$endParam','%m-%d'))
-   )
-    )")->fetchAll(\PDO::FETCH_CLASS);*/
-
-
-/*foreach ($events as $key => $value) {
-  $born = new DateTime($value->dob); // дата рождения
-  $age = $born->diff(new DateTime)->format('%Y');
 
 
 
-  $content .= $value->fullname. ". Возраст: ". $age. " Дата рождения: " .$value->dob."</br>";
-}*/
+
+    $arr = [
+      'id_key' => 'id_value',
+      'title_key' => 'title_value',
+      'start_key' => 'start_value',
+      'end_key' => 'end_value',
+      'allDay_key' => 'allDay_value',
+      'calendar_key' => 'calendar_value',
+      'description_key' => 'description_value',
+      'url_key' => 'url_value',
+      'user_id_key' => 'user_id_value',
+      'display_key' => 'display_value'
+    ];
+
+  $key = array_keys($arr);
+  for ($i=0; $i < count(array_keys($arr)) ; $i++) {
+    if ($i == 0) {
+      $content .= "('".array_keys($arr)[$i]."', ";
+    }
+    if ( $i !== 0 and count(array_keys($arr))-1 > $i) {
+      $content .= "'".array_keys($arr)[$i]."', ";
+    }
+    if (count(array_keys($arr))-1 == $i) {
+      $content .= "'".array_keys($arr)[$i]."') VALUES";
+    }
+  }
 
 
-
-foreach ($events as $key => $value) {
-	$data = DateTime::createFromFormat('Y-m-d', $value->dob);
-	$startParam = "2021-".$data->format('m-d');
-  $json[] = [
-  	'td' => "",
-    'title' => "День рождения",
-    'start' => $startParam,
-    'end' => $startParam,
-    'allDay' => "1",
-    'calendar' => 'Danger',
-    'description' => $value->fullname. ". Возраст: ",
-    'url' => "",
-    'user_id' => "0"
-  ];
-}
-
-if ($events) {
-  $content .= json_encode($json, JSON_UNESCAPED_UNICODE);
-} else {
-  echo "[]";
-}
+  foreach ($arr as $key => $value) {
+    echo $key;
+    echo "</br>";
+    echo $value;
 
 
+  }
 
