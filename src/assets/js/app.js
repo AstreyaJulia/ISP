@@ -257,6 +257,8 @@ const calendmodulehandler = () => {
   const mainpane = document.getElementById("nav-main");
   // Вкладка Повторение на модале
   const reppane = document.getElementById("nav-rep");
+  // Все чекбоксы дней недель
+  const wdayscheck = document.querySelectorAll('.wdays-check');
   // Чекбокс Пн
   const monday = document.getElementById("monday");
   // Чекбокс Вт
@@ -323,6 +325,38 @@ const calendmodulehandler = () => {
     document.body.appendChild(btn);
   }
 
+  // Получить день недели в текстовом виде по номеру дня, где 0 - пн, 1 вт и т.д.
+  function getweekdaystring(date) {
+    const days = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
+    return days[moment(date).get('weekday')];
+  }
+
+  // Отметить чекбоксы дней недели по массиву
+  function checkweekdays(array) {
+    for (let j = 0; j < array.length; j++) {
+      $(wdayscheck[array[j]]).prop('checked', true);
+    }
+  }
+
+  // Сформировать строку дней недели по чекбоксам
+  function getweekdaycheck() {
+    const days = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'];
+    let array = '';
+    let count = 1;
+    for (let j = 0; j < wdayscheck.length; j++) {
+      if ($(wdayscheck[j]).prop('checked')) {
+        if (count === 1) {
+          array = array + days[j];
+        } else {
+          array = array + ', ' + days[j];
+        }
+        count++;
+      }
+    }
+    return array;
+  }
+
+
   function repswitch(info) {
     if ($(repeatSwitch).prop('checked')) {
       if (info == null) {
@@ -373,6 +407,15 @@ const calendmodulehandler = () => {
     });
 
     console.log(eventToUpdate);
+    /*    console.log("День недели:" + moment(eventToUpdate.start).weekday()
+          + " День года:" + moment(eventToUpdate.start).dayOfYear()
+          + " Неделя года:" + moment(eventToUpdate.start).week()
+          + " Месяц:" + moment(eventToUpdate.start).month()
+          + " Квартал:" + moment(eventToUpdate.start).quarter()
+          + " Год:" + moment(eventToUpdate.start).year()
+          + " Недель в году:" + moment(eventToUpdate.start).weeksInYear()
+        );*/
+    console.log("День недели:" + getweekdaystring(eventToUpdate.start));
     // Запрет на редактирование событий без id и фоновых
     if (info.event.id !== "" && info.event.display !== "background") {
       showModal();
@@ -394,20 +437,26 @@ const calendmodulehandler = () => {
         if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.freq === 2) {
           // Чекбоксы дней недель
           let array = eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday;
-          for (let i = 0; i <array.length; i++) {
+          for (let i = 0; i < array.length; i++) {
             if (array[i] === 0) {
               $(monday).prop('checked', true)
-            } if (array[i] === 1) {
+            }
+            if (array[i] === 1) {
               $(tuesday).prop('checked', true)
-            } if (array[i] === 2) {
+            }
+            if (array[i] === 2) {
               $(wednesday).prop('checked', true)
-            }  if (array[i] === 3) {
+            }
+            if (array[i] === 3) {
               $(thursday).prop('checked', true)
-            }  if (array[i] === 4) {
+            }
+            if (array[i] === 4) {
               $(friday).prop('checked', true)
-            }  if (array[i] === 5) {
+            }
+            if (array[i] === 5) {
               $(saturday).prop('checked', true)
-            }  if (array[i] === 6) {
+            }
+            if (array[i] === 6) {
               $(sunday).prop('checked', true)
             }
           }
@@ -519,26 +568,27 @@ const calendmodulehandler = () => {
   }
 
   // Селект для меток в модале
-    function renderBullets(option) {
-      if (!option.id) {
-        return option.text;
-      }
-      return "<span class='bullet bullet-" +
-        $(option.element).data('label') +
-        " bullet-sm me-2 ms-2'> " +
-        '</span>' +
-        option.text;
+  function renderBullets(option) {
+    if (!option.id) {
+      return option.text;
     }
-    $(eventLabel).wrap('<div class="position-relative"></div>').select2({
-      placeholder: 'Выберите значение',
-      dropdownParent: $(eventLabel).parent(),
-      templateResult: renderBullets,
-      templateSelection: renderBullets,
-      minimumResultsForSearch: -1,
-      escapeMarkup: function (es) {
-        return es;
-      }
-    });
+    return "<span class='bullet bullet-" +
+      $(option.element).data('label') +
+      " bullet-sm me-2 ms-2'> " +
+      '</span>' +
+      option.text;
+  }
+
+  $(eventLabel).wrap('<div class="position-relative"></div>').select2({
+    placeholder: 'Выберите значение',
+    dropdownParent: $(eventLabel).parent(),
+    templateResult: renderBullets,
+    templateSelection: renderBullets,
+    minimumResultsForSearch: -1,
+    escapeMarkup: function (es) {
+      return es;
+    }
+  });
 
   // Датапикер начало события
   const start = startDate.flatpickr({
@@ -809,23 +859,25 @@ const calendmodulehandler = () => {
 
       // Параметры повторения. Если галочка включена
       if ($(repeatSwitch).prop('checked')) {
-        if ($(repparamSwitch).val('daily-section')) {
-          // Ежедневно
+        if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'daily-section') {
+          // Ежедневно. Готово
           Event.freq = 'DAILY';
           Event.interval = $(daynum).val();
-        } else if ($(repparamSwitch).val('weekly-section')) {
-          // Еженедельно
+        } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'weekly-section') {
+          // Еженедельно. Готово
           Event.freq = 'WEEKLY';
           Event.interval = $(weeknum).val();
-        } else if ($(repparamSwitch).val('monthly-section')) {
+          // Получаем отмеченные чекбоксы
+          Event.byweekday = getweekdaycheck();
+        } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'monthly-section') {
           // Ежемесячно
           Event.freq = 'MONTHLY';
           Event.interval = $(monthnum).val();
-        } else if ($(repparamSwitch).val('yearly-section')) {
+        } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'yearly-section') {
           // Ежегодно
           Event.freq = 'YEARLY';
           Event.interval = $(yearnum).val();
-        } else if ($(repparamSwitch).val('none')) {
+        } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'none') {
           // Без повторения, но галочку поставили
           Event.freq = '';
           Event.interval = '';
@@ -837,13 +889,13 @@ const calendmodulehandler = () => {
         // Диапазон повторения
         if ($(repdate).prop('checked')) {
           Event.until = moment($(endrepDate).val()).format('YYYY-MM-DD HH:mm:ss');
-        } else  {
+        } else {
           Event.until = '';
         }
         // Кол-во повторений
         if ($(repcount).prop('checked')) {
           Event.count = $(repcountinp).val();
-        } else  {
+        } else {
           Event.count = '';
         }
 
@@ -971,6 +1023,8 @@ const calendmodulehandler = () => {
       weeklysection.style.display = "block";
       monthlysection.style.display = "none";
       yearlysection.style.display = "none";
+      // Получаем текущий день недели, ставим галочку в параметрах
+      checkweekdays([moment($(startrepDate).val()).weekday()]);
     }
     if (
       repparamSwitch.options[repparamSwitch.selectedIndex].value === 'monthly-section') {
@@ -1001,8 +1055,16 @@ const calendmodulehandler = () => {
     $(calendarEditor).val('');
     repeatparams.style.display = "none";
     $(repparamSwitch).val('none');
+    // Параметры повторений
     $(startrepDate).val('');
     $(endrepDate).val('');
+    $(monday).prop('checked', false);
+    $(tuesday).prop('checked', false);
+    $(wednesday).prop('checked', false);
+    $(thursday).prop('checked', false);
+    $(friday).prop('checked', false);
+    $(saturday).prop('checked', false);
+    $(sunday).prop('checked', false);
     // Скрытие заголовков и кнопок
     updateEventBtn.style.display = "none";
     btnDeleteEvent.style.display = "none";
@@ -1017,6 +1079,11 @@ const calendmodulehandler = () => {
     reptab.classList.remove('active');
     reppane.classList.remove('show');
     reppane.classList.remove('active');
+    // Скрыть параметры повторения
+    dailysection.style.display = "none";
+    weeklysection.style.display = "none";
+    monthlysection.style.display = "none";
+    yearlysection.style.display = "none";
   }
 
   // Когда модал закрыт, сбросить значения

@@ -156,32 +156,32 @@
 
                             <div class="d-week-check d-flex">
                               <div class="mb-3 form-check me-2">
-                                <input type="checkbox" class="form-check-input" id="monday">
+                                <input type="checkbox" class="form-check-input wdays-check" id="monday">
                                 <label class="form-check-label" for="monday">Пн</label>
                               </div>
                               <div class="mb-3 form-check me-2">
-                                <input type="checkbox" class="form-check-input" id="tuesday">
+                                <input type="checkbox" class="form-check-input wdays-check" id="tuesday">
                                 <label class="form-check-label" for="tuesday">Вт</label>
                               </div>
                               <div class="mb-3 form-check me-2">
-                                <input type="checkbox" class="form-check-input" id="wednesday">
+                                <input type="checkbox" class="form-check-input wdays-check" id="wednesday">
                                 <label class="form-check-label" for="wednesday">Ср</label>
                               </div>
                               <div class="mb-3 form-check me-2">
-                                <input type="checkbox" class="form-check-input" id="thursday">
+                                <input type="checkbox" class="form-check-input wdays-check" id="thursday">
                                 <label class="form-check-label" for="thursday">Чт</label>
                               </div>
                               <div class="mb-3 form-check me-2">
-                                <input type="checkbox" class="form-check-input" id="friday">
+                                <input type="checkbox" class="form-check-input wdays-check" id="friday">
                                 <label class="form-check-label" for="friday">Пт</label>
                               </div>
                               <div class="mb-3 form-check me-2">
-                                <input type="checkbox" class="form-check-input" id="saturday">
-                                <label class="form-check-label" for="saturday">Сб</label>
+                                <input type="checkbox" class="form-check-input wdays-check" id="saturday">
+                                <label class="form-check-label text-danger" for="saturday">Сб</label>
                               </div>
                               <div class="mb-3 form-check me-2">
-                                <input type="checkbox" class="form-check-input" id="sunday">
-                                <label class="form-check-label" for="sunday">Вс</label>
+                                <input type="checkbox" class="form-check-input wdays-check" id="sunday">
+                                <label class="form-check-label text-danger" for="sunday">Вс</label>
                               </div>
 
                             </div>
