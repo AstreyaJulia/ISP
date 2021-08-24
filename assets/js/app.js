@@ -864,7 +864,7 @@ const calendmodulehandler = () => {
           Event.freq = 'DAILY';
           Event.interval = $(daynum).val();
         } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'weekly-section') {
-          // Еженедельно
+          // Еженедельно. Готово
           Event.freq = 'WEEKLY';
           Event.interval = $(weeknum).val();
           // Получаем отмеченные чекбоксы
@@ -1024,7 +1024,7 @@ const calendmodulehandler = () => {
       monthlysection.style.display = "none";
       yearlysection.style.display = "none";
       // Получаем текущий день недели, ставим галочку в параметрах
-      checkweekdays([moment($(startrepDate).val()).weekday()]);
+      checkweekdays([moment($(startDate).val()).weekday()]);
     }
     if (
       repparamSwitch.options[repparamSwitch.selectedIndex].value === 'monthly-section') {

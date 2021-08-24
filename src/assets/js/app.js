@@ -277,6 +277,21 @@ const calendmodulehandler = () => {
   const repdate = document.getElementById("Radio5");
   // Радио Закончить после повторений
   const repcount = document.getElementById("Radio6");
+
+  // Радио Каждое число месяца
+  const evdmonth = document.getElementById("Radio1");
+  // Радио Последний день месяца
+  const lastdmonth = document.getElementById("month1");
+  // Радио Предоследний рабочий день месяца
+  const prelastdmonth = document.getElementById("month2");
+  // Радио Первый день месяца
+  const firstdmonth = document.getElementById("month3");
+  // Радио Первый рабочий день месяца
+  const firstworkdmonth = document.getElementById("month3");
+  // Радио Последний рабочий день месяца
+  const lastworkdmonth = document.getElementById("month3");
+
+
   // Инпут Закончить после даты
   const repdateinp = document.getElementById("endrep-date");
   // Инпут Закончить после повторений
@@ -1009,6 +1024,7 @@ const calendmodulehandler = () => {
       weeklysection.style.display = "none";
       monthlysection.style.display = "none";
       yearlysection.style.display = "none";
+      $(evdmonth).prop("checked", false);
     }
     if (
       repparamSwitch.options[repparamSwitch.selectedIndex].value === 'daily-section') {
@@ -1016,6 +1032,8 @@ const calendmodulehandler = () => {
       weeklysection.style.display = "none";
       monthlysection.style.display = "none";
       yearlysection.style.display = "none";
+      $(evdmonth).prop("checked", false);
+
     }
     if (
       repparamSwitch.options[repparamSwitch.selectedIndex].value === 'weekly-section') {
@@ -1024,7 +1042,8 @@ const calendmodulehandler = () => {
       monthlysection.style.display = "none";
       yearlysection.style.display = "none";
       // Получаем текущий день недели, ставим галочку в параметрах
-      checkweekdays([moment($(startrepDate).val()).weekday()]);
+      checkweekdays([moment($(startDate).val()).weekday()]);
+      $(evdmonth).prop("checked", false);
     }
     if (
       repparamSwitch.options[repparamSwitch.selectedIndex].value === 'monthly-section') {
@@ -1032,6 +1051,8 @@ const calendmodulehandler = () => {
       weeklysection.style.display = "none";
       monthlysection.style.display = "block";
       yearlysection.style.display = "none";
+      // Переключаем на дефолтное радио
+      $(evdmonth).prop("checked", true);
     }
     if (
       repparamSwitch.options[repparamSwitch.selectedIndex].value === 'yearly-section') {
@@ -1039,6 +1060,7 @@ const calendmodulehandler = () => {
       weeklysection.style.display = "none";
       monthlysection.style.display = "none";
       yearlysection.style.display = "block";
+      $(evdmonth).prop("checked", false);
     }
   })
 
