@@ -20,24 +20,28 @@ ob_start();
 
 
 
-  function add($arr, $tableName = 'sdc_calendar') {
-    for ($i=0; $i < count($arr) ; $i++) {
-      if ($i == 0) {
-        $key = "(`".array_keys($arr)[$i]."`, ";
-        $value = "(:".$arr[array_keys($arr)[$i]].", ";
+  function add($params, $tableName = 'sdc_calendar') {
+    if (!empty($params)) {
+      for ($i=0; $i < count($params) ; $i++) {
+        if ($i == 0) {
+          $key = "(`".array_keys($params)[$i]."`, ";
+          $value = "(:".array_keys($params)[$i].", ";
+        }
+        if ( $i !== 0 and count($params)-1 > $i) {
+          $key .= "`".array_keys($params)[$i]."`, ";
+          $value .= ":".array_keys($params)[$i].", ";
+        }
+        if (count($params)-1 == $i) {
+          $key .= "`".array_keys($params)[$i]."`)";
+          $value .= ":".array_keys($params)[$i].")";
+        }
       }
-      if ( $i !== 0 and count($arr)-1 > $i) {
-        $key .= "`".array_keys($arr)[$i]."`, ";
-        $value .= ":".$arr[array_keys($arr)[$i]].", ";
-      }
-      if (count($arr)-1 == $i) {
-        $key .= "`".array_keys($arr)[$i]."`)";
-        $value .= ":".$arr[array_keys($arr)[$i]].")";
-      }
+      return $sql = "INSERT INTO `$tableName` $key VALUES $value";
     }
-    return $sql = "INSERT INTO `".$tableName."` ".$key." VALUES ".$value;
   }
-
   
 
-var_dump(add($_POST, "name_table"));
+$content .= add($_POST, "tableName");
+
+print_r($_POST);
+var_dump($operation = isset($_POST['operation']) ? $_POST['operation'] : "");

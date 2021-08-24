@@ -19,7 +19,7 @@
                         <label for="start-date" class="">Название события:</label>
                         <div class="event-title">
                           <input id="title" type="text" placeholder="Введите название" class="form-control"
-                                 name="task" required>
+                                 name="task" >
                         </div>
                       </div>
                       <div class="form-group">
@@ -48,7 +48,7 @@
                           <div>
                             <input id="start-date" placeholder="Дата начала"
                                    class="form-control flatpickr-input position-relative"
-                                   type="text" required>
+                                   type="text" >
                           </div>
                         </div>
                       </div>
@@ -57,7 +57,7 @@
                           <label for="end-date" class="">Конец события:</label>
                           <div>
                             <input id="end-date" placeholder="Дата окончания" type="text"
-                                   class="form-control flatpickr-input position-relative" required>
+                                   class="form-control flatpickr-input position-relative" >
                           </div>
                         </div>
                       </div>
