@@ -241,10 +241,17 @@ const calendmodulehandler = () => {
   const repdiapsection = document.getElementById("repdiap");
 
   // Секции с параметрами повторения по неделям, месяцам, годам
-  const dailysection = document.getElementById("daily-section");
+  //const dailysection = document.getElementById("daily-section");
   const weeklysection = document.getElementById("weekly-section");
   const monthlysection = document.getElementById("monthly-section");
-  const yearlysection = document.getElementById("yearly-section");
+  //const yearlysection = document.getElementById("yearly-section");
+  // Секция с интервалом
+  const intervalsection = document.getElementById("interval-section");
+  // Метка "день" в интервале
+  const daynumlabel1 = document.getElementById("daynum-label");
+// Метка "Каждый" в интервале
+  const daynumlabel2 = document.getElementById("intervallabel1");
+
   // поле ввода начала повторения
   const startrepDate = document.getElementById("startrep-date");
   // поле ввода окончания повторения
@@ -304,6 +311,8 @@ const calendmodulehandler = () => {
   const monthnum = document.getElementById("monthnum");
   // Интервал повторений для ежегодного
   const yearnum = document.getElementById("yearnum");
+  // Поле ввода дня для ежемесячного
+  const dayofmonth = document.getElementById("dayofmonth");
 
 
   // Цвета событий, названия менять в разметке, в js менять не надо
@@ -497,40 +506,92 @@ const calendmodulehandler = () => {
           $(repcount).prop('checked', false);
         }
 
+        // Выбор повторения для дня
+        $(repparamSwitch).on('change', function () {
+          if (
+            repparamSwitch.options[repparamSwitch.selectedIndex].value === 'none') {
+            intervalsection.style.display = "none";
+            weeklysection.style.display = "none";
+            monthlysection.style.display = "none";
+            //yearlysection.style.display = "none";
+            $(evdmonth).prop("checked", false);
+          }
+          if (
+            repparamSwitch.options[repparamSwitch.selectedIndex].value === 'daily-section') {
+            intervalsection.style.display = "block";
+            weeklysection.style.display = "none";
+            monthlysection.style.display = "none";
+            //yearlysection.style.display = "none";
+            $(evdmonth).prop("checked", false);
+            daynumlabel2.innerHTML = 'Каждый';
+            daynumlabel1.innerHTML = 'день';
+          }
+          if (
+            repparamSwitch.options[repparamSwitch.selectedIndex].value === 'weekly-section') {
+            intervalsection.style.display = "block";
+            weeklysection.style.display = "block";
+            monthlysection.style.display = "none";
+            //yearlysection.style.display = "none";
+            // Получаем текущий день недели, ставим галочку в параметрах
+            checkweekdays([moment($(startDate).val()).weekday()]);
+            $(evdmonth).prop("checked", false);
+            daynumlabel2.innerHTML = 'Каждую';
+            daynumlabel1.innerHTML = 'неделю';
+          }
+          if (
+            repparamSwitch.options[repparamSwitch.selectedIndex].value === 'monthly-section') {
+            intervalsection.style.display = "block";
+            weeklysection.style.display = "none";
+            monthlysection.style.display = "block";
+            //yearlysection.style.display = "none";
+            // Задаем текущий день, на случай смены
+            $(dayofmonth).val(moment($(startDate).val()).date());
+            daynumlabel2.innerHTML = 'Каждый';
+            daynumlabel1.innerHTML = 'месяц';
+          }
+          if (
+            repparamSwitch.options[repparamSwitch.selectedIndex].value === 'yearly-section') {
+            intervalsection.style.display = "block";
+            weeklysection.style.display = "none";
+            monthlysection.style.display = "none";
+            //yearlysection.style.display = "block";
+            $(evdmonth).prop("checked", false);
+            daynumlabel2.innerHTML = 'Каждый';
+            daynumlabel1.innerHTML = 'год';
+          }
+        })
+
         if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.freq === 3) {
           $(repparamSwitch).val('daily-section');
           dailysection.style.display = "block";
           weeklysection.style.display = "none";
           monthlysection.style.display = "none";
           yearlysection.style.display = "none";
-          $(daynum).val(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.interval);
         } else if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.freq === 2) {
           $(repparamSwitch).val('weekly-section');
           weeklysection.style.display = "block";
           dailysection.style.display = "none";
           monthlysection.style.display = "none";
           yearlysection.style.display = "none";
-          $(weeknum).val(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.interval);
         } else if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.freq === 1) {
           $(repparamSwitch).val('monthly-section');
           monthlysection.style.display = "block";
           dailysection.style.display = "none";
           weeklysection.style.display = "none";
           yearlysection.style.display = "none";
-          $(monthnum).val(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.interval);
         } else if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.freq === 0) {
           $(repparamSwitch).val('yearly-section');
           yearlysection.style.display = "block";
           dailysection.style.display = "none";
           weeklysection.style.display = "none";
           monthlysection.style.display = "none";
-          $(yearnum).val(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.interval);
         } else if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.freq === null) {
           return;
         }
       } else {
         $(repeatSwitch).prop('checked', false);
       }
+
       start.setDate(eventToUpdate.start, true, 'YYYY-MM-DD HH:mm');
       if (eventToUpdate.allDay === true) {
         $(allDaySwitch).prop('checked', true)
@@ -570,7 +631,6 @@ const calendmodulehandler = () => {
           $(repcountinp).prop("disabled", true);
         }
       })
-
     }
 
 
@@ -663,7 +723,7 @@ const calendmodulehandler = () => {
           console.log(result);
         },
         error: function (jqXHR, textStatus, errorThrown, exception) {
-          let header = '';
+          let header;
           if (jqXHR.status === 0) {
             header = 'Не подключено. Проверьте сеть';
           } else if (jqXHR.status === 404) {
@@ -802,6 +862,63 @@ const calendmodulehandler = () => {
       }
     })
 
+    // Выбор повторения для дня
+    $(repparamSwitch).on('change', function () {
+      if (
+        repparamSwitch.options[repparamSwitch.selectedIndex].value === 'none') {
+        intervalsection.style.display = "none";
+        weeklysection.style.display = "none";
+        monthlysection.style.display = "none";
+        //yearlysection.style.display = "none";
+        $(evdmonth).prop("checked", false);
+      }
+      if (
+        repparamSwitch.options[repparamSwitch.selectedIndex].value === 'daily-section') {
+        intervalsection.style.display = "block";
+        weeklysection.style.display = "none";
+        monthlysection.style.display = "none";
+        //yearlysection.style.display = "none";
+        $(evdmonth).prop("checked", false);
+        daynumlabel2.innerHTML = 'Каждый';
+        daynumlabel1.innerHTML = 'день';
+      }
+      if (
+        repparamSwitch.options[repparamSwitch.selectedIndex].value === 'weekly-section') {
+        intervalsection.style.display = "block";
+        weeklysection.style.display = "block";
+        monthlysection.style.display = "none";
+        //yearlysection.style.display = "none";
+        // Получаем текущий день недели, ставим галочку в параметрах
+        checkweekdays([moment($(startDate).val()).weekday()]);
+        $(evdmonth).prop("checked", false);
+        daynumlabel2.innerHTML = 'Каждую';
+        daynumlabel1.innerHTML = 'неделю';
+      }
+      if (
+        repparamSwitch.options[repparamSwitch.selectedIndex].value === 'monthly-section') {
+        intervalsection.style.display = "block";
+        weeklysection.style.display = "none";
+        monthlysection.style.display = "block";
+        //yearlysection.style.display = "none";
+        // Переключаем на дефолтное радио
+        $(evdmonth).prop("checked", true);
+        $(dayofmonth).val(moment($(startDate).val()).date());
+        daynumlabel2.innerHTML = 'Каждый';
+        daynumlabel1.innerHTML = 'месяц';
+      }
+      if (
+        repparamSwitch.options[repparamSwitch.selectedIndex].value === 'yearly-section') {
+        intervalsection.style.display = "block";
+        weeklysection.style.display = "none";
+        monthlysection.style.display = "none";
+        //yearlysection.style.display = "block";
+        $(evdmonth).prop("checked", false);
+        daynumlabel2.innerHTML = 'Каждый';
+        daynumlabel1.innerHTML = 'год';
+      }
+    })
+
+
     // Если в конце повторения включена дата, то блокируется ввоб кол-ва повторений и наоборот
     $(repdate).on('click', function () {
       if ($(repdate).is(':checked')) {
@@ -842,7 +959,6 @@ const calendmodulehandler = () => {
         $(startDate).val($(endDate).val());
       }
     })
-
   }
 
   $(neweventbtn).on('click', function () {
@@ -888,6 +1004,10 @@ const calendmodulehandler = () => {
           // Ежемесячно
           Event.freq = 'MONTHLY';
           Event.interval = $(monthnum).val();
+          // Проверяем чекбоксы
+          if ($(evdmonth).prop('checked')) {
+            Event.bymonthday = $(dayofmonth).val();
+          }
         } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'yearly-section') {
           // Ежегодно
           Event.freq = 'YEARLY';
@@ -1016,53 +1136,6 @@ const calendmodulehandler = () => {
     });
   });
 
-  // Выбор повторения для дня
-  $(repparamSwitch).on('change', function () {
-    if (
-      repparamSwitch.options[repparamSwitch.selectedIndex].value === 'none') {
-      dailysection.style.display = "none";
-      weeklysection.style.display = "none";
-      monthlysection.style.display = "none";
-      yearlysection.style.display = "none";
-      $(evdmonth).prop("checked", false);
-    }
-    if (
-      repparamSwitch.options[repparamSwitch.selectedIndex].value === 'daily-section') {
-      dailysection.style.display = "block";
-      weeklysection.style.display = "none";
-      monthlysection.style.display = "none";
-      yearlysection.style.display = "none";
-      $(evdmonth).prop("checked", false);
-
-    }
-    if (
-      repparamSwitch.options[repparamSwitch.selectedIndex].value === 'weekly-section') {
-      dailysection.style.display = "none";
-      weeklysection.style.display = "block";
-      monthlysection.style.display = "none";
-      yearlysection.style.display = "none";
-      // Получаем текущий день недели, ставим галочку в параметрах
-      checkweekdays([moment($(startDate).val()).weekday()]);
-      $(evdmonth).prop("checked", false);
-    }
-    if (
-      repparamSwitch.options[repparamSwitch.selectedIndex].value === 'monthly-section') {
-      dailysection.style.display = "none";
-      weeklysection.style.display = "none";
-      monthlysection.style.display = "block";
-      yearlysection.style.display = "none";
-      // Переключаем на дефолтное радио
-      $(evdmonth).prop("checked", true);
-    }
-    if (
-      repparamSwitch.options[repparamSwitch.selectedIndex].value === 'yearly-section') {
-      dailysection.style.display = "none";
-      weeklysection.style.display = "none";
-      monthlysection.style.display = "none";
-      yearlysection.style.display = "block";
-      $(evdmonth).prop("checked", false);
-    }
-  })
 
 
   // Сброс значений модала
@@ -1102,10 +1175,10 @@ const calendmodulehandler = () => {
     reppane.classList.remove('show');
     reppane.classList.remove('active');
     // Скрыть параметры повторения
-    dailysection.style.display = "none";
+    intervalsection.style.display = "none";
     weeklysection.style.display = "none";
     monthlysection.style.display = "none";
-    yearlysection.style.display = "none";
+    //yearlysection.style.display = "none";
   }
 
   // Когда модал закрыт, сбросить значения

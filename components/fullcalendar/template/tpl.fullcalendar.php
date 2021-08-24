@@ -134,25 +134,16 @@
                               <option value="yearly-section">Ежегодно</option>
                             </select>
                           </div>
-
-                          <div id="daily-section" style="display: none">
+                          <div id="interval-section" style="display: none">
                             <div class="form-group d-flex align-items-center position-relative">
-
-                              <p class="mb-0 me-2">Каждый</p>
+                              <p class="mb-0 me-2" id="intervallabel1">Каждый</p>
                               <input type="number" id="daynum" class="form-control me-2"
                                      style="width: 75px;" max="365" min="1" value="1">
                               <label for="daynum" class="form-label mb-0" id="daynum-label">день</label>
                             </div>
-
                           </div>
 
                           <div id="weekly-section" style="display: none">
-                            <div class="form-group d-flex align-items-center position-relative">
-                              <p class="mb-0 me-2">Каждую</p>
-                              <input type="number" id="weeknum" class="form-control me-2"
-                                     style="width: 75px; display: inline-flex" max="52" min="1" value="1">
-                              <label for="weeknum" class="form-label mb-0" id="weeknum-label" style="display: inline-flex">неделю</label>
-                            </div>
 
                             <div class="d-week-check d-flex">
                               <div class="mb-3 form-check me-2">
@@ -189,13 +180,6 @@
                           </div>
 
                           <div id="monthly-section" style="display: none">
-                            <div class="form-group d-flex align-items-center position-relative">
-                              <p class="mb-0 me-2">Каждый</p>
-                              <input type="number" id="monthnum" class="form-control me-2"
-                                     style="width: 75px; display: inline-flex" max="12" min="1" value="1">
-                              <label for="monthnum" class="form-label mb-0" id="monthnum-label"
-                                     style="display: inline-flex">месяц</label>
-                            </div>
                             <div class="form-check mb-3">
                               <div class="form-group d-flex align-items-end position-relative mb-0">
                                 <input type="radio" name="radios" class="form-check-input me-2" id="Radio1">
@@ -227,17 +211,6 @@
                             </div>
                           </div>
 
-                          <div id="yearly-section" style="display: none">
-                            <div class="form-group d-flex align-items-center position-relative">
-
-                              <p class="mb-0 me-2">Каждый</p>
-                              <input type="number" id="yearnum" class="form-control me-2"
-                                     style="width: 75px;" max="10" min="1" value="1">
-                              <label for="yearnum" class="form-label mb-0" id="yearnum-label">год</label>
-                            </div>
-
-                          </div>
-
                           <div id="repdiap">
                             <p>Диапазон повторения:</p>
                             <div class="form-group startrep-date ">
@@ -266,17 +239,11 @@
                                          value="1" disabled>
                                   <label for="repcount">повторений</label>
                                 </div>
-
                               </div>
-
                             </div>
-
                           </div
                         </div>
-
                       </div>
-
-
                     </div>
                   </div>
                 </div>
