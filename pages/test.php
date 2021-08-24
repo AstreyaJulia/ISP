@@ -12,6 +12,14 @@ $content = "";
       'start_key' => 'start_value'
     ];
 
+
+ob_start();
+    include "components/test/template/tpl.test.php";
+    $content = ob_get_contents();
+  ob_end_clean();
+
+
+
   function add($arr, $tableName = 'sdc_calendar') {
     for ($i=0; $i < count($arr) ; $i++) {
       if ($i == 0) {
@@ -28,9 +36,8 @@ $content = "";
       }
     }
     return $sql = "INSERT INTO `".$tableName."` ".$key." VALUES ".$value;
-
-
   }
 
-  $content .= add($arr);
+  
 
+var_dump(add($_POST, "name_table"));
