@@ -40,10 +40,73 @@
 
 	    //Добавляем событие
 	    public function setInsertEvents($params) {
-	        $sql = "INSERT INTO `sdc_calendar` (`title`, `start`, `end`, `calendar`, `description`, `url`, `user_id`, `allDay`, `freq`, `dtstart`, `tzid`, `until`, `count`, `interval`)
-VALUES (:title, :start, :end, :calendar, :description, :url, :user_id, :allDay, :freq, :dtstart, :tzid, :until, :count, :interval)";
+	        $sql = "INSERT INTO `sdc_calendar` (`title`,
+												`start`,
+												`end`,
+												`calendar`,
+												`description`,
+												`url`,
+												`user_id`,
+												`allDay`,
+												`freq`,
+												`dtstart`,
+												`tzid`,
+												`until`,
+												`count`,
+												`interval`,
+												`display`,
+												`bymonthday`,
+												`bysetpos`,
+												`byweekday`
+												)
+										VALUES (
+												:title,
+												:start,
+												:end,
+												:calendar,
+												:description,
+												:url,
+												:user_id,
+												:allDay,
+												:freq,
+												:dtstart,
+												:tzid,
+												:until,
+												:count,
+												:interval,
+												:display,
+												:bymonthday,
+												:bysetpos,
+												:byweekday
+												)";
 	        return $this->db->run($sql, $params);
 	    }
+
+
+
+
+	    //Добавляем событие из $_POST
+	    /*public function setInsertEvents($params, $tableName) {
+	    	if (!empty($params)) {
+		      for ($i=0; $i < count($params) ; $i++) {
+		        if ($i == 0) {
+		          $key = "(`".array_keys($params)[$i]."`, ";
+		          $value = "(:".array_keys($params)[$i].", ";
+		        }
+		        if ( $i !== 0 and count($params)-1 > $i) {
+		          $key .= "`".array_keys($params)[$i]."`, ";
+		          $value .= ":".array_keys($params)[$i].", ";
+		        }
+		        if (count($params)-1 == $i) {
+		          $key .= "`".array_keys($params)[$i]."`)";
+		          $value .= ":".array_keys($params)[$i].")";
+		        }
+		      }
+		      $sql = "INSERT INTO `$tableName` $key VALUES $value";
+		    }
+
+	        return $this->db->run($sql, $params);
+	    }*/
 
 	    //Вносим изменения в событие
 	    public function setUpdateEvents($params) {

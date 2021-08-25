@@ -5,15 +5,37 @@ $content = "";
 
 
 
-    $tableName = "sdc_calendar";
-    $arr = [
-      'id_key' => 'id_value',
-      'title_key' => 'title_value',
-      'start_key' => 'start_value'
+$tableName = "sdc_calendar";
+
+$paramsPost = [
+  'title' => 'title',
+  'start' => 'start',
+  'end' => 'end',
+  'calendar' => 'calendar',
+  'description' => 'description',
+  'url' => 'url',
+  'user_id' => 'privat',
+  'allDay' => 'allDay',
+  'freq' => 'freq',
+  'dtstart' => 'dtstart',
+  'tzid' => 'tzid',
+  'until' => 'until',
+  'count' => 'count',
+  'interval' => 'interval',
+  'display' => 'display'
+];
+// Если в полученном post user_id = 999999999, то меняем на id пользователя из куки, ессли 0, то user_id =0
+  if ($paramsPost['user_id'] !== 0) {
+    $user_id = [
+      'user_id' => $_COOKIE['aut']['id']
     ];
+    $paramsPost =array_replace($paramsPost, $user_id);
+  }
 
 
-ob_start();
+
+
+  ob_start();
     include "components/test/template/tpl.test.php";
     $content = ob_get_contents();
   ob_end_clean();
@@ -41,7 +63,7 @@ ob_start();
   }
   
 
-$content .= add($_POST, "tableName");
+$content .= print_r($paramsPost);
 
-print_r($_POST);
-var_dump($operation = isset($_POST['operation']) ? $_POST['operation'] : "");
+
+

@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 
 // Кнопка Назад Наверх, класс .back-to-top
 
@@ -294,23 +294,17 @@ const calendmodulehandler = () => {
   // Радио Первый день месяца
   const firstdmonth = document.getElementById("month3");
   // Радио Первый рабочий день месяца
-  const firstworkdmonth = document.getElementById("month3");
+  const firstworkdmonth = document.getElementById("month4");
   // Радио Последний рабочий день месяца
-  const lastworkdmonth = document.getElementById("month3");
+  const lastworkdmonth = document.getElementById("month5");
 
 
   // Инпут Закончить после даты
   const repdateinp = document.getElementById("endrep-date");
   // Инпут Закончить после повторений
   const repcountinp = document.getElementById("repcount");
-  // Интервал повторений для ежедневного
+  // Интервал повторений
   const daynum = document.getElementById("daynum");
-  // Интервал повторений для еженедельного
-  const weeknum = document.getElementById("weeknum");
-  // Интервал повторений для ежемесячного
-  const monthnum = document.getElementById("monthnum");
-  // Интервал повторений для ежегодного
-  const yearnum = document.getElementById("yearnum");
   // Поле ввода дня для ежемесячного
   const dayofmonth = document.getElementById("dayofmonth");
 
@@ -525,6 +519,7 @@ const calendmodulehandler = () => {
             $(evdmonth).prop("checked", false);
             daynumlabel2.innerHTML = 'Каждый';
             daynumlabel1.innerHTML = 'день';
+            daynum.setAttribute('max', 31);
           }
           if (
             repparamSwitch.options[repparamSwitch.selectedIndex].value === 'weekly-section') {
@@ -537,6 +532,7 @@ const calendmodulehandler = () => {
             $(evdmonth).prop("checked", false);
             daynumlabel2.innerHTML = 'Каждую';
             daynumlabel1.innerHTML = 'неделю';
+            daynum.setAttribute('max', 53);
           }
           if (
             repparamSwitch.options[repparamSwitch.selectedIndex].value === 'monthly-section') {
@@ -548,6 +544,27 @@ const calendmodulehandler = () => {
             $(dayofmonth).val(moment($(startDate).val()).date());
             daynumlabel2.innerHTML = 'Каждый';
             daynumlabel1.innerHTML = 'месяц';
+            daynum.setAttribute('max', 12);
+            if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.bysetpos === "-1" &&
+              eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday === "MO, TU, WE, TH, FR") {
+              $(lastworkdmonth).prop("checked", true);
+            }
+            if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.bysetpos === "1" &&
+              eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday === "MO, TU, WE, TH, FR") {
+              $(firstworkdmonth).prop("checked", true);
+            }
+            if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.bysetpos === "1" &&
+              eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday === "MO, TU, WE, TH, FR, SA, SU") {
+              $(firstdmonth).prop("checked", true);
+            }
+            if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.bysetpos === "-2" &&
+              eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday === "MO, TU, WE, TH, FR, SA, SU") {
+              $(prelastdmonth).prop("checked", true);
+            }
+            if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.bysetpos === "-1" &&
+              eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday === "MO, TU, WE, TH, FR, SA, SU") {
+              $(lastdmonth).prop("checked", true);
+            }
           }
           if (
             repparamSwitch.options[repparamSwitch.selectedIndex].value === 'yearly-section') {
@@ -558,6 +575,7 @@ const calendmodulehandler = () => {
             $(evdmonth).prop("checked", false);
             daynumlabel2.innerHTML = 'Каждый';
             daynumlabel1.innerHTML = 'год';
+            daynum.setAttribute('max', 100);
           }
         })
 
@@ -819,7 +837,7 @@ const calendmodulehandler = () => {
           $(modal)('hide');
         }
       },
-      title: {
+      'title': {
         required: true
       },
       'start-date': {
@@ -881,6 +899,7 @@ const calendmodulehandler = () => {
         $(evdmonth).prop("checked", false);
         daynumlabel2.innerHTML = 'Каждый';
         daynumlabel1.innerHTML = 'день';
+        daynum.setAttribute('max', 31);
       }
       if (
         repparamSwitch.options[repparamSwitch.selectedIndex].value === 'weekly-section') {
@@ -893,6 +912,7 @@ const calendmodulehandler = () => {
         $(evdmonth).prop("checked", false);
         daynumlabel2.innerHTML = 'Каждую';
         daynumlabel1.innerHTML = 'неделю';
+        daynum.setAttribute('max', 53);
       }
       if (
         repparamSwitch.options[repparamSwitch.selectedIndex].value === 'monthly-section') {
@@ -905,6 +925,7 @@ const calendmodulehandler = () => {
         $(dayofmonth).val(moment($(startDate).val()).date());
         daynumlabel2.innerHTML = 'Каждый';
         daynumlabel1.innerHTML = 'месяц';
+        daynum.setAttribute('max', 12);
       }
       if (
         repparamSwitch.options[repparamSwitch.selectedIndex].value === 'yearly-section') {
@@ -915,9 +936,9 @@ const calendmodulehandler = () => {
         $(evdmonth).prop("checked", false);
         daynumlabel2.innerHTML = 'Каждый';
         daynumlabel1.innerHTML = 'год';
+        daynum.setAttribute('max', 100);
       }
     })
-
 
     // Если в конце повторения включена дата, то блокируется ввоб кол-ва повторений и наоборот
     $(repdate).on('click', function () {
@@ -990,28 +1011,51 @@ const calendmodulehandler = () => {
 
       // Параметры повторения. Если галочка включена
       if ($(repeatSwitch).prop('checked')) {
+        Event.interval = $(daynum).val();
         if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'daily-section') {
           // Ежедневно. Готово
           Event.freq = 'DAILY';
-          Event.interval = $(daynum).val();
         } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'weekly-section') {
           // Еженедельно. Готово
           Event.freq = 'WEEKLY';
-          Event.interval = $(weeknum).val();
           // Получаем отмеченные чекбоксы
           Event.byweekday = getweekdaycheck();
         } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'monthly-section') {
           // Ежемесячно
           Event.freq = 'MONTHLY';
-          Event.interval = $(monthnum).val();
           // Проверяем чекбоксы
           if ($(evdmonth).prop('checked')) {
+            // Каждое число месяца
             Event.bymonthday = $(dayofmonth).val();
+          } else
+            // Последний день
+          if ($(lastdmonth).prop('checked')) {
+            Event.byweekday = 'MO, TU, WE, TH, FR, SA, SU';
+            Event.bysetpos = '-1';
+          } else
+            // Предпоследний день
+          if ($(prelastdmonth).prop('checked')) {
+            Event.byweekday = 'MO, TU, WE, TH, FR, SA, SU';
+            Event.bysetpos = '-2';
+          } else
+            // Первый день
+          if ($(firstdmonth).prop('checked')) {
+            Event.byweekday = 'MO, TU, WE, TH, FR, SA, SU';
+            Event.bysetpos = '1';
+          } else
+            // Первый рабочий день
+          if ($(firstworkdmonth).prop('checked')) {
+            Event.byweekday = 'MO, TU, WE, TH, FR';
+            Event.bysetpos = '1';
+          } else
+            // Последний рабочий день
+          if ($(lastworkdmonth).prop('checked')) {
+            Event.byweekday = 'MO, TU, WE, TH, FR';
+            Event.bysetpos = '-1';
           }
         } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'yearly-section') {
           // Ежегодно
           Event.freq = 'YEARLY';
-          Event.interval = $(yearnum).val();
         } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'none') {
           // Без повторения, но галочку поставили
           Event.freq = '';
@@ -1036,7 +1080,7 @@ const calendmodulehandler = () => {
 
       } else {
         Event.freq = '';
-        Event.dtstart = '';
+        Event.dtstart = "";
         Event.until = '';
         Event.count = '';
         Event.interval = '';
