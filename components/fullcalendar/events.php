@@ -1,4 +1,8 @@
 <?php
+
+use Core\Config\DB;
+use Core\Model\Fullcalendar;
+
 spl_autoload_register(function($class) {
     require (mb_strtolower($_SERVER['DOCUMENT_ROOT'] . '/' . str_replace('\\', '/', $class) . '.php'));
 });
@@ -7,7 +11,7 @@ ini_set("display_errors", "on");*/
 //Параметры для подключения к базе
 require_once $_SERVER['DOCUMENT_ROOT'] . "/conection.php";
 //Подключаемся  базе
-$db = new \Core\Config\DB($dbname, $user, $password, $host);
+$db = new DB($dbname, $user, $password, $host);
 
 $startParam = isset($_GET['startParam']) ? $_GET['startParam'] : "";
 $endParam = isset($_GET['endParam']) ? $_GET['endParam'] : "";
@@ -17,7 +21,7 @@ $params = [
     ':start' => $startParam,
     ':end' => $endParam
 ];
-$FullcalendarClass = new \Core\Model\Fullcalendar($db);
+$FullcalendarClass = new Fullcalendar($db);
 //Получаем события из таблицы с событиями
 $sdc_calendar = $FullcalendarClass->getEvents($params);
 //Переписываем массив для fullcaltndar
@@ -54,7 +58,6 @@ foreach ($sdc_calendar as $myCalendar) {
         'interval' => $myCalendar['interval'],
         'dtstart' => $myCalendar['dtstart'],
         'until' => $myCalendar['until'],
-        'bymonth' => $myCalendar['bymonth'],
         'byweekday' => FnByweekday($myCalendar['byweekday'])
       ]
     ];

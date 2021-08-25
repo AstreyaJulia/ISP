@@ -1,4 +1,4 @@
-﻿'use strict';
+'use strict';
 
 // Кнопка Назад Наверх, класс .back-to-top
 
@@ -141,7 +141,7 @@ function ajaxQuery(url, data, type, success, successparams) {
       success(successparams);
     },
     error: function (jqXHR, textStatus, errorThrown, exception) {
-      let header = '';
+      let header;
       if (jqXHR.status === 0) {
         header = 'Не подключено. Проверьте сеть';
       } else if (jqXHR.status === 404) {
@@ -581,26 +581,18 @@ const calendmodulehandler = () => {
 
         if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.freq === 3) {
           $(repparamSwitch).val('daily-section');
-          dailysection.style.display = "block";
           weeklysection.style.display = "none";
           monthlysection.style.display = "none";
-          yearlysection.style.display = "none";
         } else if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.freq === 2) {
           $(repparamSwitch).val('weekly-section');
           weeklysection.style.display = "block";
-          dailysection.style.display = "none";
           monthlysection.style.display = "none";
-          yearlysection.style.display = "none";
         } else if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.freq === 1) {
           $(repparamSwitch).val('monthly-section');
           monthlysection.style.display = "block";
-          dailysection.style.display = "none";
           weeklysection.style.display = "none";
-          yearlysection.style.display = "none";
         } else if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.freq === 0) {
           $(repparamSwitch).val('yearly-section');
-          yearlysection.style.display = "block";
-          dailysection.style.display = "none";
           weeklysection.style.display = "none";
           monthlysection.style.display = "none";
         } else if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.freq === null) {
@@ -1003,6 +995,15 @@ const calendmodulehandler = () => {
         // Тут тоже она пустая, но без ее объявления нельзя
         allDay: allDay,
         tzid: "Europe/Moscow",
+        bymonthday: 'null',
+        bysetpos: 'null',
+        byweekday: 'null',
+        count: 'null',
+        dtstart: 'null',
+        freq: 'null',
+        interval: 'null',
+        until: 'null',
+        display: 'auto',
       }
       if ($(allDaySwitch).prop('checked')) {
         // Если Весь день, то меняем переменную
@@ -1058,8 +1059,8 @@ const calendmodulehandler = () => {
           Event.freq = 'YEARLY';
         } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'none') {
           // Без повторения, но галочку поставили
-          Event.freq = '';
-          Event.interval = '';
+          Event.freq = null;
+          Event.interval = null;
         }
 
         // Начало повторения
@@ -1069,21 +1070,21 @@ const calendmodulehandler = () => {
         if ($(repdate).prop('checked')) {
           Event.until = moment($(endrepDate).val()).format('YYYY-MM-DD HH:mm:ss');
         } else {
-          Event.until = '';
+          Event.until = null;
         }
         // Кол-во повторений
         if ($(repcount).prop('checked')) {
           Event.count = $(repcountinp).val();
         } else {
-          Event.count = '';
+          Event.count = null;
         }
 
       } else {
-        Event.freq = '';
-        Event.dtstart = "";
-        Event.until = '';
-        Event.count = '';
-        Event.interval = '';
+        Event.freq = null;
+        Event.dtstart = null;
+        Event.until = null;
+        Event.count = null;
+        Event.interval = null;
       }
       console.log(Event);
       // Пишем в базу новое событие методом POST
@@ -1101,7 +1102,7 @@ const calendmodulehandler = () => {
           resetValues();
           showMiniToast('Событие ' + Event.title + ' добавлено', "success");
           if (response) {
-            showErrorToast("Всплывашка", response, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
+            showErrorToast("Ошибка", response, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
           }
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -1146,6 +1147,9 @@ const calendmodulehandler = () => {
           hideModal();
           resetValues();
           showMiniToast('Событие ' + Event.title + ' обновлено', "info");
+          if (response) {
+            showErrorToast("Ошибка", response, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
+          }
         },
         error: function (jqXHR, textStatus, errorThrown) {
           showErrorToast("Ошибка", jqXHR + textStatus + errorThrown, moment().tz('Europe/Moscow').format('LLL'))
@@ -1173,6 +1177,9 @@ const calendmodulehandler = () => {
         hideModal();
         resetValues();
         showMiniToast('Событие ' + eventToUpdate.title + ' удалено', "danger");
+        if (response) {
+          showErrorToast("Ошибка", response, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
+        }
       },
       error: function (jqXHR, textStatus, errorThrown) {
         showErrorToast("Ошибка", jqXHR + textStatus + errorThrown, moment().tz('Europe/Moscow').format('LLL'))
