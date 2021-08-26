@@ -237,9 +237,6 @@ const calendmodulehandler = () => {
 
   // Переключатели повторения
   const repparamSwitch = document.getElementById("dayrepopt");
-  // Секция окончания повторения
-  const repdiapsection = document.getElementById("repdiap");
-
   // Секции с параметрами повторения по неделям, месяцам, годам
   //const dailysection = document.getElementById("daily-section");
   const weeklysection = document.getElementById("weekly-section");
@@ -425,15 +422,7 @@ const calendmodulehandler = () => {
     });
 
     console.log(eventToUpdate);
-    /*    console.log("День недели:" + moment(eventToUpdate.start).weekday()
-          + " День года:" + moment(eventToUpdate.start).dayOfYear()
-          + " Неделя года:" + moment(eventToUpdate.start).week()
-          + " Месяц:" + moment(eventToUpdate.start).month()
-          + " Квартал:" + moment(eventToUpdate.start).quarter()
-          + " Год:" + moment(eventToUpdate.start).year()
-          + " Недель в году:" + moment(eventToUpdate.start).weeksInYear()
-        );*/
-    console.log("День недели:" + getweekdaystring(eventToUpdate.start));
+    console.log(JSON.stringify(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday) === '[0,1,2,3,4,5,6]');
     // Запрет на редактирование событий без id и фоновых
     if (info.event.id !== "" && info.event.display !== "background") {
       showModal();
@@ -449,8 +438,6 @@ const calendmodulehandler = () => {
       }
       // Повторять до даты
       if (eventToUpdate._def.recurringDef !== null) {
-        console.log(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday);
-
         // Для еженедельного
         if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.freq === 2) {
           // Чекбоксы дней недель
@@ -515,7 +502,6 @@ const calendmodulehandler = () => {
             intervalsection.style.display = "block";
             weeklysection.style.display = "none";
             monthlysection.style.display = "none";
-            //yearlysection.style.display = "none";
             $(evdmonth).prop("checked", false);
             daynumlabel2.innerHTML = 'Каждый';
             daynumlabel1.innerHTML = 'день';
@@ -526,7 +512,6 @@ const calendmodulehandler = () => {
             intervalsection.style.display = "block";
             weeklysection.style.display = "block";
             monthlysection.style.display = "none";
-            //yearlysection.style.display = "none";
             // Получаем текущий день недели, ставим галочку в параметрах
             checkweekdays([moment($(startDate).val()).weekday()]);
             $(evdmonth).prop("checked", false);
@@ -539,30 +524,29 @@ const calendmodulehandler = () => {
             intervalsection.style.display = "block";
             weeklysection.style.display = "none";
             monthlysection.style.display = "block";
-            //yearlysection.style.display = "none";
             // Задаем текущий день, на случай смены
             $(dayofmonth).val(moment($(startDate).val()).date());
             daynumlabel2.innerHTML = 'Каждый';
             daynumlabel1.innerHTML = 'месяц';
             daynum.setAttribute('max', 12);
-            if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.bysetpos === "-1" &&
-              eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday === "MO, TU, WE, TH, FR") {
+            if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.bysetpos[0] === -1 &&
+              JSON.stringify(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday) === '[0,1,2,3,4]') {
               $(lastworkdmonth).prop("checked", true);
             }
-            if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.bysetpos === "1" &&
-              eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday === "MO, TU, WE, TH, FR") {
+            if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.bysetpos[0] === 1 &&
+              JSON.stringify(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday) === '[0,1,2,3,4]') {
               $(firstworkdmonth).prop("checked", true);
             }
-            if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.bysetpos === "1" &&
-              eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday === "MO, TU, WE, TH, FR, SA, SU") {
+            if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.bysetpos[0] === 1 &&
+              JSON.stringify(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday) === '[0,1,2,3,4,5,6]') {
               $(firstdmonth).prop("checked", true);
             }
-            if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.bysetpos === "-2" &&
-              eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday === "MO, TU, WE, TH, FR, SA, SU") {
+            if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.bysetpos[0] === -2 &&
+              JSON.stringify(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday) === '[0,1,2,3,4,5,6]') {
               $(prelastdmonth).prop("checked", true);
             }
-            if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.bysetpos === "-1" &&
-              eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday === "MO, TU, WE, TH, FR, SA, SU") {
+            if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.bysetpos[0] === -1 &&
+              JSON.stringify(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday) === '[0,1,2,3,4,5,6]') {
               $(lastdmonth).prop("checked", true);
             }
           }
@@ -571,7 +555,6 @@ const calendmodulehandler = () => {
             intervalsection.style.display = "block";
             weeklysection.style.display = "none";
             monthlysection.style.display = "none";
-            //yearlysection.style.display = "block";
             $(evdmonth).prop("checked", false);
             daynumlabel2.innerHTML = 'Каждый';
             daynumlabel1.innerHTML = 'год';
@@ -605,7 +588,7 @@ const calendmodulehandler = () => {
       start.setDate(eventToUpdate.start, true, 'YYYY-MM-DD HH:mm');
       if (eventToUpdate.allDay === true) {
         $(allDaySwitch).prop('checked', true)
-      } else {
+      } else if (eventToUpdate.allDay === false) {
         $(allDaySwitch).prop('checked', false)
       }
       eventToUpdate.end !== null
@@ -879,7 +862,6 @@ const calendmodulehandler = () => {
         intervalsection.style.display = "none";
         weeklysection.style.display = "none";
         monthlysection.style.display = "none";
-        //yearlysection.style.display = "none";
         $(evdmonth).prop("checked", false);
       }
       if (
@@ -887,7 +869,6 @@ const calendmodulehandler = () => {
         intervalsection.style.display = "block";
         weeklysection.style.display = "none";
         monthlysection.style.display = "none";
-        //yearlysection.style.display = "none";
         $(evdmonth).prop("checked", false);
         daynumlabel2.innerHTML = 'Каждый';
         daynumlabel1.innerHTML = 'день';
@@ -898,7 +879,6 @@ const calendmodulehandler = () => {
         intervalsection.style.display = "block";
         weeklysection.style.display = "block";
         monthlysection.style.display = "none";
-        //yearlysection.style.display = "none";
         // Получаем текущий день недели, ставим галочку в параметрах
         checkweekdays([moment($(startDate).val()).weekday()]);
         $(evdmonth).prop("checked", false);
@@ -911,7 +891,6 @@ const calendmodulehandler = () => {
         intervalsection.style.display = "block";
         weeklysection.style.display = "none";
         monthlysection.style.display = "block";
-        //yearlysection.style.display = "none";
         // Переключаем на дефолтное радио
         $(evdmonth).prop("checked", true);
         $(dayofmonth).val(moment($(startDate).val()).date());
@@ -924,7 +903,6 @@ const calendmodulehandler = () => {
         intervalsection.style.display = "block";
         weeklysection.style.display = "none";
         monthlysection.style.display = "none";
-        //yearlysection.style.display = "block";
         $(evdmonth).prop("checked", false);
         daynumlabel2.innerHTML = 'Каждый';
         daynumlabel1.innerHTML = 'год';
@@ -982,7 +960,6 @@ const calendmodulehandler = () => {
   $(addEventBtn).on('click', function () {
     if ($(eventForm).valid()) {
       // Задаем переменную. На данный момент она пустая.
-      let allDay;
       const Event = {
         operation: "add",
         title: $(eventTitle).val(),
@@ -992,18 +969,7 @@ const calendmodulehandler = () => {
         description: $(calendarEditor).val(),
         url: $(eventUrl).val(),
         user_id: $(privateSwitch).prop('checked') ? "999999999" : "0",
-        // Тут тоже она пустая, но без ее объявления нельзя
-        allDay: allDay,
         tzid: "Europe/Moscow",
-        bymonthday: 'null',
-        bysetpos: 'null',
-        byweekday: 'null',
-        count: 'null',
-        dtstart: 'null',
-        freq: 'null',
-        interval: 'null',
-        until: 'null',
-        display: 'auto',
       }
       if ($(allDaySwitch).prop('checked')) {
         // Если Весь день, то меняем переменную
@@ -1057,10 +1023,6 @@ const calendmodulehandler = () => {
         } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'yearly-section') {
           // Ежегодно
           Event.freq = 'YEARLY';
-        } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'none') {
-          // Без повторения, но галочку поставили
-          Event.freq = null;
-          Event.interval = null;
         }
 
         // Начало повторения
@@ -1069,22 +1031,11 @@ const calendmodulehandler = () => {
         // Диапазон повторения
         if ($(repdate).prop('checked')) {
           Event.until = moment($(endrepDate).val()).format('YYYY-MM-DD HH:mm:ss');
-        } else {
-          Event.until = null;
         }
         // Кол-во повторений
         if ($(repcount).prop('checked')) {
           Event.count = $(repcountinp).val();
-        } else {
-          Event.count = null;
         }
-
-      } else {
-        Event.freq = null;
-        Event.dtstart = null;
-        Event.until = null;
-        Event.count = null;
-        Event.interval = null;
       }
       console.log(Event);
       // Пишем в базу новое событие методом POST
@@ -1105,8 +1056,24 @@ const calendmodulehandler = () => {
             showErrorToast("Ошибка", response, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
           }
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-          showErrorToast("Ошибка", jqXHR + textStatus + errorThrown, moment().tz('Europe/Moscow').format('LLL'))
+        error: function (jqXHR, textStatus, errorThrown, exception) {
+          let header;
+          if (jqXHR.status === 0) {
+            header = 'Не подключено. Проверьте сеть';
+          } else if (jqXHR.status === 404) {
+            header = 'Запрашиваемая страница не найдена [404]';
+          } else if (jqXHR.status === 500) {
+            header = 'Внутренняя ошибка сервера [500]';
+          } else if (exception === 'parsererror') {
+            header = 'Запрос синтаксического анализа JSON завершился неудачно';
+          } else if (exception === 'timeout') {
+            header = 'Ошибка тайм-аута';
+          } else if (exception === 'abort') {
+            header = 'Ajax запрос прерван';
+          } else {
+            header = 'Неперехваченная ошибка';
+          }
+          showErrorToast(header, textStatus + errorThrown + jqXHR.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
         }
       });
     }
@@ -1115,7 +1082,6 @@ const calendmodulehandler = () => {
   // Кнопка - Обновление нового события
   $(updateEventBtn).on('click', function () {
     if ($(eventForm).valid()) {
-      let allDay;
       const Event = {
         operation: "upd",
         id: eventToUpdate.id,
@@ -1126,13 +1092,115 @@ const calendmodulehandler = () => {
         calendar: $(eventLabel).val(),
         user_id: $(privateSwitch).prop('checked') ? "999999999" : "0",
         description: $(calendarEditor).val(),
-        allDay: allDay,
+        allDay: null,
+        tzid: "Europe/Moscow",
+        freq: null,
+        byweekday: null,
+        bysetpos: null,
+        bymonthday: null,
+        interval: null,
+        dtstart: null,
+        count: null,
+        until: null,
       }
       if ($(allDaySwitch).prop('checked')) {
         // Если Весь день, то меняем переменную
         Event.allDay = '1';
       }
 
+      // Параметры повторения. Если галочка включена
+      if ($(repeatSwitch).prop('checked')) {
+        if (Event.interval !== '') {
+          Event.interval = $(daynum).val();
+        } else Event.interval = null;
+        if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'daily-section') {
+          // Ежедневно. Готово
+          Event.freq = 'DAILY';
+        } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'weekly-section') {
+          // Еженедельно. Готово
+          Event.freq = 'WEEKLY';
+          // Получаем отмеченные чекбоксы
+          let wday = getweekdaycheck();
+          if (wday !== "" && null) {
+            Event.byweekday = wday;
+          } else Event.byweekday = null;
+        } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'monthly-section') {
+          // Ежемесячно
+          Event.freq = 'MONTHLY';
+          // Проверяем чекбоксы
+          if ($(evdmonth).prop('checked')) {
+            // Каждое число месяца
+            Event.bymonthday = $(dayofmonth).val();
+          } else
+            // Последний день
+          if ($(lastdmonth).prop('checked')) {
+            Event.byweekday = 'MO, TU, WE, TH, FR, SA, SU';
+            Event.bysetpos = '-1';
+          } else
+            // Предпоследний день
+          if ($(prelastdmonth).prop('checked')) {
+            Event.byweekday = 'MO, TU, WE, TH, FR, SA, SU';
+            Event.bysetpos = '-2';
+          } else
+            // Первый день
+          if ($(firstdmonth).prop('checked')) {
+            Event.byweekday = 'MO, TU, WE, TH, FR, SA, SU';
+            Event.bysetpos = '1';
+          } else
+            // Первый рабочий день
+          if ($(firstworkdmonth).prop('checked')) {
+            Event.byweekday = 'MO, TU, WE, TH, FR';
+            Event.bysetpos = '1';
+          } else
+            // Последний рабочий день
+          if ($(lastworkdmonth).prop('checked')) {
+            Event.byweekday = 'MO, TU, WE, TH, FR';
+            Event.bysetpos = '-1';
+          }
+        } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'yearly-section') {
+          // Ежегодно
+          Event.freq = 'YEARLY';
+        } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'none') {
+          // Без повторения
+          Event.freq = null;
+          Event.byweekday = null;
+          Event.bysetpos = null;
+          Event.bymonthday = null;
+        }
+
+        // Начало повторения
+        Event.dtstart = moment($(startrepDate).val()).format('YYYY-MM-DD HH:mm:ss');
+
+        // Диапазон повторения
+        if ($(repdate).prop('checked')) {
+          Event.until = moment($(endrepDate).val()).format('YYYY-MM-DD HH:mm:ss');
+        } else {
+          Event.until = null;
+        }
+        // Кол-во повторений
+        if ($(repcount).prop('checked')) {
+          Event.count = $(repcountinp).val();
+        } else {
+          Event.count = null;
+        }
+
+        // Начало повторения
+        Event.dtstart = moment($(startrepDate).val()).format('YYYY-MM-DD HH:mm:ss');
+
+        // Диапазон повторения
+        if ($(repdate).prop('checked')) {
+          Event.until = moment($(endrepDate).val()).format('YYYY-MM-DD HH:mm:ss');
+        }
+        // Кол-во повторений
+        if ($(repcount).prop('checked')) {
+          Event.count = $(repcountinp).val();
+        }
+
+      } else {
+        Event.interval = null;
+      }
+
+      console.log(Event);
       // Пишем в базу событие методом POST
       $.ajax({
         url: 'components/fullcalendar/ajax.php',
@@ -1151,8 +1219,24 @@ const calendmodulehandler = () => {
             showErrorToast("Ошибка", response, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
           }
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-          showErrorToast("Ошибка", jqXHR + textStatus + errorThrown, moment().tz('Europe/Moscow').format('LLL'))
+        error: function (jqXHR, textStatus, errorThrown, exception) {
+          let header;
+          if (jqXHR.status === 0) {
+            header = 'Не подключено. Проверьте сеть';
+          } else if (jqXHR.status === 404) {
+            header = 'Запрашиваемая страница не найдена [404]';
+          } else if (jqXHR.status === 500) {
+            header = 'Внутренняя ошибка сервера [500]';
+          } else if (exception === 'parsererror') {
+            header = 'Запрос синтаксического анализа JSON завершился неудачно';
+          } else if (exception === 'timeout') {
+            header = 'Ошибка тайм-аута';
+          } else if (exception === 'abort') {
+            header = 'Ajax запрос прерван';
+          } else {
+            header = 'Неперехваченная ошибка';
+          }
+          showErrorToast(header, textStatus + errorThrown + jqXHR.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
         }
       });
     }
@@ -1181,12 +1265,27 @@ const calendmodulehandler = () => {
           showErrorToast("Ошибка", response, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
         }
       },
-      error: function (jqXHR, textStatus, errorThrown) {
-        showErrorToast("Ошибка", jqXHR + textStatus + errorThrown, moment().tz('Europe/Moscow').format('LLL'))
+      error: function (jqXHR, textStatus, errorThrown, exception) {
+        let header;
+        if (jqXHR.status === 0) {
+          header = 'Не подключено. Проверьте сеть';
+        } else if (jqXHR.status === 404) {
+          header = 'Запрашиваемая страница не найдена [404]';
+        } else if (jqXHR.status === 500) {
+          header = 'Внутренняя ошибка сервера [500]';
+        } else if (exception === 'parsererror') {
+          header = 'Запрос синтаксического анализа JSON завершился неудачно';
+        } else if (exception === 'timeout') {
+          header = 'Ошибка тайм-аута';
+        } else if (exception === 'abort') {
+          header = 'Ajax запрос прерван';
+        } else {
+          header = 'Неперехваченная ошибка';
+        }
+        showErrorToast(header, textStatus + errorThrown + jqXHR.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
       }
     });
   });
-
 
 
   // Сброс значений модала
