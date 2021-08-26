@@ -8,6 +8,7 @@ $content = "";
 $tableName = "sdc_calendar";
 
 $paramsPost = [
+  'id' => 'id',
   'operation' => 'operation',
   'title' => 'title',
   'start' => 'start',
@@ -45,28 +46,29 @@ $operation = $paramsPost['operation'];
 
 
 
-  function add($params, $tableName = 'sdc_calendar') {
+  function add($params, $tableName = 'sdc_calendar', $index = 'id') {
     if (!empty($params)) {
-      for ($i=0; $i < count($params) ; $i++) {
-        if ($i == 0) {
-          $key = "(`".array_keys($params)[$i]."`, ";
-          $value = "(:".array_keys($params)[$i].", ";
+      $keys = "";
+      $i = 1;
+      foreach ($params as $key => $value ) {
+        if ($params[$index] !== $key and count($params) !== $i) {
+          $keys .= "`".$key."`=:".$key.", ";
         }
-        if ( $i !== 0 and count($params)-1 > $i) {
-          $key .= "`".array_keys($params)[$i]."`, ";
-          $value .= ":".array_keys($params)[$i].", ";
+        if ($params[$index] !== $key and count($params) == $i) {
+          $keys .= "`".$key."`=:".$key;
         }
-        if (count($params)-1 == $i) {
-          $key .= "`".array_keys($params)[$i]."`)";
-          $value .= ":".array_keys($params)[$i].")";
+        if ($params[$index] == $key ) {
+          $where = "`".$key."`=:".$key;
         }
+        $i++;
       }
-      return $sql = "INSERT INTO `$tableName` $key VALUES $value";
+
+      return $sql = "UPDATE `$tableName` SET $keys WHERE $where";
     }
   }
   
-echo $operation;
-$content .= print_r($paramsPost);
+
+$content .= add($paramsPost);
 
 
 
