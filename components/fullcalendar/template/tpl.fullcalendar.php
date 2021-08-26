@@ -190,16 +190,12 @@
                               </div>
                             </div>
                             <div class="form-check mb-3">
-                              <input type="radio" name="radios" class="form-check-input me-2" id="month1">
-                              <label class="form-check-label me-2" for="month1">Последний день месяца</label>
-                            </div>
-                            <div class="form-check mb-3">
-                              <input type="radio" name="radios" class="form-check-input me-2" id="month2">
-                              <label class="form-check-label me-2" for="month2">Предоследний рабочий день месяца</label>
-                            </div>
-                            <div class="form-check mb-3">
                               <input type="radio" name="radios" class="form-check-input me-2" id="month3">
                               <label class="form-check-label me-2" for="month3">Первый день месяца</label>
+                            </div>
+                            <div class="form-check mb-3">
+                              <input type="radio" name="radios" class="form-check-input me-2" id="month1">
+                              <label class="form-check-label me-2" for="month1">Последний день месяца</label>
                             </div>
                             <div class="form-check mb-3">
                               <input type="radio" name="radios" class="form-check-input me-2" id="month4">
