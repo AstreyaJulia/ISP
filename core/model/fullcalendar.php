@@ -41,7 +41,7 @@
 	    }
 
 	    //Добавляем событие
-	    public function setInsertEvents($params) {
+	    /*public function setInsertEvents($params) {
 	        $sql = "INSERT INTO `sdc_calendar` (`title`,
 												`start`,
 												`end`,
@@ -82,13 +82,13 @@
 												:byweekday
 												)";
 	        return $this->db->run($sql, $params);
-	    }
+	    }*/
 
 
 
 
 	    //Добавляем событие из $_POST
-	    /*public function setInsertEvents($params, $tableName) {
+	    public function setInsertEvents($params, $tableName = 'sdc_calendar') {
 	    	if (!empty($params)) {
 		      for ($i=0; $i < count($params) ; $i++) {
 		        if ($i == 0) {
@@ -108,9 +108,14 @@
 		    }
 
 	        return $this->db->run($sql, $params);
-	    }*/
+	    }
 
 	    //Вносим изменения в событие
+	    /*public function setUpdateEvents($params) {
+	        $sql = "UPDATE sdc_calendar SET `title`=:title, `start`=:start, `end`=:end, `calendar`=:calendar, `description`=:description, `url`=:url, `user_id`=:user_id, `allDay`=:allDay WHERE `id` = :id";
+	        return $this->db->run($sql, $params);
+	    }*/
+
 	    public function setUpdateEvents($params) {
 	        $sql = "UPDATE sdc_calendar SET `title`=:title, `start`=:start, `end`=:end, `calendar`=:calendar, `description`=:description, `url`=:url, `user_id`=:user_id, `allDay`=:allDay WHERE `id` = :id";
 	        return $this->db->run($sql, $params);

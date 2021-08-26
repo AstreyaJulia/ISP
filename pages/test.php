@@ -8,6 +8,7 @@ $content = "";
 $tableName = "sdc_calendar";
 
 $paramsPost = [
+  'operation' => 'operation',
   'title' => 'title',
   'start' => 'start',
   'end' => 'end',
@@ -24,6 +25,8 @@ $paramsPost = [
   'interval' => 'interval',
   'display' => 'display'
 ];
+
+$operation = $paramsPost['operation'];
 // Если в полученном post user_id = 999999999, то меняем на id пользователя из куки, ессли 0, то user_id =0
   if ($paramsPost['user_id'] !== 0) {
     $user_id = [
@@ -32,7 +35,7 @@ $paramsPost = [
     $paramsPost =array_replace($paramsPost, $user_id);
   }
 
-
+  unset($paramsPost["operation"]);
 
 
   ob_start();
@@ -62,7 +65,7 @@ $paramsPost = [
     }
   }
   
-
+echo $operation;
 $content .= print_r($paramsPost);
 
 

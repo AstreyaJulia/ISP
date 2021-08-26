@@ -58,7 +58,10 @@ foreach ($sdc_calendar as $myCalendar) {
         'interval' => $myCalendar['interval'],
         'dtstart' => $myCalendar['dtstart'],
         'until' => $myCalendar['until'],
-        'byweekday' => FnByweekday($myCalendar['byweekday'])
+        'bysetpos' => $myCalendar['bysetpos'],
+        'byweekday' => FnByweekday($myCalendar['byweekday']),
+        'bymonthday' => $myCalendar['bymonthday'],
+        'bymonth' => $myCalendar['bymonth']
       ]
     ];
   }
@@ -103,7 +106,7 @@ if ($birthday) {
 //Создаёт из строки массив с разбивкой по ',' если строка пустая возвращает NULL
 function FnByweekday($value){
   if ($value) {
-    return explode(",", $value);
+    return explode(", ", $value);
   } else {
     return null;
   }
