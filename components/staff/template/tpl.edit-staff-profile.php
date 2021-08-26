@@ -180,11 +180,11 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="card-footer">
-      <div class="button-group d-flex align-items-center justify-content-end">
-        <button type="submit" class="btn btn-primary">Сохранить</button>
-        <button type="button" class="btn btn-danger btn-back">Отмена</button>
+      <div class="card-footer">
+        <div class="button-group d-flex align-items-center justify-content-end">
+          <button type="submit" class="btn btn-primary">Сохранить</button>
+          <button type="button" class="btn btn-danger btn-back">Отмена</button>
+        </div>
       </div>
     </div>
   </form>
