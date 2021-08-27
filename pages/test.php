@@ -7,7 +7,7 @@ $content = "";
 
 $tableName = "sdc_calendar";
 
-$paramsPost = [
+/*$paramsPost = [
   'id' => 'id',
   'operation' => 'operation',
   'title' => 'title',
@@ -24,8 +24,37 @@ $paramsPost = [
   'until' => 'until',
   'count' => 'count',
   'interval' => 'interval',
-  'display' => 'display'
+  'display' => 'display',
+  'allDay' => NULL
+];*/
+
+$paramsPost = [
+  'id' => 47,
+  'operation' => 'operation',
+  'title' => 'Название события 2',
+  'start' => '2021-08-03 00:00',
+  'end' => '2021-08-03 00:00',
+  'url' => '',
+  'calendar' => 'Primary',
+  'user_id' => 1,
+  'description' => '',
+  'allDay' => NULL,
+  'tzid' => 'Europe/Moscow',
+  'freq' => null,
+  'byweekday' => '',
+  'bysetpos' => '',
+  'bymonthday' => '',
+  'interval' => '',
+  'dtstart' => '',
+  'count' => '',
+  'until' => ''
 ];
+
+
+
+
+
+
 
 $operation = $paramsPost['operation'];
 // Если в полученном post user_id = 999999999, то меняем на id пользователя из куки, ессли 0, то user_id =0
@@ -51,14 +80,14 @@ $operation = $paramsPost['operation'];
       $keys = "";
       $i = 1;
       foreach ($params as $key => $value ) {
-        if ($params[$index] !== $key and count($params) !== $i) {
+        if ($index !== $key and count($params) !== $i) {
           $keys .= "`".$key."`=:".$key.", ";
         }
-        if ($params[$index] !== $key and count($params) == $i) {
+        if ($index !== $key and count($params) == $i) {
           $keys .= "`".$key."`=:".$key;
         }
-        if ($params[$index] == $key ) {
-          $where = "`".$key."`=:".$key;
+        if ($index == $key ) {
+          $where = "`".$key."` = :".$key;
         }
         $i++;
       }

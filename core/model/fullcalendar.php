@@ -116,9 +116,28 @@
 	        return $this->db->run($sql, $params);
 	    }*/
 
-	    public function setUpdateEvents($params) {
-	        $sql = "UPDATE sdc_calendar SET `title`=:title, `start`=:start, `end`=:end, `calendar`=:calendar, `description`=:description, `url`=:url, `user_id`=:user_id, `allDay`=:allDay WHERE `id` = :id";
-	        return $this->db->run($sql, $params);
+	    public function setUpdateEvents($params, $tableName = 'sdc_calendar', $index = 'id') {
+	        if (!empty($params)) {
+		      $params = array_filter($params);
+		      $keys = "";
+		      $i = 1;
+		      foreach ($params as $key => $value ) {
+		        if ($index !== $key and count($params) !== $i) {
+		          $keys .= "`".$key."`=:".$key.", ";
+		        }
+		        if ($index !== $key and count($params) == $i) {
+		          $keys .= "`".$key."`=:".$key;
+		        }
+		        if ($index == $key ) {
+		          $where = "`".$key."` = :".$key;
+		        }
+		        $i++;
+		      }
+
+		      $sql = "UPDATE `$tableName` SET $keys WHERE $where";
+		    }
+
+		    return $this->db->run($sql, $params);
 	    }
 
 	    //Удаляем событие

@@ -31,6 +31,7 @@
   $id = isset($_POST['id']) ? $_POST['id'] : "";
   //Удаляем из массива 'operation' т.к. он используется для Switch
   unset($paramsAdd["operation"]);
+  $paramsUpd = $paramsAdd;
   unset($paramsAdd["id"]);
 
 
