@@ -117,22 +117,29 @@
 	    }*/
 
 	    public function setUpdateEvents($params, $tableName = 'sdc_calendar', $index = 'id') {
-	        if (!empty($params)) {
-		      $params = array_filter($params);
-		      $keys = "";
-		      $i = 1;
-		      foreach ($params as $key => $value ) {
-		        if ($index !== $key and count($params) !== $i) {
-		          $keys .= "`".$key."`=:".$key.", ";
-		        }
-		        if ($index !== $key and count($params) == $i) {
-		          $keys .= "`".$key."`=:".$key;
-		        }
-		        if ($index == $key ) {
-		          $where = "`".$key."` = :".$key;
-		        }
-		        $i++;
-		      }
+	       if (!empty($params)) {
+			    $keys = "";
+			    $i = 1;
+			    foreach ($params as $key => $value ) {
+			      if ($index !== $key and count($params) !== $i) {
+			        $keys .= "`".$key."`=:".$key.", ";
+			      }
+			      if ($index !== $key and count($params) == $i) {
+			        $keys .= "`".$key."`=:".$key;
+			      }
+			      if ($index == $key ) {
+			        $where = "`".$key."` = :".$key;
+			      }
+			      $i++;
+			      //Проверка для $value.
+			      if (in_array($key, ['url', 'description'])){
+			        $value = !empty($value) ? $value : "";
+			      } else {
+			        $value = !empty($value) ? $value : NULL;
+			      }
+			      //Записываем подготовленный $params
+			      $params[$key] = $value;
+			    }
 
 		      $sql = "UPDATE `$tableName` SET $keys WHERE $where";
 		    }
