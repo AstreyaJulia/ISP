@@ -753,6 +753,7 @@ const calendmodulehandler = () => {
     $('.calendar-events-filter input:checked').each(function () {
       selected.push($(this).attr('data-value'));
     });
+    console.log(selected);
     return selected;
   }
 
@@ -775,6 +776,9 @@ const calendmodulehandler = () => {
 
         },
         success: function (result) {
+          //const calendars = selectedCalendars();
+          //return [result.events.filter(event => calendars.includes(event.extendedProps.calendar))];
+          //console.log(calendars);
           successCallback(result);
           console.log(result);
         },
@@ -799,6 +803,14 @@ const calendmodulehandler = () => {
         }
       }
     );
+    /*const calendars = selectedCalendars();
+    let selectedEvents = events.filter(function (event) {
+      console.log(event.extendedProps.calendar.toLowerCase());
+      return calendars.includes(event.extendedProps.calendar.toLowerCase());
+    });
+    if (selectedEvents.length > 0) {
+    successCallback(selectedEvents);
+     }*/
   }
 
   // Показать popover
@@ -1097,8 +1109,7 @@ const calendmodulehandler = () => {
       }
       const start = moment($(startDate).val()).format('YYYY-MM-DD HH:mm:ss');
       const end = moment($(endDate).val()).format('YYYY-MM-DD HH:mm:ss');
-      const duration = moment(end).diff(start, 'minutes', true);
-      Event.duration = duration;
+      Event.duration = moment(end).diff(start, 'minutes', true);
       console.log(Event);
       // Пишем в базу новое событие методом POST
       $.ajax({
@@ -1164,6 +1175,7 @@ const calendmodulehandler = () => {
         dtstart: null,
         count: null,
         until: null,
+        duration: null,
       }
       if ($(allDaySwitch).prop('checked')) {
         // Если Весь день, то меняем переменную
@@ -1245,6 +1257,10 @@ const calendmodulehandler = () => {
         } else {
           Event.count = null;
         }
+
+        const start = moment($(startDate).val()).format('YYYY-MM-DD HH:mm:ss');
+        const end = moment($(endDate).val()).format('YYYY-MM-DD HH:mm:ss');
+        Event.duration = moment(end).diff(start, 'minutes', true);
 
         // Начало повторения
         Event.dtstart = moment($(startrepDate).val()).format('YYYY-MM-DD HH:mm:ss');

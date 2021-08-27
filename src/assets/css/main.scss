@@ -109,9 +109,20 @@ a {
 }
 
 // Стили для печати
+
 @media print {
-  body,
+  body *,
+  .page-body *,
+  .page-wrapper *,
+  .main-content * {
+    visibility: hidden;
+  }
+  .content-wrapper * {
+    visibility: visible;
+  }
+
   .main-content,
+  .page-wrapper,
   .content-wrapper {
     width: auto !important;
     height: auto !important;
@@ -122,6 +133,12 @@ a {
     line-height: normal !important;
     top: 0 !important;
     left: 0 !important;
+    bottom: 0 !important;
+
+  }
+
+  p {
+    page-break-before: always;
   }
 
   .main-content-header .breadcrumb,
@@ -145,7 +162,8 @@ a {
   .badge,
   .faq-categories .col-3,
   .filter-group,
-  .fc-button-group {
+  .fc-button-group,
+  #__lpform_validationServer01 {
     display: none !important;
   }
 
@@ -161,7 +179,7 @@ a {
     color: #000 !important;
     box-shadow: none !important;
     text-shadow: none !important;
-    overflow: hidden !important;
+    //overflow: hidden !important;
   }
 
   .main-content-header > *,
