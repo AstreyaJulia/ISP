@@ -436,7 +436,7 @@ const calendmodulehandler = () => {
         $(privateSwitch).prop('checked', true)
       }
       // Разные даты начала и конца события для создаваемых событий при нажатии на кнопку создания и на день
-      if (info == null) {
+      if (false) {
         const date = moment().format('YYYY-MM-DD HH:mm');
         $(startDate).val(date);
         $(endDate).val(date);
@@ -448,13 +448,8 @@ const calendmodulehandler = () => {
 
 // Если включили повторение, то дата начала повторения берется из даты начала события
       $(repeatSwitch).on('click', function () {
-        if (info == null) {
-          const date = moment().format('YYYY-MM-DD HH:mm');
+          const date = moment($(startDate).val()).format('YYYY-MM-DD HH:mm');
           repswitch(date);
-        } else {
-          const date = moment(info.date).format('YYYY-MM-DD HH:mm');
-          repswitch(date);
-        }
       })
 
 // Выбор повторения для дня
@@ -587,13 +582,15 @@ const calendmodulehandler = () => {
         $(repeatSwitch).prop('checked', true);
         repeatparams.style.display = "block";
         $(repparamSwitch).prop('required', true);
-        $(startrepDate).val(moment(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.dtstart).format('YYYY-MM-DD HH:mm'));
+        $(startrepDate).val(moment(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.dtstart).utc().format('YYYY-MM-DD HH:mm'));
         if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.until) {
-          $(endrepDate).val(moment(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.until).format('YYYY-MM-DD HH:mm'));
+          $(endrepDate).val(moment(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.until).utc().format('YYYY-MM-DD HH:mm'));
           $(repdate).prop('checked', true);
+          $(endrepDate).prop("disabled", false);
         } else {
           $(endrepDate).val("");
           $(repdate).prop('checked', false);
+          $(endrepDate).prop("disabled", true);
         }
         // Кол-во повторений
         if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.count) {
@@ -1109,7 +1106,7 @@ const calendmodulehandler = () => {
       }
       const start = moment($(startDate).val()).format('YYYY-MM-DD HH:mm:ss');
       const end = moment($(endDate).val()).format('YYYY-MM-DD HH:mm:ss');
-      Event.duration = moment(end).diff(start, 'minutes', true);
+      Event.duration = moment(moment(end).diff(start)).format('hh:mm:ss');
       console.log(Event);
       // Пишем в базу новое событие методом POST
       $.ajax({

@@ -1,5 +1,8 @@
 <?php
-$FullcalendarClass = new \Core\Model\Fullcalendar($db);
+
+use Core\Model\Fullcalendar;
+
+$FullcalendarClass = new Fullcalendar($db);
 $title = "Календарь";
 $content = "";
 ob_start();

@@ -112,6 +112,7 @@
                                     class="form-control" name="event-description-editor"></textarea>
                         </div>
                       </div>
+                      <p class="text-danger mt-3 mb-0 p-0 ms-3 me-3">Внимание. Удаляя повторяющееся событие, вы удаляете ВСЕ повторения.</p>
                     </div>
                   </div>
                   <div class="tab-pane fade" id="nav-rep" role="tabpanel" aria-labelledby="nav-rep-tab">
