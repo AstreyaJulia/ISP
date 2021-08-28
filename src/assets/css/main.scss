@@ -111,34 +111,24 @@ a {
 // Стили для печати
 
 @media print {
-  body *,
-  .page-body *,
-  .page-wrapper *,
-  .main-content * {
-    visibility: hidden;
-  }
-  .content-wrapper * {
-    visibility: visible;
-  }
 
   .main-content,
+  .content-wrapper,
   .page-wrapper,
-  .content-wrapper {
-    width: auto !important;
-    height: auto !important;
+  .page-body {
     margin: 0 !important;
+    top: 0 !important;
     padding: 0 !important;
-    //display: block !important;
+    max-width: none !important;
+    max-height: none !important;
+    overflow: hidden !important;
+    position: unset !important;
     font-size: 12px !important;
     line-height: normal !important;
-    top: 0 !important;
-    left: 0 !important;
-    bottom: 0 !important;
-
   }
 
   p {
-    page-break-before: always;
+    page-break-before: always !important;
   }
 
   .main-content-header .breadcrumb,
@@ -163,8 +153,18 @@ a {
   .faq-categories .col-3,
   .filter-group,
   .fc-button-group,
-  #__lpform_validationServer01 {
+  .page-wrapper > div:not(.main-content),
+  .calendar-wrapper .col-2 {
     display: none !important;
+  }
+
+  .calendar-wrapper {
+    margin: 0 !important;
+  }
+
+  .fc-bg-event {
+    color: #FFFFFF !important;
+    border: none !important;
   }
 
   *,

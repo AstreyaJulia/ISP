@@ -7,6 +7,7 @@ const sass = require('gulp-sass')(require('sass'));
 const htmlmin = require("gulp-htmlmin");
 const del = require("del");
 const sync = require("browser-sync").create();
+const webpack = require('webpack-stream');
 
 // Styles
 
@@ -32,6 +33,21 @@ const html = () => {
 
 exports.html = html;
 
+// JS
+
+const jsbundle = () => {
+  return gulp.src("src/entry.js")
+    .pipe(webpack({config : require("./webpack.config.js"),
+      externals: {
+        jquery: 'jQuery'
+      }
+    }))
+    .pipe(gulp.dest("dist/assets/js/"));
+}
+
+exports.jsbundle = jsbundle;
+
+
 // Images
 
 const images = () => {
@@ -49,7 +65,10 @@ const copy = () => {
       //"src/assets/**/*.ico",
       //"src/assets/img/**/*.{jpg,png,svg}",
       "src/assets/modules/**/*.{js,map,css}",
-      "src/assets/js/*.{js,map,css}"
+      "src/assets/js/app.js",
+      "src/assets/js/index.js",
+      "src/assets/js/slider.js",
+      "src/assets/js/weather.min.js"
     ],
     {
       base: "src"

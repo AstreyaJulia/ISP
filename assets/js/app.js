@@ -1,62 +1,35 @@
 'use strict';
 
-// Кнопка Назад Наверх, класс .back-to-top
+/*
+// Виджет событий
+// Виджет событий и дней рождения скрывается сам, если остальные скрыты
+const todayeventswidget = document.querySelector('.today-events');
 
-const backtotopbutton = document.querySelector('.back-to-top');
-// Прокручиваемое содержимое, класс .main-content, если его прокручивать, появляется кнопка Назад наверх
-const maincontent = document.querySelector('.main-content');
+const todayeventswidgethandler = () => {
+  // Если списки дней рождения скрыты и событий, то список скрывается польностью
+  const todayeventslist = todayeventswidget.querySelector('.today-events-list');
+  const todaybdayslist = todayeventswidget.querySelector('.today-birthdays-list');
+  if (todayeventslist.classList.contains('visually-hidden') && todaybdayslist.classList.contains('visually-hidden')) {
+    todayeventswidget.querySelector('.widget-title').classList.add('visually-hidden');
+    todayeventswidget.style.padding = '0';
+  } else {
+    todayeventswidget.querySelector('.widget-title').classList.remove('visually-hidden');
+    todayeventswidget.style = '';
+  }
+}
+*/
 
-// Кнопка, переключающая сайдбар, класс .sidebar-toggle-button
-const sidebartogglbutton = document.querySelector('.sidebar-toggle-button');
-// Тело страницы, класс .main-sidebar
-const sidebarwrapper = document.querySelector('.page-body');
-
-// Кнопка вкл/выкл верхнего поиска, класс .top-search-button-toggle
-const searchbutton = document.querySelector('.top-search-button-toggle');
-// Верхний поиск, класс .top-search
-const searchinput = document.querySelector('.top-search');
-// Кнопка закрытия верхнего поиска, класс .top-search-close
-const searchclosebtn = document.querySelector('.top-search-close');
+/*if (todayeventswidget) {
+  todayeventswidgethandler();
+}*/
 
 // Меню сайдбара
 const sidebarnavmenu = document.querySelector('.navigation-menu');
 
-// Кнопка показать / скрыть пароль
-const showhidepass = document.querySelector('.passcode-switch');
-// Поле ввода пароля
-const passinp = document.getElementById('pass');
-
-//Фильтр в телефонном справочнике
-// Ищем группу фильтров с селектором button-group
-const filterGroup = document.querySelector('.phonebook-filter');
-// Куда будет выводиться результат
-const result = document.getElementById('filter');
-// Начальная строка без фильтров
-const string = '/components/phonebook/ajax.php/?';
-
-// FAQ
-// Содержимое страницы FAQ
-const faqcard = document.querySelector('.faq-categories-doc');
-const cont = document.querySelector('.faq-body');
-// Индикатор загрузки для страницы FAQ
-const loading = document.querySelector('.loading-spinner-faq');
-// Ссылки FAQ
-const faqlinks = document.querySelectorAll('.faq-category-subitem a');
-
-// FAQ акордеон в группе
-const faqaccordeon = document.querySelector('.faq-categories-list');
-
 // Спиннер
 const spinnerloader = document.querySelector('.spinner-wrapper');
 
-// Виджет событий и дней рождения скрывается сам, если остальные скрыты
-const todayeventswidget = document.querySelector('.today-events');
-
-// Модалы для списка ссылок
-const multimodal = document.querySelector('.modal-multiaction');
-const multimodalbtns = document.querySelectorAll('.btnmodal-multiaction');
-
-// ФУНКЦИИ
+// ГЛОБАЛЬНЫЕ ФУНКЦИИ
 
 // Toast. Большие всплывашки с заголовком и временем
 // Всплывашка. Принимает заголовок header, текст text, время time в виде строки
@@ -162,19 +135,269 @@ function ajaxQuery(url, data, type, success, successparams) {
   });
 }
 
-// КОМПОНЕНТЫ
+// Общие
 
-// Tasks задачи
-const todowrapper = document.querySelector('.todo-wrapper');
+// При прокручивании вниз на 20px от верхнего края элемента с классом main-content, показывает кнопку Назад наверх
+// Кнопка Назад Наверх, класс .back-to-top
+const backtotopbutton = document.querySelector('.back-to-top');
+// Прокручиваемое содержимое, класс .main-content, если его прокручивать, появляется кнопка Назад наверх
+const maincontent = document.querySelector('.main-content');
 
-// Календарь на главной
+const maincontentscroll = () => {
+  if (maincontent.scrollTop > 20) {
+    backtotopbutton.style.display = "flex";
+  } else {
+    backtotopbutton.style.display = "none";
+  }
+};
+// Возвращает наверх при нажатии на кнопку .back-to-top
+const buttonscrolltotopHandler = () => {
+  maincontent.scrollTop = 0;
+};
+
+// Переключает класс disabled у .page-body, сайдбар
+// Кнопка, переключающая сайдбар, класс .sidebar-toggle-button
+const sidebartogglbutton = document.querySelector('.sidebar-toggle-button');
+// Тело страницы, класс .main-sidebar
+const sidebarwrapper = document.querySelector('.page-body');
+
+const buttonsidebartoggleHandler = () => {
+  sidebarwrapper.classList.toggle('disabled');
+};
+
+
+// Добавляет класс open у .top-search
+// Кнопка вкл/выкл верхнего поиска, класс .top-search-button-toggle
+const searchbutton = document.querySelector('.top-search-button-toggle');
+// Верхний поиск, класс .top-search
+const searchinput = document.querySelector('.top-search');
+// Кнопка закрытия верхнего поиска, класс .top-search-close
+const searchclosebtn = document.querySelector('.top-search-close');
+
+const buttonsearchHandler = () => {
+  searchinput.classList.add('open');
+};
+// Удаляет класс open у .top-search
+const buttonsearchcloseHandler = () => {
+  searchinput.classList.remove('open');
+};
+
+
+// Переключает класс .active у ближайшего .menu-item нажатой ссылки меню сайдбара
+const menuitemClickHandler = (evt) => {
+  evt.target.closest('.menu-item').classList.toggle("active");
+};
+
+// Ищет в форме селект с id profession, проверяет, если судья или председатель, то отображает принадлежность судье, если нет, то блокирует и сбрасывает значение
+// Селект Профессия
+const profselect = document.getElementById('profession');
+// Селект Принадлежность
+const affselect = document.getElementById('affiliation');
+
+const profselectHandler = () => {
+  if (
+    profselect.options[profselect.selectedIndex].value === '6' || profselect.options[profselect.selectedIndex].value === '7' || profselect.options[profselect.selectedIndex].value === '9') {
+    affselect.disabled = false;
+  } else {
+    affselect.disabled = true;
+    affselect.selectedIndex = 0;
+  }
+}
+
+// Если не в штате, то блокирует и сбрасывает кабинет
+// Селект В штате
+const activeselect = document.getElementById('active');
+// Селект Кабинет
+const roomselect = document.getElementById('room');
+
+const activeselectHandler = () => {
+  if (
+    activeselect.options[activeselect.selectedIndex].value === '1') {
+    roomselect.disabled = false;
+  } else {
+    roomselect.disabled = true;
+    roomselect.selectedIndex = 0;
+  }
+}
+
+/* Возвращает текущий день, месяц и день недели в элементы с классами today-group-day,
+*  today-group-month, today-group-dayw */
+if (document.querySelector('.today-group')) {
+  document.querySelector(".today-group-dayw").innerHTML = moment().tz('Europe/Moscow').format('dddd');
+  document.querySelector(".today-group-day").innerHTML = moment().tz('Europe/Moscow').format('D');
+  document.querySelector(".today-group-month").innerHTML = moment().tz('Europe/Moscow').format('MMMM');
+
+}
+
+// Переключает класс .active у ближайшего .list-group-item нажатой ссылки списка ссылок
+// Список групп ссылок
+const listgroupmenu = document.querySelector('.list-tab-group .list-group');
+// Список ссылок
+const tablistgroupmenu = document.querySelector('.tab-content');
+
+if (listgroupmenu && tablistgroupmenu) {
+  const listgroup = listgroupmenu.querySelectorAll('.list-group-item');
+  const tablistgroup = tablistgroupmenu.querySelectorAll('.tab-list-group');
+
+  const listgroupitemClickHandler = (evt) => {
+    const listgroupitem = evt.target.closest('.list-group-item');
+    if (listgroupitem != null) {
+      for (let i = 0, len = listgroup.length; i < len; i++) {
+        listgroup[i].classList.remove("active");
+      }
+      listgroupitem.classList.add("active");
+      for (let a = 0, len = tablistgroup.length; a < len; a++) {
+        tablistgroup[a].classList.remove("active");
+        if (listgroupitem.id + "-list" === tablistgroup[a].id) {
+          tablistgroup[a].classList.add("active");
+        }
+      }
+    }
+  };
+  // Устанавливает класс active первой из найденных ссылок и табов
+  listgroup[0].classList.add("active");
+  tablistgroup[0].classList.add("active");
+  // Прослушивание нажатия нажатия на ссылки списка ссылок .list-group
+  listgroupmenu.addEventListener('click', (evt) => {
+    listgroupitemClickHandler(evt);
+  });
+}
+
+// Кнопка Назад. Класс .btn-back. Возвращает на страницу, с которой был переход
+const backbtn = document.querySelectorAll('.btn-back');
+if (backbtn) {
+  for (let a = 0; a < backbtn.length; a++) {
+    backbtn[a].addEventListener('click', function () {
+      window.history.back();
+    })
+  }
+}
+
+// Кнопка Печати страницы. Класс .btn-print
+const printbtns = document.querySelectorAll('.btn-print');
+if (printbtns) {
+  printbtns.forEach(function (printbtn) {
+    printbtn.addEventListener('click', () => {
+      window.print()
+    });
+  });
+}
+
+// Показать / скрыть пароль
+// Кнопка показать / скрыть пароль
+const showhidepass = document.querySelector('.passcode-switch');
+// Поле ввода пароля
+const passinp = document.getElementById('pass');
+
+const showhidepassHandler = () => {
+  // Меняем тип поля ввода пароля с password на text
+  if (passinp.type === "password") {
+    passinp.type = "text";
+    showhidepass.classList.toggle('is-hidden');
+  } else {
+    passinp.type = "password";
+    showhidepass.classList.toggle('is-hidden');
+  }
+};
+
+// Tooltip и popover
+document.querySelectorAll('.bs-tooltip')
+  .forEach(function (tooltip) {
+    new bootstrap.Tooltip(tooltip, {
+      selector: '[data-bs-toggle="tooltip"]'
+    })
+  })
+
+document.querySelectorAll('[data-bs-toggle="popover"]')
+  .forEach(function (popover) {
+    new bootstrap.Popover(popover)
+  })
+
+// Отключаем спиннер загрузки при загрузке содержимого
+const spinnerloaderHandler = () => {
+  spinnerloader.style.display = "none";
+};
+
+// Получает имя файла текущей открытой страницы и ищет такое же в ссылках бокового меню, устанавливает класс active открытому пункту или субпункту и его родителю
+const sidebarnavmenuHandler = () => {
+  let filename = window.location.href.replace(/^.*[\\\/]/, '').replace('#', '');
+  let menulink = sidebarnavmenu.querySelectorAll('.menu-link');
+  let submenulink = sidebarnavmenu.querySelectorAll('.submenu-link');
+  for (let i = 0, len = menulink.length; i < len; i++) {
+    // Поменять в этом условии http://isp/, если будет другой домен
+    if (filename === "" && menulink[i].href.replace(/^.*[\\\/]/, '').replace('#', '') === "") {
+      filename = "/";
+      menulink[i].closest('.menu-item').classList.add("active");
+    }
+    // Условие для локальной версии, где главная index.html
+    if (filename === "" && menulink[i].href.replace(/^.*[\\\/]/, '').replace('#', '') === "index.html") {
+      filename = "index.html";
+      menulink[i].closest('.menu-item').classList.add("active");
+    }
+    if (filename === menulink[i].href.replace(/^.*[\\\/]/, '').replace('#', '')) {
+      menulink[i].closest('.menu-item').classList.add("active");
+    }
+  }
+  for (let i = 0, len = submenulink.length; i < len; i++) {
+    if (filename === submenulink[i].href.replace(/^.*[\\\/]/, '').replace('#', '')) {
+      submenulink[i].closest('.submenu-item').classList.add("active");
+      submenulink[i].closest('.menu-item').classList.add("active");
+    }
+  }
+  // Прослушивание нажатия нажатия на ссылки меню .navigation-menu
+  sidebarnavmenu.addEventListener('click', (evt) => {
+    menuitemClickHandler(evt);
+  });
+};
+
+// Отключаем спиннер загрузки при загрузке содержимого
+const maincontentscrollHandler = () => {
+  const winScroll = maincontent.scrollTop;
+  const height = maincontent.scrollHeight - maincontent.clientHeight;
+  const scrolled = (winScroll / height) * 100;
+  const topprogress = document.querySelector('.topprogressbar');
+  if (topprogress) {
+    topprogress.style.width = scrolled + "%";
+  }
+
+};
+
+
+// Календарь виджет
 // Контейнер для календаря
 const minicalendar = document.querySelector('.today-calendar-widget');
 
-// Календарь большой
+// Мини календарь на главной
+const minicalendarhandler = () => {
+  let calendar = new FullCalendar.Calendar(minicalendar, {
+    locale: 'ru',
+    timeZone: 'Europe/Moscow',
+    initialView: 'dayGridMonth',
+    height: 250,
+    editable: false,
+    selectable: true,
+    businessHours: false,
+    dayMaxEvents: false, //
+    headerToolbar: {
+      right: 'prev,next,today',
+      left: 'title',
+    },
+    events: {
+      url: 'components/fullcalendar/events.php',
+      method: 'GET',
+      extraParams: function () { // функция, которая возвращает объект
+        return {
+          cachebuster: new Date().valueOf()
+        };
+      }
+    }
+  });
+  calendar.render();
+}
+
+// Календарь. Модуль
 // Контейнер для календаря
 const calendarEl = document.getElementById('calendar');
-
 
 const calendmodulehandler = () => {
   //Элементы
@@ -341,10 +564,10 @@ const calendmodulehandler = () => {
   }
 
   // Получить день недели в текстовом виде по номеру дня, где 0 - пн, 1 вт и т.д.
-  function getweekdaystring(date) {
-    const days = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
-    return days[moment(date).get('weekday')];
-  }
+  /* function getweekdaystring(date) {
+     const days = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
+     return days[moment(date).get('weekday')];
+   }*/
 
   // Отметить чекбоксы дней недели по массиву
   function checkweekdays(array) {
@@ -370,7 +593,6 @@ const calendmodulehandler = () => {
     }
     return array;
   }
-
 
   function repswitch(info) {
     if ($(repeatSwitch).prop('checked')) {
@@ -436,20 +658,14 @@ const calendmodulehandler = () => {
         $(privateSwitch).prop('checked', true)
       }
       // Разные даты начала и конца события для создаваемых событий при нажатии на кнопку создания и на день
-      if (false) {
-        const date = moment().format('YYYY-MM-DD HH:mm');
-        $(startDate).val(date);
-        $(endDate).val(date);
-      } else {
-        const date = moment(info.date).format('YYYY-MM-DD HH:mm');
-        $(startDate).val(date);
-        $(endDate).val(date);
-      }
+      const date = moment(info.date).format('YYYY-MM-DD HH:mm');
+      $(startDate).val(date);
+      $(endDate).val(date);
 
 // Если включили повторение, то дата начала повторения берется из даты начала события
       $(repeatSwitch).on('click', function () {
-          const date = moment($(startDate).val()).format('YYYY-MM-DD HH:mm');
-          repswitch(date);
+        const date = moment($(startDate).val()).format('YYYY-MM-DD HH:mm');
+        repswitch(date);
       })
 
 // Выбор повторения для дня
@@ -469,7 +685,7 @@ const calendmodulehandler = () => {
           $(evdmonth).prop("checked", false);
           daynumlabel2.innerHTML = 'Каждый';
           daynumlabel1.innerHTML = 'день';
-          daynum.setAttribute('max', 31);
+          daynum.setAttribute('max', '31');
         }
         if (
           repparamSwitch.options[repparamSwitch.selectedIndex].value === 'weekly-section') {
@@ -481,7 +697,7 @@ const calendmodulehandler = () => {
           $(evdmonth).prop("checked", false);
           daynumlabel2.innerHTML = 'Каждую';
           daynumlabel1.innerHTML = 'неделю';
-          daynum.setAttribute('max', 53);
+          daynum.setAttribute('max', '53');
         }
         if (
           repparamSwitch.options[repparamSwitch.selectedIndex].value === 'monthly-section') {
@@ -493,7 +709,7 @@ const calendmodulehandler = () => {
           $(dayofmonth).val(moment($(startDate).val()).date());
           daynumlabel2.innerHTML = 'Каждый';
           daynumlabel1.innerHTML = 'месяц';
-          daynum.setAttribute('max', 12);
+          daynum.setAttribute('max', '12');
         }
         if (
           repparamSwitch.options[repparamSwitch.selectedIndex].value === 'yearly-section') {
@@ -503,7 +719,7 @@ const calendmodulehandler = () => {
           $(evdmonth).prop("checked", false);
           daynumlabel2.innerHTML = 'Каждый';
           daynumlabel1.innerHTML = 'год';
-          daynum.setAttribute('max', 100);
+          daynum.setAttribute('max', '100');
         }
       })
 
@@ -944,7 +1160,7 @@ const calendmodulehandler = () => {
         $(evdmonth).prop("checked", false);
         daynumlabel2.innerHTML = 'Каждый';
         daynumlabel1.innerHTML = 'день';
-        daynum.setAttribute('max', 31);
+        daynum.setAttribute('max', '31');
       }
       if (
         repparamSwitch.options[repparamSwitch.selectedIndex].value === 'weekly-section') {
@@ -956,7 +1172,7 @@ const calendmodulehandler = () => {
         $(evdmonth).prop("checked", false);
         daynumlabel2.innerHTML = 'Каждую';
         daynumlabel1.innerHTML = 'неделю';
-        daynum.setAttribute('max', 53);
+        daynum.setAttribute('max', '53');
       }
       if (
         repparamSwitch.options[repparamSwitch.selectedIndex].value === 'monthly-section') {
@@ -968,7 +1184,7 @@ const calendmodulehandler = () => {
         $(dayofmonth).val(moment($(startDate).val()).date());
         daynumlabel2.innerHTML = 'Каждый';
         daynumlabel1.innerHTML = 'месяц';
-        daynum.setAttribute('max', 12);
+        daynum.setAttribute('max', '12');
       }
       if (
         repparamSwitch.options[repparamSwitch.selectedIndex].value === 'yearly-section') {
@@ -978,7 +1194,7 @@ const calendmodulehandler = () => {
         $(evdmonth).prop("checked", false);
         daynumlabel2.innerHTML = 'Каждый';
         daynumlabel1.innerHTML = 'год';
-        daynum.setAttribute('max', 100);
+        daynum.setAttribute('max', '100');
       }
     })
 
@@ -1434,37 +1650,474 @@ const calendmodulehandler = () => {
   }
 }
 
-// Конец календаря
 
-// Мини календарь на главной
-const minicalendarhandler = () => {
-  let calendar = new FullCalendar.Calendar(minicalendar, {
-    locale: 'ru',
-    timeZone: 'Europe/Moscow',
-    initialView: 'dayGridMonth',
-    height: 250,
-    editable: false,
-    selectable: true,
-    businessHours: false,
-    dayMaxEvents: false, //
-    headerToolbar: {
-      right: 'prev,next,today',
-      left: 'title',
-    },
-    events: {
-      url: 'components/fullcalendar/events.php',
-      method: 'GET',
-      extraParams: function () { // функция, которая возвращает объект
-        return {
-          cachebuster: new Date().valueOf()
-        };
+// Datatables
+const datatablesHandler = () => {
+  const colspan = $('td[colspan]').not('[colspan=1]');
+  /* colspan.prop("colSpan")  получает кол-во colspan */
+  colspan.after('<td style="display: none;"></td>');
+  // Для таблиц с сортировкой
+  $('.dataTable.sort').DataTable({
+    "language": {
+      "processing": "Подождите...",
+      "search": "Поиск:",
+      "lengthMenu": "Показать _MENU_ записей",
+      "info": "Записи _START_ - _END_ из _TOTAL_",
+      "infoEmpty": "Записи с 0 по 0 из 0 записей",
+      "infoFiltered": "(отфильтровано из _MAX_ записей)",
+      "loadingRecords": "Загрузка записей...",
+      "zeroRecords": "Записи отсутствуют.",
+      "emptyTable": "В таблице отсутствуют данные",
+      "paginate": {
+        "first": "Первая",
+        "previous": "‹",
+        "next": "›",
+        "last": "Последняя"
+      },
+      "aria": {
+        "sortAscending": ": активировать для сортировки столбца по возрастанию",
+        "sortDescending": ": активировать для сортировки столбца по убыванию"
+      },
+      "select": {
+        "rows": {
+          "_": "Выбрано записей: %d",
+          "0": "Кликните по записи для выбора",
+          "1": "Выбрана одна запись"
+        },
+        "1": "%d ряд выбран",
+        "_": "%d ряда(-ов) выбрано",
+        "cells": {
+          "1": "1 ячейка выбрана",
+          "_": "Выбрано %d ячеек"
+        },
+        "columns": {
+          "1": "1 столбец выбран",
+          "_": "%d столбцов выбрано"
+        }
+      },
+      "searchBuilder": {
+        "conditions": {
+          "string": {
+            "startsWith": "Начинается с",
+            "contains": "Содержит",
+            "empty": "Пусто",
+            "endsWith": "Заканчивается на",
+            "equals": "Равно",
+            "not": "Не",
+            "notEmpty": "Не пусто"
+          },
+          "date": {
+            "after": "После",
+            "before": "До",
+            "between": "Между",
+            "empty": "Пусто",
+            "equals": "Равно",
+            "not": "Не",
+            "notBetween": "Не между",
+            "notEmpty": "Не пусто"
+          },
+          "number": {
+            "empty": "Пусто",
+            "equals": "Равно",
+            "gt": "Больше чем",
+            "gte": "Больше, чем равно",
+            "lt": "Меньше чем",
+            "lte": "Меньше, чем равно",
+            "not": "Не",
+            "notEmpty": "Не пусто",
+            "between": "Между",
+            "notBetween": "Не между ними"
+          },
+          "array": {
+            "equals": "Равно",
+            "empty": "Пусто",
+            "contains": "Содержит",
+            "not": "Не равно",
+            "notEmpty": "Не пусто",
+            "without": "Без"
+          }
+        },
+        "data": "Данные",
+        "deleteTitle": "Удалить условие фильтрации",
+        "logicAnd": "И",
+        "logicOr": "Или",
+        "title": {
+          "0": "Конструктор поиска",
+          "_": "Конструктор поиска (%d)"
+        },
+        "value": "Значение",
+        "add": "Добавить условие",
+        "button": {
+          "0": "Конструктор поиска",
+          "_": "Конструктор поиска (%d)"
+        },
+        "clearAll": "Очистить всё",
+        "condition": "Условие"
+      },
+      "searchPanes": {
+        "clearMessage": "Очистить всё",
+        "collapse": {
+          "0": "Панели поиска",
+          "_": "Панели поиска (%d)"
+        },
+        "count": "{total}",
+        "countFiltered": "{shown} ({total})",
+        "emptyPanes": "Нет панелей поиска",
+        "loadMessage": "Загрузка панелей поиска",
+        "title": "Фильтры активны - %d"
+      },
+      "thousands": ",",
+      "buttons": {
+        "pageLength": {
+          "_": "Показать 10 строк",
+          "-1": "Показать все ряды",
+          "1": "Показать 1 ряд"
+        },
+        "pdf": "PDF",
+        "print": "Печать",
+        "collection": "Коллекция <span class=\"ui-button-icon-primary ui-icon ui-icon-triangle-1-s\"><\/span>",
+        "colvis": "Видимость столбцов",
+        "colvisRestore": "Восстановить видимость",
+        "copy": "Копировать",
+        "copyKeys": "Нажмите ctrl or u2318 + C, чтобы скопировать данные таблицы в буфер обмена.  Для отмены, щелкните по сообщению или нажмите escape.",
+        "copySuccess": {
+          "1": "Скопирована 1 ряд в буфер обмена",
+          "_": "Скопировано %ds рядов в буфер обмена"
+        },
+        "copyTitle": "Скопировать в буфер обмена",
+        "csv": "CSV",
+        "excel": "Excel"
+      },
+      "decimal": ".",
+      "infoThousands": ",",
+      "autoFill": {
+        "cancel": "Отменить",
+        "fill": "Заполнить все ячейки <i>%d<i><\/i><\/i>",
+        "fillHorizontal": "Заполнить ячейки по горизонтали",
+        "fillVertical": "Заполнить ячейки по вертикали",
+        "info": "Пример автозаполнения"
+      },
+      "datetime": {
+        "previous": "Предыдущий",
+        "next": "Следующий",
+        "hours": "Часы",
+        "minutes": "Минуты",
+        "seconds": "Секунды",
+        "unknown": "Неизвестный",
+        "amPm": [
+          "AM",
+          "PM"
+        ]
+      },
+      "editor": {
+        "close": "Закрыть",
+        "create": {
+          "button": "Новый",
+          "title": "Создать новую запись",
+          "submit": "Создать"
+        },
+        "edit": {
+          "button": "Изменить",
+          "title": "Изменить запись",
+          "submit": "Изменить"
+        },
+        "remove": {
+          "button": "Удалить",
+          "title": "Удалить",
+          "submit": "Удалить",
+          "confirm": {
+            "_": "Вы точно хотите удалить %d строк?",
+            "1": "Вы точно хотите удалить 1 строку?"
+          }
+        },
+        "multi": {
+          "restore": "Отменить изменения"
+        }
       }
     }
   });
-  calendar.render();
+  // Для таблиц без сортировки
+  $('.dataTable.nosort').DataTable({
+    "ordering": false,
+    "language": {
+      "processing": "Подождите...",
+      "search": "Поиск:",
+      "lengthMenu": "Показать _MENU_ записей",
+      "info": "Записи _START_ - _END_ из _TOTAL_",
+      "infoEmpty": "Записи с 0 по 0 из 0 записей",
+      "infoFiltered": "(отфильтровано из _MAX_ записей)",
+      "loadingRecords": "Загрузка записей...",
+      "zeroRecords": "Записи отсутствуют.",
+      "emptyTable": "В таблице отсутствуют данные",
+      "paginate": {
+        "first": "Первая",
+        "previous": "‹",
+        "next": "›",
+        "last": "Последняя"
+      },
+      "aria": {
+        "sortAscending": ": активировать для сортировки столбца по возрастанию",
+        "sortDescending": ": активировать для сортировки столбца по убыванию"
+      },
+      "select": {
+        "rows": {
+          "_": "Выбрано записей: %d",
+          "0": "Кликните по записи для выбора",
+          "1": "Выбрана одна запись"
+        },
+        "1": "%d ряд выбран",
+        "_": "%d ряда(-ов) выбрано",
+        "cells": {
+          "1": "1 ячейка выбрана",
+          "_": "Выбрано %d ячеек"
+        },
+        "columns": {
+          "1": "1 столбец выбран",
+          "_": "%d столбцов выбрано"
+        }
+      },
+      "searchBuilder": {
+        "conditions": {
+          "string": {
+            "startsWith": "Начинается с",
+            "contains": "Содержит",
+            "empty": "Пусто",
+            "endsWith": "Заканчивается на",
+            "equals": "Равно",
+            "not": "Не",
+            "notEmpty": "Не пусто"
+          },
+          "date": {
+            "after": "После",
+            "before": "До",
+            "between": "Между",
+            "empty": "Пусто",
+            "equals": "Равно",
+            "not": "Не",
+            "notBetween": "Не между",
+            "notEmpty": "Не пусто"
+          },
+          "number": {
+            "empty": "Пусто",
+            "equals": "Равно",
+            "gt": "Больше чем",
+            "gte": "Больше, чем равно",
+            "lt": "Меньше чем",
+            "lte": "Меньше, чем равно",
+            "not": "Не",
+            "notEmpty": "Не пусто",
+            "between": "Между",
+            "notBetween": "Не между ними"
+          },
+          "array": {
+            "equals": "Равно",
+            "empty": "Пусто",
+            "contains": "Содержит",
+            "not": "Не равно",
+            "notEmpty": "Не пусто",
+            "without": "Без"
+          }
+        },
+        "data": "Данные",
+        "deleteTitle": "Удалить условие фильтрации",
+        "logicAnd": "И",
+        "logicOr": "Или",
+        "title": {
+          "0": "Конструктор поиска",
+          "_": "Конструктор поиска (%d)"
+        },
+        "value": "Значение",
+        "add": "Добавить условие",
+        "button": {
+          "0": "Конструктор поиска",
+          "_": "Конструктор поиска (%d)"
+        },
+        "clearAll": "Очистить всё",
+        "condition": "Условие"
+      },
+      "searchPanes": {
+        "clearMessage": "Очистить всё",
+        "collapse": {
+          "0": "Панели поиска",
+          "_": "Панели поиска (%d)"
+        },
+        "count": "{total}",
+        "countFiltered": "{shown} ({total})",
+        "emptyPanes": "Нет панелей поиска",
+        "loadMessage": "Загрузка панелей поиска",
+        "title": "Фильтры активны - %d"
+      },
+      "thousands": ",",
+      "buttons": {
+        "pageLength": {
+          "_": "Показать 10 строк",
+          "-1": "Показать все ряды",
+          "1": "Показать 1 ряд"
+        },
+        "pdf": "PDF",
+        "print": "Печать",
+        "collection": "Коллекция <span class=\"ui-button-icon-primary ui-icon ui-icon-triangle-1-s\"><\/span>",
+        "colvis": "Видимость столбцов",
+        "colvisRestore": "Восстановить видимость",
+        "copy": "Копировать",
+        "copyKeys": "Нажмите ctrl or u2318 + C, чтобы скопировать данные таблицы в буфер обмена.  Для отмены, щелкните по сообщению или нажмите escape.",
+        "copySuccess": {
+          "1": "Скопирована 1 ряд в буфер обмена",
+          "_": "Скопировано %ds рядов в буфер обмена"
+        },
+        "copyTitle": "Скопировать в буфер обмена",
+        "csv": "CSV",
+        "excel": "Excel"
+      },
+      "decimal": ".",
+      "infoThousands": ",",
+      "autoFill": {
+        "cancel": "Отменить",
+        "fill": "Заполнить все ячейки <i>%d<i><\/i><\/i>",
+        "fillHorizontal": "Заполнить ячейки по горизонтали",
+        "fillVertical": "Заполнить ячейки по вертикали",
+        "info": "Пример автозаполнения"
+      },
+      "datetime": {
+        "previous": "Предыдущий",
+        "next": "Следующий",
+        "hours": "Часы",
+        "minutes": "Минуты",
+        "seconds": "Секунды",
+        "unknown": "Неизвестный",
+        "amPm": [
+          "AM",
+          "PM"
+        ]
+      },
+      "editor": {
+        "close": "Закрыть",
+        "create": {
+          "button": "Новый",
+          "title": "Создать новую запись",
+          "submit": "Создать"
+        },
+        "edit": {
+          "button": "Изменить",
+          "title": "Изменить запись",
+          "submit": "Изменить"
+        },
+        "remove": {
+          "button": "Удалить",
+          "title": "Удалить",
+          "submit": "Удалить",
+          "confirm": {
+            "_": "Вы точно хотите удалить %d строк?",
+            "1": "Вы точно хотите удалить 1 строку?"
+          }
+        },
+        "multi": {
+          "restore": "Отменить изменения"
+        }
+      }
+    }
+  });
 }
 
+
+// Содержимое страницы FAQ
+const faqcard = document.querySelector('.faq-categories-doc');
+const cont = document.querySelector('.faq-body');
+// Индикатор загрузки для страницы FAQ
+const loading = document.querySelector('.loading-spinner-faq');
+// Ссылки FAQ
+const faqlinks = document.querySelectorAll('.faq-category-subitem a');
+
+// FAQ акордеон в группе
+const faqaccordeon = document.querySelector('.faq-categories-list');
+
+
+const faqlinkClickHandler = (evt) => {
+  const link = evt.target.closest('a');
+  if (!link) {
+    return;
+  }
+  const datalink = link.dataset.link;
+  faqcard.style.display = 'block';               // Отображает тело карточки
+  loading.style.display = 'inline-block';       // В странице FAQ, показывает индикатор загрузки, пока не прогрузится содержимое страницы
+  // создание ajax объекта
+
+  /*
+  оригинал кода
+  const xmlHttp = () => {
+    // создание ajax объекта
+    try {
+      return new XMLHttpRequest()
+    } catch (e) {
+      try {
+        return new ActiveXObject('Msxml2.XMLHTTP')
+      } catch (e) {
+        try {
+          return new ActiveXObject('Microsoft.XMLHTTP')
+        } catch (e) {
+          return null;
+        }
+      }
+    }
+  }
+  */
+
+  let Http = new XMLHttpRequest();
+  // Перебираем запросы HTTP,
+  if (new XMLHttpRequest()) {
+    Http = new XMLHttpRequest();
+  } else if (new ActiveXObject('Msxml2.XMLHTTP')) {
+    Http = new ActiveXObject('Msxml2.XMLHTTP');
+  } else {
+    if (new ActiveXObject('Microsoft.XMLHTTP')) {
+      Http = new ActiveXObject('Microsoft.XMLHTTP');
+    } else return null;
+  }
+  if (Http) {
+    Http.open('GET', datalink, true);                             	// инициируем загрузку страницы
+    Http.onreadystatechange = () => {                                             // назначаем асинхронный обработчик события
+      if (Http.readyState === 4 && Http.status === 200) {
+        cont.innerHTML = "";                                                      // Очищаем содержимое cont
+        cont.insertAdjacentHTML('beforeend', Http.responseText);           // Вставляем текст ответа Http.responseText в cont перед концом
+        datatablesHandler();
+      }
+    }
+    Http.send(null);
+  } else {
+    document.location = datalink;                                                 // если ajax-объект не удается создать, просто перенаправляем на адрес
+  }
+}
+
+// FAQ аккродеон в группе
+const faqcategoryClickHandler = (evt) => {
+  // Переключает класс родительского элемента события клик
+  evt.target.parentElement.classList.toggle("active");
+}
+
+//FAQ
+if (faqcard && cont && loading && faqlinks) {
+  faqlinks.forEach((faqlink) => {
+    faqlink.addEventListener('click', (evt) => {
+      faqlinkClickHandler(evt);
+    });
+  });
+}
+
+if (faqaccordeon) {
+  const faqcategorys = faqaccordeon.querySelectorAll('.faq-category');
+  faqcategorys.forEach((faqcategory) => {
+    faqcategory.addEventListener('click', (evt) => {
+      faqcategoryClickHandler(evt);
+    });
+  });
+}
+
+
 // Мульти модал для каталога ссылок
+// Модалы для списка ссылок
+const multimodal = document.querySelector('.modal-multiaction');
+const multimodalbtns = document.querySelectorAll('.btnmodal-multiaction');
+
 const multimodalhandler = (evt) => {
   const link = evt.target.closest('a');
   const delbtn = multimodal.querySelector('.btn-del');
@@ -1474,7 +2127,6 @@ const multimodalhandler = (evt) => {
   const text2 = multimodal.querySelector('.text-2');
   const cancelBtn = multimodal.querySelector('.btn-discard');
   const span = multimodal.querySelector('.btn-close');
-
 
   // Функции
 
@@ -1529,7 +2181,7 @@ const multimodalhandler = (evt) => {
   }
 
   if (dataaction === "2") {
-    // 1 действие. Удалить группу
+    // 2 действие. Удалить группу
     header1.style.display = "none";
     text1.style.display = "none";
     header2.style.display = "block";
@@ -1540,24 +2192,78 @@ const multimodalhandler = (evt) => {
   showModal()
 }
 
-/*
-// Виджет событий
-const todayeventswidgethandler = () => {
-  // Если списки дней рождения скрыты и событий, то список скрывается польностью
-  const todayeventslist = todayeventswidget.querySelector('.today-events-list');
-  const todaybdayslist = todayeventswidget.querySelector('.today-birthdays-list');
-  if (todayeventslist.classList.contains('visually-hidden') && todaybdayslist.classList.contains('visually-hidden')) {
-    todayeventswidget.querySelector('.widget-title').classList.add('visually-hidden');
-    todayeventswidget.style.padding = '0';
-  } else {
-    todayeventswidget.querySelector('.widget-title').classList.remove('visually-hidden');
-    todayeventswidget.style = '';
-  }
+if (multimodal && multimodalbtns) {
+  multimodalbtns.forEach((multimodalbtn) => {
+    multimodalbtn.addEventListener('click', (evt) => {
+      multimodalhandler(evt);
+    });
+  });
 }
-*/
+
+
+// Фильтр в телефонной книге
+const filterClickHandler = () => {
+  //Обнуление строк фильтров - выбранного и пустого
+  let filterItems = filterGroup.querySelectorAll('input[type=checkbox]');
+
+  let filterstring = string;
+  let emptyfilter = string;
+  for (let i = 0, len = filterItems.length; i < len; i++) {
+    if (filterItems[i].checked === true) {
+      filterstring += '&filter[' + (filterItems[i].name) + ']=' + filterItems[i].value
+    } else {
+      //Если фильтр не включен. Составляет строку их всех имеющихся фильтров и их значений
+      emptyfilter += '&filter[' + (filterItems[i].name) + ']=' + filterItems[i].value;
+    }
+  }
+  if (filterstring === string) {
+    //Если ни один фильтр не выбран, то выведет emptyfilter
+    fetch(emptyfilter).then(
+      response => {
+        return response.text();
+      }
+    ).then(
+      text => {
+        result.innerHTML = text;
+      }
+    );
+  } else {
+    fetch(filterstring).then(
+      response => {
+        return response.text();
+      }
+    ).then(
+      text => {
+        result.innerHTML = text;
+      }
+    );
+  }
+};
+
+//Фильтр в телефонном справочнике
+// Ищем группу фильтров с селектором button-group
+const filterGroup = document.querySelector('.phonebook-filter');
+// Куда будет выводиться результат
+const result = document.getElementById('filter');
+// Начальная строка без фильтров
+const string = '/components/phonebook/ajax.php/?';
+
+/* Слушаем клик по каждому из фильтров телефонной книги */
+if (filterGroup && result) {
+  // Ищем в filter-group элементы фильтров checkbox
+  let filterItems = filterGroup.querySelectorAll('input[type=checkbox]');
+
+  filterItems.forEach(function (filter) {
+    filter.addEventListener('click', () => {
+      filterClickHandler();
+    });
+  });
+}
 
 
 // Tasks list
+// Tasks задачи. Контейнер
+const todowrapper = document.querySelector('.todo-wrapper');
 
 // Поля: id, title, duedate (дата),
 const tasksHandler = () => {
@@ -2017,7 +2723,6 @@ const tasksHandler = () => {
 
   });
 
-
   // Сброс значений модала
   function resetValues() {
     $(flatPickr).val('');
@@ -2029,607 +2734,6 @@ const tasksHandler = () => {
   tasksRender();
 }
 
-
-// FAQ
-const faqlinkClickHandler = (evt) => {
-  const link = evt.target.closest('a');
-  if (!link) {
-    return;
-  }
-  const datalink = link.dataset.link;
-  faqcard.style.display = 'block';               // Отображает тело карточки
-  loading.style.display = 'inline-block';       // В странице FAQ, показывает индикатор загрузки, пока не прогрузится содержимое страницы
-  // создание ajax объекта
-
-  /*
-  оригинал кода
-  const xmlHttp = () => {
-    // создание ajax объекта
-    try {
-      return new XMLHttpRequest()
-    } catch (e) {
-      try {
-        return new ActiveXObject('Msxml2.XMLHTTP')
-      } catch (e) {
-        try {
-          return new ActiveXObject('Microsoft.XMLHTTP')
-        } catch (e) {
-          return null;
-        }
-      }
-    }
-  }
-  */
-
-  let Http = new XMLHttpRequest();
-  // Перебираем запросы HTTP,
-  if (new XMLHttpRequest()) {
-    Http = new XMLHttpRequest();
-  } else if (new ActiveXObject('Msxml2.XMLHTTP')) {
-    Http = new ActiveXObject('Msxml2.XMLHTTP');
-  } else {
-    if (new ActiveXObject('Microsoft.XMLHTTP')) {
-      Http = new ActiveXObject('Microsoft.XMLHTTP');
-    } else return null;
-  }
-  if (Http) {
-    Http.open('GET', datalink, true);                             	// инициируем загрузку страницы
-    Http.onreadystatechange = () => {                                             // назначаем асинхронный обработчик события
-      if (Http.readyState === 4 && Http.status === 200) {
-        cont.innerHTML = "";                                                      // Очищаем содержимое cont
-        cont.insertAdjacentHTML('beforeend', Http.responseText);           // Вставляем текст ответа Http.responseText в cont перед концом
-        datatablesHandler();
-      }
-    }
-    Http.send(null);
-  } else {
-    document.location = datalink;                                                 // если ajax-объект не удается создать, просто перенаправляем на адрес
-  }
-}
-
-// FAQ аккродеон в группе
-const faqcategoryClickHandler = (evt) => {
-  // Переключает класс родительского элемента события клик
-  evt.target.parentElement.classList.toggle("active");
-}
-
-// Datatables
-const datatablesHandler = () => {
-  const colspan = $('td[colspan]').not('[colspan=1]');
-  /* colspan.prop("colSpan")  получает кол-во colspan */
-  colspan.after('<td style="display: none;"></td>');
-  // Для таблиц с сортировкой
-  $('.dataTable.sort').DataTable({
-    "language": {
-      "processing": "Подождите...",
-      "search": "Поиск:",
-      "lengthMenu": "Показать _MENU_ записей",
-      "info": "Записи _START_ - _END_ из _TOTAL_",
-      "infoEmpty": "Записи с 0 по 0 из 0 записей",
-      "infoFiltered": "(отфильтровано из _MAX_ записей)",
-      "loadingRecords": "Загрузка записей...",
-      "zeroRecords": "Записи отсутствуют.",
-      "emptyTable": "В таблице отсутствуют данные",
-      "paginate": {
-        "first": "Первая",
-        "previous": "‹",
-        "next": "›",
-        "last": "Последняя"
-      },
-      "aria": {
-        "sortAscending": ": активировать для сортировки столбца по возрастанию",
-        "sortDescending": ": активировать для сортировки столбца по убыванию"
-      },
-      "select": {
-        "rows": {
-          "_": "Выбрано записей: %d",
-          "0": "Кликните по записи для выбора",
-          "1": "Выбрана одна запись"
-        },
-        "1": "%d ряд выбран",
-        "_": "%d ряда(-ов) выбрано",
-        "cells": {
-          "1": "1 ячейка выбрана",
-          "_": "Выбрано %d ячеек"
-        },
-        "columns": {
-          "1": "1 столбец выбран",
-          "_": "%d столбцов выбрано"
-        }
-      },
-      "searchBuilder": {
-        "conditions": {
-          "string": {
-            "startsWith": "Начинается с",
-            "contains": "Содержит",
-            "empty": "Пусто",
-            "endsWith": "Заканчивается на",
-            "equals": "Равно",
-            "not": "Не",
-            "notEmpty": "Не пусто"
-          },
-          "date": {
-            "after": "После",
-            "before": "До",
-            "between": "Между",
-            "empty": "Пусто",
-            "equals": "Равно",
-            "not": "Не",
-            "notBetween": "Не между",
-            "notEmpty": "Не пусто"
-          },
-          "number": {
-            "empty": "Пусто",
-            "equals": "Равно",
-            "gt": "Больше чем",
-            "gte": "Больше, чем равно",
-            "lt": "Меньше чем",
-            "lte": "Меньше, чем равно",
-            "not": "Не",
-            "notEmpty": "Не пусто",
-            "between": "Между",
-            "notBetween": "Не между ними"
-          },
-          "array": {
-            "equals": "Равно",
-            "empty": "Пусто",
-            "contains": "Содержит",
-            "not": "Не равно",
-            "notEmpty": "Не пусто",
-            "without": "Без"
-          }
-        },
-        "data": "Данные",
-        "deleteTitle": "Удалить условие фильтрации",
-        "logicAnd": "И",
-        "logicOr": "Или",
-        "title": {
-          "0": "Конструктор поиска",
-          "_": "Конструктор поиска (%d)"
-        },
-        "value": "Значение",
-        "add": "Добавить условие",
-        "button": {
-          "0": "Конструктор поиска",
-          "_": "Конструктор поиска (%d)"
-        },
-        "clearAll": "Очистить всё",
-        "condition": "Условие"
-      },
-      "searchPanes": {
-        "clearMessage": "Очистить всё",
-        "collapse": {
-          "0": "Панели поиска",
-          "_": "Панели поиска (%d)"
-        },
-        "count": "{total}",
-        "countFiltered": "{shown} ({total})",
-        "emptyPanes": "Нет панелей поиска",
-        "loadMessage": "Загрузка панелей поиска",
-        "title": "Фильтры активны - %d"
-      },
-      "thousands": ",",
-      "buttons": {
-        "pageLength": {
-          "_": "Показать 10 строк",
-          "-1": "Показать все ряды",
-          "1": "Показать 1 ряд"
-        },
-        "pdf": "PDF",
-        "print": "Печать",
-        "collection": "Коллекция <span class=\"ui-button-icon-primary ui-icon ui-icon-triangle-1-s\"><\/span>",
-        "colvis": "Видимость столбцов",
-        "colvisRestore": "Восстановить видимость",
-        "copy": "Копировать",
-        "copyKeys": "Нажмите ctrl or u2318 + C, чтобы скопировать данные таблицы в буфер обмена.  Для отмены, щелкните по сообщению или нажмите escape.",
-        "copySuccess": {
-          "1": "Скопирована 1 ряд в буфер обмена",
-          "_": "Скопировано %ds рядов в буфер обмена"
-        },
-        "copyTitle": "Скопировать в буфер обмена",
-        "csv": "CSV",
-        "excel": "Excel"
-      },
-      "decimal": ".",
-      "infoThousands": ",",
-      "autoFill": {
-        "cancel": "Отменить",
-        "fill": "Заполнить все ячейки <i>%d<i><\/i><\/i>",
-        "fillHorizontal": "Заполнить ячейки по горизонтали",
-        "fillVertical": "Заполнить ячейки по вертикали",
-        "info": "Пример автозаполнения"
-      },
-      "datetime": {
-        "previous": "Предыдущий",
-        "next": "Следующий",
-        "hours": "Часы",
-        "minutes": "Минуты",
-        "seconds": "Секунды",
-        "unknown": "Неизвестный",
-        "amPm": [
-          "AM",
-          "PM"
-        ]
-      },
-      "editor": {
-        "close": "Закрыть",
-        "create": {
-          "button": "Новый",
-          "title": "Создать новую запись",
-          "submit": "Создать"
-        },
-        "edit": {
-          "button": "Изменить",
-          "title": "Изменить запись",
-          "submit": "Изменить"
-        },
-        "remove": {
-          "button": "Удалить",
-          "title": "Удалить",
-          "submit": "Удалить",
-          "confirm": {
-            "_": "Вы точно хотите удалить %d строк?",
-            "1": "Вы точно хотите удалить 1 строку?"
-          }
-        },
-        "multi": {
-          "restore": "Отменить изменения"
-        }
-      }
-    }
-  });
-  // Для таблиц без сортировки
-  $('.dataTable.nosort').DataTable({
-    "ordering": false,
-    "language": {
-      "processing": "Подождите...",
-      "search": "Поиск:",
-      "lengthMenu": "Показать _MENU_ записей",
-      "info": "Записи _START_ - _END_ из _TOTAL_",
-      "infoEmpty": "Записи с 0 по 0 из 0 записей",
-      "infoFiltered": "(отфильтровано из _MAX_ записей)",
-      "loadingRecords": "Загрузка записей...",
-      "zeroRecords": "Записи отсутствуют.",
-      "emptyTable": "В таблице отсутствуют данные",
-      "paginate": {
-        "first": "Первая",
-        "previous": "‹",
-        "next": "›",
-        "last": "Последняя"
-      },
-      "aria": {
-        "sortAscending": ": активировать для сортировки столбца по возрастанию",
-        "sortDescending": ": активировать для сортировки столбца по убыванию"
-      },
-      "select": {
-        "rows": {
-          "_": "Выбрано записей: %d",
-          "0": "Кликните по записи для выбора",
-          "1": "Выбрана одна запись"
-        },
-        "1": "%d ряд выбран",
-        "_": "%d ряда(-ов) выбрано",
-        "cells": {
-          "1": "1 ячейка выбрана",
-          "_": "Выбрано %d ячеек"
-        },
-        "columns": {
-          "1": "1 столбец выбран",
-          "_": "%d столбцов выбрано"
-        }
-      },
-      "searchBuilder": {
-        "conditions": {
-          "string": {
-            "startsWith": "Начинается с",
-            "contains": "Содержит",
-            "empty": "Пусто",
-            "endsWith": "Заканчивается на",
-            "equals": "Равно",
-            "not": "Не",
-            "notEmpty": "Не пусто"
-          },
-          "date": {
-            "after": "После",
-            "before": "До",
-            "between": "Между",
-            "empty": "Пусто",
-            "equals": "Равно",
-            "not": "Не",
-            "notBetween": "Не между",
-            "notEmpty": "Не пусто"
-          },
-          "number": {
-            "empty": "Пусто",
-            "equals": "Равно",
-            "gt": "Больше чем",
-            "gte": "Больше, чем равно",
-            "lt": "Меньше чем",
-            "lte": "Меньше, чем равно",
-            "not": "Не",
-            "notEmpty": "Не пусто",
-            "between": "Между",
-            "notBetween": "Не между ними"
-          },
-          "array": {
-            "equals": "Равно",
-            "empty": "Пусто",
-            "contains": "Содержит",
-            "not": "Не равно",
-            "notEmpty": "Не пусто",
-            "without": "Без"
-          }
-        },
-        "data": "Данные",
-        "deleteTitle": "Удалить условие фильтрации",
-        "logicAnd": "И",
-        "logicOr": "Или",
-        "title": {
-          "0": "Конструктор поиска",
-          "_": "Конструктор поиска (%d)"
-        },
-        "value": "Значение",
-        "add": "Добавить условие",
-        "button": {
-          "0": "Конструктор поиска",
-          "_": "Конструктор поиска (%d)"
-        },
-        "clearAll": "Очистить всё",
-        "condition": "Условие"
-      },
-      "searchPanes": {
-        "clearMessage": "Очистить всё",
-        "collapse": {
-          "0": "Панели поиска",
-          "_": "Панели поиска (%d)"
-        },
-        "count": "{total}",
-        "countFiltered": "{shown} ({total})",
-        "emptyPanes": "Нет панелей поиска",
-        "loadMessage": "Загрузка панелей поиска",
-        "title": "Фильтры активны - %d"
-      },
-      "thousands": ",",
-      "buttons": {
-        "pageLength": {
-          "_": "Показать 10 строк",
-          "-1": "Показать все ряды",
-          "1": "Показать 1 ряд"
-        },
-        "pdf": "PDF",
-        "print": "Печать",
-        "collection": "Коллекция <span class=\"ui-button-icon-primary ui-icon ui-icon-triangle-1-s\"><\/span>",
-        "colvis": "Видимость столбцов",
-        "colvisRestore": "Восстановить видимость",
-        "copy": "Копировать",
-        "copyKeys": "Нажмите ctrl or u2318 + C, чтобы скопировать данные таблицы в буфер обмена.  Для отмены, щелкните по сообщению или нажмите escape.",
-        "copySuccess": {
-          "1": "Скопирована 1 ряд в буфер обмена",
-          "_": "Скопировано %ds рядов в буфер обмена"
-        },
-        "copyTitle": "Скопировать в буфер обмена",
-        "csv": "CSV",
-        "excel": "Excel"
-      },
-      "decimal": ".",
-      "infoThousands": ",",
-      "autoFill": {
-        "cancel": "Отменить",
-        "fill": "Заполнить все ячейки <i>%d<i><\/i><\/i>",
-        "fillHorizontal": "Заполнить ячейки по горизонтали",
-        "fillVertical": "Заполнить ячейки по вертикали",
-        "info": "Пример автозаполнения"
-      },
-      "datetime": {
-        "previous": "Предыдущий",
-        "next": "Следующий",
-        "hours": "Часы",
-        "minutes": "Минуты",
-        "seconds": "Секунды",
-        "unknown": "Неизвестный",
-        "amPm": [
-          "AM",
-          "PM"
-        ]
-      },
-      "editor": {
-        "close": "Закрыть",
-        "create": {
-          "button": "Новый",
-          "title": "Создать новую запись",
-          "submit": "Создать"
-        },
-        "edit": {
-          "button": "Изменить",
-          "title": "Изменить запись",
-          "submit": "Изменить"
-        },
-        "remove": {
-          "button": "Удалить",
-          "title": "Удалить",
-          "submit": "Удалить",
-          "confirm": {
-            "_": "Вы точно хотите удалить %d строк?",
-            "1": "Вы точно хотите удалить 1 строку?"
-          }
-        },
-        "multi": {
-          "restore": "Отменить изменения"
-        }
-      }
-    }
-  });
-}
-
-// При прокручивании вниз на 20px от верхнего края элемента с классом main-content, показывает кнопку
-const maincontentscroll = () => {
-  if (maincontent.scrollTop > 20) {
-    backtotopbutton.style.display = "flex";
-  } else {
-    backtotopbutton.style.display = "none";
-  }
-};
-
-// Возвращает наверх при нажатии на кнопку .back-to-top
-const buttonscrolltotopHandler = () => {
-  maincontent.scrollTop = 0;
-};
-
-// Переключает класс disabled у .page-body
-const buttonsidebartoggleHandler = () => {
-  sidebarwrapper.classList.toggle('disabled');
-};
-
-// Добавляет класс open у .top-search
-const buttonsearchHandler = () => {
-  searchinput.classList.add('open');
-};
-
-// Удаляет класс open у .top-search
-const buttonsearchcloseHandler = () => {
-  searchinput.classList.remove('open');
-};
-
-// Переключает класс .active у ближайшего .menu-item нажатой ссылки меню сайдбара
-const menuitemClickHandler = (evt) => {
-  evt.target.closest('.menu-item').classList.toggle("active");
-};
-
-// Ищет в форме селект с id profession, проверяет, если судья или председатель, то отображает принадлежность судье, если нет, то блокирует и сбрасывает значение
-const profselect = document.getElementById('profession');
-const affselect = document.getElementById('affiliation');
-
-const profselectHandler = () => {
-  if (
-    profselect.options[profselect.selectedIndex].value === '6' || profselect.options[profselect.selectedIndex].value === '7' || profselect.options[profselect.selectedIndex].value === '9') {
-    affselect.disabled = false;
-  } else {
-    affselect.disabled = true;
-    affselect.selectedIndex = 0;
-  }
-}
-
-if (profselect && affselect) {
-  profselect.addEventListener('change', profselectHandler);
-}
-
-// Ищет селект с id active
-const activeselect = document.getElementById('active');
-const roomselect = document.getElementById('room');
-
-const activeselectHandler = () => {
-  if (
-    activeselect.options[activeselect.selectedIndex].value === '1') {
-    roomselect.disabled = false;
-  } else {
-    roomselect.disabled = true;
-    roomselect.selectedIndex = 0;
-  }
-}
-
-if (activeselect && roomselect) {
-  activeselect.addEventListener('change', activeselectHandler);
-}
-
-/* Возвращает текущий день, месяц и день недели в элементы с классами today-group-day,
-*  today-group-month, today-group-dayw */
-
-const datarenderHandler = () => {
-  document.querySelector(".today-group-dayw").innerHTML = moment().tz('Europe/Moscow').format('dddd');
-  document.querySelector(".today-group-day").innerHTML = moment().tz('Europe/Moscow').format('D');
-  document.querySelector(".today-group-month").innerHTML = moment().tz('Europe/Moscow').format('MMMM');
-};
-
-// Список ссылок
-const listgroupmenu = document.querySelector('.list-tab-group .list-group');
-const tablistgroupmenu = document.querySelector('.tab-content');
-if (listgroupmenu && tablistgroupmenu) {
-  const listgroup = listgroupmenu.querySelectorAll('.list-group-item');
-  const tablistgroup = tablistgroupmenu.querySelectorAll('.tab-list-group');
-
-  // Переключает класс .active у ближайшего .list-group-item нажатой ссылки списка ссылок
-  const listgroupitemClickHandler = (evt) => {
-    const listgroupitem = evt.target.closest('.list-group-item');
-    if (listgroupitem != null) {
-      for (let i = 0, len = listgroup.length; i < len; i++) {
-        listgroup[i].classList.remove("active");
-      }
-      listgroupitem.classList.add("active");
-      for (let a = 0, len = tablistgroup.length; a < len; a++) {
-        tablistgroup[a].classList.remove("active");
-        if (listgroupitem.id + "-list" === tablistgroup[a].id) {
-          tablistgroup[a].classList.add("active");
-        }
-      }
-    }
-  };
-  // Устанавливает класс active первой из найденных ссылок и табов
-  listgroup[0].classList.add("active");
-  tablistgroup[0].classList.add("active");
-  // Прослушивание нажатия нажатия на ссылки списка ссылок .list-group
-  listgroupmenu.addEventListener('click', (evt) => {
-    listgroupitemClickHandler(evt);
-  });
-}
-
-// Кнопка Назад. Класс .btn-back. Возвращает на страницу, с которой был переход
-const backbtn = document.querySelectorAll('.btn-back');
-if (backbtn) {
-  for (let a = 0; a < backbtn.length; a++) {
-    backbtn[a].addEventListener('click', function () {
-      window.history.back();
-    })
-  }
-}
-
-// Кнопка Печати страницы. Класс .btn-print
-const printbtns = document.querySelectorAll('.btn-print');
-if (printbtns) {
-  printbtns.forEach(function (printbtn) {
-    printbtn.addEventListener('click', () => {
-      window.print()
-    });
-  });
-}
-
-// Фильтр в телефонной книге
-const filterClickHandler = () => {
-  //Обнуление строк фильтров - выбранного и пустого
-  let filterItems = filterGroup.querySelectorAll('input[type=checkbox]');
-
-  let filterstring = string;
-  let emptyfilter = string;
-  for (let i = 0, len = filterItems.length; i < len; i++) {
-    if (filterItems[i].checked === true) {
-      filterstring += '&filter[' + (filterItems[i].name) + ']=' + filterItems[i].value
-    } else {
-      //Если фильтр не включен. Составляет строку их всех имеющихся фильтров и их значений
-      emptyfilter += '&filter[' + (filterItems[i].name) + ']=' + filterItems[i].value;
-    }
-  }
-  if (filterstring === string) {
-    //Если ни один фильтр не выбран, то выведет emptyfilter
-    fetch(emptyfilter).then(
-      response => {
-        return response.text();
-      }
-    ).then(
-      text => {
-        result.innerHTML = text;
-      }
-    );
-  } else {
-    fetch(filterstring).then(
-      response => {
-        return response.text();
-      }
-    ).then(
-      text => {
-        result.innerHTML = text;
-      }
-    );
-  }
-};
 
 // Погодный виджет
 const weatherHandler = () => {
@@ -2654,72 +2758,44 @@ const weatherHandler = () => {
   document.getElementsByTagName("head")[0].appendChild(script);
 }
 
+
 // Определение функции, запускающейся при полной загрузке страницы
 const init = () => {
+
   //Отключаем спиннер
   if (spinnerloader) {
-    spinnerloader.style.display = "none";
+    spinnerloaderHandler();
   }
+
   // Прослушивание прокручивания .main-content
   if (backtotopbutton) {
     maincontent.addEventListener('scroll', maincontentscroll);
     // Прослушивание нажатия кнопки .back-to-top
     backtotopbutton.addEventListener('click', buttonscrolltotopHandler);
   }
+
   // Прослушивание нажатия кнопки .sidebar-toggle-button
   if (sidebartogglbutton && sidebarwrapper) {
     sidebartogglbutton.addEventListener('click', buttonsidebartoggleHandler);
   }
+
   // Прослушивание нажатия кнопки .top-search-button-toggle
   if (searchbutton && searchinput && searchclosebtn) {
     searchbutton.addEventListener('click', buttonsearchHandler);
     // Прослушивание нажатия кнопки .top-search-close
     searchclosebtn.addEventListener('click', buttonsearchcloseHandler);
   }
-  // Получает имя файла текущей открытой страницы и ищет такое же в ссылках бокового меню, устанавливает класс active открытому пункту или субпункту и его родителю
+
+  // Получает имя файла текущей открытой страницы и ищет такое же в ссылках бокового меню,
+  // устанавливает класс active открытому пункту или субпункту и его родителю
   if (sidebarnavmenu) {
-    let filename = window.location.href.replace(/^.*[\\\/]/, '').replace('#', '');
-    let menulink = sidebarnavmenu.querySelectorAll('.menu-link');
-    let submenulink = sidebarnavmenu.querySelectorAll('.submenu-link');
-    for (let i = 0, len = menulink.length; i < len; i++) {
-      // Поменять в этом условии http://isp/, если будет другой домен
-      if (filename === "" && menulink[i].href.replace(/^.*[\\\/]/, '').replace('#', '') === "") {
-        filename = "/";
-        menulink[i].closest('.menu-item').classList.add("active");
-      }
-      // Условие для локальной версии, где главная index.html
-      if (filename === "" && menulink[i].href.replace(/^.*[\\\/]/, '').replace('#', '') === "index.html") {
-        filename = "index.html";
-        menulink[i].closest('.menu-item').classList.add("active");
-      }
-      if (filename === menulink[i].href.replace(/^.*[\\\/]/, '').replace('#', '')) {
-        menulink[i].closest('.menu-item').classList.add("active");
-      }
-    }
-    for (let i = 0, len = submenulink.length; i < len; i++) {
-      if (filename === submenulink[i].href.replace(/^.*[\\\/]/, '').replace('#', '')) {
-        submenulink[i].closest('.submenu-item').classList.add("active");
-        submenulink[i].closest('.menu-item').classList.add("active");
-      }
-    }
-    // Прослушивание нажатия нажатия на ссылки меню .navigation-menu
-    sidebarnavmenu.addEventListener('click', (evt) => {
-      menuitemClickHandler(evt);
-    });
+    sidebarnavmenuHandler();
   }
+
   // Прогресс бар над хедером
-  maincontent.addEventListener('scroll', () => {
-    const winScroll = maincontent.scrollTop;
-    const height = maincontent.scrollHeight - maincontent.clientHeight;
-    const scrolled = (winScroll / height) * 100;
-    const topprogress = document.querySelector('.topprogressbar');
-    if (topprogress) {
-      topprogress.style.width = scrolled + "%";
-    }
-  });
+  maincontent.addEventListener('scroll', maincontentscrollHandler);
 
-// Погода
-
+  // Погода
   if (document.querySelector('.weather-info')) {
     weatherHandler();
   }
@@ -2731,95 +2807,40 @@ const init = () => {
   if (activeselect && roomselect) {
     activeselectHandler();
   }
+
+  // Отрисовка модуля календаря
+  if (calendarEl) {
+    calendmodulehandler();
+  }
+
+  // Отрисовка виджета календаря
+  if (minicalendar) {
+    minicalendarhandler();
+  }
+  // Задачи
+  if (todowrapper) {
+    tasksHandler()
+  }
+
+  // Показать/скрыть пароль
+  if (showhidepass && passinp) {
+    showhidepass.addEventListener('click', showhidepassHandler);
+  }
+
+  // Принадлежность судье
+  if (profselect && affselect) {
+    profselect.addEventListener('change', profselectHandler);
+  }
+
+  // В штате
+  if (activeselect && roomselect) {
+    activeselect.addEventListener('change', activeselectHandler);
+  }
+
+  datatablesHandler();
+
 };
 
-// Сегодняшняя дата
-if (document.querySelector('.today-group')) {
-  datarenderHandler();
-}
-
-// Показать / скрыть пароль
-if (showhidepass && passinp) {
-  showhidepass.addEventListener('click', () => {
-    // Меняем тип поля ввода пароля с password на text
-    if (passinp.type === "password") {
-      passinp.type = "text";
-      showhidepass.classList.toggle('is-hidden');
-    } else {
-      passinp.type = "password";
-      showhidepass.classList.toggle('is-hidden');
-    }
-  });
-}
-
-/* Слушаем клик по каждому из фильтров телефонной книги */
-if (filterGroup && result) {
-  // Ищем в filter-group элементы фильтров checkbox
-  let filterItems = filterGroup.querySelectorAll('input[type=checkbox]');
-
-  filterItems.forEach(function (filter) {
-    filter.addEventListener('click', () => {
-      filterClickHandler();
-    });
-  });
-}
-
-// Tooltip и popover
-document.querySelectorAll('.bs-tooltip')
-  .forEach(function (tooltip) {
-    new bootstrap.Tooltip(tooltip, {
-      selector: '[data-bs-toggle="tooltip"]'
-    })
-  })
-
-document.querySelectorAll('[data-bs-toggle="popover"]')
-  .forEach(function (popover) {
-    new bootstrap.Popover(popover)
-  })
-
-//FAQ
-if (faqcard && cont && loading && faqlinks) {
-  faqlinks.forEach((faqlink) => {
-    faqlink.addEventListener('click', (evt) => {
-      faqlinkClickHandler(evt);
-    });
-  });
-}
-
-if (faqaccordeon) {
-  const faqcategorys = faqaccordeon.querySelectorAll('.faq-category');
-  faqcategorys.forEach((faqcategory) => {
-    faqcategory.addEventListener('click', (evt) => {
-      faqcategoryClickHandler(evt);
-    });
-  });
-}
-
-if (calendarEl) {
-  calendmodulehandler();
-}
-
-if (minicalendar) {
-  minicalendarhandler();
-}
-
-/*if (todayeventswidget) {
-  todayeventswidgethandler();
-}*/
-
-if (multimodal && multimodalbtns) {
-  multimodalbtns.forEach((multimodalbtn) => {
-    multimodalbtn.addEventListener('click', (evt) => {
-      multimodalhandler(evt);
-    });
-  });
-}
-
-if (todowrapper) {
-  tasksHandler()
-}
-
-datatablesHandler();
-
 // Запуск функции при загрузке. Будет запущено все, что внутри const init = () => {}
+
 init();
