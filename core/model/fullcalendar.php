@@ -40,57 +40,10 @@
 	        return $this->db->run($sql)->fetchAll(PDO::FETCH_CLASS);
 	    }
 
-	    //Добавляем событие
-	    /*public function setInsertEvents($params) {
-	        $sql = "INSERT INTO `sdc_calendar` (`title`,
-												`start`,
-												`end`,
-												`calendar`,
-												`description`,
-												`url`,
-												`user_id`,
-												`allDay`,
-												`freq`,
-												`dtstart`,
-												`tzid`,
-												`until`,
-												`count`,
-												`interval`,
-												`display`,
-												`bymonthday`,
-												`bysetpos`,
-												`byweekday`
-												)
-										VALUES (
-												:title,
-												:start,
-												:end,
-												:calendar,
-												:description,
-												:url,
-												:user_id,
-												:allDay,
-												:freq,
-												:dtstart,
-												:tzid,
-												:until,
-												:count,
-												:interval,
-												:display,
-												:bymonthday,
-												:bysetpos,
-												:byweekday
-												)";
-	        return $this->db->run($sql, $params);
-	    }*/
-
-
-
-
 	    //Добавляем событие из $_POST
 	    public function setInsertEvents($params, $tableName = 'sdc_calendar') {
 	    	if (!empty($params)) {
-		      for ($i=0; $i < count($params) ; $i++) {
+		      for ($i=0; $i < count($params); $i++) {
 		        if ($i == 0) {
 		          $key = "(`".array_keys($params)[$i]."`, ";
 		          $value = "(:".array_keys($params)[$i].", ";
@@ -106,15 +59,10 @@
 		      }
 		      $sql = "INSERT INTO `$tableName` $key VALUES $value";
 		    }
-
-	        return $this->db->run($sql, $params);
+	      return $this->db->run($sql, $params);
 	    }
 
 	    //Вносим изменения в событие
-	    /*public function setUpdateEvents($params) {
-	        $sql = "UPDATE sdc_calendar SET `title`=:title, `start`=:start, `end`=:end, `calendar`=:calendar, `description`=:description, `url`=:url, `user_id`=:user_id, `allDay`=:allDay WHERE `id` = :id";
-	        return $this->db->run($sql, $params);
-	    }*/
 
 	    public function setUpdateEvents($params, $tableName = 'sdc_calendar', $index = 'id') {
 	       if (!empty($params)) {
@@ -131,19 +79,10 @@
 			        $where = "`".$key."` = :".$key;
 			      }
 			      $i++;
-			      //Проверка для $value.
-			      if (in_array($key, ['url', 'description'])){
-			        $value = !empty($value) ? $value : "";
-			      } else {
-			        $value = !empty($value) ? $value : NULL;
-			      }
-			      //Записываем подготовленный $params
-			      $params[$key] = $value;
 			    }
 
 		      $sql = "UPDATE `$tableName` SET $keys WHERE $where";
 		    }
-
 		    return $this->db->run($sql, $params);
 	    }
 
