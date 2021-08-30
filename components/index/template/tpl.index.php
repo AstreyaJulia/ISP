@@ -43,7 +43,7 @@
             <li class="today-birthdays-item">
               <i class="mdi mdi-cake"></i>
               <div class="bday-group primary">
-                <p class="today-birthdays-username"><?= $userClass->getShortFIO($row->fullname) ?></p>
+                <p class="today-birthdays-username"><?= $UserAttributes->getShortFIO($row->fullname) ?></p>
                 <p class="today-birthdays-date"><?= $row->dob ?></p>
               </div>
             </li>
