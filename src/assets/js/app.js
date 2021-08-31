@@ -452,6 +452,8 @@ const calendmodulehandler = () => {
   const filterInput = document.querySelectorAll('.input-filter');
   // Чекбокс Все в фильтре
   const selectAll = document.querySelector(".select-all");
+  // Чекбокс Только мои события
+  const privateinp = document.getElementById('Private');
 
   // Чекбокс повторяющееся событие
   const repeatSwitch = document.querySelector(".repeat-switch");
@@ -872,16 +874,6 @@ const calendmodulehandler = () => {
       $(modal).find(calendarEditor).val(eventToUpdate.extendedProps.description);
       $(modal).find(eventUrl).val(eventToUpdate.url);
 
-      /*   $(repeatSwitch).on('click', function () {
-           repswitch(moment($(startDate).val).tz('Europe/Moscow').format('YYYY-MM-DD HH:mm'));
-         })*/
-
-      /*$(startDate).change(function () {
-        if (moment($(endDate).val).tz('Europe/Moscow').format('YYYY-MM-DD') > moment($(startDate).val).tz('Europe/Moscow').format('YYYY-MM-DD')) {
-          $(endDate).val($(startDate).val);
-        }
-      })*/
-
       $(repdate).on('click', function () {
         if ($(repdate).is(':checked')) {
           $(repdateinp).prop("disabled", false);
@@ -964,17 +956,28 @@ const calendmodulehandler = () => {
 
   // Выбранные чекбоксы
   function selectedCalendars() {
+    const filterInput2 = document.querySelectorAll('.input-filter:not(.select-all)');
     const selected = [];
-    $('.calendar-events-filter input:checked').each(function () {
-      selected.push($(this).attr('data-value'));
-    });
-    console.log(selected);
+    for (let j = 0; j < filterInput2.length; j++) {
+      if ($(filterInput2[j]).prop('checked')) {
+          selected.push(filterInput2[j].dataset.value.toLowerCase());
+      }
+    }
     return selected;
+  }
+
+  function privatecheck() {
+    if ($(privateinp).prop('checked')) {
+      return null;
+    } else {
+      return 0;
+    }
   }
 
   // Получение событий. Эта функция будет вызываться fullCalendar для получения и обновления событий.
   function fetchEvents(info, successCallback) {
     // Получение событий AJAX
+    const calendars = selectedCalendars();
 
     $.ajax(
       {
@@ -988,12 +991,12 @@ const calendmodulehandler = () => {
           endParam: moment(info.end).tz('Europe/Moscow').format('YYYY-MM-DD'),*/
           startParam: '2021-01-01',
           endParam: '2021-12-31',
-
+          calendars: calendars,
+          private: privatecheck(),
         },
         success: function (result) {
-          //const calendars = selectedCalendars();
-          //return [result.events.filter(event => calendars.includes(event.extendedProps.calendar))];
-          //console.log(calendars);
+          console.log(calendars);
+          console.log(privatecheck());
           successCallback(result);
           console.log(result);
         },
@@ -1644,7 +1647,17 @@ const calendmodulehandler = () => {
       calendar.refetchEvents();
     });
   }
+
+  // Фильтр Только мои
+  if ($(privateinp)) {
+    $(privateinp).on('change', function () {
+      calendar.refetchEvents();
+    });
+  }
+
 }
+
+
 
 
 // Datatables
