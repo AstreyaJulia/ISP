@@ -67,7 +67,7 @@
                             <option data-label="danger" value="Danger">Праздники</option>
                             <option data-label="warning" value="Warning">Важно</option>
                             <option data-label="success" value="Success">Отпуск</option>
-                            <option data-label="info" value="Info">Разное</option>
+                            <option data-label="info" value="Info">Дежурство</option>
                           </select>
 
                         </div>
@@ -304,10 +304,9 @@
         </div>
         <div class="form-check">
           <input class="form-check-input input-filter bg-info" type="checkbox" id="Info" name="Info" checked>
-          <label class="form-check-label mb-2" for="Info">Разное</label>
+          <label class="form-check-label mb-2" for="Info">Дежурство</label>
         </div>
       </div>
-
 
     </div>
   </div>

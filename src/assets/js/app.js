@@ -693,7 +693,9 @@ const calendmodulehandler = () => {
           weeklysection.style.display = "block";
           monthlysection.style.display = "none";
           // Получаем текущий день недели, ставим галочку в параметрах
-          checkweekdays([moment($(startDate).val()).weekday()]);
+          if (!(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday)) {
+            checkweekdays([moment($(startDate).val()).weekday()]);
+          }
           $(evdmonth).prop("checked", false);
           daynumlabel2.innerHTML = 'Каждую';
           daynumlabel1.innerHTML = 'неделю';
@@ -1320,9 +1322,7 @@ const calendmodulehandler = () => {
           Event.count = $(repcountinp).val();
         }
       }
-      const start = moment($(startDate).val()).format('YYYY-MM-DD HH:mm:ss');
-      const end = moment($(endDate).val()).format('YYYY-MM-DD HH:mm:ss');
-      Event.duration = moment(moment(end).diff(start)).format('hh:mm:ss');
+
       console.log(Event);
       // Пишем в базу новое событие методом POST
       $.ajax({
@@ -1388,7 +1388,6 @@ const calendmodulehandler = () => {
         dtstart: null,
         count: null,
         until: null,
-        duration: null,
       }
       if ($(allDaySwitch).prop('checked')) {
         // Если Весь день, то меняем переменную
@@ -1408,7 +1407,8 @@ const calendmodulehandler = () => {
           Event.freq = 'WEEKLY';
           // Получаем отмеченные чекбоксы
           let wday = getweekdaycheck();
-          if (wday !== "" && null) {
+          console.log(wday);
+          if (wday !== "" || null) {
             Event.byweekday = wday;
           } else Event.byweekday = null;
         } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'monthly-section') {
@@ -1470,10 +1470,6 @@ const calendmodulehandler = () => {
         } else {
           Event.count = null;
         }
-
-        const start = moment($(startDate).val()).format('YYYY-MM-DD HH:mm:ss');
-        const end = moment($(endDate).val()).format('YYYY-MM-DD HH:mm:ss');
-        Event.duration = moment(end).diff(start, 'minutes', true);
 
         // Начало повторения
         Event.dtstart = moment($(startrepDate).val()).format('YYYY-MM-DD HH:mm:ss');
