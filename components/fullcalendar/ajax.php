@@ -19,11 +19,16 @@ if (isset($_POST['operation'])) {
   //Удаляем из массива 'operation' т.к. он используется для Switch
   unset($_POST["operation"], $_POST["duration"]);
 
-
+  
   // Если в полученном post user_id = 999999999, то меняем на id пользователя из куки, ессли 0, то user_id = 0
-  if (isset($_POST['user_id']) and $_POST['user_id'] !== 0) {
+  if ($_POST['user_id'] == 'true') {
     $user_id = [
       'user_id' => $_COOKIE['aut']['id']
+    ];
+    $paramsAdd = array_replace($_POST, $user_id);
+  } else {
+    $user_id = [
+      'user_id' => 0
     ];
     $paramsAdd = array_replace($_POST, $user_id);
   }
@@ -39,7 +44,7 @@ if (isset($_POST['operation'])) {
         if (in_array($key, ['url', 'description'])){
           $value = !empty($value) ? $value : "";
         } else {
-          $value = !empty($value) ? $value : NULL;
+          $value = !empty($value) && $value !== 0 ? $value : NULL;
         }
         //Записываем подготовленный $params
         $paramsUpd[$key] = $value;

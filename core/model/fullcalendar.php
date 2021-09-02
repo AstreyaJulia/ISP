@@ -12,9 +12,24 @@
 	    }
 
 	    //Получаем все записи
-	    public function getEvents($params) {
-	        $sql = "SELECT * FROM sdc_calendar where user_id in (:private, :user) and start >= :start AND end <= :end";
-	        return $this->db->run($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
+	    public function getEvents($params, $calendars) {
+	    	if (is_array($calendars)) {
+					//Подготавливаем массив для оператора IN SQL 	
+					foreach ($calendars as $item)
+					{
+					    $key = ":id".$i++;
+					    $in .= "$key,";
+					    $paramsCalendars[$key] = $item; // collecting values into key-value array
+					}
+					$inCalendars = rtrim($in,","); // удаляем запятую в конце строки, получаем :id0,:id1,:id2 и тд.
+					$params = array_merge($params, $paramsCalendars);
+				} else {
+					$inCalendars = 'null';
+				}
+
+
+        $sql = "SELECT * FROM sdc_calendar where user_id in (:private, :user) and calendar in($inCalendars) and start >= :start AND end <= :end";
+        return $this->db->run($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
 	    }
 
 	    //Получаем дни рождения
