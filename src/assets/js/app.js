@@ -893,12 +893,12 @@ const calendmodulehandler = () => {
     }
 
 
-    //  Удаление события
+   /* //  Удаление события
     $(btnDeleteEvent).on('click', function () {
       eventToUpdate.remove(eventToUpdate.id);
       hideModal();
       resetValues();
-    });
+    });*/
   }
 
   // Селект для меток в модале
@@ -1261,7 +1261,7 @@ const calendmodulehandler = () => {
         calendar: $(eventLabel).val(),
         description: $(calendarEditor).val(),
         url: $(eventUrl).val(),
-        user_id: $(privateSwitch).prop('checked') ? "999999999" : "0",
+        user_id: $(privateSwitch).prop('checked') ? true : false,
         tzid: "Europe/Moscow",
       }
       if ($(allDaySwitch).prop('checked')) {
@@ -1379,7 +1379,7 @@ const calendmodulehandler = () => {
         end: $(modal).find(endDate).val(),
         url: $(eventUrl).val(),
         calendar: $(eventLabel).val(),
-        user_id: $(privateSwitch).prop('checked') ? "999999999" : "0",
+        user_id: $(privateSwitch).prop('checked') ? true : false,
         description: $(calendarEditor).val(),
         allDay: null,
         tzid: "Europe/Moscow",
