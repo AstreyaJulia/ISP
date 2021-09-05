@@ -17,8 +17,9 @@
   </div>
   <div class="header-right"></div>
 </header>
-<div class="card">
-  <form class="form userinfo-form" action="" method="post">
+
+<form class="form userinfo-form" action="" method="post">
+  <div class="card">
     <div class="card-body">
       <nav>
         <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
@@ -86,7 +87,8 @@
               </div>
               <div class="form-group">
                 <label class="form-label" for="comment">Коментарий</label>
-                <textarea class="form-control" id="comment" name="comment" placeholder="Введите коментарий"><?= $row->comment ?></textarea>
+                <textarea class="form-control" id="comment" name="comment"
+                          placeholder="Введите коментарий"><?= $row->comment ?></textarea>
               </div>
             </div>
           </div>
@@ -180,12 +182,13 @@
           </div>
         </div>
       </div>
-      <div class="card-footer">
-        <div class="button-group d-flex align-items-center justify-content-end">
-          <button type="submit" class="btn btn-primary">Сохранить</button>
-          <button type="button" class="btn btn-danger btn-back">Отмена</button>
-        </div>
+    </div>
+    <div class="card-footer">
+      <div class="button-group d-flex align-items-center justify-content-end">
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <button type="button" class="btn btn-danger btn-back">Отмена</button>
       </div>
     </div>
-  </form>
-</div>
+  </div>
+</form>
+
