@@ -44,7 +44,8 @@ if (isset($_POST['operation'])) {
         if (in_array($key, ['url', 'description'])){
           $value = !empty($value) ? $value : "";
         } else {
-          $value = !empty($value) && $value !== 0 ? $value : NULL;
+          //если $value существует или 0 записываем 0 в противном случае NULL
+          $value = isset($value) ? $value : NULL;
         }
         //Записываем подготовленный $params
         $paramsUpd[$key] = $value;
