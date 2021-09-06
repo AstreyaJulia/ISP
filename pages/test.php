@@ -3,17 +3,18 @@ $title = "title Тестовой страницы";
 $info = "Блок info для тестовой страницы";
 $content = "";
 
-$paramsAdd = ['startParam' => 2021-01-01,
-        'endParam' => 2021-12-31,
-        'calendar' => 'primary',
-        'url' => null,
-        'private' => NULL,
-        'user_id' => null ];
+
+$xml = simplexml_load_file('data/weekend/2021.xml');
+
+//$xml = new SimpleXMLElement($str);
+
+$content = $xml->holidays->holiday['title']; 
 
 
+$ourData = file_get_contents("data/weekend/2021.json");
+$row = json_decode($ourData);
 
-
-var_dump(isset($paramsAdd['user_id']));
+var_dump($row);
 
 
 
