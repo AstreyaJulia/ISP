@@ -19,7 +19,7 @@ if (isset($_POST['operation'])) {
   //Удаляем из массива 'operation' т.к. он используется для Switch
   unset($_POST["operation"], $_POST["duration"]);
 
-  if ($_POST['user_id'] == 'true') {
+  if (isset($_POST['user_id']) && $_POST['user_id'] == 'true') {
     $user_id = [
       'user_id' => $_COOKIE['aut']['id']
     ];
@@ -49,7 +49,6 @@ if (isset($_POST['operation'])) {
         //Записываем подготовленный $params
         $paramsUpd[$key] = $value;
       }
-      print_r($paramsUpd);
       $upd = $FullcalendarClass->setUpdateEvents($paramsUpd);
       break;
     }
