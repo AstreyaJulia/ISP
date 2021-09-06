@@ -19,8 +19,6 @@ if (isset($_POST['operation'])) {
   //Удаляем из массива 'operation' т.к. он используется для Switch
   unset($_POST["operation"], $_POST["duration"]);
 
-  
-  // Если в полученном post user_id = 999999999, то меняем на id пользователя из куки, ессли 0, то user_id = 0
   if ($_POST['user_id'] == 'true') {
     $user_id = [
       'user_id' => $_COOKIE['aut']['id']
@@ -43,13 +41,15 @@ if (isset($_POST['operation'])) {
         //Проверка для $value. Если нет значения: везде NULL кроме url, description
         if (in_array($key, ['url', 'description'])){
           $value = !empty($value) ? $value : "";
+        } else if (in_array($key, ['user_id'])) {
+          $value = !empty($value) ? $value : 0;  
         } else {
-          //если $value существует или 0 записываем 0 в противном случае NULL
-          $value = isset($value) ? $value : NULL;
+          $value = !empty($value) ? $value : NULL;
         }
         //Записываем подготовленный $params
         $paramsUpd[$key] = $value;
       }
+      print_r($paramsUpd);
       $upd = $FullcalendarClass->setUpdateEvents($paramsUpd);
       break;
     }
