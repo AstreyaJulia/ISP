@@ -995,8 +995,6 @@ const calendmodulehandler = () => {
           private: privatecheck(),
         },
         success: function (result) {
-          console.log(calendars);
-          console.log(privatecheck());
           successCallback(result);
           console.log(result);
         },

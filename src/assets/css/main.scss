@@ -1060,8 +1060,7 @@ a {
   display: flex;
   position: relative;
   border: 0;
-  padding: 5px 5px 5px 10px;
-  margin: 0;
+  margin: 5px 5px 5px 10px;
   text-decoration: none;
 }
 
@@ -1908,7 +1907,8 @@ td .badge-big {
 
 
   .fc-toolbar-title {
-    color: $body
+    color: $body;
+    font-size: 1.5em;
   }
 
   .fc-daygrid-dot-event {
