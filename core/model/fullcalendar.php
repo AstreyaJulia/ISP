@@ -28,7 +28,7 @@
 				}
 
 
-        $sql = "SELECT * FROM sdc_calendar where user_id in (:private, :user) and calendar in($inCalendars) and start >= :start AND end <= :end";
+        $sql = "SELECT * FROM sdc_calendar where user_id in (:private, :user) and calendar in($inCalendars) and start >= :start AND end <= :end or display = 'background'";
         return $this->db->run($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
 	    }
 
