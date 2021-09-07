@@ -97,10 +97,44 @@ foreach ($birthday as $key => $value) {
     'allDay' => "1",
     'calendar' => 'Danger',
     'description' => $value->fullname. ". Исполняется: ". $age,
-    'url' => "",
     'user_id' => "0"
   ];
 }
+
+//Получаем праздничные и выходные дни отсюда: http://xmlcalendar.ru/data/ru/2021/calendar.json
+if (in_array(DateTime::createFromFormat('Y-m-d', $startParam)->format('m'), ['12']) && in_array(DateTime::createFromFormat('Y-m-d', $endParam)->format('m'), ['01', '02'])) {
+  $year = DateTime::createFromFormat('Y-m-d', $endParam)->format('Y');
+}
+else {
+  $year = DateTime::createFromFormat('Y-m-d', $startParam)->format('Y');
+}
+//$ourData = file_get_contents('http://xmlcalendar.ru/data/ru/'.$year.'/calendar.json');
+$ourData = file_get_contents($_SERVER['DOCUMENT_ROOT'] . "/data/weekend/$year.json");
+$row = json_decode($ourData);
+
+foreach ($row->months as $value) {
+  $days = explode(',', $value->days);
+  foreach ($days as $day) {
+    if ($day == rtrim($day, "*")){
+            $title = "";
+            $calendar = "Danger";
+    } else {
+            $title = "Сокращенный рабочий день";
+            $calendar = "Warning";
+    }
+
+    $date = $row->year."-".addNol($value->month)."-".addNol(rtrim($day, "*"));
+    $json[] = [
+        'title' => $title,
+        'start' => $date." 00:00:00",
+        'end' => $date." 23:59:59",
+        'allDay' => "1",
+        'calendar' => $calendar,
+        'display' => 'background'
+    ];
+  }
+}
+
 
 if ($birthday) {
   echo json_encode($json, JSON_UNESCAPED_UNICODE);
@@ -116,5 +150,14 @@ function FnByweekday($value){
     return explode(", ", $value);
   } else {
     return null;
+  }
+}
+
+//Добавляем к месяцу и дню 0
+function addNol($str) { 
+  if (strlen($str) == 1) {
+    return '0'.$str;
+  } else {
+    return $str;
   }
 }

@@ -18,11 +18,38 @@ foreach ($row->months as $value) {
 	//$content .= "день: " .$value->days. "</br>";
 	$days = explode(',', $value->days);
 	foreach ($days as $day) {
-		$day = rtrim($day, "*");
-		$content .= $row->year."-".addNol($value->month)."-".addNol($day)."</br>";
+                if ($day == rtrim($day, "*")){
+                        $title = "";
+                        $calendar = "Danger";
+                } else {
+                        $title = "Сокращенный рабочий день";
+                        $calendar = "Warning";
+                }
+		//$day = rtrim($day, "*");
+
+                
+
+		//$content .= $row->year."-".addNol($value->month)."-".addNol($day)."</br>";
+
+                $date = $row->year."-".addNol($value->month)."-".addNol(rtrim($day, "*"));
+
+
+
+                $json[] = [
+                    'title' => $title,
+                    'start' => $date." 00:00:00",
+                    'end' => $date." 23:59:59",
+                    'allDay' => "1",
+                    'calendar' => $calendar,
+                    'description' => "",
+                    'url' => "",
+                    'user_id' => "",
+                    'display' => 'background'
+                ];
+
 	}
 }
-
+$content .= json_encode($json, JSON_UNESCAPED_UNICODE);
 
 
 
@@ -34,3 +61,6 @@ function addNol($str) {
 		return $str;
 	}
 }
+
+
+
