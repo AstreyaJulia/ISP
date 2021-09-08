@@ -63,7 +63,7 @@
           </a>
         </li>
         <li class="submenu-item">
-          <a class="submenu-link" href="##">
+          <a class="submenu-link" href="?page=workroom">
             <i class="mdi mdi-wan"></i>
             <span>Рабочие места</span>
           </a>

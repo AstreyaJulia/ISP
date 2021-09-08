@@ -8,6 +8,13 @@
 	        $this->db = $db;
 	    }
 
+	    //Получаем рабочие места с фамилиями сотрудников
+	    public function getRoom() {
+	        $sql = "SELECT sdc_room.id, sdc_user_attributes.fullname, jupiter_tab_num, ip, position, alarm_button, phone_worck, building_number FROM sdc_room 
+					LEFT JOIN sdc_user_attributes ON sdc_user_attributes.room=sdc_room.id";
+	        return $this->db->run($sql)->fetchAll(\PDO::FETCH_CLASS);
+	    }
+
 		public function getFreeRoom(){
 			$sql = "SELECT sdc_room.id, sdc_room.position FROM sdc_room
 						LEFT JOIN sdc_user_attributes ON sdc_user_attributes.room=sdc_room.id
@@ -20,8 +27,6 @@
 			}
 			return $content;
 		}
-
-
 
 		//Номера комнат подробно
 		public function getPosition($position) {
