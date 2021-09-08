@@ -73,7 +73,7 @@ $content .= '</ul>
 </div>
 <div class="col-9">
 	<div class="faq-categories-doc " style="display: none">
-	<div class="card">
+	<div class="card faq">
 	<div class="card-body h-100">
 			<div class="faq-body">
 			<div class="loading-spinner-faq  d-flex align-items-center justify-content-center text-center w-100 h-100" style="display: none">

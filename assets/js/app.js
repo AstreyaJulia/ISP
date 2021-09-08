@@ -987,10 +987,10 @@ const calendmodulehandler = () => {
 
         data: {
           // С не фиксированной датой не работают повторяющиеся собыия
-          /*startParam: moment(info.start).tz('Europe/Moscow').format('YYYY-MM-DD'),
-          endParam: moment(info.end).tz('Europe/Moscow').format('YYYY-MM-DD'),*/
-          startParam: '2021-01-01',
-          endParam: '2021-12-31',
+          startParam: moment(info.start).tz('Europe/Moscow').format('YYYY-MM-DD'),
+          endParam: moment(info.end).tz('Europe/Moscow').format('YYYY-MM-DD'),
+          //startParam: '2021-01-01',
+          //endParam: '2021-12-31',
           calendars: calendars,
           private: privatecheck(),
         },
@@ -1665,6 +1665,7 @@ const datatablesHandler = () => {
   colspan.after('<td style="display: none;"></td>');
   // Для таблиц с сортировкой
   $('.dataTable.sort').DataTable({
+    "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Все"]],
     "language": {
       "processing": "Подождите...",
       "search": "Поиск:",
@@ -1846,6 +1847,7 @@ const datatablesHandler = () => {
   // Для таблиц без сортировки
   $('.dataTable.nosort').DataTable({
     "ordering": false,
+    "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Все"]],
     "language": {
       "processing": "Подождите...",
       "search": "Поиск:",

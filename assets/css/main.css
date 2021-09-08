@@ -38103,6 +38103,7 @@ td:last-child {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+  min-height: 40px;
 }
 .main-content-header .header-left {
   display: flex;
@@ -38458,14 +38459,16 @@ div.dataTables_wrapper div.dataTables_filter input {
 }
 
 .dataTables_info {
-  margin: 0 20px 20px 20px;
+  margin: auto 20px 20px 20px;
   display: inline-flex;
   min-width: 250px;
+  align-self: end;
 }
 
 div.dataTables_wrapper div.dataTables_paginate {
   display: inline-flex;
-  margin: 0 20px 20px 20px;
+  margin: auto 20px 20px 20px;
+  align-self: end;
 }
 
 .dataTables_paginate {
@@ -38478,7 +38481,7 @@ div.dataTables_wrapper div.dataTables_paginate {
   padding-left: 0;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  vertical-align: bottom;
 }
 
 .paginate_button.previous {
@@ -41020,5 +41023,14 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
 }
 .popover-info .popover-header {
   background-color: #7fe7f3;
+}
+
+.card.phonebook {
+  min-height: calc(100vh - 62px - 185px);
+}
+
+.card.faq,
+.card.list-tab-group {
+  min-height: calc(100vh - 62px - 100px);
 }
 /*# sourceMappingURL=main.css.map */

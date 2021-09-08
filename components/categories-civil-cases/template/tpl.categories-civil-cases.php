@@ -21,7 +21,7 @@
     </ul>
   </div>
 </header>
-<div class="card">
+<div class="card max">
   <table class="table dataTable nosort">
     <thead>
     <tr>

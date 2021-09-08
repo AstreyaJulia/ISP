@@ -30,7 +30,7 @@
     </div>
   </div>
 </div>
-<div class="card">
+<div class="card phonebook">
   <table class="table dataTable sort table-users">
     <thead>
     <tr>
