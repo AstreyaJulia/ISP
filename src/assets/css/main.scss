@@ -616,6 +616,15 @@ a {
     span i {
       color: $danger;
       font-size: 16px;
+      &:hover:before {
+        animation: pulse 1s infinite linear;
+      }
+    }
+
+    @keyframes pulse {
+      50% {
+        transform: scale3d(1.25, 1.25, 1.25);
+      }
     }
   }
 

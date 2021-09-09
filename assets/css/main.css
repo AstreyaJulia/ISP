@@ -37775,6 +37775,14 @@ td:last-child {
   color: #f43c3c;
   font-size: 16px;
 }
+.main-sidebar .sidebar-footer span i:hover:before {
+  animation: pulse 1s infinite linear;
+}
+@keyframes pulse {
+  50% {
+    transform: scale3d(1.25, 1.25, 1.25);
+  }
+}
 .main-sidebar .menu-item.with-sub {
   cursor: pointer;
 }
