@@ -438,6 +438,26 @@ const minicalendarhandler = () => {
     );
   }
 
+  // Показать popover
+  function showPopover(event) {
+    const classpopover = "popover-" + event.event.extendedProps.calendar.toLowerCase();
+    let tooltip = new bootstrap.Popover(event.el, {
+      template: '<div class="popover ' + classpopover + '" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>',
+      title: event.event.title,
+      content: event.event.extendedProps.description,
+      placement: 'top',
+    });
+    tooltip.show();
+  }
+
+  // Скрыть popover
+  function hidePopover() {
+    let tooltips = document.querySelectorAll(".popover");
+    tooltips.forEach(function (tooltip) {
+      document.body.removeChild(tooltip);
+    });
+  }
+
   let calendar = new FullCalendar.Calendar(minicalendar, {
     locale: 'ru',
     timeZone: 'Europe/Moscow',
@@ -459,6 +479,14 @@ const minicalendarhandler = () => {
       left: 'title',
     },
     eventSources: [fetchevents],
+    eventMouseEnter: function (event,) {
+      if (event.event.display !== "background") {
+        showPopover(event);
+      }
+    },
+    eventMouseLeave: function () {
+      hidePopover();
+    },
   });
   calendar.render();
 }
