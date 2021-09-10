@@ -28,7 +28,7 @@
 				}
 
 
-        $sql = "SELECT * FROM sdc_calendar where (user_id in (:private, :user) and calendar in($inCalendars)) and ((`freq` IS NOT NULL) or (`freq` IS NULL and start >= :start AND end <= :end))";
+        $sql = "SELECT * FROM sdc_calendar where (private in (0, 1) and user_id = :user and calendar in($inCalendars)) and ((`freq` IS NOT NULL) or (`freq` IS NULL and start >= :start AND end <= :end))";
         return $this->db->run($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
 	    }
 

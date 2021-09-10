@@ -96,6 +96,24 @@ function showMiniToast(text, color) {
   toastList.forEach(toast => toast.show());
 }
 
+// Получение Cookie
+function getCookie(name) {
+  const nameEQ = name + "=";
+  const ca = document.cookie.split(';');
+  for(let i=0;i < ca.length;i++) {
+      let c = ca[i];
+      while (c.charAt(0)==' ') c = c.substring(1,c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+  }
+  return null;
+}
+
+// Права супер-пользователя
+  const cookieSudo = getCookie('aut[sudo]');
+
+// ID пользователя
+  const cookieID = getCookie('aut[id]');
+
 // Ajax. Передача GET и POST запросов
 // url - ссылка на скрипт/страницу; data - данные для передачи; type - GET или POST;
 // success - ф-я к-рая выполняется в случае успешного запроса;
@@ -530,7 +548,6 @@ const calendmodulehandler = () => {
   // Поле ввода дня для ежемесячного
   const dayofmonth = document.getElementById("dayofmonth");
 
-
   // Цвета событий, названия менять в разметке, в js менять не надо
 
   const calendarsColor = {
@@ -649,12 +666,23 @@ const calendmodulehandler = () => {
     // Запрет на редактирование событий без id и фоновых
     if (info.event.id !== "" && info.event.display !== "background") {
       showModal();
+      // Проверяем права пользователя и его ID и включаем возможность редактирования
+    if (JSON.stringify((eventToUpdate).extendedProps.user_id) === cookieID) {
+
       updateEventBtn.style.display = "block";
       btnDeleteEvent.style.display = "block";
+      updateEventBtn.disabled = false;
+      btnDeleteEvent.disabled = false;
+    } else {
+      updateEventBtn.style.display = "block";
+      btnDeleteEvent.style.display = "block";
+      updateEventBtn.disabled = true;
+      btnDeleteEvent.disabled = true;
+    }
       editEventTitle.style.display = "block";
       $(eventTitle).val(eventToUpdate.title);
       // Приватное событие
-      if (eventToUpdate.extendedProps.user_id === 0) {
+      if (eventToUpdate.extendedProps.private === 0) {
         $(privateSwitch).prop('checked', false)
       } else {
         $(privateSwitch).prop('checked', true)
@@ -968,7 +996,7 @@ const calendmodulehandler = () => {
 
   function privatecheck() {
     if ($(privateinp).prop('checked')) {
-      return null;
+      return 1;
     } else {
       return 0;
     }
@@ -1259,7 +1287,8 @@ const calendmodulehandler = () => {
         calendar: $(eventLabel).val(),
         description: $(calendarEditor).val(),
         url: $(eventUrl).val(),
-        user_id: $(privateSwitch).prop('checked') ? true : false,
+        private: $(privateSwitch).prop('checked') ? 1 : 0,
+        user_id: cookieID,
         tzid: "Europe/Moscow",
       }
       if ($(allDaySwitch).prop('checked')) {
@@ -1377,7 +1406,8 @@ const calendmodulehandler = () => {
         end: $(modal).find(endDate).val(),
         url: $(eventUrl).val(),
         calendar: $(eventLabel).val(),
-        user_id: $(privateSwitch).prop('checked') ? true : false,
+        private: $(privateSwitch).prop('checked') ? 1 : 0,
+        user_id: "",
         description: $(calendarEditor).val(),
         allDay: null,
         tzid: "Europe/Moscow",

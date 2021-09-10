@@ -19,17 +19,7 @@ if (isset($_POST['operation'])) {
   //Удаляем из массива 'operation' т.к. он используется для Switch
   unset($_POST["operation"], $_POST["duration"]);
 
-  if (isset($_POST['user_id']) && $_POST['user_id'] == 'true') {
-    $user_id = [
-      'user_id' => $_COOKIE['aut']['id']
-    ];
-    $paramsAdd = array_replace($_POST, $user_id);
-  } else {
-    $user_id = [
-      'user_id' => 0
-    ];
-    $paramsAdd = array_replace($_POST, $user_id);
-  }
+  $paramsAdd = $_POST;
 
   switch ($operation) {
     case 'add':

@@ -15,14 +15,14 @@ $db = new DB($dbname, $user, $password, $host);
 
 $startParam = isset($_GET['startParam']) ? $_GET['startParam'] : "";
 $endParam = isset($_GET['endParam']) ? $_GET['endParam'] : "";
+$private = isset($_GET['private']) ? $_GET['private'] : "";
 //Проверяем нажатие checkbox Private 
-$private = $_GET['private'] == "0" ? "0" : $_COOKIE['aut']['id'];
 
 //почитать тут: https://phpdelusions.net/pdo#in
 $calendars = $_GET['calendars'];
 
 $params = [
-    ':private' => $private,
+    //':private' => $private,
     ':user' => $_COOKIE['aut']['id'],
     ':start' => $startParam,
     ':end' => $endParam
