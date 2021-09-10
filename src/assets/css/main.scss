@@ -1910,7 +1910,7 @@ td .badge-big {
   .fc-h-event {
     display: block;
     border-radius: 4px;
-    border: 1px solid shift-color($link-color, $link-shade-percentage);
+    border: 3px solid shift-color($link-color, $link-shade-percentage);
   }
 
   a {
@@ -2013,6 +2013,10 @@ td .badge-big {
       }
     }
 
+    .fc-bg-event {
+      border: none;
+    }
+
     .fc-h-event {
       .fc-event-main {
         color: $dark;
@@ -2076,6 +2080,32 @@ td .badge-big {
   margin: 0 auto;
   font-size: 14px;
 
+  .fc {
+    .bg-primary-50 {
+      border: 3px solid $primary;
+    }
+
+    .bg-success-50 {
+      border: 3px solid $success;
+    }
+
+    .bg-warning-50 {
+      border: 3px solid $warning;
+    }
+
+    .bg-danger-50 {
+      border: 3px solid $danger;
+    }
+
+    .bg-info-50 {
+      border: 3px solid $info;
+    }
+
+    .fc-bg-event {
+      border: none;
+    }
+
+  }
   .fc-daygrid-dot-event {
     border-radius: 50%;
     padding: 2px 2px;

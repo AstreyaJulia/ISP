@@ -38857,7 +38857,7 @@ td .badge-big {
 .calendar-module .fc-h-event {
   display: block;
   border-radius: 4px;
-  border: 1px solid #4442ae;
+  border: 3px solid #4442ae;
 }
 .today-calendar a,
 .calendar-module a {
@@ -38956,6 +38956,10 @@ td .badge-big {
 .calendar-module .fc .bg-info-50 .fc-daygrid-event-dot {
   border-color: #00464f;
 }
+.today-calendar .fc .fc-bg-event,
+.calendar-module .fc .fc-bg-event {
+  border: none;
+}
 .today-calendar .fc .fc-h-event .fc-event-main,
 .calendar-module .fc .fc-h-event .fc-event-main {
   color: #404d61;
@@ -39009,6 +39013,24 @@ td .badge-big {
   width: 100%;
   margin: 0 auto;
   font-size: 14px;
+}
+.today-calendar .fc .bg-primary-50 {
+  border: 3px solid #5552d9;
+}
+.today-calendar .fc .bg-success-50 {
+  border: 3px solid #00ba88;
+}
+.today-calendar .fc .bg-warning-50 {
+  border: 3px solid #fca549;
+}
+.today-calendar .fc .bg-danger-50 {
+  border: 3px solid #f43c3c;
+}
+.today-calendar .fc .bg-info-50 {
+  border: 3px solid #00cfe8;
+}
+.today-calendar .fc .fc-bg-event {
+  border: none;
 }
 .today-calendar .fc-daygrid-dot-event {
   border-radius: 50%;

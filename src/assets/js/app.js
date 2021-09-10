@@ -399,6 +399,44 @@ const calendarsColor = {
 const minicalendar = document.querySelector('.today-calendar-widget');
 
 const minicalendarhandler = () => {
+  function fetchevents(info, successCallback) {
+    // Получение событий AJAX
+    $.ajax(
+      {
+        url: "components/fullcalendar/events.php",
+        type: "GET",
+        dataType: "json",
+        data: {
+          startParam: moment(info.start).tz('Europe/Moscow').format('YYYY-MM-DD'),
+          endParam: moment(info.end).tz('Europe/Moscow').format('YYYY-MM-DD'),
+          calendars: "*",
+          private: 0,
+        },
+        success: function (result) {
+          successCallback(result);
+        },
+        error: function (jqXHR, textStatus, errorThrown, exception) {
+          let header;
+          if (jqXHR.status === 0) {
+            header = 'Не подключено. Проверьте сеть';
+          } else if (jqXHR.status === 404) {
+            header = 'Запрашиваемая страница не найдена [404]';
+          } else if (jqXHR.status === 500) {
+            header = 'Внутренняя ошибка сервера [500]';
+          } else if (exception === 'parsererror') {
+            header = 'Запрос синтаксического анализа JSON завершился неудачно';
+          } else if (exception === 'timeout') {
+            header = 'Ошибка тайм-аута';
+          } else if (exception === 'abort') {
+            header = 'Ajax запрос прерван';
+          } else {
+            header = 'Неперехваченная ошибка';
+          }
+          showErrorToast(header, textStatus + errorThrown + jqXHR.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
+        }
+      }
+    );
+  }
 
   let calendar = new FullCalendar.Calendar(minicalendar, {
     locale: 'ru',
@@ -409,53 +447,18 @@ const minicalendarhandler = () => {
     selectable: true,
     businessHours: false,
     dayMaxEvents: false, //
+    eventClassNames: function ({event: calendarEvent}) {
+      const colorName = calendarsColor[calendarEvent._def.extendedProps.calendar];
+      return [
+        // Фоновый цвет событий
+        'bg-' + colorName + '-50'
+      ];
+    },
     headerToolbar: {
       right: 'prev,next,today',
       left: 'title',
     },
-    events: function (info, successCallback) {
-      // Получение событий AJAX
-      const calendars = selectedCalendars();
-
-      $.ajax(
-        {
-          url: "components/fullcalendar/events.php",
-          type: "GET",
-          dataType: "json",
-
-          data: {
-            // С не фиксированной датой не работают повторяющиеся собыия
-            startParam: moment(info.start).tz('Europe/Moscow').format('YYYY-MM-DD'),
-            endParam: moment(info.end).tz('Europe/Moscow').format('YYYY-MM-DD'),
-            calendars: calendars,
-            private: 0,
-          },
-          success: function (result) {
-            successCallback(result);
-            console.log(result);
-          },
-          error: function (jqXHR, textStatus, errorThrown, exception) {
-            let header;
-            if (jqXHR.status === 0) {
-              header = 'Не подключено. Проверьте сеть';
-            } else if (jqXHR.status === 404) {
-              header = 'Запрашиваемая страница не найдена [404]';
-            } else if (jqXHR.status === 500) {
-              header = 'Внутренняя ошибка сервера [500]';
-            } else if (exception === 'parsererror') {
-              header = 'Запрос синтаксического анализа JSON завершился неудачно';
-            } else if (exception === 'timeout') {
-              header = 'Ошибка тайм-аута';
-            } else if (exception === 'abort') {
-              header = 'Ajax запрос прерван';
-            } else {
-              header = 'Неперехваченная ошибка';
-            }
-            showErrorToast(header, textStatus + errorThrown + jqXHR.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
-          }
-        }
-      );
-    }
+    eventSources: [fetchevents],
   });
   calendar.render();
 }
@@ -2900,6 +2903,7 @@ const init = () => {
   }
 
   datatablesHandler();
+
 
 };
 
