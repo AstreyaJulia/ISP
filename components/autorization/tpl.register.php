@@ -28,7 +28,7 @@
       <div class="form-group">
         <label class="form-label" for="password">Пароль</label>
         <div class="form-control-wrap">
-          <input class="form-control" name="password" id="password" type="password" placeholder="Введите пароль" required>
+          <input class="form-control passinput" name="pass" id="password" type="password" placeholder="Введите пароль" required>
           <a tabindex="-1" class="form-icon form-icon-right passcode-switch is-hidden" data-bs-target="password"
              data-bs-toggle="tooltip" data-bs-placement="top" title="Показать / скрыть пароль">
             <em class="passcode-icon icon-show icon mdi mdi-eye-outline"></em>
@@ -39,12 +39,7 @@
       <div class="form-group">
         <label class="form-label" for="passrep">Повторите пароль</label>
         <div class="form-control-wrap">
-          <input class="form-control" name="passrep" id="passrep" type="password" placeholder="Введите пароль" required>
-          <a tabindex="-1" class="form-icon form-icon-right passcode-switch is-hidden" data-bs-target="passrep"
-             data-bs-toggle="tooltip" data-bs-placement="top" title="Показать / скрыть пароль">
-            <em class="passcode-icon icon-show icon mdi mdi-eye-outline"></em>
-            <em class="passcode-icon icon-hide icon mdi mdi-eye-off-outline"></em>
-          </a>
+          <input class="form-control passinput" name="passrep" id="passrep" type="password" placeholder="Введите пароль" required>
         </div>
       </div>
       <p class="error-message"><?php if (isset($error_pass)) echo $error_pass; ?></p>

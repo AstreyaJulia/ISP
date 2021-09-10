@@ -101,18 +101,18 @@ function getCookie(name) {
   const nameEQ = name + "=";
   const ca = document.cookie.split(';');
   for(let i=0;i < ca.length;i++) {
-      let c = ca[i];
-      while (c.charAt(0)==' ') c = c.substring(1,c.length);
-      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    let c = ca[i];
+    while (c.charAt(0)==' ') c = c.substring(1,c.length);
+    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length,c.length);
   }
   return null;
 }
 
 // Права супер-пользователя
-  const cookieSudo = getCookie('aut[sudo]');
+const cookieSudo = getCookie('aut[sudo]');
 
 // ID пользователя
-  const cookieID = getCookie('aut[id]');
+const cookieID = getCookie('aut[id]');
 
 // Ajax. Передача GET и POST запросов
 // url - ссылка на скрипт/страницу; data - данные для передачи; type - GET или POST;
@@ -305,15 +305,15 @@ if (printbtns) {
 // Кнопка показать / скрыть пароль
 const showhidepass = document.querySelector('.passcode-switch');
 // Поле ввода пароля
-const passinp = document.getElementById('pass');
+const passinplist = document.querySelectorAll('.passinput');
 
 const showhidepassHandler = () => {
   // Меняем тип поля ввода пароля с password на text
-  if (passinp.type === "password") {
-    passinp.type = "text";
+  if (passinplist[0].type === "password") {
+    passinplist.forEach(passinp => passinp.type = "text");
     showhidepass.classList.toggle('is-hidden');
   } else {
-    passinp.type = "password";
+    passinplist.forEach(passinp => passinp.type = "password");
     showhidepass.classList.toggle('is-hidden');
   }
 };
@@ -381,12 +381,25 @@ const maincontentscrollHandler = () => {
 };
 
 
-// Календарь виджет
+// Календарь
+
+// Цвета для Fullcalendar
+// Цвета событий, названия менять в разметке, в js менять не надо
+const calendarsColor = {
+  Primary: 'primary',
+  Success: 'success',
+  Danger: 'danger',
+  Warning: 'warning',
+  Info: 'info'
+}
+
+// Мини календарь на главной
+
 // Контейнер для календаря
 const minicalendar = document.querySelector('.today-calendar-widget');
 
-// Мини календарь на главной
 const minicalendarhandler = () => {
+
   let calendar = new FullCalendar.Calendar(minicalendar, {
     locale: 'ru',
     timeZone: 'Europe/Moscow',
@@ -400,14 +413,48 @@ const minicalendarhandler = () => {
       right: 'prev,next,today',
       left: 'title',
     },
-    events: {
-      url: 'components/fullcalendar/events.php',
-      method: 'GET',
-      extraParams: function () { // функция, которая возвращает объект
-        return {
-          cachebuster: new Date().valueOf()
-        };
-      }
+    events: function (info, successCallback) {
+      // Получение событий AJAX
+      const calendars = selectedCalendars();
+
+      $.ajax(
+        {
+          url: "components/fullcalendar/events.php",
+          type: "GET",
+          dataType: "json",
+
+          data: {
+            // С не фиксированной датой не работают повторяющиеся собыия
+            startParam: moment(info.start).tz('Europe/Moscow').format('YYYY-MM-DD'),
+            endParam: moment(info.end).tz('Europe/Moscow').format('YYYY-MM-DD'),
+            calendars: calendars,
+            private: 0,
+          },
+          success: function (result) {
+            successCallback(result);
+            console.log(result);
+          },
+          error: function (jqXHR, textStatus, errorThrown, exception) {
+            let header;
+            if (jqXHR.status === 0) {
+              header = 'Не подключено. Проверьте сеть';
+            } else if (jqXHR.status === 404) {
+              header = 'Запрашиваемая страница не найдена [404]';
+            } else if (jqXHR.status === 500) {
+              header = 'Внутренняя ошибка сервера [500]';
+            } else if (exception === 'parsererror') {
+              header = 'Запрос синтаксического анализа JSON завершился неудачно';
+            } else if (exception === 'timeout') {
+              header = 'Ошибка тайм-аута';
+            } else if (exception === 'abort') {
+              header = 'Ajax запрос прерван';
+            } else {
+              header = 'Неперехваченная ошибка';
+            }
+            showErrorToast(header, textStatus + errorThrown + jqXHR.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
+          }
+        }
+      );
     }
   });
   calendar.render();
@@ -548,16 +595,6 @@ const calendmodulehandler = () => {
   // Поле ввода дня для ежемесячного
   const dayofmonth = document.getElementById("dayofmonth");
 
-  // Цвета событий, названия менять в разметке, в js менять не надо
-
-  const calendarsColor = {
-    Primary: 'primary',
-    Success: 'success',
-    Danger: 'danger',
-    Warning: 'warning',
-    Info: 'info'
-  }
-
   // Событие для просмотра
   let eventToUpdate;
 
@@ -581,12 +618,6 @@ const calendmodulehandler = () => {
     btn.setAttribute('class', 'modal-backdrop fade show')
     document.body.appendChild(btn);
   }
-
-  // Получить день недели в текстовом виде по номеру дня, где 0 - пн, 1 вт и т.д.
-  /* function getweekdaystring(date) {
-     const days = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
-     return days[moment(date).get('weekday')];
-   }*/
 
   // Отметить чекбоксы дней недели по массиву
   function checkweekdays(array) {
@@ -667,18 +698,18 @@ const calendmodulehandler = () => {
     if (info.event.id !== "" && info.event.display !== "background") {
       showModal();
       // Проверяем права пользователя и его ID и включаем возможность редактирования
-    if (JSON.stringify((eventToUpdate).extendedProps.user_id) === cookieID) {
+      if (JSON.stringify((eventToUpdate).extendedProps.user_id) === cookieID) {
 
-      updateEventBtn.style.display = "block";
-      btnDeleteEvent.style.display = "block";
-      updateEventBtn.disabled = false;
-      btnDeleteEvent.disabled = false;
-    } else {
-      updateEventBtn.style.display = "block";
-      btnDeleteEvent.style.display = "block";
-      updateEventBtn.disabled = true;
-      btnDeleteEvent.disabled = true;
-    }
+        updateEventBtn.style.display = "block";
+        btnDeleteEvent.style.display = "block";
+        updateEventBtn.disabled = false;
+        btnDeleteEvent.disabled = false;
+      } else {
+        updateEventBtn.style.display = "block";
+        btnDeleteEvent.style.display = "block";
+        updateEventBtn.disabled = true;
+        btnDeleteEvent.disabled = true;
+      }
       editEventTitle.style.display = "block";
       $(eventTitle).val(eventToUpdate.title);
       // Приватное событие
@@ -919,14 +950,6 @@ const calendmodulehandler = () => {
         }
       })
     }
-
-
-   /* //  Удаление события
-    $(btnDeleteEvent).on('click', function () {
-      eventToUpdate.remove(eventToUpdate.id);
-      hideModal();
-      resetValues();
-    });*/
   }
 
   // Селект для меток в модале
@@ -988,7 +1011,7 @@ const calendmodulehandler = () => {
     const selected = [];
     for (let j = 0; j < filterInput2.length; j++) {
       if ($(filterInput2[j]).prop('checked')) {
-          selected.push(filterInput2[j].dataset.value.toLowerCase());
+        selected.push(filterInput2[j].dataset.value.toLowerCase());
       }
     }
     return selected;
@@ -2862,7 +2885,7 @@ const init = () => {
   }
 
   // Показать/скрыть пароль
-  if (showhidepass && passinp) {
+  if (showhidepass && passinplist) {
     showhidepass.addEventListener('click', showhidepassHandler);
   }
 

@@ -28,7 +28,7 @@
       <div class="form-group">
         <label class="form-label" for="pass">Пароль</label>
         <div class="form-control-wrap">
-          <input class="form-control" name="password" id="pass" type="password" placeholder="Введите пароль" required>
+          <input class="form-control passinput" name="password" id="pass" type="password" placeholder="Введите пароль" required>
           <a tabindex="-1" class="form-icon form-icon-right passcode-switch is-hidden" data-bs-target="password"
              data-bs-toggle="tooltip" data-bs-placement="top" title="Показать / скрыть пароль">
             <em class="passcode-icon icon-show icon mdi mdi-eye-outline"></em>
