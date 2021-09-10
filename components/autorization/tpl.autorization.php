@@ -41,7 +41,7 @@
         <button type="submit" name="aut" class="btn btn-primary btn-block">Войти</button>
       </div>
     </form>
-    <a href="?reg">Регистрация</a>
+    <a href="?reg">У меня нет пароля / Пароль был сброшен</a>
   </div>
   <div class="right-auth">
   </div>

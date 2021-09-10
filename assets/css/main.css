@@ -39186,18 +39186,23 @@ td .badge-big {
   align-items: center;
   position: relative;
 }
-.main-content .today-events i,
 .main-content .today-events .event-time {
   font-size: 24px;
-  margin: 0 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-right: 19px;
+  padding-right: 10px;
+}
+.main-content .today-events svg {
+  height: 24px;
+  padding-right: 20px;
+}
+.main-content .today-events .today-birthdays-date {
+  color: #5a6474;
 }
 .main-content .today-events .today-birthdays-username,
-.main-content .today-events .today-birthdays-date,
-.main-content .today-events .event-title {
+.main-content .today-events .event-title,
+.main-content .today-events .today-birthdays-date {
   margin: 0;
 }
 .main-content .today-events .today-birthdays-date {
@@ -39213,25 +39218,6 @@ td .badge-big {
 .main-content .today-events .event-group {
   display: flex;
   flex-direction: column;
-}
-.main-content .today-events .bday-group:before,
-.main-content .today-events .event-group:before {
-  content: "";
-  width: 8px;
-  height: 8px;
-  border: 2px solid transparent;
-  top: 15px;
-  left: 60px;
-  position: absolute;
-  border-radius: 50%;
-}
-.main-content .today-events .bday-group.primary:before,
-.main-content .today-events .event-group.primary:before {
-  border-color: #5552d9;
-}
-.main-content .today-events .bday-group.info:before,
-.main-content .today-events .event-group.info:before {
-  border-color: #00cfe8;
 }
 
 .user-photo {

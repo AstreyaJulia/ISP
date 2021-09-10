@@ -2314,19 +2314,26 @@ td .badge-big {
       position: relative;
     }
 
-    i,
     .event-time {
       font-size: 24px;
-      margin: 0 20px;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding-right: 19px;
+      padding-right: 10px;
+    }
+
+    svg {
+      height: 24px;
+      padding-right: 20px;
+    }
+
+    .today-birthdays-date {
+      color: $label;
     }
 
     .today-birthdays-username,
-    .today-birthdays-date,
-    .event-title {
+    .event-title,
+    .today-birthdays-date {
       margin: 0;
     }
 
@@ -2345,25 +2352,6 @@ td .badge-big {
     .event-group {
       display: flex;
       flex-direction: column;
-
-      &:before {
-        content: "";
-        width: 8px;
-        height: 8px;
-        border: 2px solid transparent;
-        top: 15px;
-        left: 60px;
-        position: absolute;
-        border-radius: 50%;
-      }
-
-      &.primary:before {
-        border-color: $primary;
-      }
-
-      &.info:before {
-        border-color: $info;
-      }
     }
   }
 }

@@ -47,7 +47,7 @@
         <button type="submit" name="reg" class="btn btn-primary btn-block">Зарегистрироваться</button>
       </div>
     </form>
-    <a href="/">Авторизация</a>
+    <a href="/">У меня уже есть пароль</a>
   </div>
   <div class="right-auth">
   </div>

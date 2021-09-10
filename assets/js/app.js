@@ -1,6 +1,5 @@
 'use strict';
 
-/*
 // Виджет событий
 // Виджет событий и дней рождения скрывается сам, если остальные скрыты
 const todayeventswidget = document.querySelector('.today-events');
@@ -17,11 +16,6 @@ const todayeventswidgethandler = () => {
     todayeventswidget.style = '';
   }
 }
-*/
-
-/*if (todayeventswidget) {
-  todayeventswidgethandler();
-}*/
 
 // Меню сайдбара
 const sidebarnavmenu = document.querySelector('.navigation-menu');
@@ -2855,11 +2849,6 @@ const weatherHandler = () => {
 // Определение функции, запускающейся при полной загрузке страницы
 const init = () => {
 
-  //Отключаем спиннер
-  if (spinnerloader) {
-    spinnerloaderHandler();
-  }
-
   // Прослушивание прокручивания .main-content
   if (backtotopbutton) {
     maincontent.addEventListener('scroll', maincontentscroll);
@@ -2930,8 +2919,17 @@ const init = () => {
     activeselect.addEventListener('change', activeselectHandler);
   }
 
+  if (todayeventswidget) {
+    todayeventswidgethandler();
+  }
+
   datatablesHandler();
 
+
+  //Отключаем спиннер
+  if (spinnerloader) {
+    spinnerloaderHandler();
+  }
 
 };
 
