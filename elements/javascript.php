@@ -1,4 +1,5 @@
 <script src="assets/modules/jquery/jquery.min.js"></script>
+<script src="assets/modules/overlayscrollbars/OverlayScrollbars.js"></script>
 <script src="assets/modules/datatables/jquery.dataTables.js"></script>
 <script src="assets/modules/bootstrap/bootstrap.bundle.js"></script>
 <script src="assets/modules/jquery-validation/jquery.validate.js"></script>

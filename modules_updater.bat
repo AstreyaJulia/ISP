@@ -21,3 +21,4 @@ XCOPY /Y /H /R node_modules\moment-timezone\builds\moment-timezone-with-data.js 
 XCOPY /Y /H /R node_modules\@fullcalendar\moment-timezone\main.global.js src\assets\modules\moment-timezone\
 XCOPY /Y /H /R node_modules\dragula\dist\dragula.js src\assets\modules\dragula\
 XCOPY /Y /H /R node_modules\@fullcalendar\rrule\main.global.js src\assets\modules\rrule\
+XCOPY /Y /H /R node_modules\overlayscrollbars\js\OverlayScrollbars.js src\assets\modules\overlayscrollbars\

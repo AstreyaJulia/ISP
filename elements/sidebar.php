@@ -1,47 +1,47 @@
 <!-- Сайдбар -->
-<aside class="main-sidebar">
-  <ul class="navigation-menu">
-    <li class="menu-item">
-      <a class="menu-link" href="/">
-        <i class="mdi mdi-apps"></i>
-        <span>Главная</span>
-      </a>
-    </li>
-    <li class="menu-item">
-      <a class="menu-link" href="?page=proxylist">
-        <i class="mdi mdi-folder-table-outline"></i>
-        <span>Каталог ссылок</span></a>
-    </li>
+<aside class="main-sidebar ">
+    <ul class="navigation-menu overlayscrollbar os-host-flexbox">
+      <li class="menu-item">
+        <a class="menu-link" href="/">
+          <i class="mdi mdi-apps"></i>
+          <span>Главная</span>
+        </a>
+      </li>
+      <li class="menu-item">
+        <a class="menu-link" href="?page=proxylist">
+          <i class="mdi mdi-folder-table-outline"></i>
+          <span>Каталог ссылок</span></a>
+      </li>
 
-    <li class="menu-item with-sub">
-      <a class="menu-link">
-        <i class="mdi mdi-information-outline"></i>
-        <span>Информация</span>
-        <i class="menu-arrow mdi mdi-chevron-right"></i>
-      </a>
-      <ul class="sub-menu">
-        <li class="submenu-item"><a class="submenu-link" href="?page=phonebook">
-            <i class="mdi mdi-phone-classic"></i>
-            <span>Телефонный справочник</span></a></li>
-      </ul>
-    </li>
-    <li class="menu-item with-sub">
-      <a class="menu-link">
-        <i class="mdi mdi-help-circle-outline"></i>
-        <span>Помощь</span>
-        <i class="menu-arrow mdi mdi-chevron-right"></i>
-      </a>
-      <ul class="sub-menu">
-        <li class="submenu-item"><a class="submenu-link" href="?page=faq">
-            <i class="mdi mdi-lightbulb-on-outline"></i>
-            <span>База знаний</span></a></li>
-      </ul>
-    </li>
+      <li class="menu-item with-sub">
+        <a class="menu-link">
+          <i class="mdi mdi-information-outline"></i>
+          <span>Информация</span>
+          <i class="menu-arrow mdi mdi-chevron-right"></i>
+        </a>
+        <ul class="sub-menu">
+          <li class="submenu-item"><a class="submenu-link" href="?page=phonebook">
+              <i class="mdi mdi-phone-classic"></i>
+              <span>Телефонный справочник</span></a></li>
+        </ul>
+      </li>
+      <li class="menu-item with-sub">
+        <a class="menu-link">
+          <i class="mdi mdi-help-circle-outline"></i>
+          <span>Помощь</span>
+          <i class="menu-arrow mdi mdi-chevron-right"></i>
+        </a>
+        <ul class="sub-menu">
+          <li class="submenu-item"><a class="submenu-link" href="?page=faq">
+              <i class="mdi mdi-lightbulb-on-outline"></i>
+              <span>База знаний</span></a></li>
+        </ul>
+      </li>
 
 
-    <?php
-    if ($_COOKIE['aut']['sudo'] == 1) {
-      echo '
+      <?php
+      if ($_COOKIE['aut']['sudo'] == 1) {
+        echo '
     <!-- Панель администратора -->
     <li class="menu-item with-sub adm">
       <a class="menu-link">
@@ -111,9 +111,9 @@
       </ul>
     </li>
   ';
-    }
-    ?>
-  </ul>
+      }
+      ?>
+    </ul>
     <div class="sidebar-footer">
       <p class="footer-text">Сделано с <span><i class="mdi mdi-cards-heart"></i></span></p>
       <p class="footer-text">Сафоновский районный суд © <span><?= date('Y'); ?></span></p>
