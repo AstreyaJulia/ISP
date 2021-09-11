@@ -37554,11 +37554,11 @@ td:last-child {
   font-family: "TT Norms Pro", "Arial", sans-serif;
 }
 .page-body.disabled .main-sidebar {
-  width: 91px;
+  width: 75px;
   transition: all 0.3s ease;
 }
 .page-body.disabled .main-content:not(.auth):not(.err404) {
-  margin-left: 91px;
+  margin-left: 75px;
   transition: all 0.3s ease;
 }
 .page-body:not(.disabled) .main-sidebar {

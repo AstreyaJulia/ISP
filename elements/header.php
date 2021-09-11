@@ -30,8 +30,7 @@
     <div class="left-header">
       <ul class="nav">
         <li class="btn-group nav-item">
-          <a href="#" class="waves-effect waves-light nav-link sidebar-toggle-button" data-bs-toggle="tooltip"
-             data-bs-placement="top" title="Свернуть / развернуть меню">
+          <a href="#" class="waves-effect waves-light nav-link sidebar-toggle-button" title="Свернуть / развернуть меню">
             <i class="nav-link-icon mdi mdi-menu"></i>
           </a>
         </li>
