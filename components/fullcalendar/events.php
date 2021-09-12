@@ -11,7 +11,7 @@ ini_set("display_errors", "on");*/
 //Параметры для подключения к базе
 require_once $_SERVER['DOCUMENT_ROOT'] . "/conection.php";
 //Подключаемся  базе
-$db = new DB($dbname, $user, $password, $host);
+$db = new DB($dbname, $user, $password, $host, [\PDO::ATTR_EMULATE_PREPARES => true]);
 
 $startParam = $_GET['startParam'] ?? ""; // тут и 2 строки ниже - вместо isset($_GET['startParam']) ? $_GET['startParam'] : ""
 $endParam = $_GET['endParam'] ?? "";
@@ -22,12 +22,12 @@ $private = $_GET['private'] ?? "";
 $calendars = $_GET['calendars'];
 
 $params = [
-    //':private' => $private,
-    ':user' => $_COOKIE['aut']['id'],
-    ':start' => $startParam,
-    ':end' => $endParam
+    'private' => $private,
+    'user' => $_COOKIE['aut']['id'],
+    'start' => $startParam,
+    'end' => $endParam
 ];
-
+//print_r($params);
 $FullcalendarClass = new Fullcalendar($db);
 //Получаем события из таблицы с событиями
 $sdc_calendar = $FullcalendarClass->getEvents($params, $calendars);
@@ -43,6 +43,7 @@ foreach ($sdc_calendar as $myCalendar) {
       'calendar' => $myCalendar['calendar'],
       'description' => $myCalendar['description'],
       'url' => $myCalendar['url'],
+      'private' => $myCalendar['private'],
       'user_id' => $myCalendar['user_id'],
       'display' => $myCalendar['display']
     ];
@@ -56,6 +57,7 @@ foreach ($sdc_calendar as $myCalendar) {
       'calendar' => $myCalendar['calendar'],
       'description' => $myCalendar['description'],
       'url' => $myCalendar['url'],
+      'private' => $myCalendar['private'],
       'user_id' => $myCalendar['user_id'],
       'display' => $myCalendar['display'],
       'rrule' => [

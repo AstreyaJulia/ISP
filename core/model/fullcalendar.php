@@ -26,7 +26,11 @@
 				} else {
 					$inCalendars = 'null';
 				}
+				if ($params['private'] != 0) {
+					$params = array_replace($params, ['private' => null]);
+				} 
 
+				
 /*
  select * from sdc_calendar
     where
@@ -34,7 +38,8 @@
             calendar in($inCalendars)) AND
           IF (:private = 0, ((private = 0 and user_id IS NOT NULL) OR (private = 1 and user_id = :user)), (private = 1 and user_id = :user))
  */
-        $sql = "SELECT * FROM sdc_calendar where (private in (0, 1) and user_id = :user and calendar in($inCalendars)) and ((`freq` IS NOT NULL) or (`freq` IS NULL and start >= :start AND end <= :end))";
+        $sql = "SELECT * FROM sdc_calendar where (`private` in (:private) and `calendar` in ($inCalendars)) and ((`freq` IS NOT NULL) or (`freq` IS NULL and `start` >= :start AND `end` <= :end));
+								SELECT * FROM sdc_calendar where (`user_id` = :user and `calendar` in($inCalendars)) and ((`freq` IS NOT NULL) or (`freq` IS NULL and `start` >= :start AND `end` <= :end))";
         return $this->db->run($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
 	    }
 

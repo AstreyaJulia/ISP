@@ -31,8 +31,8 @@ if (isset($_POST['operation'])) {
         //Проверка для $value. Если нет значения: везде NULL кроме url, description
         if (in_array($key, ['url', 'description'])){
           $value = !empty($value) ? $value : "";
-        } else if (in_array($key, ['user_id'])) {
-          $value = !empty($value) ? $value : 0;  
+        } else if (in_array($key, ['user_id', 'private'])) {
+          $value = !empty($value) ? $value : 0;
         } else {
           $value = !empty($value) ? $value : NULL;
         }
