@@ -610,7 +610,7 @@ const calendmodulehandler = () => {
   const intervalsection = document.getElementById("interval-section");
   // Метка "день" в интервале
   const daynumlabel1 = document.getElementById("daynum-label");
-// Метка "Каждый" в интервале
+  // Метка "Каждый" в интервале
   const daynumlabel2 = document.getElementById("intervallabel1");
 
   // поле ввода начала повторения
@@ -797,13 +797,13 @@ const calendmodulehandler = () => {
       $(startDate).val(date);
       $(endDate).val(date);
 
-// Если включили повторение, то дата начала повторения берется из даты начала события
+      // Если включили повторение, то дата начала повторения берется из даты начала события
       $(repeatSwitch).on('click', function () {
         const date = moment($(startDate).val()).format('YYYY-MM-DD HH:mm');
         repswitch(date);
       })
 
-// Выбор повторения для дня
+      // Выбор повторения для дня
       $(repparamSwitch).on('change', function () {
         if (
           repparamSwitch.options[repparamSwitch.selectedIndex].value === 'none') {
@@ -2974,6 +2974,7 @@ const init = () => {
 
   datatablesHandler();
 
+  // Подсказки
   const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
   const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl)

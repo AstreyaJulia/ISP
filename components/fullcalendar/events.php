@@ -13,10 +13,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/conection.php";
 //Подключаемся  базе
 $db = new DB($dbname, $user, $password, $host);
 
-$startParam = isset($_GET['startParam']) ? $_GET['startParam'] : "";
-$endParam = isset($_GET['endParam']) ? $_GET['endParam'] : "";
-$private = isset($_GET['private']) ? $_GET['private'] : "";
-//Проверяем нажатие checkbox Private 
+$startParam = $_GET['startParam'] ?? ""; // тут и 2 строки ниже - вместо isset($_GET['startParam']) ? $_GET['startParam'] : ""
+$endParam = $_GET['endParam'] ?? "";
+$private = $_GET['private'] ?? "";
+//Проверяем нажатие checkbox Private
 
 //почитать тут: https://phpdelusions.net/pdo#in
 $calendars = $_GET['calendars'];
@@ -156,7 +156,7 @@ function FnByweekday($value){
 }
 
 //Добавляем к месяцу и дню 0
-function addNol($str) { 
+function addNol($str) {
   if (strlen($str) == 1) {
     return '0'.$str;
   } else {

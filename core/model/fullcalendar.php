@@ -14,7 +14,7 @@
 	    //Получаем все записи
 	    public function getEvents($params, $calendars) {
 	    	if (is_array($calendars)) {
-					//Подготавливаем массив для оператора IN SQL 	
+					//Подготавливаем массив для оператора IN SQL
 					foreach ($calendars as $item)
 					{
 					    $key = ":id".$i++;
@@ -27,7 +27,13 @@
 					$inCalendars = 'null';
 				}
 
-
+/*
+ select * from sdc_calendar
+    where
+        (((`freq` IS NOT NULL) or (`freq` IS NULL and start >= :start AND end <= :end)) AND
+            calendar IS NOT NULL) AND
+          IF (:private = 0, ((private = 0 and user_id IS NOT NULL) OR (private = 1 and user_id = :user)), (private = 1 and user_id = :user))
+ */
         $sql = "SELECT * FROM sdc_calendar where (private in (0, 1) and user_id = :user and calendar in($inCalendars)) and ((`freq` IS NOT NULL) or (`freq` IS NULL and start >= :start AND end <= :end))";
         return $this->db->run($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
 	    }

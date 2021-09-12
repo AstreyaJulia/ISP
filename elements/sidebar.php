@@ -69,6 +69,12 @@
           </a>
         </li>
         <li class="submenu-item">
+          <a class="submenu-link" href="?page=workplaces" data-bs-toggle="tooltip" data-bs-placement="right" title="Рабочие места">
+            <i class="mdi mdi-wan"></i>
+            <span>Рабочие места*</span>
+          </a>
+        </li>
+        <li class="submenu-item">
           <a class="submenu-link" href="?page=documentation" data-bs-toggle="tooltip" data-bs-placement="right" title="Документация">
             <i class="mdi mdi-book-open-variant"></i>
             <span>Документация</span>
