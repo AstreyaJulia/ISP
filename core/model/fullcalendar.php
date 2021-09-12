@@ -31,7 +31,7 @@
  select * from sdc_calendar
     where
         (((`freq` IS NOT NULL) or (`freq` IS NULL and start >= :start AND end <= :end)) AND
-            calendar IS NOT NULL) AND
+            calendar in($inCalendars)) AND
           IF (:private = 0, ((private = 0 and user_id IS NOT NULL) OR (private = 1 and user_id = :user)), (private = 1 and user_id = :user))
  */
         $sql = "SELECT * FROM sdc_calendar where (private in (0, 1) and user_id = :user and calendar in($inCalendars)) and ((`freq` IS NOT NULL) or (`freq` IS NULL and start >= :start AND end <= :end))";
