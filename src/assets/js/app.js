@@ -772,7 +772,7 @@ const calendmodulehandler = () => {
     if (info.event.id !== "" && info.event.display !== "background") {
       showModal();
       // Проверяем права пользователя и его ID и включаем возможность редактирования
-      if (JSON.stringify((eventToUpdate).extendedProps.user_id) === cookieID) {
+      if ((eventToUpdate).extendedProps.user_id === cookieID) {
 
         updateEventBtn.style.display = "block";
         btnDeleteEvent.style.display = "block";
@@ -787,7 +787,7 @@ const calendmodulehandler = () => {
       editEventTitle.style.display = "block";
       $(eventTitle).val(eventToUpdate.title);
       // Приватное событие
-      if (eventToUpdate.extendedProps.private === 0) {
+      if (eventToUpdate.extendedProps.private === "0") {
         $(privateSwitch).prop('checked', false)
       } else {
         $(privateSwitch).prop('checked', true)

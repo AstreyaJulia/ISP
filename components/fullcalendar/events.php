@@ -11,7 +11,7 @@ ini_set("display_errors", "on");*/
 //Параметры для подключения к базе
 require_once $_SERVER['DOCUMENT_ROOT'] . "/conection.php";
 //Подключаемся  базе
-$db = new DB($dbname, $user, $password, $host, [\PDO::ATTR_EMULATE_PREPARES => true]);
+$db = new DB($dbname, $user, $password, $host);
 
 $startParam = $_GET['startParam'] ?? ""; // тут и 2 строки ниже - вместо isset($_GET['startParam']) ? $_GET['startParam'] : ""
 $endParam = $_GET['endParam'] ?? "";

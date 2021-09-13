@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Сен 10 2021 г., 16:44
+-- Время создания: Сен 13 2021 г., 17:40
 -- Версия сервера: 10.4.12-MariaDB
 -- Версия PHP: 7.4.14
 
@@ -56,16 +56,17 @@ CREATE TABLE `sdc_calendar` (
 --
 
 INSERT INTO `sdc_calendar` (`id`, `title`, `description`, `start`, `end`, `allDay`, `calendar`, `url`, `display`, `private`, `user_id`, `tzid`, `freq`, `dtstart`, `until`, `count`, `interval`, `byweekday`, `bymonth`, `bysetpos`, `bymonthday`) VALUES
-(210, 'Дежурство на выборы', 'Чернов Р.А. +7(900)225-16-16', '2021-09-18 08:00:00', '2021-09-18 14:00:00', NULL, 'Info', '', '\'auto\'', 0, 0, 'Europe/Moscow', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(211, 'Дежурство на выборы', 'Чернов Р.А. +7(900)225-16-16', '2021-09-19 14:00:00', '2021-09-19 20:00:00', NULL, 'Info', '', '\'auto\'', 0, 0, 'Europe/Moscow', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(212, 'Дежурство на выборы', 'Латышева Ю.А. +7(906)669-69-71', '2021-09-18 14:00:00', '2021-09-18 20:00:00', NULL, 'Info', '', '\'auto\'', 0, 0, 'Europe/Moscow', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(213, 'Дежурство на выборы', 'Латышева Ю.А. +7(906)669-69-71', '2021-09-19 08:00:00', '2021-09-19 14:00:00', NULL, 'Info', '', '\'auto\'', 0, 0, 'Europe/Moscow', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(214, 'Стат. отчетность по форме S09(z16.1)', 'До 15 сентября 2021 отправить на e-mail: MexedovaIV@mail.ru', '2021-09-14 12:00:00', '2021-09-14 13:00:00', NULL, 'Warning', '', '\'auto\'', 0, 0, 'Europe/Moscow', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(215, 'Стат. отчетность по форме z42', 'До 12 октября 2021 отправить на e-mail: MexedovaIV@mail.ru', '2021-10-11 11:19:00', '2021-10-11 12:19:00', NULL, 'Warning', '', '\'auto\'', 0, 0, 'Europe/Moscow', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(216, 'Стат. отчетность по форме z42', 'До 12 января 2022 отправить на e-mail: MexedovaIV@mail.ru', '2022-01-11 00:00:00', '2022-01-11 00:00:00', NULL, 'Warning', '', '\'auto\'', 0, 0, 'Europe/Moscow', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(217, 'Запрос для военкомата', 'до 24 сентября', '2021-09-23 12:00:00', '2021-09-23 13:00:00', NULL, 'Warning', '', '\'auto\'', 0, 0, 'Europe/Moscow', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(219, 'Закрытие суда', 'Чернов Р.А.', '2021-10-18 09:00:00', '2021-10-25 00:00:00', NULL, 'Info', '', '\'auto\'', 0, 0, 'Europe/Moscow', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(220, 'Название события', '', '2021-10-12 00:00:00', '2021-10-12 00:00:00', NULL, 'Success', '', '\'auto\'', 1, 1, 'Europe/Moscow', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(210, 'Дежурство на выборы', 'Чернов Р.А. +7(900)225-16-16', '2021-09-18 08:00:00', '2021-09-18 14:00:00', NULL, 'Info', '', '\'auto\'', 0, 2, 'Europe/Moscow', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(211, 'Дежурство на выборы', 'Чернов Р.А. +7(900)225-16-16', '2021-09-19 14:00:00', '2021-09-19 20:00:00', NULL, 'Info', '', '\'auto\'', 0, 2, 'Europe/Moscow', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(212, 'Дежурство на выборы', 'Латышева Ю.А. +7(906)669-69-71', '2021-09-18 14:00:00', '2021-09-18 20:00:00', NULL, 'Info', '', '\'auto\'', 0, 18, 'Europe/Moscow', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(213, 'Дежурство на выборы', 'Латышева Ю.А. +7(906)669-69-71', '2021-09-19 08:00:00', '2021-09-19 14:00:00', NULL, 'Info', '', '\'auto\'', 0, 18, 'Europe/Moscow', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(214, 'Стат. отчетность по форме S09(z16.1)', 'До 15 сентября 2021 отправить на e-mail: MexedovaIV@mail.ru', '2021-09-14 12:00:00', '2021-09-14 13:00:00', NULL, 'Warning', '', '\'auto\'', 0, 2, 'Europe/Moscow', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(215, 'Стат. отчетность по форме z42', 'До 12 октября 2021 отправить на e-mail: MexedovaIV@mail.ru', '2021-10-11 11:19:00', '2021-10-11 12:19:00', NULL, 'Warning', '', '\'auto\'', 0, 2, 'Europe/Moscow', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(216, 'Стат. отчетность по форме z42', 'До 12 января 2022 отправить на e-mail: MexedovaIV@mail.ru', '2022-01-11 00:00:00', '2022-01-11 00:00:00', NULL, 'Warning', '', '\'auto\'', 0, 2, 'Europe/Moscow', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(217, 'Запрос для военкомата', 'до 24 сентября', '2021-09-23 12:00:00', '2021-09-23 13:00:00', NULL, 'Warning', '', '\'auto\'', 0, 2, 'Europe/Moscow', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(219, 'Закрытие суда', 'Чернов Р.А.', '2021-10-18 09:00:00', '2021-10-25 00:00:00', NULL, 'Info', '', '\'auto\'', 0, 2, 'Europe/Moscow', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(220, 'Название события', '', '2021-10-12 00:00:00', '2021-10-12 00:00:00', NULL, 'Success', '', '\'auto\'', 1, 2, 'Europe/Moscow', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(222, '1', '', '2021-09-08 00:00:00', '2021-09-08 00:00:00', NULL, 'Primary', '', '\'auto\'', 1, 1, 'Europe/Moscow', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 --
 -- Индексы сохранённых таблиц
@@ -85,7 +86,7 @@ ALTER TABLE `sdc_calendar`
 -- AUTO_INCREMENT для таблицы `sdc_calendar`
 --
 ALTER TABLE `sdc_calendar`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=221;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=223;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
