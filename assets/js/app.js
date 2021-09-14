@@ -742,6 +742,213 @@ const calendmodulehandler = () => {
     }
   }
 
+  const addEvent = () => {
+    if ($(eventForm).valid()) {
+      const Event = {
+        operation: "upd",
+        id: eventToUpdate.id,
+        title: $(modal).find(eventTitle).val(),
+        start: $(modal).find(startDate).val(),
+        end: $(modal).find(endDate).val(),
+        url: $(eventUrl).val(),
+        calendar: $(eventLabel).val(),
+        private: $(privateSwitch).prop('checked') ? 1 : 0,
+        description: $(calendarEditor).val(),
+        allDay: null,
+        tzid: "Europe/Moscow",
+        freq: null,
+        byweekday: null,
+        bysetpos: null,
+        bymonthday: null,
+        interval: null,
+        dtstart: null,
+        count: null,
+        until: null,
+      }
+      if ($(allDaySwitch).prop('checked')) {
+        // Если Весь день, то меняем переменную
+        Event.allDay = '1';
+      }
+
+      // Параметры повторения. Если галочка включена
+      if ($(repeatSwitch).prop('checked')) {
+        if (Event.interval !== '') {
+          Event.interval = $(daynum).val();
+        } else Event.interval = null;
+        if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'daily-section') {
+          // Ежедневно. Готово
+          Event.freq = 'DAILY';
+        } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'weekly-section') {
+          // Еженедельно. Готово
+          Event.freq = 'WEEKLY';
+          // Получаем отмеченные чекбоксы
+          let wday = getweekdaycheck();
+          console.log(wday);
+          if (wday !== "" || null) {
+            Event.byweekday = wday;
+          } else Event.byweekday = null;
+        } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'monthly-section') {
+          // Ежемесячно
+          Event.freq = 'MONTHLY';
+          // Проверяем чекбоксы
+          if ($(evdmonth).prop('checked')) {
+            // Каждое число месяца
+            Event.bymonthday = $(dayofmonth).val();
+          } else
+            // Последний день
+          if ($(lastdmonth).prop('checked')) {
+            Event.byweekday = 'MO, TU, WE, TH, FR, SA, SU';
+            Event.bysetpos = '-1';
+          } else
+            // Предпоследний день
+          if ($(prelastdmonth).prop('checked')) {
+            Event.byweekday = 'MO, TU, WE, TH, FR, SA, SU';
+            Event.bysetpos = '-2';
+          } else
+            // Первый день
+          if ($(firstdmonth).prop('checked')) {
+            Event.byweekday = 'MO, TU, WE, TH, FR, SA, SU';
+            Event.bysetpos = '1';
+          } else
+            // Первый рабочий день
+          if ($(firstworkdmonth).prop('checked')) {
+            Event.byweekday = 'MO, TU, WE, TH, FR';
+            Event.bysetpos = '1';
+          } else
+            // Последний рабочий день
+          if ($(lastworkdmonth).prop('checked')) {
+            Event.byweekday = 'MO, TU, WE, TH, FR';
+            Event.bysetpos = '-1';
+          }
+        } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'yearly-section') {
+          // Ежегодно
+          Event.freq = 'YEARLY';
+        } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'none') {
+          // Без повторения
+          Event.freq = null;
+          Event.byweekday = null;
+          Event.bysetpos = null;
+          Event.bymonthday = null;
+        }
+
+        // Начало повторения
+        Event.dtstart = moment($(startrepDate).val()).format('YYYY-MM-DD HH:mm:ss');
+
+        // Диапазон повторения
+        if ($(repdate).prop('checked')) {
+          Event.until = moment($(endrepDate).val()).format('YYYY-MM-DD HH:mm:ss');
+        } else {
+          Event.until = null;
+        }
+        // Кол-во повторений
+        if ($(repcount).prop('checked')) {
+          Event.count = $(repcountinp).val();
+        } else {
+          Event.count = null;
+        }
+
+        // Начало повторения
+        Event.dtstart = moment($(startrepDate).val()).format('YYYY-MM-DD HH:mm:ss');
+
+        // Диапазон повторения
+        if ($(repdate).prop('checked')) {
+          Event.until = moment($(endrepDate).val()).format('YYYY-MM-DD HH:mm:ss');
+        }
+        // Кол-во повторений
+        if ($(repcount).prop('checked')) {
+          Event.count = $(repcountinp).val();
+        }
+
+      } else {
+        Event.interval = null;
+      }
+
+      console.log(Event);
+      // Пишем в базу событие методом POST
+      $.ajax({
+        url: 'components/fullcalendar/ajax.php',
+        data: Event,
+        type: "POST",
+        headers: {
+          'Accept': 'application/json;odata=nometadata'
+        },
+        success: function (response) {
+          //updateEvent(Event);
+          calendar.refetchEvents(Event);
+          hideModal();
+          resetValues();
+          showMiniToast('Событие ' + Event.title + ' обновлено', "info");
+          if (response) {
+            showErrorToast("Ошибка", response, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
+          }
+        },
+        error: function (jqXHR, textStatus, errorThrown, exception) {
+          let header;
+          if (jqXHR.status === 0) {
+            header = 'Не подключено. Проверьте сеть';
+          } else if (jqXHR.status === 404) {
+            header = 'Запрашиваемая страница не найдена [404]';
+          } else if (jqXHR.status === 500) {
+            header = 'Внутренняя ошибка сервера [500]';
+          } else if (exception === 'parsererror') {
+            header = 'Запрос синтаксического анализа JSON завершился неудачно';
+          } else if (exception === 'timeout') {
+            header = 'Ошибка тайм-аута';
+          } else if (exception === 'abort') {
+            header = 'Ajax запрос прерван';
+          } else {
+            header = 'Неперехваченная ошибка';
+          }
+          showErrorToast(header, textStatus + errorThrown + jqXHR.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
+        }
+      });
+    }
+  }
+
+  const delEvent = () => {
+    const Event = {
+      operation: "del",
+      id: eventToUpdate.id,
+    }
+    // Удалям из базы событие методом POST
+    $.ajax({
+      url: 'components/fullcalendar/ajax.php',
+      data: Event,
+      type: "POST",
+      headers: {
+        'Accept': 'application/json;odata=nometadata'
+      },
+      success: function (response) {
+        calendar.refetchEvents(Event);
+        hideModal();
+        resetValues();
+        showMiniToast('Событие ' + eventToUpdate.title + ' удалено', "danger");
+        if (response) {
+          showErrorToast("Ошибка", response, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
+        }
+      },
+      error: function (jqXHR, textStatus, errorThrown, exception) {
+        let header;
+        if (jqXHR.status === 0) {
+          header = 'Не подключено. Проверьте сеть';
+        } else if (jqXHR.status === 404) {
+          header = 'Запрашиваемая страница не найдена [404]';
+        } else if (jqXHR.status === 500) {
+          header = 'Внутренняя ошибка сервера [500]';
+        } else if (exception === 'parsererror') {
+          header = 'Запрос синтаксического анализа JSON завершился неудачно';
+        } else if (exception === 'timeout') {
+          header = 'Ошибка тайм-аута';
+        } else if (exception === 'abort') {
+          header = 'Ajax запрос прерван';
+        } else {
+          header = 'Неперехваченная ошибка';
+        }
+        showErrorToast(header, textStatus + errorThrown + jqXHR.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
+      }
+    });
+  }
+
   // Кнопка закрыть
   $(span).on('click', function () {
     hideModal();
@@ -773,6 +980,8 @@ const calendmodulehandler = () => {
       showModal();
       // Проверяем права пользователя и его ID и включаем возможность редактирования
       if (eventToUpdate.extendedProps.user_id === cookieID ||  JSON.stringify(eventToUpdate.extendedProps.user_id) === cookieID) {
+          updateEventBtn.addEventListener('click', () => addEvent());
+        btnDeleteEvent.addEventListener('click', () => delEvent());
 
         updateEventBtn.style.display = "block";
         btnDeleteEvent.style.display = "block";
@@ -1373,333 +1582,124 @@ const calendmodulehandler = () => {
   });
 
   // Кнопка - Добавление нового события
-  $(addEventBtn).on('click', function () {
-    if ($(eventForm).valid()) {
-      // Задаем переменную. На данный момент она пустая.
-      const Event = {
-        operation: "add",
-        title: $(eventTitle).val(),
-        start: moment($(startDate).val()).format('YYYY-MM-DD HH:mm:ss'),
-        end: moment($(endDate).val()).format('YYYY-MM-DD HH:mm:ss'),
-        calendar: $(eventLabel).val(),
-        description: $(calendarEditor).val(),
-        url: $(eventUrl).val(),
-        private: $(privateSwitch).prop('checked') ? 1 : 0,
-        user_id: cookieID,
-        tzid: "Europe/Moscow",
-      }
-      if ($(allDaySwitch).prop('checked')) {
-        // Если Весь день, то меняем переменную
-        Event.allDay = '1';
-      }
-
-      // Параметры повторения. Если галочка включена
-      if ($(repeatSwitch).prop('checked')) {
-        Event.interval = $(daynum).val();
-        if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'daily-section') {
-          // Ежедневно. Готово
-          Event.freq = 'DAILY';
-        } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'weekly-section') {
-          // Еженедельно. Готово
-          Event.freq = 'WEEKLY';
-          // Получаем отмеченные чекбоксы
-          Event.byweekday = getweekdaycheck();
-        } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'monthly-section') {
-          // Ежемесячно
-          Event.freq = 'MONTHLY';
-          // Проверяем чекбоксы
-          if ($(evdmonth).prop('checked')) {
-            // Каждое число месяца
-            Event.bymonthday = $(dayofmonth).val();
-          } else
-            // Последний день
-          if ($(lastdmonth).prop('checked')) {
-            Event.byweekday = 'MO, TU, WE, TH, FR, SA, SU';
-            Event.bysetpos = '-1';
-          } else
-            // Первый день
-          if ($(firstdmonth).prop('checked')) {
-            Event.byweekday = 'MO, TU, WE, TH, FR, SA, SU';
-            Event.bysetpos = '1';
-          } else
-            // Первый рабочий день
-          if ($(firstworkdmonth).prop('checked')) {
-            Event.byweekday = 'MO, TU, WE, TH, FR';
-            Event.bysetpos = '1';
-          } else
-            // Последний рабочий день
-          if ($(lastworkdmonth).prop('checked')) {
-            Event.byweekday = 'MO, TU, WE, TH, FR';
-            Event.bysetpos = '-1';
-          }
-        } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'yearly-section') {
-          // Ежегодно
-          Event.freq = 'YEARLY';
+    $(addEventBtn).on('click', function () {
+      if ($(eventForm).valid()) {
+        // Задаем переменную. На данный момент она пустая.
+        const Event = {
+          operation: "add",
+          title: $(eventTitle).val(),
+          start: moment($(startDate).val()).format('YYYY-MM-DD HH:mm:ss'),
+          end: moment($(endDate).val()).format('YYYY-MM-DD HH:mm:ss'),
+          calendar: $(eventLabel).val(),
+          description: $(calendarEditor).val(),
+          url: $(eventUrl).val(),
+          private: $(privateSwitch).prop('checked') ? 1 : 0,
+          user_id: cookieID,
+          tzid: "Europe/Moscow",
+        }
+        if ($(allDaySwitch).prop('checked')) {
+          // Если Весь день, то меняем переменную
+          Event.allDay = '1';
         }
 
-        // Начало повторения
-        Event.dtstart = moment($(startrepDate).val()).format('YYYY-MM-DD HH:mm:ss');
-
-        // Диапазон повторения
-        if ($(repdate).prop('checked')) {
-          Event.until = moment($(endrepDate).val()).format('YYYY-MM-DD HH:mm:ss');
-        }
-        // Кол-во повторений
-        if ($(repcount).prop('checked')) {
-          Event.count = $(repcountinp).val();
-        }
-      }
-
-      console.log(Event);
-      // Пишем в базу новое событие методом POST
-      $.ajax({
-        url: 'components/fullcalendar/ajax.php',
-        data: Event,
-        type: "POST",
-        headers: {
-          'Accept': 'application/json;odata=nometadata'
-        },
-        success: function (response) {
-          //addEvent(Event);
-          calendar.refetchEvents(Event);
-          hideModal();
-          resetValues();
-          showMiniToast('Событие ' + Event.title + ' добавлено', "success");
-          if (response) {
-            showErrorToast("Ошибка", response, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
-          }
-        },
-        error: function (jqXHR, textStatus, errorThrown, exception) {
-          let header;
-          if (jqXHR.status === 0) {
-            header = 'Не подключено. Проверьте сеть';
-          } else if (jqXHR.status === 404) {
-            header = 'Запрашиваемая страница не найдена [404]';
-          } else if (jqXHR.status === 500) {
-            header = 'Внутренняя ошибка сервера [500]';
-          } else if (exception === 'parsererror') {
-            header = 'Запрос синтаксического анализа JSON завершился неудачно';
-          } else if (exception === 'timeout') {
-            header = 'Ошибка тайм-аута';
-          } else if (exception === 'abort') {
-            header = 'Ajax запрос прерван';
-          } else {
-            header = 'Неперехваченная ошибка';
-          }
-          showErrorToast(header, textStatus + errorThrown + jqXHR.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
-        }
-      });
-    }
-  });
-
-  // Кнопка - Обновление нового события
-  $(updateEventBtn).on('click', function () {
-    if ($(eventForm).valid()) {
-      const Event = {
-        operation: "upd",
-        id: eventToUpdate.id,
-        title: $(modal).find(eventTitle).val(),
-        start: $(modal).find(startDate).val(),
-        end: $(modal).find(endDate).val(),
-        url: $(eventUrl).val(),
-        calendar: $(eventLabel).val(),
-        private: $(privateSwitch).prop('checked') ? 1 : 0,
-        description: $(calendarEditor).val(),
-        allDay: null,
-        tzid: "Europe/Moscow",
-        freq: null,
-        byweekday: null,
-        bysetpos: null,
-        bymonthday: null,
-        interval: null,
-        dtstart: null,
-        count: null,
-        until: null,
-      }
-      if ($(allDaySwitch).prop('checked')) {
-        // Если Весь день, то меняем переменную
-        Event.allDay = '1';
-      }
-
-      // Параметры повторения. Если галочка включена
-      if ($(repeatSwitch).prop('checked')) {
-        if (Event.interval !== '') {
+        // Параметры повторения. Если галочка включена
+        if ($(repeatSwitch).prop('checked')) {
           Event.interval = $(daynum).val();
-        } else Event.interval = null;
-        if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'daily-section') {
-          // Ежедневно. Готово
-          Event.freq = 'DAILY';
-        } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'weekly-section') {
-          // Еженедельно. Готово
-          Event.freq = 'WEEKLY';
-          // Получаем отмеченные чекбоксы
-          let wday = getweekdaycheck();
-          console.log(wday);
-          if (wday !== "" || null) {
-            Event.byweekday = wday;
-          } else Event.byweekday = null;
-        } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'monthly-section') {
-          // Ежемесячно
-          Event.freq = 'MONTHLY';
-          // Проверяем чекбоксы
-          if ($(evdmonth).prop('checked')) {
-            // Каждое число месяца
-            Event.bymonthday = $(dayofmonth).val();
-          } else
-            // Последний день
-          if ($(lastdmonth).prop('checked')) {
-            Event.byweekday = 'MO, TU, WE, TH, FR, SA, SU';
-            Event.bysetpos = '-1';
-          } else
-            // Предпоследний день
-          if ($(prelastdmonth).prop('checked')) {
-            Event.byweekday = 'MO, TU, WE, TH, FR, SA, SU';
-            Event.bysetpos = '-2';
-          } else
-            // Первый день
-          if ($(firstdmonth).prop('checked')) {
-            Event.byweekday = 'MO, TU, WE, TH, FR, SA, SU';
-            Event.bysetpos = '1';
-          } else
-            // Первый рабочий день
-          if ($(firstworkdmonth).prop('checked')) {
-            Event.byweekday = 'MO, TU, WE, TH, FR';
-            Event.bysetpos = '1';
-          } else
-            // Последний рабочий день
-          if ($(lastworkdmonth).prop('checked')) {
-            Event.byweekday = 'MO, TU, WE, TH, FR';
-            Event.bysetpos = '-1';
+          if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'daily-section') {
+            // Ежедневно. Готово
+            Event.freq = 'DAILY';
+          } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'weekly-section') {
+            // Еженедельно. Готово
+            Event.freq = 'WEEKLY';
+            // Получаем отмеченные чекбоксы
+            Event.byweekday = getweekdaycheck();
+          } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'monthly-section') {
+            // Ежемесячно
+            Event.freq = 'MONTHLY';
+            // Проверяем чекбоксы
+            if ($(evdmonth).prop('checked')) {
+              // Каждое число месяца
+              Event.bymonthday = $(dayofmonth).val();
+            } else
+              // Последний день
+            if ($(lastdmonth).prop('checked')) {
+              Event.byweekday = 'MO, TU, WE, TH, FR, SA, SU';
+              Event.bysetpos = '-1';
+            } else
+              // Первый день
+            if ($(firstdmonth).prop('checked')) {
+              Event.byweekday = 'MO, TU, WE, TH, FR, SA, SU';
+              Event.bysetpos = '1';
+            } else
+              // Первый рабочий день
+            if ($(firstworkdmonth).prop('checked')) {
+              Event.byweekday = 'MO, TU, WE, TH, FR';
+              Event.bysetpos = '1';
+            } else
+              // Последний рабочий день
+            if ($(lastworkdmonth).prop('checked')) {
+              Event.byweekday = 'MO, TU, WE, TH, FR';
+              Event.bysetpos = '-1';
+            }
+          } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'yearly-section') {
+            // Ежегодно
+            Event.freq = 'YEARLY';
           }
-        } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'yearly-section') {
-          // Ежегодно
-          Event.freq = 'YEARLY';
-        } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'none') {
-          // Без повторения
-          Event.freq = null;
-          Event.byweekday = null;
-          Event.bysetpos = null;
-          Event.bymonthday = null;
-        }
 
-        // Начало повторения
-        Event.dtstart = moment($(startrepDate).val()).format('YYYY-MM-DD HH:mm:ss');
+          // Начало повторения
+          Event.dtstart = moment($(startrepDate).val()).format('YYYY-MM-DD HH:mm:ss');
 
-        // Диапазон повторения
-        if ($(repdate).prop('checked')) {
-          Event.until = moment($(endrepDate).val()).format('YYYY-MM-DD HH:mm:ss');
-        } else {
-          Event.until = null;
-        }
-        // Кол-во повторений
-        if ($(repcount).prop('checked')) {
-          Event.count = $(repcountinp).val();
-        } else {
-          Event.count = null;
-        }
-
-        // Начало повторения
-        Event.dtstart = moment($(startrepDate).val()).format('YYYY-MM-DD HH:mm:ss');
-
-        // Диапазон повторения
-        if ($(repdate).prop('checked')) {
-          Event.until = moment($(endrepDate).val()).format('YYYY-MM-DD HH:mm:ss');
-        }
-        // Кол-во повторений
-        if ($(repcount).prop('checked')) {
-          Event.count = $(repcountinp).val();
-        }
-
-      } else {
-        Event.interval = null;
-      }
-
-      console.log(Event);
-      // Пишем в базу событие методом POST
-      $.ajax({
-        url: 'components/fullcalendar/ajax.php',
-        data: Event,
-        type: "POST",
-        headers: {
-          'Accept': 'application/json;odata=nometadata'
-        },
-        success: function (response) {
-          //updateEvent(Event);
-          calendar.refetchEvents(Event);
-          hideModal();
-          resetValues();
-          showMiniToast('Событие ' + Event.title + ' обновлено', "info");
-          if (response) {
-            showErrorToast("Ошибка", response, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
+          // Диапазон повторения
+          if ($(repdate).prop('checked')) {
+            Event.until = moment($(endrepDate).val()).format('YYYY-MM-DD HH:mm:ss');
           }
-        },
-        error: function (jqXHR, textStatus, errorThrown, exception) {
-          let header;
-          if (jqXHR.status === 0) {
-            header = 'Не подключено. Проверьте сеть';
-          } else if (jqXHR.status === 404) {
-            header = 'Запрашиваемая страница не найдена [404]';
-          } else if (jqXHR.status === 500) {
-            header = 'Внутренняя ошибка сервера [500]';
-          } else if (exception === 'parsererror') {
-            header = 'Запрос синтаксического анализа JSON завершился неудачно';
-          } else if (exception === 'timeout') {
-            header = 'Ошибка тайм-аута';
-          } else if (exception === 'abort') {
-            header = 'Ajax запрос прерван';
-          } else {
-            header = 'Неперехваченная ошибка';
+          // Кол-во повторений
+          if ($(repcount).prop('checked')) {
+            Event.count = $(repcountinp).val();
           }
-          showErrorToast(header, textStatus + errorThrown + jqXHR.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
         }
-      });
-    }
-  });
 
-  // Кнопка - Удаление события
-  $(btnDeleteEvent).on('click', function () {
-    const Event = {
-      operation: "del",
-      id: eventToUpdate.id,
-    }
-    // Удалям из базы событие методом POST
-    $.ajax({
-      url: 'components/fullcalendar/ajax.php',
-      data: Event,
-      type: "POST",
-      headers: {
-        'Accept': 'application/json;odata=nometadata'
-      },
-      success: function (response) {
-        calendar.refetchEvents(Event);
-        hideModal();
-        resetValues();
-        showMiniToast('Событие ' + eventToUpdate.title + ' удалено', "danger");
-        if (response) {
-          showErrorToast("Ошибка", response, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
-        }
-      },
-      error: function (jqXHR, textStatus, errorThrown, exception) {
-        let header;
-        if (jqXHR.status === 0) {
-          header = 'Не подключено. Проверьте сеть';
-        } else if (jqXHR.status === 404) {
-          header = 'Запрашиваемая страница не найдена [404]';
-        } else if (jqXHR.status === 500) {
-          header = 'Внутренняя ошибка сервера [500]';
-        } else if (exception === 'parsererror') {
-          header = 'Запрос синтаксического анализа JSON завершился неудачно';
-        } else if (exception === 'timeout') {
-          header = 'Ошибка тайм-аута';
-        } else if (exception === 'abort') {
-          header = 'Ajax запрос прерван';
-        } else {
-          header = 'Неперехваченная ошибка';
-        }
-        showErrorToast(header, textStatus + errorThrown + jqXHR.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
+        console.log(Event);
+        // Пишем в базу новое событие методом POST
+        $.ajax({
+          url: 'components/fullcalendar/ajax.php',
+          data: Event,
+          type: "POST",
+          headers: {
+            'Accept': 'application/json;odata=nometadata'
+          },
+          success: function (response) {
+            //addEvent(Event);
+            calendar.refetchEvents(Event);
+            hideModal();
+            resetValues();
+            showMiniToast('Событие ' + Event.title + ' добавлено', "success");
+            if (response) {
+              showErrorToast("Ошибка", response, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
+            }
+          },
+          error: function (jqXHR, textStatus, errorThrown, exception) {
+            let header;
+            if (jqXHR.status === 0) {
+              header = 'Не подключено. Проверьте сеть';
+            } else if (jqXHR.status === 404) {
+              header = 'Запрашиваемая страница не найдена [404]';
+            } else if (jqXHR.status === 500) {
+              header = 'Внутренняя ошибка сервера [500]';
+            } else if (exception === 'parsererror') {
+              header = 'Запрос синтаксического анализа JSON завершился неудачно';
+            } else if (exception === 'timeout') {
+              header = 'Ошибка тайм-аута';
+            } else if (exception === 'abort') {
+              header = 'Ajax запрос прерван';
+            } else {
+              header = 'Неперехваченная ошибка';
+            }
+            showErrorToast(header, textStatus + errorThrown + jqXHR.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
+          }
+        });
       }
     });
-  });
 
 
   // Сброс значений модала
