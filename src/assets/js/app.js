@@ -787,7 +787,7 @@ const calendmodulehandler = () => {
       editEventTitle.style.display = "block";
       $(eventTitle).val(eventToUpdate.title);
       // Приватное событие
-      if (eventToUpdate.extendedProps.private === 0 || "0") {
+      if (eventToUpdate.extendedProps.private === 0 || eventToUpdate.extendedProps.private === "0") {
         $(privateSwitch).prop('checked', false)
       } else {
         $(privateSwitch).prop('checked', true)
