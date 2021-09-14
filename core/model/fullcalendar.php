@@ -15,6 +15,8 @@
 	    public function getEvents($params, $calendars) {
 	    	if (is_array($calendars)) {
 					//Подготавливаем массив для оператора IN SQL
+          $i=0;
+          $in='';
 					foreach ($calendars as $item)
 					{
 					    $key = ":id".$i++;
