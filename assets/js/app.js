@@ -1504,7 +1504,7 @@ const calendmodulehandler = () => {
         url: $(eventUrl).val(),
         calendar: $(eventLabel).val(),
         private: $(privateSwitch).prop('checked') ? 1 : 0,
-        user_id: "",
+        user_id: cookieID,
         description: $(calendarEditor).val(),
         allDay: null,
         tzid: "Europe/Moscow",
