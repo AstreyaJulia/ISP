@@ -39928,6 +39928,10 @@ td .badge-big {
   border-radius: 4px;
   border: 3px solid #4442ae;
 }
+.today-calendar .fc-event-time,
+.calendar-module .fc-event-time {
+  overflow: unset;
+}
 .today-calendar a,
 .calendar-module a {
   color: #404d61;

@@ -718,6 +718,7 @@ const calendmodulehandler = () => {
     return array;
   }
 
+  // Выбор повторения
   function repswitch(info) {
     if ($(repeatSwitch).prop('checked')) {
       if (info == null) {
@@ -742,6 +743,7 @@ const calendmodulehandler = () => {
     }
   }
 
+  // Добавление события
   const addEvent = () => {
     if ($(eventForm).valid()) {
       const Event = {
@@ -905,6 +907,7 @@ const calendmodulehandler = () => {
     }
   }
 
+  // Удаление события
   const delEvent = () => {
     const Event = {
       operation: "del",
@@ -949,21 +952,18 @@ const calendmodulehandler = () => {
     });
   }
 
-  // Кнопка закрыть
-  $(span).on('click', function () {
+  // Закрытие модала и сброс инпутов
+  const closeAddEvModal = () => {
     hideModal();
-    resetValues()
-  });
-
-  // Кнопка отмены
-  $(cancelBtn).on('click', function () {
-    hideModal();
-    resetValues()
-  });
+    resetValues();
+  }
 
   // Событие при нажатии на событие
   function eventClick(info) {
     eventToUpdate = info.event;
+
+    // Прослушка кликов по кнопке закрыть
+    span.addEventListener('click', () => closeAddEvModal());
 
     // Открывает ссылку в новом окне
     if ((eventToUpdate).url) {
@@ -980,17 +980,17 @@ const calendmodulehandler = () => {
       showModal();
       // Проверяем права пользователя и его ID и включаем возможность редактирования
       if (eventToUpdate.extendedProps.user_id === cookieID || JSON.stringify(eventToUpdate.extendedProps.user_id) === cookieID) {
+        // Добавляем прослушку кликов по кнопкам Добавить и Обновить
         updateEventBtn.addEventListener('click', () => addEvent());
         btnDeleteEvent.addEventListener('click', () => delEvent());
-
         updateEventBtn.style.display = "block";
         btnDeleteEvent.style.display = "block";
         updateEventBtn.disabled = false;
         btnDeleteEvent.disabled = false;
       } else {
+        // Удаляем прослушку кликов по кнопкам Добавить и Обновить
         updateEventBtn.removeEventListener('click', () => addEvent());
         btnDeleteEvent.removeEventListener('click', () => delEvent());
-
         updateEventBtn.style.display = "block";
         btnDeleteEvent.style.display = "block";
         updateEventBtn.disabled = true;
@@ -1010,10 +1010,7 @@ const calendmodulehandler = () => {
       $(endDate).val(date);
 
       // Если включили повторение, то дата начала повторения берется из даты начала события
-      $(repeatSwitch).on('click', function () {
-        const date = moment($(startDate).val()).format('YYYY-MM-DD HH:mm');
-        repswitch(date);
-      })
+      repeatSwitch.addEventListener('click', () => repswitch(moment($(startDate).val()).format('YYYY-MM-DD HH:mm')));
 
       // Выбор повторения для дня
       $(repparamSwitch).on('change', function () {
@@ -1117,6 +1114,7 @@ const calendmodulehandler = () => {
       if (eventToUpdate._def.recurringDef !== null) {
         // Для еженедельного
         if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.freq === 2) {
+          intervalsection.style.display = "block";
           // Чекбоксы дней недель
           let array = eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday;
           for (let i = 0; i < array.length; i++) {
@@ -1326,8 +1324,6 @@ const calendmodulehandler = () => {
           // С не фиксированной датой не работают повторяющиеся собыия
           startParam: moment(info.start).tz('Europe/Moscow').format('YYYY-MM-DD'),
           endParam: moment(info.end).tz('Europe/Moscow').format('YYYY-MM-DD'),
-          //startParam: '2021-01-01',
-          //endParam: '2021-12-31',
           calendars: calendars,
           private: privatecheck(),
         },
@@ -1356,14 +1352,6 @@ const calendmodulehandler = () => {
         }
       }
     );
-    /*const calendars = selectedCalendars();
-    let selectedEvents = events.filter(function (event) {
-      console.log(event.extendedProps.calendar.toLowerCase());
-      return calendars.includes(event.extendedProps.calendar.toLowerCase());
-    });
-    if (selectedEvents.length > 0) {
-    successCallback(selectedEvents);
-     }*/
   }
 
   // Показать popover
@@ -1455,6 +1443,11 @@ const calendmodulehandler = () => {
   function neweventmodal(info) {
     resetValues();
     showModal();
+
+    // Прослушка кликов по кнопкам отмена и закрыть
+    span.addEventListener('click', () => closeAddEvModal());
+    cancelBtn.addEventListener('click', () => closeAddEvModal());
+
     // Показываем кнопку Добавить
     addEventBtn.style.display = "block";
     // Показываем кнопку Отмена
@@ -1745,7 +1738,6 @@ const calendmodulehandler = () => {
     intervalsection.style.display = "none";
     weeklysection.style.display = "none";
     monthlysection.style.display = "none";
-    //yearlysection.style.display = "none";
   }
 
   // Когда модал закрыт, сбросить значения

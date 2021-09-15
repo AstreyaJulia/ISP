@@ -26,49 +26,49 @@ const spinnerloader = document.querySelector('.spinner-wrapper');
 // Все элементы, для к-рых нужна прокрутка
 const overlayscrollbar = OverlayScrollbars(document.querySelectorAll(".overlayscrollbar"), {
   //className            : "os-theme-light",
-  resize               : "none",
-  sizeAutoCapable      : true,
-  clipAlways           : true,
-  normalizeRTL         : true,
-  paddingAbsolute      : false,
-  autoUpdate           : null,
-  autoUpdateInterval   : 33,
-  updateOnLoad         : ["img"],
-  nativeScrollbarsOverlaid : {
-    showNativeScrollbars   : false,
-    initialize             : true
+  resize: "none",
+  sizeAutoCapable: true,
+  clipAlways: true,
+  normalizeRTL: true,
+  paddingAbsolute: false,
+  autoUpdate: null,
+  autoUpdateInterval: 33,
+  updateOnLoad: ["img"],
+  nativeScrollbarsOverlaid: {
+    showNativeScrollbars: false,
+    initialize: true
   },
-  overflowBehavior : {
-    x : "scroll",
-    y : "scroll"
+  overflowBehavior: {
+    x: "scroll",
+    y: "scroll"
   },
-  scrollbars : {
-    visibility       : "auto",
-    autoHide         : "never",
-    autoHideDelay    : 800,
-    dragScrolling    : true,
-    clickScrolling   : false,
-    touchSupport     : true,
-    snapHandle       : false
+  scrollbars: {
+    visibility: "auto",
+    autoHide: "never",
+    autoHideDelay: 800,
+    dragScrolling: true,
+    clickScrolling: false,
+    touchSupport: true,
+    snapHandle: false
   },
-  textarea : {
-    dynWidth       : false,
-    dynHeight      : false,
-    inheritedAttrs : ["style", "class"]
+  textarea: {
+    dynWidth: false,
+    dynHeight: false,
+    inheritedAttrs: ["style", "class"]
   },
-  callbacks : {
-    onInitialized               : null,
-    onInitializationWithdrawn   : null,
-    onDestroyed                 : null,
-    onScrollStart               : null,
-    onScroll                    : null,
-    onScrollStop                : null,
-    onOverflowChanged           : null,
-    onOverflowAmountChanged     : null,
-    onDirectionChanged          : null,
-    onContentSizeChanged        : null,
-    onHostSizeChanged           : null,
-    onUpdated                   : null
+  callbacks: {
+    onInitialized: null,
+    onInitializationWithdrawn: null,
+    onDestroyed: null,
+    onScrollStart: null,
+    onScroll: null,
+    onScrollStop: null,
+    onOverflowChanged: null,
+    onOverflowAmountChanged: null,
+    onDirectionChanged: null,
+    onContentSizeChanged: null,
+    onHostSizeChanged: null,
+    onUpdated: null
   }
 });
 
@@ -143,10 +143,10 @@ function showMiniToast(text, color) {
 function getCookie(name) {
   const nameEQ = name + "=";
   const ca = document.cookie.split(';');
-  for(let i=0;i < ca.length;i++) {
+  for (let i = 0; i < ca.length; i++) {
     let c = ca[i];
-    while (c.charAt(0)==' ') c = c.substring(1,c.length);
-    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length,c.length);
+    while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
   }
   return null;
 }
@@ -718,6 +718,7 @@ const calendmodulehandler = () => {
     return array;
   }
 
+  // Выбор повторения
   function repswitch(info) {
     if ($(repeatSwitch).prop('checked')) {
       if (info == null) {
@@ -742,6 +743,7 @@ const calendmodulehandler = () => {
     }
   }
 
+  // Добавление события
   const addEvent = () => {
     if ($(eventForm).valid()) {
       const Event = {
@@ -905,6 +907,7 @@ const calendmodulehandler = () => {
     }
   }
 
+  // Удаление события
   const delEvent = () => {
     const Event = {
       operation: "del",
@@ -949,21 +952,18 @@ const calendmodulehandler = () => {
     });
   }
 
-  // Кнопка закрыть
-  $(span).on('click', function () {
+  // Закрытие модала и сброс инпутов
+  const closeAddEvModal = () => {
     hideModal();
-    resetValues()
-  });
-
-  // Кнопка отмены
-  $(cancelBtn).on('click', function () {
-    hideModal();
-    resetValues()
-  });
+    resetValues();
+  }
 
   // Событие при нажатии на событие
   function eventClick(info) {
     eventToUpdate = info.event;
+
+    // Прослушка кликов по кнопке закрыть
+    span.addEventListener('click', () => closeAddEvModal());
 
     // Открывает ссылку в новом окне
     if ((eventToUpdate).url) {
@@ -979,15 +979,18 @@ const calendmodulehandler = () => {
     if (info.event.id !== "" && info.event.display !== "background") {
       showModal();
       // Проверяем права пользователя и его ID и включаем возможность редактирования
-      if (eventToUpdate.extendedProps.user_id === cookieID ||  JSON.stringify(eventToUpdate.extendedProps.user_id) === cookieID) {
-          updateEventBtn.addEventListener('click', () => addEvent());
+      if (eventToUpdate.extendedProps.user_id === cookieID || JSON.stringify(eventToUpdate.extendedProps.user_id) === cookieID) {
+        // Добавляем прослушку кликов по кнопкам Добавить и Обновить
+        updateEventBtn.addEventListener('click', () => addEvent());
         btnDeleteEvent.addEventListener('click', () => delEvent());
-
         updateEventBtn.style.display = "block";
         btnDeleteEvent.style.display = "block";
         updateEventBtn.disabled = false;
         btnDeleteEvent.disabled = false;
       } else {
+        // Удаляем прослушку кликов по кнопкам Добавить и Обновить
+        updateEventBtn.removeEventListener('click', () => addEvent());
+        btnDeleteEvent.removeEventListener('click', () => delEvent());
         updateEventBtn.style.display = "block";
         btnDeleteEvent.style.display = "block";
         updateEventBtn.disabled = true;
@@ -1007,10 +1010,7 @@ const calendmodulehandler = () => {
       $(endDate).val(date);
 
       // Если включили повторение, то дата начала повторения берется из даты начала события
-      $(repeatSwitch).on('click', function () {
-        const date = moment($(startDate).val()).format('YYYY-MM-DD HH:mm');
-        repswitch(date);
-      })
+      repeatSwitch.addEventListener('click', () => repswitch(moment($(startDate).val()).format('YYYY-MM-DD HH:mm')));
 
       // Выбор повторения для дня
       $(repparamSwitch).on('change', function () {
@@ -1114,6 +1114,7 @@ const calendmodulehandler = () => {
       if (eventToUpdate._def.recurringDef !== null) {
         // Для еженедельного
         if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.freq === 2) {
+          intervalsection.style.display = "block";
           // Чекбоксы дней недель
           let array = eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday;
           for (let i = 0; i < array.length; i++) {
@@ -1323,8 +1324,6 @@ const calendmodulehandler = () => {
           // С не фиксированной датой не работают повторяющиеся собыия
           startParam: moment(info.start).tz('Europe/Moscow').format('YYYY-MM-DD'),
           endParam: moment(info.end).tz('Europe/Moscow').format('YYYY-MM-DD'),
-          //startParam: '2021-01-01',
-          //endParam: '2021-12-31',
           calendars: calendars,
           private: privatecheck(),
         },
@@ -1353,14 +1352,6 @@ const calendmodulehandler = () => {
         }
       }
     );
-    /*const calendars = selectedCalendars();
-    let selectedEvents = events.filter(function (event) {
-      console.log(event.extendedProps.calendar.toLowerCase());
-      return calendars.includes(event.extendedProps.calendar.toLowerCase());
-    });
-    if (selectedEvents.length > 0) {
-    successCallback(selectedEvents);
-     }*/
   }
 
   // Показать popover
@@ -1452,6 +1443,11 @@ const calendmodulehandler = () => {
   function neweventmodal(info) {
     resetValues();
     showModal();
+
+    // Прослушка кликов по кнопкам отмена и закрыть
+    span.addEventListener('click', () => closeAddEvModal());
+    cancelBtn.addEventListener('click', () => closeAddEvModal());
+
     // Показываем кнопку Добавить
     addEventBtn.style.display = "block";
     // Показываем кнопку Отмена
@@ -1582,124 +1578,124 @@ const calendmodulehandler = () => {
   });
 
   // Кнопка - Добавление нового события
-    $(addEventBtn).on('click', function () {
-      if ($(eventForm).valid()) {
-        // Задаем переменную. На данный момент она пустая.
-        const Event = {
-          operation: "add",
-          title: $(eventTitle).val(),
-          start: moment($(startDate).val()).format('YYYY-MM-DD HH:mm:ss'),
-          end: moment($(endDate).val()).format('YYYY-MM-DD HH:mm:ss'),
-          calendar: $(eventLabel).val(),
-          description: $(calendarEditor).val(),
-          url: $(eventUrl).val(),
-          private: $(privateSwitch).prop('checked') ? 1 : 0,
-          user_id: cookieID,
-          tzid: "Europe/Moscow",
-        }
-        if ($(allDaySwitch).prop('checked')) {
-          // Если Весь день, то меняем переменную
-          Event.allDay = '1';
-        }
-
-        // Параметры повторения. Если галочка включена
-        if ($(repeatSwitch).prop('checked')) {
-          Event.interval = $(daynum).val();
-          if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'daily-section') {
-            // Ежедневно. Готово
-            Event.freq = 'DAILY';
-          } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'weekly-section') {
-            // Еженедельно. Готово
-            Event.freq = 'WEEKLY';
-            // Получаем отмеченные чекбоксы
-            Event.byweekday = getweekdaycheck();
-          } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'monthly-section') {
-            // Ежемесячно
-            Event.freq = 'MONTHLY';
-            // Проверяем чекбоксы
-            if ($(evdmonth).prop('checked')) {
-              // Каждое число месяца
-              Event.bymonthday = $(dayofmonth).val();
-            } else
-              // Последний день
-            if ($(lastdmonth).prop('checked')) {
-              Event.byweekday = 'MO, TU, WE, TH, FR, SA, SU';
-              Event.bysetpos = '-1';
-            } else
-              // Первый день
-            if ($(firstdmonth).prop('checked')) {
-              Event.byweekday = 'MO, TU, WE, TH, FR, SA, SU';
-              Event.bysetpos = '1';
-            } else
-              // Первый рабочий день
-            if ($(firstworkdmonth).prop('checked')) {
-              Event.byweekday = 'MO, TU, WE, TH, FR';
-              Event.bysetpos = '1';
-            } else
-              // Последний рабочий день
-            if ($(lastworkdmonth).prop('checked')) {
-              Event.byweekday = 'MO, TU, WE, TH, FR';
-              Event.bysetpos = '-1';
-            }
-          } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'yearly-section') {
-            // Ежегодно
-            Event.freq = 'YEARLY';
-          }
-
-          // Начало повторения
-          Event.dtstart = moment($(startrepDate).val()).format('YYYY-MM-DD HH:mm:ss');
-
-          // Диапазон повторения
-          if ($(repdate).prop('checked')) {
-            Event.until = moment($(endrepDate).val()).format('YYYY-MM-DD HH:mm:ss');
-          }
-          // Кол-во повторений
-          if ($(repcount).prop('checked')) {
-            Event.count = $(repcountinp).val();
-          }
-        }
-
-        console.log(Event);
-        // Пишем в базу новое событие методом POST
-        $.ajax({
-          url: 'components/fullcalendar/ajax.php',
-          data: Event,
-          type: "POST",
-          headers: {
-            'Accept': 'application/json;odata=nometadata'
-          },
-          success: function (response) {
-            //addEvent(Event);
-            calendar.refetchEvents(Event);
-            hideModal();
-            resetValues();
-            showMiniToast('Событие ' + Event.title + ' добавлено', "success");
-            if (response) {
-              showErrorToast("Ошибка", response, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
-            }
-          },
-          error: function (jqXHR, textStatus, errorThrown, exception) {
-            let header;
-            if (jqXHR.status === 0) {
-              header = 'Не подключено. Проверьте сеть';
-            } else if (jqXHR.status === 404) {
-              header = 'Запрашиваемая страница не найдена [404]';
-            } else if (jqXHR.status === 500) {
-              header = 'Внутренняя ошибка сервера [500]';
-            } else if (exception === 'parsererror') {
-              header = 'Запрос синтаксического анализа JSON завершился неудачно';
-            } else if (exception === 'timeout') {
-              header = 'Ошибка тайм-аута';
-            } else if (exception === 'abort') {
-              header = 'Ajax запрос прерван';
-            } else {
-              header = 'Неперехваченная ошибка';
-            }
-            showErrorToast(header, textStatus + errorThrown + jqXHR.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
-          }
-        });
+  $(addEventBtn).on('click', function () {
+    if ($(eventForm).valid()) {
+      // Задаем переменную. На данный момент она пустая.
+      const Event = {
+        operation: "add",
+        title: $(eventTitle).val(),
+        start: moment($(startDate).val()).format('YYYY-MM-DD HH:mm:ss'),
+        end: moment($(endDate).val()).format('YYYY-MM-DD HH:mm:ss'),
+        calendar: $(eventLabel).val(),
+        description: $(calendarEditor).val(),
+        url: $(eventUrl).val(),
+        private: $(privateSwitch).prop('checked') ? 1 : 0,
+        user_id: cookieID,
+        tzid: "Europe/Moscow",
       }
-    });
+      if ($(allDaySwitch).prop('checked')) {
+        // Если Весь день, то меняем переменную
+        Event.allDay = '1';
+      }
+
+      // Параметры повторения. Если галочка включена
+      if ($(repeatSwitch).prop('checked')) {
+        Event.interval = $(daynum).val();
+        if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'daily-section') {
+          // Ежедневно. Готово
+          Event.freq = 'DAILY';
+        } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'weekly-section') {
+          // Еженедельно. Готово
+          Event.freq = 'WEEKLY';
+          // Получаем отмеченные чекбоксы
+          Event.byweekday = getweekdaycheck();
+        } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'monthly-section') {
+          // Ежемесячно
+          Event.freq = 'MONTHLY';
+          // Проверяем чекбоксы
+          if ($(evdmonth).prop('checked')) {
+            // Каждое число месяца
+            Event.bymonthday = $(dayofmonth).val();
+          } else
+            // Последний день
+          if ($(lastdmonth).prop('checked')) {
+            Event.byweekday = 'MO, TU, WE, TH, FR, SA, SU';
+            Event.bysetpos = '-1';
+          } else
+            // Первый день
+          if ($(firstdmonth).prop('checked')) {
+            Event.byweekday = 'MO, TU, WE, TH, FR, SA, SU';
+            Event.bysetpos = '1';
+          } else
+            // Первый рабочий день
+          if ($(firstworkdmonth).prop('checked')) {
+            Event.byweekday = 'MO, TU, WE, TH, FR';
+            Event.bysetpos = '1';
+          } else
+            // Последний рабочий день
+          if ($(lastworkdmonth).prop('checked')) {
+            Event.byweekday = 'MO, TU, WE, TH, FR';
+            Event.bysetpos = '-1';
+          }
+        } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'yearly-section') {
+          // Ежегодно
+          Event.freq = 'YEARLY';
+        }
+
+        // Начало повторения
+        Event.dtstart = moment($(startrepDate).val()).format('YYYY-MM-DD HH:mm:ss');
+
+        // Диапазон повторения
+        if ($(repdate).prop('checked')) {
+          Event.until = moment($(endrepDate).val()).format('YYYY-MM-DD HH:mm:ss');
+        }
+        // Кол-во повторений
+        if ($(repcount).prop('checked')) {
+          Event.count = $(repcountinp).val();
+        }
+      }
+
+      console.log(Event);
+      // Пишем в базу новое событие методом POST
+      $.ajax({
+        url: 'components/fullcalendar/ajax.php',
+        data: Event,
+        type: "POST",
+        headers: {
+          'Accept': 'application/json;odata=nometadata'
+        },
+        success: function (response) {
+          //addEvent(Event);
+          calendar.refetchEvents(Event);
+          hideModal();
+          resetValues();
+          showMiniToast('Событие ' + Event.title + ' добавлено', "success");
+          if (response) {
+            showErrorToast("Ошибка", response, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
+          }
+        },
+        error: function (jqXHR, textStatus, errorThrown, exception) {
+          let header;
+          if (jqXHR.status === 0) {
+            header = 'Не подключено. Проверьте сеть';
+          } else if (jqXHR.status === 404) {
+            header = 'Запрашиваемая страница не найдена [404]';
+          } else if (jqXHR.status === 500) {
+            header = 'Внутренняя ошибка сервера [500]';
+          } else if (exception === 'parsererror') {
+            header = 'Запрос синтаксического анализа JSON завершился неудачно';
+          } else if (exception === 'timeout') {
+            header = 'Ошибка тайм-аута';
+          } else if (exception === 'abort') {
+            header = 'Ajax запрос прерван';
+          } else {
+            header = 'Неперехваченная ошибка';
+          }
+          showErrorToast(header, textStatus + errorThrown + jqXHR.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
+        }
+      });
+    }
+  });
 
 
   // Сброс значений модала
@@ -1742,7 +1738,6 @@ const calendmodulehandler = () => {
     intervalsection.style.display = "none";
     weeklysection.style.display = "none";
     monthlysection.style.display = "none";
-    //yearlysection.style.display = "none";
   }
 
   // Когда модал закрыт, сбросить значения
@@ -1780,8 +1775,6 @@ const calendmodulehandler = () => {
   }
 
 }
-
-
 
 
 // Datatables

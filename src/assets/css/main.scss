@@ -1919,6 +1919,10 @@ td .badge-big {
     border: 3px solid shift-color($link-color, $link-shade-percentage);
   }
 
+  .fc-event-time {
+    overflow: unset;
+  }
+
   a {
     color: $body;
   }
