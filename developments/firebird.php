@@ -30,8 +30,31 @@
 
     //$row->closeCursor(); // Закрываем курсор
     
-    //var_dump(mb_convert_encoding($row, "utf8", "windows-1251"));
+/* Необходимо подключить библиотеку php_interbase
+firebird 1.5 непредсказуемо зависает
+$host = 'test-192.168.0.254:C:\Data\Justice\UNI_WORK2003.GDB';
+$username = 'SYSDBA';
+$password = 'm';
 
+$dbh = ibase_connect($host, $username, $password);
+//Выбираем категории материалов
+$stmt = 'SELECT c.prefix, c.name, (SELECT cc.name FROM catalogcontent cc WHERE cc.contentid = c.addinteger_1 AND catalogid = 5400) AS F1
+        FROM catalogcontent c
+        WHERE catalogid = 5401';
+$sth = ibase_query($dbh, $stmt);
+//Подготавливаем данные
+$ourDataJson = "";
+while ($row = ibase_fetch_assoc($sth)) {
+    $ourDataJson .= json_encode(mb_convert_encoding($row, "utf8", "windows-1251"), JSON_UNESCAPED_UNICODE).",\n";
+}
+$ourDataJson = "[".rtrim($ourDataJson,",\n")."]";
+
+//Записываем в файл
+file_put_contents('data/categories-material.json', $ourDataJson);
+
+ibase_free_result($sth);
+ibase_close($dbh);
+*/
 
 
 
