@@ -5,7 +5,7 @@
 	ini_set("display_errors", "on");
 
 	try {
-        $fire = new PDO('firebird:dbname=192.168.0.254:C:\Data\Justice\UNI_WORK2003.GDB;dialect=1', 'SYSDBA', 'm');
+        $fire = new PDO('firebird:dbname=192.168.2.2:f:\JUSTICE\UNI_WORK2003.GDB;dialect=1', 'SYSDBA', 'masterkey');
         $fire->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   } catch (PDOException $e) {
       print "Error!: " . $e->getMessage();
@@ -29,7 +29,7 @@
     file_put_contents('../data/categories-civil-cases.json', $ourDataJson);
 
     //$row->closeCursor(); // Закрываем курсор
-    
+
 /* Необходимо подключить библиотеку php_interbase
 firebird 1.5 непредсказуемо зависает
 $host = 'test-192.168.0.254:C:\Data\Justice\UNI_WORK2003.GDB';

@@ -52,4 +52,19 @@ if (isset($_COOKIE['aut'])) {
 } else {
     include "pages/autorization.php";
 }
+
+//Логирование
+
+$uri = rawurldecode($_SERVER['REQUEST_URI']);
+$userId = $_COOKIE['aut']['id'];
+$login = $_COOKIE['aut']['login'];
+$ip = $_SERVER['REMOTE_ADDR'];
+$ref = rawurldecode($_SERVER['HTTP_REFERER'] ?? "Нет");
+$dtime = date('Y-m-d H:i:s');
+
+$entry_line = PHP_EOL."$dtime | $login | $ip | $uri | $ref | $userId";
+$fp = fopen("data/logs.txt", "a");
+fputs($fp, $entry_line);
+fclose($fp);
+
 //echo '<div style="text-align:right;">Время выполнения скрипта: '.(microtime(true) - $start).' сек.</div>';
