@@ -37,4 +37,25 @@ class DB
     $stmt->execute($args);
     return $stmt;
   }
+
+  /* Выполнение запроса на добавление нескольких записей
+      $sql = "INSERT INTO users (name, surname, age) VALUES (?,?,?)";
+      $arg = [
+        ['John','Doe', 22],
+        ['Jane','Roe', 19],
+      ];*/
+    public function insertMultiple($sql, $args) {
+    $stmt = $this->pdo->prepare($sql);
+    try {
+      $this->pdo->beginTransaction();
+        foreach ($args as $row) {
+          $stmt->execute($row);
+        }
+        return $this->pdo->commit();
+    } catch (Exception $e){
+        $this->pdo->rollback();
+        throw $e;
+    }
+  }
+
 }

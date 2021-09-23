@@ -1,14 +1,14 @@
 <?php
 $title = "title Тестовой страницы";
 $info = "Блок info для тестовой страницы";
-
+//$content = "";
 
 
 if (($handle = fopen("data/logs.csv", "r")) !== FALSE) {
     while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
         //Удаляем Username
         unset($data[1]);
-        $content[] = $data;
+        $content[] = array_values($data);
     }
     fclose($handle);
 }
@@ -23,15 +23,12 @@ foreach ($values as $value) {
 }
 
 //$array = array_combine($key, $value);
-print_r($array);
 
-$sdc_visits = 'sdc_visits';
-
+$content = "";
 
 
 
-$VisitsClass = new \Core\Model\Visits($db);
 
 
-$VisitsClass->insert($array, $sdc_visits);
 
+$data = $db->insertMultiple("INSERT INTO `sdc_visits`(`dtime`, `REMOTE_ADDR`, `REQUEST_URI`, `HTTP_REFERER`, `UserID`) VALUES (?,?,?,?,?)",$values);
