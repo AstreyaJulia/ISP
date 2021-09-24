@@ -1,5 +1,5 @@
 <?php
-//$start = microtime(true);
+$start = microtime(true);
 spl_autoload_register(function($class) {
     require (mb_strtolower($_SERVER['DOCUMENT_ROOT'] . '/' . str_replace('\\', '/', $class) . '.php'));
 });
@@ -10,6 +10,7 @@ ini_set("display_errors", "on");
 require_once $_SERVER['DOCUMENT_ROOT'] . "/conection.php";
 //Подключаемся  базе
 $db = new \Core\Config\DB($dbname, $user, $password, $host);
+$visits = new \Core\Model\Visits($db);
 
 //подключаем функции
 require_once "core/extension/custom_functions.php";
@@ -54,17 +55,6 @@ if (isset($_COOKIE['aut'])) {
 }
 
 //Логирование
+$visits->startVizits($_SERVER, $_COOKIE);
 
-$uri = rawurldecode($_SERVER['REQUEST_URI']);
-$userId = $_COOKIE['aut']['id'];
-$login = $_COOKIE['aut']['login'];
-$ip = $_SERVER['REMOTE_ADDR'];
-$ref = rawurldecode($_SERVER['HTTP_REFERER'] ?? "Нет");
-$dtime = date('Y-m-d H:i:s');
-
-$entry_line = "$dtime;$login;$ip;$uri;$ref;$userId".PHP_EOL;
-$fp = fopen("data/logs.csv", "a");
-fputs($fp, $entry_line);
-fclose($fp);
-
-//echo '<div style="text-align:right;">Время выполнения скрипта: '.(microtime(true) - $start).' сек.</div>';
+echo '<div style="text-align:right;">Время выполнения скрипта: '.(microtime(true) - $start).' сек.</div>';
