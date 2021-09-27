@@ -27,6 +27,13 @@
 		fputs($fp, $entry_line);
 		fclose($fp);
 	}
+	// Очищаем файл статистики
+	public function clearLogs($file) {
+		$entry_line = "dtime;Username;REMOTE_ADDR;REQUEST_URI;HTTP_REFERER;UserID".PHP_EOL;
+		$fp = fopen($file, "w");
+		    fputs($fp, $entry_line);
+		fclose($fp);
+	}
 
 
   // Формируем массив из файла data/logs.csv для записи в б.д.
@@ -53,22 +60,13 @@
  
 	// 
 	public function insert($params, $tableName = 'sdc_visits') {
-  	if (!empty($params)) {
-      for ($i=0; $i < count($params); $i++) {
-        if ($i == 0) {
-          $key = "(`".array_keys($params)[$i]."`, ";
-        }
-        if ( $i !== 0 and count($params)-1 > $i) {
-          $key .= "`".array_keys($params)[$i]."`, ";
-        }
-        if (count($params)-1 == $i) {
-          $key .= "`".array_keys($params)[$i]."`)";
-        }
-      }
-      return $sql = "INSERT INTO `$tableName` $key VALUES (?,?,?,?,?)";
-    }
-
-    //return $this->db->run($sql, $params);
+  	foreach ($params as $value) {
+	    $key = implode(",", array_keys($value));
+	    $values_str  = str_repeat('?,', count($value) - 1) . '?';
+	    $values[] = array_values($value);
+		}
+    $sql = "INSERT INTO `$tableName` ($key) VALUES ($values_str)";
+    return $this->db->insertMultiple($sql, $values);
   }
 
 

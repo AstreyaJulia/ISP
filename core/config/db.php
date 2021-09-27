@@ -39,12 +39,15 @@ class DB
   }
 
   /* Выполнение запроса на добавление нескольких записей
+      приводим запрос к виду:
       $sql = "INSERT INTO users (name, surname, age) VALUES (?,?,?)";
+
+      приводим массив значений к виду:
       $arg = [
         ['John','Doe', 22],
         ['Jane','Roe', 19],
       ];*/
-    public function insertMultiple($sql, $args) {
+  public function insertMultiple($sql, $args) {
     $stmt = $this->pdo->prepare($sql);
     try {
       $this->pdo->beginTransaction();
