@@ -113,7 +113,7 @@
 </svg>
                 <div class="bday-group primary">
                   <p class="today-birthdays-username"><?= $UserAttributes->getShortFIO($row->fullname) ?></p>
-                  <p class="today-birthdays-date">День рождения. Исполняется <span>34</span></p>
+                  <p class="today-birthdays-date">День рождения. Исполняется <span><?= $row->age ?></span></p>
                 </div>
               </li>
             <?php endforeach ?>
