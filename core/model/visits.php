@@ -37,7 +37,7 @@
 
 
   // Формируем массив из файла data/logs.csv для записи в б.д.
-	public function arrVizits($file = "data/logs.csv") {
+	public function arrVizits($file) {
 		if (($handle = fopen($file, "r")) !== FALSE) {
 	    while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
 	    	//Удаляем Username
@@ -58,7 +58,7 @@
 		return $array;
 	}
  
-	// 
+	// Записываем значения из массива в базу
 	public function insert($params, $tableName = 'sdc_visits') {
   	foreach ($params as $value) {
 	    $key = implode(",", array_keys($value));
@@ -68,9 +68,5 @@
     $sql = "INSERT INTO `$tableName` ($key) VALUES ($values_str)";
     return $this->db->insertMultiple($sql, $values);
   }
-
-
-
-
 
 }
