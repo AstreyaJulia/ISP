@@ -15,36 +15,22 @@
 	    public function getEvents($params, $calendars) {
 	    	if (is_array($calendars)) {
 					//Подготавливаем массив для оператора IN SQL
-          $i=0;
-          $in='';
-					foreach ($calendars as $item)
-					{
-					    $key = ":id".$i++;
-					    $in .= "$key,";
-					    $paramsCalendars[$key] = $item; // collecting values into key-value array
-					}
-					$inCalendars = rtrim($in,","); // удаляем запятую в конце строки, получаем :id0,:id1,:id2 и тд.
-					$params = array_merge($params, $paramsCalendars);
-				} else {
-					$inCalendars = 'null';
+	     	    $i=0;
+	        	$in='';
+				foreach ($calendars as $item){
+				    $key = ":id".$i++;
+				    $in .= "$key,";
+				    $paramsCalendars[$key] = $item; // collecting values into key-value array
 				}
-				if ($params['private'] != 0) {
-					$params = array_replace($params, ['private' => null]);
-				}
+				$inCalendars = rtrim($in,","); // удаляем запятую в конце строки, получаем :id0,:id1,:id2 и тд.
+				$params = array_merge($params, $paramsCalendars);
+			} else {
+				$inCalendars = 'null';
+			}
+			if ($params['private'] != 0) {
+				$params = array_replace($params, ['private' => null]);
+			}
 
-
-/*
- select * from sdc_calendar
-    where
-        (((`freq` IS NOT NULL) or (`freq` IS NULL and start >= :start AND end <= :end)) AND
-            calendar in($inCalendars)) AND
-          IF (:private = 0, ((private = 0 and user_id IS NOT NULL) OR (private = 1 and user_id = :user)), (private = 1 and user_id = :user))
- */
-         /*$sql = "SELECT * from sdc_calendar
-    where
-        (((`freq` IS NOT NULL) or (`freq` IS NULL and start >= :start AND end <= :end)) AND
-            calendar in($inCalendars)) AND
-          IF (:private = 0, ((private = 0 and user_id IS NOT NULL) OR (private = 1 and user_id = :user)), (private = 1 and user_id = :user))";*/
         $sql = "SELECT * FROM sdc_calendar where (`private` in (:private) or `user_id` = :user) and `calendar` in ($inCalendars) and (`freq` IS NOT NULL or (`freq` IS NULL and `start` >= :start AND `end` <= :end))";
         return $this->db->run($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
 	    }
