@@ -1,255 +1,62 @@
-<h1><?= $title; ?></h1>
-<p>Я страница и нахожусь в разработке</p>
-<div class="">
-              <form class="" method="post" action="">
-
-                <nav>
-                  <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
-                    <button class="nav-link active" id="nav-main-tab" data-bs-toggle="tab" data-bs-target="#nav-main" type="button" role="tab" aria-controls="nav-main" aria-selected="true">Основное
-                    </button>
-                    <button class="nav-link" id="nav-rep-tab" data-bs-toggle="tab" data-bs-target="#nav-rep" type="button" role="tab" aria-controls="nav-rep" aria-selected="false">Повторение
-                    </button>
-                  </div>
-                </nav>
-
-                <div class="tab-content" id="nav-tabContent">
-                  <div class="tab-pane fade show active" id="nav-main" role="tabpanel" aria-labelledby="nav-main-tab">
-                    <div class="row">
-                      <div class="form-group">
-                        <label for="start-date" class="">Название события:</label>
-                        <div class="event-title">
-                          <input id="title" type="text" placeholder="Введите название" class="form-control"
-                                 name="task" >
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="form-check form-switch">
-                          <input type="checkbox" class="form-check-input private-switch" id="customSwitch1">
-                          <label class="form-check-label" for="customSwitch1">Вижу только я (приватное событие)</label>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label for="select-label" class="">Категория события:</label>
-                        <div class="cat-select position-relative ">
-                          <select class="select2 select-label form-control w-100" id="select-label" name="select-label">
-                            <option data-label="primary" value="Primary" selected>События
-                            </option>
-                            <option data-label="danger" value="Danger">Праздники</option>
-                            <option data-label="warning" value="Warning">Важно</option>
-                            <option data-label="success" value="Success">Личное</option>
-                            <option data-label="info" value="Info">Разное</option>
-                          </select>
-
-                        </div>
-                      </div>
-                      <div class="col-md-6 col-sm-6 col-12">
-                        <div class="form-group start-date ">
-                          <label for="start-date" class="">Начало события:</label>
-                          <div>
-                            <input id="start-date" placeholder="Дата начала"
-                                   class="form-control flatpickr-input position-relative"
-                                   type="text" >
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6 col-sm-6 col-12">
-                        <div class="form-group end-date ">
-                          <label for="end-date" class="">Конец события:</label>
-                          <div>
-                            <input id="end-date" placeholder="Дата окончания" type="text"
-                                   class="form-control flatpickr-input position-relative" >
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="form-check form-switch">
-                          <input type="checkbox" class="form-check-input allDay-switch" id="customSwitch3">
-                          <label class="form-check-label" for="customSwitch3">Весь день</label>
-                        </div>
-
-                      </div>
-                      <div class="form-group">
-                        <label for="event-url">URL</label>
-                        <div class="input-group">
-                          <input type="url" class="form-control" id="event-url" placeholder="Введите ссылку в формате http://google.com">
-                          <button type="button" class="btn btn-primary" id="urlopen"><i class="mdi mdi-web"></i></button>
-                        </div>
-                      </div>
-                      <div class="col-md-12">
-                        <label for="start-date" class="">Описание события:</label>
-                        <div class="event-description">
-                          <textarea id="event-description-editor" placeholder="Введите описание" rows="3"
-                                    class="form-control" name="event-description-editor"></textarea>
-                        </div>
-                      </div>
+<div class="bg-blue-50" style="min-width: 375px">
+    <div class="mx-auto max-w-4xl h-screen d-flex flex-column justify-content-between">
+        <div class="block sm:flex justify-content-between align-items-center border bg-gray-100">
+            <div class="text-left p-4 d-flex justify-content-center justify-items-start align-items-center">
+                <div class="pr-8">Очки: </div>
+                <div>
+                    <?php foreach ($gamers as $row): ?>
+                    <div>
+                        <span class="text-sm text-gray-700"><span class="text-danger"><?= $row['gamer']; ?></span>:</span> <span class="text-xl text-primary"><?= $row['points']; ?></span>
                     </div>
-                  </div>
-                  <div class="tab-pane fade" id="nav-rep" role="tabpanel" aria-labelledby="nav-rep-tab">
-                    <div class="row mt-3">
-                      <div class="form-group">
-                        <div class="form-check form-switch">
-                          <input type="checkbox" class="form-check-input repeat-switch" id="customSwitch2">
-                          <label class="form-check-label" for="customSwitch2">Это событие повторяется</label>
-                        </div>
-                      </div>
-                      <div class="col repeat-col" style="display: none">
-                        <p class="mb-1">Шаблон повторения:</p>
-                        <div class="daily" style="display: block">
-                          <div class="form-group">
-                            <select class="form-control" id="dayrepopt">
-                              <option value="none" selected>Выберите</option>
-                              <option value="daily-section">Ежедневно</option>
-                              <option value="weekly-section">Еженедельно</option>
-                              <option value="monthly-section">Ежемесячно</option>
-                              <option value="yearly-section">Ежегодно</option>
-                            </select>
-                          </div>
-
-                          <div id="daily-section" style="display: none">
-                            <div class="form-group d-flex align-items-center position-relative">
-
-                              <p class="mb-0 me-2">Каждый</p>
-                              <input type="number" id="daynum" class="form-control me-2"
-                                     style="width: 75px;" max="365" min="1" value="1">
-                              <label for="daynum" class="form-label mb-0" id="daynum-label">день</label>
-                            </div>
-
-                          </div>
-
-                          <div id="weekly-section" style="display: none">
-                            <div class="form-group d-flex align-items-center position-relative">
-                              <p class="mb-0 me-2">Каждую</p>
-                              <input type="number" id="weeknum" class="form-control me-2"
-                                     style="width: 75px; display: inline-flex" max="52" min="1" value="1">
-                              <label for="weeknum" class="form-label mb-0" id="weeknum-label" style="display: inline-flex">неделю</label>
-                            </div>
-
-                            <div class="d-week-check d-flex">
-                              <div class="mb-3 form-check me-2">
-                                <input type="checkbox" class="form-check-input" id="monday">
-                                <label class="form-check-label" for="monday">Пн</label>
-                              </div>
-                              <div class="mb-3 form-check me-2">
-                                <input type="checkbox" class="form-check-input" id="tuesday">
-                                <label class="form-check-label" for="tuesday">Вт</label>
-                              </div>
-                              <div class="mb-3 form-check me-2">
-                                <input type="checkbox" class="form-check-input" id="wednesday">
-                                <label class="form-check-label" for="wednesday">Ср</label>
-                              </div>
-                              <div class="mb-3 form-check me-2">
-                                <input type="checkbox" class="form-check-input" id="thursday">
-                                <label class="form-check-label" for="thursday">Чт</label>
-                              </div>
-                              <div class="mb-3 form-check me-2">
-                                <input type="checkbox" class="form-check-input" id="friday">
-                                <label class="form-check-label" for="friday">Пт</label>
-                              </div>
-                              <div class="mb-3 form-check me-2">
-                                <input type="checkbox" class="form-check-input" id="saturday">
-                                <label class="form-check-label" for="saturday">Сб</label>
-                              </div>
-                              <div class="mb-3 form-check me-2">
-                                <input type="checkbox" class="form-check-input" id="sunday">
-                                <label class="form-check-label" for="sunday">Вс</label>
-                              </div>
-
-                            </div>
-
-                          </div>
-
-                          <div id="monthly-section" style="display: none">
-                            <div class="form-group d-flex align-items-center position-relative">
-                              <p class="mb-0 me-2">Каждый</p>
-                              <input type="number" id="monthnum" class="form-control me-2"
-                                     style="width: 75px; display: inline-flex" max="12" min="1" value="1">
-                              <label for="monthnum" class="form-label mb-0" id="monthnum-label"
-                                     style="display: inline-flex">месяц</label>
-                            </div>
-                            <div class="form-check mb-3">
-                              <div class="form-group d-flex align-items-end position-relative mb-0">
-                                <input type="radio" name="radios" class="form-check-input me-2" id="Radio1">
-                                <label class="form-check-label me-2" for="Radio1">Каждое</label>
-                                <input class="form-control me-2" type="number" max="31" min="1" id="dayofmonth"
-                                       style="width: 75px">
-                                <label for="dayofmonth">число месяца</label>
-                              </div>
-                            </div>
-                            <div class="form-check mb-3">
-                              <input type="radio" name="radios" class="form-check-input me-2" id="month1">
-                              <label class="form-check-label me-2" for="month1">Последний день месяца</label>
-                            </div>
-                            <div class="form-check mb-3">
-                              <input type="radio" name="radios" class="form-check-input me-2" id="month2">
-                              <label class="form-check-label me-2" for="month2">Предоследний рабочий день месяца</label>
-                            </div>
-                            <div class="form-check mb-3">
-                              <input type="radio" name="radios" class="form-check-input me-2" id="month3">
-                              <label class="form-check-label me-2" for="month3">Первый день месяца</label>
-                            </div>
-                            <div class="form-check mb-3">
-                              <input type="radio" name="radios" class="form-check-input me-2" id="month4">
-                              <label class="form-check-label me-2" for="month4">Первый рабочий день месяца</label>
-                            </div>
-                            <div class="form-check mb-3">
-                              <input type="radio" name="radios" class="form-check-input me-2" id="month5">
-                              <label class="form-check-label me-2" for="month5">Последний рабочий день месяца</label>
-                            </div>
-                          </div>
-
-                          <div id="yearly-section" style="display: none">
-                            <div class="form-group d-flex align-items-center position-relative">
-
-                              <p class="mb-0 me-2">Каждый</p>
-                              <input type="number" id="yearnum" class="form-control me-2"
-                                     style="width: 75px;" max="10" min="1" value="1">
-                              <label for="yearnum" class="form-label mb-0" id="yearnum-label">год</label>
-                            </div>
-
-                          </div>
-
-                          <div id="repdiap">
-                            <p>Диапазон повторения:</p>
-                            <div class="form-group startrep-date ">
-                              <label for="startrep-date" class="">Начало повторения:</label>
-                              <div>
-                                <input id="startrep-date" placeholder="Дата начала"
-                                       class="form-control flatpickr-input position-relative"
-                                       type="text">
-                              </div>
-                              <p class="mt-3">Конец повторения (если не выбрано - бесконечно):</p>
-
-                              <div class="form-check mt-3">
-                                <div class="form-group d-flex align-items-end position-relative">
-                                  <input type="checkbox" name="radios" class="form-check-input me-2" id="Radio5">
-                                  <label class="form-check-label me-2" for="Radio5">Закончить после</label>
-                                  <input id="endrep-date" placeholder="Дата окончания"
-                                         class="form-control flatpickr-input position-relative"
-                                         type="text" style="width: 200px" disabled>
-                                  <label for="endrep-date"></label>
-                                </div>
-
-                                <div class="form-group d-flex align-items-end position-relative">
-                                  <input type="checkbox" name="radios" class="form-check-input me-2" id="Radio6">
-                                  <label class="form-check-label me-2" for="Radio6">Закончить после</label>
-                                  <input class="form-control me-2" type="number" id="repcount" style="width: 75px"
-                                         value="1" disabled>
-                                  <label for="repcount">повторений</label>
-                                </div>
-
-                              </div>
-
-                            </div>
-
-                          </div
-                        </div>
-
-                      </div>
-
-
-                    </div>
-                  </div>
+                    <?php endforeach ?>
                 </div>
-                <button id="add-event-btn" class="btn btn-primary add-event-btn" type="submit">Добавитьсобытие</button>
-              </form>
             </div>
+            <div class="mx-auto text-center">
+                Ходит: <span class="text-xl text-danger"><?= $gamers[$ng]['gamer'] ?></span>
+            </div>
+            <div class="text-right p-4 d-flex justify-content-center space-x-2">
+                <form method="post" action="">
+                    <button type="submit" class="btn btn-success me-3 text-white font-bold py-2 px-4 rounded text-sm" name="help">Подсказка</button>
+                </form>
+                <form method="post" action="">
+                    <button type="submit" class="btn btn-secondary text-white font-bold py-2 px-4 rounded text-sm" name="restart">Начать заново</button>
+                </form>
+            </div>
+        </div>
+        <div class="d-flex flex-column flex-1 justify-content-around">
+            <div class="border d-flex justify-content-center class bg-white p-4 space-x-2 sm:space-x-4 text-3xl sm:text-4xl md:text-6xl">
+            <?php foreach ($wordArr as $key => $value): ?>
+            <?php if (in_array($key, array_keys(array_intersect($wordArr, $openLatter)))): ?>
+                <div class="word-cell border text-center"><?= $value ?></div>
+            <?php else: ?>
+                <div class="word-cell border text-center bg-black">&nbsp;&nbsp;&nbsp;&nbsp;</div>
+            <?php endif; ?>
+            <?php endforeach ?>
+            </div>
+            <div class="d-flex flex-column items-center p-4 space-y-4">
+                <?= $letterExist ?>
+                <div class="d-flex justify-content-between items-center">
+                    <span class="text-gray-700 pr-2">Очков за ход:</span> <span class="text-3xl"><?= $mark ?></span>
+                </div>
+                <div>
+                    <form method="post" action="">
+                        <button type="submit" class="btn btn-primary bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" name="spin">Крутить барабан</button>
+                    </form>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center px-4">
+                <form method="post" action="">
+                    <div class="grid grid-cols-8 sm:grid-cols-12 gap-2 text-md sm:text-xl md:text-3xl">
+                    <?php foreach ($latters as $key => $value): ?>
+                    <?php if (in_array($key, array_keys(array_intersect($latters, $openLatter)))): ?>
+                        <span  class="word-cell p-2 text-center bg-black"><?= $value  ?></span>
+                    <?php else: ?>
+                        <button type="submit" class="word-cell p-2 bg-white hover:bg-blue-700 text-center" name="letter" value="<?= $value ?>"><?= $value ?></button>
+                    <?php endif; ?>
+                    <?php endforeach ?>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
