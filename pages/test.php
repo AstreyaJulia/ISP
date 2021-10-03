@@ -32,15 +32,15 @@ if (!empty($_POST)){
         // проверяем наличие буквы
         if (in_array($_POST['letter'], $wordArr)) {
             // Если буква есть выводим уведомление
-            $letterExist = '<div class="d-flex justify-content-center items-center m-1 font-medium py-1 px-2 bg-white rounded-md text-green-700 bg-green-100 border border-green-300 ">
+            $letterExist = '<div class="d-flex justify-content-center items-center m-1 font-medium py-3 px-4 bg-white rounded-md text-success bg-success-20 border rounded-2 border-success">
                     <div class="text-xl font-normal max-w-full flex-initial">Такая буква есть</div>
                 </div>';
 
                 $gamers[$ng]['points'] = $gamers[$ng]['points'] + $mark;
-                
+
         } else {
             // Если буквы нет выводим уведомление
-            $letterExist = '<div class="d-flex justify-content-center items-center m-1 font-medium py-1 px-2 bg-white rounded-md text-success bg-red-100 border border-red-300 ">
+            $letterExist = '<div class="d-flex justify-content-center items-center m-1 font-medium py-3 px-4 bg-white rounded-md text-danger bg-danger-20 border rounded-2 border-danger ">
                     <div class="text-xl font-normal max-w-full flex-initial">Нет такой буквы</div>
                 </div>';
             if (count($gamers) > $ng) {
@@ -48,7 +48,7 @@ if (!empty($_POST)){
             } else {
                 $ng = $ng + 1;
             }
-            
+
             //$gamers[$ng]['points'] = $gamers[$ng]['points'];
         }
         // Добавляем букву в список выбранных
