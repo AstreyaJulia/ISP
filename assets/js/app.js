@@ -24,7 +24,7 @@ const sidebarnavmenu = document.querySelector('.navigation-menu');
 const spinnerloader = document.querySelector('.spinner-wrapper');
 
 // Все элементы, для к-рых нужна прокрутка
-const overlayscrollbar = OverlayScrollbars(document.querySelectorAll(".overlayscrollbar"), {
+const overlayscrollbar = OverlayScrollbars($('.overlayscrollbar'), {
   //className            : "os-theme-light",
   resize: "none",
   sizeAutoCapable: true,
