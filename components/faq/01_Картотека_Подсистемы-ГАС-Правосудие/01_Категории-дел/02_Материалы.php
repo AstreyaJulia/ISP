@@ -1,5 +1,5 @@
 <?php
-$ourData = file_get_contents("../../../../data/categories-material.json");
+$ourData = file_get_contents($_SERVER['DOCUMENT_ROOT'] . "/data/categories-material.json");
 $row = json_decode($ourData);
 $F1 = array_column($row, 'F1');
 $NAME = array_column($row, 'NAME');
