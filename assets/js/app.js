@@ -1,22 +1,5 @@
 'use strict';
 
-// Виджет событий
-// Виджет событий и дней рождения скрывается сам, если остальные скрыты
-const todayeventswidget = document.querySelector('.today-events');
-
-const todayeventswidgethandler = () => {
-  // Если списки дней рождения скрыты и событий, то список скрывается польностью
-  const todayeventslist = todayeventswidget.querySelector('.today-events-list');
-  const todaybdayslist = todayeventswidget.querySelector('.today-birthdays-list');
-  if (todayeventslist.classList.contains('visually-hidden') && todaybdayslist.classList.contains('visually-hidden')) {
-    todayeventswidget.querySelector('.widget-title').classList.add('visually-hidden');
-    todayeventswidget.style.padding = '0';
-  } else {
-    todayeventswidget.querySelector('.widget-title').classList.remove('visually-hidden');
-    todayeventswidget.style = '';
-  }
-}
-
 // Меню сайдбара
 const sidebarnavmenu = document.querySelector('.navigation-menu');
 
@@ -24,7 +7,7 @@ const sidebarnavmenu = document.querySelector('.navigation-menu');
 const spinnerloader = document.querySelector('.spinner-wrapper');
 
 // Все элементы, для к-рых нужна прокрутка
-const overlayscrollbar = OverlayScrollbars($('.overlayscrollbar'), {
+const overlayscrollbar = OverlayScrollbars(document.querySelectorAll(".overlayscrollbar"), {
   //className            : "os-theme-light",
   resize: "none",
   sizeAutoCapable: true,
@@ -2958,10 +2941,6 @@ const init = () => {
   // В штате
   if (activeselect && roomselect) {
     activeselect.addEventListener('change', activeselectHandler);
-  }
-
-  if (todayeventswidget) {
-    todayeventswidgethandler();
   }
 
   datatablesHandler();

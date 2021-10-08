@@ -1,7 +1,7 @@
 {
   "name": "isp_bootstrap",
   "version": "1.0.0",
-  "description": "information cour system",
+  "description": "information court system",
   "main": "index.html",
   "scripts": {
     "build": "gulp build",

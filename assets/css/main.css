@@ -40221,74 +40221,67 @@ td .badge-big {
   background-color: #fcfcfc;
 }
 
-.main-content .card {
+.widget {
   box-shadow: 0 8px 24px -4px rgba(27, 46, 94, 0.12);
 }
-.main-content .card-footer .button-group button {
+.widget .card-footer .button-group button {
   margin: 0 10px;
 }
-.main-content .card-footer .button-group button:last-child {
+.widget .card-footer .button-group button:last-child {
   margin-right: 0;
 }
-.main-content .card-footer .button-group button:first-child {
+.widget .card-footer .button-group button:first-child {
   margin-left: 0;
 }
-.main-content .today-calendar {
-  padding-bottom: 20px;
-  border-bottom: 1px solid #d9dbe9;
-}
-.main-content .today-events {
-  padding-top: 20px;
-}
-.main-content .today-events .widget-title {
+.widget .widget-title {
   font-size: 12px;
   text-transform: uppercase;
   padding-bottom: 10px;
 }
-.main-content .today-events .today-birthdays-list,
-.main-content .today-events .today-events-list {
+.widget .today-birthdays-list,
+.widget .today-events-list {
   list-style: none;
   padding: 0;
 }
-.main-content .today-events .today-birthdays-list {
+.widget .today-birthdays-list {
   margin-bottom: 0;
 }
-.main-content .today-events .today-birthdays-item,
-.main-content .today-events .today-events-item {
+.widget .today-birthdays-item,
+.widget .today-events-item {
   display: flex;
   align-items: center;
   position: relative;
 }
-.main-content .today-events .event-time {
+.widget .event-time {
   font-size: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
   padding-right: 10px;
 }
-.main-content .today-events svg {
+.widget svg {
   height: 24px;
   padding-right: 20px;
 }
-.main-content .today-events .today-birthdays-date {
+.widget .today-birthdays-date {
   color: #a0a3bd;
 }
-.main-content .today-events .today-birthdays-username,
-.main-content .today-events .event-title,
-.main-content .today-events .today-birthdays-date {
+.widget .today-birthdays-username,
+.widget .event-title,
+.widget .today-birthdays-date {
   margin: 0;
 }
-.main-content .today-events .today-birthdays-date {
+.widget .today-birthdays-date {
   font-size: 14px;
 }
-.main-content .today-events .event-time {
+.widget .event-time {
   font-size: 14px;
   font-weight: 700;
   width: 44px;
   line-height: normal;
 }
-.main-content .today-events .bday-group,
-.main-content .today-events .event-group {
+.widget .bday-group,
+.widget .event-group {
   display: flex;
   flex-direction: column;
 }

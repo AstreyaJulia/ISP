@@ -8,4 +8,4 @@
 	$host = 'isp';
 	$dbname = "isp";
 	$user = "root";
-	$password = "root";
+	$password = "";

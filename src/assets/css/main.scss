@@ -2272,11 +2272,8 @@ td .badge-big {
 
 // Виджеты на странице
 
-.main-content {
-  .card {
-    box-shadow: $grey-shadow-6;
-  }
-
+.widget {
+  box-shadow: $grey-shadow-6;
   .card-footer {
     .button-group {
       button {
@@ -2292,14 +2289,6 @@ td .badge-big {
       }
     }
   }
-
-  .today-calendar {
-    padding-bottom: 20px;
-    border-bottom: 1px solid $line;
-  }
-
-  .today-events {
-    padding-top: 20px;
 
     .widget-title {
       font-size: 12px;
@@ -2363,7 +2352,7 @@ td .badge-big {
       display: flex;
       flex-direction: column;
     }
-  }
+
 }
 
 // Редактирование пользователя
