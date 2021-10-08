@@ -24,12 +24,6 @@ if (isset($_GET["page"])) {
     $page = $_GET["page"];
     $path = "pages/$page.php";
 }
-//формируем путь для перехода в раздел FAQ
-if (isset($_GET["faq"])) {
-    $page = $_GET["faq"];
-    $faq = $_GET["faq"];
-    $path = "components/faq/index.php";
-}
 
 //проверяем наличие куки аторизации
 if (isset($_COOKIE['aut'])) {

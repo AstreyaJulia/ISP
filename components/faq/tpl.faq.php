@@ -24,7 +24,7 @@
   <p class="h5">Навигация</p>
   <?php foreach($dir as $key => $value): ?>
   <div class="col-4">
-    <a class="card faq-card" href="?faq=<?= $value['link'] ?>">
+    <a class="card faq-card" href="?page=faq&<?= $value['link'] ?>">
       <div class="row">
         <div class="col">
           <div class="card-body">
