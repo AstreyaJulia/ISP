@@ -10,98 +10,20 @@ $sidebar-width-max: 270px;
 // Высота хедера
 $header-height: 62px;
 
-// Цвета
-// Основной белый
-$off-white: rgba(252, 252, 252, 1);
-$off-white-50: rgba(252, 252, 252, .5);
-// Фон элементов
-$background: rgba(248, 248, 248, 1);
-// Фон для доступности полей ввода
-$input-background: rgba(239, 240, 246, 1);
-// Для линейных элементов
-$line: rgba(217, 219, 233, 1);
-// Для вставок в поля ввода
-$placeholder: rgba(160, 163, 189, 1);
-// Текст меток
-$label: rgba(90, 100, 116, 1);
-$label-20: rgba(90, 100, 116, 0.2);
-
-// Основной текст
-$body: rgba(64, 77, 97, 1);
-$body-50: rgba(64, 77, 97, 0.5);
-$body-20: rgba(64, 77, 97, 0.2);
-
-// Тени
-$grey-shadow-1: 0 4px 2px -2px rgba(27, 46, 94, 0.02);
-$grey-shadow-2: 0 4px 8px -2px rgba(27, 46, 94, 0.04);
-$grey-shadow-3: 0 2px 4px -2px rgba(27, 46, 94, 0.08);
-$grey-shadow-4: 0 16px 8px -4px rgba(27, 46, 94, 0.03);
-$grey-shadow-5: 0 8px 24px -4px rgba(27, 46, 94, 0.08);
-$grey-shadow-6: 0 8px 24px -4px rgba(27, 46, 94, 0.12);
-
-// Первичный цвет
-$theme-primary: rgba(85, 82, 217, 1);
-$primary-dark: darken($theme-primary, 20%);
-$primary-light: rgba(170,168,236, 1);
-$primary-50: rgba(85, 82, 217, 0.5);
-$primary-20: rgba(85, 82, 217, 0.2);
-
-//Акцентный цвет и действия
-$secondary-dark: darken($label, 20%);
-$secondary-light: lighten($label, 20%);
-$secondary-50: rgba(90, 100, 116, 0.5);
-$secondary-20: rgba(90, 100, 116, 0.2);
-
-// Состояния ошибки, красный
-$theme-danger: rgba(244, 60, 60, 1);
-$danger-dark: darken($theme-danger, 20%);
-$danger-light: rgba(249,157,157, 1);
-$danger-50: rgba(244, 60, 60, 0.5);
-$danger-20: rgba(244, 60, 60, 0.2);
-
-// Состояния успеха, зеленый
-$theme-success: rgba(0, 186, 136, 1);
-$success-dark: darken($theme-success, 20%);
-$success-light: rgba(127,220,195, 1);
-$success-50: rgba(0, 186, 136, 0.5);
-$success-20: rgba(0, 186, 136, 0.2);
-
-// Повышение внимания, желтый
-$theme-warning: rgba(252, 165, 73, 1);
-$warning-dark: darken($theme-warning, 30%);
-$warning-light: rgba(253,210,164, 1);
-$warning-50: rgba(252, 165, 73, 0.5);
-$warning-20: rgba(252, 165, 73, 0.2);
-
-// Информация
-$theme-secondary: rgba(0, 207, 232, 1);
-$info-dark: darken($theme-secondary, 30%);
-$info-light: rgba(127,231,243, 1);
-$info-50: rgba(0, 207, 232, 0.5);
-$info-20: rgba(0, 207, 232, 0.2);
-
-// Доп цвета
-$theme-blue-secondary: rgba(78, 115, 248, 1);
-$theme-blue-dark: darken($theme-blue-secondary, 30%);
-$theme-blue-light: lighten($theme-blue-secondary, 20%);
-$theme-blue-50: rgba(8, 115, 248, 0.5);
-$theme-blue-20: rgba(8, 115, 248, 0.2);
-
-
 // Color system
 
 // scss-docs-start gray-color-variables
-$white:    #fff !default;
-$gray-100: #f8f9fa !default;
-$gray-200: #e9ecef !default;
-$gray-300: #dee2e6 !default;
-$gray-400: #ced4da !default;
-$gray-500: #adb5bd !default;
-$gray-600: #6c757d !default;
-$gray-700: #495057 !default;
-$gray-800: #343a40 !default;
-$gray-900: #212529 !default;
-$black:    #000 !default;
+$white: #faf7fa !default;
+$gray-100: #eff0f6 !default;
+$gray-200: #E5E9F2 !default;
+$gray-300: #DBDFEA !default;
+$gray-400: #B7C2D0 !default;
+$gray-500: #8091A7 !default;
+$gray-600: #566577 !default;
+$gray-700: #344357 !default;
+$gray-800: #293545 !default;
+$gray-900: #1F2B3A !default;
+$black:    #111827 !default;
 // scss-docs-end gray-color-variables
 
 // fusv-disable
@@ -121,58 +43,469 @@ $grays: (
 // fusv-enable
 
 // scss-docs-start color-variables
-$blue:    #0d6efd !default;
-$indigo:  #6610f2 !default;
-$purple:  #6f42c1 !default;
-$pink:    #d63384 !default;
-$red:     #dc3545 !default;
-$orange:  #fd7e14 !default;
-$yellow:  #ffc107 !default;
-$green:   #198754 !default;
-$teal:    #20c997 !default;
-$cyan:    #0dcaf0 !default;
+$blue: #3c64f4 !default;
+$indigo: #2C3782 !default;
+$purple: #5552d9 !default;
+$pink: #ff63a5 !default;
+$red: #f43c3c !default;
+$orange: #ef630a !default;
+$yellow: #fca549 !default;
+$green: #00ba88 !default;
+$teal: #01CFC9 !default;
+$cyan: #1CC8EE !default;
 // scss-docs-end color-variables
 
 // scss-docs-start colors-map
 $colors: (
-  "blue":       $blue,
-  "indigo":     $indigo,
-  "purple":     $purple,
-  "pink":       $pink,
-  "red":        $red,
-  "orange":     $orange,
-  "yellow":     $yellow,
-  "green":      $green,
-  "teal":       $teal,
-  "cyan":       $cyan,
-  "white":      $white,
-  "gray":       $gray-600,
-  "gray-dark":  $gray-800
+  "blue": $blue,
+  "indigo": $indigo,
+  "purple": $purple,
+  "pink": $pink,
+  "red": $red,
+  "orange": $orange,
+  "yellow": $yellow,
+  "green": $green,
+  "teal": $teal,
+  "cyan": $cyan,
+  "white": $white,
+  "gray": $gray-600,
+  "gray-dark": $gray-800
 ) !default;
 // scss-docs-end colors-map
 
 // scss-docs-start theme-color-variables
-$primary:       $theme-primary !default;
-$secondary:     $label !default;
-$success:       $theme-success !default;
-$info:          $theme-secondary !default;
-$warning:       $theme-warning !default;
-$danger:        $theme-danger !default;
-$light:         $line !default;
-$dark:          $body !default;
+$primary: $purple !default;
+$secondary: $gray-600 !default;
+$success: $green !default;
+$info: $cyan !default;
+$warning: $yellow !default;
+$danger: $red !default;
+$light: $gray-200 !default;
+$lighter: $gray-100 !default;
+$dark: $gray-900 !default;
+$pink: $pink !default;
+$blue: $blue !default;
+$cyan: $cyan !default;
+$gray-dark: $gray-700 !default;
+$indigo: $indigo !default;
+$purple: $purple !default;
+$orange: $orange !default;
+$teal: $teal !default;
 // scss-docs-end theme-color-variables
 
 // scss-docs-start theme-colors-map
 $theme-colors: (
-  "primary":    $primary,
-  "secondary":  $secondary,
-  "success":    $success,
-  "info":       $info,
-  "warning":    $warning,
-  "danger":     $danger,
-  "light":      $light,
-  "dark":       $dark
+  "primary": $primary,
+  "secondary": $secondary,
+  "success": $success,
+  "info": $info,
+  "warning": $warning,
+  "danger": $danger,
+  "light": $light,
+  "lighter": $lighter,
+  "dark": $dark,
+  "pink": $pink,
+  "blue": $blue,
+  "cyan": $cyan,
+  "gray-dark": $gray-dark,
+  "indigo": $indigo,
+  "purple": $purple,
+  "orange": $orange,
+  "teal": $teal,
 ) !default;
+// scss-docs-end theme-colors-map
+
+$lightpercent: 75;
+
+$primary-light: mix($white, $primary, $lightpercent);
+$secondary-light: mix($white, $secondary, $lightpercent);
+$success-light: mix($white, $success, $lightpercent);
+$info-light: mix($white, $info, $lightpercent);
+$warning-light: mix($white, $warning, $lightpercent);
+$danger-light: mix($white, $danger, $lightpercent);
+$dark-light: mix($white, $dark, $lightpercent);
+$pink-light: mix($white, $pink, $lightpercent);
+$blue-light: mix($white, $blue, $lightpercent);
+$cyan-light: mix($white, $cyan, $lightpercent);
+$gray-dark-light: mix($white, $gray-dark, $lightpercent);
+$indigo-light: mix($white, $indigo, $lightpercent);
+$purple-light: mix($white, $purple, $lightpercent);
+$orange-light: mix($white, $orange, $lightpercent);
+$teal-light: mix($white, $teal, $lightpercent);
+
+$theme-colors-light: (
+  "primary-light": $primary-light,
+  "secondary-light": $secondary-light,
+  "success-light": $success-light,
+  "info-light": $info-light,
+  "warning-light": $warning-light,
+  "danger-light": $danger-light,
+  "dark-light": $dark-light,
+  "pink-light": $pink-light,
+  "blue-light": $blue-light,
+  "cyan-light": $cyan-light,
+  "gray-dark-light": $gray-dark-light,
+  "indigo-light": $indigo-light,
+  "purple-light": $purple-light,
+  "orange-light": $orange-light,
+  "teal-light": $teal-light,
+) !default;
+
+.bg-primary-light {
+  background-color: $primary-light !important;
+}
+
+.bg-secondary-light {
+  background-color: $secondary-light !important;
+}
+
+.bg-success-light {
+  background-color: $success-light !important;
+}
+
+.bg-info-light {
+  background-color: $info-light !important;
+}
+
+.bg-warning-light {
+  background-color: $warning-light !important;
+}
+
+.bg-danger-light {
+  background-color: $danger-light !important;
+}
+
+.bg-dark-light {
+  background-color: $dark-light !important;
+}
+
+.bg-pink-light {
+  background-color: $pink-light !important;
+}
+
+.bg-blue-light {
+  background-color: $blue-light !important;
+}
+
+.bg-cyan-light {
+  background-color: $cyan-light !important;
+}
+
+.bg-gray-dark-light {
+  background-color: $gray-dark-light !important;
+}
+
+.bg-indigo-light {
+  background-color: $indigo-light !important;
+}
+
+.bg-purple-light {
+  background-color: $purple-light !important;
+}
+
+.bg-orange-light {
+  background-color: $orange-light !important;
+}
+
+.bg-teal-light {
+  background-color: $teal-light !important;
+}
+
+$darkpercent: 40;
+
+$primary-dark: mix($black, $primary, $darkpercent);
+$secondary-dark: mix($black, $secondary, $darkpercent);
+$success-dark: mix($black, $success, $darkpercent);
+$info-dark: mix($black, $info, 20);
+$warning-dark: mix($black, $warning, $darkpercent);
+$danger-dark: mix($black, $danger, $darkpercent);
+$pink-dark: mix($black, $pink, $darkpercent);
+$blue-dark: mix($black, $blue, $darkpercent);
+$cyan-dark: mix($black, $cyan, $darkpercent);
+$indigo-dark: mix($black, $indigo, $darkpercent);
+$purple-dark: mix($black, $purple, $darkpercent);
+$orange-dark: mix($black, $orange, $darkpercent);
+$teal-dark: mix($black, $teal, $darkpercent);
+
+$theme-colors-dark: (
+  "primary-dark": $primary-dark,
+  "secondary-dark": $secondary-dark,
+  "success-dark": $success-dark,
+  "info-dark": $info-dark,
+  "warning-dark": $warning-dark,
+  "danger-dark": $danger-dark,
+  "pink-dark": $pink-dark,
+  "blue-dark": $blue-dark,
+  "cyan-dark": $cyan-dark,
+  "indigo-dark": $indigo-dark,
+  "purple-dark": $purple-dark,
+  "orange-dark": $orange-dark,
+  "teal-dark": $teal-dark,
+) !default;
+
+.bg-primary-dark {
+  background-color: $primary-dark !important;
+}
+
+.bg-secondary-dark {
+  background-color: $secondary-dark !important;
+}
+
+.bg-success-dark {
+  background-color: $success-dark !important;
+}
+
+.bg-info-dark {
+  background-color: $info-dark !important;
+}
+
+.bg-warning-dark {
+  background-color: $warning-dark !important;
+}
+
+.bg-danger-dark {
+  background-color: $danger-dark !important;
+}
+
+.bg-pink-dark {
+  background-color: $pink-dark !important;
+}
+
+.bg-blue-dark {
+  background-color: $blue-dark !important;
+}
+
+.bg-cyan-dark {
+  background-color: $cyan-dark !important;
+}
+
+.bg-indigo-dark {
+  background-color: $indigo-dark !important;
+}
+
+.bg-purple-dark {
+  background-color: $purple-dark !important;
+}
+
+.bg-orange-dark {
+  background-color: $orange-dark !important;
+}
+
+.bg-teal-dark {
+  background-color: $teal-dark !important;
+}
+
+$primary-50: rgba($primary, .5);
+$secondary-50: rgba($secondary, .5);
+$success-50: rgba($success, .5);
+$info-50: rgba($info, .5);
+$warning-50: rgba($warning, .5);
+$danger-50: rgba($danger, .5);
+$dark-50: rgba($dark, .5);
+$pink-50: rgba($pink, .5);
+$blue-50: rgba($blue, .5);
+$white-50: rgba($white, .5);
+$cyan-50: rgba($cyan, .5);
+$gray-dark-50: rgba($gray-dark, .5);
+
+$theme-colors-50: (
+  "primary-50": $primary-50,
+  "secondary-50": $secondary-50,
+  "success-50": $success-50,
+  "info-50": $info-50,
+  "warning-50": $warning-50,
+  "danger-50": $danger-50,
+  "dark-50": $dark-50,
+  "pink-50": $pink-50,
+  "blue-50": $blue-50,
+  "white-50": $white-50,
+  "cyan-50": $cyan-50,
+  "gray-dark-50": $gray-dark-50,
+) !default;
+
+.bg-primary-50 {
+  background-color: $primary-50 !important;
+}
+
+.bg-secondary-50 {
+  background-color: $secondary-50 !important;
+}
+
+.bg-success-50 {
+  background-color: $success-50 !important;
+}
+
+.bg-info-50 {
+  background-color: $info-50 !important;
+}
+
+.bg-warning-50 {
+  background-color: $warning-50 !important;
+}
+
+.bg-danger-50 {
+  background-color: $danger-50 !important;
+}
+
+.bg-dark-50 {
+  background-color: $dark-50 !important;
+}
+
+.bg-pink-50 {
+  background-color: $pink-50 !important;
+}
+
+.bg-blue-50 {
+  background-color: $blue-50 !important;
+}
+
+.bg-cyan-50 {
+  background-color: $cyan-50 !important;
+}
+
+.bg-gray-dark-50 {
+  background-color: $gray-dark-50 !important;
+}
+
+$primary-20: rgba($primary, .2);
+$secondary-20: rgba($secondary, .2);
+$success-20: rgba($success, .2);
+$info-20: rgba($info, .2);
+$warning-20: rgba($warning, .2);
+$danger-20: rgba($danger, .2);
+$dark-20: rgba($dark, .2);
+$pink-20: rgba($pink, .2);
+$blue-20: rgba($blue, .2);
+$cyan-20: rgba($cyan, .2);
+$gray-dark-20: rgba($gray-dark, .2);
+
+$theme-colors-20: (
+  "primary-20": $primary-20,
+  "secondary-20": $secondary-20,
+  "success-20": $success-20,
+  "info-20": $info-20,
+  "warning-20": $warning-20,
+  "danger-20": $danger-20,
+  "dark-20": $dark-20,
+  "pink-20": $pink-20,
+  "blue-20": $blue-20,
+  "cyan-20": $cyan-20,
+  "gray-dark-20": $gray-dark-20,
+) !default;
+
+// Тени
+$grey-shadow-1: 0px 8px 16px rgba(17, 17, 17, 0.04);
+$grey-shadow-2: 0 4px 8px -2px rgba(27, 46, 94, 0.04);
+$grey-shadow-3: 0 2px 4px -2px rgba(27, 46, 94, 0.08);
+$grey-shadow-4: 0 16px 8px -4px rgba(27, 46, 94, 0.03);
+$grey-shadow-5: 0 8px 24px -4px rgba(27, 46, 94, 0.08);
+$grey-shadow-6: 0 8px 24px -4px rgba(27, 46, 94, 0.12);
+
+$white-shadow-1: 0px 8px 16px rgba(255, 255, 255, 0.04);
+$white-shadow-2: 0 4px 8px -2px rgba(255, 255, 255, 0.04);
+$white-shadow-3: 0 2px 4px -2px rgba(255, 255, 255, 0.08);
+$white-shadow-4: 0 16px 8px -4px rgba(255, 255, 255, 0.03);
+$white-shadow-5: 0 8px 24px -4px rgba(255, 255, 255, 0.08);
+$white-shadow-6: 0 8px 24px -4px rgba(255, 255, 255, 0.12);
+
+// Градиенты
+$gradient-primary: linear-gradient(to bottom right, mix($white, $primary, 30) 0%, darken($primary, 10) 100%);
+$gradient-secondary: linear-gradient(to bottom right, mix($white, $secondary, 30) 0%, darken($secondary, 10) 100%);
+$gradient-success: linear-gradient(to bottom right, mix($white, $success, 30) 0%, darken($success, 10) 100%);
+$gradient-info: linear-gradient(to bottom right, mix($white, $info, 30) 0%, darken($info, 10) 100%);
+$gradient-warning: linear-gradient(to bottom right, mix($white, $warning, 30) 0%, darken($warning, 10) 100%);
+$gradient-danger: linear-gradient(to bottom right, mix($white, $danger, 30) 0%, darken($danger, 10) 100%);
+$gradient-light: linear-gradient(to bottom right, mix($white, $light, 30) 0%, darken($light, 10) 100%);
+$gradient-lighter: linear-gradient(to bottom right, mix($white, $lighter, 30) 0%, darken($lighter, 10) 100%);
+$gradient-dark: linear-gradient(to bottom right, mix($white, $dark, 30) 0%, darken($dark, 10) 100%);
+$gradient-pink: linear-gradient(to bottom right, mix($white, $pink, 30) 0%, darken($pink, 10) 100%);
+$gradient-blue: linear-gradient(to bottom right, mix($white, $blue, 30) 0%, darken($blue, 10) 100%);
+$gradient-cyan: linear-gradient(to bottom right, mix($white, $cyan, 30) 0%, darken($cyan, 10) 100%);
+$gradient-gray-dark: linear-gradient(to bottom right, mix($white, $gray-dark, 30) 0%, darken($gray-dark, 10) 100%);
+$gradient-indigo: linear-gradient(to bottom right, mix($white, $indigo, 30) 0%, darken($indigo, 10) 100%);
+$gradient-purple: linear-gradient(to bottom right, mix($white, $purple, 30) 0%, darken($purple, 10) 100%);
+$gradient-orange: linear-gradient(to bottom right, mix($white, $orange, 30) 0%, darken($orange, 10) 100%);
+$gradient-teal: linear-gradient(to bottom right, mix($white, $teal, 30) 0%, darken($teal, 10) 100%);
+
+$gradient-menu: linear-gradient(45deg, $blue, $purple 100%);
+$gradient-progress: linear-gradient(to right, $blue 0%, $purple 100%);
+
+.bg-gradient-primary {
+  background: $gradient-primary !important;
+}
+
+.bg-gradient-secondary {
+  background: $gradient-secondary !important;
+}
+
+.bg-gradient-success {
+  background: $gradient-success !important;
+}
+
+.bg-gradient-info {
+  background: $gradient-info !important;
+}
+
+.bg-gradient-warning {
+  background: $gradient-warning !important;
+}
+
+.bg-gradient-danger {
+  background: $gradient-danger !important;
+}
+
+.bg-gradient-light {
+  background: $gradient-light !important;
+}
+
+.bg-gradient-lighter {
+  background: $gradient-lighter !important;
+}
+
+.bg-gradient-dark {
+  background: $gradient-dark !important;
+}
+
+.bg-gradient-pink {
+  background: $gradient-pink !important;
+}
+
+.bg-gradient-blue {
+  background: $gradient-blue !important;
+}
+
+.bg-gradient-cyan {
+  background: $gradient-cyan !important;
+}
+
+.bg-gradient-gray-dark {
+  background: $gradient-gray-dark !important;
+}
+
+.bg-gradient-indigo {
+  background: $gradient-indigo !important;
+}
+
+.bg-gradient-purple {
+  background: $gradient-purple !important;
+}
+
+.bg-gradient-orange {
+  background: $gradient-orange !important;
+}
+
+.bg-gradient-teal {
+  background: $gradient-teal !important;
+}
+
+.bg-gradient-menu {
+  background: $gradient-menu !important;
+}
+
+.bg-gradient-progress {
+  background: $gradient-progress !important;
+}
+
 // scss-docs-end theme-colors-map
 
 // scss-docs-start theme-colors-rgb
@@ -287,16 +620,6 @@ $cyan-600: shade-color($cyan, 20%) !default;
 $cyan-700: shade-color($cyan, 40%) !default;
 $cyan-800: shade-color($cyan, 60%) !default;
 $cyan-900: shade-color($cyan, 80%) !default;
-
-// Градиенты
-$gradient-primary: linear-gradient(180deg, rgb(96, 92, 243) 0%, rgb(77, 74, 200) 100%);
-$gradient-success: linear-gradient(180deg, rgb(8, 179, 149) 0%, rgb(12, 151, 127) 100%);
-$gradient-danger: linear-gradient(180deg, rgb(255, 89, 89) 0%, rgb(239, 44, 44) 100%);
-$gradient-info: linear-gradient(180deg, rgb(105, 137, 254) 0%, rgb(60, 100, 244) 100%);
-$gradient-warning: linear-gradient(180deg, rgb(252, 165, 73) 0%, rgb(243, 149, 49) 100%);
-$gradient-progress: linear-gradient(90deg, rgb(255, 75, 110) 0%, rgb(77, 74, 200) 50%, rgb(60, 100, 244) 100%);
-$gradient-menu: linear-gradient(45deg, rgb(78, 115, 248), rgb(77, 74, 200) 100%);
-
 
 $blues: (
   "blue-100": $blue-100,
@@ -495,32 +818,42 @@ $position-values: (
 // Body
 //
 // Settings for the `<body>` element.
-// Фон и цвет текста body
-$body-bg:                   $off-white !default;
-$body-color:                $body !default;
+
+$body-bg:                   $white !default;
+$body-color:                $gray-900 !default;
 $body-text-align:           null !default;
 
 // Utilities maps
 //
 // Extends the default `$theme-colors` maps to help create our utilities.
 
+// Come v6, we'll de-dupe these variables. Until then, for backward compatibility, we keep them to reassign.
 // scss-docs-start utilities-colors
-$utilities-colors: map-merge(
-    $theme-colors-rgb,
-    (
-      "black": to-rgb($black),
-      "white": to-rgb($white),
-      "body":  to-rgb($body-color)
-    )
-) !default;
+$utilities-colors: $theme-colors-rgb !default;
 // scss-docs-end utilities-colors
 
 // scss-docs-start utilities-text-colors
-$utilities-text-colors: map-loop($utilities-colors, rgba-css-var, "$key", "text") !default;
+$utilities-text: map-merge(
+    $utilities-colors,
+    (
+      "black": to-rgb($black),
+      "white": to-rgb($white),
+      "body": to-rgb($body-color)
+    )
+) !default;
+$utilities-text-colors: map-loop($utilities-text, rgba-css-var, "$key", "text") !default;
 // scss-docs-end utilities-text-colors
 
 // scss-docs-start utilities-bg-colors
-$utilities-bg-colors: map-loop($utilities-colors, rgba-css-var, "$key", "bg") !default;
+$utilities-bg: map-merge(
+    $utilities-colors,
+    (
+      "black": to-rgb($black),
+      "white": to-rgb($white),
+      "body": to-rgb($body-bg)
+    )
+) !default;
+$utilities-bg-colors: map-loop($utilities-bg, rgba-css-var, "$key", "bg") !default;
 // scss-docs-end utilities-bg-colors
 
 // Links
@@ -1009,7 +1342,7 @@ $form-check-inline-margin-end:    1rem !default;
 // scss-docs-end form-check-variables
 
 // scss-docs-start form-switch-variables
-$form-switch-color:               rgba(0, 0, 0, .25) !default;
+$form-switch-color:               rgba($black, .25) !default;
 $form-switch-width:               2em !default;
 $form-switch-padding-start:       $form-switch-width + .5em !default;
 $form-switch-bg-image:            url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#{$form-switch-color}'/></svg>") !default;
@@ -1057,7 +1390,7 @@ $form-select-feedback-icon-size:        $input-height-inner-half $input-height-i
 
 $form-select-border-width:        $input-border-width !default;
 $form-select-border-color:        $input-border-color !default;
-$form-select-border-radius:       $border-radius !default;
+$form-select-border-radius:       $input-border-radius !default;
 $form-select-box-shadow:          $box-shadow-inset !default;
 
 $form-select-focus-border-color:  $input-focus-border-color !default;
@@ -1067,10 +1400,12 @@ $form-select-focus-box-shadow:    0 0 0 $form-select-focus-width $input-btn-focu
 $form-select-padding-y-sm:        $input-padding-y-sm !default;
 $form-select-padding-x-sm:        $input-padding-x-sm !default;
 $form-select-font-size-sm:        $input-font-size-sm !default;
+$form-select-border-radius-sm:    $input-border-radius-sm !default;
 
 $form-select-padding-y-lg:        $input-padding-y-lg !default;
 $form-select-padding-x-lg:        $input-padding-x-lg !default;
 $form-select-font-size-lg:        $input-font-size-lg !default;
+$form-select-border-radius-lg:    $input-border-radius-lg !default;
 
 $form-select-transition:          $input-transition !default;
 // scss-docs-end form-select-variables
@@ -1252,7 +1587,7 @@ $dropdown-divider-margin-y:         $spacer * .5 !default;
 $dropdown-box-shadow:               $box-shadow !default;
 
 $dropdown-link-color:               $gray-900 !default;
-$dropdown-link-hover-color:         shade-color($gray-900, 10%) !default;
+$dropdown-link-hover-color:         shade-color($dropdown-link-color, 10%) !default;
 $dropdown-link-hover-bg:            $gray-200 !default;
 
 $dropdown-link-active-color:        $component-active-color !default;
@@ -1457,14 +1792,14 @@ $toast-font-size:                   .875rem !default;
 $toast-color:                       null !default;
 $toast-background-color:            rgba($white, .85) !default;
 $toast-border-width:                1px !default;
-$toast-border-color:                rgba(0, 0, 0, .1) !default;
+$toast-border-color:                rgba($black, .1) !default;
 $toast-border-radius:               $border-radius !default;
 $toast-box-shadow:                  $box-shadow !default;
 $toast-spacing:                     $container-padding-x !default;
 
 $toast-header-color:                $gray-600 !default;
 $toast-header-background-color:     rgba($white, .85) !default;
-$toast-header-border-color:         rgba(0, 0, 0, .05) !default;
+$toast-header-border-color:         rgba($black, .05) !default;
 // scss-docs-end toast-variables
 
 

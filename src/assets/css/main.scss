@@ -1,5 +1,5 @@
 /*!
- * Bootstrap v5.1.0 (https://getbootstrap.com/)
+ * Bootstrap v5.1.2 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
@@ -227,7 +227,7 @@ a {
 
 
 .page-body {
-  background-color: $input-background;
+  background-color: $gray-100;
   height: auto;
   min-height: 100vh;
   overflow: hidden;
@@ -262,18 +262,6 @@ a {
 }
 
 // Центрованный макет
-
-/*.main-content:not(.auth):not(.err404) {
-  padding: 20px;
-  margin-left: 240px;
-  height: calc(100% - #{$header-height});
-  overflow-y: scroll;
-  background-color: $input-background;
-  position: absolute;
-  top: $header-height;
-  bottom: 0;
-  right: 0;
-}*/
 
 .main-content:not(.auth):not(.err404) {
   overflow-y: scroll;
@@ -440,7 +428,7 @@ a {
 // Список list group
 .list-group {
   .list-group-item {
-    border-color: $line;
+    border-color: $gray-300;
   }
 }
 
@@ -527,7 +515,7 @@ a {
   }
 
   & > :not(:last-child) > :last-child > * {
-    border-bottom-color: $placeholder;
+    border-bottom-color: $gray-500;
   }
 
   a:hover {
@@ -535,7 +523,7 @@ a {
   }
 
   i {
-    color: $body;
+    color: $gray-dark;
 
     &:hover {
       color: $danger;
@@ -551,14 +539,14 @@ a {
 // Верхний топбар
 
 .main-header {
-  background-color: $off-white;
+  background-color: $white;
   position: absolute;
   z-index: 810;
   top: 0;
   left: 0;
   right: 0;
   max-height: 120px;
-  border-bottom: 1px solid $line;
+  border-bottom: 1px solid $gray-300;
   padding: 0 10px;
   box-shadow: $grey-shadow-3;
 
@@ -585,8 +573,8 @@ a {
   left: 0;
   top: 0;
   bottom: 0;
-  border-right: 1px solid $line;
-  background-color: $off-white;
+  border-right: 1px solid $gray-300;
+  background-color: $white;
   box-shadow: $grey-shadow-3;
   //padding: 20px 10px;
   //overflow-y: scroll;
@@ -610,7 +598,7 @@ a {
       line-height: 1;
 
       &:first-of-type {
-        border-top: 1px solid $line;
+        border-top: 1px solid $gray-300;
         padding-top: 10px;
       }
     }
@@ -638,13 +626,13 @@ a {
       &.adm {
         padding-top: 20px;
         margin-top: 20px;
-        border-top: 1px solid $line;
+        border-top: 1px solid $gray-300;
       }
 
       &.dev {
         padding-bottom: 20px;
         margin-bottom: 20px;
-        border-bottom: 1px solid $line;
+        border-bottom: 1px solid $gray-300;
       }
     }
 
@@ -652,20 +640,20 @@ a {
 
       .sub-menu {
         display: block;
-        background-color: $off-white;
+        background-color: $white;
         transition: all 0.3s ease;
       }
 
       .menu-link {
         position: relative;
-        color: $off-white;
+        color: $white;
         background: $gradient-menu;
         border-radius: 10px;
         transition: all 0.3s ease;
         box-shadow: 0 0 5px 0 $primary;
 
         &:hover {
-          color: $off-white;
+          color: $white;
 
           span {
             text-decoration: none;
@@ -682,8 +670,8 @@ a {
 
       &.dev {
         .menu-link {
-          background: $gradient-info;
-          box-shadow: 0 0 5px 0 $theme-blue-secondary;
+          background: $gradient-blue;
+          box-shadow: 0 0 5px 0 $blue;
         }
       }
     }
@@ -703,7 +691,7 @@ a {
   .menu-link,
   .submenu-link {
     text-decoration: none;
-    color: $label;
+    color: $secondary;
     display: flex;
     align-items: center;
     width: 100%;
@@ -782,7 +770,7 @@ a {
 .main-header {
 
   .nav-link {
-    color: $body;
+    color: $gray-dark;
     padding: 5px 11px;
 
     &:hover {
@@ -799,7 +787,7 @@ a {
     font-size: 14px;
     line-height: 1;
     justify-content: center;
-    border-left: 1px solid $line;
+    border-left: 1px solid $gray-300;
     padding-left: 10px;
 
     &-day {
@@ -810,12 +798,12 @@ a {
     }
 
     &-month {
-      color: $body;
+      color: $gray-dark;
       margin: 0 10px 0 0;
     }
 
     &-dayw {
-      color: $placeholder;
+      color: $gray-500;
       margin: 0 10px 0 0;
     }
   }
@@ -835,11 +823,11 @@ a {
       align-items: center;
       justify-content: space-between;
       padding: 8px 0;
-      color: $label;
+      color: $secondary;
 
       &:hover,
       &:focus {
-        color: $theme-blue-secondary;
+        color: $blue;
         font-weight: 700;
         background: none;
         padding-left: 4px;
@@ -848,7 +836,7 @@ a {
       &.btn.btn-primary {
         margin-top: 10px;
         background-color: $primary;
-        color: $off-white;
+        color: $white;
         justify-content: center;
 
         &:hover {
@@ -872,7 +860,7 @@ a {
         width: 40px;
         height: 40px;
         border-radius: 7px;
-        border: 1px solid $line;
+        border: 1px solid $gray-300;
       }
 
       .header-group {
@@ -898,7 +886,7 @@ a {
 
     .usermenu-category {
       margin: 20px 0 10px;
-      color: $placeholder;
+      color: $gray-500;
       font-weight: 700;
       text-transform: uppercase;
       font-size: 12px;
@@ -917,7 +905,7 @@ a {
 }
 
 .right-header .dropdown {
-  border-left: 1px solid $line;
+  border-left: 1px solid $gray-300;
 }
 
 .sidebar-toggle-button {
@@ -945,7 +933,7 @@ a {
   width: 40px;
   height: 40px;
   text-align: center;
-  color: $off-white;
+  color: $white;
   position: fixed;
   border-radius: 10%;
   background-color: $primary;
@@ -962,7 +950,7 @@ a {
     transition: all 0.3s ease;
     opacity: 1;
     cursor: pointer;
-    color: $off-white;
+    color: $white;
   }
 }
 
@@ -979,7 +967,7 @@ a {
     align-items: center;
     position: absolute;
     left: 0;
-    background: $off-white;
+    background: $white;
     right: 0;
     top: 0;
     width: 100%;
@@ -987,8 +975,8 @@ a {
     z-index: 10000;
     justify-content: space-between;
     padding: 16px;
-    border: 1px solid $line;
-    box-shadow: 0 0 5px 0 $theme-blue-secondary;
+    border: 1px solid $gray-300;
+    box-shadow: 0 0 5px 0 $blue;
 
     input {
       display: block;
@@ -1014,7 +1002,7 @@ a {
 
   .top-search-close {
     font-size: 24px;
-    color: $body;
+    color: $gray-dark;
 
     &:hover i {
       color: $primary;
@@ -1057,7 +1045,7 @@ a {
   // Заголовок содержимого
   .main-content-title {
     padding-right: 20px;
-    border-right: 1px solid $line;
+    border-right: 1px solid $gray-300;
     margin-bottom: 0;
   }
 
@@ -1087,7 +1075,7 @@ a {
 .list-tab-group {
   display: flex;
   flex-direction: row;
-  background-color: $off-white;
+  background-color: $white;
   margin: 0 10px 10px 10px;
 
   .tab-list-group,
@@ -1100,7 +1088,7 @@ a {
   .list-group {
     padding: 0 15px 0 0;
     margin-left: 15px;
-    border-right: 1px solid $line;
+    border-right: 1px solid $gray-300;
     border-top: none;
     border-bottom: none;
     border-radius: 0;
@@ -1120,7 +1108,7 @@ a {
       margin-bottom: 10px;
       border: none;
       text-decoration: none;
-      background-color: $input-background;
+      background-color: $gray-200;
       padding: 0;
 
       &:first-child {
@@ -1139,15 +1127,15 @@ a {
 
       &.active {
         background-color: $primary;
-        box-shadow: 0 0 0 4px $line;
-        color: $off-white;
+        box-shadow: 0 0 0 4px $gray-300;
+        color: $white;
 
         .list-group-toolbutton:hover {
           color: $danger;
         }
 
         a {
-          color: $off-white;
+          color: $white;
         }
 
       }
@@ -1163,7 +1151,7 @@ a {
       align-items: center;
       padding: 15px;
       cursor: pointer;
-      color: $body;
+      color: $gray-dark;
       text-decoration: none;
       margin-right: 10px;
 
@@ -1199,7 +1187,7 @@ a {
       }
 
       i {
-        color: $body;
+        color: $gray-dark;
       }
     }
 
@@ -1254,7 +1242,7 @@ a {
   .left-auth {
     padding: 40px;
     width: 30%;
-    border-right: 1px solid $line;
+    border-right: 1px solid $gray-300;
     box-shadow: $grey-shadow-6;
     display: flex;
     flex-direction: column;
@@ -1264,7 +1252,7 @@ a {
   .right-auth {
     width: 70%;
     opacity: 0.8;
-    background-image: linear-gradient(to right, $primary-light, $primary-light 5px, $line 5px, $line);
+    background-image: linear-gradient(to right, $primary-light, $primary-light 5px, $gray-300 5px, $gray-300);
     background-size: 10px 100%;
   }
 }
@@ -1294,7 +1282,7 @@ a {
   transform: translateY(-50%);
   width: calc(1rem + 24px);
   height: calc(1rem + 24px);
-  color: $label;
+  color: $secondary;
 
   &-right {
     left: auto;
@@ -1330,7 +1318,7 @@ a {
 
 .form {
   &-label {
-    color: $body;
+    color: $gray-dark;
     margin-bottom: 10px;
 
     &-group {
@@ -1360,8 +1348,8 @@ a {
 // Чекбоксы
 
 .form-check-input {
-  background-color: $off-white;
-  border: 1px solid $body-20;
+  background-color: $white;
+  border: 1px solid $gray-dark-20;
   width: 1.2em;
   height: 1.2em;
   margin-top: 0.15em;
@@ -1415,18 +1403,18 @@ div.dataTables_wrapper div.dataTables_filter input[type="search"] {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: $body;
-  background-color: $off-white;
+  color: $gray-dark;
+  background-color: $white;
   background-clip: padding-box;
-  border: 1px solid $line;
+  border: 1px solid $gray-300;
   appearance: none;
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 .dataTables_filter input[type="search"]:focus {
-  color: $body;
-  background-color: $off-white;
+  color: $gray-dark;
+  background-color: $white;
   border-color: $primary-light;
   outline: 0;
   box-shadow: 0 0 0 0.25rem $primary-20;
@@ -1447,13 +1435,13 @@ div.dataTables_wrapper div.dataTables_filter input[type="search"] {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: $body;
-  background-color: $off-white;
+  color: $gray-dark;
+  background-color: $white;
   background-image: escape-svg($form-select-indicator);
   background-repeat: no-repeat;
   background-position: right 0.75rem center;
   background-size: 16px 12px;
-  border: 1px solid $line;
+  border: 1px solid $gray-300;
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   appearance: none;
@@ -1517,8 +1505,8 @@ div.dataTables_wrapper div.dataTables_paginate {
   position: relative;
   color: $primary;
   text-decoration: none;
-  background-color: $off-white;
-  border: 1px solid $line;
+  background-color: $white;
+  border: 1px solid $gray-300;
   transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
   cursor: pointer;
 }
@@ -1530,7 +1518,7 @@ div.dataTables_wrapper div.dataTables_paginate {
 
 .paginate_button.current {
   z-index: 3;
-  color: $off-white;
+  color: $white;
   background-color: $primary;
   border-color: $primary;
 }
@@ -1566,14 +1554,14 @@ td .badge-big {
 }
 
 .badge-big.secondary {
-  background-color: $theme-blue-secondary;
+  background-color: $blue;
   border-radius: 50rem !important;
   display: inline-block;
   padding: 0.35em 0.65em;
   font-size: 0.75em;
   font-weight: 700;
   line-height: 1;
-  color: $off-white;
+  color: $white;
   text-align: center;
   white-space: nowrap;
   vertical-align: baseline;
@@ -1617,7 +1605,7 @@ td .badge-big {
     }
 
     .card-body {
-      color: $body;
+      color: $gray-dark;
 
       p:last-child {
         margin-bottom: 0;
@@ -1654,7 +1642,7 @@ td .badge-big {
   padding: 10px;
   display: block;
   width: 100%;
-  color: $label;
+  color: $secondary;
 
   &:hover {
     cursor: pointer;
@@ -1702,7 +1690,7 @@ td .badge-big {
 
 .faq-category.active {
   .faq-category-link {
-    border-bottom: 1px solid $line;
+    border-bottom: 1px solid $gray-300;
   }
 
   .faq-category-link:after {
@@ -1739,7 +1727,7 @@ td .badge-big {
 // 404
 
 .danger {
-  color: $label;
+  color: $secondary;
   font-size: 7rem;
   position: relative;
   line-height: 1;
@@ -1751,7 +1739,7 @@ td .badge-big {
     left: -2px;
     text-shadow: 1px 0 $primary;
     top: 0;
-    color: $label;
+    color: $secondary;
     background: transparent;
     overflow: hidden;
     clip: rect(0, 900px, 0, 0);
@@ -1764,7 +1752,7 @@ td .badge-big {
     left: 2px;
     text-shadow: -1px 0 $danger;
     top: 0;
-    color: $label;
+    color: $secondary;
     background: transparent;
     overflow: hidden;
     clip: rect(0, 900px, 0, 0);
@@ -1883,7 +1871,7 @@ td .badge-big {
     position: revert;
     padding: 1.25rem;
     text-align: left;
-    color: $body;
+    color: $gray-dark;
 
     h6 {
       text-align: center;
@@ -1924,18 +1912,18 @@ td .badge-big {
   }
 
   a {
-    color: $body;
+    color: $gray-dark;
   }
 
 
   .fc-toolbar-title {
-    color: $body;
+    color: $gray-dark;
     font-size: 1.5em;
   }
 
   .fc-daygrid-dot-event {
     border-radius: 4px;
-    color: $off-white;
+    color: $white;
   }
 
   .fc {
@@ -2050,7 +2038,7 @@ td .badge-big {
 
       &-title {
         text-transform: uppercase;
-        color: $body;
+        color: $gray-dark;
       }
     }
 
@@ -2148,7 +2136,7 @@ td .badge-big {
 
     &-theme-standard td,
     &-theme-standard th {
-      border-color: $line;
+      border-color: $gray-300;
     }
 
     .fc-daygrid-day-bottom {
@@ -2267,7 +2255,7 @@ td .badge-big {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: $off-white;
+  background-color: $white;
 }
 
 // Виджеты на странице
@@ -2327,7 +2315,7 @@ td .badge-big {
     }
 
     .today-birthdays-date {
-      color: $placeholder;
+      color: $gray-500;
     }
 
     .today-birthdays-username,
@@ -2364,7 +2352,7 @@ td .badge-big {
     width: 40px;
     height: 40px;
     border-radius: 7px;
-    border: 1px solid $line;
+    border: 1px solid $gray-300;
   }
 }
 
@@ -2389,7 +2377,7 @@ td .badge-big {
   box-sizing: border-box;
   -ms-touch-action: manipulation;
   touch-action: manipulation;
-  background: $off-white;
+  background: $white;
   -webkit-box-shadow: 1px 0 0 #e6e6e6, -1px 0 0 #e6e6e6, 0 1px 0 #e6e6e6, 0 -1px 0 #e6e6e6, 0 3px 13px rgba(0, 0, 0, 0.08);
   box-shadow: 1px 0 0 rgb(230, 230, 230), -1px 0 0 rgb(230, 230, 230), 0 1px 0 #e6e6e6, 0 -1px 0 #e6e6e6, 0 3px 13px rgba(0, 0, 0, 0.08);
 }
@@ -2613,7 +2601,7 @@ td .badge-big {
       /*rtl:end:ignore*/
 .flatpickr-months .flatpickr-prev-month:hover,
 .flatpickr-months .flatpickr-next-month:hover {
-  color: $placeholder;
+  color: $gray-500;
 }
 
 .flatpickr-months .flatpickr-prev-month:hover svg,
@@ -3344,8 +3332,8 @@ span.flatpickr-weekday {
 }
 
 .select2-dropdown {
-  background-color: $off-white;
-  border: 1px solid $line;
+  background-color: $white;
+  border: 1px solid $gray-300;
   border-radius: 4px;
   box-sizing: border-box;
   display: block;
@@ -3424,7 +3412,7 @@ span.flatpickr-weekday {
   width: auto;
   opacity: 0;
   z-index: 99;
-  background-color: $off-white;
+  background-color: $white;
   filter: alpha(opacity=0)
 }
 
@@ -3454,7 +3442,7 @@ span.flatpickr-weekday {
 }
 
 .select2-container--default .select2-selection--single .select2-selection__rendered {
-  color: $label;
+  color: $secondary;
   line-height: 28px;
 }
 
@@ -3465,7 +3453,7 @@ span.flatpickr-weekday {
 }
 
 .select2-container--default .select2-selection--single .select2-selection__placeholder {
-  color: $placeholder;
+  color: $gray-500;
 }
 
 .select2-container--default .select2-selection--single .select2-selection__arrow {
@@ -3500,7 +3488,7 @@ span.flatpickr-weekday {
 }
 
 .select2-container--default.select2-container--disabled .select2-selection--single {
-  background-color: $off-white;
+  background-color: $white;
   cursor: default
 }
 
@@ -3509,13 +3497,13 @@ span.flatpickr-weekday {
 }
 
 .select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
-  border-color: transparent transparent $placeholder transparent;
+  border-color: transparent transparent $gray-500 transparent;
   border-width: 0 4px 5px 4px
 }
 
 .select2-container--default .select2-selection--multiple {
   background-color: $offcanvas-backdrop-opacity;
-  border: 1px solid $line;
+  border: 1px solid $gray-300;
   border-radius: 4px;
   cursor: text
 }
@@ -3542,8 +3530,8 @@ span.flatpickr-weekday {
 }
 
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
-  background-color: $off-white;
-  border: 1px solid $line;
+  background-color: $white;
+  border: 1px solid $gray-300;
   border-radius: 4px;
   cursor: default;
   float: left;
@@ -3553,7 +3541,7 @@ span.flatpickr-weekday {
 }
 
 .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
-  color: $line;
+  color: $gray-300;
   cursor: pointer;
   display: inline-block;
   font-weight: bold;
@@ -3561,7 +3549,7 @@ span.flatpickr-weekday {
 }
 
 .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover {
-  color: $label;
+  color: $secondary;
 }
 
 .select2-container--default[dir="rtl"] .select2-selection--multiple .select2-selection__choice, .select2-container--default[dir="rtl"] .select2-selection--multiple .select2-search--inline {
@@ -3579,12 +3567,12 @@ span.flatpickr-weekday {
 }
 
 .select2-container--default.select2-container--focus .select2-selection--multiple {
-  border: solid $label 1px;
+  border: solid $secondary 1px;
   outline: 0;
 }
 
 .select2-container--default.select2-container--disabled .select2-selection--multiple {
-  background-color: $off-white;
+  background-color: $white;
   cursor: default
 }
 
@@ -3603,7 +3591,7 @@ span.flatpickr-weekday {
 }
 
 .select2-container--default .select2-search--dropdown .select2-search__field {
-  border: 1px solid $line;
+  border: 1px solid $gray-300;
 }
 
 .select2-container--default .select2-search--inline .select2-search__field {
@@ -3624,11 +3612,11 @@ span.flatpickr-weekday {
 }
 
 .select2-container--default .select2-results__option[aria-disabled=true] {
-  color: $line;
+  color: $gray-300;
 }
 
 .select2-container--default .select2-results__option[aria-selected=true] {
-  background-color: $off-white;
+  background-color: $white;
 }
 
 .select2-container--default .select2-results__option .select2-results__option {
@@ -3745,9 +3733,7 @@ span.flatpickr-weekday {
 .select2-container--classic[dir="rtl"] .select2-selection--single .select2-selection__arrow {
   border: none;
   border-right: 1px solid #aaa;
-  border-radius: 0;
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
+  border-radius: 4px 0 0 4px;
   left: 1px;
   right: auto
 }
@@ -3789,8 +3775,8 @@ span.flatpickr-weekday {
 }
 
 .select2-container--classic .select2-selection--multiple {
-  background-color: $off-white;
-  border: 1px solid $placeholder;
+  background-color: $white;
+  border: 1px solid $gray-500;
   border-radius: 4px;
   cursor: text;
   outline: 0;
@@ -3811,8 +3797,8 @@ span.flatpickr-weekday {
 }
 
 .select2-container--classic .select2-selection--multiple .select2-selection__choice {
-  background-color: $off-white;
-  border: 1px solid $placeholder;
+  background-color: $white;
+  border: 1px solid $gray-500;
   border-radius: 4px;
   cursor: default;
   float: left;
@@ -3822,7 +3808,7 @@ span.flatpickr-weekday {
 }
 
 .select2-container--classic .select2-selection--multiple .select2-selection__choice__remove {
-  color: $placeholder;
+  color: $gray-500;
   cursor: pointer;
   display: inline-block;
   font-weight: bold;
@@ -3830,7 +3816,7 @@ span.flatpickr-weekday {
 }
 
 .select2-container--classic .select2-selection--multiple .select2-selection__choice__remove:hover {
-  color: $placeholder;
+  color: $gray-500;
 }
 
 .select2-container--classic[dir="rtl"] .select2-selection--multiple .select2-selection__choice {
@@ -3861,7 +3847,7 @@ span.flatpickr-weekday {
 }
 
 .select2-container--classic .select2-search--dropdown .select2-search__field {
-  border: 1px solid $placeholder;
+  border: 1px solid $gray-500;
   outline: 0;
 }
 
@@ -3871,7 +3857,7 @@ span.flatpickr-weekday {
 }
 
 .select2-container--classic .select2-dropdown {
-  background-color: $off-white;
+  background-color: $white;
   border: 1px solid transparent;
 }
 
@@ -3893,12 +3879,12 @@ span.flatpickr-weekday {
 }
 
 .select2-container--classic .select2-results__option[aria-disabled=true] {
-  color: $placeholder;
+  color: $gray-500;
 }
 
 .select2-container--classic .select2-results__option--highlighted[aria-selected] {
   background-color: $primary;
-  color: $off-white;
+  color: $white;
 }
 
 .select2-container--classic .select2-results__group {
@@ -3913,8 +3899,8 @@ span.flatpickr-weekday {
 
 .select2.select2-container--open {
   .select2-selection.select2-selection--single {
-    color: $label;
-    background-color: $off-white;
+    color: $secondary;
+    background-color: $white;
     border-color: $primary-light;
     outline: 0;
     box-shadow: 0 0 0 0.25rem rgb(85 82 217 / 25%);
@@ -3984,7 +3970,7 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
     border-radius: 0;
 
     .list-group-item {
-      color: $label;
+      color: $secondary;
       border-color: transparent;
 
       &:hover {
@@ -4009,8 +3995,8 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
 
   .app-fixed-search {
     padding: 0.35rem 0.5rem;
-    border-bottom: 1px solid $line;
-    background-color: $off-white;
+    border-bottom: 1px solid $gray-300;
+    background-color: $white;
     border-top-right-radius: 0.357rem;
 
     .input-group-prepend {
@@ -4033,7 +4019,7 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
   .todo-task-list-wrapper {
     position: relative;
     height: calc(100% - 3.56rem);
-    background-color: $off-white;
+    background-color: $white;
     border-radius: 0;
     overflow-y: scroll;
     border-top: none;
@@ -4048,7 +4034,7 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
         transition: all 0.2s, border-color 0s;
         position: relative;
         padding: 0.893rem 0.893rem;
-        border-top: 1px solid $line;
+        border-top: 1px solid $gray-300;
 
         &:first-of-type {
           border-color: transparent;
@@ -4056,14 +4042,14 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
 
         &:hover {
           transform: translateY(-4px);
-          box-shadow: 0 3px 10px 0 $line;
+          box-shadow: 0 3px 10px 0 $gray-300;
           transition: all 0.2s;
           border-color: transparent;
         }
 
         &.completed {
           .todo-title {
-            color: $placeholder;
+            color: $gray-500;
             text-decoration: line-through;
           }
         }
@@ -4159,18 +4145,18 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
     align-items: center;
     justify-content: space-between;
     padding: 10px 20px;
-    color: $label;
+    color: $secondary;
 
     &:hover,
     &:focus {
-      color: $theme-blue-secondary;
-      background-color: $theme-blue-20;
+      color: $blue;
+      background-color: $blue-20;
     }
 
     &.btn.btn-primary {
       margin-top: 10px;
       background-color: $primary;
-      color: $off-white;
+      color: $white;
       justify-content: center;
 
       &:hover {
@@ -4184,11 +4170,11 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
 // Popover
 
 .popover {
-  background-color: $off-white;
+  background-color: $white;
   font-family: "TT Norms Pro", "Arial", sans-serif;
   font-size: 0.9em;
   box-shadow: $grey-shadow-3;
-  color: $body;
+  color: $gray-dark;
 
   &-header {
     padding: 0.3rem 0.75rem;
@@ -4397,8 +4383,8 @@ body.os-dragging * {
 .os-viewport-native-scrollbars-invisible#os-dummy-scrollbar-size::-webkit-scrollbar-corner,
 .os-viewport-native-scrollbars-invisible.os-viewport::-webkit-scrollbar-corner {
   display: none !important;
-  width: 0px !important;
-  height: 0px !important;
+  width: 0 !important;
+  height: 0 !important;
   visibility: hidden !important;
   background: transparent !important;
 }
@@ -4456,22 +4442,20 @@ body.os-dragging * {
   display: block;
   height: 100%;
   width: 100%;
-  height: 100%;
-  width: 100%;
   visibility: visible;
 }
 .os-content > .os-textarea {
   box-sizing: border-box !important;
   direction: inherit !important;
   background: transparent !important;
-  outline: 0px none transparent !important;
+  outline: 0 none transparent !important;
   overflow: hidden !important;
   position: absolute !important;
   display: block !important;
   top: 0 !important;
   left: 0 !important;
   margin: 0 !important;
-  border-radius: 0px !important;
+  border-radius: 0 !important;
   float: none !important;
   -webkit-filter: none !important;
   filter: none !important;
@@ -4488,7 +4472,7 @@ body.os-dragging * {
   z-index: 1 !important;
   clip: auto !important;
   vertical-align: baseline !important;
-  padding: 0px;
+  padding: 0;
 }
 .os-host-rtl > .os-padding > .os-viewport > .os-content > .os-textarea {
   right: 0 !important;
@@ -4499,7 +4483,7 @@ body.os-dragging * {
 }
 .os-content > .os-textarea[wrap='off'] {
   white-space: pre !important;
-  margin: 0px !important;
+  margin: 0 !important;
 }
 .os-text-inherit {
   font-family: inherit;
@@ -4537,7 +4521,6 @@ body.os-dragging * {
 }
 .os-resize-observer-host {
   padding: inherit;
-  border: inherit;
   border-color: transparent;
   border-style: solid;
   box-sizing: border-box;
@@ -4910,19 +4893,19 @@ THEMES:
 // Кастомные темы скроллбара
 
 .os-theme-dark > .os-scrollbar > .os-scrollbar-track > .os-scrollbar-handle {
-  background: $body-20;
+  background: $gray-dark-20;
 }
 .os-theme-light > .os-scrollbar > .os-scrollbar-track > .os-scrollbar-handle {
   background: rgba(255, 255, 255, 0.4);
 }
 .os-theme-dark > .os-scrollbar:hover > .os-scrollbar-track > .os-scrollbar-handle {
-  background: $body-50;
+  background: $gray-dark-50;
 }
 .os-theme-light > .os-scrollbar:hover > .os-scrollbar-track > .os-scrollbar-handle {
   background: rgba(255, 255, 255, .55);
 }
 .os-theme-dark > .os-scrollbar > .os-scrollbar-track > .os-scrollbar-handle.active {
-  background: $body;
+  background: $gray-dark;
 }
 .os-theme-light > .os-scrollbar > .os-scrollbar-track > .os-scrollbar-handle.active {
   background: rgba(255, 255, 255, .7);
