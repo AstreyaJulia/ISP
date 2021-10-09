@@ -40,14 +40,14 @@
           </ul>
         </div>
     </div>
-    <div class="card widget today-birthdays">
+    <div class="card widget today-birthdays <?php visuallyHidden($birthday); ?>">
       <div class="card-body">
         <h5 class="widget-title">Дни рождения сегодня</h5>
-        <ul class="today-birthdays-list <?php visuallyHidden($birthday); ?>">
+        <ul class="today-birthdays-list">
           <?php foreach ($birthday as $row): ?>
             <li class="today-birthdays-item">
               <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                   viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+                   viewBox="0 0 512 512" xml:space="preserve">
 <path style="fill:#E1E1E3;" d="M255.99,90.042c-4.807,0-8.705-3.897-8.705-8.705V46.624c0-4.807,3.897-8.705,8.705-8.705
 	c4.807,0,8.705,3.897,8.705,8.705v34.713C264.694,86.145,260.797,90.042,255.99,90.042z"/>
                 <path style="fill:#D9D9DB;" d="M463.879,509.904H48.121C21.545,509.904,0,488.359,0,461.783l0,0h512l0,0
