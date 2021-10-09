@@ -2925,10 +2925,10 @@ const createSliderItemString = ({image, header, text, hideLink, link}) =>
   `<div class="carousel-item" data-bs-interval="10000">
   <div class="d-flex">
     <img src="${image}" alt="${header}" aria-label="${header}" style="object-fit: cover; height: 282px;">
-    <div class="carousel-caption d-flex flex-column justify-content-between" style="position: revert; padding: 1.25rem; text-align: left;">
+    <div class="carousel-caption d-flex flex-column justify-content-between w-100" style="position: revert; padding: 1.25rem; text-align: left;">
       <div>
-        <h6>${header}</h6>
-        <p style="text-overflow: ellipsis; overflow: hidden; display: -webkit-box; max-width: 173px; -webkit-line-clamp: 5; -webkit-box-orient: vertical;">${text}</p>
+        <h6 style="text-overflow: ellipsis; overflow: hidden; display: -webkit-box; max-width: 173px; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">${header}</h6>
+        <p style="text-overflow: ellipsis; overflow: hidden; display: -webkit-box; max-width: 173px; -webkit-line-clamp: 5; -webkit-box-orient: vertical; margin-bottom: 0;">${text}</p>
       </div>
       <a href="${link}" class="mt-2 ${hideLink}">Подробнее</a>
     </div>
