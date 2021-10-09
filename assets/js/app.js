@@ -2869,6 +2869,96 @@ const weatherHandler = () => {
   document.getElementsByTagName("head")[0].appendChild(script);
 }
 
+// Слайдер
+// Массив слайдера
+let slides_arr = [
+  {
+    id: 0,
+    image:
+      "assets/img/slider/cosmonaut.jpg",
+    header: "Поехали!",
+    text: "тут ссылка скрыта",
+    hideLink: "visually-hidden",
+    link: "?page=to-do"
+  },
+  {
+    id: 1,
+    image:
+      "assets/img/slider/hello.jpg",
+    header: "Приветствуем на внутреннем сайте суда!",
+    text: "",
+    hideLink: "",
+    link: "?page=to-do"
+  },
+  {
+    id: 2,
+    image:
+      "assets/img/slider/wear_masks.jpg",
+    header: "Пожалуйста, не забывайте носить маску.",
+    text: "это описание не помещается в контейнер слайдера полностью, оно должно быть обрезано, чтобы контейнер не переполнился и верстка не развалилась, поэтому он обрезается точками",
+    hideLink: "",
+    link: "?page=to-do"
+  },
+];
+
+const sliderCarousel = document.getElementById("carouselNews");
+
+
+const CarouselIndicators =
+  `<div class="carousel-indicators" style="bottom: 0; margin-right: 47%;">
+            </div>`;
+
+const CarouselInner =
+  `<div class="carousel-inner" style="border-radius: 0.25rem;">
+            </div>`;
+
+const CarouselControls =
+  `<button class="carousel-control-prev h-100" type="button" data-bs-target="#carouselNews"
+                    data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span> <span
+                class="visually-hidden">Предыдущий</span></button>
+            <button class="carousel-control-next h-100" type="button" data-bs-target="#carouselNews"
+                    data-bs-slide="next" style="right: 32%;"><span class="carousel-control-next-icon" aria-hidden="true"></span> <span
+                class="visually-hidden">Следующий</span></button>`;
+
+const createSliderItemString = ({image, header, text, hideLink, link}) =>
+
+  `<div class="carousel-item" data-bs-interval="10000">
+  <div class="d-flex">
+    <img src="${image}" alt="${header}" aria-label="${header}" style="object-fit: cover; height: 282px;">
+    <div class="carousel-caption d-flex flex-column justify-content-between" style="position: revert; padding: 1.25rem; text-align: left;">
+      <div>
+        <h6>${header}</h6>
+        <p style="text-overflow: ellipsis; overflow: hidden; display: -webkit-box; max-width: 173px; -webkit-line-clamp: 5; -webkit-box-orient: vertical;">${text}</p>
+      </div>
+      <a href="${link}" class="mt-2 ${hideLink}">Подробнее</a>
+    </div>
+  </div>
+</div>`;
+
+const createDotsItemString = ({id, header}) =>
+  `<button type="button" data-bs-target="#carouselNews" data-bs-slide-to="${id}" aria-label="${header}" style="width: 10px; height: 10px; border-radius: 50%;"></button>`;
+
+// Рендеринг слайдера
+const sliderRender = (slideArray) => {
+  sliderCarousel.insertAdjacentHTML('beforeend', CarouselIndicators);
+  sliderCarousel.insertAdjacentHTML('beforeend', CarouselInner);
+  sliderCarousel.insertAdjacentHTML('beforeend', CarouselControls);
+  const sliderContainer = document.querySelector('.carousel-inner');
+  const sliderDotsContainer = document.querySelector('.carousel-indicators');
+
+  sliderContainer.innerHTML = '';
+  sliderDotsContainer.innerHTML = '';
+  const sliderElementsString = slideArray.map((image) => createSliderItemString(image)).join('');
+  const dotsElementsString = slideArray.map((image) => createDotsItemString(image)).join('');
+  sliderContainer.insertAdjacentHTML('beforeend', sliderElementsString);
+  sliderDotsContainer.insertAdjacentHTML('beforeend', dotsElementsString);
+
+  // Показывает 1 слайд
+  let slide1 = sliderContainer.firstChild;
+  let dot1 = sliderDotsContainer.firstChild;
+  slide1.classList.add('active');
+  dot1.classList.add('active');
+}
 
 // Определение функции, запускающейся при полной загрузке страницы
 const init = () => {
@@ -2951,10 +3041,16 @@ const init = () => {
     return new bootstrap.Tooltip(tooltipTriggerEl)
   });
 
+  // Отрисовка слайдера на дашбоарде
+  sliderRender(slides_arr);
+
   //Отключаем спиннер
-  if (spinnerloader) {
-    spinnerloaderHandler();
-  }
+  document.addEventListener('DOMContentLoaded', () => {
+    if (spinnerloader) {
+      spinnerloaderHandler();
+    }
+  });
+
 
 };
 

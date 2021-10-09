@@ -1848,34 +1848,15 @@ td .badge-big {
 
 // Слайдер на главной
 #carouselNews.carousel.slide {
-  .carousel-indicators {
-    top: 250px;
-  }
 
   .carousel-indicators [data-bs-target] {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-
     &:hover {
       background-color: $primary;
     }
   }
 
-  .carousel-control-prev,
-  .carousel-control-next {
-    height: 300px;
-  }
-
   .carousel-caption {
-    position: revert;
-    padding: 1.25rem;
-    text-align: left;
     color: $gray-dark;
-
-    h6 {
-      text-align: center;
-    }
   }
 }
 

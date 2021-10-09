@@ -53,8 +53,6 @@ const copy = () => {
       "src/assets/fonts/*.{woff2,woff}",
       "src/assets/modules/**/*.{js,map,css,json}",
       "src/assets/js/app.js",
-      "src/assets/js/index.js",
-      "src/assets/js/slider.js",
       "src/assets/js/weather.min.js"
     ],
     {
