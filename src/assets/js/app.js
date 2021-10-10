@@ -3042,7 +3042,9 @@ const init = () => {
   });
 
   // Отрисовка слайдера на дашбоарде
-  sliderRender(slides_arr);
+  if (sliderCarousel) {
+    sliderRender(slides_arr);
+  }
 
   //Отключаем спиннер
   document.addEventListener('DOMContentLoaded', () => {
