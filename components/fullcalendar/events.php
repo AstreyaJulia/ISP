@@ -69,7 +69,6 @@ foreach ($sdc_calendar as $myCalendar) {
         'until' => $myCalendar['until'],
         'bysetpos' => $myCalendar['bysetpos'],
         'byweekday' => FnByweekday($myCalendar['byweekday']),
-        'bymonthday' => $myCalendar['bymonthday'],
         'bymonth' => $myCalendar['bymonth']
       ]
     ];

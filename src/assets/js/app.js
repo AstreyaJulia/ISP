@@ -744,7 +744,6 @@ const calendmodulehandler = () => {
         freq: null,
         byweekday: null,
         bysetpos: null,
-        bymonthday: null,
         interval: null,
         dtstart: null,
         count: null,
@@ -776,10 +775,6 @@ const calendmodulehandler = () => {
           // Ежемесячно
           Event.freq = 'MONTHLY';
           // Проверяем чекбоксы
-          if ($(evdmonth).prop('checked')) {
-            // Каждое число месяца
-            Event.bymonthday = $(dayofmonth).val();
-          } else
             // Последний день
           if ($(lastdmonth).prop('checked')) {
             Event.byweekday = 'MO, TU, WE, TH, FR, SA, SU';
@@ -813,7 +808,6 @@ const calendmodulehandler = () => {
           Event.freq = null;
           Event.byweekday = null;
           Event.bysetpos = null;
-          Event.bymonthday = null;
         }
 
         // Начало повторения
@@ -1146,33 +1140,49 @@ const calendmodulehandler = () => {
           $(repcountinp).val("");
           $(repcount).prop('checked', false);
         }
+        $(dayofmonth).val(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.interval);
 
         if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.freq === 3) {
           $(repparamSwitch).val('daily-section');
           weeklysection.style.display = "none";
           monthlysection.style.display = "none";
+          intervalsection.style.display = "block";
+          daynumlabel2.innerHTML = 'Каждый';
+          daynumlabel1.innerHTML = 'день';
+          daynum.setAttribute('max', '31');
         } else if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.freq === 2) {
           $(repparamSwitch).val('weekly-section');
           weeklysection.style.display = "block";
           monthlysection.style.display = "none";
+          intervalsection.style.display = "block";
+          daynumlabel2.innerHTML = 'Каждую';
+          daynumlabel1.innerHTML = 'неделю';
+          daynum.setAttribute('max', '53');
         } else if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.freq === 1) {
           $(repparamSwitch).val('monthly-section');
           monthlysection.style.display = "block";
           weeklysection.style.display = "none";
+          intervalsection.style.display = "block";
+          daynumlabel2.innerHTML = 'Каждый';
+          daynumlabel1.innerHTML = 'месяц';
+          daynum.setAttribute('max', '12');
           // Чекбоксы повторения для месяца
-          if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.bysetpos[0] === -1 &&
+          if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.bysetpos === null) {
+            $(evdmonth).prop("checked", true);
+          }
+          if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.bysetpos === -1 &&
             JSON.stringify(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday) === '[0,1,2,3,4]') {
             $(lastworkdmonth).prop("checked", true);
           }
-          if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.bysetpos[0] === 1 &&
+          if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.bysetpos === 1 &&
             JSON.stringify(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday) === '[0,1,2,3,4]') {
             $(firstworkdmonth).prop("checked", true);
           }
-          if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.bysetpos[0] === 1 &&
+          if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.bysetpos === 1 &&
             JSON.stringify(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday) === '[0,1,2,3,4,5,6]') {
             $(firstdmonth).prop("checked", true);
           }
-          if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.bysetpos[0] === -1 &&
+          if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.bysetpos === -1 &&
             JSON.stringify(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday) === '[0,1,2,3,4,5,6]') {
             $(lastdmonth).prop("checked", true);
           }
@@ -1180,6 +1190,10 @@ const calendmodulehandler = () => {
           $(repparamSwitch).val('yearly-section');
           weeklysection.style.display = "none";
           monthlysection.style.display = "none";
+          intervalsection.style.display = "block";
+          daynumlabel2.innerHTML = 'Каждый';
+          daynumlabel1.innerHTML = 'год';
+          daynum.setAttribute('max', '100');
         } else if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.freq === null) {
           return;
         }
@@ -1596,10 +1610,6 @@ const calendmodulehandler = () => {
           // Ежемесячно
           Event.freq = 'MONTHLY';
           // Проверяем чекбоксы
-          if ($(evdmonth).prop('checked')) {
-            // Каждое число месяца
-            Event.bymonthday = $(dayofmonth).val();
-          } else
             // Последний день
           if ($(lastdmonth).prop('checked')) {
             Event.byweekday = 'MO, TU, WE, TH, FR, SA, SU';
