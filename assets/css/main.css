@@ -44376,4 +44376,11 @@ THEMES:
   text-transform: uppercase;
   color: #344357;
 }
+
+.news-widget .news-list .card {
+  margin-top: -1px;
+}
+.news-widget .news-list .card:first-child {
+  margin-top: 0;
+}
 /*# sourceMappingURL=main.css.map */
