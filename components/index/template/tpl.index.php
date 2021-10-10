@@ -6,7 +6,7 @@
             <div id="carouselNews" class="carousel slide" data-bs-ride="carousel">
             </div>
           </div>
-        <div class="card widget news-list border-0">
+        <div class="card widget news-list">
           <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
               <h5 class="widget-title">Последние новости</h5>

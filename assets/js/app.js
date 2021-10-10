@@ -1140,7 +1140,6 @@ const calendmodulehandler = () => {
           $(repcountinp).val("");
           $(repcount).prop('checked', false);
         }
-        $(dayofmonth).val(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.interval);
 
         if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.freq === 3) {
           $(repparamSwitch).val('daily-section');
@@ -1169,6 +1168,7 @@ const calendmodulehandler = () => {
           // Чекбоксы повторения для месяца
           if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.bysetpos === null) {
             $(evdmonth).prop("checked", true);
+            $(dayofmonth).val(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.bymonthday[0]);
           }
           if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.bysetpos === -1 &&
             JSON.stringify(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday) === '[0,1,2,3,4]') {
