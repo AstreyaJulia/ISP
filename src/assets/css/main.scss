@@ -2364,8 +2364,8 @@ td .badge-big {
   -ms-touch-action: manipulation;
   touch-action: manipulation;
   background: $white;
-  -webkit-box-shadow: 1px 0 0 #e6e6e6, -1px 0 0 #e6e6e6, 0 1px 0 #e6e6e6, 0 -1px 0 #e6e6e6, 0 3px 13px rgba(0, 0, 0, 0.08);
-  box-shadow: 1px 0 0 rgb(230, 230, 230), -1px 0 0 rgb(230, 230, 230), 0 1px 0 #e6e6e6, 0 -1px 0 #e6e6e6, 0 3px 13px rgba(0, 0, 0, 0.08);
+  -webkit-box-shadow: 1px 0 0 #e6e6e6, -1px 0 0 #e6e6e6, 0 1px 0 #e6e6e6, 0 -1px 0 #e6e6e6, 0 3px 13px rgba($black, 0.08);
+  box-shadow: 1px 0 0 rgb(230, 230, 230), -1px 0 0 rgb(230, 230, 230), 0 1px 0 #e6e6e6, 0 -1px 0 #e6e6e6, 0 3px 13px rgba($black, 0.08);
 }
 
 .flatpickr-calendar.open,
@@ -2511,8 +2511,8 @@ td .badge-big {
 
 .flatpickr-months .flatpickr-month {
   background: transparent;
-  color: rgba(0, 0, 0, 0.9);
-  fill: rgba(0, 0, 0, 0.9);
+  color: rgba($black, 0.9);
+  fill: rgba($black, 0.9);
   height: 34px;
   line-height: 1;
   text-align: center;
@@ -2537,8 +2537,8 @@ td .badge-big {
   height: 34px;
   padding: 10px;
   z-index: 3;
-  color: rgba(0, 0, 0, 0.9);
-  fill: rgba(0, 0, 0, 0.9);
+  color: rgba($black, 0.9);
+  fill: rgba($black, 0.9);
 }
 
 .flatpickr-months .flatpickr-prev-month.flatpickr-disabled,
@@ -2647,11 +2647,11 @@ td .badge-big {
 }
 
 .numInputWrapper span:hover {
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba($black, 0.1);
 }
 
 .numInputWrapper span:active {
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba($black, 0.2);
 }
 
 .numInputWrapper span:after {
@@ -2689,11 +2689,11 @@ td .badge-big {
 }
 
 .numInputWrapper span svg path {
-  fill: rgba(0, 0, 0, 0.5);
+  fill: rgba($black, 0.5);
 }
 
 .numInputWrapper:hover {
-  background: rgba(0, 0, 0, 0.05);
+  background: rgba($black, 0.05);
 }
 
 .numInputWrapper:hover span {
@@ -2726,7 +2726,7 @@ td .badge-big {
 }
 
 .flatpickr-current-month span.cur-month:hover {
-  background: rgba(0, 0, 0, 0.05);
+  background: rgba($black, 0.05);
 }
 
 .flatpickr-current-month .numInputWrapper {
@@ -2737,11 +2737,11 @@ td .badge-big {
 }
 
 .flatpickr-current-month .numInputWrapper span.arrowUp:after {
-  border-bottom-color: rgba(0, 0, 0, 0.9);
+  border-bottom-color: rgba($black, 0.9);
 }
 
 .flatpickr-current-month .numInputWrapper span.arrowDown:after {
-  border-top-color: rgba(0, 0, 0, 0.9);
+  border-top-color: rgba($black, 0.9);
 }
 
 .flatpickr-current-month input.cur-year {
@@ -2773,7 +2773,7 @@ td .badge-big {
 .flatpickr-current-month input.cur-year[disabled],
 .flatpickr-current-month input.cur-year[disabled]:hover {
   font-size: 100%;
-  color: rgba(0, 0, 0, 0.5);
+  color: rgba($black, 0.5);
   background: transparent;
   pointer-events: none;
 }
@@ -2808,7 +2808,7 @@ td .badge-big {
 }
 
 .flatpickr-current-month .flatpickr-monthDropdown-months:hover {
-  background: rgba(0, 0, 0, 0.05);
+  background: rgba($black, 0.05);
 }
 
 .flatpickr-current-month .flatpickr-monthDropdown-months .flatpickr-monthDropdown-month {
@@ -2848,7 +2848,7 @@ span.flatpickr-weekday {
   cursor: default;
   font-size: 90%;
   background: transparent;
-  color: rgba(0, 0, 0, 0.54);
+  color: rgba($black, 0.54);
   line-height: 1;
   margin: 0;
   text-align: center;
@@ -4825,22 +4825,22 @@ THEMES:
   border-radius: 10px;
 }
 .os-theme-dark > .os-scrollbar > .os-scrollbar-track > .os-scrollbar-handle {
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba($black, 0.4);
 }
 .os-theme-light > .os-scrollbar > .os-scrollbar-track > .os-scrollbar-handle {
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba($white, 0.4);
 }
 .os-theme-dark > .os-scrollbar:hover > .os-scrollbar-track > .os-scrollbar-handle {
-  background: rgba(0, 0, 0, .55);
+  background: rgba($black, .55);
 }
 .os-theme-light > .os-scrollbar:hover > .os-scrollbar-track > .os-scrollbar-handle {
-  background: rgba(255, 255, 255, .55);
+  background: rgba($white, .55);
 }
 .os-theme-dark > .os-scrollbar > .os-scrollbar-track > .os-scrollbar-handle.active {
-  background: rgba(0, 0, 0, .7);
+  background: rgba($black, .7);
 }
 .os-theme-light > .os-scrollbar > .os-scrollbar-track > .os-scrollbar-handle.active {
-  background: rgba(255, 255, 255, .7);
+  background: rgba($white, .7);
 }
 .os-theme-dark > .os-scrollbar-horizontal .os-scrollbar-handle:before,
 .os-theme-dark > .os-scrollbar-vertical .os-scrollbar-handle:before,
@@ -4882,17 +4882,23 @@ THEMES:
   background: $gray-dark-20;
 }
 .os-theme-light > .os-scrollbar > .os-scrollbar-track > .os-scrollbar-handle {
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba($white, 0.4);
 }
 .os-theme-dark > .os-scrollbar:hover > .os-scrollbar-track > .os-scrollbar-handle {
   background: $gray-dark-50;
 }
 .os-theme-light > .os-scrollbar:hover > .os-scrollbar-track > .os-scrollbar-handle {
-  background: rgba(255, 255, 255, .55);
+  background: rgba($white, .55);
 }
 .os-theme-dark > .os-scrollbar > .os-scrollbar-track > .os-scrollbar-handle.active {
   background: $gray-dark;
 }
 .os-theme-light > .os-scrollbar > .os-scrollbar-track > .os-scrollbar-handle.active {
-  background: rgba(255, 255, 255, .7);
+  background: rgba($white, .7);
 }
+
+  .widget-title {
+    font-size: 14px;
+    text-transform: uppercase;
+    color: $gray-dark;
+  }

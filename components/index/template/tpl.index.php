@@ -2,10 +2,56 @@
       <!-- Левая половина дашбоарда-->
       <div class="col-8">
         <!-- Первая линия левой части дашбоарда-->
-          <div class="card widget">
+          <div class="card widget mb-3">
             <div id="carouselNews" class="carousel slide" data-bs-ride="carousel">
             </div>
           </div>
+        <div class="card widget news-list border-0">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="widget-title">Последние новости</h5>
+              <a href="#" class="btn btn-outline-primary btn-sm mb-3">Все новости</a>
+            </div>
+            <ul class="list-group d-flex flex-column">
+              <li class="list-group-item d-flex w-100">
+                <div class="news-body flex-grow-1">
+                  <div class="news-header d-flex justify-content-between">
+                    <span class="badge bg-primary mb-2">Обновления</span>
+                    <small class="opacity-50 text-nowrap">сейчас</small>
+                  </div>
+                  <h6 class="news-header mb-1 text-gray-dark"style="text-overflow: ellipsis; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">Обновление ПИ СДП, ПИ БСР, ПИ Судимость, ПИ Право, ПИ ПОЭСО, ПИ АУ, ПИ ОО, ПИ Присяжные, ПИ ИСП, ПИ ИК, ПИ Фемида, ПИ СТАКС, ПИ Недвижимость, ПИ Кадры-П</h6>
+                  <p class="news-text text-gray-dark mb-0"style="text-overflow: ellipsis; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical;">ПИ СДП обновилось до версии 33.0.456. О всех изменениях в ПИ СДП после обновления можно почитать по ссылке</p>
+                  <div class="news-footer d-flex justify-content-between">
+                    <a href="#">Подробнее</a>
+                    <div class="news-toolbuttons">
+                      <a role="button" class="p-1" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="В избранное"><i class="mdi mdi-heart-outline text-secondary opacity-50"></i></a>
+                      <a role="button" class="p-1" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="Скопировать ссылку"><i class="mdi mdi-share-variant-outline text-secondary opacity-50"></i></a>
+                      <a class="ms-3 p-1" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="Просмотры"><i class="mdi mdi-eye-outline text-secondary opacity-50"></i><small class="ms-1 text-secondary opacity-50">10</small></a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item d-flex w-100">
+                <div class="news-body flex-grow-1">
+                  <div class="news-header d-flex justify-content-between">
+                    <span class="badge bg-info mb-2">Литература</span>
+                    <small class="opacity-50 text-nowrap">31.09.2021</small>
+                  </div>
+                  <h6 class="news-header mb-1 text-gray-dark">Вестник фемиды</h6>
+                  <p class="news-text text-gray-dark mb-0">Вестник фемиды №9 2021 год</p>
+                  <div class="news-footer d-flex justify-content-between">
+                    <a href="#">Подробнее</a>
+                    <div class="news-toolbuttons">
+                      <a role="button" class="p-1" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="В избранное"><i class="mdi mdi-heart-outline text-secondary opacity-50"></i></a>
+                      <a role="button" class="p-1" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="Скопировать ссылку"><i class="mdi mdi-share-variant-outline text-secondary opacity-50"></i></a>
+                      <a class="ms-3 p-1" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="Просмотры"><i class="mdi mdi-eye-outline text-secondary opacity-50"></i><small class="ms-1 text-secondary opacity-50">10</small></a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
 
       <!-- Правая половина дашбоарда-->
