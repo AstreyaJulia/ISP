@@ -1,5 +1,8 @@
 <header class="main-content-header">
-  <div class="header-left"><p class="h5 main-content-title">Редактировать / создать группу ссылок</p>
+  <div class="header-left">
+    <a class="btn-back me-3" role="button" data-bs-toggle="tooltip" data-bs-placement="top" title=""
+       data-bs-original-title="Назад" aria-label="Назад"><i class="mdi mdi-24px mdi-arrow-left"></i></a>
+    <p class="h5 main-content-title">Редактировать / создать группу ссылок</p>
     <nav>
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/" data-bs-toggle="tooltip" data-bs-placement="top"
@@ -39,9 +42,9 @@
     </div>
     <div class="card-footer">
       <div class="button-group d-flex align-items-center justify-content-end">
-      <button type="submit" class="btn btn-primary" name="editGroup" value="add">Сохранить</button>
-      <button type="button" class="btn btn-danger btn-back">Отмена</button>
+        <button type="submit" class="btn btn-primary" name="editGroup" value="add">Сохранить</button>
+        <button type="button" class="btn btn-danger btn-back">Отмена</button>
       </div>
-      </div>
+    </div>
   </form>
 </div>

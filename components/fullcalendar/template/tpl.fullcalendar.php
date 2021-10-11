@@ -1,5 +1,7 @@
 <header class="main-content-header">
   <div class="header-left">
+    <a class="btn-back me-3" role="button" data-bs-toggle="tooltip" data-bs-placement="top" title=""
+       data-bs-original-title="Назад" aria-label="Назад"><i class="mdi mdi-24px mdi-arrow-left"></i></a>
     <p class="h5 main-content-title">Календарь</p>
     <nav>
       <ol class="breadcrumb">
@@ -35,9 +37,11 @@
 
                 <nav>
                   <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
-                    <button class="nav-link active" id="nav-main-tab" data-bs-toggle="tab" data-bs-target="#nav-main" type="button" role="tab" aria-controls="nav-main" aria-selected="true">Основное
+                    <button class="nav-link active" id="nav-main-tab" data-bs-toggle="tab" data-bs-target="#nav-main"
+                            type="button" role="tab" aria-controls="nav-main" aria-selected="true">Основное
                     </button>
-                    <button class="nav-link" id="nav-rep-tab" data-bs-toggle="tab" data-bs-target="#nav-rep" type="button" role="tab" aria-controls="nav-rep" aria-selected="false">Повторение
+                    <button class="nav-link" id="nav-rep-tab" data-bs-toggle="tab" data-bs-target="#nav-rep"
+                            type="button" role="tab" aria-controls="nav-rep" aria-selected="false">Повторение
                     </button>
                   </div>
                 </nav>
@@ -101,8 +105,10 @@
                       <div class="form-group">
                         <label for="event-url">URL</label>
                         <div class="input-group">
-                          <input type="url" class="form-control" id="event-url" placeholder="Введите ссылку в формате http://google.com">
-                          <button type="button" class="btn btn-primary" id="urlopen"><i class="mdi mdi-web"></i></button>
+                          <input type="url" class="form-control" id="event-url"
+                                 placeholder="Введите ссылку в формате http://google.com">
+                          <button type="button" class="btn btn-primary" id="urlopen"><i class="mdi mdi-web"></i>
+                          </button>
                         </div>
                       </div>
                       <div class="col-md-12">
@@ -112,7 +118,8 @@
                                     class="form-control" name="event-description-editor"></textarea>
                         </div>
                       </div>
-                      <p class="text-danger mt-3 mb-0 p-0 ms-3 me-3">Внимание. Удаляя повторяющееся событие, вы удаляете ВСЕ повторения.</p>
+                      <p class="text-danger mt-3 mb-0 p-0 ms-3 me-3">Внимание. Удаляя повторяющееся событие, вы удаляете
+                        ВСЕ повторения.</p>
                     </div>
                   </div>
                   <div class="tab-pane fade" id="nav-rep" role="tabpanel" aria-labelledby="nav-rep-tab">
@@ -267,7 +274,9 @@
 <div class="col-2 g-0">
   <div class="card mb-3" style="margin-right: -1px">
     <div class="card-header">
-      <button type="button" class="btn btn-primary ms-auto mt-1 mb-1 btn-block" id="myBtn"><i class="mdi mdi-plus me-3"></i>Событие</button>
+      <button type="button" class="btn btn-primary ms-auto mt-1 mb-1 btn-block" id="myBtn"><i
+          class="mdi mdi-plus me-3"></i>Событие
+      </button>
     </div>
 
     <div class="card-body">
@@ -287,23 +296,28 @@
           <label class="form-check-label mb-2" for="select-all">Все</label>
         </div>
         <div class="form-check">
-          <input class="form-check-input input-filter bg-primary" type="checkbox" id="Primary" name="Primary" data-value="Primary" checked>
+          <input class="form-check-input input-filter bg-primary" type="checkbox" id="Primary" name="Primary"
+                 data-value="Primary" checked>
           <label class="form-check-label mb-2" for="Primary">События</label>
         </div>
         <div class="form-check">
-          <input class="form-check-input input-filter bg-danger" type="checkbox" id="Danger" name="Danger" data-value="Danger" checked>
+          <input class="form-check-input input-filter bg-danger" type="checkbox" id="Danger" name="Danger"
+                 data-value="Danger" checked>
           <label class="form-check-label mb-2" for="Danger">Праздники</label>
         </div>
         <div class="form-check">
-          <input class="form-check-input input-filter bg-warning" type="checkbox" id="Warning" name="Warning" data-value="Warning" checked>
+          <input class="form-check-input input-filter bg-warning" type="checkbox" id="Warning" name="Warning"
+                 data-value="Warning" checked>
           <label class="form-check-label mb-2" for="Warning">Важно</label>
         </div>
         <div class="form-check">
-          <input class="form-check-input input-filter bg-success" type="checkbox" id="Success" name="Success" data-value="Success" checked>
+          <input class="form-check-input input-filter bg-success" type="checkbox" id="Success" name="Success"
+                 data-value="Success" checked>
           <label class="form-check-label mb-2" for="Success">Отпуск</label>
         </div>
         <div class="form-check">
-          <input class="form-check-input input-filter bg-info" type="checkbox" id="Info" name="Info" data-value="Info" checked>
+          <input class="form-check-input input-filter bg-info" type="checkbox" id="Info" name="Info" data-value="Info"
+                 checked>
           <label class="form-check-label mb-2" for="Info">Дежурство</label>
         </div>
       </div>

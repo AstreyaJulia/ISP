@@ -1,5 +1,8 @@
 <header class="main-content-header">
-  <div class="header-left"><p class="h5 main-content-title"><?= $title; ?></p>
+  <div class="header-left">
+    <a class="btn-back me-3" role="button" data-bs-toggle="tooltip" data-bs-placement="top" title=""
+       data-bs-original-title="Назад" aria-label="Назад"><i class="mdi mdi-24px mdi-arrow-left"></i></a>
+    <p class="h5 main-content-title"><?= $title; ?></p>
     <nav>
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/" data-bs-toggle="tooltip" data-bs-placement="top"
@@ -13,7 +16,7 @@
       <i class="mdi mdi-cog-outline"></i>
     </button>
     <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="contentmenu">
-        <a href="#" class="dropdown-item btn-print">Печать</a>
+      <a href="#" class="dropdown-item btn-print">Печать</a>
     </ul>
   </div>
 </header>
@@ -23,8 +26,9 @@
       <p class="group-title">Фильтр:</p>
       <?php foreach (getGroupReplace() as $key => $value): ?>
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="<?= $key; ?>" name="<?= $key; ?>" value="<?= getGroupReplace() [$key]["id"]; ?>">
-          <label class="form-check-label"  for="<?= $key; ?>"><?= getGroupReplace() [$key]["name"]; ?></label>
+          <input class="form-check-input" type="checkbox" id="<?= $key; ?>" name="<?= $key; ?>"
+                 value="<?= getGroupReplace() [$key]["id"]; ?>">
+          <label class="form-check-label" for="<?= $key; ?>"><?= getGroupReplace() [$key]["name"]; ?></label>
         </div>
       <?php endforeach ?>
     </div>

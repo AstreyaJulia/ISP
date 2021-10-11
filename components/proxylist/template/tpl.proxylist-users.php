@@ -1,5 +1,7 @@
 <header class="main-content-header">
   <div class="header-left">
+    <a class="btn-back me-3" role="button" data-bs-toggle="tooltip" data-bs-placement="top" title=""
+       data-bs-original-title="Назад" aria-label="Назад"><i class="mdi mdi-24px mdi-arrow-left"></i></a>
     <p class="h5 main-content-title"><?= $title; ?></p>
     <nav>
       <ol class="breadcrumb">

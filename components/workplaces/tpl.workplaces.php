@@ -1,9 +1,12 @@
 <header class="main-content-header">
   <div class="header-left">
+    <a class="btn-back me-3" role="button" data-bs-toggle="tooltip" data-bs-placement="top" title=""
+       data-bs-original-title="Назад" aria-label="Назад"><i class="mdi mdi-24px mdi-arrow-left"></i></a>
     <p class="h5 main-content-title"><?= $title; ?></p>
     <nav>
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/" data-bs-toggle="tooltip" data-bs-placement="top" title="Главная страница">
+        <li class="breadcrumb-item"><a href="/" data-bs-toggle="tooltip" data-bs-placement="top"
+                                       title="Главная страница">
             <i class="mdi mdi-home-outline"></i>
           </a>
         </li>
@@ -14,7 +17,9 @@
     <div class="workplace-search me-3">
       <input class="form-control" type="text" placeholder="Поиск..." id="workplace-search">
     </div>
-    <button class="btn btn-success ms-2" type="button" id="reportstmenu" data-bs-toggle="dropdown" data-bs-placement="top" title="Отчеты">Отчёты</button>
+    <button class="btn btn-success ms-2" type="button" id="reportstmenu" data-bs-toggle="dropdown"
+            data-bs-placement="top" title="Отчеты">Отчёты
+    </button>
     <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="reportstmenu">
       <li class="dropdown-item">
         <a href="#">Паспорт рабочего места (АРМ)</a>
@@ -39,7 +44,9 @@
       </li>
     </ul>
 
-    <button class="btn btn-success ms-2" type="button" id="catalogmenu" data-bs-toggle="dropdown" data-bs-placement="top" title="Отчеты">Справочники</button>
+    <button class="btn btn-success ms-2" type="button" id="catalogmenu" data-bs-toggle="dropdown"
+            data-bs-placement="top" title="Отчеты">Справочники
+    </button>
     <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="catalogmenu">
       <li class="dropdown-item">
         <a href="#">Устройства</a>
@@ -64,7 +71,8 @@
       </li>
     </ul>
 
-    <button class="btn btn-primary ms-2" type="button" id="contentmenu" data-bs-toggle="dropdown" data-bs-placement="top" title="Меню">
+    <button class="btn btn-primary ms-2" type="button" id="contentmenu" data-bs-toggle="dropdown"
+            data-bs-placement="top" title="Меню">
       <i class="mdi mdi-cog-outline"></i>
     </button>
     <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="contentmenu">
@@ -78,7 +86,9 @@
   <div class="col-4">
     <div class="card">
       <div class="card-header">
-        <button class="btn btn-primary ms-2" type="button" id="addplacemenu" data-bs-toggle="dropdown" data-bs-placement="top" title="Меню">Добавить</button>
+        <button class="btn btn-primary ms-2" type="button" id="addplacemenu" data-bs-toggle="dropdown"
+                data-bs-placement="top" title="Меню">Добавить
+        </button>
         <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="addplacemenu">
           <li class="dropdown-item">
             <a href="#">Здание</a>
@@ -93,7 +103,8 @@
             <a href="#">Рабочее место</a>
           </li>
         </ul>
-        <button class="btn btn-primary ms-2" type="button" id="placemenu" data-bs-toggle="dropdown" data-bs-placement="top" title="Меню">
+        <button class="btn btn-primary ms-2" type="button" id="placemenu" data-bs-toggle="dropdown"
+                data-bs-placement="top" title="Меню">
           <i class="mdi mdi-cog-outline"></i></button>
         <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="placemenu">
           <li class="dropdown-item">

@@ -1,5 +1,7 @@
 <header class="main-content-header">
   <div class="header-left">
+    <a class="btn-back me-3" role="button" data-bs-toggle="tooltip" data-bs-placement="top" title=""
+       data-bs-original-title="Назад" aria-label="Назад"><i class="mdi mdi-24px mdi-arrow-left"></i></a>
     <p class="h5 main-content-title"><?= $title; ?></p>
     <nav>
       <ol class="breadcrumb">
@@ -60,10 +62,12 @@
               <i class="menu-arrow mdi mdi-chevron-right"></i>
             </div>
             <div class="list-group-toolbar">
-              <a class="list-group-toolbutton btnmodal-multiaction" href="?page=proxylist&editGroup=<?= $properties['id']; ?>">
+              <a class="list-group-toolbutton btnmodal-multiaction"
+                 href="?page=proxylist&editGroup=<?= $properties['id']; ?>">
                 <i class="mdi mdi-pencil-outline"></i>
               </a>
-              <a class="list-group-toolbutton btnmodal-multiaction" data-modaction="1" data-link="?page=proxylist&delGroup=<?= $properties['id']; ?>">
+              <a class="list-group-toolbutton btnmodal-multiaction" data-modaction="1"
+                 data-link="?page=proxylist&delGroup=<?= $properties['id']; ?>">
                 <i class="mdi mdi-delete-outline"></i>
               </a>
             </div>
@@ -89,10 +93,12 @@
                          target="_blank"><?= $value_list_array['name_href']; ?></a>
                     </div>
                     <div class="list-group-toolbar">
-                      <a class="list-group-toolbutton btnmodal-multiaction" href="?page=proxylist&editLink=<?= $value_list_array['id']; ?>">
+                      <a class="list-group-toolbutton btnmodal-multiaction"
+                         href="?page=proxylist&editLink=<?= $value_list_array['id']; ?>">
                         <i class="mdi mdi-pencil-outline"></i>
                       </a>
-                      <a class="list-group-toolbutton btnmodal-multiaction" data-modaction="2" data-link="?page=proxylist&delLink=<?= $value_list_array['id']; ?>">
+                      <a class="list-group-toolbutton btnmodal-multiaction" data-modaction="2"
+                         data-link="?page=proxylist&delLink=<?= $value_list_array['id']; ?>">
                         <i class="mdi mdi-delete-outline"></i>
                       </a>
                     </div>

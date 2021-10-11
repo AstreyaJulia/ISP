@@ -69,10 +69,10 @@
 
 			return $arrCategory;
 		}
-		
+
   	}
   }
-  	
+
 
   	// Меняем "-" на  " "
   	public function replaceBash($string) {

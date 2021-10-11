@@ -1,5 +1,8 @@
 <header class="main-content-header">
-  <div class="header-left"><p class="h5 main-content-title"><?= $row->fullname; ?></p>
+  <div class="header-left">
+    <a class="btn-back me-3" role="button" data-bs-toggle="tooltip" data-bs-placement="top" title=""
+       data-bs-original-title="Назад" aria-label="Назад"><i class="mdi mdi-24px mdi-arrow-left"></i></a>
+    <p class="h5 main-content-title"><?= $row->fullname; ?></p>
     <nav>
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/" data-bs-toggle="tooltip" data-bs-placement="top"
@@ -18,7 +21,8 @@
             <label class="form-label" for="login">Логин</label>
 
             <div class="input-group">
-              <input class="form-control" type="text" name="username" value="<?= $row->username; ?>" placeholder="Введите логин"
+              <input class="form-control" type="text" name="username" value="<?= $row->username; ?>"
+                     placeholder="Введите логин"
                      id="login" required disabled>
               <div class="input-group-prepend">
                 <a class="btn btn-primary btn-block" href="?page=user-profile&DropPass">Сброс пароля</a>

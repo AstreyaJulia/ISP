@@ -1,5 +1,8 @@
 <header class="main-content-header">
-  <div class="header-left"><p class="h5 main-content-title">База знаний</p>
+  <div class="header-left">
+    <a class="btn-back me-3" role="button" data-bs-toggle="tooltip" data-bs-placement="top" title=""
+       data-bs-original-title="Назад" aria-label="Назад"><i class="mdi mdi-24px mdi-arrow-left"></i></a>
+    <p class="h5 main-content-title">База знаний</p>
     <nav>
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
@@ -22,18 +25,18 @@
 </div>
 <div class="row faq-cards">
   <p class="h5">Навигация</p>
-  <?php foreach($dir as $key => $value): ?>
-  <div class="col-4">
-    <a class="card faq-card" href="?page=faq&<?= $value['link'] ?>">
-      <div class="row">
-        <div class="col">
-          <div class="card-body">
-            <p class="h5 text-center"><?= $value['itemmenu'] ?></p>
-            <p class="text-center"><?= $value['description'] ?></p>
+  <?php foreach ($dir as $key => $value): ?>
+    <div class="col-4">
+      <a class="card faq-card" href="?page=faq&<?= $value['link'] ?>">
+        <div class="row">
+          <div class="col">
+            <div class="card-body">
+              <p class="h5 text-center"><?= $value['itemmenu'] ?></p>
+              <p class="text-center"><?= $value['description'] ?></p>
+            </div>
           </div>
         </div>
-      </div>
-    </a>
-  </div>
+      </a>
+    </div>
   <?php endforeach ?>
 </div>
