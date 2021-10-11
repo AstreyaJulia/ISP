@@ -816,33 +816,18 @@ a {
   }
 
   .dropdown-menu.usermenu {
-    padding: 20px;
+    padding: 0;
     width: 250px;
 
     .dropdown-item {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 8px 0;
-      color: $secondary;
-
-      &:hover,
-      &:focus {
-        color: $blue;
-        font-weight: 700;
-        background: none;
-        padding-left: 4px;
-      }
+      padding: 10px 20px;
 
       &.btn.btn-primary {
         margin-top: 10px;
-        background-color: $primary;
-        color: $white;
         justify-content: center;
-
-        &:hover {
-          background-color: $primary-dark;
-        }
       }
     }
 
@@ -856,6 +841,8 @@ a {
     .usermenu-header {
       display: flex;
       align-items: center;
+      border-bottom: 1px solid $light;
+      background-color: $lighter;
 
       .user-avatar img {
         width: 40px;

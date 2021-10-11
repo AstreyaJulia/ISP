@@ -55,23 +55,25 @@
              data-bs-toggle="dropdown">
             <i class="mdi mdi-apps"></i>
           </a>
-          <div class="dropdown-menu usermenu dropdown-menu-lg-end" aria-labelledby="usermenu">
-            <div class="usermenu-header">
+          <div class="dropdown-menu usermenu dropdown-menu-lg-end" aria-labelledby="usermenu" data-bs-popper="none">
+            <div class="usermenu-header p-3">
               <a class="user-avatar">
-                <img src="assets/img/avatars/default.svg" width="300" alt="Администратор">
+                <img src="assets/img/avatars/default.svg" alt="Администратор" width="300">
               </a>
               <div class="header-group">
                 <p class="user-name"><span>Привет, </span><?= $_COOKIE['aut']['fullname']; ?></p>
                 <p class="user-login"><a><span>@</span><?= $_COOKIE['aut']['login']; ?></a></p>
               </div>
             </div>
-            <p class="usermenu-category">Мой профиль</p>
+            <p class="usermenu-category p-3 pb-0 pt-0">Мой профиль</p>
             <a class="dropdown-item" href="?page=user-profile">Личная информация</a>
-            <!-- Пока что отключено.
+            <!--
             <a class="dropdown-item" href="#">Уведомления<span class="highlighted">10</span></a>
             <a class="dropdown-item" href="#">Сообщения<span class="highlighted ">5</span></a>
             -->
-            <a class="dropdown-item btn btn-primary" href="?page=user-profile&logOut" name="logOut">Выход</a>
+            <div class="p-3 pt-0">
+              <a class="dropdown-item btn btn-primary" href="?page=user-profile&logOut" name="logOut">Выход</a>
+            </div>
           </div>
         </li>
         <!-- Пока что отключено. Кнопка открытия поиска -->
