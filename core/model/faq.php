@@ -36,7 +36,7 @@
 
   		$path = "components/faq/".array_keys($arr)['1']."/";
 
-  		foreach (scandir($path) as $value) {
+  		foreach (scandir($path) as $key => $value) {
 		  //исключаем из показа системные папки
 		  if (strpos($value, ".") !== 0) {
 		    //разбиваем строку по нижнему подчеркиванию
@@ -45,14 +45,9 @@
 		    $itemmenu = $this->replaceBash($keywords["1"]);//$keywords["1"] Наименование пункта меню.
 		    //проверяем существование описания (иначе при отсутсвии выдает ошибки)
 		    $description = !empty($keywords["2"]) ? $this->replaceBash($keywords["2"]) : "";
-		    $arrCategory[] = [
-		          	'itemmenu' => $itemmenu,
-		          	'description' => $description,
-			      	'arrSection' => []
-			    ];
 
 		    //Форимруем имя и путь к файлу
-		    foreach (scandir("$path$value") as $value_2) {
+		    foreach (scandir("$path$value") as $key_2 => $value_2) {
 		      if (strpos($value_2, ".") !== 0) {
 		        //разбиваем строку по нижнему подчеркиванию
 		        $keywords_2 = preg_split("/[_]+/", $value_2);
@@ -60,13 +55,18 @@
 		        $itemmenu_2 = $this->replaceBash($keywords_2["1"]);//$keywords_2["1"] Наименование файла.
 		        //проверяем существование описания (иначе при отсутсвии выдает ошибки)
 			    $description_2 = !empty($keywords_2["2"]) ? $this->replaceBash($keywords_2["2"]) : "";//$keywords_2["2"] описание файла
-		        $arrSection[] = [
+		        $arrSection[$key][] = [
 			      	'itemmenu_2' => $itemmenu_2,
 			      	'description_2' => $description_2
 			    ];
 			  }
 			}
-
+			$arrCategory[$key] = [
+		      	'itemmenu' => $itemmenu,
+		      	'description' => $description,
+		      	'section' => $arrSection
+		    
+		    ];
 			return $arrCategory;
 		}
 
