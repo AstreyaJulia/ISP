@@ -2067,29 +2067,33 @@ td .badge-big {
 
   .fc {
     .bg-primary-50 {
-      border: 3px solid $primary;
+      border: 3px solid $primary-50;
     }
 
     .bg-success-50 {
-      border: 3px solid $success;
+      border: 3px solid $success-50;
     }
 
     .bg-warning-50 {
-      border: 3px solid $warning;
+      border: 3px solid $warning-50;
     }
 
     .bg-danger-50 {
-      border: 3px solid $danger;
+      border: 3px solid $danger-50;
     }
 
     .bg-info-50 {
-      border: 3px solid $info;
+      border: 3px solid $info-50;
     }
 
     .fc-bg-event {
       border: none;
     }
 
+  }
+
+  .fc-daygrid-body-unbalanced .fc-daygrid-day-events {
+    position: revert;
   }
 
   .fc-daygrid-dot-event {

@@ -41606,22 +41606,25 @@ td .badge-big {
   font-size: 14px;
 }
 .today-calendar .fc .bg-primary-50 {
-  border: 3px solid #5552d9;
+  border: 3px solid rgba(85, 82, 217, 0.5);
 }
 .today-calendar .fc .bg-success-50 {
-  border: 3px solid #00ba88;
+  border: 3px solid rgba(0, 186, 136, 0.5);
 }
 .today-calendar .fc .bg-warning-50 {
-  border: 3px solid #fca549;
+  border: 3px solid rgba(252, 165, 73, 0.5);
 }
 .today-calendar .fc .bg-danger-50 {
-  border: 3px solid #f43c3c;
+  border: 3px solid rgba(244, 60, 60, 0.5);
 }
 .today-calendar .fc .bg-info-50 {
-  border: 3px solid #1CC8EE;
+  border: 3px solid rgba(28, 200, 238, 0.5);
 }
 .today-calendar .fc .fc-bg-event {
   border: none;
+}
+.today-calendar .fc-daygrid-body-unbalanced .fc-daygrid-day-events {
+  position: revert;
 }
 .today-calendar .fc-daygrid-dot-event {
   border-radius: 50%;
