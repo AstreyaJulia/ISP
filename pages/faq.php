@@ -1,28 +1,28 @@
 <?php
-$title = "FAQ";
+
 $faq = new \Core\Model\FAQ();
-$dir = $faq->getCategory('components/faq/');
 
-
-
-  //var_dump( !empty($_GET['1']) ? $_GET[array_keys($_GET)['1']] : "true");
-  /*var_dump( isset(array_keys($_GET)['1']) ? $_GET[array_keys($_GET)['1']] : "true");
-  die();*/
 
 if (isset(array_keys($_GET)['1']) ? $_GET[array_keys($_GET)['1']] : "true") {
+  $title = "FAQ";
+  $dir = $faq->getCategory('components/faq/');
   ob_start();
     include "components/faq/tpl.faq.php";
     $content = ob_get_contents();
   ob_end_clean();
 } else {
-  $title = "FAQ по " . replaceBash(preg_split("/[_]+/", array_keys($_GET)['1'])['1']);
-$path = "components/faq/".array_keys($_GET)['1']."/";
+  $title = "FAQ по " . $faq->getItem($_GET);
+  // формируем путь к серкии 
+  $path = "components/faq/".array_keys($_GET)['1']."/";
+  $pathSection = $faq->getSection($_GET);
 
+/*print_r($pathSection);
+die();  */
 $dir = scandir($path);
 $content = '
   <header class="main-content-header">
     <div class="header-left">
-    <p class="h5 main-content-title">' . replaceBash(preg_split("/[_]+/", array_keys($_GET)['1'])["1"]) . '</p>
+    <p class="h5 main-content-title">' . $faq->getItem($_GET) . '</p>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
@@ -30,7 +30,7 @@ $content = '
           <li class="breadcrumb-item">
           <a href="?page=faq">База знаний</a>
           </li>
-          <li class="breadcrumb-item" aria-current="page">' . replaceBash(preg_split("/[_]+/", array_keys($_GET)['1'])["1"]) . '</li>
+          <li class="breadcrumb-item" aria-current="page">' . $faq->getItem($_GET) . '</li>
         </ol>
       </nav>
     </div>
