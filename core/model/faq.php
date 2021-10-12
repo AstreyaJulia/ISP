@@ -56,16 +56,12 @@
 		        //проверяем существование описания (иначе при отсутсвии выдает ошибки)
 			    $description_2 = !empty($keywords_2["2"]) ? $this->replaceBash($keywords_2["2"]) : "";//$keywords_2["2"] описание файла
 		        $arrSection[$key_2] = [
-		        	'key' => $key,
-		        	'key_2' => $key_2,
+		        	'link' => $path.$value."/".$value_2,
 			      	'itemmenu_2' => $itemmenu_2,
-			      	'description_2' => $description_2
 			    ];
 			    // Собираем многомерный ассоциативный массив
 			    $arrCategory = [
-					'key' => $key,
 			      	'itemmenu' => $itemmenu,
-			      	'description' => $description,
 			      	'section' => $arrSection,
 			    ];
 
@@ -78,7 +74,7 @@
   	}
 
 
-  	// Меняем "-" на  " "
+  	// Меняем "-" на  " " и т.д. по массиву
   	public function replaceBash($string) {
 	  if (isset($string)) {
 	    return str_replace(['-', '.php'], [' ', ''], $string);
