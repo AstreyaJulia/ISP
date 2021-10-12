@@ -15,10 +15,10 @@ if (isset(array_keys($_GET)['1']) ? $_GET[array_keys($_GET)['1']] : "true") {
   // формируем путь к серкии 
   $path = "components/faq/".array_keys($_GET)['1']."/";
   $pathSection = $faq->getSection($_GET);
+/*echo '<pre>';
+print_r($pathSection);
+die();*/
 
-/*print_r($pathSection);
-die();  */
-$dir = scandir($path);
 $content = '
   <header class="main-content-header">
     <div class="header-left">
@@ -49,10 +49,10 @@ $content = '
 <div class="col-3">
 <div class="card">
 <ul class="faq-categories-list">';
-foreach ($dir as $value) {
+foreach (scandir($path) as $key => $value) {
   $content .= '<li class="faq-category">';
   //исключаем из показа системные папки и файл index.php
-  if (strpos($value, ".") !== 0 and strpos($value, "index") !== 0) {
+  if (strpos($value, ".") !== 0 ) {
     //разбиваем строку по нижнему подчеркиванию
     $keywords = preg_split("/[_]+/", $value);
     //$keywords["0"] для сортировки
