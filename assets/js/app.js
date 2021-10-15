@@ -144,6 +144,7 @@ const cookieID = getCookie('aut[id]');
 // url - ссылка на скрипт/страницу; data - данные для передачи; type - GET или POST;
 // success - ф-я к-рая выполняется в случае успешного запроса;
 // successparams - параметры для передачи в ф-ю success
+/*
 function ajaxQuery(url, data, type, success, successparams) {
 
   $.ajax({
@@ -178,6 +179,67 @@ function ajaxQuery(url, data, type, success, successparams) {
     }
   });
 }
+*/
+
+// Ajax
+function ajaxQuery(url, data, method, success, successparams) {
+
+  let xhr;
+  try {
+       //Firefox, Opera 8.0+, Safari
+       xhr = new XMLHttpRequest();
+  } catch( e ) {
+       //Internet Explorer
+       try {
+        xhr = new ActiveXObject( "Msxml2.XMLHTTP" );
+       } catch( e ) {
+            try {
+              xhr = new ActiveXObject( "Microsoft.XMLHTTP" );
+            } catch( e ) {
+                 alert( "Ваш браузер не поддерживает AJAX!" );
+                 return false;
+            }
+       }
+  }
+  xhr.onreadystatechange = function() {
+    let status = xhr.status;
+    if( xhr.readyState === XMLHttpRequest.DONE && status === 200 ) {
+            // все ок
+          } else if( xhr.readyState === ((XMLHttpRequest.DONE || XMLHttpRequest.HEADERS_RECEIVED) && (status))) {
+            // ошибки
+            let header;
+            switch (status) {
+              case 404:
+                header = "Запрашиваемая страница не найдена [404]";
+                  break;
+             case 500:
+              header = "Внутренняя ошибка сервера [500]";
+                  break;
+         }
+
+
+          }
+  }
+  switch (method) {
+        case "GET":
+          xhr.open
+            (
+              'GET', url + '?' + data, true
+              );
+              xhr.send();
+            break;
+       case "POST":
+        xhr.open
+            (
+              'POST', url, true
+              );
+              xhr.setRequestHeader("Content-type", "application/json;odata=nometadata");
+              xhr.setRequestHeader("Content-length", data.length);
+              xhr.setRequestHeader("Connection", "close");
+              xhr.send(data);
+            break;
+   }
+}
 
 // Общие
 
@@ -211,15 +273,15 @@ const buttonsidebartoggleHandler = (evt) => {
     sidebarwrapper.dataset.sidebarWidth = "wide";
     $.ajax(
       {
-        url: "components/fullcalendar/events.php",
+        url: "pages/admin/ajax.php",
         type: "POST",
-        dataType: "json",
+        //dataType: "json",
         data: {
+          module: "sidebar",
           sidebarWidth: "wide",
         },
-        success: function () {
-          stop();
-        },
+        /*success: function () {
+        },*/
         error: function (jqXHR, textStatus, errorThrown, exception) {
           let header;
           if (jqXHR.status === 0) {
@@ -245,15 +307,15 @@ const buttonsidebartoggleHandler = (evt) => {
     sidebarwrapper.dataset.sidebarWidth = "narrow";
     $.ajax(
       {
-        url: "components/fullcalendar/events.php",
+        url: "pages/admin/ajax.php",
         type: "POST",
-        dataType: "json",
+        //dataType: "json",
         data: {
+          module: "sidebar",
           sidebarWidth: "narrow",
         },
-        success: function () {
-          stop();
-        },
+        /*success: function () {
+        },*/
         error: function (jqXHR, textStatus, errorThrown, exception) {
           let header;
           if (jqXHR.status === 0) {

@@ -17,9 +17,3 @@
 <script src="assets/modules/moment-timezone/main.global.js"></script>
 <script src="assets/modules/rrule/main.global.js"></script>
 <script src="assets/js/app.js"></script>
-<?php
-	$path = "assets/js/$page.js";
-	if (file_exists($path)){
-		echo '<script src="'.$path.'"></script>';
-	}
-?>

@@ -25,7 +25,10 @@
 	    	}
 	 	}
 
-	    
+		public function setUpd($sidebar, $id) {
+	      $sql = "UPDATE `sdc_users` SET `sidebar` = $sidebar WHERE `id` = $id";
+	      return $this->db->run($sql);
+	    }	    
 		
 
 
