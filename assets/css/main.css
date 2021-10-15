@@ -39911,13 +39911,6 @@ html {
   overflow: hidden;
 }
 
-/*body {
-  @media (min-width: 1360px) and (max-width: 1920px) {
-    width: 1280px;
-    margin: 0 auto;
-    box-shadow: $grey-shadow-6;
-  }
-}*/
 h1, .h1,
 h2,
 .h2,
@@ -40056,19 +40049,19 @@ td:last-child {
   overflow: hidden;
   font-family: "TT Norms Pro", "Arial", sans-serif;
 }
-.page-body.disabled .main-sidebar {
+.page-body[data-sidebar-width=narrow] .main-sidebar {
   width: 75px;
   transition: all 0.3s ease;
 }
-.page-body.disabled .main-content:not(.auth):not(.err404) {
+.page-body[data-sidebar-width=narrow] .main-content:not(.auth):not(.err404) {
   margin-left: 75px;
   transition: all 0.3s ease;
 }
-.page-body:not(.disabled) .main-sidebar {
+.page-body:not([data-sidebar-width=narrow]) .main-sidebar {
   width: 270px;
   transition: all 0.3s ease;
 }
-.page-body:not(.disabled) .main-content:not(.auth):not(.err404) {
+.page-body:not([data-sidebar-width=narrow]) .main-content:not(.auth):not(.err404) {
   margin-left: 270px;
   transition: all 0.3s ease;
 }
@@ -40329,12 +40322,12 @@ td:last-child {
   font-size: 24px;
 }
 
-.page-body.disabled .main-sidebar span,
-.page-body.disabled .main-sidebar .sidebar-footer {
+.page-body[data-sidebar-width=narrow] .main-sidebar span,
+.page-body[data-sidebar-width=narrow] .main-sidebar .sidebar-footer {
   display: none;
 }
 
-.page-body.disabled .main-sidebar .submenu-item {
+.page-body[data-sidebar-width=narrow] .main-sidebar .submenu-item {
   padding: 0;
 }
 
@@ -40478,7 +40471,7 @@ td:last-child {
   transition: transform 0.5s ease;
 }
 
-.page-body.disabled .main-sidebar .menu-arrow {
+.page-body[data-sidebar-width=narrow] .main-sidebar .menu-arrow {
   right: -9px;
 }
 

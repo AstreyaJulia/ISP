@@ -82,15 +82,6 @@ html {
   overflow: hidden;
 }
 
-// Центрованный макет
-/*body {
-  @media (min-width: 1360px) and (max-width: 1920px) {
-    width: 1280px;
-    margin: 0 auto;
-    box-shadow: $grey-shadow-6;
-  }
-}*/
-
 h1,
 h2,
 h3,
@@ -233,12 +224,12 @@ a {
   overflow: hidden;
   font-family: "TT Norms Pro", "Arial", sans-serif;
 
-  &.disabled .main-sidebar {
+  &[data-sidebar-width="narrow"]  .main-sidebar {
     width: $sidebar-width-min;
     transition: all 0.3s ease;
   }
 
-  &.disabled {
+  &[data-sidebar-width="narrow"] {
     .main-content:not(.auth):not(.err404) {
       //width: calc(100% - #{$sidebar-width-min});
       margin-left: $sidebar-width-min;
@@ -247,14 +238,13 @@ a {
 
   }
 
-  &:not(.disabled) {
+  &:not([data-sidebar-width="narrow"]) {
     .main-sidebar {
       width: $sidebar-width-max;
       transition: all 0.3s ease;
     }
 
     .main-content:not(.auth):not(.err404) {
-      //width: calc(100% - #{$sidebar-width-max});
       margin-left: $sidebar-width-max;
       transition: all 0.3s ease;
     }
@@ -558,12 +548,12 @@ a {
 
 // Сайдбар
 
-.page-body.disabled .main-sidebar span,
-.page-body.disabled .main-sidebar .sidebar-footer {
+.page-body[data-sidebar-width="narrow"] .main-sidebar span,
+.page-body[data-sidebar-width="narrow"] .main-sidebar .sidebar-footer {
   display: none;
 }
 
-.page-body.disabled .main-sidebar .submenu-item {
+.page-body[data-sidebar-width="narrow"] .main-sidebar .submenu-item {
   padding: 0;
 }
 
@@ -741,7 +731,7 @@ a {
   transition: transform 0.5s ease;
 }
 
-.page-body.disabled .main-sidebar .menu-arrow {
+.page-body[data-sidebar-width="narrow"] .main-sidebar .menu-arrow {
   right: -9px;
 }
 

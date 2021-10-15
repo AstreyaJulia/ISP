@@ -47,8 +47,12 @@ CREATE TABLE `sdc_calendar` (
   `bysetpos` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Дамп данных таблицы `sdc_users`
+--
 
--- --------------------------------------------------------
+INSERT INTO `sdc_users` (`id`, `username`, `password`, `active`, `primary_group`, `sudo`, `sidebar`, `theme`) VALUES
+(1, 'chainik', '$2y$10$ajAnKFrS/4p4Vc3IWZCfwug2HOVWoN6mf0/IeltVpaT3R7lJq21N2', 1, 3, 1, 0, 0);
 
 --
 -- Структура таблицы `sdc_proxy_list`
@@ -62,9 +66,6 @@ CREATE TABLE `sdc_proxy_list` (
   `href` varchar(200) NOT NULL DEFAULT '',
   `proxy_href` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
--- --------------------------------------------------------
 
 --
 -- Структура таблицы `sdc_room`
@@ -90,11 +91,10 @@ CREATE TABLE `sdc_users` (
   `password` varchar(255) NOT NULL DEFAULT '',
   `active` tinyint(1) UNSIGNED NOT NULL DEFAULT 1,
   `primary_group` int(10) UNSIGNED NOT NULL DEFAULT 0,
-  `sudo` tinyint(1) UNSIGNED NOT NULL DEFAULT 0
+  `sudo` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
+  `sidebar` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
+  `theme` int(1) UNSIGNED NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
--- --------------------------------------------------------
 
 --
 -- Структура таблицы `sdc_user_attributes`
@@ -124,6 +124,10 @@ CREATE TABLE `sdc_user_attributes` (
 -- Дамп данных таблицы `sdc_user_attributes`
 --
 
+INSERT INTO `sdc_user_attributes` (`id`, `internalKey`, `fullname`, `gender`, `dob`, `email`, `mobilephone`, `zip`, `state`, `city`, `address`, `photo`, `comment`, `website`, `profession`, `affiliation`, `room`) VALUES
+(1, 1, 'Супер Админ ИСП', 1, '1987-01-31', 'admin@net.ru', '+7(007)', '215500', '67', 'Сафоново', 'серверная в суде', 'assets/img/avatars/default.svg', 'Учетная запись супер-пользователя', 'sudrf.ru/superadmin)', '', '', NULL);
+
+
 --
 -- Структура таблицы `sdc_visits`
 --
@@ -136,10 +140,6 @@ CREATE TABLE `sdc_visits` (
   `REQUEST_URI` varchar(200) NOT NULL,
   `HTTP_REFERER` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Дамп данных таблицы `sdc_visits`
---
 
 --
 -- Индексы сохранённых таблиц
@@ -210,13 +210,13 @@ ALTER TABLE `sdc_room`
 -- AUTO_INCREMENT для таблицы `sdc_users`
 --
 ALTER TABLE `sdc_users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT для таблицы `sdc_user_attributes`
 --
 ALTER TABLE `sdc_user_attributes`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT для таблицы `sdc_visits`

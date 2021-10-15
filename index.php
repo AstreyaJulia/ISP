@@ -28,7 +28,8 @@ if (isset($_GET["page"])) {
 //проверяем наличие куки аторизации
 if (isset($_COOKIE['aut'])) {
     /*--------------------------------------*/
-
+    $user = new \Core\Model\User($db);
+    $sirebar = $user->getSirebar($_COOKIE['aut']['id']);
 
     if (file_exists($path) and $page != "404" and $page != "autorization") {
         $content_page = file_get_contents($path);
@@ -50,5 +51,4 @@ if (isset($_COOKIE['aut'])) {
 
 //Логирование
 $visits->startVizits($_SERVER, $_COOKIE);
-
 echo '<div style="text-align:right;">Время выполнения скрипта: '.(microtime(true) - $start).' сек.</div>';

@@ -9,7 +9,7 @@ if (file_exists($path)) {
   echo "не подключен: elements/head.php";
 }
 ?>
-<body class="page-body">
+<body class="page-body" data-sidebar-width="<?= $sirebar ?>">
 <div class="page-wrapper">
   <?php
   //подключаем header

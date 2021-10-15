@@ -205,8 +205,77 @@ const sidebartogglbutton = document.querySelector('.sidebar-toggle-button');
 // Тело страницы, класс .main-sidebar
 const sidebarwrapper = document.querySelector('.page-body');
 
-const buttonsidebartoggleHandler = () => {
-  sidebarwrapper.classList.toggle('disabled');
+const buttonsidebartoggleHandler = (evt) => {
+  evt.preventDefault();
+  if (sidebarwrapper.dataset.sidebarWidth === "narrow") {
+    sidebarwrapper.dataset.sidebarWidth = "wide";
+    $.ajax(
+      {
+        url: "components/fullcalendar/events.php",
+        type: "POST",
+        dataType: "json",
+        data: {
+          sidebarWidth: "wide",
+        },
+        success: function () {
+          stop();
+        },
+        error: function (jqXHR, textStatus, errorThrown, exception) {
+          let header;
+          if (jqXHR.status === 0) {
+            header = 'Не подключено. Проверьте сеть';
+          } else if (jqXHR.status === 404) {
+            header = 'Запрашиваемая страница не найдена [404]';
+          } else if (jqXHR.status === 500) {
+            header = 'Внутренняя ошибка сервера [500]';
+          } else if (exception === 'parsererror') {
+            header = 'Запрос синтаксического анализа JSON завершился неудачно';
+          } else if (exception === 'timeout') {
+            header = 'Ошибка тайм-аута';
+          } else if (exception === 'abort') {
+            header = 'Ajax запрос прерван';
+          } else {
+            header = 'Неперехваченная ошибка';
+          }
+          showErrorToast(header, textStatus + errorThrown + jqXHR.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
+        }
+      }
+    );
+  } else if (sidebarwrapper.dataset.sidebarWidth === "wide") {
+    sidebarwrapper.dataset.sidebarWidth = "narrow";
+    $.ajax(
+      {
+        url: "components/fullcalendar/events.php",
+        type: "POST",
+        dataType: "json",
+        data: {
+          sidebarWidth: "narrow",
+        },
+        success: function () {
+          stop();
+        },
+        error: function (jqXHR, textStatus, errorThrown, exception) {
+          let header;
+          if (jqXHR.status === 0) {
+            header = 'Не подключено. Проверьте сеть';
+          } else if (jqXHR.status === 404) {
+            header = 'Запрашиваемая страница не найдена [404]';
+          } else if (jqXHR.status === 500) {
+            header = 'Внутренняя ошибка сервера [500]';
+          } else if (exception === 'parsererror') {
+            header = 'Запрос синтаксического анализа JSON завершился неудачно';
+          } else if (exception === 'timeout') {
+            header = 'Ошибка тайм-аута';
+          } else if (exception === 'abort') {
+            header = 'Ajax запрос прерван';
+          } else {
+            header = 'Неперехваченная ошибка';
+          }
+          showErrorToast(header, textStatus + errorThrown + jqXHR.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
+        }
+      }
+    );
+  }
 };
 
 
@@ -1453,9 +1522,9 @@ const calendmodulehandler = () => {
 
     // Разные даты начала и конца события для создаваемых событий при нажатии на кнопку создания и на день
     if (info == null) {
-      const date = moment().format('YYYY-MM-DD HH:mm');
-      $(startDate).val(date);
-      $(endDate).val(date);
+      //const date = moment().format('YYYY-MM-DD HH:mm');
+      $(startDate).val("");
+      $(endDate).val("");
     } else {
       const date = moment(info.date).format('YYYY-MM-DD HH:mm');
       $(startDate).val(date);
@@ -2982,7 +3051,9 @@ const init = () => {
 
   // Прослушивание нажатия кнопки .sidebar-toggle-button
   if (sidebartogglbutton && sidebarwrapper) {
-    sidebartogglbutton.addEventListener('click', buttonsidebartoggleHandler);
+    sidebartogglbutton.addEventListener('click', (evt) => {
+      buttonsidebartoggleHandler(evt);
+    });
   }
 
   // Прослушивание нажатия кнопки .top-search-button-toggle

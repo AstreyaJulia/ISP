@@ -30,7 +30,7 @@
     <div class="left-header">
       <ul class="nav">
         <li class="btn-group nav-item">
-          <a href="#" class="waves-effect waves-light nav-link sidebar-toggle-button" title="Свернуть / развернуть меню">
+          <a class="waves-effect waves-light nav-link sidebar-toggle-button" title="Свернуть / развернуть меню">
             <i class="nav-link-icon mdi mdi-menu"></i>
           </a>
         </li>
@@ -72,7 +72,7 @@
             <a class="dropdown-item" href="#">Сообщения<span class="highlighted ">5</span></a>
             -->
             <div class="p-3 pt-0">
-              <a class="dropdown-item btn btn-primary" href="?page=user-profile&logOut" name="logOut">Выход</a>
+              <a class="dropdown-item btn btn-primary" href="?page=user-profile&logOut">Выход</a>
             </div>
           </div>
         </li>
