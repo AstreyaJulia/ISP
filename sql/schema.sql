@@ -51,8 +51,6 @@ CREATE TABLE `sdc_calendar` (
 -- Дамп данных таблицы `sdc_users`
 --
 
-INSERT INTO `sdc_users` (`id`, `username`, `password`, `active`, `primary_group`, `sudo`, `sidebar`, `theme`) VALUES
-(1, 'chainik', '$2y$10$ajAnKFrS/4p4Vc3IWZCfwug2HOVWoN6mf0/IeltVpaT3R7lJq21N2', 1, 3, 1, 0, 0);
 
 --
 -- Структура таблицы `sdc_proxy_list`
@@ -95,6 +93,10 @@ CREATE TABLE `sdc_users` (
   `sidebar` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
   `theme` int(1) UNSIGNED NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+INSERT INTO `sdc_users` (`id`, `username`, `password`, `active`, `primary_group`, `sudo`, `sidebar`, `theme`) VALUES
+  (1, 'chainik', '$2y$10$ajAnKFrS/4p4Vc3IWZCfwug2HOVWoN6mf0/IeltVpaT3R7lJq21N2', 1, 3, 1, 0, 0);
 
 --
 -- Структура таблицы `sdc_user_attributes`
