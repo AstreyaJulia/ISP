@@ -52,8 +52,7 @@ const copy = () => {
   return gulp.src([
       "src/assets/fonts/*.{woff2,woff}",
       "src/assets/modules/**/*.{js,map,css,json}",
-      "src/assets/js/app.js",
-      "src/assets/js/weather.min.js"
+      "src/assets/js/app.js"
     ],
     {
       base: "src/assets/"

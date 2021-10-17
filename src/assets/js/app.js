@@ -2992,25 +2992,112 @@ const tasksHandler = () => {
 
 // Погодный виджет
 const weatherHandler = () => {
-  const script = document.createElement("script");
-  script.src = "assets/js/weather.min.js";
-  script.defer = true;
-  script.onload = function () {
-    new MeteonovaInf({
-      type: "88_31_2",
-      cities: ["26686"],
-      scheme: {
-        "border_radius": "4px",
-        "box_shadow": "none",
-        "border_color": "#e9ecef",
-        "background_color": "transparent",
-        "city_color": "#343a40",
-        "main_color": "#495057",
-        "params_color": "#868e96"
+  const city = "Safonovo";
+  const cityrus = "Сафоново";
+  const apikey = "0590d73840a4e5980796c90f4f20e0a4";
+  const data = null;
+  const xhr = new XMLHttpRequest();
+  const states = {
+    200: "гроза с небольшим дождем",
+    201: "гроза с дождем",
+    202: "гроза с сильным дождем",
+    210: "небольшая гроза",
+    212: "сильная гроза",
+    221: "очень сильная гроза",
+    230: "гроза с мелким дождем",
+    231: "гроза с средним дождем",
+    232: "гроза с сильным дождем",
+    300: "слабая морось",
+    301: "морось",
+    302: "сильная морось",
+    310: "слабый моросящий дождь",
+    311: "моросящий дождь",
+    312: "сильный моросящий дождь",
+    313: "ливневый дождь и морось",
+    314: "ливневый дождь и изморось",
+    321: "ливень",
+    500: "небольшой дождь",
+    501: "умеренный дождь",
+    502: "сильный дождь",
+    503: "очень сильный дождь",
+    504: "сильный дождь",
+    511: "ледяной дождь",
+    520: "слабый ливневый дождь",
+    521: "ливень",
+    522: "сильный ливневый дождь",
+    531: "частично ливневый дождь",
+    600: "легкий снег",
+    601: "снег",
+    602: "сильный снегопад",
+    611: "мокрый снег",
+    612: "слабый мокрый снег",
+    613: "ливень с мокрым снегом",
+    615: "небольшой дождь и снег",
+    616: "дождь со снегом",
+    620: "небольшой снегопад",
+    621: "снегопад",
+    622: "сильный снегопад",
+    701: "туман",
+    711: "дым",
+    721: "дымка",
+    731: "песчано-пыльные вихри",
+    741: "туман",
+    751: "песок",
+    761: "пыль",
+    762: "вулканический пепел",
+    771: "шквал",
+    781: "смерч",
+    800: "безоблачно",
+    801: "небольшая облачность: 11-25%",
+    802: "средняя облачность: 25-50%",
+    803: "высокая облачность: 51-84%",
+    804: "очень высокая облачность: 85-100%",
+  }
+
+  xhr.addEventListener("readystatechange", function () {
+    if (xhr.readyState === xhr.DONE) {
+      if (xhr.status === 200) {
+        let response = JSON.parse(xhr.response);
+        let weather = {
+          state: "",
+          icon: "",
+          temp_min: "",
+          temp_max: "",
+        };
+        weather.state = states[response.weather[0].id];
+        weather.icon = "assets/img/icons/weather/" + response.weather[0].icon + ".svg";
+        weather.temp_min = Math.round(response.main.feels_like - 273.15);
+        /*weather.temp_min = Math.round(response.main.temp_min - 273.15);*/
+        weather.temp_max = Math.round(response.main.temp_max - 273.15);
+
+        if (weather.temp_min > 0) {
+          weather.temp_min = "+" + weather.temp_min + '°';
+        } else {
+          weather.temp_min = weather.temp_min + '°';
+        }
+        if (weather.temp_max > 0) {
+          weather.temp_max = "+" + weather.temp_max + '°';
+        } else {
+          weather.temp_max = weather.temp_max + '°';
+        }
+        const weatherInner =
+          `<div class="d-flex align-items-center justify-content-center">
+              <div class="d-flex flex-column justify-content-center me-2">
+              <p class="m-0" style="font-size: 13px;">` + cityrus + `</p>
+              <p class="m-0" style="font-size: 13px;">` + weather.temp_min + ` .. ` + weather.temp_max + `</p>
+              </div>
+              <img src="` + weather.icon + `" width="35px" height="35px" alt="` + weather.state + `" title="` + weather.state + `">
+            </div>`;
+        document.querySelector('.weather-info').innerHTML = '';
+        document.querySelector('.weather-info').insertAdjacentHTML('beforeend', weatherInner);
       }
-    });
-  };
-  document.getElementsByTagName("head")[0].appendChild(script);
+    }
+  });
+
+  let url = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apikey;
+  xhr.open("GET", url);
+
+  xhr.send(data);
 }
 
 // Слайдер

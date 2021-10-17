@@ -40590,14 +40590,6 @@ td:last-child {
   font-size: 16px;
 }
 
-.weather-info {
-  display: flex;
-  position: relative;
-  border: 0;
-  margin: 5px 5px 5px 10px;
-  text-decoration: none;
-}
-
 .list-tab-group {
   display: flex;
   flex-direction: row;

@@ -47,8 +47,7 @@
         </li>
         <!-- Виджет погоды -->
         <li>
-          <a class="weather-info" id="meteonova_inf_88_31_2_26686" href="//www.meteonova.ru/weather/26686-Saphonovo.htm"
-             title="Погода в Сафоново"></a>
+          <div class="weather-info ms-2 me-2"></div>
         </li> <!-- Виджет погоды. Конец -->
         <li class="dropdown nav-item">
           <a class="nav-link dropdown-toggle usermenu waves-effect waves-light no-carret" id="usermenu"
