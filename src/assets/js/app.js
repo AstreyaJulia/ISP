@@ -430,8 +430,11 @@ if (listgroupmenu && tablistgroupmenu) {
     }
   };
   // Устанавливает класс active первой из найденных ссылок и табов
-  listgroup[0].classList.add("active");
-  tablistgroup[0].classList.add("active");
+  if (listgroup[0] && tablistgroup[0]) {
+    listgroup[0].classList.add("active");
+    tablistgroup[0].classList.add("active");
+  }
+
   // Прослушивание нажатия нажатия на ссылки списка ссылок .list-group
   listgroupmenu.addEventListener('click', (evt) => {
     listgroupitemClickHandler(evt);
