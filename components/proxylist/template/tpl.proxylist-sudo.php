@@ -14,14 +14,15 @@
     </nav>
   </div>
   <div class="header-right">
-    <button class="btn btn-primary" type="button" id="contentmenu" data-bs-toggle="dropdown" data-bs-placement="top"
-            title="Меню">
-      <i class="mdi mdi-cog-outline"></i>
-    </button>
-    <form method="post" class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="contentmenu">
-      <button type="submit" class="btn btn-primary" name="editGroup" value="add">Группу</button>
+    <form method="post" class="me-3">
+      <button type="submit" class="btn btn-primary me-2" name="editGroup" value="add">Группу</button>
       <button type="submit" class="btn btn-primary" name="editLink" value="add">Ссылку</button>
     </form>
+
+    <!-- <button class="btn btn-primary" type="button" id="contentmenu" data-bs-toggle="dropdown" data-bs-placement="top"
+            title="Меню">
+      <i class="mdi mdi-cog-outline"></i>
+    </button> -->
   </div>
 </header>
 <div class="card list-tab-group">
@@ -41,8 +42,8 @@
             <p class="text-2" style="display: block">Вы уверены, что хотите удалить ссылку?</p>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary btn-discard" data-bs-dismiss="modal">Нет</button>
-            <a class="btn btn-danger btn-del">Да</a>
+            <button type="button" class="btn btn-primary btn-discard me-3" data-bs-dismiss="modal">Нет</button>
+            <a class="btn btn-outline-danger btn-del">Да</a>
           </div>
         </form>
       </div>

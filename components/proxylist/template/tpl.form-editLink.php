@@ -48,7 +48,7 @@
       <div class="form-group">
         <label class="form-label" for="url">Адрес (URL) ссылки</label>
         <input class="form-control" type="url" id="url" value="<?= $row->href; ?>"
-               placeholder="Например: http://google.com" name="href"
+               placeholder="Например: https://google.com" name="href"
                autocomplete="off" required>
       </div>
 
@@ -58,12 +58,11 @@
                   placeholder="Введите адреса или домены сайтов для списка разрешенных сайтов Ccproxy, разделяя записи точкой с запятой - ; без разделения записи пробелами. Например: *google.com;*google.com;"><?= $row->proxy_href; ?></textarea>
       </div>
     </div>
-</div>
-<div class="card-footer">
-  <div class="button-group d-flex align-items-center justify-content-end">
-    <button type="submit" class="btn btn-primary" name="editLink" value="add">Сохранить</button>
-    <button type="button" class="btn btn-danger btn-back">Отмена</button>
-  </div>
-</div>
-</form>
+    <div class="card-footer">
+      <div class="button-group d-flex align-items-center justify-content-end">
+        <button type="submit" class="btn btn-primary me-3" name="editLink" value="add">Сохранить</button>
+        <button type="button" class="btn btn-outline-danger btn-back">Отмена</button>
+      </div>
+    </div>
+  </form>
 </div>
