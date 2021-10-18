@@ -60,6 +60,7 @@
 // Шрифты
 @import "fonts";
 @import "../../../node_modules/@mdi/font/scss/materialdesignicons";
+@import "weather-icons";
 // Пользовательские стили
 @import "mixin";
 @import "waves";
@@ -4842,5 +4843,17 @@ THEMES:
     &:first-child {
       margin-top: 0;
     }
+  }
+}
+
+.weather-info {
+  i {
+    color: $secondary;
+  }
+  &:hover {
+    text-decoration: none;
+  }
+  p:hover, i:hover {
+    text-decoration: none;
   }
 }

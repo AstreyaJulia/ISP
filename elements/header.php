@@ -47,7 +47,7 @@
         </li>
         <!-- Виджет погоды -->
         <li>
-          <div class="weather-info ms-2 me-2"></div>
+          <div class="weather-info ms-3 me-3"></div>
         </li> <!-- Виджет погоды. Конец -->
         <li class="dropdown nav-item">
           <a class="nav-link dropdown-toggle usermenu waves-effect waves-light no-carret" id="usermenu"

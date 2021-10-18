@@ -186,59 +186,59 @@ function ajaxQuery(url, data, method, success, successparams) {
 
   let xhr;
   try {
-       //Firefox, Opera 8.0+, Safari
-       xhr = new XMLHttpRequest();
-  } catch( e ) {
-       //Internet Explorer
-       try {
-        xhr = new ActiveXObject( "Msxml2.XMLHTTP" );
-       } catch( e ) {
-            try {
-              xhr = new ActiveXObject( "Microsoft.XMLHTTP" );
-            } catch( e ) {
-                 alert( "Ваш браузер не поддерживает AJAX!" );
-                 return false;
-            }
-       }
+    //Firefox, Opera 8.0+, Safari
+    xhr = new XMLHttpRequest();
+  } catch (e) {
+    //Internet Explorer
+    try {
+      xhr = new ActiveXObject("Msxml2.XMLHTTP");
+    } catch (e) {
+      try {
+        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+      } catch (e) {
+        alert("Ваш браузер не поддерживает AJAX!");
+        return false;
+      }
+    }
   }
-  xhr.onreadystatechange = function() {
+  xhr.onreadystatechange = function () {
     let status = xhr.status;
-    if( xhr.readyState === XMLHttpRequest.DONE && status === 200 ) {
-            // все ок
-          } else if( xhr.readyState === ((XMLHttpRequest.DONE || XMLHttpRequest.HEADERS_RECEIVED) && (status))) {
-            // ошибки
-            let header;
-            switch (status) {
-              case 404:
-                header = "Запрашиваемая страница не найдена [404]";
-                  break;
-             case 500:
-              header = "Внутренняя ошибка сервера [500]";
-                  break;
-         }
+    if (xhr.readyState === XMLHttpRequest.DONE && status === 200) {
+      // все ок
+    } else if (xhr.readyState === ((XMLHttpRequest.DONE || XMLHttpRequest.HEADERS_RECEIVED) && (status))) {
+      // ошибки
+      let header;
+      switch (status) {
+        case 404:
+          header = "Запрашиваемая страница не найдена [404]";
+          break;
+        case 500:
+          header = "Внутренняя ошибка сервера [500]";
+          break;
+      }
 
 
-          }
+    }
   }
   switch (method) {
-        case "GET":
-          xhr.open
-            (
-              'GET', url + '?' + data, true
-              );
-              xhr.send();
-            break;
-       case "POST":
-        xhr.open
-            (
-              'POST', url, true
-              );
-              xhr.setRequestHeader("Content-type", "application/json;odata=nometadata");
-              xhr.setRequestHeader("Content-length", data.length);
-              xhr.setRequestHeader("Connection", "close");
-              xhr.send(data);
-            break;
-   }
+    case "GET":
+      xhr.open
+      (
+        'GET', url + '?' + data, true
+      );
+      xhr.send();
+      break;
+    case "POST":
+      xhr.open
+      (
+        'POST', url, true
+      );
+      xhr.setRequestHeader("Content-type", "application/json;odata=nometadata");
+      xhr.setRequestHeader("Content-length", data.length);
+      xhr.setRequestHeader("Connection", "close");
+      xhr.send(data);
+      break;
+  }
 }
 
 // Общие
@@ -909,7 +909,7 @@ const calendmodulehandler = () => {
           // Ежемесячно
           Event.freq = 'MONTHLY';
           // Проверяем чекбоксы
-            // Последний день
+          // Последний день
           if ($(lastdmonth).prop('checked')) {
             Event.byweekday = 'MO, TU, WE, TH, FR, SA, SU';
             Event.bysetpos = '-1';
@@ -1744,7 +1744,7 @@ const calendmodulehandler = () => {
           // Ежемесячно
           Event.freq = 'MONTHLY';
           // Проверяем чекбоксы
-            // Последний день
+          // Последний день
           if ($(lastdmonth).prop('checked')) {
             Event.byweekday = 'MO, TU, WE, TH, FR, SA, SU';
             Event.bysetpos = '-1';
@@ -2998,60 +2998,60 @@ const weatherHandler = () => {
   const data = null;
   const xhr = new XMLHttpRequest();
   const states = {
-    200: "гроза с небольшим дождем",
-    201: "гроза с дождем",
-    202: "гроза с сильным дождем",
-    210: "небольшая гроза",
-    212: "сильная гроза",
-    221: "очень сильная гроза",
-    230: "гроза с мелким дождем",
-    231: "гроза с средним дождем",
-    232: "гроза с сильным дождем",
-    300: "слабая морось",
-    301: "морось",
-    302: "сильная морось",
-    310: "слабый моросящий дождь",
-    311: "моросящий дождь",
-    312: "сильный моросящий дождь",
-    313: "ливневый дождь и морось",
-    314: "ливневый дождь и изморось",
-    321: "ливень",
-    500: "небольшой дождь",
-    501: "умеренный дождь",
-    502: "сильный дождь",
-    503: "очень сильный дождь",
-    504: "сильный дождь",
-    511: "ледяной дождь",
-    520: "слабый ливневый дождь",
-    521: "ливень",
-    522: "сильный ливневый дождь",
-    531: "частично ливневый дождь",
-    600: "легкий снег",
-    601: "снег",
-    602: "сильный снегопад",
-    611: "мокрый снег",
-    612: "слабый мокрый снег",
-    613: "ливень с мокрым снегом",
-    615: "небольшой дождь и снег",
-    616: "дождь со снегом",
-    620: "небольшой снегопад",
-    621: "снегопад",
-    622: "сильный снегопад",
-    701: "туман",
-    711: "дым",
-    721: "дымка",
-    731: "песчано-пыльные вихри",
-    741: "туман",
-    751: "песок",
-    761: "пыль",
-    762: "вулканический пепел",
-    771: "шквал",
-    781: "смерч",
-    800: "безоблачно",
-    801: "небольшая облачность: 11-25%",
-    802: "средняя облачность: 25-50%",
-    803: "высокая облачность: 51-84%",
-    804: "очень высокая облачность: 85-100%",
+    200: {"desc": "гроза с небольшим дождем", "day": "wi-day-thunderstorm", "night": "wi-night-alt-thunderstorm",},
+    201: {"desc": "гроза с дождем", "day": "wi-day-thunderstorm", "night": "wi-night-alt-thunderstorm",},
+    202: {"desc": "гроза с сильным дождем", "day": "wi-day-thunderstorm", "night": "wi-night-alt-thunderstorm",},
+    210: {"desc": "небольшая гроза", "day": "wi-day-lightning", "night": "wi-night-alt-lightning",},
+    212: {"desc": "сильная гроза", "day": "wi-day-lightning", "night": "wi-night-alt-lightning",},
+    221: {"desc": "очень сильная гроза", "day": "wi-day-lightning", "night": "wi-night-alt-lightning",},
+    230: {"desc": "гроза с мелким дождем", "day": "wi-day-thunderstorm", "night": "wi-night-alt-thunderstorm",},
+    231: {"desc": "гроза с средним дождем", "day": "wi-day-thunderstorm", "night": "wi-night-alt-thunderstorm",},
+    232: {"desc": "гроза с сильным дождем", "day": "wi-day-thunderstorm", "night": "wi-night-alt-thunderstorm",},
+    300: {"desc": "слабая морось", "day": "wi-day-hail", "night": "wi-night-alt-hail",},
+    301: {"desc": "морось", "day": "wi-day-hail", "night": "wi-night-alt-hail",},
+    302: {"desc": "сильная морось", "day": "wi-day-hail", "night": "wi-night-alt-hail",},
+    310: {"desc": "слабый моросящий дождь", "day": "wi-day-hail", "night": "wi-night-alt-hail",},
+    311: {"desc": "моросящий дождь", "day": "wi-day-hail", "night": "wi-night-alt-hail",},
+    312: {"desc": "сильный моросящий дождь", "day": "wi-day-hail", "night": "wi-night-alt-hail",},
+    313: {"desc": "ливневый дождь и морось", "day": "wi-day-hail", "night": "wi-night-alt-hail",},
+    314: {"desc": "ливневый дождь и изморось", "day": "wi-day-hail", "night": "wi-night-alt-hail",},
+    321: {"desc": "ливень", "day": "wi-day-rain", "night": "wi-night-alt-rain",},
+    500: {"desc": "небольшой дождь", "day": "wi-day-rain", "night": "wi-night-alt-rain",},
+    501: {"desc": "умеренный дождь", "day": "wi-day-rain", "night": "wi-night-alt-rain",},
+    502: {"desc": "сильный дождь", "day": "wi-day-rain", "night": "wi-night-alt-rain",},
+    503: {"desc": "очень сильный дождь", "day": "wi-day-rain", "night": "wi-night-alt-rain",},
+    504: {"desc": "сильный дождь", "day": "wi-day-rain", "night": "wi-night-alt-rain",},
+    511: {"desc": "ледяной дождь", "day": "wi-day-rain", "night": "wi-night-alt-rain",},
+    520: {"desc": "слабый ливневый дождь", "day": "wi-day-rain", "night": "wi-night-alt-rain",},
+    521: {"desc": "ливень", "day": "wi-day-rain", "night": "wi-night-alt-rain",},
+    522: {"desc": "сильный ливневый дождь", "day": "wi-day-rain", "night": "wi-night-alt-rain",},
+    531: {"desc": "частично ливневый дождь", "day": "wi-day-rain", "night": "wi-night-alt-rain",},
+    600: {"desc": "легкий снег", "day": "wi-day-snow", "night": "wi-night-alt-snow",},
+    601: {"desc": "снег", "day": "wi-day-snow", "night": "wi-night-alt-snow",},
+    602: {"desc": "сильный снегопад", "day": "wi-day-snow", "night": "wi-night-alt-snow",},
+    611: {"desc": "мокрый снег", "day": "wi-day-rain-mix", "night": "wi-night-alt-rain-mix",},
+    612: {"desc": "слабый мокрый снег", "day": "wi-day-rain-mix", "night": "wi-night-alt-rain-mix",},
+    613: {"desc": "ливень с мокрым снегом", "day": "wi-day-rain-mix", "night": "wi-night-alt-rain-mix",},
+    615: {"desc": "небольшой дождь и снег", "day": "wi-day-rain-mix", "night": "wi-night-alt-rain-mix",},
+    616: {"desc": "дождь со снегом", "day": "wi-day-rain-mix", "night": "wi-night-alt-rain-mix",},
+    620: {"desc": "небольшой снегопад", "day": "wi-day-snow", "night": "wi-night-alt-snow",},
+    621: {"desc": "снегопад", "day": "wi-day-snow", "night": "wi-night-alt-snow",},
+    622: {"desc": "сильный снегопад", "day": "wi-day-snow", "night": "wi-night-alt-snow",},
+    701: {"desc": "туман", "day": "wi-day-fog", "night": "wi-night-fog",},
+    711: {"desc": "дым", "day": "wi-smoke", "night": "wi-smoke",},
+    721: {"desc": "дымка", "day": "wi-smoke", "night": "wi-smoke",},
+    731: {"desc": "песчано-пыльные вихри", "day": "wi-sandstorm", "night": "wi-sandstorm",},
+    741: {"desc": "туман", "day": "wi-smog", "night": "wi-smog",},
+    751: {"desc": "песок", "day": "wi-sandstorm", "night": "wi-sandstorm",},
+    761: {"desc": "пыль", "day": "wi-dust", "night": "wi-dust",},
+    762: {"desc": "вулканический пепел", "day": "wi-volcano", "night": "wi-volcano",},
+    771: {"desc": "шквал", "day": "wi-strong-wind", "night": "wi-strong-wind",},
+    781: {"desc": "смерч", "day": "wi-tornado", "night": "wi-tornado",},
+    800: {"desc": "безоблачно", "day": "wi-day-sunny", "night": "wi-night-clear",},
+    801: {"desc": "небольшая облачность: 11-25%", "wi-day-cloudy": "", "night": "wi-night-alt-cloudy",},
+    802: {"desc": "средняя облачность: 25-50%", "day": "wi-cloudy", "night": "wi-cloudy",},
+    803: {"desc": "высокая облачность: 51-84%", "day": "wi-cloudy", "night": "wi-cloudy",},
+    804: {"desc": "очень высокая облачность: 85-100%", "day": "wi-cloudy", "night": "wi-cloudy",},
   }
 
   xhr.addEventListener("readystatechange", function () {
@@ -3061,33 +3061,30 @@ const weatherHandler = () => {
         let weather = {
           state: "",
           icon: "",
-          temp_min: "",
           temp_max: "",
         };
-        weather.state = states[response.weather[0].id];
-        weather.icon = "assets/img/icons/weather/" + response.weather[0].icon + ".svg";
-        weather.temp_min = Math.round(response.main.feels_like - 273.15);
-        /*weather.temp_min = Math.round(response.main.temp_min - 273.15);*/
+
+        let letter = "";
+        if ((moment().hour() >= 7 && moment().hour() <= 21)) {
+          letter = "day";
+        } if ((moment().hour() <= 6 && moment().hour() >= 0)) {
+          letter = "night";
+        }
+
+        weather.state = states[response.weather[0].id]["desc"];
+        weather.icon = states[response.weather[0].id][letter];
         weather.temp_max = Math.round(response.main.temp_max - 273.15);
 
-        if (weather.temp_min > 0) {
-          weather.temp_min = "+" + weather.temp_min + '°';
-        } else {
-          weather.temp_min = weather.temp_min + '°';
-        }
         if (weather.temp_max > 0) {
           weather.temp_max = "+" + weather.temp_max + '°';
         } else {
           weather.temp_max = weather.temp_max + '°';
         }
         const weatherInner =
-          `<div class="d-flex align-items-center justify-content-center">
-              <div class="d-flex flex-column justify-content-center me-2">
-              <p class="m-0" style="font-size: 13px;">` + cityrus + `</p>
-              <p class="m-0" style="font-size: 13px;">` + weather.temp_min + ` .. ` + weather.temp_max + `</p>
-              </div>
-              <img src="` + weather.icon + `" width="35px" height="35px" alt="` + weather.state + `" title="` + weather.state + `">
-            </div>`;
+          `<a class="d-flex align-items-center justify-content-center" style="text-decoration: none;" data-bs-toggle="tooltip" data-bs-placement="bottom" title="` + weather.state + `" data-bs-original-title="` + weather.state + `">
+              <p class="m-0 p-0" style="font-size: 23px; color: #5552d9; font-weight: 700; line-height: normal;">` + weather.temp_max + `</p>
+              <i class="ms-2 d-flex align-items-center justify-content-center wi ` + weather.icon + `" style="width=35px; height: 35px;"></i>
+            </a>`;
         document.querySelector('.weather-info').innerHTML = '';
         document.querySelector('.weather-info').insertAdjacentHTML('beforeend', weatherInner);
       }
