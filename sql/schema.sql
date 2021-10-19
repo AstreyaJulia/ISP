@@ -137,7 +137,7 @@ INSERT INTO `sdc_user_attributes` (`id`, `internalKey`, `fullname`, `gender`, `d
 CREATE TABLE `sdc_visits` (
   `id` int(11) NOT NULL,
   `dtime` datetime NOT NULL,
-  `UserID` int(11) NOT NULL,
+  `UserID` varchar(2) NOT NULL,
   `REMOTE_ADDR` varchar(12) NOT NULL,
   `REQUEST_URI` varchar(200) NOT NULL,
   `HTTP_REFERER` varchar(200) NOT NULL
