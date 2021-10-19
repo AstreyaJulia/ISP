@@ -2992,7 +2992,9 @@ const tasksHandler = () => {
 
 // Погодный виджет
 const weatherHandler = () => {
+  // ID города искать в файле http://bulk.openweathermap.org/sample/current.city.list.json.gz
   const city = "Safonovo";
+  const cityId = 499452;
   const cityrus = "Сафоново";
   const apikey = "0590d73840a4e5980796c90f4f20e0a4";
   const data = null;
@@ -3048,7 +3050,7 @@ const weatherHandler = () => {
     771: {"desc": "шквал", "day": "wi-strong-wind", "night": "wi-strong-wind",},
     781: {"desc": "смерч", "day": "wi-tornado", "night": "wi-tornado",},
     800: {"desc": "безоблачно", "day": "wi-day-sunny", "night": "wi-night-clear",},
-    801: {"desc": "небольшая облачность: 11-25%", "wi-day-cloudy": "", "night": "wi-night-alt-cloudy",},
+    801: {"desc": "небольшая облачность: 11-25%", "day": "wi-day-cloudy", "night": "wi-night-alt-cloudy",},
     802: {"desc": "средняя облачность: 25-50%", "day": "wi-cloudy", "night": "wi-cloudy",},
     803: {"desc": "высокая облачность: 51-84%", "day": "wi-cloudy", "night": "wi-cloudy",},
     804: {"desc": "очень высокая облачность: 85-100%", "day": "wi-cloudy", "night": "wi-cloudy",},
@@ -3058,42 +3060,45 @@ const weatherHandler = () => {
     if (xhr.readyState === xhr.DONE) {
       if (xhr.status === 200) {
         let response = JSON.parse(xhr.response);
-        let weather = {
-          state: "",
-          icon: "",
-          temp_max: "",
-        };
-
-        let letter = "";
-        if ((moment().hour() >= 7 && moment().hour() <= 21)) {
-          letter = "day";
-        } if ((moment().hour() <= 6 && moment().hour() >= 0)) {
-          letter = "night";
-        }
-
-        weather.state = states[response.weather[0].id]["desc"];
-        weather.icon = states[response.weather[0].id][letter];
-        weather.temp_max = Math.round(response.main.temp_max - 273.15);
-
-        if (weather.temp_max > 0) {
-          weather.temp_max = "+" + weather.temp_max + '°';
+        if (response.cod === 404) {
+          document.querySelector('.weather-info').innerHTML = "";
         } else {
-          weather.temp_max = weather.temp_max + '°';
-        }
-        const weatherInner =
-          `<a class="d-flex align-items-center justify-content-center" style="text-decoration: none;" data-bs-toggle="tooltip" data-bs-placement="bottom" title="` + weather.state + `" data-bs-original-title="` + weather.state + `">
+          let weather = {
+            state: "",
+            icon: "",
+            temp_max: "",
+          };
+          let letter = "";
+          if ((moment().hour() >= 7 && moment().hour() <= 21)) {
+            letter = "day";
+          } if ((moment().hour() <= 6 && moment().hour() >= 0) || (moment().hour() >= 22 && moment().hour() <= 23)) {
+            letter = "night";
+          }
+          weather.state = states[response.weather[0].id]["desc"];
+          weather.icon = states[response.weather[0].id][letter];
+          weather.temp_max = Math.round(response.main.temp_max - 273.15);
+
+          if (weather.temp_max > 0) {
+            weather.temp_max = "+" + weather.temp_max + '°';
+          } else {
+            weather.temp_max = weather.temp_max + '°';
+          }
+
+          const weatherInner =
+            `<a class="d-flex align-items-center justify-content-center" style="text-decoration: none;" data-bs-toggle="tooltip" data-bs-placement="bottom" title="` + weather.state + `" data-bs-original-title="` + weather.state + `">
               <p class="m-0 p-0" style="font-size: 23px; color: #5552d9; font-weight: 700; line-height: normal;">` + weather.temp_max + `</p>
               <i class="ms-2 d-flex align-items-center justify-content-center wi ` + weather.icon + `" style="width=35px; height: 35px;"></i>
             </a>`;
-        document.querySelector('.weather-info').innerHTML = '';
-        document.querySelector('.weather-info').insertAdjacentHTML('beforeend', weatherInner);
+          document.querySelector('.weather-info').innerHTML = '';
+          document.querySelector('.weather-info').insertAdjacentHTML('beforeend', weatherInner);
+
+        }
       }
     }
   });
 
-  let url = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apikey;
+  let url = "https://api.openweathermap.org/data/2.5/weather?id=" + cityId + "&appid=" + apikey;
   xhr.open("GET", url);
-
   xhr.send(data);
 }
 
