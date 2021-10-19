@@ -272,7 +272,7 @@
   </div>
 </div>
 <div class="col-2 g-0">
-  <div class="card mb-3" style="margin-right: -1px">
+  <div class="card mb-3 vh-75" style="margin-right: -1px">
     <div class="card-header">
       <button type="button" class="btn btn-primary ms-auto mt-1 mb-1 btn-block" id="myBtn"><i
           class="mdi mdi-plus me-3"></i>Событие
@@ -326,7 +326,7 @@
   </div>
 </div>
 <div class="col-10 g-0">
-  <div class="calendar-module card">
+  <div class="calendar-module card vh-75">
     <div class="card-body">
       <div id="calendar" class="calendar"></div>
     </div>

@@ -8,9 +8,4 @@ node_modules/
 npm-debug.*
 Thumbs.db
 .htaccess
-test_callendar.php
-isp.sql
-dist/
-my_devideas/
-/my_devideas/
 /data/logs.csv

@@ -25,7 +25,7 @@
     </button> -->
   </div>
 </header>
-<div class="card list-tab-group">
+<div class="card list-tab-group"">
 
   <!-- Модал-->
   <div class="modal modal-multiaction" id="delmodal" aria-labelledby="delmodal" style="display: none">
@@ -51,31 +51,33 @@
   </div>
 
   <div class="card-body">
-    <div class="row">
-      <ul class="list-group col-5">
-        <?php foreach ($family as $goodname => $properties): ?>
-          <li class="list-group-item" id="<?= $properties['id']; ?>">
-            <div class="list-group-number">
-              <p><?= $properties['menuindex']; ?></p>
-            </div>
-            <div class="list-group-body">
-              <a class="list-group-link"><?= $properties['name_href']; ?></a>
-              <i class="menu-arrow mdi mdi-chevron-right"></i>
-            </div>
-            <div class="list-group-toolbar">
-              <a class="list-group-toolbutton btnmodal-multiaction"
-                 href="?page=proxylist&editGroup=<?= $properties['id']; ?>">
-                <i class="mdi mdi-pencil-outline"></i>
-              </a>
-              <a class="list-group-toolbutton btnmodal-multiaction" data-modaction="1"
-                 data-link="?page=proxylist&delGroup=<?= $properties['id']; ?>">
-                <i class="mdi mdi-delete-outline"></i>
-              </a>
-            </div>
-          </li>
-        <?php endforeach ?>
-      </ul>
-      <div class="tab-content col-7">
+    <div class="row vh-75">
+      <div class="col-5">
+        <ul class="list-group d-flex">
+          <?php foreach ($family as $goodname => $properties): ?>
+            <li class="list-group-item" id="<?= $properties['id']; ?>" style="height: 100%;">
+              <div class="list-group-number">
+                <p><?= $properties['menuindex']; ?></p>
+              </div>
+              <div class="list-group-body">
+                <a class="list-group-link"><?= $properties['name_href']; ?></a>
+                <i class="menu-arrow mdi mdi-chevron-right"></i>
+              </div>
+              <div class="list-group-toolbar">
+                <a class="list-group-toolbutton btnmodal-multiaction"
+                   href="?page=proxylist&editGroup=<?= $properties['id']; ?>">
+                  <i class="mdi mdi-pencil-outline"></i>
+                </a>
+                <a class="list-group-toolbutton btnmodal-multiaction" data-modaction="1"
+                   data-link="?page=proxylist&delGroup=<?= $properties['id']; ?>">
+                  <i class="mdi mdi-delete-outline"></i>
+                </a>
+              </div>
+            </li>
+          <?php endforeach ?>
+        </ul>
+      </div>
+      <div class="tab-content col-7 ps-0">
         <?php foreach ($family as $goodname => $properties): ?>
           <ul class="tab-list-group" id="<?= $properties['id']; ?>-list">
             <?php foreach ($properties as $property => $value): ?>

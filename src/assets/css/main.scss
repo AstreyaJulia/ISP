@@ -235,6 +235,7 @@ a {
       //width: calc(100% - #{$sidebar-width-min});
       margin-left: $sidebar-width-min;
       transition: all 0.3s ease;
+      min-height: calc(100vh - #{$header-height});
     }
 
   }
@@ -267,6 +268,7 @@ a {
   max-width: 1010px;
   margin: 0 auto;
   padding: 20px;
+  min-height: calc(100vh - #{$header-height});
 }
 
 .page-wrapper {
@@ -274,6 +276,11 @@ a {
   height: auto;
   min-height: 100vh;
   overflow: hidden;
+}
+
+//Для карточек на всю высоту
+.vh-75 {
+min-height: 75vh;
 }
 
 // Стандартные Bootstrap элементы и цвета
@@ -905,10 +912,6 @@ a {
 // Общие
 
 .list-tab-group {
-  display: flex;
-  flex-direction: row;
-  background-color: $white;
-  margin: 0 10px 10px 10px;
 
   .tab-list-group,
   .list-group {
@@ -918,13 +921,11 @@ a {
   }
 
   .list-group {
-    padding: 0 15px 0 0;
-    margin-left: 15px;
-    border-right: 1px solid $gray-300;
+    padding-right: 15px;
+    border-right: 1px solid $gray-200;
     border-top: none;
     border-bottom: none;
     border-radius: 0;
-    max-width: 350px;
 
     &-body {
       display: flex;
@@ -940,7 +941,7 @@ a {
       margin-bottom: 10px;
       border: none;
       text-decoration: none;
-      background-color: $gray-200;
+      background-color: $gray-300;
       padding: 0;
 
       &:first-child {
@@ -1026,9 +1027,6 @@ a {
   }
 
   .tab-content {
-    padding: 0 0 0 15px;
-    min-width: 250px;
-
     .tab-list-group {
 
       &.active {
@@ -4072,15 +4070,6 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
 
 }
 
-.card.phonebook {
-  min-height: calc(100vh - #{$header-height} - 185px);
-}
-
-.card.faq,
-.card.list-tab-group {
-  min-height: calc(100vh - #{$header-height} - 100px);
-}
-
 /*!
  * OverlayScrollbars
  * https://github.com/KingSora/OverlayScrollbars
@@ -4856,4 +4845,101 @@ THEMES:
   p:hover, i:hover {
     text-decoration: none;
   }
+}
+
+// Виджеты
+.widget {
+  margin: 0;
+  border-radius: 6px;
+  position: relative;
+  border: none;
+  box-shadow: $grey-shadow-6;
+  background-color: $white;
+
+  &.widget-card-four {
+    .progress {
+      margin-bottom: 0;
+      height: 22px;
+      padding: 4px;
+      border-radius: 20px;
+      box-shadow: 0 2px 2px $secondary-20;
+
+      .progress-bar {
+        position: relative;
+
+        &::before {
+          content: '';
+          height: 7px;
+          width: 7px;
+          position: absolute;
+          right: 3px;
+          border-radius: 50%;
+          top: 3.4px;
+          background: $white;
+        }
+      }
+    }
+
+    .w-content {
+
+      .w-info p {
+        font-weight: 700;
+        font-size: 12px;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+    }
+
+    .w-icon {
+      height: 45px;
+      display: inline-flex;
+      width: 45px;
+      align-self: center;
+      justify-content: center;
+      border-radius: 50%;
+      box-shadow: $grey-shadow-4;
+      i {
+        font-size: 24px;
+        display: inline-flex;
+        align-self: center;
+        justify-content: center;
+      }
+    }
+  }
+
+
+  &-heading {
+    text-transform: uppercase;
+  }
+
+  .w-chart {
+    display: flex;
+
+
+    .w-chart-section {
+      width: 50%;
+      padding: 0 12px;
+
+      .w-detail {
+        position: absolute;
+
+        .w-title {
+          font-size: 14px;
+          font-weight: 700;
+          margin-bottom: 0;
+          color: $gray-dark;
+        }
+
+        .w-stats {
+          font-size: 16px;
+          letter-spacing: 1px;
+          margin-bottom: 0;
+          font-weight: 700;
+          color: $pink;
+        }
+      }
+    }
+  }
+
+
 }
