@@ -7,7 +7,7 @@
 	    public function getStaff() {
 	        $sql = "SELECT sdc_user_attributes.fullname, sdc_user_attributes.dob, sdc_user_attributes.profession, sdc_room.ip, sdc_room.jupiter_tab_num, sdc_users.username, sdc_users.sudo, sdc_users.active, sdc_users.id, DATE_FORMAT(dob, '%d.%m.%Y') as dob FROM sdc_users
 			LEFT JOIN sdc_user_attributes ON sdc_user_attributes.internalKey=sdc_users.id
-				LEFT JOIN sdc_room ON sdc_room.id=sdc_user_attributes.room";
+				LEFT JOIN sdc_room ON sdc_room.id=sdc_user_attributes.room WHERE sdc_users.id != 1";
 	        return $this->db->run($sql)->fetchAll(\PDO::FETCH_CLASS);
 	    }
 
@@ -52,8 +52,8 @@
 		// Количество активных, заблокированных пользователей
 		public function getStaffCount() {
 			 // Всего зарегистрированно пользователей
-			 $allUsers = count($this->getStaff()) -1 ;// исключаем суперпользователя по умолчанию
-			 $activeUsers = -1; // исключаем суперпользователя по умолчанию
+			 $allUsers = count($this->getStaff());
+			 $activeUsers = 0;
 			 $disableUsers = 0;
 			 foreach ($this->getStaff() as $key => $value) {
 			 	if ($value->active == 1) {
