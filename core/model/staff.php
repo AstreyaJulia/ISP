@@ -49,4 +49,29 @@
 			}
 		}
 
+		// Количество активных, заблокированных пользователей
+		public function getStaffCount() {
+			 // Всего зарегистрированно пользователей
+			 $allUsers = count($this->getStaff()) -1 ;// исключаем суперпользователя по умолчанию
+			 $activeUsers = -1; // исключаем суперпользователя по умолчанию
+			 $disableUsers = 0;
+			 foreach ($this->getStaff() as $key => $value) {
+			 	if ($value->active == 1) {
+			 		$activeUsers++;	 		
+			 	} else if ($value->active == 0) {
+			 		$disableUsers++;
+			 	} else {
+			 		return "что-то пошло не так";
+			 	}
+			 }
+			 $countUsers = [
+			 	'allUsers' => $allUsers,
+			 	'activeUsers' => $activeUsers,
+			 	'activeUsersPercent' => round($activeUsers/$allUsers*100),
+			 	'disableUsers' => $disableUsers,
+			 	'disableUsersPercent' => round($disableUsers/$allUsers*100),
+			 ];
+			 return (object) $countUsers;
+		}
+
 	}

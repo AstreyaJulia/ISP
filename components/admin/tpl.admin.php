@@ -42,7 +42,7 @@
         </div>
         <div class="row mt-2 mb-0 text-secondary">
           <div class="col-2">
-            <span class="h6 value me-3 text-secondary">47</span>
+            <span class="h6 value me-3 text-secondary"><?= $staffCount->allUsers ?></span>
           </div>
           <div class="col-5">
             <span>зарегистрировано</span>
@@ -50,24 +50,24 @@
         </div>
         <div class="row mt-2 mb-0 text-secondary">
           <div class="col-2">
-            <span class="h6 value me-3 text-success">43</span>
+            <span class="h6 value me-3 text-success"><?= $staffCount->activeUsers ?></span>
           </div>
           <div class="col-8">
             <span>активно</span>
           </div>
           <div class="col-2">
-            <p class="text-success m-0">95%</p>
+            <p class="text-success m-0"><?= $staffCount->activeUsersPercent ?>%</p>
           </div>
         </div>
         <div class="row mt-2 mb-0 text-secondary">
           <div class="col-2">
-            <span class="h6 value me-3 text-danger">4</span>
+            <span class="h6 value me-3 text-danger"><?= $staffCount->disableUsers ?></span>
           </div>
           <div class="col-8">
             <span>заблокировано</span>
           </div>
           <div class="col-2">
-            <p class="text-danger m-0">5%</p>
+            <p class="text-danger m-0"><?= $staffCount->disableUsersPercent ?>%</p>
           </div>
         </div>
       </div>
