@@ -1,31 +1,32 @@
-<header class="main-content-header">
-  <div class="header-left">
-    <a class="btn-back me-3" role="button" data-bs-toggle="tooltip" data-bs-placement="top" title=""
-       data-bs-original-title="Назад" aria-label="Назад"><i class="mdi mdi-24px mdi-arrow-left"></i></a>
-    <p class="h5 main-content-title"><?= $title; ?></p>
-    <nav>
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <a href="/" data-bs-toggle="tooltip" data-bs-placement="top" title="Главная страница">
-            <i class="mdi mdi-home-outline"></i>
-          </a>
-        </li>
-      </ol>
-    </nav>
-  </div>
-  <div class="header-right">
-    <form method="post" class="me-3">
-      <button type="submit" class="btn btn-primary me-2" name="editGroup" value="add">Группу</button>
-      <button type="submit" class="btn btn-primary" name="editLink" value="add">Ссылку</button>
-    </form>
+<div class="ps-3 pe-3 boxed-content">
+  <header class="main-content-header">
+    <div class="header-left">
+      <a class="btn-back me-3" role="button" data-bs-toggle="tooltip" data-bs-placement="top" title=""
+         data-bs-original-title="Назад" aria-label="Назад"><i class="mdi mdi-24px mdi-arrow-left"></i></a>
+      <p class="h5 main-content-title"><?= $title; ?></p>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="/" data-bs-toggle="tooltip" data-bs-placement="top" title="Главная страница">
+              <i class="mdi mdi-home-outline"></i>
+            </a>
+          </li>
+        </ol>
+      </nav>
+    </div>
+    <div class="header-right">
+      <form method="post" class="me-3">
+        <button type="submit" class="btn btn-primary me-2" name="editGroup" value="add">Группу</button>
+        <button type="submit" class="btn btn-primary" name="editLink" value="add">Ссылку</button>
+      </form>
 
-    <!-- <button class="btn btn-primary" type="button" id="contentmenu" data-bs-toggle="dropdown" data-bs-placement="top"
-            title="Меню">
-      <i class="mdi mdi-cog-outline"></i>
-    </button> -->
-  </div>
-</header>
-<div class="card list-tab-group"">
+      <!-- <button class="btn btn-primary" type="button" id="contentmenu" data-bs-toggle="dropdown" data-bs-placement="top"
+              title="Меню">
+        <i class="mdi mdi-cog-outline"></i>
+      </button> -->
+    </div>
+  </header>
+  <div class="card list-tab-group"">
 
   <!-- Модал-->
   <div class="modal modal-multiaction" id="delmodal" aria-labelledby="delmodal" style="display: none">
@@ -52,7 +53,7 @@
 
   <div class="card-body">
     <div class="row vh-75">
-      <div class="col-5">
+      <div class="col-5 m-0 p-0">
         <ul class="list-group d-flex">
           <?php foreach ($family as $goodname => $properties): ?>
             <li class="list-group-item" id="<?= $properties['id']; ?>" style="height: 100%;">
@@ -77,7 +78,7 @@
           <?php endforeach ?>
         </ul>
       </div>
-      <div class="tab-content col-7 ps-0">
+      <div class="tab-content col-7 p-0">
         <?php foreach ($family as $goodname => $properties): ?>
           <ul class="tab-list-group" id="<?= $properties['id']; ?>-list">
             <?php foreach ($properties as $property => $value): ?>
@@ -114,4 +115,5 @@
       </div>
     </div>
   </div>
+</div>
 </div>

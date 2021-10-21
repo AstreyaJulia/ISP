@@ -1,5 +1,5 @@
 <!-- Сайдбар -->
-<aside class="main-sidebar ">
+<aside class="main-sidebar d-flex position-absolute flex-column justify-content-between">
   <ul class="navigation-menu overlayscrollbar os-host-flexbox">
     <li class="menu-item">
       <a class="menu-link" href="/" data-bs-toggle="tooltip" data-bs-placement="right" title="Главная">

@@ -9,8 +9,30 @@ if (file_exists($path)) {
   echo "не подключен: elements/head.php";
 }
 ?>
-<body class="page-body" data-sidebar-width="<?= $sirebar ?>">
+<body class="page-body" data-sidebar-width="<?= $sirebar ?>" data-theme-name="main-light">
 <div class="page-wrapper">
+
+  <!-- Прогресс бар вверху страницы -->
+  <div class="progress-container">
+    <div class="topprogressbar" style="width: 0;">
+    </div>
+  </div>
+
+  <!-- Спиннер-индикатор загрузки -->
+  <div class="spinner-wrapper">
+    <div class="spinner-bubble text-primary" role="status"></div>
+  </div>
+
+  <!-- Кнопка назад наверх -->
+  <a class="back-to-top waves-effect" style="display: none;" data-bs-toggle="tooltip" data-bs-placement="top"
+     title="Наверх страницы">
+    <i class="mdi mdi-arrow-up"></i>
+  </a>
+
+  <!-- Контейнер для всплывашек -->
+  <div class="toasts-container">
+  </div>
+
   <?php
   //подключаем header
   $path = "elements/header.php";

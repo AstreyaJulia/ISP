@@ -341,6 +341,23 @@ const buttonsidebartoggleHandler = (evt) => {
 };
 
 
+
+// Переключатель светлого/темного режима
+const darkmodetogglbutton = document.querySelector('.tumbler__wrapper');
+
+const darkmodetoggleHandler = () => {
+  if (sidebarwrapper.dataset.themeName === "main-dark") {
+    sidebarwrapper.dataset.themeName = "main-light";
+  } else if (sidebarwrapper.dataset.themeName === "main-light") {
+    sidebarwrapper.dataset.themeName = "main-dark";
+  }
+  darkmodetogglbutton.classList.toggle('tumbler--night-mode');
+};
+
+if (darkmodetogglbutton) {
+  darkmodetogglbutton.addEventListener('click', darkmodetoggleHandler);
+}
+
 // Добавляет класс open у .top-search
 // Кнопка вкл/выкл верхнего поиска, класс .top-search-button-toggle
 const searchbutton = document.querySelector('.top-search-button-toggle');
@@ -1429,6 +1446,7 @@ const calendmodulehandler = () => {
         selected.push(filterInput2[j].dataset.value.toLowerCase());
       }
     }
+    console.log(selected)
     return selected;
   }
 
@@ -1443,7 +1461,7 @@ const calendmodulehandler = () => {
   // Получение событий. Эта функция будет вызываться fullCalendar для получения и обновления событий.
   function fetchEvents(info, successCallback) {
     // Получение событий AJAX
-    const calendars = selectedCalendars();
+    //const calendars = selectedCalendars();
 
     $.ajax(
       {
@@ -1455,7 +1473,7 @@ const calendmodulehandler = () => {
           // С не фиксированной датой не работают повторяющиеся собыия
           startParam: moment(info.start).tz('Europe/Moscow').format('YYYY-MM-DD'),
           endParam: moment(info.end).tz('Europe/Moscow').format('YYYY-MM-DD'),
-          calendars: calendars,
+          calendars: selectedCalendars(),
           private: privatecheck(),
         },
         success: function (result) {
@@ -2755,16 +2773,6 @@ const tasksHandler = () => {
     });
   }
 
-  /* // Инициализация Drag'n'Drop. Нужен dragula
-   const dndContainer = document.getElementById('todo-task-list');
-   if (typeof dndContainer !== undefined && dndContainer !== null) {
-     dragula([dndContainer], {
-       moves: function (el, container, handle) {
-         return handle.classList.contains('drag-icon');
-       }
-     });
-   }*/
-
   // Метки задач
   if (taskTag) {
     $(taskTag).wrap('<div class="position-relative"></div>');
@@ -3150,7 +3158,7 @@ const CarouselControls =
                     data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span> <span
                 class="visually-hidden">Предыдущий</span></button>
             <button class="carousel-control-next h-100" type="button" data-bs-target="#carouselNews"
-                    data-bs-slide="next" style="right: 32%;"><span class="carousel-control-next-icon" aria-hidden="true"></span> <span
+                    data-bs-slide="next" style="left: 337px;"><span class="carousel-control-next-icon" aria-hidden="true"></span> <span
                 class="visually-hidden">Следующий</span></button>`;
 
 const createSliderItemString = ({image, header, text, hideLink, link}) =>
@@ -3280,17 +3288,14 @@ const init = () => {
   if (sliderCarousel) {
     sliderRender(slides_arr);
   }
-
-  //Отключаем спиннер
-  document.addEventListener('DOMContentLoaded', () => {
-    if (spinnerloader) {
-      spinnerloaderHandler();
-    }
-  });
-
-
 };
 
 // Запуск функции при загрузке. Будет запущено все, что внутри const init = () => {}
 
 init();
+document.addEventListener("DOMContentLoaded", () => {
+  //Отключаем спиннер
+  if (spinnerloader) {
+    spinnerloaderHandler();
+  }
+});

@@ -1,0 +1,116 @@
+// Стили для печати
+
+@media print {
+
+  .main-content,
+  .content-wrapper,
+  .page-wrapper,
+  .page-body {
+    margin: 0 !important;
+    top: 0 !important;
+    padding: 0 !important;
+    max-width: none !important;
+    max-height: none !important;
+    overflow: hidden !important;
+    position: unset !important;
+    font-size: 12px !important;
+    line-height: normal !important;
+  }
+
+  p {
+    page-break-before: always !important;
+  }
+
+  .main-content-header .breadcrumb,
+  .main-content-header .header-right,
+  .dataTables_length,
+  .dataTables_filter,
+  .dataTables_info,
+  .dataTables_paginate,
+  .sorting:before,
+  .sorting:after,
+  .progress-container,
+  .spinner-wrapper,
+  .back-to-top,
+  .main-header,
+  .main-sidebar,
+  .toasts-container,
+  .table-toolbar,
+  .table-toolbutton,
+  .badge-big,
+  .badge-status,
+  .badge,
+  .faq-categories .col-3,
+  .filter-group,
+  .fc-button-group,
+  .page-wrapper > div:not(.main-content),
+  .calendar-wrapper .col-2 {
+    display: none !important;
+  }
+
+  .calendar-wrapper {
+    margin: 0 !important;
+  }
+
+  .fc-bg-event {
+    color: #FFFFFF !important;
+    border: none !important;
+  }
+
+  *,
+  *:before,
+  *:after,
+  *:first-letter,
+  p:first-line,
+  div:first-line,
+  blockquote:first-line,
+  li:first-line {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    //overflow: hidden !important;
+  }
+
+  .main-content-header > *,
+  .card,
+  .card-body {
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .main-content-header {
+    margin-bottom: 10px !important;
+
+    .main-content-title {
+      border-right: none !important;
+    }
+  }
+
+
+  * {
+    border-color: #000 !important;
+  }
+
+  * svg {
+    fill: #000 !important;
+  }
+
+  th, td {
+    padding: 5px !important;
+  }
+
+  th, td {
+    border-left: 1px solid !important;
+  }
+
+  th {
+    border-top: 1px solid !important;
+  }
+
+  th:last-child,
+  td:last-child {
+    border-right: 1px solid !important;
+  }
+}
