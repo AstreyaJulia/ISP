@@ -12,6 +12,7 @@
 @import "print";
 
 @import "../../../node_modules/bootstrap/scss/mixins";
+@import "mixin";
 @import "../../../node_modules/bootstrap/scss/utilities";
 
 // Layout & components
@@ -58,9 +59,25 @@
 @import "../../../node_modules/fullcalendar/main";
 @import "../../../node_modules/datatables.net-bs5/css/dataTables.bootstrap5";
 
-@import "mixin";
+@import "apexcharts";
 @import "waves";
 
+// Цвета темы
+:root [data-theme-name="main-light"] {
+  @include spread-map($theme-map-light);
+}
+
+:root [data-theme-name="main-dark"] {
+  @include spread-map($theme-map-dark);
+}
+
+:root [data-sidebar-width="narrow"] {
+  @include spread-map($sidebar-width-min);
+}
+
+:root [data-sidebar-width="wide"] {
+  @include spread-map($sidebar-width-max);
+}
 
 // Прячет элементы
 .visually-hidden {
@@ -103,42 +120,38 @@ a {
   min-height: 100vh;
   overflow: hidden;
   font-family: "TT Norms Pro", "Arial", sans-serif;
+  background-color: var(--ui-bg-mid);
+  color: var(--ui-text);
 
-  &[data-sidebar-width="narrow"] .main-sidebar {
-    width: $sidebar-width-min;
+  .main-sidebar {
+    min-width: var(--sidebar-width);
     transition: all 0.3s ease;
+
+    & .nav-link .nav-link-icon {
+      transition: transform 0.5s ease;
+      transform: rotate(-180deg);
+    }
   }
 
   &[data-sidebar-width="narrow"] {
     .main-content:not(.auth):not(.err404) {
-      margin-left: $sidebar-width-min;
       transition: all 0.3s ease;
     }
   }
 
   &:not([data-sidebar-width="narrow"]) {
     .main-sidebar {
-      width: $sidebar-width-max;
-      transition: all 0.3s ease;
+
+      & .nav-link .nav-link-icon {
+        transition: transform 0.5s ease;
+        transform: rotate(180deg);
+      }
     }
 
     .main-content:not(.auth):not(.err404) {
-      margin-left: $sidebar-width-max;
       transition: all 0.3s ease;
     }
   }
-}
-
-// Dark theme
-.page-body[data-theme-name="main-dark"] {
-  background-color: $gray-900;
-  color: $gray-400;
-}
-
-// Light theme
-.page-body[data-theme-name="main-light"] {
-  background-color: $gray-100;
-  color: $gray-dark;
 }
 
 .main-content:not(.auth):not(.err404) {
@@ -147,7 +160,26 @@ a {
   top: $header-height;
   bottom: 0;
   right: 0;
-  left: 0;
+  left: var(--sidebar-width);
+}
+
+// Для мобильных
+@media (max-width: 1080px) {
+  .page-body[data-sidebar-width="narrow"] {
+    .main-sidebar {
+      min-width: 0 !important;
+      width: 0 !important;
+      border: 0;
+      padding: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .main-content:not(.auth):not(.err404) {
+      left: 0 !important;
+    }
+  }
 }
 
 .main-content .content-wrapper {
@@ -170,10 +202,6 @@ a {
 // Кнопки
 
 .btn {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
 
   &-pill-left {
     border-top-left-radius: 50px;
@@ -215,18 +243,15 @@ a {
     padding: 10px;
 
     &.btn-lg {
-      width: 50px;
-      height: 50px;
-      padding: 14px 15px;
-      font-size: 18px;
-      line-height: 23px;
+      padding: 0.875rem 1rem;
+      font-size: 1.125rem;
+      line-height: 1.5rem;
     }
 
     &.btn-xl {
-      width: 70px;
-      height: 70px;
-      padding: 14px 15px;
-      font-size: 24px;
+      padding: 0.875rem 1rem;
+      font-size: 1.5rem;
+      line-height: 1.95rem;
     }
   }
 }
@@ -273,26 +298,30 @@ code[class*="language-"], pre[class*="language-"] {
 
 }
 
-.fa {
-  display: inline-block;
-  font: normal normal normal 24px/1 "Material Design Icons";
-  font-size: inherit;
-  text-rendering: auto;
-  line-height: inherit;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  &.fa-chevron-left:before {
-    content: "\F0141";
-  }
-
-  &.fa-chevron-right:before {
-    content: "\F0142";
-  }
-}
-
 // Таблицы
 .table {
+
+  .fa {
+    display: inline-block;
+    font: normal normal normal 24px/1 "Material Design Icons";
+    font-size: inherit;
+    text-rendering: auto;
+    line-height: inherit;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    &.fa-chevron-left:before {
+      content: "\F0141";
+    }
+
+    &.fa-chevron-right:before {
+      content: "\F0142";
+    }
+  }
+
+  & > :not(:last-child) > :last-child > * {
+    border-bottom-color: $gray-500;
+  }
 
   &-toolbar {
     display: inline-flex;
@@ -311,40 +340,10 @@ code[class*="language-"], pre[class*="language-"] {
   }
 
   i {
+    color: var(--ui-text);
 
     &:hover {
       color: $danger;
-    }
-  }
-}
-
-
-// Dark theme
-.page-body[data-theme-name="main-dark"] {
-  // Таблицы
-  .table {
-
-    & > :not(:last-child) > :last-child > * {
-      border-bottom-color: $gray-800;
-    }
-
-    i {
-      color: $gray-100;
-    }
-  }
-}
-
-// Light theme
-.page-body[data-theme-name="main-light"] {
-  // Таблицы
-  .table {
-
-    & > :not(:last-child) > :last-child > * {
-      border-bottom-color: $gray-500;
-    }
-
-    i {
-      color: $gray-dark;
     }
   }
 }
@@ -357,6 +356,9 @@ code[class*="language-"], pre[class*="language-"] {
   left: 0;
   right: 0;
   max-height: 120px;
+  background-color: var(--ui-bg);
+  border-bottom: 1px solid var(--ui-border);
+  box-shadow: var(--ui-shadow);
 
   .nav {
     font-size: 24px;
@@ -365,39 +367,8 @@ code[class*="language-"], pre[class*="language-"] {
   .topbar-divider {
     width: 0;
     height: calc(4.375rem - 2rem);
-  }
-}
-
-
-// Dark theme
-.page-body[data-theme-name="main-dark"] {
-
-  // Верхний топбар
-
-  .main-header {
-    background-color: $gray-800;
-    border-bottom: 1px solid $gray-800;
-    box-shadow: $white-shadow-3;
-
-    .topbar-divider {
-      border-right: 1px solid $gray-700;
-    }
-  }
-}
-
-// Light theme
-.page-body[data-theme-name="main-light"] {
-
-  // Верхний топбар
-
-  .main-header {
-    background-color: $white;
-    border-bottom: 1px solid $gray-300;
-    box-shadow: $grey-shadow-3;
-
-    .topbar-divider {
-      border-right: 1px solid $gray-300;
-    }
+    border-right: 1px solid var(--ui-border);
+    box-shadow: var(--ui-shadow-elements);
   }
 }
 
@@ -419,10 +390,18 @@ code[class*="language-"], pre[class*="language-"] {
   bottom: 0;
   padding: 0;
   text-decoration: none;
+  border-right: 1px solid var(--ui-border);
+  background-color: var(--ui-bg);
+  box-shadow: var(--ui-shadow);
 
   .menu-item,
   .submenu-item {
     margin-bottom: 10px;
+
+    &:not(.active) a {
+      color: var(--ui-text);
+    }
+
   }
 
   .sidebar-footer {
@@ -434,7 +413,7 @@ code[class*="language-"], pre[class*="language-"] {
       line-height: 1;
 
       &:first-of-type {
-        border-top: 1px solid $gray-300;
+        border-top: 1px solid var(--ui-border);
         padding-top: 10px;
       }
     }
@@ -459,31 +438,50 @@ code[class*="language-"], pre[class*="language-"] {
     &.with-sub {
       cursor: pointer;
 
-      &.dev,
-      &.adm {
-        padding-top: 20px;
-        margin-top: 20px;
+      &:not(.active) .sub-menu {
+        display: none;
+        transition: all 0.3s ease;
       }
 
-      &.dev {
-        padding-bottom: 20px;
-        margin-bottom: 20px;
+      &.active .menu-arrow {
+        transform: rotate(90deg);
+        transition: transform 0.5s ease;
+      }
+    }
+
+    .menu-link,
+    .submenu-link {
+
+      &:hover {
+        color: $primary;
+        background-color: $primary-20;
+
+        span {
+          text-decoration: none;
+        }
       }
     }
 
     &.active {
+      color: var(--ui-bg);
+
+      .with-sub .menu-link {
+        color: $white;
+      }
 
       .sub-menu {
-        display: block;
         transition: all 0.3s ease;
+        background-color: var(--ui-bg);
       }
 
       .menu-link {
-        position: relative;
-        border-radius: 10px;
         transition: all 0.3s ease;
+        background: $gradient-primary-blue;
+        box-shadow: 0 0 5px 0 $primary;
+        color: $white;
 
         &:hover {
+          color: var(--ui-bg);
 
           span {
             text-decoration: none;
@@ -496,262 +494,32 @@ code[class*="language-"], pre[class*="language-"] {
   .navigation-menu,
   .sub-menu {
     list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .navigation-menu {
-    padding: 20px 10px;
-  }
-
-  .menu-link,
-  .submenu-link {
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    padding: 10px 15px;
-    position: relative;
-    margin: 0;
-
-    i {
-      font-size: 22px;
-      margin-right: 10px;
-    }
-
-    &:hover {
-      border-radius: 10px;
-
-      span {
-        text-decoration: none;
-      }
-    }
+    overflow-x: hidden;
   }
 
   .sub-menu {
     .submenu-item {
-      padding: 0 10px;
-    }
-  }
-}
 
-.menu-item.with-sub:not(.active) .sub-menu {
-  display: none;
-  transition: all 0.3s ease;
-}
-
-.main-sidebar .menu-link .menu-arrow {
-  position: absolute;
-  right: 0;
-  top: 26%;
-  transition: transform 0.5s ease;
-  font-size: 16px;
-}
-
-.menu-item.with-sub.active .menu-arrow {
-  transform: rotate(90deg);
-  transition: transform 0.5s ease;
-}
-
-.page-body[data-sidebar-width="narrow"] .main-sidebar .menu-arrow {
-  right: -9px;
-}
-
-.main-sidebar .sub-menu {
-  margin-top: 10px;
-}
-
-.main-sidebar .submenu-item.active .submenu-link {
-  border-radius: 10px;
-}
-
-
-// Dark theme
-.page-body[data-theme-name="main-dark"] {
-  // Сайдбар
-  .main-sidebar {
-    border-right: 1px solid $gray-800;
-    background-color: $gray-800;
-    box-shadow: $white-shadow-3;
-
-    .sidebar-footer {
-
-      p {
-        &:first-of-type {
-          border-top: 1px solid $gray-800;
-        }
-      }
-    }
-
-    .menu-item {
-      &.with-sub {
-        &.dev,
-        &.adm {
-          border-top: 1px solid $gray-800;
-        }
-
-        &.dev {
-          border-bottom: 1px solid $gray-800;
-        }
-      }
-
-      &.active {
-
-        .sub-menu {
-          background-color: $gray-800;
-        }
-
-        .menu-link {
-          color: $white;
-          background: $gradient-menu;
-          box-shadow: 0 0 5px 0 $primary;
-
-          &:hover {
-            color: $white;
-          }
-        }
-
-        &.adm {
-          .menu-link {
-            background: $gradient-success;
-            box-shadow: 0 0 5px 0 $success;
-          }
-        }
-
-        &.dev {
-          .menu-link {
-            background: $gradient-info;
-            box-shadow: 0 0 5px 0 $blue;
-          }
-        }
-      }
-    }
-
-    .menu-link,
-    .submenu-link {
-      color: $gray-500;
-
-      &:hover {
+      &.active .submenu-link {
         color: $primary;
-        background-color: $primary-20;
+        border: 2px solid $primary;
       }
     }
   }
-}
 
-// Light theme
-.page-body[data-theme-name="main-light"] {
-  // Сайдбар
-  .main-sidebar {
-    border-right: 1px solid $gray-300;
-    background-color: $white;
-    box-shadow: $grey-shadow-3;
-
-    .sidebar-footer {
-
-      p {
-        &:first-of-type {
-          border-top: 1px solid $gray-300;
-        }
-      }
-    }
-
-    .menu-item {
-      &.with-sub {
-        &.dev,
-        &.adm {
-          border-top: 1px solid $gray-300;
-        }
-
-        &.dev {
-          border-bottom: 1px solid $gray-300;
-        }
-      }
-
-      &.active {
-
-        .sub-menu {
-          background-color: $white;
-        }
-
-        .menu-link {
-          color: $white;
-          background: $gradient-menu;
-          box-shadow: 0 0 5px 0 $primary;
-
-          &:hover {
-            color: $white;
-          }
-        }
-
-        &.adm {
-          .menu-link {
-            background: $gradient-success;
-            box-shadow: 0 0 5px 0 $success;
-          }
-        }
-
-        &.dev {
-          .menu-link {
-            background: $gradient-info;
-            box-shadow: 0 0 5px 0 $info;
-          }
-        }
-      }
-    }
-
-    .menu-link,
-    .submenu-link {
-      color: $secondary;
-
-      &:hover {
-        color: $primary;
-        background-color: $primary-20;
-      }
+  .menu-link {
+    .menu-arrow {
+      right: 5px;
+      top: 26%;
+      transition: transform 0.5s ease;
     }
   }
 
 }
 
-
-// Dark theme
-.page-body[data-theme-name="main-dark"] {
-
-  .menu-link,
-  .submenu-link {
-    color: $gray-500;
-
-    &:hover {
-      color: $primary;
-      background-color: $primary-20;
-    }
-  }
-
-  .main-sidebar .submenu-item.active .submenu-link {
-    color: $primary;
-    border: 2px solid $primary;
-  }
-
-
-}
-
-// Light theme
-.page-body[data-theme-name="main-light"] {
-  .menu-link,
-  .submenu-link {
-    color: $secondary;
-
-    &:hover {
-      color: $primary;
-      background-color: $primary-20;
-    }
-  }
-
-  .main-sidebar .submenu-item.active .submenu-link {
-    color: $primary;
-    border: 2px solid $primary;
-  }
-
+.dropdown-menu {
+  background-color: var(--ui-bg);
+  box-shadow: var(--ui-shadow-elements);
 }
 
 // Дропдауны без стрелок
@@ -762,31 +530,17 @@ code[class*="language-"], pre[class*="language-"] {
   }
 }
 
-
-// Dark theme
-.page-body[data-theme-name="main-dark"] {
-  .dropdown-menu {
-    box-shadow: $white-shadow-6;
-  }
-
-}
-
-// Light theme
-.page-body[data-theme-name="main-light"] {
-  .dropdown-menu {
-    box-shadow: $grey-shadow-6;
-  }
-
-}
-
 //Верхний топбар
 .main-header {
 
   .nav-link {
     padding: 5px 11px;
+    color: var(--ui-text);
 
     &:hover {
       border-radius: 50%;
+      color: $primary;
+      background-color: $primary-20;
     }
 
     &:focus {
@@ -799,6 +553,14 @@ code[class*="language-"], pre[class*="language-"] {
     font-size: 14px;
     line-height: 1;
 
+    &-month {
+      color: var(--ui-text);
+    }
+
+    &-dayw {
+      color: var(--ui-text-mid);
+    }
+
     &-day {
       font-size: 22px;
       font-weight: 700;
@@ -810,25 +572,46 @@ code[class*="language-"], pre[class*="language-"] {
   .dropdown-menu.usermenu {
     width: 250px;
 
+    .dropdown-item {
+      color: var(--ui-text-mid);
+
+      &:hover,
+      &:focus {
+        color: $primary;
+      }
+
+      &.btn.btn-primary {
+        background-color: $primary;
+        color: var(--ui-bg);
+
+        &:hover {
+          background-color: $primary-dark;
+        }
+      }
+    }
+
     .highlighted {
       font-weight: 700;
       float: right;
       font-size: 12px;
+      color: $info;
     }
 
     .usermenu-header {
-      border-bottom: 1px solid $gray-300;
-      background-color: $gray-200;
+      border-bottom: 1px solid var(--ui-border);
+      background-color: var(--ui-bg-mid);
 
       .user-avatar img {
         width: 40px;
         height: 40px;
         border-radius: 7px;
+        border: 1px solid var(--ui-border);
       }
 
       .header-group {
         display: flex;
         flex-direction: column;
+        color: var(--ui-text);
 
         p {
           margin: 0;
@@ -852,148 +635,9 @@ code[class*="language-"], pre[class*="language-"] {
       font-weight: 700;
       text-transform: uppercase;
       font-size: 12px;
+      color: var(--ui-text-mid);
     }
   }
-}
-
-
-// Dark theme
-.page-body[data-theme-name="main-dark"] {
-  //Верхний топбар
-  .main-header {
-    .nav-link {
-      color: $gray-600;
-
-      &:hover {
-        color: $primary;
-        background-color: $primary-20;
-      }
-    }
-
-    // Виджет даты
-    .today-group {
-      border-left: 1px solid $gray-800;
-
-      &-day {
-        color: $primary;
-      }
-
-      &-month {
-        color: $gray-300;
-      }
-
-      &-dayw {
-        color: $gray-500;
-      }
-    }
-
-    // Дропдаун в аватаре в топбаре
-
-    .dropdown-menu.usermenu {
-
-      .dropdown-item {
-        color: $gray-600;
-
-        &:hover,
-        &:focus {
-          color: $blue;
-        }
-
-        &.btn.btn-primary {
-          background-color: $primary;
-          color: $white;
-
-          &:hover {
-            background-color: $primary-dark;
-          }
-        }
-      }
-
-      .highlighted {
-        color: $info;
-      }
-
-      .usermenu-header {
-        .user-avatar img {
-          border: 1px solid $gray-800;
-        }
-      }
-
-      .usermenu-category {
-        color: $gray-500;
-      }
-    }
-  }
-
-  .right-header .dropdown {
-    border-left: 1px solid $gray-800;
-  }
-
-}
-
-// Light theme
-.page-body[data-theme-name="main-light"] {
-  //Верхний топбар
-  .main-header {
-    .nav-link {
-      color: $gray-dark;
-
-      &:hover {
-        color: $primary;
-        background-color: $primary-20;
-      }
-    }
-
-    // Виджет даты
-    .today-group {
-
-      &-month {
-        color: $gray-dark;
-      }
-
-      &-dayw {
-        color: $gray-500;
-      }
-    }
-
-    // Дропдаун в аватаре в топбаре
-
-    .dropdown-menu.usermenu {
-
-      .dropdown-item {
-        color: $secondary;
-
-        &:hover,
-        &:focus {
-          color: $primary;
-        }
-
-        &.btn.btn-primary {
-          background-color: $primary;
-          color: $white;
-
-          &:hover {
-            background-color: $primary-dark;
-          }
-        }
-      }
-
-      .highlighted {
-        color: $info;
-      }
-
-      .usermenu-header {
-        .user-avatar img {
-          border: 1px solid $gray-300;
-        }
-      }
-
-      .usermenu-category {
-        color: $gray-500;
-      }
-    }
-  }
-
 }
 
 .progress-container {
@@ -1058,6 +702,9 @@ code[class*="language-"], pre[class*="language-"] {
     z-index: 10000;
     justify-content: space-between;
     padding: 16px;
+    background: var(--ui-bg);
+    border: 1px solid var(--ui-border);
+    box-shadow: 0 0 5px 0 $primary;
 
     input {
       display: block;
@@ -1083,143 +730,19 @@ code[class*="language-"], pre[class*="language-"] {
 
   .top-search-close {
     font-size: 24px;
+    color: var(--ui-text);
+
+    &:hover i {
+      color: $primary;
+    }
   }
 }
 
-
-// Dark theme
-.page-body[data-theme-name="main-dark"] {
-  // Поиск
-  .search-input {
-    &.open {
-      background: $gray-dark;
-      color: $gray-400;
-      border: 1px solid $gray-600;
-      box-shadow: 0 0 5px 0 $blue;
-    }
-
-    input {
-      color: $gray-400;
-
-      &::placeholder {
-        color: $gray-400;
-
-        &:focus {
-          color: $gray-400;
-        }
-      }
-    }
-
-    .top-search-close {
-      color: $gray-400;
-
-      &:hover i {
-        color: $primary;
-      }
-    }
-  }
-
-}
-
-// Light theme
-.page-body[data-theme-name="main-light"] {
-  // Поиск
-  .search-input {
-    &.open {
-      background: $white;
-      border: 1px solid $gray-300;
-      box-shadow: 0 0 5px 0 $blue;
-    }
-
-    .top-search-close {
-      color: $gray-dark;
-
-      &:hover i {
-        color: $primary;
-      }
-    }
-  }
-
-}
-
-// Заголовок главного содержимого
-
-.main-content-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  min-height: 40px;
-  padding: 20px;
-
-  .header-left {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .header-right {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .content-header-controls {
-    margin-right: 20px;
-    display: flex;
-    align-items: center;
-
-    .controls-filter {
-      margin-right: 10px;
-    }
-
-  }
-
-  // Заголовок содержимого
-  .main-content-title {
-    padding-right: 20px;
-    margin-bottom: 0;
-  }
-
-  //Хлебные крошки в заголовке содержимого
-  .breadcrumb {
-    padding-left: 20px;
-    margin-bottom: 0;
-    font-size: 16px;
-  }
-
-}
-
-
-// Dark theme
-.page-body[data-theme-name="main-dark"] {
-  // Заголовок главного содержимого
-
-  .main-content-header {
-    // Заголовок содержимого
-    .main-content-title {
-      border-right: 1px solid $gray-800;
-    }
-  }
-
-}
-
-// Light theme
-.page-body[data-theme-name="main-light"] {
-  // Заголовок главного содержимого
-
-  .main-content-header {
-    // Заголовок содержимого
-    .main-content-title {
-      border-right: 1px solid $gray-300;
-    }
-  }
-
-}
 
 // Погодный виджет в верхней панели
 .weather-info {
   i {
-    color: $gray-500;
+    color: var(--ui-text-mid);
   }
 
   &:hover {
@@ -1240,19 +763,22 @@ code[class*="language-"], pre[class*="language-"] {
   display: flex;
   flex-direction: row;
   margin: 0 10px 10px 10px;
+  background-color: var(--ui-bg);
 
   .tab-list-group,
   .list-group {
     list-style: none;
-    padding: 0;
+    padding: 0 15px;
     margin: 0;
   }
 
   .list-group {
-    padding: 0 15px;
+    padding: 0 15px 0 0;
+    margin-left: 15px;
     border-top: none;
     border-bottom: none;
     border-radius: 0;
+    border-right: 1px solid var(--ui-border);
 
     &-body {
       display: flex;
@@ -1269,6 +795,34 @@ code[class*="language-"], pre[class*="language-"] {
       border: none;
       text-decoration: none;
       padding: 0;
+      background-color: var(--ui-bg-mid);
+
+      .list-group-number,
+      .menu-arrow {
+        color: var(--ui-text);
+      }
+
+      &.active {
+        background-color: $primary;
+        box-shadow: 0 0 0 4px $primary-20;
+        color: var(--ui-bg);
+
+        .list-group-toolbutton:hover {
+          color: $danger;
+        }
+
+        a {
+          color: var(--ui-bg);
+        }
+      }
+
+      &:hover {
+        background-color: $primary-20;
+
+        a {
+          color: $primary;
+        }
+      }
 
       &:first-child {
         border-top-left-radius: 4px;
@@ -1287,9 +841,11 @@ code[class*="language-"], pre[class*="language-"] {
       cursor: pointer;
       text-decoration: none;
       margin-right: 10px;
+      color: var(--ui-text);
 
       &:hover {
         text-decoration: none;
+        color: $primary;
       }
     }
 
@@ -1311,13 +867,25 @@ code[class*="language-"], pre[class*="language-"] {
     &-toolbutton {
       padding: 5px;
       cursor: pointer;
+
+      &:hover {
+        i {
+          color: $danger;
+        }
+      }
+
+      i {
+        color: var(--ui-text);
+      }
+
     }
   }
 
   .tab-content {
+    padding: 0 0 0 15px;
+    min-width: 250px;
 
     .tab-list-group {
-      padding: 0 15px;
 
       &.active {
         display: flex;
@@ -1335,151 +903,6 @@ code[class*="language-"], pre[class*="language-"] {
   .menu-arrow {
     position: absolute;
     right: 7px;
-  }
-}
-
-
-// Dark theme
-.page-body[data-theme-name="main-dark"] {
-  // Каталог ссылок
-  // Общие
-
-  .list-tab-group {
-    background-color: $white;
-
-    .list-group {
-      border-right: 1px solid $gray-800;
-
-      &-item {
-        background-color: $gray-900;
-
-        &:hover {
-          background-color: $primary-20;
-
-          a {
-            color: $primary;
-          }
-
-        }
-
-        &.active {
-          background-color: $primary;
-          box-shadow: 0 0 0 4px $gray-300;
-          color: $white;
-
-          .list-group-toolbutton:hover {
-            color: $danger;
-          }
-
-          a {
-            color: $white;
-          }
-        }
-      }
-
-      &-link {
-        color: $gray-dark;
-
-        &:hover {
-          color: $primary;
-        }
-      }
-
-      &-toolbutton {
-        &:hover {
-          i {
-            color: $danger;
-          }
-        }
-
-        i {
-          color: $gray-dark;
-        }
-      }
-    }
-  }
-
-}
-
-// Light theme
-.page-body[data-theme-name="main-light"] {
-  // Каталог ссылок
-  // Общие
-
-  .list-tab-group {
-    background-color: $white;
-
-    .list-group {
-      border-right: 1px solid $gray-300;
-
-      &-item {
-        background-color: $gray-100;
-
-        &:hover {
-          background-color: $primary-20;
-
-          a {
-            color: $primary;
-          }
-
-        }
-
-        &.active {
-          background-color: $primary;
-          box-shadow: 0 0 0 4px $gray-300;
-          color: $white;
-
-          .list-group-toolbutton:hover {
-            color: $danger;
-          }
-
-          a {
-            color: $white;
-          }
-        }
-      }
-
-      &-link {
-        color: $gray-dark;
-
-        &:hover {
-          color: $primary;
-        }
-      }
-
-      &-toolbutton {
-        &:hover {
-          i {
-            color: $danger;
-          }
-        }
-
-        i {
-          color: $gray-dark;
-        }
-      }
-    }
-  }
-
-}
-
-// Dark theme
-.page-body[data-theme-name="main-dark"] {
-  // Список list group
-  .list-group {
-    .list-group-item {
-      border-color: $gray-800;
-    }
-  }
-}
-
-// Light theme
-.page-body[data-theme-name="main-light"] {
-  // Список list group
-  .list-group {
-    .list-group-item {
-      border-color: $gray-300;
-    }
   }
 }
 
@@ -1509,48 +932,16 @@ code[class*="language-"], pre[class*="language-"] {
     display: flex;
     flex-direction: column;
     justify-content: center;
-  }
-}
-
-
-// Dark theme
-.page-body[data-theme-name="main-dark"] {
-  // Страница авторизации / входа
-
-  .main-content.auth {
-    .left-auth {
-      border-right: 1px solid $gray-800;
-      box-shadow: $white-shadow-6;
-    }
-
-    .right-auth {
-      width: 70%;
-      opacity: 0.8;
-      background-image: linear-gradient(to right, $primary-light, $primary-light 5px, $gray-300 5px, $gray-300);
-      background-size: 10px 100%;
-    }
+    border-right: 1px solid var(--ui-border);
+    box-shadow: var(--ui-shadow-elements);
   }
 
-}
-
-// Light theme
-.page-body[data-theme-name="main-light"] {
-  // Страница авторизации / входа
-
-  .main-content.auth {
-    .left-auth {
-      border-right: 1px solid $gray-300;
-      box-shadow: $grey-shadow-6;
-    }
-
-    .right-auth {
-      width: 70%;
-      opacity: 0.8;
-      background-image: linear-gradient(to right, $primary-light, $primary-light 5px, $gray-300 5px, $gray-300);
-      background-size: 10px 100%;
-    }
+  .right-auth {
+    width: 70%;
+    opacity: 0.8;
+    background-image: linear-gradient(to right, $primary-light, $primary-light 5px, $gray-300 5px, $gray-300);
+    background-size: 10px 100%;
   }
-
 }
 
 // Страница 404
@@ -1578,7 +969,7 @@ code[class*="language-"], pre[class*="language-"] {
   transform: translateY(-50%);
   width: calc(1rem + 24px);
   height: calc(1rem + 24px);
-  color: $secondary;
+  color: var(--ui-text-mid);
 
   &-right {
     left: auto;
@@ -1610,32 +1001,11 @@ code[class*="language-"], pre[class*="language-"] {
   }
 }
 
-
-// Dark theme
-.page-body[data-theme-name="main-dark"] {
-  // Показать / скрыть пароль
-
-  .form-icon {
-    color: $gray-600;
-  }
-
-}
-
-// Light theme
-.page-body[data-theme-name="main-light"] {
-  // Показать / скрыть пароль
-
-  .form-icon {
-    color: $secondary;
-  }
-
-}
-
 // Формы
 
 .form {
   &-label {
-    color: $gray-dark;
+    color: var(--ui-text);
     margin-bottom: 10px;
 
     &-group {
@@ -1668,47 +1038,18 @@ code[class*="language-"], pre[class*="language-"] {
   width: 1.2em;
   height: 1.2em;
   margin-top: 0.15em;
-}
+  background-color: var(--ui-bg);
+  border: 1px solid var(--ui-border);
 
-
-// Dark theme
-.page-body[data-theme-name="main-dark"] {
-  // Чекбоксы
-  .form-check-input {
-    background-color: $white;
-    border: 1px solid $gray-dark-20;
-
-    &:checked {
-      background-color: $primary;
-      border-color: $primary;
-    }
-
-    &:focus {
-      border-color: $primary-light;
-      box-shadow: 0 0 0 0.25rem $primary-20;
-    }
+  &:checked {
+    background-color: $primary;
+    border-color: $primary;
   }
 
-}
-
-// Light theme
-.page-body[data-theme-name="main-light"] {
-  // Чекбоксы
-  .form-check-input {
-    background-color: $white;
-    border: 1px solid $gray-dark-20;
-
-    &:checked {
-      background-color: $primary;
-      border-color: $primary;
-    }
-
-    &:focus {
-      border-color: $primary-light;
-      box-shadow: 0 0 0 0.25rem $primary-20;
-    }
+  &:focus {
+    border-color: $primary-light;
+    box-shadow: 0 0 0 0.25rem $primary-20;
   }
-
 }
 
 // Datatables
@@ -1741,6 +1082,7 @@ table.dataTable > thead .sorting_desc_disabled:after {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   content: "\F072E";
+  color: $primary;
 }
 
 div.dataTables_wrapper div.dataTables_filter input[type="search"] {
@@ -1753,10 +1095,17 @@ div.dataTables_wrapper div.dataTables_filter input[type="search"] {
   appearance: none;
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  color: var(--ui-text);
+  background-color: var(--ui-bg);
+  border: 1px solid var(--ui-border);
 }
 
 .dataTables_filter input[type="search"]:focus {
   outline: 0;
+  color: var(--ui-text);
+  background-color: var(--ui-bg);
+  border-color: $primary-light;
+  box-shadow: 0 0 0 0.25rem $primary-20;
 }
 
 .dataTables_length,
@@ -1782,10 +1131,15 @@ div.dataTables_wrapper div.dataTables_filter input[type="search"] {
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   appearance: none;
   margin: 0 5px;
+  color: var(--ui-text);
+  background-color: var(--ui-bg);
+  border: 1px solid var(--ui-border);
 }
 
 .dataTables_length select:focus {
   outline: 0;
+  border-color: $primary-light;
+  box-shadow: 0 0 0 0.25rem $primary-20;
 }
 
 div.dataTables_wrapper div.dataTables_filter input {
@@ -1840,119 +1194,21 @@ div.dataTables_wrapper div.dataTables_paginate {
   text-decoration: none;
   transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
   cursor: pointer;
+  color: $primary;
+  background-color: var(--ui-bg);
+  border: 1px solid var(--ui-border);
 }
 
 .paginate_button:hover {
   text-decoration: none;
+  background-color: $primary-20;
 }
 
 .paginate_button.current {
   z-index: 3;
-}
-
-
-// Dark theme
-.page-body[data-theme-name="main-dark"] {
-  // Datatables
-  div.dataTables_wrapper div.dataTables_filter input[type="search"] {
-    color: $gray-dark;
-    background-color: $white;
-    border: 1px solid $gray-700;
-  }
-
-  .dataTables_filter input[type="search"]:focus {
-    color: $gray-dark;
-    background-color: $white;
-    border-color: $primary-light;
-    box-shadow: 0 0 0 0.25rem $primary-20;
-  }
-
-  .dataTables_length select {
-    color: $gray-dark;
-    background-color: $white;
-    border: 1px solid $gray-800;
-  }
-
-  .dataTables_length select:focus {
-    border-color: $primary-light;
-    box-shadow: 0 0 0 0.25rem $primary-20;
-  }
-
-  .paginate_button {
-    color: $primary;
-    background-color: $white;
-    border: 1px solid $gray-800;
-  }
-
-  .paginate_button:hover {
-    background-color: $primary-20;
-  }
-
-  .paginate_button.current {
-    color: $white;
-    background-color: $primary;
-    border-color: $primary;
-  }
-
-  table.dataTable > thead .sorting_asc:after,
-  table.dataTable > thead .sorting_asc:before,
-  table.dataTable > thead .sorting_desc:after,
-  table.dataTable > thead .sorting_desc:before {
-    color: $primary;
-  }
-
-}
-
-// Light theme
-.page-body[data-theme-name="main-light"] {
-  // Datatables
-  div.dataTables_wrapper div.dataTables_filter input[type="search"] {
-    color: $gray-dark;
-    background-color: $white;
-    border: 1px solid $gray-300;
-  }
-
-  .dataTables_filter input[type="search"]:focus {
-    color: $gray-dark;
-    background-color: $white;
-    border-color: $primary-light;
-    box-shadow: 0 0 0 0.25rem $primary-20;
-  }
-
-  .dataTables_length select {
-    color: $gray-dark;
-    background-color: $white;
-    border: 1px solid $gray-300;
-  }
-
-  .dataTables_length select:focus {
-    border-color: $primary-light;
-    box-shadow: 0 0 0 0.25rem $primary-20;
-  }
-
-  .paginate_button {
-    color: $primary;
-    background-color: $white;
-    border: 1px solid $gray-300;
-  }
-
-  .paginate_button:hover {
-    background-color: $primary-20;
-  }
-
-  .paginate_button.current {
-    color: $white;
-    background-color: $primary;
-    border-color: $primary;
-  }
-
-  table.dataTable > thead .sorting_asc:after,
-  table.dataTable > thead .sorting_asc:before,
-  table.dataTable > thead .sorting_desc:after,
-  table.dataTable > thead .sorting_desc:before {
-    color: $primary;
-  }
-
+  color: var(--ui-bg);
+  background-color: $primary;
+  border-color: $primary;
 }
 
 // Бейджи
@@ -1980,48 +1236,6 @@ td .badge-big {
   vertical-align: baseline;
 }
 
-
-// Dark theme
-.page-body[data-theme-name="main-dark"] {
-  // Бейджи
-
-  .badge-status {
-    &.success {
-      background-color: $success;
-    }
-
-    &.error {
-      background-color: $danger;
-    }
-  }
-
-  .badge-big.secondary {
-    background-color: $blue;
-    color: $white;
-  }
-
-}
-
-// Light theme
-.page-body[data-theme-name="main-light"] {
-  // Бейджи
-  .badge-status {
-    &.success {
-      background-color: $success;
-    }
-
-    &.error {
-      background-color: $danger;
-    }
-  }
-
-  .badge-big.secondary {
-    background-color: $blue;
-    color: $white;
-  }
-
-}
-
 // Группы фильтров
 
 .filter-group {
@@ -2033,7 +1247,8 @@ td .badge-big {
     padding: 10px 0 0 0;
   }
 
-  .group-title {
+  .group-title,
+  .form-check {
     margin: 0 20px 0 0;
   }
 
@@ -2045,7 +1260,7 @@ td .badge-big {
 // 404
 
 .danger {
-  color: $secondary;
+  color: var(--ui-text-mid);
   font-size: 7rem;
   position: relative;
   line-height: 1;
@@ -2057,7 +1272,7 @@ td .badge-big {
     left: -2px;
     text-shadow: 1px 0 $primary;
     top: 0;
-    color: $secondary;
+    color: var(--ui-text-mid);
     background: transparent;
     overflow: hidden;
     clip: rect(0, 900px, 0, 0);
@@ -2070,7 +1285,7 @@ td .badge-big {
     left: 2px;
     text-shadow: -1px 0 $danger;
     top: 0;
-    color: $secondary;
+    color: var(--ui-text-mid);
     background: transparent;
     overflow: hidden;
     clip: rect(0, 900px, 0, 0);
@@ -2165,23 +1380,9 @@ td .badge-big {
 }
 
 // Слайдер
-
-// Dark theme
-.page-body[data-theme-name="main-dark"] {
-  // Слайдер
-  .carousel h6,
-  .carousel p {
-    color: $gray-100;
-  }
-}
-
-// Light theme
-.page-body[data-theme-name="main-light"] {
-  // Слайдер
-  .carousel h6,
-  .carousel p {
-    color: $gray-dark;
-  }
+.carousel h6,
+.carousel p {
+  color: var(--ui-text);
 }
 
 // Fullcalendar
@@ -2204,6 +1405,13 @@ td .badge-big {
 .today-calendar,
 .calendar-module {
 
+  td, th, table {
+    border-color: var(--ui-border) !important;
+  }
+
+  .fc-col-header-cell-cushion, .fc-daygrid-day-number {
+    color: var(--ui-text);
+  }
 
   .fc-h-event {
     display: block;
@@ -2363,6 +1571,18 @@ td .badge-big {
   margin: 0 auto;
   font-size: 14px;
 
+  a {
+    color: var(--ui-text);
+  }
+
+  .fc-toolbar-title {
+    color: var(--ui-text);
+  }
+
+  .fc-daygrid-dot-event {
+    color: var(--ui-bg);
+  }
+
   .fc {
     .bg-primary-50 {
       border: 3px solid $primary;
@@ -2406,6 +1626,13 @@ td .badge-big {
   }
 
   .fc {
+
+    &-theme-standard td,
+    &-theme-standard th {
+      border-color: var(--ui-border);
+    }
+
+
     .fc-scrollgrid {
       border: none;
     }
@@ -2428,7 +1655,27 @@ td .badge-big {
       border: none;
     }
 
+    .fc-daygrid-day {
+      &.fc-day-today {
+        background-color: $info-20;
+      }
+    }
+
+    &-bg-event {
+      background-color: $danger-50;
+    }
+
+    &-view-month &-event,
+    .fc-day-sat a,
+    .fc-day-sun a {
+      color: $danger;
+    }
+
     .fc-toolbar {
+      &-title {
+        color: var(--ui-text);
+      }
+
       &.fc-header-toolbar {
         margin: 0 0 10px 0;
       }
@@ -2441,9 +1688,46 @@ td .badge-big {
     .fc-button {
       padding: 0 5px;
 
+      &-primary {
+        background-color: $primary;
+        box-shadow: 0 2px 6px 0 $primary-50;
+
+        &:not(:disabled):active, &:not(:disabled).fc-button-active {
+          color: $offcanvas-vertical-height;
+          background-color: $primary-dark;
+        }
+
+        &:hover,
+        &:active {
+          background-color: $primary-dark;
+        }
+
+        &:focus {
+          box-shadow: 0 0 0 0.25rem $primary-50;
+        }
+      }
+
       .fc-icon {
         font-size: 12px;
       }
+    }
+
+    .fc-h-event {
+      .fc-event-main {
+        color: var(--ui-text-bold);
+      }
+    }
+
+    .fc-daygrid-event {
+      .fc-event-time,
+      .fc-event-title {
+        color: var(--ui-text-bold);
+        font-weight: 400;
+      }
+    }
+
+    .fc-highlight {
+      background: $info-20;
     }
 
     table {
@@ -2478,188 +1762,6 @@ td .badge-big {
   }
 }
 
-
-// Dark theme
-.page-body[data-theme-name="main-dark"] {
-  .today-calendar,
-  .calendar-module {
-
-    a {
-      color: $gray-300;
-    }
-
-    .fc-toolbar-title {
-      color: $gray-300;
-    }
-
-    .fc-daygrid-dot-event {
-      color: $white;
-    }
-
-    .fc {
-      .fc-button {
-        &-primary {
-          background-color: $primary;
-          box-shadow: 0 2px 6px 0 $primary-50;
-
-          &:not(:disabled):active, &:not(:disabled).fc-button-active {
-            color: $offcanvas-vertical-height;
-            background-color: $primary-dark;
-          }
-
-          &:hover,
-          &:active {
-            background-color: $primary-dark;
-          }
-
-          &:focus {
-            box-shadow: 0 0 0 0.25rem $primary-50;
-          }
-        }
-      }
-
-      .fc-h-event {
-        .fc-event-main {
-          color: $dark;
-        }
-      }
-
-      .fc-daygrid-event {
-        .fc-event-time,
-        .fc-event-title {
-          color: $dark;
-        }
-      }
-
-      .fc-toolbar {
-        &-title {
-          color: $gray-300;
-        }
-      }
-
-      .fc-daygrid-day {
-        &.fc-day-today {
-          background-color: $info-20;
-        }
-      }
-
-      &-bg-event {
-        background-color: $danger-50;
-      }
-
-      &-view-month &-event,
-      .fc-day-sat a,
-      .fc-day-sun a {
-        color: $danger;
-      }
-    }
-  }
-
-  .today-calendar {
-    .fc {
-      &-theme-standard td,
-      &-theme-standard th {
-        border-color: $gray-300;
-      }
-    }
-  }
-
-}
-
-// Light theme
-.page-body[data-theme-name="main-light"] {
-  .today-calendar,
-  .calendar-module {
-
-    a {
-      color: $gray-dark;
-    }
-
-    .fc-toolbar-title {
-      color: $gray-dark;
-    }
-
-    .fc-daygrid-dot-event {
-      color: $white;
-    }
-
-    .fc {
-      .fc-button {
-        &-primary {
-          background-color: $primary;
-          box-shadow: 0 2px 6px 0 $primary-50;
-
-          &:not(:disabled):active, &:not(:disabled).fc-button-active {
-            color: $offcanvas-vertical-height;
-            background-color: $primary-dark;
-          }
-
-          &:hover,
-          &:active {
-            background-color: $primary-dark;
-          }
-
-          &:focus {
-            box-shadow: 0 0 0 0.25rem $primary-50;
-          }
-        }
-
-      }
-
-      .fc-h-event {
-        .fc-event-main {
-          color: $dark;
-        }
-      }
-
-      .fc-daygrid-event {
-        .fc-event-time,
-        .fc-event-title {
-          color: $dark;
-          font-weight: 400;
-        }
-      }
-
-      .fc-highlight {
-        background: $info-20;
-      }
-
-      .fc-toolbar {
-        &-title {
-          color: $gray-dark;
-        }
-      }
-
-
-      .fc-daygrid-day {
-        &.fc-day-today {
-          background-color: $info-20;
-        }
-      }
-
-      &-bg-event {
-        background-color: $danger-50;
-      }
-
-      &-view-month &-event,
-      .fc-day-sat a,
-      .fc-day-sun a {
-        color: $danger;
-      }
-    }
-  }
-
-  .today-calendar {
-    .fc {
-      &-theme-standard td,
-      &-theme-standard th {
-        border-color: $gray-300;
-      }
-    }
-  }
-
-}
-
 // Всплывашки. Toasts
 .toasts-container {
   display: flex;
@@ -2671,7 +1773,7 @@ td .badge-big {
   height: auto;
 
   .toast {
-    box-shadow: $grey-shadow-6;
+    box-shadow: var(--ui-shadow-elements);
 
     &-header i {
       font-size: 20px;
@@ -2698,7 +1800,7 @@ td .badge-big {
   }
 
   .alert {
-    box-shadow: $grey-shadow-6;
+    box-shadow: var(--ui-shadow-elements);
     max-width: calc(100% - 20px);
   }
 }
@@ -2718,7 +1820,7 @@ td .badge-big {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: $white;
+  background-color: var(--ui-bg);
 }
 
 .spinner-bubble {
@@ -2737,28 +1839,28 @@ td .badge-big {
 @keyframes G {
   0%,
   to {
-    box-shadow:0 -3em 0 .2em,2em -2em 0 0,3em 0 0 -1em,2em 2em 0 -1em,0 3em 0 -1em,-2em 2em 0 -1em,-3em 0 0 -1em,-2em -2em 0 0
+    box-shadow: 0 -3em 0 .2em, 2em -2em 0 0, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 0
   }
   12.5% {
-    box-shadow:0 -3em 0 0,2em -2em 0 .2em,3em 0 0 0,2em 2em 0 -1em,0 3em 0 -1em,-2em 2em 0 -1em,-3em 0 0 -1em,-2em -2em 0 -1em
+    box-shadow: 0 -3em 0 0, 2em -2em 0 .2em, 3em 0 0 0, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em
   }
   25% {
-    box-shadow:0 -3em 0 -.5em,2em -2em 0 0,3em 0 0 .2em,2em 2em 0 0,0 3em 0 -1em,-2em 2em 0 -1em,-3em 0 0 -1em,-2em -2em 0 -1em
+    box-shadow: 0 -3em 0 -.5em, 2em -2em 0 0, 3em 0 0 .2em, 2em 2em 0 0, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em
   }
   37.5% {
-    box-shadow:0 -3em 0 -1em,2em -2em 0 -1em,3em 0 0 0,2em 2em 0 .2em,0 3em 0 0,-2em 2em 0 -1em,-3em 0 0 -1em,-2em -2em 0 -1em
+    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 0, 2em 2em 0 .2em, 0 3em 0 0, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em
   }
   50% {
-    box-shadow:0 -3em 0 -1em,2em -2em 0 -1em,3em 0 0 -1em,2em 2em 0 0,0 3em 0 .2em,-2em 2em 0 0,-3em 0 0 -1em,-2em -2em 0 -1em
+    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 0, 0 3em 0 .2em, -2em 2em 0 0, -3em 0 0 -1em, -2em -2em 0 -1em
   }
   62.5% {
-    box-shadow:0 -3em 0 -1em,2em -2em 0 -1em,3em 0 0 -1em,2em 2em 0 -1em,0 3em 0 0,-2em 2em 0 .2em,-3em 0 0 0,-2em -2em 0 -1em
+    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 0, -2em 2em 0 .2em, -3em 0 0 0, -2em -2em 0 -1em
   }
   75% {
-    box-shadow:0 -3em 0 -1em,2em -2em 0 -1em,3em 0 0 -1em,2em 2em 0 -1em,0 3em 0 -1em,-2em 2em 0 0,-3em 0 0 .2em,-2em -2em 0 0
+    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0 0 .2em, -2em -2em 0 0
   }
   87.5% {
-    box-shadow:0 -3em 0 0,2em -2em 0 -1em,3em 0 0 -1em,2em 2em 0 -1em,0 3em 0 -1em,-2em 2em 0 0,-3em 0 0 0,-2em -2em 0 .2em
+    box-shadow: 0 -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0 0 0, -2em -2em 0 .2em
   }
 }
 
@@ -2766,20 +1868,20 @@ td .badge-big {
 
 .main-content {
   .card {
-    box-shadow: $grey-shadow-6;
+    box-shadow: var(--ui-shadow-elements);
+    background-color: var(--ui-bg);
   }
 
   .surtitle {
     font-weight: 700;
     font-size: 12px;
     text-transform: uppercase;
-    color: $secondary-light;
+    color: var(--ui-text-mid);
   }
 
   .card-header {
-    padding: 1.25rem 1.5rem;
     background-color: revert;
-    border-bottom: 1px solid rgba($black, .05);
+    border: none;
   }
 
   .card-footer {
@@ -2799,19 +1901,6 @@ td .badge-big {
   }
 }
 
-
-// Dark theme
-.page-body[data-theme-name="main-dark"] {
-  .card {
-    background-color: $gray-800;
-  }
-}
-
-// Light theme
-.page-body[data-theme-name="main-light"] {
-
-}
-
 // Редактирование пользователя
 .user-photo {
   position: relative;
@@ -2821,7 +1910,7 @@ td .badge-big {
     width: 40px;
     height: 40px;
     border-radius: 7px;
-    border: 1px solid $gray-300;
+    border: 1px solid var(--ui-border);
   }
 }
 
@@ -3911,7 +3000,7 @@ span.flatpickr-weekday {
 }
 
 .select2-container--default .select2-selection--single .select2-selection__rendered {
-  color: $secondary;
+  color: var(--ui-text-mid);
   line-height: 28px;
 }
 
@@ -4018,7 +3107,7 @@ span.flatpickr-weekday {
 }
 
 .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover {
-  color: $secondary;
+  color: var(--ui-text-mid);
 }
 
 .select2-container--default[dir="rtl"] .select2-selection--multiple .select2-selection__choice, .select2-container--default[dir="rtl"] .select2-selection--multiple .select2-search--inline {
@@ -4036,7 +3125,7 @@ span.flatpickr-weekday {
 }
 
 .select2-container--default.select2-container--focus .select2-selection--multiple {
-  border: solid $secondary 1px;
+  border: solid var(--ui-text-mid) 1px;
   outline: 0;
 }
 
@@ -4368,7 +3457,7 @@ span.flatpickr-weekday {
 
 .select2.select2-container--open {
   .select2-selection.select2-selection--single {
-    color: $secondary;
+    color: var(--ui-text-mid);
     background-color: $white;
     border-color: $primary-light;
     outline: 0;
@@ -4439,7 +3528,7 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
     border-radius: 0;
 
     .list-group-item {
-      color: $secondary;
+      color: var(--ui-text-mid);
       border-color: transparent;
 
       &:hover {
@@ -4464,8 +3553,8 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
 
   .app-fixed-search {
     padding: 0.35rem 0.5rem;
-    border-bottom: 1px solid $gray-300;
-    background-color: $white;
+    border-bottom: 1px solid var(--ui-border);
+    background-color: var(--ui-bg);
     border-top-right-radius: 0.357rem;
 
     .input-group-prepend {
@@ -4488,7 +3577,7 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
   .todo-task-list-wrapper {
     position: relative;
     height: calc(100% - 3.56rem);
-    background-color: $white;
+    background-color: var(--ui-bg);
     border-radius: 0;
     overflow-y: scroll;
     border-top: none;
@@ -4503,7 +3592,7 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
         transition: all 0.2s, border-color 0s;
         position: relative;
         padding: 0.893rem 0.893rem;
-        border-top: 1px solid $gray-300;
+        border-top: 1px solid var(--ui-border);
 
         &:first-of-type {
           border-color: transparent;
@@ -4511,14 +3600,14 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
 
         &:hover {
           transform: translateY(-4px);
-          box-shadow: 0 3px 10px 0 $gray-300;
+          box-shadow: 0 3px 10px 0 var(--ui-border);
           transition: all 0.2s;
           border-color: transparent;
         }
 
         &.completed {
           .todo-title {
-            color: $gray-500;
+            color: var(--ui-text-mid);
             text-decoration: line-through;
           }
         }
@@ -4573,34 +3662,16 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
   border-radius: 50%;
   display: inline-block;
 
-  &-primary {
-    background-color: $primary;
-  }
-
-  &-secondary {
-    background-color: $secondary;
-  }
-
-  &-success {
-    background-color: $success;
-  }
-
-  &-warning {
-    background-color: $warning;
-  }
-
-  &-danger {
-    background-color: $danger;
-  }
-
-  &-info {
-    background-color: $info;
-  }
-
   &.bullet-sm {
     width: 10px;
     height: 10px;
   }
+
+  &.bullet-xs {
+    width: 8px;
+    height: 8px;
+  }
+
 }
 
 
@@ -4617,7 +3688,7 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
   }
 
   &:not(.dropdown-menu-dark) .dropdown-item:not(.active) {
-    color: $secondary;
+    color: var(--ui-text);
 
     &:hover,
     &:focus {
@@ -4647,11 +3718,11 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
 // Popover
 
 .popover {
-  background-color: $white;
+  background-color: var(--ui-bg);
   font-family: "TT Norms Pro", "Arial", sans-serif;
   font-size: 0.9em;
-  box-shadow: $grey-shadow-3;
-  color: $gray-dark;
+  box-shadow: var(--ui-shadow);
+  color: var(--ui-text);
 
   &-header {
     padding: 0.3rem 0.75rem;
@@ -5712,30 +4783,10 @@ THEMES:
   border-radius: 6px;
   position: relative;
   border: none;
+  box-shadow: var(--ui-shadow-elements);
+  background-color: var(--ui-bg);
 
   &.widget-card {
-    .progress {
-      margin-bottom: 0;
-      height: 22px;
-      padding: 4px;
-      border-radius: 20px;
-      box-shadow: 0 2px 2px $secondary-20;
-
-      .progress-bar {
-        position: relative;
-
-        &::before {
-          content: '';
-          height: 7px;
-          width: 7px;
-          position: absolute;
-          right: 3px;
-          border-radius: 50%;
-          top: 3.4px;
-        }
-      }
-    }
-
     .w-content {
 
       .w-info p {
@@ -5743,6 +4794,7 @@ THEMES:
         font-size: 12px;
         text-transform: uppercase;
         margin-bottom: 10px;
+        color: var(--ui-text-mid);
       }
     }
 
@@ -5753,6 +4805,7 @@ THEMES:
       align-self: center;
       justify-content: center;
       border-radius: 50%;
+      box-shadow: var(--ui-shadow-elements);
 
       i {
         font-size: 24px;
@@ -5760,9 +4813,17 @@ THEMES:
         align-self: center;
         justify-content: center;
       }
+
+      &.small {
+        height: 32px;
+        width: 32px;
+
+        i {
+          font-size: 16px;
+        }
+      }
     }
   }
-
 
   &-heading {
     text-transform: uppercase;
@@ -5782,6 +4843,7 @@ THEMES:
           font-size: 14px;
           font-weight: 700;
           margin-bottom: 0;
+          color: var(--ui-text);
         }
 
         .w-stats {
@@ -5789,125 +4851,43 @@ THEMES:
           letter-spacing: 1px;
           margin-bottom: 0;
           font-weight: 700;
+          color: $pink;
         }
       }
     }
   }
 
+  &.marketing-campaigns .table-marketing-campaigns {
+    color: $dark;
 
-}
-
-
-// Dark theme
-.page-body[data-theme-name="main-dark"] {
-  .widget {
-    box-shadow: $white-shadow-6;
-    background-color: $gray-700;
-
-    &.widget-card-four {
-      .progress {
-        box-shadow: 0 2px 2px $secondary-20;
-
-        .progress-bar {
-          &::before {
-            background: $white;
-          }
-        }
-      }
-
-      .w-content {
-        .w-info p {
-          color: $primary;
-        }
-      }
-
-      .w-icon {
-        color: $primary;
-        background-color: $primary-20;
-        box-shadow: $grey-shadow-6;
-      }
-    }
-
-    .w-chart {
-      .w-chart-section {
-        .w-detail {
-          .w-title {
-            color: $gray-dark;
-          }
-
-          .w-stats {
-            color: $pink;
-          }
-        }
-      }
-    }
-
-    #daynum-error,
-    #weeknum-error,
-    #monthnum-error,
-    #yearnum-error,
-    #dayofmonth-error {
-      position: absolute;
-      left: 0;
-      top: 34px;
-      font-size: 14px;
-    }
-
-    #nav-rep {
-      min-height: 595px;
+    thead tr {
+      border-top: 1px solid $light !important;
+      border-bottom: 1px solid $light !important;
+      color: var(--ui-text-mid);
     }
   }
 
 }
-
-// Light theme
-.page-body[data-theme-name="main-light"] {
-  .widget {
-    box-shadow: $grey-shadow-6;
-    background-color: $white;
-
-    &.widget-card-four {
-      .progress {
-        box-shadow: 0 2px 2px $secondary-20;
-
-        .progress-bar {
-          &::before {
-            background: $white;
-          }
-        }
-      }
-
-      .w-content {
-        .w-info p {
-          color: $secondary-light;
-        }
-      }
-
-      .w-icon {
-        box-shadow: $grey-shadow-4;
-      }
-    }
-
-    .w-chart {
-      .w-chart-section {
-        .w-detail {
-          .w-title {
-            color: $gray-dark;
-          }
-
-          .w-stats {
-            color: $pink;
-          }
-        }
-      }
-    }
-  }
-
-}
-
 
 // Прогресс
 .progress {
+  display: flex;
+  height: 1rem;
+  overflow: hidden;
+  font-size: 0.75rem;
+  border-radius: 1.28rem;
+  padding: 0.15rem;
+  box-shadow: 0 2px 2px $secondary-20;
+
+  &.progress-sm {
+    height: 0.4rem;
+    padding: 0;
+  }
+
+  .progress-bar {
+    border-radius: 1.28rem;
+  }
+
   .progress-bar.bg-gradient-secondary {
     background-color: $blue;
     background-image: $gradient-primary;
@@ -5917,6 +4897,7 @@ THEMES:
     border-radius: 16px;
   }
 }
+
 
 .tumbler__wrapper,
 .tumblerbox__wrapper {
@@ -5930,8 +4911,8 @@ THEMES:
   padding: 0 6px;
   cursor: pointer;
   position: relative;
-  box-shadow: $grey-shadow-6;
-  background: $white;
+  box-shadow: var(--ui-shadow-elements);
+  background: var(--ui-bg);
   border: 1px solid $primary;
 
   svg {
@@ -5944,7 +4925,7 @@ THEMES:
     height: 20px;
     width: 20px;
     border-radius: 50%;
-    background-color: $secondary;
+    background-color: var(--ui-text-mid);
     transition: transform .5s, background-color .5s;
     will-change: transform;
   }
@@ -5955,7 +4936,7 @@ THEMES:
 
     .tumbler {
       transform: translateX(calc(100% - 2px));
-      background-color: $white;
+      background-color: var(--ui-bg);
     }
   }
 }
@@ -5965,7 +4946,7 @@ THEMES:
   border: none;
 
   &.tumbler--night-mode {
-    background: linear-gradient($blue, $info);
+    background: linear-gradient($blue, $azure);
   }
 }
 
@@ -5974,7 +4955,7 @@ THEMES:
 .bs-tooltip-end {
   .tooltip-arrow {
     &::before {
-      border-right-color: $gray-dark;
+      border-right-color: var(--ui-text);
     }
   }
 }
@@ -5982,7 +4963,7 @@ THEMES:
 .bs-tooltip-bottom {
   .tooltip-arrow {
     &::before {
-      border-bottom-color: $gray-dark;
+      border-bottom-color: var(--ui-text);
     }
   }
 }
@@ -5990,16 +4971,16 @@ THEMES:
 .bs-tooltip-start {
   .tooltip-arrow {
     &::before {
-      border-left-color: $gray-dark;
+      border-left-color: var(--ui-text);
     }
   }
 }
 
 // Wrapper for the tooltip content
 .tooltip-inner {
-  color: $white;
-  background-color: $gray-dark;
-  box-shadow: $grey-shadow-6;
+  color: var(--ui-bg);
+  background-color: var(--ui-text);
+  box-shadow: var(--ui-shadow-elements);
 }
 
 // Заголовки
@@ -6012,22 +4993,12 @@ THEMES:
   font-weight: 700;
 }
 
-
-// Dark theme
-.page-body[data-theme-name="main-dark"] {
-  // Заголовки
-
-  .overline-title {
-    color: $secondary;
-  }
-}
-
 // Light theme
 .page-body[data-theme-name="main-light"] {
   // Заголовки
 
   .overline-title {
-    color: $secondary;
+    color: var(--ui-text-mid);
   }
 
 }
@@ -6048,7 +5019,7 @@ THEMES:
     }
 
     .card-body {
-      color: $gray-dark;
+      color: var(--ui-text);
 
       p:last-child {
         margin-bottom: 0;
@@ -6085,7 +5056,7 @@ THEMES:
   padding: 10px;
   display: block;
   width: 100%;
-  color: $secondary;
+  color: var(--ui-text);
 
   &:hover {
     cursor: pointer;
@@ -6133,7 +5104,7 @@ THEMES:
 
 .faq-category.active {
   .faq-category-link {
-    border-bottom: 1px solid $gray-300;
+    border-bottom: 1px solid var(--ui-border);
   }
 
   .faq-category-link:after {
@@ -6165,4 +5136,9 @@ THEMES:
 .faq-category-link:last-child {
   border-bottom-left-radius: 0.25rem;
   border-bottom-right-radius: 0.25rem;
+}
+
+// Хлебные крошки
+.breadcrumb a {
+  color: var(--ui-text);
 }

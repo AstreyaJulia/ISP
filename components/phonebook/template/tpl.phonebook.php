@@ -1,60 +1,79 @@
-<div class="ps-3 pe-3 boxed-content">
-  <header class="main-content-header">
-    <div class="header-left">
-      <a class="btn-back me-3" role="button" data-bs-toggle="tooltip" data-bs-placement="top" title=""
-         data-bs-original-title="Назад" aria-label="Назад"><i class="mdi mdi-24px mdi-arrow-left"></i></a>
-      <p class="h5 main-content-title"><?= $title; ?></p>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/" data-bs-toggle="tooltip" data-bs-placement="top"
-                                         title="Главная страница"><i class="mdi mdi-home-outline"></i></a></li>
+<div class="ps-3 pe-3">
+  <header class="main-content-header d-flex align-items-center justify-content-between flex-wrap p-2">
+    <div class="header-left d-flex align-items-center justify-content-between p-2">
+      <a class="btn-back me-3" role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Назад"><i
+          class="mdi mdi-24px mdi-arrow-left"></i></a>
+      <p class="h5 main-content-title mb-0"><?= $title; ?></p>
+    </div>
+    <div class="header-right d-flex align-items-center justify-content-between p-2">
+      <nav aria-label="breadcrumb" class="align-items-center d-xxl-flex d-xl-flex d-md-flex d-sm-none d-none">
+        <ol class="breadcrumb d-flex align-items-center mb-0">
+          <li class="breadcrumb-item p-2">
+            <a class="p-2 me-2" href="/" data-bs-toggle="tooltip" data-bs-placement="top"
+               title="Главная страница">
+              <i class="mdi mdi-home-outline"></i>
+            </a>
+          </li>
+          <li class="breadcrumb-item p-2">
+            <a class="p-2" data-bs-toggle="tooltip" data-bs-placement="top"
+               title="Информация">Информация
+            </a>
+          </li>
+          <li class="breadcrumb-item p-2">
+            <a class="p-2" data-bs-toggle="tooltip" data-bs-placement="top"
+               title="<?= $title; ?>"><?= $title; ?>
+            </a>
+          </li>
         </ol>
       </nav>
     </div>
-    <div class="header-right">
-      <button class="btn btn-primary" type="button" id="contentmenu" data-bs-toggle="dropdown" data-bs-placement="top"
-              title="Меню">
-        <i class="mdi mdi-cog-outline"></i>
-      </button>
-      <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="contentmenu">
-        <a href="#" class="dropdown-item btn-print">Печать</a>
-      </ul>
-    </div>
   </header>
-  <div class="card mb-3">
-    <div class="card-body">
-      <div class="filter-group phonebook-filter d-flex align-items-center">
-        <p class="group-title p-0">Фильтр:</p>
-        <?php foreach (getGroupReplace() as $key => $value): ?>
-          <div class="form-check me-2">
-            <input class="form-check-input" type="checkbox" id="<?= $key; ?>" name="<?= $key; ?>"
-                   value="<?= getGroupReplace() [$key]["id"]; ?>">
-            <label class="form-check-label" for="<?= $key; ?>"><?= getGroupReplace() [$key]["name"]; ?></label>
-          </div>
-        <?php endforeach ?>
+  <div class="container align-items-center justify-content-end d-flex mb-3">
+    <button class="btn btn-primary" type="button" id="contentmenu" data-bs-toggle="dropdown" data-bs-placement="top"
+            title="Меню">
+      <i class="mdi mdi-cog-outline"></i>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="contentmenu">
+      <a href="#" class="dropdown-item btn-print">Печать</a>
+    </ul>
+  </div>
+
+  <div class="boxed-content">
+    <div class="card mb-3">
+      <div class="card-body">
+        <div class="filter-group phonebook-filter d-flex align-items-center">
+          <p class="group-title p-0">Фильтр:</p>
+          <?php foreach (getGroupReplace() as $key => $value): ?>
+            <div class="form-check me-2">
+              <input class="form-check-input" type="checkbox" id="<?= $key; ?>" name="<?= $key; ?>"
+                     value="<?= getGroupReplace() [$key]["id"]; ?>">
+              <label class="form-check-label" for="<?= $key; ?>"><?= getGroupReplace() [$key]["name"]; ?></label>
+            </div>
+          <?php endforeach ?>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="card phonebook">
-    <table class="table dataTable sort table-users">
-      <thead>
-      <tr>
-        <th>Кабинет</th>
-        <th>Ф.И.О.</th>
-        <th>Должность</th>
-        <th>Служебный тел.</th>
-      </tr>
-      </thead>
-      <tbody id="<?= $id; ?>">
-      <?php foreach ($phonebook as $row): ?>
+    <div class="card phonebook">
+      <table class="table dataTable sort table-users">
+        <thead>
         <tr>
-          <td><?= $phonebookClass->getPosition($row->position); ?></td>
-          <td><?= $row->fullname; ?></td>
-          <td><?= $phonebookClass->getProfession($row->profession); ?></td>
-          <td><?= $row->phone_worck; ?></td>
+          <th>Кабинет</th>
+          <th>Ф.И.О.</th>
+          <th>Должность</th>
+          <th>Служебный тел.</th>
         </tr>
-      <?php endforeach ?>
-      </tbody>
-    </table>
+        </thead>
+        <tbody id="<?= $id; ?>">
+        <?php foreach ($phonebook as $row): ?>
+          <tr>
+            <td><?= $phonebookClass->getPosition($row->position); ?></td>
+            <td><?= $row->fullname; ?></td>
+            <td><?= $phonebookClass->getProfession($row->profession); ?></td>
+            <td><?= $row->phone_worck; ?></td>
+          </tr>
+        <?php endforeach ?>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

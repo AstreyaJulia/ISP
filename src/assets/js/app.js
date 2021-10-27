@@ -1389,7 +1389,7 @@ const calendmodulehandler = () => {
     if (!option.id) {
       return option.text;
     }
-    return "<span class='bullet bullet-" +
+    return "<span class='bullet bg-" +
       $(option.element).data('label') +
       " bullet-sm me-2 ms-2'> " +
       '</span>' +

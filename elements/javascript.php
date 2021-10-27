@@ -15,5 +15,5 @@
 <script src="assets/modules/fullcalendar/locales/ru.js"></script>
 <script src="assets/modules/@fullcalendar/moment-timezone/main.global.js"></script>
 <script src="assets/modules/@fullcalendar/rrule/main.global.js"></script>
-<script src="assets/modules/chart.js/dist/chart.js"></script>
+<script src="assets/modules/apexcharts/dist/apexcharts.js"></script>
 <script src="assets/js/app.js"></script>

@@ -1,7 +1,7 @@
 <div class="p-3">
   <div class="row">
     <!-- Левая половина дашбоарда-->
-    <div class="col-xxl-4 col-xl-5">
+    <div class="col-xxl-5 col-xl-6 col-md-12 col-sm-12 col-12">
       <!-- Первая линия левой части дашбоарда-->
       <div class="card widget mb-3">
         <div id="carouselNews" class="carousel slide" data-bs-ride="carousel">
@@ -9,7 +9,7 @@
       </div>
     </div>
 
-    <div class="col-xxl-5 col-xl-5">
+    <div class="col-xxl-4 col-xl-4 col-md-12 col-sm-12 col-12">
       <div class="news-widget">
         <div class="news-list d-flex flex-wrap">
           <div class="card widget flex-grow-1 mb-3">
@@ -19,7 +19,7 @@
                   <span class="badge bg-primary mb-2">Обновления</span>
                   <small class="opacity-50 text-nowrap">сейчас</small>
                 </div>
-                <p class="news-header mb-1 text-gray-dark"
+                <p class="news-header mb-1"
                    style="text-overflow: ellipsis; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical;">
                   Обновление ПИ СДП, ПИ БСР, ПИ Судимость, ПИ Право, ПИ ПОЭСО, ПИ АУ, ПИ ОО, ПИ Присяжные, ПИ ИСП, ПИ ИК,
                   ПИ Фемида, ПИ СТАКС, ПИ Недвижимость, ПИ Кадры-П</p>
@@ -48,7 +48,7 @@
                   <span class="badge bg-info mb-2">Литература</span>
                   <small class="opacity-50 text-nowrap">31.09.2021</small>
                 </div>
-                <p class="news-header mb-1 text-gray-dark">Вестник фемиды</p>
+                <p class="news-header mb-1">Вестник фемиды</p>
                 <div class="news-footer d-flex justify-content-between">
                   <a href="#">Подробнее</a>
                   <div class="news-toolbuttons">
@@ -76,7 +76,7 @@
     </div>
 
     <!-- Правая половина дашбоарда-->
-    <div class="col-xxl-3 col-xl-2">
+    <div class="col-xxl-3 col-xl-2 col-md-12 col-sm-12 col-12">
       <div class="card mb-3 widget" style="width: 300px">
         <div class="card-body">
           <div class="today-calendar">

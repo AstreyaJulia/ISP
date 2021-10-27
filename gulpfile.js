@@ -135,7 +135,7 @@ const copyModules = () => {
       "node_modules/@fullcalendar/moment-timezone/main.global.js",
       "node_modules/@fullcalendar/rrule/main.global.js",
       "node_modules/overlayscrollbars/js/OverlayScrollbars.js",
-      "node_modules/chart.js/dist/chart.js"
+      "node_modules/apexcharts/dist/apexcharts.js"
     ],
     {
       base: "node_modules/"

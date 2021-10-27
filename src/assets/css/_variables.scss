@@ -5,8 +5,18 @@
 
 // Размеры
 //Ширина сайдбара
-$sidebar-width-min: 75px;
-$sidebar-width-max: 270px;
+
+$sidebar-min: 75px;
+$sidebar-max: 270px;
+
+$sidebar-width-min: (
+  '--sidebar-width': $sidebar-min,
+);
+
+$sidebar-width-max: (
+  '--sidebar-width': $sidebar-max,
+);
+
 // Высота хедера
 $header-height: 62px;
 
@@ -45,21 +55,21 @@ $grays: (
 // scss-docs-start color-variables
 $blue: #3c64f4 !default;
 $indigo: #2C3782 !default;
-$purple: #5552d9 !default;
+$purple: #6C5CE8 !default;
 $pink: #ff63a5 !default;
-$red: #f43c3c !default;
+$red: #ea1548 !default;
 $orange: #ef630a !default;
 $yellow: #fca549 !default;
-$green: #00ba88 !default;
+$green: #00B795 !default;
 $teal: #01CFC9 !default;
 $cyan: #1CC8EE !default;
+$azure: #1c9aee !default;
 // scss-docs-end color-variables
 
 // scss-docs-start colors-map
 $colors: (
   "blue": $blue,
   "indigo": $indigo,
-  "purple": $purple,
   "pink": $pink,
   "red": $red,
   "orange": $orange,
@@ -67,6 +77,7 @@ $colors: (
   "green": $green,
   "teal": $teal,
   "cyan": $cyan,
+  "azure": $azure,
   "white": $white,
   "gray": $gray-600,
   "gray-dark": $gray-800
@@ -85,13 +96,108 @@ $lighter: $gray-100 !default;
 $dark: $gray-900 !default;
 $pink: $pink !default;
 $blue: $blue !default;
-$cyan: $cyan !default;
 $gray-dark: $gray-700 !default;
 $indigo: $indigo !default;
-$purple: $purple !default;
 $orange: $orange !default;
 $teal: $teal !default;
+$azure: $azure !default;
 // scss-docs-end theme-color-variables
+
+// Light colors
+$lightpercent: 35;
+
+$primary-light: mix($white, $primary, $lightpercent);
+$secondary-light: mix($white, $secondary, $lightpercent);
+$success-light: mix($white, $success, $lightpercent);
+$info-light: mix($white, $info, $lightpercent);
+$warning-light: mix($white, $warning, $lightpercent);
+$danger-light: mix($white, $danger, $lightpercent);
+$dark-light: mix($white, $dark, $lightpercent);
+$pink-light: mix($white, $pink, $lightpercent);
+$blue-light: mix($white, $blue, $lightpercent);
+$gray-dark-light: mix($white, $gray-dark, $lightpercent);
+$indigo-light: mix($white, $indigo, $lightpercent);
+$orange-light: mix($white, $orange, $lightpercent);
+$teal-light: mix($white, $teal, $lightpercent);
+$azure-light: mix($white, $azure, $lightpercent);
+
+// Lighter colors
+$lighterpercent: 65;
+
+$primary-lighter: mix($white, $primary, $lighterpercent);
+$secondary-lighter: mix($white, $secondary, $lighterpercent);
+$success-lighter: mix($white, $success, $lighterpercent);
+$info-lighter: mix($white, $info, $lighterpercent);
+$warning-lighter: mix($white, $warning, $lighterpercent);
+$danger-lighter: mix($white, $danger, $lighterpercent);
+$dark-lighter: mix($white, $dark, $lighterpercent);
+$pink-lighter: mix($white, $pink, $lighterpercent);
+$blue-lighter: mix($white, $blue, $lighterpercent);
+$gray-dark-lighter: mix($white, $gray-dark, $lighterpercent);
+$indigo-lighter: mix($white, $indigo, $lighterpercent);
+$azure-lighter: mix($white, $azure, $lighterpercent);
+$orange-lighter: mix($white, $orange, $lighterpercent);
+$teal-lighter: mix($white, $teal, $lighterpercent);
+
+// Dark colors
+$darkpercent: 30;
+
+$primary-dark: mix($black, $primary, $darkpercent);
+$secondary-dark: mix($black, $secondary, $darkpercent);
+$success-dark: mix($black, $success, $darkpercent);
+$info-dark: mix($black, $info, $darkpercent);
+$warning-dark: mix($black, $warning, $darkpercent);
+$danger-dark: mix($black, $danger, $darkpercent);
+$pink-dark: mix($black, $pink, $darkpercent);
+$blue-dark: mix($black, $blue, $darkpercent);
+$indigo-dark: mix($black, $indigo, $darkpercent);
+$azure-dark: mix($black, $azure, $darkpercent);
+$orange-dark: mix($black, $orange, $darkpercent);
+$teal-dark: mix($black, $teal, $darkpercent);
+
+// Darker colors
+$darkerpercent: 55;
+
+$primary-darker: mix($black, $primary, $darkerpercent);
+$secondary-darker: mix($black, $secondary, $darkerpercent);
+$success-darker: mix($black, $success, $darkerpercent);
+$info-darker: mix($black, $info, $darkerpercent);
+$warning-darker: mix($black, $warning, $darkerpercent);
+$danger-darker: mix($black, $danger, $darkerpercent);
+$pink-darker: mix($black, $pink, $darkerpercent);
+$blue-darker: mix($black, $blue, $darkerpercent);
+$indigo-darker: mix($black, $indigo, $darkerpercent);
+$azure-darker: mix($black, $azure, $darkerpercent);
+$orange-darker: mix($black, $orange, $darkerpercent);
+$teal-darker: mix($black, $teal, $darkerpercent);
+
+// Trans 50% colors
+$primary-50: rgba($primary, .5);
+$secondary-50: rgba($secondary, .5);
+$success-50: rgba($success, .5);
+$info-50: rgba($info, .5);
+$warning-50: rgba($warning, .5);
+$danger-50: rgba($danger, .5);
+$dark-50: rgba($dark, .5);
+$pink-50: rgba($pink, .5);
+$blue-50: rgba($blue, .5);
+$white-50: rgba($white, .5);
+$gray-dark-50: rgba($gray-dark, .5);
+$azure-50: rgba($azure, .5);
+
+//Trans 20% colors
+
+$primary-20: rgba($primary, .2);
+$secondary-20: rgba($secondary, .2);
+$success-20: rgba($success, .2);
+$info-20: rgba($info, .2);
+$warning-20: rgba($warning, .2);
+$danger-20: rgba($danger, .2);
+$dark-20: rgba($dark, .2);
+$pink-20: rgba($pink, .2);
+$blue-20: rgba($blue, .2);
+$cyan-20: rgba($cyan, .2);
+$gray-dark-20: rgba($gray-dark, .2);
 
 // scss-docs-start theme-colors-map
 $theme-colors: (
@@ -109,31 +215,9 @@ $theme-colors: (
   "cyan": $cyan,
   "gray-dark": $gray-dark,
   "indigo": $indigo,
-  "purple": $purple,
   "orange": $orange,
   "teal": $teal,
-) !default;
-// scss-docs-end theme-colors-map
-
-$lightpercent: 75;
-
-$primary-light: mix($white, $primary, $lightpercent);
-$secondary-light: mix($white, $secondary, $lightpercent);
-$success-light: mix($white, $success, $lightpercent);
-$info-light: mix($white, $info, $lightpercent);
-$warning-light: mix($white, $warning, $lightpercent);
-$danger-light: mix($white, $danger, $lightpercent);
-$dark-light: mix($white, $dark, $lightpercent);
-$pink-light: mix($white, $pink, $lightpercent);
-$blue-light: mix($white, $blue, $lightpercent);
-$cyan-light: mix($white, $cyan, $lightpercent);
-$gray-dark-light: mix($white, $gray-dark, $lightpercent);
-$indigo-light: mix($white, $indigo, $lightpercent);
-$purple-light: mix($white, $purple, $lightpercent);
-$orange-light: mix($white, $orange, $lightpercent);
-$teal-light: mix($white, $teal, $lightpercent);
-
-$theme-colors-light: (
+  "azure": $azure,
   "primary-light": $primary-light,
   "secondary-light": $secondary-light,
   "success-light": $success-light,
@@ -143,91 +227,25 @@ $theme-colors-light: (
   "dark-light": $dark-light,
   "pink-light": $pink-light,
   "blue-light": $blue-light,
-  "cyan-light": $cyan-light,
+  "azure-light": $azure-light,
   "gray-dark-light": $gray-dark-light,
   "indigo-light": $indigo-light,
-  "purple-light": $purple-light,
   "orange-light": $orange-light,
   "teal-light": $teal-light,
-) !default;
-
-.bg-primary-light {
-  background-color: $primary-light !important;
-}
-
-.bg-secondary-light {
-  background-color: $secondary-light !important;
-}
-
-.bg-success-light {
-  background-color: $success-light !important;
-}
-
-.bg-info-light {
-  background-color: $info-light !important;
-}
-
-.bg-warning-light {
-  background-color: $warning-light !important;
-}
-
-.bg-danger-light {
-  background-color: $danger-light !important;
-}
-
-.bg-dark-light {
-  background-color: $dark-light !important;
-}
-
-.bg-pink-light {
-  background-color: $pink-light !important;
-}
-
-.bg-blue-light {
-  background-color: $blue-light !important;
-}
-
-.bg-cyan-light {
-  background-color: $cyan-light !important;
-}
-
-.bg-gray-dark-light {
-  background-color: $gray-dark-light !important;
-}
-
-.bg-indigo-light {
-  background-color: $indigo-light !important;
-}
-
-.bg-purple-light {
-  background-color: $purple-light !important;
-}
-
-.bg-orange-light {
-  background-color: $orange-light !important;
-}
-
-.bg-teal-light {
-  background-color: $teal-light !important;
-}
-
-$darkpercent: 40;
-
-$primary-dark: mix($black, $primary, $darkpercent);
-$secondary-dark: mix($black, $secondary, $darkpercent);
-$success-dark: mix($black, $success, $darkpercent);
-$info-dark: mix($black, $info, 20);
-$warning-dark: mix($black, $warning, $darkpercent);
-$danger-dark: mix($black, $danger, $darkpercent);
-$pink-dark: mix($black, $pink, $darkpercent);
-$blue-dark: mix($black, $blue, $darkpercent);
-$cyan-dark: mix($black, $cyan, $darkpercent);
-$indigo-dark: mix($black, $indigo, $darkpercent);
-$purple-dark: mix($black, $purple, $darkpercent);
-$orange-dark: mix($black, $orange, $darkpercent);
-$teal-dark: mix($black, $teal, $darkpercent);
-
-$theme-colors-dark: (
+  "primary-lighter": $primary-lighter,
+  "secondary-lighter": $secondary-lighter,
+  "success-lighter": $success-lighter,
+  "info-lighter": $info-lighter,
+  "warning-lighter": $warning-lighter,
+  "danger-lighter": $danger-lighter,
+  "dark-lighter": $dark-lighter,
+  "pink-lighter": $pink-lighter,
+  "blue-lighter": $blue-lighter,
+  "gray-dark-lighter": $gray-dark-lighter,
+  "indigo-lighter": $indigo-lighter,
+  "azure-lighter": $azure-lighter,
+  "orange-lighter": $orange-lighter,
+  "teal-lighter": $teal-lighter,
   "primary-dark": $primary-dark,
   "secondary-dark": $secondary-dark,
   "success-dark": $success-dark,
@@ -236,79 +254,22 @@ $theme-colors-dark: (
   "danger-dark": $danger-dark,
   "pink-dark": $pink-dark,
   "blue-dark": $blue-dark,
-  "cyan-dark": $cyan-dark,
   "indigo-dark": $indigo-dark,
-  "purple-dark": $purple-dark,
+  "azure-dark": $azure-dark,
   "orange-dark": $orange-dark,
   "teal-dark": $teal-dark,
-) !default;
-
-.bg-primary-dark {
-  background-color: $primary-dark !important;
-}
-
-.bg-secondary-dark {
-  background-color: $secondary-dark !important;
-}
-
-.bg-success-dark {
-  background-color: $success-dark !important;
-}
-
-.bg-info-dark {
-  background-color: $info-dark !important;
-}
-
-.bg-warning-dark {
-  background-color: $warning-dark !important;
-}
-
-.bg-danger-dark {
-  background-color: $danger-dark !important;
-}
-
-.bg-pink-dark {
-  background-color: $pink-dark !important;
-}
-
-.bg-blue-dark {
-  background-color: $blue-dark !important;
-}
-
-.bg-cyan-dark {
-  background-color: $cyan-dark !important;
-}
-
-.bg-indigo-dark {
-  background-color: $indigo-dark !important;
-}
-
-.bg-purple-dark {
-  background-color: $purple-dark !important;
-}
-
-.bg-orange-dark {
-  background-color: $orange-dark !important;
-}
-
-.bg-teal-dark {
-  background-color: $teal-dark !important;
-}
-
-$primary-50: rgba($primary, .5);
-$secondary-50: rgba($secondary, .5);
-$success-50: rgba($success, .5);
-$info-50: rgba($info, .5);
-$warning-50: rgba($warning, .5);
-$danger-50: rgba($danger, .5);
-$dark-50: rgba($dark, .5);
-$pink-50: rgba($pink, .5);
-$blue-50: rgba($blue, .5);
-$white-50: rgba($white, .5);
-$cyan-50: rgba($cyan, .5);
-$gray-dark-50: rgba($gray-dark, .5);
-
-$theme-colors-50: (
+  "primary-darker": $primary-darker,
+  "secondary-darker": $secondary-darker,
+  "success-darker": $success-darker,
+  "info-darker": $info-darker,
+  "warning-darker": $warning-darker,
+  "danger-darker": $danger-darker,
+  "pink-darker": $pink-darker,
+  "blue-darker": $blue-darker,
+  "azure-darker": $azure-darker,
+  "indigo-darker": $indigo-darker,
+  "orange-darker": $orange-darker,
+  "teal-darker": $teal-darker,
   "primary-50": $primary-50,
   "secondary-50": $secondary-50,
   "success-50": $success-50,
@@ -319,67 +280,8 @@ $theme-colors-50: (
   "pink-50": $pink-50,
   "blue-50": $blue-50,
   "white-50": $white-50,
-  "cyan-50": $cyan-50,
   "gray-dark-50": $gray-dark-50,
-) !default;
-
-.bg-primary-50 {
-  background-color: $primary-50 !important;
-}
-
-.bg-secondary-50 {
-  background-color: $secondary-50 !important;
-}
-
-.bg-success-50 {
-  background-color: $success-50 !important;
-}
-
-.bg-info-50 {
-  background-color: $info-50 !important;
-}
-
-.bg-warning-50 {
-  background-color: $warning-50 !important;
-}
-
-.bg-danger-50 {
-  background-color: $danger-50 !important;
-}
-
-.bg-dark-50 {
-  background-color: $dark-50 !important;
-}
-
-.bg-pink-50 {
-  background-color: $pink-50 !important;
-}
-
-.bg-blue-50 {
-  background-color: $blue-50 !important;
-}
-
-.bg-cyan-50 {
-  background-color: $cyan-50 !important;
-}
-
-.bg-gray-dark-50 {
-  background-color: $gray-dark-50 !important;
-}
-
-$primary-20: rgba($primary, .2);
-$secondary-20: rgba($secondary, .2);
-$success-20: rgba($success, .2);
-$info-20: rgba($info, .2);
-$warning-20: rgba($warning, .2);
-$danger-20: rgba($danger, .2);
-$dark-20: rgba($dark, .2);
-$pink-20: rgba($pink, .2);
-$blue-20: rgba($blue, .2);
-$cyan-20: rgba($cyan, .2);
-$gray-dark-20: rgba($gray-dark, .2);
-
-$theme-colors-20: (
+  "azure-50": $azure-50,
   "primary-20": $primary-20,
   "secondary-20": $secondary-20,
   "success-20": $success-20,
@@ -392,21 +294,70 @@ $theme-colors-20: (
   "cyan-20": $cyan-20,
   "gray-dark-20": $gray-dark-20,
 ) !default;
+// scss-docs-end theme-colors-map
 
 // Тени
-$grey-shadow-1: 0px 8px 16px rgba(17, 17, 17, 0.04);
-$grey-shadow-2: 0 4px 8px -2px rgba(27, 46, 94, 0.04);
-$grey-shadow-3: 0 2px 4px -2px rgba(27, 46, 94, 0.08);
-$grey-shadow-4: 0 16px 8px -4px rgba(27, 46, 94, 0.03);
-$grey-shadow-5: 0 8px 24px -4px rgba(27, 46, 94, 0.08);
-$grey-shadow-6: 0 8px 24px -4px rgba(27, 46, 94, 0.12);
+$grey-shadow-1: 0px 8px 16px rgba($gray-800, 0.06);
+$grey-shadow-2: 0 4px 8px -2px rgba($gray-800, 0.06);
+$grey-shadow-3: 0 2px 4px -2px rgba($gray-800, 0.1);
+$grey-shadow-4: 0 16px 8px -4px rgba($gray-800, 0.05);
+$grey-shadow-5: 0 8px 24px -4px rgba($gray-800, 0.1);
+$grey-shadow-6: 0 8px 24px -4px rgba($gray-800, 0.15);
 
-$white-shadow-1: 0px 8px 16px rgba(255, 255, 255, 0.04);
-$white-shadow-2: 0 4px 8px -2px rgba(255, 255, 255, 0.04);
-$white-shadow-3: 0 2px 4px -2px rgba(255, 255, 255, 0.08);
-$white-shadow-4: 0 16px 8px -4px rgba(255, 255, 255, 0.03);
-$white-shadow-5: 0 8px 24px -4px rgba(255, 255, 255, 0.08);
-$white-shadow-6: 0 8px 24px -4px rgba(255, 255, 255, 0.12);
+$white-shadow-1: 0px 8px 16px rgba($white, 0.04);
+$white-shadow-2: 0 4px 8px -2px rgba($white, 0.04);
+$white-shadow-3: 0 2px 4px -2px rgba($white, 0.08);
+$white-shadow-4: 0 16px 8px -4px rgba($white, 0.03);
+$white-shadow-5: 0 8px 24px -4px rgba($white, 0.08);
+$white-shadow-6: 0 8px 24px -4px rgba($white, 0.12);
+
+.grey-shadow-1 {
+  box-shadow: $grey-shadow-1 !important;
+}
+
+.grey-shadow-2 {
+  box-shadow: $grey-shadow-2 !important;
+}
+
+.grey-shadow-3 {
+  box-shadow: $grey-shadow-3 !important;
+}
+
+.grey-shadow-4 {
+  box-shadow: $grey-shadow-4 !important;
+}
+
+.grey-shadow-5 {
+  box-shadow: $grey-shadow-5 !important;
+}
+
+.grey-shadow-6 {
+  box-shadow: $grey-shadow-6 !important;
+}
+
+.white-shadow-1 {
+  box-shadow: $white-shadow-1 !important;
+}
+
+.white-shadow-2 {
+  box-shadow: $white-shadow-2 !important;
+}
+
+.white-shadow-3 {
+  box-shadow: $white-shadow-3 !important;
+}
+
+.white-shadow-4 {
+  box-shadow: $white-shadow-4 !important;
+}
+
+.white-shadow-5 {
+  box-shadow: $white-shadow-5 !important;
+}
+
+.white-shadow-6 {
+  box-shadow: $white-shadow-6 !important;
+}
 
 // Градиенты
 $gradient-primary: linear-gradient(to bottom right, mix($white, $primary, 30) 0%, darken($primary, 10) 100%);
@@ -420,15 +371,14 @@ $gradient-lighter: linear-gradient(to bottom right, mix($white, $lighter, 30) 0%
 $gradient-dark: linear-gradient(to bottom right, mix($white, $dark, 30) 0%, darken($dark, 10) 100%);
 $gradient-pink: linear-gradient(to bottom right, mix($white, $pink, 30) 0%, darken($pink, 10) 100%);
 $gradient-blue: linear-gradient(to bottom right, mix($white, $blue, 30) 0%, darken($blue, 10) 100%);
-$gradient-cyan: linear-gradient(to bottom right, mix($white, $cyan, 30) 0%, darken($cyan, 10) 100%);
 $gradient-gray-dark: linear-gradient(to bottom right, mix($white, $gray-dark, 30) 0%, darken($gray-dark, 10) 100%);
 $gradient-indigo: linear-gradient(to bottom right, mix($white, $indigo, 30) 0%, darken($indigo, 10) 100%);
-$gradient-purple: linear-gradient(to bottom right, mix($white, $purple, 30) 0%, darken($purple, 10) 100%);
+$gradient-azure: linear-gradient(to bottom right, mix($white, $azure, 30) 0%, darken($azure, 10) 100%);
 $gradient-orange: linear-gradient(to bottom right, mix($white, $orange, 30) 0%, darken($orange, 10) 100%);
 $gradient-teal: linear-gradient(to bottom right, mix($white, $teal, 30) 0%, darken($teal, 10) 100%);
 
-$gradient-menu: linear-gradient(45deg, $blue, $purple 100%);
-$gradient-progress: linear-gradient(to right, $blue 0%, $purple 100%);
+// Градиенты из 2 цветов
+$gradient-primary-blue: linear-gradient(45deg, $primary, $blue 100%);
 
 .bg-gradient-primary {
   background: $gradient-primary !important;
@@ -474,10 +424,6 @@ $gradient-progress: linear-gradient(to right, $blue 0%, $purple 100%);
   background: $gradient-blue !important;
 }
 
-.bg-gradient-cyan {
-  background: $gradient-cyan !important;
-}
-
 .bg-gradient-gray-dark {
   background: $gradient-gray-dark !important;
 }
@@ -486,8 +432,8 @@ $gradient-progress: linear-gradient(to right, $blue 0%, $purple 100%);
   background: $gradient-indigo !important;
 }
 
-.bg-gradient-purple {
-  background: $gradient-purple !important;
+.bg-gradient-azure {
+  background: $gradient-azure !important;
 }
 
 .bg-gradient-orange {
@@ -498,13 +444,79 @@ $gradient-progress: linear-gradient(to right, $blue 0%, $purple 100%);
   background: $gradient-teal !important;
 }
 
-.bg-gradient-menu {
-  background: $gradient-menu !important;
+.gradient-primary-blue {
+  background: $gradient-primary-blue !important;
 }
 
-.bg-gradient-progress {
-  background: $gradient-progress !important;
+// Social
+.bg-facebook {
+  background-color: #3b5998 !important;
 }
+
+.bg-twitter {
+  background-color: #55acee !important;
+}
+
+.bg-googleplus {
+  background-color: #dd4b39 !important;
+}
+
+.bg-linkedin {
+  background-color: #007bb6 !important;
+}
+
+.bg-instagram {
+  background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%) !important;
+}
+
+.bg-pinterest {
+  background-color: #cb2027 !important;
+}
+
+.bg-youtube {
+  background-color: #b00 !important;
+}
+
+.bg-odnoklassniki {
+  background-color: #E77D08 !important;
+}
+
+// Цвета светлой и темной темы
+
+/*
+$theme-map-light: (
+  var(--ui-bg): $white,
+  var(--ui-bg-mid): $gray-100, $lighter
+  var(--ui-border): $gray-300,
+  var(--ui-shadow): $grey-shadow-3,
+  var(--ui-shadow-elements): $grey-shadow-6,
+  var(--ui-text): $gray-700, $gray-dark
+  var(--ui-text-mid): $gray-500, $secondary
+  var(--ui-text-bold): $gray-900, $dark
+);
+ */
+
+$theme-map-light: (
+  '--ui-bg': $white,
+  '--ui-bg-mid': $gray-100,
+  '--ui-border': $gray-300,
+  '--ui-shadow': $grey-shadow-3,
+  '--ui-shadow-elements': $grey-shadow-6,
+  '--ui-text': $gray-700,
+  '--ui-text-mid': $gray-500,
+  '--ui-text-bold': $gray-900,
+);
+
+$theme-map-dark: (
+  '--ui-bg': $gray-900,
+  '--ui-bg-mid': $gray-800,
+  '--ui-border': $gray-700,
+  '--ui-shadow': $white-shadow-3,
+  '--ui-shadow-elements': $white-shadow-6,
+  '--ui-text': $gray-300,
+  '--ui-text-mid': $gray-500,
+  '--ui-text-bold': $gray-100,
+);
 
 // scss-docs-end theme-colors-map
 
