@@ -1,0 +1,57 @@
+<?php
+
+// Кол-во всех посещений за текущий день. current_date - сегодняшняя дата
+select count (*)
+from sdc_visits
+where date_format(dtime,'%m-%d')  like  date_format(current_date,'%m-%d')
+
+// Уникальные пользователи за тек. день
+select COUNT(DISTINCT UserID)
+from sdc_visits
+where date_format(dtime,'%m-%d')  like  date_format(current_date,'%m-%d')
+
+
+
+  // Кол-во посещений по дням, общее
+SELECT count(id) AS count,
+       DATE_ADD((CAST(dtime AS DATE)), INTERVAL 1 DAY ) AS day
+FROM
+    sdc_visits
+GROUP BY
+    DATE_ADD((CAST(dtime AS DATE)), INTERVAL 1 DAY )
+ORDER BY
+    day
+
+выдаст данные в формате json:
+[
+  {
+    "count": 21,
+    "day": "2021-10-20"
+  },
+  {
+    "count": 215,
+    "day": "2021-10-22"
+  },
+  {
+    "count": 5,
+    "day": "2021-10-27"
+  },
+  {
+    "count": 115,
+    "day": "2021-10-28"
+  },
+  {
+    "count": 1,
+    "day": "2021-10-30"
+  }
+]
+
+для графиков нужен формат json:
+[
+  {
+    "count": [21, 215, 5, 115, 1],
+    "day": ["2021-10-20", "2021-10-22", "2021-10-27", "2021-10-28", "2021-10-30"],
+  }
+]
+
+еще лучше, если дата будет в привычном формате дд.мм.гггг
