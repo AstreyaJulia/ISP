@@ -2,7 +2,7 @@
 	namespace Core\Model;
 	//use Core\Config\DB;
 	class Staff extends UserAttributes {
-		
+
 		//Получаем список сотрудников
 	    public function getStaff() {
 	        $sql = "SELECT sdc_user_attributes.fullname, sdc_user_attributes.dob, sdc_user_attributes.profession, sdc_room.ip, sdc_room.jupiter_tab_num, sdc_users.username, sdc_users.sudo, sdc_users.active, sdc_users.id, DATE_FORMAT(dob, '%d.%m.%Y') as dob FROM sdc_users
@@ -57,7 +57,7 @@
 			 $disableUsers = 0;
 			 foreach ($this->getStaff() as $key => $value) {
 			 	if ($value->active == 1) {
-			 		$activeUsers++;	 		
+			 		$activeUsers++;
 			 	} else if ($value->active == 0) {
 			 		$disableUsers++;
 			 	} else {
