@@ -64,6 +64,9 @@
 			 		return "что-то пошло не так";
 			 	}
 			 }
+       if ($allUsers === 0) {
+         $allUsers = 0.1;
+       }
 			 $countUsers = [
 			 	'allUsers' => $allUsers,
 			 	'activeUsers' => $activeUsers,
