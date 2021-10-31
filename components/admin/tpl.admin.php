@@ -59,8 +59,8 @@
                     <i class="mdi mdi-chart-bar"></i>
                   </div>
                   <div class="activity-progress flex-grow-1 align-items-center">
-                    <small class="text-muted d-inline-block mb-2">Зарегистрировано</small>
-                    <small class="float-end"><?= $staffCount->activeUsers ?></small>
+                    <small class="text-muted d-inline-block my-3">Зарегистрировано</small>
+                    <small class="float-end my-3"><?= $staffCount->activeUsers ?></small>
                   </div>
                 </div>
                 <div class="d-flex align-items-center mb-2">
