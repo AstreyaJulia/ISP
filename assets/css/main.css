@@ -48267,14 +48267,14 @@ THEMES:
 .card {
   border: none;
 }
-.card.widget-card .w-content .w-info p {
+.card .w-info p {
   font-weight: 700;
   font-size: 12px;
   text-transform: uppercase;
   margin-bottom: 10px;
   color: var(--ui-text-mid);
 }
-.card.widget-card .w-icon {
+.card .w-icon {
   height: 45px;
   display: inline-flex;
   width: 45px;
@@ -48283,17 +48283,17 @@ THEMES:
   border-radius: 50%;
   box-shadow: var(--ui-shadow-elements);
 }
-.card.widget-card .w-icon i {
+.card .w-icon i {
   font-size: 24px;
   display: inline-flex;
   align-self: center;
   justify-content: center;
 }
-.card.widget-card .w-icon.small {
+.card .w-icon.small {
   height: 32px;
   width: 32px;
 }
-.card.widget-card .w-icon.small i {
+.card .w-icon.small i {
   font-size: 16px;
 }
 .card-heading {

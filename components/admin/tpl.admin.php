@@ -38,63 +38,77 @@
     </div>
   </header>
   <div class="row">
-    <div class="col-4">
-      <div class="widget widget-card-four mb-3 p-3">
-        <div class="widget-content">
-          <div class="w-content d-flex justify-content-between">
-            <div class="w-info">
-              <p>Пользователи</p>
+    <div class="col-xxl-3 col-xl-4 col-md-6 col-12">
+        <div class="card mb-3 p-3">
+          <div class="widget-content">
+            <div class="d-flex align-items-center justify-content-between mb-2">
+              <h6 class="surtitle">Пользователи</h6>
+              <div>
+                <a class="dropdown-toggle no-carret text-secondary" id="menu4" data-bs-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
+                <ul class="dropdown-menu" aria-labelledby="menu4" data-bs-popper="none">
+                  <li class="dropdown-item">
+                    <a><i class="mdi mdi-sync me-2"></i>Обновить данные</a>
+                  </li>
+                </ul>
+              </div>
             </div>
-            <div>
-              <a class="dropdown-toggle no-carret text-secondary" id="menu1" data-bs-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></a>
-              <ul class="dropdown-menu" aria-labelledby="menu1" style="">
-                <li class="dropdown-item">
-                  <a><i class="mdi mdi-sync me-2"></i>Обновить данные</a>
-                </li>
-                <li class="dropdown-item">
-                  <a href=""><i class="mdi mdi-list-status me-2"></i>Управление пользователями</a>
-                </li>
-              </ul>
+            <div class="widget-content">
+              <div class="pt-1">
+                <div class="d-flex align-items-center mb-2">
+                  <div class="w-icon small bg-primary-lighter text-primary me-3 grey-shadow-2">
+                    <i class="mdi mdi-chart-bar"></i>
+                  </div>
+                  <div class="activity-progress flex-grow-1 align-items-center">
+                    <small class="text-muted d-inline-block mb-2">Зарегистрировано</small>
+                    <small class="float-end"><?= $staffCount->activeUsers ?></small>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center mb-2">
+                  <div class="w-icon small bg-success-lighter text-success me-3 grey-shadow-2">
+                    <i class="mdi mdi-currency-usd"></i>
+                  </div>
+                  <div class="activity-progress flex-grow-1 align-items-center">
+                    <small class="text-muted d-inline-block mb-2">Активно</small>
+                    <small class="float-end"><?= $staffCount->activeUsers ?></small>
+                    <div class="progress progress-sm mb-3">
+                      <div class="progress-bar bg-gradient-success" role="progressbar" style="width: <?= $staffCount->activeUsersPercent ?>%" aria-valuenow="<?= $staffCount->activeUsersPercent ?>" aria-valuemin="0" aria-valuemax="100" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="<?= $staffCount->activeUsers ?>"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center mb-2">
+                  <div class="w-icon small bg-danger-lighter text-danger me-3 grey-shadow-2">
+                    <i class="mdi mdi-account-cancel"></i>
+                  </div>
+                  <div class="activity-progress flex-grow-1 align-items-center">
+                    <small class="text-muted d-inline-block mb-2">Заблокировано</small>
+                    <small class="float-end"><?= $staffCount->disableUsers ?></small>
+                    <div class="progress progress-sm mb-3">
+                      <div class="progress-bar bg-gradient-danger" role="progressbar" style="width: <?= $staffCount->disableUsersPercent ?>%" aria-valuenow="<?= $staffCount->disableUsersPercent ?>" aria-valuemin="0" aria-valuemax="100" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="<?= $staffCount->disableUsers ?>"></div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
             </div>
           </div>
-          <div class="row mt-2 mb-0 text-secondary">
-            <div class="col-2">
-              <span class="h6 value me-3 text-secondary"><?= $staffCount->allUsers ?></span>
-            </div>
-            <div class="col-5">
-              <span>зарегистрировано</span>
-            </div>
-          </div>
-          <div class="row mt-2 mb-0 text-secondary">
-            <div class="col-2">
-              <span class="h6 value me-3 text-success"><?= $staffCount->activeUsers ?></span>
-            </div>
-            <div class="col-8">
-              <span>активно</span>
-            </div>
-            <div class="col-2">
-              <p class="text-success m-0"><?= $staffCount->activeUsersPercent ?>%</p>
-            </div>
-          </div>
-          <div class="row mt-2 mb-0 text-secondary">
-            <div class="col-2">
-              <span class="h6 value me-3 text-danger"><?= $staffCount->disableUsers ?></span>
-            </div>
-            <div class="col-8">
-              <span>заблокировано</span>
-            </div>
-            <div class="col-2">
-              <p class="text-danger m-0"><?= $staffCount->disableUsersPercent ?>%</p>
-            </div>
-          </div>
+          <a class="btn btn-primary btn-block mt-3" href="?page=staff" target="_blank"><i class="mdi mdi-account-wrench-outline me-2"></i><span>Управление пользователями</span></a>
+
         </div>
-      </div>
     </div>
     <div class="col-4">
 
     </div>
-    <div class="col-4">
+    <div class="col-xxl-3 col-xl-4 col-md-6 col-12">
 
     </div>
+
+    <div class="col-xxl-3 col-xl-4 col-md-6 col-12">
+
+    </div>
+
+    <div class="col-xxl-3 col-xl-12 col-md-12 col-12">
+
+    </div>
+
   </div>
 </div>

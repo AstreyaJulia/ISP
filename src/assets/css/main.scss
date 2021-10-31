@@ -4730,41 +4730,36 @@ THEMES:
 .card {
   border: none;
 
-  &.widget-card {
-    .w-content {
+  .w-info p {
+    font-weight: 700;
+    font-size: 12px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    color: var(--ui-text-mid);
+  }
 
-      .w-info p {
-        font-weight: 700;
-        font-size: 12px;
-        text-transform: uppercase;
-        margin-bottom: 10px;
-        color: var(--ui-text-mid);
-      }
-    }
+  .w-icon {
+    height: 45px;
+    display: inline-flex;
+    width: 45px;
+    align-self: center;
+    justify-content: center;
+    border-radius: 50%;
+    box-shadow: var(--ui-shadow-elements);
 
-    .w-icon {
-      height: 45px;
+    i {
+      font-size: 24px;
       display: inline-flex;
-      width: 45px;
       align-self: center;
       justify-content: center;
-      border-radius: 50%;
-      box-shadow: var(--ui-shadow-elements);
+    }
+
+    &.small {
+      height: 32px;
+      width: 32px;
 
       i {
-        font-size: 24px;
-        display: inline-flex;
-        align-self: center;
-        justify-content: center;
-      }
-
-      &.small {
-        height: 32px;
-        width: 32px;
-
-        i {
-          font-size: 16px;
-        }
+        font-size: 16px;
       }
     }
   }
