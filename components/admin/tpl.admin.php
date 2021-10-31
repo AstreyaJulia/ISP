@@ -56,7 +56,7 @@
               <div class="pt-1">
                 <div class="d-flex align-items-center mb-2">
                   <div class="w-icon small bg-primary-lighter text-primary me-3 grey-shadow-2">
-                    <i class="mdi mdi-chart-bar"></i>
+                    <i class="mdi mdi-account-group-outline"></i>
                   </div>
                   <div class="activity-progress flex-grow-1 align-items-center">
                     <small class="text-muted d-inline-block my-3">Зарегистрировано</small>
@@ -65,7 +65,7 @@
                 </div>
                 <div class="d-flex align-items-center mb-2">
                   <div class="w-icon small bg-success-lighter text-success me-3 grey-shadow-2">
-                    <i class="mdi mdi-currency-usd"></i>
+                    <i class="mdi mdi-account-eye-outline"></i>
                   </div>
                   <div class="activity-progress flex-grow-1 align-items-center">
                     <small class="text-muted d-inline-block mb-2">Активно</small>
