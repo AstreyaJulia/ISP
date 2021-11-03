@@ -101,6 +101,7 @@ if (!empty($_GET["editStaff"])) {
       header("Location: /?page=staff");
     }
   } else {//добавляем пользователя
+        $title = "Создать пользователя";
         $row = new class {
           public $username = false;
           public $active = false;

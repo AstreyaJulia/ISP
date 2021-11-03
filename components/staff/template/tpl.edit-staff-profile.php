@@ -92,7 +92,7 @@
                   <div class="form-group">
                     <label class="form-label" for="primary_group">Группа</label>
                     <select class="form-select" id="primary_group" name="primary_group" required>
-                      <option value="0">Выберите группу</option>
+                      <option value="0">Не выбрана</option>
                       <?= selectOptionArr(primary_group_array(), $row->primary_group); ?>
                     </select></div>
                   <div class="form-group">
