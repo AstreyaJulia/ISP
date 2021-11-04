@@ -2,6 +2,7 @@
 $title = "UI Kit";
 
 $content = '
+<main class="main-content scroll-y">
 <header class="main-content-header">
       <div class="header-left">
       <a class="btn-back me-3" role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Назад" aria-label="Назад"><i class="mdi mdi-24px mdi-arrow-left"></i></a>
@@ -2212,4 +2213,5 @@ $content = '
   </div>
 
 </div>
+</main>
 ';

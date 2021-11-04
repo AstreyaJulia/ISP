@@ -1,0 +1,379 @@
+@import "../custom";
+
+// Fullcalendar
+
+#daynum-error,
+#weeknum-error,
+#monthnum-error,
+#yearnum-error,
+#dayofmonth-error {
+  position: absolute;
+  left: 0;
+  top: 34px;
+  font-size: 14px;
+}
+
+#nav-rep {
+  min-height: 595px;
+}
+
+.today-calendar,
+.calendar-module {
+
+  td, th, table {
+    border-color: var(--ui-border) !important;
+  }
+
+  .fc-col-header-cell-cushion, .fc-daygrid-day-number {
+    color: var(--ui-text);
+  }
+
+  .fc-h-event {
+    display: block;
+    border-radius: 4px;
+    border: 3px solid shift-color($link-color, $link-shade-percentage);
+  }
+
+  .fc-event-time {
+    overflow: unset;
+  }
+
+  .fc-col-header-cell-cushion {
+    text-transform: uppercase;
+  }
+
+  .fc-toolbar-title {
+    font-size: 1.5em;
+  }
+
+  .fc-daygrid-dot-event {
+    border-radius: 4px;
+  }
+
+  .fc {
+
+    .fc-popover {
+      z-index: 1000;
+    }
+
+    .fc-event-time {
+      font-size: 12px;
+    }
+
+    .fc-button {
+      border: none;
+
+      &-primary {
+        background-color: $primary;
+        box-shadow: 0 2px 6px 0 $primary-50;
+
+        &:not(:disabled):active, &:not(:disabled).fc-button-active {
+          color: $offcanvas-vertical-height;
+          background-color: $primary-dark;
+        }
+
+        &:hover,
+        &:active {
+          background-color: $primary-dark;
+        }
+
+        &:focus {
+          outline: 0;
+          box-shadow: 0 0 0 0.25rem $primary-50;
+        }
+
+        &:disabled {
+          background-color: $primary;
+          opacity: 0.5;
+        }
+      }
+
+    }
+
+    .bg-primary-50 {
+      border: 1px solid $primary;
+      color: $primary-dark;
+
+      .fc-daygrid-event-dot {
+        border-color: $primary-dark;
+      }
+    }
+
+    .bg-success-50 {
+      border: 1px solid $success;
+      color: $success-dark;
+
+      .fc-daygrid-event-dot {
+        border-color: $success-dark;
+      }
+    }
+
+    .bg-warning-50 {
+      border: 1px solid $warning;
+      color: $warning-dark;
+
+      .fc-daygrid-event-dot {
+        border-color: $warning-dark;
+      }
+    }
+
+    .bg-danger-50 {
+      border: 1px solid $danger;
+      color: $danger-dark;
+
+      .fc-daygrid-event-dot {
+        border-color: $danger-dark;
+      }
+    }
+
+    .bg-info-50 {
+      border: 1px solid $info;
+      color: $info-dark;
+
+      .fc-daygrid-event-dot {
+        border-color: $info-dark;
+      }
+    }
+
+    .fc-bg-event {
+      border: none;
+    }
+
+    .fc-highlight {
+      background: $info-20;
+      border: none;
+    }
+
+    .fc-toolbar {
+
+      &-title {
+        text-transform: uppercase;
+      }
+    }
+
+    .fc-daygrid-day {
+      &.fc-day-today {
+        background-color: $info-20;
+        border: none;
+
+        .fc-daygrid-day-number {
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+
+    &-bg-event {
+      background-color: $danger-50;
+    }
+
+    &-col-header-cell {
+      text-align: center;
+    }
+
+    &-view-month &-event,
+    .fc-day-sat a,
+    .fc-day-sun a {
+      color: $danger;
+    }
+  }
+}
+
+// Мини календарь на главной
+.today-calendar {
+  width: 100%;
+  margin: 0 auto;
+  font-size: 14px;
+
+  a {
+    color: var(--ui-text);
+  }
+
+  .fc-toolbar-title {
+    color: var(--ui-text);
+  }
+
+  .fc-daygrid-dot-event {
+    color: var(--ui-bg);
+  }
+
+  .fc {
+    .bg-primary-50 {
+      border: 3px solid $primary;
+    }
+
+    .bg-success-50 {
+      border: 3px solid $success;
+    }
+
+    .bg-warning-50 {
+      border: 3px solid $warning;
+    }
+
+    .bg-danger-50 {
+      border: 3px solid $danger;
+    }
+
+    .bg-info-50 {
+      border: 3px solid $info;
+    }
+
+    .fc-bg-event {
+      border: none;
+    }
+
+  }
+
+  .fc-daygrid-dot-event {
+    border-radius: 50%;
+    padding: 2px 2px;
+
+    .fc-event-title {
+      font-weight: 400;
+    }
+  }
+
+  table tbody tr th,
+  table tbody tr td {
+    width: 31px;
+    height: 31px;
+  }
+
+  .fc {
+
+    &-theme-standard td,
+    &-theme-standard th {
+      border-color: var(--ui-border);
+    }
+
+
+    .fc-scrollgrid {
+      border: none;
+    }
+
+    .fc-daygrid-day-frame {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .fc-daygrid-day-top {
+      justify-content: center;
+    }
+
+    .fc-daygrid-day-bottom {
+      font-size: 12px;
+    }
+
+    .fc-scrollgrid {
+      border: none;
+    }
+
+    .fc-daygrid-day {
+      &.fc-day-today {
+        background-color: $info-20;
+      }
+    }
+
+    &-bg-event {
+      background-color: $danger-50;
+    }
+
+    &-view-month &-event,
+    .fc-day-sat a,
+    .fc-day-sun a {
+      color: $danger;
+    }
+
+    .fc-toolbar {
+      &-title {
+        color: var(--ui-text);
+      }
+
+      &.fc-header-toolbar {
+        margin: 0 0 10px 0;
+      }
+    }
+
+    .fc-toolbar-title {
+      font-size: 14px;
+    }
+
+    .fc-button {
+      padding: 0 5px;
+
+      &-primary {
+        background-color: $primary;
+        box-shadow: 0 2px 6px 0 $primary-50;
+
+        &:not(:disabled):active, &:not(:disabled).fc-button-active {
+          color: $offcanvas-vertical-height;
+          background-color: $primary-dark;
+        }
+
+        &:hover,
+        &:active {
+          background-color: $primary-dark;
+        }
+
+        &:focus {
+          box-shadow: 0 0 0 0.25rem $primary-50;
+        }
+      }
+
+      .fc-icon {
+        font-size: 12px;
+      }
+    }
+
+    .fc-h-event {
+      .fc-event-main {
+        color: var(--ui-text-bold);
+      }
+    }
+
+    .fc-daygrid-event {
+      .fc-event-time,
+      .fc-event-title {
+        color: var(--ui-text-bold);
+        font-weight: 400;
+      }
+    }
+
+    .fc-highlight {
+      background: $info-20;
+    }
+
+    table {
+      font-size: 14px;
+    }
+
+    th,
+    td {
+      vertical-align: middle;
+    }
+
+    &-theme-standard td,
+    &-theme-standard th {
+      border: none;
+    }
+
+    &-view-month &-event,
+    &-view-agendaWeek &-event {
+      font-size: 0;
+      overflow: hidden;
+      height: 2px;
+    }
+
+    &-event-time,
+    &-daygrid-event-dot,
+    &-event-title,
+    &-sticky,
+    &-event-title,
+    &-daygrid-more-link {
+      display: none;
+    }
+  }
+}
+

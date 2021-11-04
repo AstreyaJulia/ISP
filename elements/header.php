@@ -9,20 +9,20 @@
     </a></div>
 </div>
 
-<header class="main-header position-absolute p-0">
-  <nav class="navbar">
-    <div class="container-fluid">
-      <div class="left-header">
-        <ul class="nav">
-          <li class="btn-group nav-item">
-            <a href="#" class="waves-effect waves-light nav-link sidebar-toggle-button"
-               title="Свернуть / развернуть меню">
-              <i class="nav-link-icon mdi mdi-menu"></i>
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div class="right-header">
+<header class="main-header position-absolute py-2">
+  <nav class="d-flex align-items-center justify-content-between container-fluid w-100">
+    <ul class="nav mobile-menu d-xl-none mr-auto">
+      <li class="btn-group nav-item">
+        <a href="#" class="waves-effect waves-light nav-link sidebar-expand-button d-flex align-items-center justify-content-center"
+           title="Свернуть / развернуть меню">
+          <i class="nav-link-icon mdi mdi-menu"></i>
+        </a>
+      </li>
+    </ul>
+
+    <div class="left-header d-flex align-items-center justify-content-center">
+    </div>
+    <div class="right-header">
         <ul class="nav align-items-center">
           <li class="d-none d-sm-block topbar-divider"></li>
           <!-- Кнопка открытия поиска -->
@@ -142,6 +142,5 @@
           </li>
         </ul>
       </div>
-    </div>
   </nav>
 </header>

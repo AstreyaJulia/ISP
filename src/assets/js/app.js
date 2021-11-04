@@ -271,6 +271,8 @@ const buttonsidebartoggleHandler = (evt) => {
   evt.preventDefault();
   if (sidebarwrapper.dataset.sidebarWidth === "narrow") {
     sidebarwrapper.dataset.sidebarWidth = "wide";
+    sidebartogglbutton.querySelector('i').classList.add('mdi-crosshairs-gps');
+    sidebartogglbutton.querySelector('i').classList.remove('mdi-crosshairs');
     $.ajax(
       {
         url: "pages/admin/ajax.php",
@@ -305,6 +307,9 @@ const buttonsidebartoggleHandler = (evt) => {
     );
   } else if (sidebarwrapper.dataset.sidebarWidth === "wide") {
     sidebarwrapper.dataset.sidebarWidth = "narrow";
+    sidebartogglbutton.querySelector('i').classList.remove('mdi-crosshairs-gps');
+    sidebartogglbutton.querySelector('i').classList.add('mdi-crosshairs');
+
     $.ajax(
       {
         url: "pages/admin/ajax.php",
@@ -340,7 +345,31 @@ const buttonsidebartoggleHandler = (evt) => {
   }
 };
 
+// Разворачивает сайдбар, не отодвигая контент. Переключает класс expanded у сайдбара
+// Кнопка, переключающая сайдбар, класс .sidebar-expand-button
+const sidebarexpbutton = document.querySelector('.sidebar-expand-button');
+// Сайдбар
+const mainsidebar = document.querySelector('.main-sidebar');
 
+const buttonsidebarexpHandler = () => {
+  if (mainsidebar.classList.contains('expanded')) {
+    mainsidebar.classList.remove('expanded');
+  } else {
+    mainsidebar.classList.add('expanded');
+  }
+};
+
+// Сворачивает сайдбар, не отодвигая контент. Отключает класс expanded у сайдбара
+// Кнопка, сворачивающая сайдбар, класс .sidebar-close-button
+const sidebarclosebutton = document.querySelector('.sidebar-close-button');
+
+const buttonsidebarcloseHandler = () => {
+  mainsidebar.classList.remove('expanded');
+};
+
+const sidebarexpandHandler = () => {
+  mainsidebar.classList.add('expanded');
+};
 
 // Переключатель светлого/темного режима
 const darkmodetogglbutton = document.querySelector('.tumbler__wrapper');
@@ -3146,33 +3175,48 @@ const sliderCarousel = document.getElementById("carouselNews");
 
 
 const CarouselIndicators =
-  `<div class="carousel-indicators" style="bottom: 0; margin-right: 47%;">
-            </div>`;
+  `<div class="row g-0 position-absolute" style="left: 0; bottom: 0; right: 0;">
+<div class="col-xxl-8 col-xl-8 col-lg-8 col-md-7 col-sm-6 col-12 position-relative">
+<div class="carousel-indicators">
+            </div>
+</div>
+</div>
+`;
 
 const CarouselInner =
   `<div class="carousel-inner" style="border-radius: 0.25rem;">
             </div>`;
 
 const CarouselControls =
-  `<button class="carousel-control-prev h-100" type="button" data-bs-target="#carouselNews"
+  `<div class="row g-0 position-absolute" style="top: 0; left: 0; bottom: 0; right: 0;">
+<div class="col-xxl-8 col-xl-8 col-lg-8 col-md-7 col-sm-6 col-12 position-relative">
+<button class="carousel-control-prev h-100" type="button" data-bs-target="#carouselNews"
                     data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span> <span
                 class="visually-hidden">Предыдущий</span></button>
-            <button class="carousel-control-next h-100" type="button" data-bs-target="#carouselNews"
-                    data-bs-slide="next" style="left: 337px;"><span class="carousel-control-next-icon" aria-hidden="true"></span> <span
-                class="visually-hidden">Следующий</span></button>`;
+
+                <button class="carousel-control-next h-100" type="button" data-bs-target="#carouselNews"
+                    data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span> <span
+                class="visually-hidden">Следующий</span></button>
+</div>
+</div>
+
+            `;
 
 const createSliderItemString = ({image, header, text, hideLink, link}) =>
 
   `<div class="carousel-item" data-bs-interval="10000">
-  <div class="d-flex">
-    <img src="${image}" alt="${header}" aria-label="${header}" style="object-fit: cover; height: 282px;">
-    <div class="carousel-caption d-flex flex-column justify-content-between w-100" style="position: revert; padding: 1.25rem; text-align: left;">
-      <div>
-        <h6 style="text-overflow: ellipsis; overflow: hidden; display: -webkit-box; max-width: 173px; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">${header}</h6>
-        <p style="text-overflow: ellipsis; overflow: hidden; display: -webkit-box; max-width: 173px; -webkit-line-clamp: 5; -webkit-box-orient: vertical; margin-bottom: 0;">${text}</p>
-      </div>
-      <a href="${link}" class="mt-2 ${hideLink}">Подробнее</a>
+  <div class="row g-0">
+  <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-7 col-sm-6 col-12">
+      <img src="${image}" alt="${header}" aria-label="${header}" style="object-fit: cover; width: 100%;">
+</div>
+<div class="col-xxl-4 col-xl-4 col-lg-4 col-md-5 col-sm-6 col-12">
+    <div class="carousel-caption d-flex flex-column w-100 p-3" style="min-width: 0; flex-basis: 50%; position: revert; text-align: left">
+                <h6 style="max-height: 40px;">${header}</h6>
+        <p class="d-xxl-flex d-xl-flex d-lg-flex d-md-none d-sm-none d-none">${text}</p>
+      <a href="${link}" class="mt-auto mb-0 ${hideLink}" style="max-height: 25px;">Подробнее</a>
     </div>
+
+</div>
   </div>
 </div>`;
 
@@ -3204,6 +3248,13 @@ const sliderRender = (slideArray) => {
 // Определение функции, запускающейся при полной загрузке страницы
 const init = () => {
 
+  if (sidebarwrapper.dataset.sidebarWidth === "wide") {
+    sidebartogglbutton.querySelector('i').classList.add('mdi-crosshairs-gps');
+  }
+  if (sidebarwrapper.dataset.sidebarWidth === "narrow") {
+    sidebartogglbutton.querySelector('i').classList.add('mdi-crosshairs');
+  }
+
   // Прослушивание прокручивания .main-content
   if (backtotopbutton) {
     maincontent.addEventListener('scroll', maincontentscroll);
@@ -3213,9 +3264,33 @@ const init = () => {
 
   // Прослушивание нажатия кнопки .sidebar-toggle-button
   if (sidebartogglbutton && sidebarwrapper) {
-    sidebartogglbutton.addEventListener('click', (evt) => {
-      buttonsidebartoggleHandler(evt);
-    });
+    sidebartogglbutton.addEventListener('click', buttonsidebartoggleHandler);
+  }
+
+  // Прослушивание нажатия кнопки .sidebar-expand-button
+  if (sidebarexpbutton) {
+    sidebarexpbutton.addEventListener('click', buttonsidebarexpHandler);
+  }
+
+  // Прослушивание нажатия кнопки .sidebar-close-button
+  if (sidebarclosebutton) {
+    sidebarclosebutton.addEventListener('click', buttonsidebarcloseHandler);
+  }
+
+  // Разворачивалка сайдбара. Только для ширины экрана 1080 или если установлена настройка
+  if (($(window).width() > 1080) || (sidebarwrapper.dataset.sidebarWidth === "narrow")) {
+    mainsidebar.addEventListener('mouseenter', sidebarexpandHandler);
+    mainsidebar.addEventListener('mouseleave', buttonsidebarcloseHandler);
+
+    // Отрисовка модуля календаря
+    if (calendarEl) {
+      calendmodulehandler();
+    }
+
+    // Отрисовка виджета календаря
+    if (minicalendar) {
+      minicalendarhandler();
+    }
   }
 
   // Прослушивание нажатия кнопки .top-search-button-toggle
@@ -3290,12 +3365,23 @@ const init = () => {
   }
 };
 
-// Запуск функции при загрузке. Будет запущено все, что внутри const init = () => {}
-
-init();
+// Ждем полной загрузки дерева
 document.addEventListener("DOMContentLoaded", () => {
   //Отключаем спиннер
   if (spinnerloader) {
     spinnerloaderHandler();
   }
+
+// Будет запущено все, что внутри const init
+  init();
+});
+
+// Инициализация при изменении окна
+window.addEventListener('resize', () => {
+  init();
+});
+
+// Инициализация при изменении главного содержимого
+maincontent.addEventListener('resize', () => {
+  init();
 });

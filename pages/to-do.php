@@ -3,6 +3,7 @@ $title = "Список задач";
 
 
 $content = '
+<main class="main-content scroll-y">
 <div class="ps-3 pe-3">
 <header class="main-content-header">
     <div class="header-left">
@@ -219,5 +220,5 @@ $content = '
     </div>
   </div>
     </div>
-
+</main>
 ';

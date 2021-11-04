@@ -29,7 +29,7 @@ $sidebar-width-max: (
 }
 
 // Высота хедера
-$header-height: 62px;
+$header-height: 69px;
 
 // Цветовая схема
 
@@ -341,19 +341,19 @@ $custom-theme-colors: (
 $theme-colors: map-merge($theme-colors, $custom-theme-colors);
 
 // Тени
-$grey-shadow-1: 0px 8px 16px rgba($gray-800, 0.06);
-$grey-shadow-2: 0 4px 8px -2px rgba($gray-800, 0.06);
-$grey-shadow-3: 0 2px 4px -2px rgba($gray-800, 0.1);
-$grey-shadow-4: 0 16px 8px -4px rgba($gray-800, 0.05);
-$grey-shadow-5: 0 8px 24px -4px rgba($gray-800, 0.1);
-$grey-shadow-6: 0 8px 24px -4px rgba($gray-800, 0.15);
+$grey-shadow-1: 0 8px 16px rgba($gray-900, 0.06);
+$grey-shadow-2: 0 4px 8px -2px rgba($gray-900, 0.06);
+$grey-shadow-3: 0 2px 4px -2px rgba($gray-900, 0.1);
+$grey-shadow-4: 0 16px 8px -4px rgba($gray-900, 0.05);
+$grey-shadow-5: 0 8px 24px -4px rgba($gray-900, 0.1);
+$grey-shadow-6: 1px 2px 6px 0 rgba($gray-900, 0.15);
 
-$white-shadow-1: 0px 8px 16px rgba($light, 0.04);
-$white-shadow-2: 0 4px 8px -2px rgba($light, 0.04);
-$white-shadow-3: 0 2px 4px -2px rgba($light, 0.08);
-$white-shadow-4: 0 16px 8px -4px rgba($light, 0.03);
-$white-shadow-5: 0 8px 24px -4px rgba($light, 0.08);
-$white-shadow-6: 0 8px 24px -4px rgba($light, 0.12);
+$white-shadow-1: 0 8px 16px rgba($gray-100, 0.04);
+$white-shadow-2: 0 4px 8px -2px rgba($gray-100, 0.04);
+$white-shadow-3: 0 2px 4px -2px rgba($gray-100, 0.08);
+$white-shadow-4: 0 16px 8px -4px rgba($gray-100, 0.03);
+$white-shadow-5: 0 8px 24px -4px rgba($gray-100, 0.08);
+$white-shadow-6: 1px 2px 6px 0 rgba($gray-100, 0.12);
 
 $shadows: (
   "grey-shadow-1": $grey-shadow-1,
@@ -423,6 +423,68 @@ $gradient-purple-indigo: linear-gradient(45deg, $purple, $indigo 100%);
 $gradient-purple-blue: linear-gradient(45deg, $purple, $blue 100%);
 $gradient-purple-pink: linear-gradient(45deg, $purple, $pink 100%);
 $gradient-purple-red: linear-gradient(45deg, $purple, $red 100%);
+$gradient-green-cyan: linear-gradient(45deg, $green, $cyan 100%);
+$gradient-green-yellow: linear-gradient(45deg, $green, $yellow 100%);
+$gradient-green-blue: linear-gradient(45deg, $green, $blue 100%);
+$gradient-green-teal: linear-gradient(45deg, $green, $teal 100%);
+$gradient-green-azure: linear-gradient(45deg, $green, $azure 100%);
+$gradient-cyan-purple: linear-gradient(45deg, $cyan, $purple 100%);
+$gradient-cyan-green: linear-gradient(45deg, $cyan, $green 100%);
+$gradient-cyan-blue: linear-gradient(45deg, $cyan, $blue 100%);
+$gradient-cyan-teal: linear-gradient(45deg, $cyan, $teal 100%);
+$gradient-cyan-azure: linear-gradient(45deg, $cyan, $azure 100%);
+$gradient-cyan-pink: linear-gradient(45deg, $cyan, $pink 100%);
+$gradient-cyan-indigo: linear-gradient(45deg, $cyan, $indigo 100%);
+$gradient-yellow-green: linear-gradient(45deg, $yellow, $green 100%);
+$gradient-yellow-red: linear-gradient(45deg, $yellow, $red 100%);
+$gradient-yellow-orange: linear-gradient(45deg, $yellow, $orange 100%);
+$gradient-yellow-pink: linear-gradient(45deg, $yellow, $pink 100%);
+$gradient-red-purple: linear-gradient(45deg, $red, $purple 100%);
+$gradient-red-yellow: linear-gradient(45deg, $red, $yellow 100%);
+$gradient-red-blue: linear-gradient(45deg, $red, $blue 100%);
+$gradient-red-azure: linear-gradient(45deg, $red, $azure 100%);
+$gradient-red-orange: linear-gradient(45deg, $red, $orange 100%);
+$gradient-red-pink: linear-gradient(45deg, $red, $pink 100%);
+$gradient-red-indigo: linear-gradient(45deg, $red, $indigo 100%);
+$gradient-blue-purple: linear-gradient(45deg, $blue, $purple 100%);
+$gradient-blue-green: linear-gradient(45deg, $blue, $green 100%);
+$gradient-blue-cyan: linear-gradient(45deg, $blue, $cyan 100%);
+$gradient-blue-teal: linear-gradient(45deg, $blue, $teal 100%);
+$gradient-blue-azure: linear-gradient(45deg, $blue, $azure 100%);
+$gradient-blue-pink: linear-gradient(45deg, $blue, $pink 100%);
+$gradient-blue-indigo: linear-gradient(45deg, $blue, $indigo 100%);
+$gradient-teal-purple: linear-gradient(45deg, $teal, $purple 100%);
+$gradient-teal-green: linear-gradient(45deg, $teal, $green 100%);
+$gradient-teal-cyan: linear-gradient(45deg, $teal, $cyan 100%);
+$gradient-teal-blue: linear-gradient(45deg, $teal, $blue 100%);
+$gradient-teal-azure: linear-gradient(45deg, $teal, $azure 100%);
+$gradient-teal-indigo: linear-gradient(45deg, $teal, $indigo 100%);
+$gradient-azure-purple: linear-gradient(45deg, $azure, $purple 100%);
+$gradient-azure-green: linear-gradient(45deg, $azure, $green 100%);
+$gradient-azure-cyan: linear-gradient(45deg, $azure, $cyan 100%);
+$gradient-azure-blue: linear-gradient(45deg, $azure, $blue 100%);
+$gradient-azure-teal: linear-gradient(45deg, $azure, $teal 100%);
+$gradient-azure-pink: linear-gradient(45deg, $azure, $pink 100%);
+$gradient-azure-indigo: linear-gradient(45deg, $azure, $indigo 100%);
+$gradient-orange-yellow: linear-gradient(45deg, $orange, $yellow 100%);
+$gradient-orange-red: linear-gradient(45deg, $orange, $red 100%);
+$gradient-orange-pink: linear-gradient(45deg, $orange, $pink 100%);
+$gradient-pink-purple: linear-gradient(45deg, $pink, $purple 100%);
+$gradient-pink-cyan: linear-gradient(45deg, $pink, $cyan 100%);
+$gradient-pink-yellow: linear-gradient(45deg, $pink, $yellow 100%);
+$gradient-pink-red: linear-gradient(45deg, $pink, $red 100%);
+$gradient-pink-blue: linear-gradient(45deg, $pink, $blue 100%);
+$gradient-pink-azure: linear-gradient(45deg, $pink, $azure 100%);
+$gradient-pink-orange: linear-gradient(45deg, $pink, $orange 100%);
+$gradient-pink-indigo: linear-gradient(45deg, $pink, $indigo 100%);
+$gradient-indigo-purple: linear-gradient(45deg, $indigo, $purple 100%);
+$gradient-indigo-green: linear-gradient(45deg, $indigo, $green 100%);
+$gradient-indigo-cyan: linear-gradient(45deg, $indigo, $cyan 100%);
+$gradient-indigo-red: linear-gradient(45deg, $indigo, $red 100%);
+$gradient-indigo-blue: linear-gradient(45deg, $indigo, $blue 100%);
+$gradient-indigo-teal: linear-gradient(45deg, $indigo, $teal 100%);
+$gradient-indigo-azure: linear-gradient(45deg, $indigo, $azure 100%);
+$gradient-indigo-pink: linear-gradient(45deg, $indigo, $pink 100%);
 
 $gradients-2colors: (
   "gradient-purple-cyan": $gradient-purple-cyan,
@@ -432,6 +494,68 @@ $gradients-2colors: (
   "gradient-purple-blue": $gradient-purple-blue,
   "gradient-purple-pink": $gradient-purple-pink,
   "gradient-purple-red": $gradient-purple-red,
+  "gradient-green-cyan": $gradient-green-cyan,
+  "gradient-green-yellow": $gradient-green-yellow,
+  "gradient-green-blue": $gradient-green-blue,
+  "gradient-green-teal": $gradient-green-teal,
+  "gradient-green-azure": $gradient-green-azure,
+  "gradient-cyan-purple": $gradient-cyan-purple,
+  "gradient-cyan-green": $gradient-cyan-green,
+  "gradient-cyan-blue": $gradient-cyan-blue,
+  "gradient-cyan-teal": $gradient-cyan-teal,
+  "gradient-cyan-azure": $gradient-cyan-azure,
+  "gradient-cyan-pink": $gradient-cyan-pink,
+  "gradient-cyan-indigo": $gradient-cyan-indigo,
+  "gradient-yellow-green": $gradient-yellow-green,
+  "gradient-yellow-red": $gradient-yellow-red,
+  "gradient-yellow-orange": $gradient-yellow-orange,
+  "gradient-yellow-pink": $gradient-yellow-pink,
+  "gradient-red-purple": $gradient-red-purple,
+  "gradient-red-yellow": $gradient-red-yellow,
+  "gradient-red-blue": $gradient-red-blue,
+  "gradient-red-azure": $gradient-red-azure,
+  "gradient-red-orange": $gradient-red-orange,
+  "gradient-red-pink": $gradient-red-pink,
+  "gradient-red-indigo": $gradient-red-indigo,
+  "gradient-blue-purple": $gradient-blue-purple,
+  "gradient-blue-green": $gradient-blue-green,
+  "gradient-blue-cyan": $gradient-blue-cyan,
+  "gradient-blue-teal": $gradient-blue-teal,
+  "gradient-blue-azure": $gradient-blue-azure,
+  "gradient-blue-pink": $gradient-blue-pink,
+  "gradient-blue-indigo": $gradient-blue-indigo,
+  "gradient-teal-purple": $gradient-teal-purple,
+  "gradient-teal-green": $gradient-teal-green,
+  "gradient-teal-cyan": $gradient-teal-cyan,
+  "gradient-teal-blue": $gradient-teal-blue,
+  "gradient-teal-azure": $gradient-teal-azure,
+  "gradient-teal-indigo": $gradient-teal-indigo,
+  "gradient-azure-purple": $gradient-azure-purple,
+  "gradient-azure-green": $gradient-azure-green,
+  "gradient-azure-cyan": $gradient-azure-cyan,
+  "gradient-azure-blue": $gradient-azure-blue,
+  "gradient-azure-teal": $gradient-azure-teal,
+  "gradient-azure-pink": $gradient-azure-pink,
+  "gradient-azure-indigo": $gradient-azure-indigo,
+  "gradient-orange-yellow": $gradient-orange-yellow,
+  "gradient-orange-red": $gradient-orange-red,
+  "gradient-orange-pink": $gradient-orange-pink,
+  "gradient-pink-purple": $gradient-pink-purple,
+  "gradient-pink-cyan": $gradient-pink-cyan,
+  "gradient-pink-yellow": $gradient-pink-yellow,
+  "gradient-pink-red": $gradient-pink-red,
+  "gradient-pink-blue": $gradient-pink-blue,
+  "gradient-pink-azure": $gradient-pink-azure,
+  "gradient-pink-orange": $gradient-pink-orange,
+  "gradient-pink-indigo": $gradient-pink-indigo,
+  "gradient-indigo-purple": $gradient-indigo-purple,
+  "gradient-indigo-green": $gradient-indigo-green,
+  "gradient-indigo-cyan": $gradient-indigo-cyan,
+  "gradient-indigo-red": $gradient-indigo-red,
+  "gradient-indigo-blue": $gradient-indigo-blue,
+  "gradient-indigo-teal": $gradient-indigo-teal,
+  "gradient-indigo-azure": $gradient-indigo-azure,
+  "gradient-indigo-pink": $gradient-indigo-pink,
 );
 
 @each $gradient_name, $gradient in $gradients-2colors {
@@ -505,6 +629,7 @@ $theme-map-dark: (
 }
 
 $link-color: $purple;
+$link-hover-color: shift-color($link-color, $link-shade-percentage);
 $border-color: var(--ui-border);
 $link-decoration: none;
 $headings-font-weight: 700;

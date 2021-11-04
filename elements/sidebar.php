@@ -1,5 +1,18 @@
 <!-- Сайдбар -->
-<aside class="main-sidebar d-flex position-absolute flex-column justify-content-between">
+<aside class="main-sidebar d-flex position-absolute flex-column">
+  <div class="d-flex align-items-center justify-content-between p-3 border-bottom">
+    <a class="d-flex align-items-center justify-content-center text-decoration-none logo">
+      <img src="assets/img/logo/isp-logo.svg" alt="Лого" width="512" height="408"
+           style="width: auto; height: 36px;">
+    </a>
+    <a class="d-flex align-items-center justify-content-center px-3 text-decoration-none sidebar-toggle-button"
+       data-bs-toggle="tooltip" data-bs-placement="right" title="Закрепить меню">
+      <i class="mdi fs-4"></i>
+    </a>
+    <a class="d-flex align-items-center justify-content-center px-3 text-decoration-none sidebar-close-button">
+      <i class="mdi fs-4 mdi-close"></i>
+    </a>
+  </div>
   <ul class="navigation-menu overlayscrollbar os-host-flexbox py-3 px-2 m-0">
     <li class="menu-item">
       <a
@@ -27,7 +40,7 @@
         <i class="menu-arrow position-absolute mdi mdi-chevron-right"></i>
       </a>
       <ul class="sub-menu mt-2 mx-0 mb-0 ps-0">
-        <li class="submenu-item p-0"><a
+        <li class="submenu-item mb-2 p-0"><a
             class="submenu-link d-flex align-items-center w-100 py-2 px-3 position-relative m-0 text-decoration-none rounded-2"
             data-bs-toggle="tooltip" data-bs-placement="right" href="?page=phonebook" title="Телефонный справочник">
             <i class="mdi fs-4 mdi-phone-classic"></i>
@@ -43,7 +56,7 @@
         <i class="menu-arrow position-absolute mdi mdi-chevron-right"></i>
       </a>
       <ul class="sub-menu mt-2 mx-0 mb-0 ps-0">
-        <li class="submenu-item p-0"><a
+        <li class="submenu-item mb-2 p-0"><a
             class="submenu-link d-flex align-items-center w-100 py-2 px-3 position-relative m-0 text-decoration-none rounded-2"
             data-bs-toggle="tooltip" data-bs-placement="right" href="?page=faq" title="База знаний">
             <i class="mdi fs-4 mdi-lightbulb-on-outline"></i>
@@ -65,27 +78,27 @@
         <i class="menu-arrow position-absolute mdi mdi-chevron-right"></i>
       </a>
       <ul class="sub-menu mt-2 mx-0 mb-0 ps-0">
-        <li class="submenu-item p-0"><a
+        <li class="submenu-item mb-2 p-0"><a
             class="submenu-link d-flex align-items-center w-100 py-2 px-3 position-relative m-0 text-decoration-none rounded-2"
             data-bs-toggle="tooltip" data-bs-placement="right" href="?page=admin" title="Панель управления">
             <i class="mdi fs-4 mdi-view-dashboard-outline"></i>
             <span class="ms-2">Панель управления</span></a></li>
-        <li class="submenu-item p-0"><a
+        <li class="submenu-item mb-2 p-0"><a
             class="submenu-link d-flex align-items-center w-100 py-2 px-3 position-relative m-0 text-decoration-none rounded-2"
             data-bs-toggle="tooltip" data-bs-placement="right" href="?page=staff" title="Сотрудники">
             <i class="mdi fs-4 mdi-account-multiple"></i>
             <span class="ms-2">Сотрудники</span></a></li>
-        <li class="submenu-item p-0"><a
+        <li class="submenu-item mb-2 p-0"><a
             class="submenu-link d-flex align-items-center w-100 py-2 px-3 position-relative m-0 text-decoration-none rounded-2"
             data-bs-toggle="tooltip" data-bs-placement="right" href="?page=workroom" title="Рабочие места">
             <i class="mdi fs-4 mdi-wan"></i>
             <span class="ms-2">Рабочие места</span></a></li>
-        <li class="submenu-item p-0"><a
+        <li class="submenu-item mb-2 p-0"><a
             class="submenu-link d-flex align-items-center w-100 py-2 px-3 position-relative m-0 text-decoration-none rounded-2"
             data-bs-toggle="tooltip" data-bs-placement="right" href="?page=workplaces" title="Рабочие места">
             <i class="mdi fs-4 mdi-wan"></i>
             <span class="ms-2">Рабочие места</span></a></li>
-        <li class="submenu-item p-0"><a
+        <li class="submenu-item mb-2 p-0"><a
             class="submenu-link d-flex align-items-center w-100 py-2 px-3 position-relative m-0 text-decoration-none rounded-2"
             data-bs-toggle="tooltip" data-bs-placement="right" href="?page=documentation" title="Документация">
             <i class="mdi fs-4 mdi-book-open-variant"></i>
@@ -102,22 +115,22 @@
         <i class="menu-arrow position-absolute mdi mdi-chevron-right"></i>
       </a>
       <ul class="sub-menu mt-2 mx-0 mb-0 ps-0">
-        <li class="submenu-item p-0"><a
+        <li class="submenu-item mb-2 p-0"><a
             class="submenu-link d-flex align-items-center w-100 py-2 px-3 position-relative m-0 text-decoration-none rounded-2"
             data-bs-toggle="tooltip" data-bs-placement="right" href="?page=fullcalendar" title="Календарь">
             <i class="mdi fs-4 mdi-calendar"></i>
             <span class="ms-2">Календарь</span></a></li>
-        <li class="submenu-item p-0"><a
+        <li class="submenu-item mb-2 p-0"><a
             class="submenu-link d-flex align-items-center w-100 py-2 px-3 position-relative m-0 text-decoration-none rounded-2"
             data-bs-toggle="tooltip" data-bs-placement="right" href="?page=to-do" title="Задачи">
             <i class="mdi fs-4 mdi-checkbox-marked-outline"></i>
             <span class="ms-2">Задачи</span></a></li>
-        <li class="submenu-item p-0"><a
+        <li class="submenu-item mb-2 p-0"><a
             class="submenu-link d-flex align-items-center w-100 py-2 px-3 position-relative m-0 text-decoration-none rounded-2"
             data-bs-toggle="tooltip" data-bs-placement="right" href="?page=uikit" title="UI Kit">
             <i class="mdi fs-4 mdi-flower-outline"></i>
             <span class="ms-2">UI Kit</span></a></li>
-        <li class="submenu-item p-0"><a
+        <li class="submenu-item mb-2 p-0"><a
             class="submenu-link d-flex align-items-center w-100 py-2 px-3 position-relative m-0 text-decoration-none rounded-2"
             data-bs-toggle="tooltip" data-bs-placement="right" href="?page=test" title="Тестовая страница">
             <i class="mdi fs-4 mdi-file-outline"></i>
@@ -127,7 +140,7 @@
     }
     ?>
   </ul>
-  <div class="sidebar-footer">
+  <div class="sidebar-footer mb-0 mt-auto">
     <p class="footer-text">Сделано с <span><i class="mdi mdi-cards-heart"></i></span></p>
     <p class="footer-text">Сафоновский районный суд © <span><?= date('Y'); ?></span></p>
   </div>
