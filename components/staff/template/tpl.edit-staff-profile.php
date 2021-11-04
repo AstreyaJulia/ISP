@@ -85,9 +85,11 @@
                         </div>
                       </div>
                     </div>
+                    <?php if ($_GET["editStaff"] !== "add"): ?>
                     <form class="form-group" action="" method="post">
                       <button type="submit" name="DropPass" class="btn btn-primary btn-block">Сброс пароля</button>
                     </form>
+                    <?php endif ?>
                   </div>
                   <div class="col">
                     <div class="form-group">
