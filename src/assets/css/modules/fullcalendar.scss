@@ -65,7 +65,7 @@
 
       &-primary {
         background-color: $primary;
-        box-shadow: 0 2px 6px 0 $primary-50;
+        box-shadow: 0 2px 6px 0 $primary-20;
 
         &:not(:disabled):active, &:not(:disabled).fc-button-active {
           color: $offcanvas-vertical-height;
@@ -79,7 +79,7 @@
 
         &:focus {
           outline: 0;
-          box-shadow: 0 0 0 0.25rem $primary-50;
+          box-shadow: 0 0 0 0.25rem $primary-20;
         }
 
         &:disabled {
@@ -90,53 +90,25 @@
 
     }
 
-    .bg-primary-50 {
-      border: 1px solid $primary;
-      color: $primary-dark;
+    @each $color_name, $color in $theme-colors {
+      .fc-event-#{$color_name} {
+        background-color: rgba($color, .4);
+        border: 1px solid $color;
+        color: var(--ui-text);
 
-      .fc-daygrid-event-dot {
-        border-color: $primary-dark;
+        &fc-bg-event {
+          border: 1px solid rgba($color, .4);
+        }
+
+        .fc-daygrid-event-dot {
+          border-color: mix($black, $color, $darkpercent);
+        }
+
+        .fc-event-main {
+          color: var(--ui-text);
+        }
+
       }
-    }
-
-    .bg-success-50 {
-      border: 1px solid $success;
-      color: $success-dark;
-
-      .fc-daygrid-event-dot {
-        border-color: $success-dark;
-      }
-    }
-
-    .bg-warning-50 {
-      border: 1px solid $warning;
-      color: $warning-dark;
-
-      .fc-daygrid-event-dot {
-        border-color: $warning-dark;
-      }
-    }
-
-    .bg-danger-50 {
-      border: 1px solid $danger;
-      color: $danger-dark;
-
-      .fc-daygrid-event-dot {
-        border-color: $danger-dark;
-      }
-    }
-
-    .bg-info-50 {
-      border: 1px solid $info;
-      color: $info-dark;
-
-      .fc-daygrid-event-dot {
-        border-color: $info-dark;
-      }
-    }
-
-    .fc-bg-event {
-      border: none;
     }
 
     .fc-highlight {
@@ -165,7 +137,7 @@
     }
 
     &-bg-event {
-      background-color: $danger-50;
+      background-color: $danger-20;
     }
 
     &-col-header-cell {
@@ -199,24 +171,12 @@
   }
 
   .fc {
-    .bg-primary-50 {
-      border: 3px solid $primary;
-    }
 
-    .bg-success-50 {
-      border: 3px solid $success;
-    }
-
-    .bg-warning-50 {
-      border: 3px solid $warning;
-    }
-
-    .bg-danger-50 {
-      border: 3px solid $danger;
-    }
-
-    .bg-info-50 {
-      border: 3px solid $info;
+    @each $color_name, $color in $theme-colors {
+      .fc-event-#{$color_name} {
+        background-color: rgba($color, .4);
+        border: 3px solid $color;
+      }
     }
 
     .fc-bg-event {
@@ -277,7 +237,7 @@
     }
 
     &-bg-event {
-      background-color: $danger-50;
+      background-color: $danger-20;
     }
 
     &-view-month &-event,
@@ -305,7 +265,7 @@
 
       &-primary {
         background-color: $primary;
-        box-shadow: 0 2px 6px 0 $primary-50;
+        box-shadow: 0 2px 6px 0 $primary-20;
 
         &:not(:disabled):active, &:not(:disabled).fc-button-active {
           color: $offcanvas-vertical-height;
@@ -318,7 +278,7 @@
         }
 
         &:focus {
-          box-shadow: 0 0 0 0.25rem $primary-50;
+          box-shadow: 0 0 0 0.25rem $primary-20;
         }
       }
 

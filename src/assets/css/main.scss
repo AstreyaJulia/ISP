@@ -17,6 +17,7 @@
 @import "vendors/apexcharts";
 @import "vendors/waves";
 @import "vendors/datatables";
+@import "vendors/select2";
 
 // Оригинальные + Кастомные стили для библиотек
 @import "vendors/overlayscrollbars";
@@ -204,7 +205,32 @@ a {
   box-shadow: var(--ui-shadow-elements);
 }
 
+// Модалы
+
+.modal {
+  &-content {
+    background-color: var(--ui-bg);
+    border: 1px solid var(--ui-border);
+  }
+
+  .modal-header {
+    border-bottom: 1px solid var(--ui-border);
+  }
+}
+
+// Nav Tabs
+.nav-tabs {
+  border-bottom: 1px solid var(--ui-border);
+
+  .nav-link.active, .nav-item.show .nav-link {
+    color: var(--ui-text);
+    background-color: var(--ui-bg);
+  }
+}
+
+
 // Popover
+
 .popover {
   background-color: var(--ui-bg);
   font-family: "TT Norms Pro", "Arial", sans-serif;
@@ -222,63 +248,18 @@ a {
     padding: 0.75rem 0.75rem;
   }
 
-  &-primary {
-    border-color: $primary;
+  @each $color_name, $color in $theme-colors {
+    &.popover-#{$color_name} {
+      border-color: $color;
+      color: var(--ui-text);
 
-    .popover-arrow::before {
-      border-top-color: $primary;
-    }
+      .popover-arrow::before {
+        border-top-color: mix($white, $color, $lightpercent);
+      }
 
-    .popover-header {
-      background-color: $primary-light;
-    }
-  }
-
-  &-danger {
-    border-color: $danger;
-
-    .popover-arrow::before {
-      border-top-color: $danger;
-    }
-
-    .popover-header {
-      background-color: $danger-light;
-    }
-  }
-
-  &-warning {
-    border-color: $warning;
-
-    .popover-arrow::before {
-      border-top-color: $warning;
-    }
-
-    .popover-header {
-      background-color: $warning-light;
-    }
-  }
-
-  &-success {
-    border-color: $success;
-
-    .popover-arrow::before {
-      border-top-color: $success;
-    }
-
-    .popover-header {
-      background-color: $success-light;
-    }
-  }
-
-  &-info {
-    border-color: $info;
-
-    .popover-arrow::before {
-      border-top-color: $info;
-    }
-
-    .popover-header {
-      background-color: $info-light;
+      .popover-header {
+        background-color: mix($white, $color, $lighterpercent);
+      }
     }
   }
 
@@ -292,7 +273,7 @@ a {
   font-size: 0.75rem;
   border-radius: 1.28rem;
   padding: 0.15rem;
-  box-shadow: 0 2px 2px $secondary-20;
+  box-shadow: var(--ui-shadow-elements);
 
   &.progress-sm {
     height: 0.4rem;
@@ -1008,6 +989,10 @@ a {
 
 // Кнопки
 .btn {
+
+  &-close {
+    color: var(--ui-text-bold);
+  }
 
   &-pill-left {
     border-top-left-radius: 50px;
