@@ -24,74 +24,80 @@
         </nav>
       </div>
     </header>
-    <div class="boxed-content container align-items-center justify-content-end d-flex mb-3">
-      <div class="workplace-search me-3">
-        <input class="form-control" type="text" placeholder="Поиск..." id="workplace-search">
+    <div class="row boxed-content container align-items-center justify-content-end d-flex mb-3">
+      <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
+        <div class="row g-0">
+          <div class="col-xxl-6 col-xl-6 col-lg-6 col-12 mb-xxl-0 mb-xl-0 mb-lg-0 mb-3">
+            <input class="form-control" type="text" placeholder="Поиск..." id="workplace-search">
+          </div>
+          <div class="col-xxl-6 col-xl-6 col-lg-6 col-12">
+            <button class="btn btn-outline-secondary ms-2" type="button" id="reportstmenu" data-bs-toggle="dropdown"
+                    data-bs-placement="top" title="Отчеты">Отчёты
+            </button>
+            <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="reportstmenu">
+              <li class="dropdown-item">
+                <a href="#">Паспорт рабочего места (АРМ)</a>
+              </li>
+              <li class="dropdown-item">
+                <a href="#">Печать стикеров</a>
+              </li>
+              <li class="dropdown-item">
+                <a href="#">Расход картриджей</a>
+              </li>
+              <li class="dropdown-item">
+                <a href="#">Наличие картриджей</a>
+              </li>
+              <li class="dropdown-item">
+                <a href="#">История перемещений устройств</a>
+              </li>
+              <li class="dropdown-item">
+                <a href="#">Список инвентарных номеров</a>
+              </li>
+              <li class="dropdown-item">
+                <a href="#">Оборудование на списание</a>
+              </li>
+            </ul>
+
+            <button class="btn btn-outline-secondary ms-2" type="button" id="catalogmenu" data-bs-toggle="dropdown"
+                    data-bs-placement="top" title="Отчеты">Справочники
+            </button>
+            <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="catalogmenu">
+              <li class="dropdown-item">
+                <a href="#">Устройства</a>
+              </li>
+              <li class="dropdown-item">
+                <a href="#">Программное обеспечение</a>
+              </li>
+              <li class="dropdown-item">
+                <a href="#">Производители</a>
+              </li>
+              <li class="dropdown-item">
+                <a href="#">Каталог устройств</a>
+              </li>
+              <li class="dropdown-item">
+                <a href="#">Тип работ</a>
+              </li>
+              <li class="dropdown-item">
+                <a href="#">Перемещение и списание</a>
+              </li>
+              <li class="dropdown-item">
+                <a href="#">Организации</a>
+              </li>
+            </ul>
+
+            <button class="btn btn-primary ms-2" type="button" id="contentmenu" data-bs-toggle="dropdown"
+                    data-bs-placement="top" title="Меню">
+              <i class="mdi mdi-cog-outline"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="contentmenu">
+              <li class="dropdown-item">
+                <a href="#" class=" btn-print">Печать</a>
+              </li>
+            </ul>
+
+          </div>
+        </div>
       </div>
-      <button class="btn btn-outline-success ms-2" type="button" id="reportstmenu" data-bs-toggle="dropdown"
-              data-bs-placement="top" title="Отчеты">Отчёты
-      </button>
-      <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="reportstmenu">
-        <li class="dropdown-item">
-          <a href="#">Паспорт рабочего места (АРМ)</a>
-        </li>
-        <li class="dropdown-item">
-          <a href="#">Печать стикеров</a>
-        </li>
-        <li class="dropdown-item">
-          <a href="#">Расход картриджей</a>
-        </li>
-        <li class="dropdown-item">
-          <a href="#">Наличие картриджей</a>
-        </li>
-        <li class="dropdown-item">
-          <a href="#">История перемещений устройств</a>
-        </li>
-        <li class="dropdown-item">
-          <a href="#">Список инвентарных номеров</a>
-        </li>
-        <li class="dropdown-item">
-          <a href="#">Оборудование на списание</a>
-        </li>
-      </ul>
-
-      <button class="btn btn-outline-success ms-2" type="button" id="catalogmenu" data-bs-toggle="dropdown"
-              data-bs-placement="top" title="Отчеты">Справочники
-      </button>
-      <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="catalogmenu">
-        <li class="dropdown-item">
-          <a href="#">Устройства</a>
-        </li>
-        <li class="dropdown-item">
-          <a href="#">Программное обеспечение</a>
-        </li>
-        <li class="dropdown-item">
-          <a href="#">Производители</a>
-        </li>
-        <li class="dropdown-item">
-          <a href="#">Каталог устройств</a>
-        </li>
-        <li class="dropdown-item">
-          <a href="#">Тип работ</a>
-        </li>
-        <li class="dropdown-item">
-          <a href="#">Перемещение и списание</a>
-        </li>
-        <li class="dropdown-item">
-          <a href="#">Организации</a>
-        </li>
-      </ul>
-
-      <button class="btn btn-primary ms-2" type="button" id="contentmenu" data-bs-toggle="dropdown"
-              data-bs-placement="top" title="Меню">
-        <i class="mdi mdi-cog-outline"></i>
-      </button>
-      <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="contentmenu">
-        <li class="dropdown-item">
-          <a href="#" class=" btn-print">Печать</a>
-        </li>
-      </ul>
-      </ul>
     </div>
 
     <div class="row boxed-content">

@@ -3564,7 +3564,7 @@ const zTreeHandler = () => {
                 {
                   id: "01_01",
                   name: "Материнская плата Gigbyte",
-                  icon: "../../assets/img/icons/computer.png",
+                  icon: "../../assets/img/icons/motherboard.png",
                   isParent:false,
                 },
                 {
