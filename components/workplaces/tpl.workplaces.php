@@ -133,63 +133,8 @@
               </li>
             </ul>
           </div>
-          <ol class="workplace-tree">
-            <li class="workplace-building">
-              <a>Сафоново</a>
-              <ol>
-                <li>
-                  <a>1 этаж</a>
-                  <ol>
-                    <li>
-                      <a>Каб. № 8</a>
-                    </li>
-                    <li>
-                      <a>Каб. № 9</a>
-                    </li>
-                    <li>
-                      <a>Каб. № 10</a>
-                    </li>
-                    <li>
-                      <a>Каб. № 11</a>
-                    </li>
-                    <li>
-                      <a>Каб. № 12</a>
-                    </li>
-                    <li>
-                      <a>Каб. № 13</a>
-                    </li>
-                    <li>
-                      <a>Каб. № 14</a>
-                    </li>
-                    <li>
-                      <a>Каб. № 15</a>
-                    </li>
-                    <li>
-                      <a>Каб. № 16</a>
-                    </li>
-                    <li>
-                      <a>Зал с/з. № 4</a>
-                      <ol>
-                        <a>Совещ. коммн. зала № 4</a>
-                      </ol>
-                    </li>
-                    <li>
-                      <a>Зал с/з. № 5</a>
-                      <ol>
-                        <a>Совещ. коммн. зала № 5</a>
-                      </ol>
-                    </li>
-                  </ol>
-                </li>
-                <a>2 этаж</a>
-                <ol>
-                </ol>
-              </ol>
-            </li>
-            <li class="workplace-building">
-              <a>Холм-Жирки</a>
-            </li>
-          </ol>
+          <ul class="ztree workplace-tree p-3 border-top" id="workplace-tree">
+          </ul>
         </div>
       </div>
       <div class="col-8">

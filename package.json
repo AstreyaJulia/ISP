@@ -22,6 +22,7 @@
     "@htmlacademy/editorconfig-cli": "^1.0.0",
     "@mdi/font": "^6.4.95",
     "@popperjs/core": "^2.10.2",
+    "@ztree/ztree_v3": "^3.5.48",
     "acorn": "^8.5.0",
     "apexcharts": "^3.29.0",
     "bootstrap": "^5.1.3",

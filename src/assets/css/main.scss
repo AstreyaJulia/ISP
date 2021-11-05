@@ -22,6 +22,7 @@
 @import "vendors/overlayscrollbars";
 @import "vendors/quill";
 @import "vendors/flatpickr";
+@import "vendors/ztree";
 
 // Прячет элементы
 .visually-hidden {
@@ -54,7 +55,7 @@ a {
   text-decoration: none;
 
   :hover {
-    text-decoration: underline;
+    text-decoration: none;
   }
 }
 
@@ -482,7 +483,7 @@ a {
   .main-sidebar {
     min-width: var(--sidebar-width);
     transition: all 0.3s ease;
-    z-index: 9998;
+    z-index: 50;
 
     .sidebar-toggle-button {
       display: flex !important;
@@ -724,7 +725,7 @@ a {
 // Верхний топбар
 
 .main-header {
-  z-index: 810;
+  z-index: 45;
   top: 0;
   left: var(--sidebar-width);
   right: 0;
@@ -880,7 +881,7 @@ a {
     top: 0;
     width: 100%;
     height: 64px;
-    z-index: 10000;
+    z-index: 9000;
     justify-content: space-between;
     padding: 16px;
     background: var(--ui-bg);
@@ -1165,35 +1166,13 @@ code[class*="language-"], pre[class*="language-"] {
 // Страница авторизации / входа
 
 .main-content.auth {
-  display: flex;
-  flex-direction: row;
-
-  .auth-logo {
-    margin-bottom: 20px;
-    display: flex;
-
-    img {
-      margin-right: 20px;
-    }
-  }
-
-  .left-auth,
-  .right-auth {
-    height: 100vh;
-  }
 
   .left-auth {
-    padding: 40px;
-    width: 30%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     border-right: 1px solid var(--ui-border);
     box-shadow: var(--ui-shadow-elements);
   }
 
   .right-auth {
-    width: 70%;
     opacity: 0.8;
     background-image: linear-gradient(to right, $primary-light, $primary-light 5px, $gray-300 5px, $gray-300);
     background-size: 10px 100%;
@@ -1414,6 +1393,13 @@ code[class*="language-"], pre[class*="language-"] {
 }
 
 // Бейджи
+
+.badge-pill {
+  padding-right: 1.11rem;
+  padding-left: 1.11rem;
+  border-radius: 2rem;
+}
+
 .badge-status {
   border-radius: 50%;
   font-size: 10px;
@@ -1431,6 +1417,10 @@ code[class*="language-"], pre[class*="language-"] {
   text-align: center;
   white-space: nowrap;
   vertical-align: baseline;
+}
+
+.badge-round {
+  padding: .28rem 0.4rem;
 }
 
 // Группы фильтров
@@ -1678,6 +1668,36 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
   .widget-todo .widget-todo-list-wrapper .widget-todo-item.completed .widget-todo-title {
     text-decoration: line-through;
   }
+
+  // Дни рождения
+  &.widget-bdays {
+    color: $white;
+
+    .congratulations-img-left {
+      width: 100px;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .congratulations-img-right {
+      width: 87.5px;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+
+    .today-birthdays-list {
+
+      .today-birthdays-item {
+        svg {
+          width: auto;
+          height: 24px;
+        }
+      }
+    }
+  }
+
 
   .profile-user-wid {
     margin-top: -26px;

@@ -3245,6 +3245,291 @@ const sliderRender = (slideArray) => {
   dot1.classList.add('active');
 }
 
+// Рабочие места. Древья
+const workPlaceTree = document.getElementById('workplace-tree');
+let zTreeObj;
+
+const zTreeHandler = () => {
+
+  // zTree конфигурация, изучите API документацию (детали настройки)
+  const setting = {};
+// zTree data attributes, refer to the API documentation (treeNode data details)
+  const workPlaceStructure = [
+    {
+      id: "01_00",
+      name: "Сафоново",
+      open: true,
+      icon: "../../assets/img/icons/building.png",
+      isParent:true,
+      children: [
+        {
+          id: "01_01",
+          name: "1 этаж",
+          icon: "../../assets/img/icons/floor.png",
+          isParent:true,
+          children: [
+            {
+              id: "01_03",
+              name: "Каб. №8",
+              icon: "../../assets/img/icons/door.png",
+              isParent:true,
+              children: [
+                {
+                  id: "02_01",
+                  name: "Проход каб. 8",
+                  icon: "../../assets/img/icons/door.png",
+                  isParent:true,
+                  children: [
+                    {
+                      id: "02_01",
+                      name: "АРМ 1",
+                      icon: "../../assets/img/icons/desktop.png",
+                      isParent:false,
+                    },
+                    {
+                      id: "02_01",
+                      name: "АРМ 2",
+                      icon: "../../assets/img/icons/desktop.png",
+                      isParent:false,
+                    }
+                  ]
+                },
+                {
+                  id: "02_01",
+                  name: "АРМ 1",
+                  icon: "../../assets/img/icons/desktop.png",
+                  isParent:false,
+                },
+                {
+                  id: "02_01",
+                  name: "АРМ 1",
+                  icon: "../../assets/img/icons/desktop.png",
+                  isParent:false,
+                }
+              ]
+            },
+            {
+              id: "01_04",
+              name: "Каб. №9",
+              icon: "../../assets/img/icons/door.png",
+              isParent:true,
+            },
+            {
+              id: "01_05",
+              name: "Каб. №10",
+              icon: "../../assets/img/icons/door.png",
+              isParent:true,
+            },
+            {
+              id: "01_06",
+              name: "Каб. №11",
+              icon: "../../assets/img/icons/door.png",
+              isParent:true,
+            },
+            {
+              id: "01_07",
+              name: "Каб. №12",
+              icon: "../../assets/img/icons/door.png",
+              isParent:true,
+            },
+            {
+              id: "01_08",
+              name: "Каб. №13",
+              icon: "../../assets/img/icons/door.png",
+              isParent:true,
+            },
+            {
+              id: "01_09",
+              name: "Каб. №14",
+              icon: "../../assets/img/icons/door.png",
+              isParent:true,
+            },
+            {
+              id: "01_10",
+              name: "Каб. №15",
+              icon: "../../assets/img/icons/door.png",
+              isParent:true,
+            },
+            {
+              id: "01_11",
+              name: "Каб. №16",
+              icon: "../../assets/img/icons/door.png",
+              isParent:true,
+            },
+            {
+              id: "01_12",
+              name: "Зал с/з. №4",
+              icon: "../../assets/img/icons/balance.png",
+              isParent:true,
+              children: [
+                {
+                  id: "01_14",
+                  name: "Совещ. комн. зала № 4",
+                  icon: "../../assets/img/icons/door.png",
+                  isParent:true,
+                }
+              ]
+            },
+            {
+              id: "01_13",
+              name: "Зал с/з. №5",
+              icon: "../../assets/img/icons/balance.png",
+              isParent:true,
+              children: [
+                {
+                  id: "01_15",
+                  name: "Совещ. комн. зала № 5",
+                  icon: "../../assets/img/icons/door.png",
+                  isParent:true,
+                }
+              ]
+            },
+            {
+              id: "01_17",
+              name: "Серверная",
+              icon: "../../assets/img/icons/servers.png",
+              isParent:true,
+            },
+            {
+              id: "01_18",
+              name: "Коридор 1 этаж",
+              icon: "../../assets/img/icons/node.png",
+              isParent:true,
+            }
+          ]
+        },
+        {
+          id: "01_02",
+          name: "2 этаж",
+          icon: "../../assets/img/icons/floor.png",
+          isParent:true,
+          children: [
+            {
+              id: "02_03",
+              name: "Каб. №1",
+              icon: "../../assets/img/icons/door.png",
+              isParent:true,
+            },
+            {
+              id: "02_04",
+              name: "Каб. №2",
+              icon: "../../assets/img/icons/door.png",
+              isParent:true,
+            },
+            {
+              id: "02_05",
+              name: "Каб. №3",
+              icon: "../../assets/img/icons/door.png",
+              isParent:true,
+            },
+            {
+              id: "02_06",
+              name: "Каб. №4",
+              icon: "../../assets/img/icons/door.png",
+              isParent:true,
+            },
+            {
+              id: "02_07",
+              name: "Каб. №5",
+              icon: "../../assets/img/icons/door.png",
+              isParent:true,
+            },
+            {
+              id: "02_08",
+              name: "Каб. №6",
+              icon: "../../assets/img/icons/door.png",
+              isParent:true,
+            },
+            {
+              id: "02_09",
+              name: "Каб. №7",
+              icon: "../../assets/img/icons/door.png",
+              isParent:true,
+            },
+            {
+              id: "02_10",
+              name: "Зал с/з. №1",
+              icon: "../../assets/img/icons/balance.png",
+              isParent:true,
+            },
+            {
+              id: "02_11",
+              name: "Зал с/з. №2",
+              icon: "../../assets/img/icons/balance.png",
+              isParent:true,
+              children: [
+                {
+                  id: "02_15",
+                  name: "Совещ. комн. зала № 2",
+                  icon: "../../assets/img/icons/door.png",
+                  isParent:true,
+                }
+              ]
+            },
+            {
+              id: "02_12",
+              name: "Зал с/з. №3",
+              icon: "../../assets/img/icons/balance.png",
+              isParent:true,
+              children: [
+                {
+                  id: "02_15",
+                  name: "Совещ. комн. зала № 3",
+                  icon: "../../assets/img/icons/door.png",
+                  isParent:true,
+                }
+              ]
+            },
+            {
+              id: "02_18",
+              name: "Коридор 2 этаж",
+              icon: "../../assets/img/icons/node.png",
+              isParent:true,
+            },
+            {
+              id: "02_19",
+              name: "Лестничная площадка 2 этаж",
+              icon: "../../assets/img/icons/node.png",
+              isParent:true,
+            }
+          ]
+
+        },
+        {
+          id: "01_03",
+          name: "Подвал",
+          icon: "../../assets/img/icons/floor.png",
+          isParent:true,
+        }
+      ]
+    },
+    {
+      id: "02_00",
+      name: "Холм-Жирки",
+      open: true,
+      icon: "../../assets/img/icons/building-small.png",
+      isParent:true,
+      children: [
+        {
+          id: "02_01",
+          name: "1 этаж",
+          icon: "../../assets/img/icons/floor.png",
+          isParent:true,
+        },
+        {
+          id: "02_02",
+          name: "2 этаж",
+          icon: "../../assets/img/icons/floor.png",
+          isParent:true,
+        }
+      ]
+    }
+  ];
+
+  zTreeObj = $.fn.zTree.init($("#workplace-tree"), setting, workPlaceStructure);
+
+}
+
 // Определение функции, запускающейся при полной загрузке страницы
 const init = () => {
 
@@ -3362,6 +3647,10 @@ const init = () => {
   // Отрисовка слайдера на дашбоарде
   if (sliderCarousel) {
     sliderRender(slides_arr);
+  }
+
+  if (workPlaceTree) {
+    zTreeHandler();
   }
 };
 
