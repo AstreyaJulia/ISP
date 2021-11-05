@@ -28,7 +28,7 @@
       <div class="workplace-search me-3">
         <input class="form-control" type="text" placeholder="Поиск..." id="workplace-search">
       </div>
-      <button class="btn btn-success ms-2" type="button" id="reportstmenu" data-bs-toggle="dropdown"
+      <button class="btn btn-outline-success ms-2" type="button" id="reportstmenu" data-bs-toggle="dropdown"
               data-bs-placement="top" title="Отчеты">Отчёты
       </button>
       <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="reportstmenu">
@@ -55,7 +55,7 @@
         </li>
       </ul>
 
-      <button class="btn btn-success ms-2" type="button" id="catalogmenu" data-bs-toggle="dropdown"
+      <button class="btn btn-outline-success ms-2" type="button" id="catalogmenu" data-bs-toggle="dropdown"
               data-bs-placement="top" title="Отчеты">Справочники
       </button>
       <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="catalogmenu">
@@ -95,11 +95,11 @@
     </div>
 
     <div class="row boxed-content">
-      <div class="col-4">
+      <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
         <div class="card">
           <div class="card-header">
             <button class="btn btn-primary ms-2" type="button" id="addplacemenu" data-bs-toggle="dropdown"
-                    data-bs-placement="top" title="Меню">Добавить
+                    data-bs-placement="top" title="Меню"><i class="mdi mdi-plus"></i>
             </button>
             <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="addplacemenu">
               <li class="dropdown-item">
@@ -133,12 +133,58 @@
               </li>
             </ul>
           </div>
-          <ul class="ztree workplace-tree p-3 border-top" id="workplace-tree">
+          <ul class="ztree p-3 border-top" id="workplace-tree">
           </ul>
         </div>
       </div>
-      <div class="col-8">
+      <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-6 col-sm-6 col-12">
         <div class="card">
+          <div class="card-header">
+            <button class="btn btn-primary ms-2" type="button" id="additemmenu" data-bs-toggle="dropdown"
+                    data-bs-placement="top" title="Меню"><i class="mdi mdi-plus"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="additemmenu">
+              <li class="dropdown-item">
+                <a href="#">Устройство</a>
+              </li>
+              <li class="dropdown-item">
+                <a href="#">Мебель</a>
+              </li>
+              <li class="dropdown-item">
+                <a href="#">ПО</a>
+              </li>
+            </ul>
+            <button class="btn btn-primary ms-2" type="button" id="placemenu" data-bs-toggle="dropdown"
+                    data-bs-placement="top" title="Меню">
+              <i class="mdi mdi-cog-outline"></i></button>
+            <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="placemenu">
+              <li class="dropdown-item">
+                <a href="#">Редактировать</a>
+              </li>
+              <li class="dropdown-divider"></li>
+              <li class="dropdown-item">
+                <a href="#">Переместить вверх</a>
+              </li>
+              <li class="dropdown-item">
+                <a href="#">Переместить вниз</a>
+              </li>
+              <li class="dropdown-divider"></li>
+              <li class="dropdown-item">
+                <a href="#">Переместить на другое рабочее место</a>
+              </li>
+              <li class="dropdown-item">
+                <a href="#">Вернуть на предыдущее рабочее место</a>
+              </li>
+              <li class="dropdown-item">
+                <a href="#">Заменить расходный материал</a>
+              </li>
+              <li class="dropdown-divider"></li>
+              <li class="dropdown-item">
+                <a href="#" class="text-danger">Удалить</a>
+              </li>
+            </ul>
+          </div>
+          <ul class="ztree p-3 border-top" id="placeitems-tree">
         </div>
       </div>
     </div>
