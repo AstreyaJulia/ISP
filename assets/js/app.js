@@ -3813,10 +3813,4 @@ window.addEventListener('resize', () => {
 // Инициализация при изменении главного содержимого
 maincontent.addEventListener('resize', () => {
   init();
-  
-  jQuery('#room').on('change', function(){
-    if(jQuery(this).val() === 0){
-      window.location.href = '?page=workroom'
-    }
-  })
 });
