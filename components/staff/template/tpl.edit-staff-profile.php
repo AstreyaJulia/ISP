@@ -100,10 +100,16 @@
                       </select></div>
                     <div class="form-group">
                       <label class="form-label" for="room">Рабочее место</label>
-                      <select class="form-select" id="room" name="room" required>
-                        <option value="<?= $row->room ?>"
-                                selected><?= $roomClass->getPosition($row->position); ?></option><?= $roomClass->getFreeRoom(); ?>
-                      </select>
+                      <div class="d-flex">
+                        <select class="form-select" id="room" name="room" required>
+                          <option value="<?= $row->room ?>"
+                                  selected><?= $roomClass->getPosition($row->position); ?></option><?= $roomClass->getFreeRoom(); ?>
+
+                        </select>
+                        <!-- Если в sdc_room есть записи, то класс у этой кнопки visually-hidden, у селекта room этот же класс убрать -->
+                        <a class="btn btn-outline-danger ms-2 btn-block" href="?page=workroom">Рабочих мест нет. Создать?</a>
+
+                      </div>
                     </div>
                     <div class="form-group">
                       <label class="form-label" for="comment">Коментарий</label>
