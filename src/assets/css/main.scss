@@ -721,6 +721,15 @@ a {
       }
     }
 
+    &[data-sidebar-width="narrow"] .main-sidebar {
+      &.expanded {
+        .sidebar-toggle-button {
+          display: none !important;
+        }
+
+      }
+    }
+
     .main-content:not(.auth):not(.err404) {
       left: 0 !important;
     }

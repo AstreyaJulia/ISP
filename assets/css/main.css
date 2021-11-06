@@ -53663,6 +53663,9 @@ a :hover {
   .page-body .main-sidebar:not(.expanded).expanded .submenu-item {
     padding: revert !important;
   }
+  .page-body[data-sidebar-width=narrow] .main-sidebar.expanded .sidebar-toggle-button {
+    display: none !important;
+  }
   .page-body .main-content:not(.auth):not(.err404) {
     left: 0 !important;
   }
