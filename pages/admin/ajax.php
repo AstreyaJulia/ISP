@@ -28,3 +28,9 @@ if (isset($_POST['module'])) {
     }
   }
 }
+
+if (isset($_GET['test'])) {
+  $room = new \Core\Model\Room($db);
+  echo '<pre>';
+  print_r($room->getRoomNew());
+}
