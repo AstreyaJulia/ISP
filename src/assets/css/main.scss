@@ -216,16 +216,40 @@ a {
   .modal-header {
     border-bottom: 1px solid var(--ui-border);
   }
+
+  .modal-footer {
+    border-top: 1px solid var(--ui-border);
+  }
 }
 
 // Nav Tabs
 .nav-tabs {
   border-bottom: 1px solid var(--ui-border);
 
-  .nav-link.active, .nav-item.show .nav-link {
-    color: var(--ui-text);
-    background-color: var(--ui-bg);
+  .nav-link {
+    color: $primary;
+
+    &.active {
+      color: var(--ui-text);
+      background-color: var(--ui-bg);
+      border-color: var(--ui-border);
+    }
+
+    &:hover, &:focus {
+      border-color: $primary-light;
+    }
+
   }
+
+  .nav-item.show {
+    .nav-link {
+      color: var(--ui-text);
+      background-color: var(--ui-bg);
+      border-color: var(--ui-border);
+
+    }
+  }
+
 }
 
 
@@ -236,7 +260,6 @@ a {
   font-family: "TT Norms Pro", "Arial", sans-serif;
   font-size: 0.9em;
   box-shadow: var(--ui-shadow);
-  color: var(--ui-text);
 
   &-header {
     padding: 0.3rem 0.75rem;
@@ -246,19 +269,20 @@ a {
 
   &-body {
     padding: 0.75rem 0.75rem;
+    color: var(--ui-text);
   }
 
   @each $color_name, $color in $theme-colors {
     &.popover-#{$color_name} {
       border-color: $color;
-      color: var(--ui-text);
 
       .popover-arrow::before {
         border-top-color: mix($white, $color, $lightpercent);
       }
 
       .popover-header {
-        background-color: mix($white, $color, $lighterpercent);
+        background-color: mix($white, $color, $lightpercent);
+        color: mix($black, $color, $darkerpercent);
       }
     }
   }
@@ -1327,6 +1351,24 @@ code[class*="language-"], pre[class*="language-"] {
 .form {
   &-control {
     background-color: var(--ui-bg);
+    border: 1px solid var(--ui-border);
+    color: var(--ui-text-mid);
+
+    &:disabled, &[readonly] {
+      background-color: var(--ui-bg);
+      color: var(--ui-text-mid);
+    }
+
+    &::placeholder {
+      color: var(--ui-text-mid);
+    }
+
+    &:focus {
+      color: var(--ui-text-bold);
+      background-color: var(--ui-bg);
+      border-color: $primary-light;
+      box-shadow: 0 0 0 0.25rem rgba(var(--ui-text-bold), 0.25);
+    }
   }
 
   &-label {
@@ -1355,6 +1397,12 @@ code[class*="language-"], pre[class*="language-"] {
     align-items: center;
     justify-content: flex-start;
   }
+
+  &-check-input {
+    background-color: var(--ui-bg);
+    border: 1px solid var(--ui-border);
+  }
+
 }
 
 // Чекбоксы
