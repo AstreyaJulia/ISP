@@ -276,7 +276,7 @@
               <button id="edit-event" class="btn btn-primary edit-event" style="display: none;">Сохранить</button>
               <button id="discard" class="btn btn-outline-danger" data-dismiss="modal" style="display: none;">Отмена
               </button>
-              <button id="delete" class="btn btn--outline-danger btn-delete-event" data-dismiss="modal"
+              <button id="delete" class="btn btn-outline-danger btn-delete-event" data-dismiss="modal"
                       style="display: none;">Удалить
               </button>
             </div>

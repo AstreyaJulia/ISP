@@ -1361,7 +1361,7 @@ code[class*="language-"], pre[class*="language-"] {
   &-control {
     background-color: var(--ui-bg);
     border: 1px solid var(--ui-border);
-    color: var(--ui-text-mid);
+    color: var(--ui-text);
 
     &:disabled, &[readonly] {
       background-color: var(--ui-bg);
@@ -1369,7 +1369,7 @@ code[class*="language-"], pre[class*="language-"] {
     }
 
     &::placeholder {
-      color: var(--ui-text-mid);
+      color: var(--ui-text);
     }
 
     &:focus {

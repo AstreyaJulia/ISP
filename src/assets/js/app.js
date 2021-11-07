@@ -1442,6 +1442,17 @@ const calendmodulehandler = () => {
   // Получение событий. Эта функция будет вызываться fullCalendar для получения и обновления событий.
   function fetchEvents(info, successCallback) {
     // Получение событий AJAX
+    let data = {
+      // С не фиксированной датой не работают повторяющиеся собыия
+      startParam: moment(info.start).tz('Europe/Moscow').format('YYYY-MM-DD'),
+      endParam: moment(info.end).tz('Europe/Moscow').format('YYYY-MM-DD'),
+      calendars: selectedCalendars(),
+      private: privatecheck(),
+    };
+
+    ajax_send("GET", "components/fullcalendar/events.php", data, result => successCallback(result));
+
+    /*
     $.ajax(
       {
         url: "components/fullcalendar/events.php",
@@ -1479,7 +1490,7 @@ const calendmodulehandler = () => {
           showErrorToast(header, textStatus + errorThrown + jqXHR.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
         }
       }
-    );
+    );*/
   }
 
   // Показать popover
@@ -3749,7 +3760,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (spinnerloader) {
     spinnerloaderHandler();
   }
+});
 
 // Будет запущено все, что внутри const init
-  init();
-});
+init();

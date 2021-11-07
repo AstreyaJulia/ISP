@@ -125,10 +125,20 @@
 
     .fc-daygrid-day {
       &.fc-day-today {
-        background-color: $info-20;
+        background-color: transparent;
         border: none;
 
         .fc-daygrid-day-number {
+          margin-top: 3px;
+          width: 32px;
+          color: var(--ui-text);
+          background-color: $primary-50;
+          -moz-border-radius: 50%;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
           &:hover {
             cursor: pointer;
           }
@@ -232,8 +242,24 @@
 
     .fc-daygrid-day {
       &.fc-day-today {
-        background-color: $info-20;
+        background-color: transparent;
+        .fc-daygrid-day-number {
+          margin-top: 3px;
+          width: 32px;
+          color: var(--ui-text);
+          background-color: $primary-50;
+          -moz-border-radius: 50%;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
       }
+
     }
 
     &-bg-event {
