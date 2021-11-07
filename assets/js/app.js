@@ -141,106 +141,49 @@ const cookieSudo = getCookie('aut[sudo]');
 const cookieID = getCookie('aut[id]');
 
 // Ajax. Передача GET и POST запросов
-// url - ссылка на скрипт/страницу; data - данные для передачи; type - GET или POST;
-// success - ф-я к-рая выполняется в случае успешного запроса;
-// successparams - параметры для передачи в ф-ю success
-/*
-function ajaxQuery(url, data, type, success, successparams) {
+const ajax_send = (method, url, parameters, callback) => {
+  //Создаём новый XMLHttpRequest-объект
+  let xhr = new XMLHttpRequest();
 
-  $.ajax({
-    url: url,
-    data: data,
-    dataType: "json",
-    type: type,
-    headers: {
-      'Accept': 'application/json;odata=nometadata'
-    },
-    success: function () {
-      success(successparams);
-    },
-    error: function (jqXHR, textStatus, errorThrown, exception) {
-      let header;
-      if (jqXHR.status === 0) {
-        header = 'Не подключено. Проверьте сеть';
-      } else if (jqXHR.status === 404) {
-        header = 'Запрашиваемая страница не найдена [404]';
-      } else if (jqXHR.status === 500) {
-        header = 'Внутренняя ошибка сервера [500]';
-      } else if (exception === 'parsererror') {
-        header = 'Запрошенный синтаксический анализ JSON завершился неудачно';
-      } else if (exception === 'timeout') {
-        header = 'Ошибка тайм-аута';
-      } else if (exception === 'abort') {
-        header = 'Ajax запрос прерван';
-      } else {
-        header = 'Неперехваченная ошибка';
-      }
-      showErrorToast(header, textStatus + errorThrown + jqXHR.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
-    }
-  });
-}
-*/
-
-// Ajax
-function ajaxQuery(url, data, method, success, successparams) {
-
-  let xhr;
-  try {
-    //Firefox, Opera 8.0+, Safari
-    xhr = new XMLHttpRequest();
-  } catch (e) {
-    //Internet Explorer
-    try {
-      xhr = new ActiveXObject("Msxml2.XMLHTTP");
-    } catch (e) {
-      try {
-        xhr = new ActiveXObject("Microsoft.XMLHTTP");
-      } catch (e) {
-        alert("Ваш браузер не поддерживает AJAX!");
-        return false;
-      }
-    }
-  }
-  xhr.onreadystatechange = function () {
-    let status = xhr.status;
-    if (xhr.readyState === XMLHttpRequest.DONE && status === 200) {
-      // все ок
-    } else if (xhr.readyState === ((XMLHttpRequest.DONE || XMLHttpRequest.HEADERS_RECEIVED) && (status))) {
-      // ошибки
-      let header;
-      switch (status) {
-        case 404:
-          header = "Запрашиваемая страница не найдена [404]";
-          break;
-        case 500:
-          header = "Внутренняя ошибка сервера [500]";
-          break;
-      }
-
-
-    }
-  }
   switch (method) {
+    // Настраиваем его: GET или POST, URL
     case "GET":
-      xhr.open
-      (
-        'GET', url + '?' + data, true
-      );
-      xhr.send();
+      let queryString = Object.keys(parameters).map(key => key + '=' + parameters[key]).join('&');
+      xhr.open(method, url + "?" + queryString, true);
+      xhr.setRequestHeader('Accept', 'application/json, text/plain, */*');
+      xhr.send(null);
       break;
+
     case "POST":
-      xhr.open
-      (
-        'POST', url, true
-      );
-      xhr.setRequestHeader("Content-type", "application/json;odata=nometadata");
-      xhr.setRequestHeader("Content-length", data.length);
-      xhr.setRequestHeader("Connection", "close");
-      xhr.send(data);
+      xhr.open(method, url, true);
+      xhr.setRequestHeader('Accept', 'application/json, text/plain, */*');
+      xhr.send(parameters);
       break;
   }
-}
 
+  xhr.onreadystatechange = () => {
+    if (xhr.readyState !== 4) {
+      return;
+    }
+
+    let header = '';
+
+    if (xhr.status === 200) {
+      console.log('Успешно', xhr.responseText);
+      callback(JSON.parse(xhr.response));
+    } else if (xhr.status === 0) {
+      header = "Не подключено. Проверьте сеть";
+      showErrorToast(header, xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
+    } else if (xhr.status === 404) {
+      header = "Запрашиваемая страница не найдена [404]";
+      showErrorToast(header, xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
+    } else if (xhr.status === 500) {
+      header = "Внутренняя ошибка сервера [500]";
+      showErrorToast(header, xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
+    }
+  }
+
+}
 // Общие
 
 // При прокручивании вниз на 20px от верхнего края элемента с классом main-content, показывает кнопку Назад наверх
@@ -607,6 +550,16 @@ const minicalendar = document.querySelector('.today-calendar-widget');
 const minicalendarhandler = () => {
   function fetchevents(info, successCallback) {
     // Получение событий AJAX
+    
+    let data = {
+        startParam: moment(info.start).tz('Europe/Moscow').format('YYYY-MM-DD'),
+        endParam: moment(info.end).tz('Europe/Moscow').format('YYYY-MM-DD'),
+        calendars: Object.keys(calendarsColor),
+        private: '0',
+      };
+
+    ajax_send("GET", "components/fullcalendar/events.php", data, result => successCallback(result));
+/*
     $.ajax(
       {
         url: "components/fullcalendar/events.php",
@@ -641,7 +594,7 @@ const minicalendarhandler = () => {
           showErrorToast(header, textStatus + errorThrown + jqXHR.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
         }
       }
-    );
+    );*/
   }
 
   // Показать popover
@@ -906,7 +859,7 @@ const calendmodulehandler = () => {
     }
   }
 
-  // Добавление события
+  // Обновление события
   const addEvent = () => {
     if ($(eventForm).valid()) {
       const Event = {
@@ -1475,7 +1428,6 @@ const calendmodulehandler = () => {
         selected.push(filterInput2[j].dataset.value.toLowerCase());
       }
     }
-    console.log(selected)
     return selected;
   }
 
@@ -1490,8 +1442,6 @@ const calendmodulehandler = () => {
   // Получение событий. Эта функция будет вызываться fullCalendar для получения и обновления событий.
   function fetchEvents(info, successCallback) {
     // Получение событий AJAX
-    //const calendars = selectedCalendars();
-
     $.ajax(
       {
         url: "components/fullcalendar/events.php",
@@ -1839,7 +1789,6 @@ const calendmodulehandler = () => {
           'Accept': 'application/json;odata=nometadata'
         },
         success: function (response) {
-          //addEvent(Event);
           calendar.refetchEvents(Event);
           hideModal();
           resetValues();
@@ -3802,15 +3751,5 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 // Будет запущено все, что внутри const init
-  init();
-});
-
-// Инициализация при изменении окна
-window.addEventListener('resize', () => {
-  init();
-});
-
-// Инициализация при изменении главного содержимого
-maincontent.addEventListener('resize', () => {
   init();
 });
