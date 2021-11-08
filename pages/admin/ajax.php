@@ -23,7 +23,14 @@ if (isset($_POST['module'])) {
       // Вызываем класс 
       $user = new \Core\Model\User($db);
       $sidebar = ($_POST['sidebarWidth'] == 'narrow') ? 0 : 1;
-      $upd = $user->setUpd($sidebar, $_COOKIE['aut']['id']);
+      $upd = $user->setUpd($module, $sidebar, $_COOKIE['aut']['id']);
+      break;
+    }
+    case 'theme': {
+      // Вызываем класс 
+      $user = new \Core\Model\User($db);
+      $theme = ($_POST['themeWidth'] == 'main-dark') ? 0 : 1;
+      $upd = $user->setUpd($module, $theme, $_COOKIE['aut']['id']);
       break;
     }
   }

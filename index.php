@@ -30,6 +30,7 @@ if (isset($_COOKIE['aut'])) {
     /*--------------------------------------*/
     $user = new \Core\Model\User($db);
     $sirebar = $user->getSirebar($_COOKIE['aut']['id']);
+    $theme = $user->getTheme($_COOKIE['aut']['id']);
 
     if (file_exists($path) and $page != "404" and $page != "autorization") {
         $content_page = file_get_contents($path);

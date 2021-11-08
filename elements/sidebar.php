@@ -63,11 +63,7 @@
             <span class="ms-2">База знаний</span></a></li>
       </ul>
     </li>
-
-
-    <?php
-    if ($_COOKIE['aut']['sudo'] == 1) {
-      echo '
+    <?php if ($_COOKIE['aut']['sudo'] == 1): ?>
     <!-- Панель администратора -->
     <li class="menu-item with-sub">
       <a
@@ -136,9 +132,8 @@
             <i class="mdi fs-4 mdi-file-outline"></i>
             <span class="ms-2">Тестовая страница</span></a></li>
       </ul>
-  </li>';
-    }
-    ?>
+  </li>
+  <?php endif ?>
   </ul>
   <div class="sidebar-footer mb-0 mt-auto">
     <p class="footer-text">Сделано с <span><i class="mdi mdi-cards-heart"></i></span></p>

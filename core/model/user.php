@@ -25,9 +25,18 @@
 	    	}
 	 	}
 
-		public function setUpd($sidebar, $id) {
-	      $sql = "UPDATE `sdc_users` SET `sidebar` = $sidebar WHERE `id` = $id";
-	      return $this->db->run($sql);
+	    public function getTheme($id) {
+	    	$sidebar = $this->getUser($id)[0]->theme;
+	    	if ($sidebar == 0) {
+	    		return "main-dark";
+	    	} else {
+	    		return "main-light";
+	    	}
+	 	}
+
+		public function setUpd($module, $value, $id) {
+	      $sql = "UPDATE `sdc_users` SET `$module` = $value WHERE `id` = $id";
+	      return $this->db->run($sql);	
 	    }	    
 		
 

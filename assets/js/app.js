@@ -212,10 +212,16 @@ const sidebarwrapper = document.querySelector('.page-body');
 
 const buttonsidebartoggleHandler = (evt) => {
   evt.preventDefault();
+
+  let formData = new FormData();
+  formData.append("module", "sidebar");
+
   if (sidebarwrapper.dataset.sidebarWidth === "narrow") {
     sidebarwrapper.dataset.sidebarWidth = "wide";
     sidebartogglbutton.querySelector('i').classList.add('mdi-crosshairs-gps');
     sidebartogglbutton.querySelector('i').classList.remove('mdi-crosshairs');
+    formData.append("sidebarWidth", "wide");
+    /*
     $.ajax(
       {
         url: "pages/admin/ajax.php",
@@ -225,8 +231,8 @@ const buttonsidebartoggleHandler = (evt) => {
           module: "sidebar",
           sidebarWidth: "wide",
         },
-        /*success: function () {
-        },*/
+        success: function () {
+        },
         error: function (jqXHR, textStatus, errorThrown, exception) {
           let header;
           if (jqXHR.status === 0) {
@@ -247,45 +253,49 @@ const buttonsidebartoggleHandler = (evt) => {
           showErrorToast(header, textStatus + errorThrown + jqXHR.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
         }
       }
-    );
+    );*/
   } else if (sidebarwrapper.dataset.sidebarWidth === "wide") {
     sidebarwrapper.dataset.sidebarWidth = "narrow";
     sidebartogglbutton.querySelector('i').classList.remove('mdi-crosshairs-gps');
     sidebartogglbutton.querySelector('i').classList.add('mdi-crosshairs');
-
-    $.ajax(
-      {
-        url: "pages/admin/ajax.php",
-        type: "POST",
-        //dataType: "json",
-        data: {
-          module: "sidebar",
-          sidebarWidth: "narrow",
-        },
-        /*success: function () {
-        },*/
-        error: function (jqXHR, textStatus, errorThrown, exception) {
-          let header;
-          if (jqXHR.status === 0) {
-            header = 'Не подключено. Проверьте сеть';
-          } else if (jqXHR.status === 404) {
-            header = 'Запрашиваемая страница не найдена [404]';
-          } else if (jqXHR.status === 500) {
-            header = 'Внутренняя ошибка сервера [500]';
-          } else if (exception === 'parsererror') {
-            header = 'Запрос синтаксического анализа JSON завершился неудачно';
-          } else if (exception === 'timeout') {
-            header = 'Ошибка тайм-аута';
-          } else if (exception === 'abort') {
-            header = 'Ajax запрос прерван';
-          } else {
-            header = 'Неперехваченная ошибка';
+    formData.append("sidebarWidth", "narrow");
+    /*
+        $.ajax(
+          {
+            url: "pages/admin/ajax.php",
+            type: "POST",
+            //dataType: "json",
+            data: {
+              module: "sidebar",
+              sidebarWidth: "narrow",
+            },
+            /*success: function () {
+            },
+            error: function (jqXHR, textStatus, errorThrown, exception) {
+              let header;
+              if (jqXHR.status === 0) {
+                header = 'Не подключено. Проверьте сеть';
+              } else if (jqXHR.status === 404) {
+                header = 'Запрашиваемая страница не найдена [404]';
+              } else if (jqXHR.status === 500) {
+                header = 'Внутренняя ошибка сервера [500]';
+              } else if (exception === 'parsererror') {
+                header = 'Запрос синтаксического анализа JSON завершился неудачно';
+              } else if (exception === 'timeout') {
+                header = 'Ошибка тайм-аута';
+              } else if (exception === 'abort') {
+                header = 'Ajax запрос прерван';
+              } else {
+                header = 'Неперехваченная ошибка';
+              }
+              showErrorToast(header, textStatus + errorThrown + jqXHR.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
+            }
           }
-          showErrorToast(header, textStatus + errorThrown + jqXHR.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
-        }
-      }
-    );
+        );
+    */
   }
+
+  ajax_send("POST", "pages/admin/ajax.php", formData, result => console.log(result));
 };
 
 // Разворачивает сайдбар, не отодвигая контент. Переключает класс expanded у сайдбара

@@ -12,7 +12,8 @@
 	    }
 
 	    //Получаем все записи
-	    public function getEvents($params, $calendars) {
+	    public function getEvents($params, $strCalendars) {
+	    	$calendars = explode(",", $strCalendars);
 	    	if (is_array($calendars)) {
 					//Подготавливаем массив для оператора IN SQL
 	     	    $i=0;
