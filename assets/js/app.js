@@ -141,6 +141,8 @@ const cookieSudo = getCookie('aut[sudo]');
 const cookieID = getCookie('aut[id]');
 
 // Ajax. Передача GET и POST запросов
+//method - POST или GET, url - адрес, parameters - параметры get запроса или отсылаемое тело POST, callback - в какую
+// функцию передать результат
 const ajax_send = (method, url, parameters, callback) => {
   //Создаём новый XMLHttpRequest-объект
   let xhr = new XMLHttpRequest();
@@ -169,8 +171,10 @@ const ajax_send = (method, url, parameters, callback) => {
     let header = '';
 
     if (xhr.status === 200) {
-      console.log('Успешно', xhr.responseText);
-      callback(JSON.parse(xhr.response));
+      if(xhr.response) {
+        console.log('Успешно', xhr.responseText);
+        callback(JSON.parse(xhr.response));
+      }
     } else if (xhr.status === 0) {
       header = "Не подключено. Проверьте сеть";
       showErrorToast(header, xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
@@ -221,81 +225,14 @@ const buttonsidebartoggleHandler = (evt) => {
     sidebartogglbutton.querySelector('i').classList.add('mdi-crosshairs-gps');
     sidebartogglbutton.querySelector('i').classList.remove('mdi-crosshairs');
     formData.append("sidebarWidth", "wide");
-    /*
-    $.ajax(
-      {
-        url: "pages/admin/ajax.php",
-        type: "POST",
-        //dataType: "json",
-        data: {
-          module: "sidebar",
-          sidebarWidth: "wide",
-        },
-        success: function () {
-        },
-        error: function (jqXHR, textStatus, errorThrown, exception) {
-          let header;
-          if (jqXHR.status === 0) {
-            header = 'Не подключено. Проверьте сеть';
-          } else if (jqXHR.status === 404) {
-            header = 'Запрашиваемая страница не найдена [404]';
-          } else if (jqXHR.status === 500) {
-            header = 'Внутренняя ошибка сервера [500]';
-          } else if (exception === 'parsererror') {
-            header = 'Запрос синтаксического анализа JSON завершился неудачно';
-          } else if (exception === 'timeout') {
-            header = 'Ошибка тайм-аута';
-          } else if (exception === 'abort') {
-            header = 'Ajax запрос прерван';
-          } else {
-            header = 'Неперехваченная ошибка';
-          }
-          showErrorToast(header, textStatus + errorThrown + jqXHR.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
-        }
-      }
-    );*/
   } else if (sidebarwrapper.dataset.sidebarWidth === "wide") {
     sidebarwrapper.dataset.sidebarWidth = "narrow";
     sidebartogglbutton.querySelector('i').classList.remove('mdi-crosshairs-gps');
     sidebartogglbutton.querySelector('i').classList.add('mdi-crosshairs');
     formData.append("sidebarWidth", "narrow");
-    /*
-        $.ajax(
-          {
-            url: "pages/admin/ajax.php",
-            type: "POST",
-            //dataType: "json",
-            data: {
-              module: "sidebar",
-              sidebarWidth: "narrow",
-            },
-            /*success: function () {
-            },
-            error: function (jqXHR, textStatus, errorThrown, exception) {
-              let header;
-              if (jqXHR.status === 0) {
-                header = 'Не подключено. Проверьте сеть';
-              } else if (jqXHR.status === 404) {
-                header = 'Запрашиваемая страница не найдена [404]';
-              } else if (jqXHR.status === 500) {
-                header = 'Внутренняя ошибка сервера [500]';
-              } else if (exception === 'parsererror') {
-                header = 'Запрос синтаксического анализа JSON завершился неудачно';
-              } else if (exception === 'timeout') {
-                header = 'Ошибка тайм-аута';
-              } else if (exception === 'abort') {
-                header = 'Ajax запрос прерван';
-              } else {
-                header = 'Неперехваченная ошибка';
-              }
-              showErrorToast(header, textStatus + errorThrown + jqXHR.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
-            }
-          }
-        );
-    */
   }
 
-  ajax_send("POST", "pages/admin/ajax.php", formData, result => console.log(result));
+  ajax_send("POST", "pages/admin/ajax.php", formData);
 };
 
 // Разворачивает сайдбар, не отодвигая контент. Переключает класс expanded у сайдбара
@@ -328,11 +265,17 @@ const sidebarexpandHandler = () => {
 const darkmodetogglbutton = document.querySelector('.tumbler__wrapper');
 
 const darkmodetoggleHandler = () => {
+  let formData = new FormData();
+  formData.append("module", "theme");
+
   if (sidebarwrapper.dataset.themeName === "main-dark") {
     sidebarwrapper.dataset.themeName = "main-light";
+    formData.append("theme", "main-light");
   } else if (sidebarwrapper.dataset.themeName === "main-light") {
     sidebarwrapper.dataset.themeName = "main-dark";
+    formData.append("theme", "main-dark");
   }
+  ajax_send("POST", "pages/admin/ajax.php", formData);
   darkmodetogglbutton.classList.toggle('tumbler--night-mode');
 };
 
