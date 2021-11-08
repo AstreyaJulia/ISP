@@ -19,11 +19,50 @@
 	    	return (object) array(1 => 'Сафоново', 2 => 'Холм-Жирки');
 	    }
 
+	    public function getRoomNew() {
+	    	$sql = "SELECT sdc_room.id, sdc_user_attributes.fullname, jupiter_tab_num, ip, floor, position, alarm_button, phone_worck, building_number FROM sdc_room 
+					LEFT JOIN sdc_user_attributes ON sdc_user_attributes.room=sdc_room.id";
+	        $workplaces = $this->db->run($sql)->fetchAll(\PDO::FETCH_CLASS);
+	        foreach ($this->getBuilding() as $BuildingKey => $value) {
+	        	// собираем этажи
+	        	$temp_array = array();
+			    $i = 0;
+			    $key_array = array();
+	        	foreach ($workplaces as $value) {
+	        		if ($value->building_number == $BuildingKey) {
+				        if (!in_array($value->floor, $key_array)) {
+				            $key_array[$i] = $value->floor;
+				            $temp_array[$i] = (object) [
+				            	'id' => '0'.$BuildingKey.'_0'.$value->floor, //для получения данных по клику, уникальное
+						        'name' => $value->floor." этаж",
+						        'icon' => "../../assets/img/icons/floor.png",
+						        'isParent' => 'true',
+						        'children' => 'рабочие места'
+				            ];
+				        }
+				        $i++;
+				        $floor[$BuildingKey] = $temp_array;
+		        	}
+		        }
+
+	        	$output[] = (object) [
+	        		'id' => '0'.$BuildingKey.'_00', //для получения данных по клику, уникальное
+	        		'open' => 'true', // развернут по-умолчанию
+	        		'icon' => "../../assets/img/icons/building.png", // путь к значку, в базе можно хранить только имя без пути и расширения - building
+	        		'isParent' => 'true', // является родителем, для рабочих мест только false
+					'name' => $this->getBuilding()->{$BuildingKey},
+					'children' => (object) $floor[$BuildingKey],
+				];
+	        }
+	        //return json_encode($output, JSON_UNESCAPED_UNICODE);
+	        return $output;
+	    }
+
 	    /*
 	    	 Получили номера зданий и рабочих мест.
 	    	 Осталось разнести этот бардак по этажам и кабинетам.
 	    */
-	    public function getRoomNew() {
+	    /*public function getRoomNew() {
 	    	$sql = "SELECT sdc_room.id, sdc_user_attributes.fullname, jupiter_tab_num, ip, floor, position, alarm_button, phone_worck, building_number FROM sdc_room 
 					LEFT JOIN sdc_user_attributes ON sdc_user_attributes.room=sdc_room.id";
 	        $workplaces = $this->db->run($sql)->fetchAll(\PDO::FETCH_CLASS);
@@ -53,7 +92,7 @@
 				];
 	        }
 	        return $output;
-	    }
+	    }*/
 
 		public function getFreeRoom(){
 			$sql = "SELECT sdc_room.id, sdc_room.position FROM sdc_room
@@ -101,18 +140,20 @@
 			https://www.php.net/manual/ru/function.array-unique.php
 
 		*/
-		public function unique_multidim_array($array, $key) {
+		public function unique_multidim_array($array, $key, $BuildingKey) {
 		    $temp_array = array();
 		    $i = 0;
 		    $key_array = array();
+		    foreach ($array as $key => $value) {
 		   
-		    foreach($array as $val) {
-		        if (!in_array($val[$key], $key_array)) {
-		            $key_array[$i] = $val[$key];
-		            $temp_array[$i] = $val;
-		        }
-		        $i++;
-		    }
+			    foreach($value[$BuildingKey] as $val) {
+			        if (!in_array($val[$key], $key_array)) {
+			            $key_array[$i] = $val[$key];
+			            $temp_array[$i] = $val;
+			        }
+			        $i++;
+			    }
+			}
 		    return $temp_array;
 		} 
 
