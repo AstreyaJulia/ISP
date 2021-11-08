@@ -714,6 +714,8 @@ const calendmodulehandler = () => {
 
   // Скрыть модал
   function hideModal() {
+    updateEventBtn.removeEventListener('click', () => addEvent());
+    btnDeleteEvent.removeEventListener('click', () => delEvent());
     modal.style.display = "none";
     modal.classList.remove('show');
     const btn = document.querySelector('.modal-backdrop');
@@ -936,12 +938,28 @@ const calendmodulehandler = () => {
           showErrorToast(header, textStatus + errorThrown + jqXHR.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
         }
       });
+      updateEventBtn.removeEventListener('click', () => addEvent());
     }
   }
 
   // Удаление события
   const delEvent = () => {
-    const Event = {
+    function delSucces(result, title) {
+      hideModal();
+      resetValues();
+      if (result === "null") {
+        showMiniToast('Событие ' + title + ' удалено', "danger");
+      }
+      calendar.refetchEvents();
+    }
+
+    let Event = new FormData();
+    Event.append("operation", "del");
+    Event.append("id", eventToUpdate.id);
+    let title = eventToUpdate.title;
+
+    ajax_send("POST", "components/fullcalendar/ajax.php", Event, result => delSucces(result, title));
+    /*const Event = {
       operation: "del",
       id: eventToUpdate.id,
     }
@@ -981,7 +999,8 @@ const calendmodulehandler = () => {
         }
         showErrorToast(header, textStatus + errorThrown + jqXHR.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
       }
-    });
+    });*/
+    btnDeleteEvent.removeEventListener('click', () => delEvent());
   }
 
   // Закрытие модала и сброс инпутов
@@ -1683,7 +1702,6 @@ const calendmodulehandler = () => {
       ajax_send("POST", "components/fullcalendar/ajax.php", Event, result => addSucces(result, title));
     }
   });
-
 
   // Сброс значений модала
   function resetValues() {
