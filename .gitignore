@@ -11,3 +11,4 @@ Thumbs.db
 /data/logs.csv
 /data/proxylist/whitelist.txt
 /data/proxylist/blacklist.txt
+conection.php
