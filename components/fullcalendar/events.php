@@ -96,7 +96,7 @@ foreach ($birthday as $key => $value) {
     'start' => $startParamPrep,
     'end' => $startParamPrep,
     'allDay' => "1",
-    'calendar' => 'Danger',
+    'calendar' => 'danger',
     'description' => $value->fullname. ". Исполняется: ". $age,
     'user_id' => "0"
   ];
@@ -120,10 +120,10 @@ if (file_exists($path)) {
     foreach ($days as $day) {
       if ($day == rtrim($day, "*")){
               $title = "";
-              $calendar = "Danger";
+              $calendar = "danger";
       } else {
               $title = "Сокращенный рабочий день";
-              $calendar = "Warning";
+              $calendar = "warning";
       }
 
       $date = $row->year."-".addNol($value->month)."-".addNol(rtrim($day, "*"));

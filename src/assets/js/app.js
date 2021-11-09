@@ -172,12 +172,12 @@ const ajax_send = (method, url, parameters, callback) => {
 
     if (xhr.status === 200) {
       let result;
-      if(xhr.response) {
+      if (xhr.response) {
         console.log('Успешно. Ответ: ', xhr.responseText);
         result = JSON.parse(xhr.response);
       } else {
         console.log('Успешно. Без ответа.');
-        result ="null";
+        result = "null";
       }
       callback(result);
     } else if (xhr.status === 0) {
@@ -487,18 +487,75 @@ const maincontentscrollHandler = () => {
 
 };
 
-
 // Календарь
 
 // Цвета для Fullcalendar
 // Цвета событий, названия менять в разметке, в js менять не надо
 const calendarsColor = {
-  Primary: 'primary',
-  Success: 'success',
-  Danger: 'danger',
-  Warning: 'warning',
-  Info: 'info'
+  primary: 'primary',
+  success: 'success',
+  danger: 'danger',
+  warning: 'warning',
+  info: 'info',
+  pink: 'pink',
+  blue: 'blue',
+  orange: 'orange',
+  teal: 'teal',
+  azure: 'azure',
 }
+
+let calendCat = [
+  {
+    id: 1,
+    color: "primary",
+    name: "События",
+  },
+  {
+    id: 2,
+    color: "success",
+    name: "Отпуск",
+  },
+  {
+    id: 3,
+    color: "info",
+    name: "Дежурство",
+  },
+  {
+    id: 4,
+    color: "warning",
+    name: "Важно",
+  },
+  {
+    id: 5,
+    color: "danger",
+    name: "Праздники",
+  },
+  {
+    id: 6,
+    color: "pink",
+    name: "Категория 1",
+  },
+  {
+    id: 7,
+    color: "blue",
+    name: "Категория 2",
+  },
+  {
+    id: 8,
+    color: "orange",
+    name: "Категория 3",
+  },
+  {
+    id: 9,
+    color: "teal",
+    name: "Категория 4",
+  },
+  {
+    id: 10,
+    color: "azure",
+    name: "Категория 5",
+  },
+]
 
 // Мини календарь на главной
 
@@ -510,11 +567,11 @@ const minicalendarhandler = () => {
     // Получение событий AJAX
 
     let data = {
-        startParam: moment(info.start).tz('Europe/Moscow').format('YYYY-MM-DD'),
-        endParam: moment(info.end).tz('Europe/Moscow').format('YYYY-MM-DD'),
-        calendars: Object.keys(calendarsColor),
-        private: '0',
-      };
+      startParam: moment(info.start).tz('Europe/Moscow').format('YYYY-MM-DD'),
+      endParam: moment(info.end).tz('Europe/Moscow').format('YYYY-MM-DD'),
+      calendars: Object.keys(calendarsColor),
+      private: '0',
+    };
 
     ajax_send("GET", "components/fullcalendar/events.php", data, result => successCallback(result));
   }
@@ -1232,6 +1289,7 @@ const calendmodulehandler = () => {
     }
   }
 
+
   // Селект для меток в модале
   function renderBullets(option) {
     if (!option.id) {
@@ -1243,6 +1301,20 @@ const calendmodulehandler = () => {
       '</span>' +
       option.text;
   }
+
+  // Селект для меток в модале
+  function renderOptions() {
+    const parent = document.getElementById('select-label');
+    parent.innerHTML = '';
+
+    const createItem = ({id, color, name}) =>
+      `<option data-label="${color}" value="${color}">${name}</option>`;
+
+    const ElementsString = calendCat.map((color) => createItem(color)).join('');
+    parent.insertAdjacentHTML('beforeend', ElementsString);
+  }
+
+  renderOptions();
 
   $(eventLabel).wrap('<div class="position-relative"></div>').select2({
     placeholder: 'Выберите значение',
@@ -2867,7 +2939,8 @@ const weatherHandler = () => {
           let letter = "";
           if ((moment().hour() >= 7 && moment().hour() <= 21)) {
             letter = "day";
-          } if ((moment().hour() <= 6 && moment().hour() >= 0) || (moment().hour() >= 22 && moment().hour() <= 23)) {
+          }
+          if ((moment().hour() <= 6 && moment().hour() >= 0) || (moment().hour() >= 22 && moment().hour() <= 23)) {
             letter = "night";
           }
           weather.state = states[response.weather[0].id]["desc"];
@@ -3021,37 +3094,37 @@ const zTreeHandler = () => {
       name: "Сафоново",
       open: true,
       icon: "../../assets/img/icons/building.png",
-      isParent:true,
+      isParent: true,
       children: [
         {
           id: "01_01",
           name: "1 этаж",
           icon: "../../assets/img/icons/floor.png",
-          isParent:true,
+          isParent: true,
           children: [
             {
               id: "01_03",
               name: "Каб. №8",
               icon: "../../assets/img/icons/door.png",
-              isParent:true,
+              isParent: true,
               children: [
                 {
                   id: "02_01",
                   name: "Проход каб. 8",
                   icon: "../../assets/img/icons/door.png",
-                  isParent:true,
+                  isParent: true,
                   children: [
                     {
                       id: "02_01",
                       name: "АРМ 1",
                       icon: "../../assets/img/icons/desktop.png",
-                      isParent:false,
+                      isParent: false,
                     },
                     {
                       id: "02_01",
                       name: "АРМ 2",
                       icon: "../../assets/img/icons/desktop.png",
-                      isParent:false,
+                      isParent: false,
                     }
                   ]
                 },
@@ -3059,13 +3132,13 @@ const zTreeHandler = () => {
                   id: "02_01",
                   name: "АРМ 1",
                   icon: "../../assets/img/icons/desktop.png",
-                  isParent:false,
+                  isParent: false,
                 },
                 {
                   id: "02_01",
                   name: "АРМ 1",
                   icon: "../../assets/img/icons/desktop.png",
-                  isParent:false,
+                  isParent: false,
                 }
               ]
             },
@@ -3073,61 +3146,61 @@ const zTreeHandler = () => {
               id: "01_04",
               name: "Каб. №9",
               icon: "../../assets/img/icons/door.png",
-              isParent:true,
+              isParent: true,
             },
             {
               id: "01_05",
               name: "Каб. №10",
               icon: "../../assets/img/icons/door.png",
-              isParent:true,
+              isParent: true,
             },
             {
               id: "01_06",
               name: "Каб. №11",
               icon: "../../assets/img/icons/door.png",
-              isParent:true,
+              isParent: true,
             },
             {
               id: "01_07",
               name: "Каб. №12",
               icon: "../../assets/img/icons/door.png",
-              isParent:true,
+              isParent: true,
             },
             {
               id: "01_08",
               name: "Каб. №13",
               icon: "../../assets/img/icons/door.png",
-              isParent:true,
+              isParent: true,
             },
             {
               id: "01_09",
               name: "Каб. №14",
               icon: "../../assets/img/icons/door.png",
-              isParent:true,
+              isParent: true,
             },
             {
               id: "01_10",
               name: "Каб. №15",
               icon: "../../assets/img/icons/door.png",
-              isParent:true,
+              isParent: true,
             },
             {
               id: "01_11",
               name: "Каб. №16",
               icon: "../../assets/img/icons/door.png",
-              isParent:true,
+              isParent: true,
             },
             {
               id: "01_12",
               name: "Зал с/з. №4",
               icon: "../../assets/img/icons/balance.png",
-              isParent:true,
+              isParent: true,
               children: [
                 {
                   id: "01_14",
                   name: "Совещ. комн. зала № 4",
                   icon: "../../assets/img/icons/door.png",
-                  isParent:true,
+                  isParent: true,
                 }
               ]
             },
@@ -3135,13 +3208,13 @@ const zTreeHandler = () => {
               id: "01_13",
               name: "Зал с/з. №5",
               icon: "../../assets/img/icons/balance.png",
-              isParent:true,
+              isParent: true,
               children: [
                 {
                   id: "01_15",
                   name: "Совещ. комн. зала № 5",
                   icon: "../../assets/img/icons/door.png",
-                  isParent:true,
+                  isParent: true,
                 }
               ]
             },
@@ -3149,13 +3222,13 @@ const zTreeHandler = () => {
               id: "01_17",
               name: "Серверная",
               icon: "../../assets/img/icons/servers.png",
-              isParent:true,
+              isParent: true,
             },
             {
               id: "01_18",
               name: "Коридор 1 этаж",
               icon: "../../assets/img/icons/node.png",
-              isParent:true,
+              isParent: true,
             }
           ]
         },
@@ -3163,67 +3236,67 @@ const zTreeHandler = () => {
           id: "01_02",
           name: "2 этаж",
           icon: "../../assets/img/icons/floor.png",
-          isParent:true,
+          isParent: true,
           children: [
             {
               id: "02_03",
               name: "Каб. №1",
               icon: "../../assets/img/icons/door.png",
-              isParent:true,
+              isParent: true,
             },
             {
               id: "02_04",
               name: "Каб. №2",
               icon: "../../assets/img/icons/door.png",
-              isParent:true,
+              isParent: true,
             },
             {
               id: "02_05",
               name: "Каб. №3",
               icon: "../../assets/img/icons/door.png",
-              isParent:true,
+              isParent: true,
             },
             {
               id: "02_06",
               name: "Каб. №4",
               icon: "../../assets/img/icons/door.png",
-              isParent:true,
+              isParent: true,
             },
             {
               id: "02_07",
               name: "Каб. №5",
               icon: "../../assets/img/icons/door.png",
-              isParent:true,
+              isParent: true,
             },
             {
               id: "02_08",
               name: "Каб. №6",
               icon: "../../assets/img/icons/door.png",
-              isParent:true,
+              isParent: true,
             },
             {
               id: "02_09",
               name: "Каб. №7",
               icon: "../../assets/img/icons/door.png",
-              isParent:true,
+              isParent: true,
             },
             {
               id: "02_10",
               name: "Зал с/з. №1",
               icon: "../../assets/img/icons/balance.png",
-              isParent:true,
+              isParent: true,
             },
             {
               id: "02_11",
               name: "Зал с/з. №2",
               icon: "../../assets/img/icons/balance.png",
-              isParent:true,
+              isParent: true,
               children: [
                 {
                   id: "02_15",
                   name: "Совещ. комн. зала № 2",
                   icon: "../../assets/img/icons/door.png",
-                  isParent:true,
+                  isParent: true,
                 }
               ]
             },
@@ -3231,13 +3304,13 @@ const zTreeHandler = () => {
               id: "02_12",
               name: "Зал с/з. №3",
               icon: "../../assets/img/icons/balance.png",
-              isParent:true,
+              isParent: true,
               children: [
                 {
                   id: "02_15",
                   name: "Совещ. комн. зала № 3",
                   icon: "../../assets/img/icons/door.png",
-                  isParent:true,
+                  isParent: true,
                 }
               ]
             },
@@ -3245,13 +3318,13 @@ const zTreeHandler = () => {
               id: "02_18",
               name: "Коридор 2 этаж",
               icon: "../../assets/img/icons/node.png",
-              isParent:true,
+              isParent: true,
             },
             {
               id: "02_19",
               name: "Лестничная площадка 2 этаж",
               icon: "../../assets/img/icons/node.png",
-              isParent:true,
+              isParent: true,
             }
           ]
 
@@ -3260,7 +3333,7 @@ const zTreeHandler = () => {
           id: "01_03",
           name: "Подвал",
           icon: "../../assets/img/icons/floor.png",
-          isParent:true,
+          isParent: true,
         }
       ]
     },
@@ -3269,19 +3342,19 @@ const zTreeHandler = () => {
       name: "Холм-Жирки",
       open: true,
       icon: "../../assets/img/icons/building-small.png",
-      isParent:true,
+      isParent: true,
       children: [
         {
           id: "02_01",
           name: "1 этаж",
           icon: "../../assets/img/icons/floor.png",
-          isParent:true,
+          isParent: true,
         },
         {
           id: "02_02",
           name: "2 этаж",
           icon: "../../assets/img/icons/floor.png",
-          isParent:true,
+          isParent: true,
         }
       ]
     }
@@ -3293,74 +3366,74 @@ const zTreeHandler = () => {
       name: "Устройства",
       open: true,
       icon: "../../assets/img/icons/computer.png",
-      isParent:true,
+      isParent: true,
       children: [
         {
           id: "01_01",
           name: "Комплект рабочей станции",
           icon: "../../assets/img/icons/computer.png",
           open: true,
-          isParent:true,
+          isParent: true,
           children: [
             {
               id: "01_01",
               name: "Системный блок OLDI",
               icon: "../../assets/img/icons/compcase.png",
-              isParent:true,
+              isParent: true,
               children: [
                 {
                   id: "01_01",
                   name: "Корпус InWin",
                   icon: "../../assets/img/icons/compcase.png",
-                  isParent:false,
+                  isParent: false,
                 },
                 {
                   id: "01_01",
                   name: "Блок питания InWin",
                   icon: "../../assets/img/icons/computer.png",
-                  isParent:false,
+                  isParent: false,
                 },
                 {
                   id: "01_01",
                   name: "Материнская плата Gigbyte",
                   icon: "../../assets/img/icons/motherboard.png",
-                  isParent:false,
+                  isParent: false,
                 },
                 {
                   id: "01_01",
                   name: "Процессор Intel Core2Duo 2800",
                   icon: "../../assets/img/icons/processor.png",
-                  isParent:false,
+                  isParent: false,
                 },
                 {
                   id: "01_01",
                   name: "Кулер для процессора Cooler Master",
                   icon: "../../assets/img/icons/computer.png",
-                  isParent:false,
+                  isParent: false,
                 },
                 {
                   id: "01_01",
                   name: "Модуль памяти Kingston DDR2 1Gb",
                   icon: "../../assets/img/icons/memory.png",
-                  isParent:false,
+                  isParent: false,
                 },
                 {
                   id: "01_01",
                   name: "Модуль памяти Kingston DDR2 1Gb",
                   icon: "../../assets/img/icons/memory.png",
-                  isParent:false,
+                  isParent: false,
                 },
                 {
                   id: "01_01",
                   name: "Жесткий диск Western Digital 160Gb",
                   icon: "../../assets/img/icons/hdd.png",
-                  isParent:false,
+                  isParent: false,
                 },
                 {
                   id: "01_01",
                   name: "DVD-RAM Pioneer DRW-2200 BK",
                   icon: "../../assets/img/icons/drive-disc.png",
-                  isParent:false,
+                  isParent: false,
                 },
               ]
             },
@@ -3368,37 +3441,37 @@ const zTreeHandler = () => {
               id: "01_01",
               name: "Монитор Acer L1620",
               icon: "../../assets/img/icons/monitor.png",
-              isParent:false,
+              isParent: false,
             },
             {
               id: "01_01",
               name: "Звуковые колонки Genius G-200",
               icon: "../../assets/img/icons/speaker.png",
-              isParent:false,
+              isParent: false,
             },
             {
               id: "01_01",
               name: "Клавиатура Genius BX-200",
               icon: "../../assets/img/icons/keyboard-full.png",
-              isParent:false,
+              isParent: false,
             },
             {
               id: "01_01",
               name: "Мышь Genius N-100",
               icon: "../../assets/img/icons/mouse.png",
-              isParent:false,
+              isParent: false,
             },
             {
               id: "01_01",
               name: "Принтер Samsung ML-2160",
               icon: "../../assets/img/icons/printer.png",
-              isParent:true,
+              isParent: true,
               children: [
                 {
                   id: "01_01",
                   name: "Картридж DT-101",
                   icon: "../../assets/img/icons/computer.png",
-                  isParent:false,
+                  isParent: false,
                 },
               ]
             },
@@ -3411,13 +3484,13 @@ const zTreeHandler = () => {
       name: "Программное обеспечение",
       open: true,
       icon: "../../assets/img/icons/windows.png",
-      isParent:true,
+      isParent: true,
       children: [
         {
           id: "01_01",
           name: "ОС Windows 10 Professional x64",
           icon: "../../assets/img/icons/windows.png",
-          isParent:false,
+          isParent: false,
         },
       ]
     },

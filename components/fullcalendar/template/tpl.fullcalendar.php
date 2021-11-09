@@ -77,7 +77,7 @@
                           </div>
                           <div class="form-group">
                             <label for="select-label" class="">Категория события:</label>
-                            <div class="cat-select position-relative ">
+                            <div class="cat-select position-relative" id="cat-select">
                               <select class="select2 select-label form-control w-100" id="select-label" name="select-label">
                                 <option data-label="primary" value="Primary" selected>События
                                 </option>
