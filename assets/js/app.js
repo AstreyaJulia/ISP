@@ -112,7 +112,7 @@ function showMiniToast(text, color) {
     });
   }
 
-  const toastElement = '<div class="toast align-items-center bg-' + color + '-20" role="alert" aria-live="assertive" aria-atomic="true"><div class="d-flex"><div class="toast-body">' + text + '</div><button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Закрыть"></button></div></div>';
+  const toastElement = '<div class="toast align-items-center bg-' + color + '-lighter" role="alert" aria-live="assertive" aria-atomic="true"><div class="d-flex"><div class="toast-body">' + text + '</div><button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Закрыть"></button></div></div>';
   toastcontainer.insertAdjacentHTML('beforeend', toastElement);
 
   const toastElList = [].slice.call(document.querySelectorAll('.toast'));
@@ -714,8 +714,6 @@ const calendmodulehandler = () => {
 
   // Скрыть модал
   function hideModal() {
-    updateEventBtn.removeEventListener('click', () => addEvent());
-    btnDeleteEvent.removeEventListener('click', () => delEvent());
     modal.style.display = "none";
     modal.classList.remove('show');
     const btn = document.querySelector('.modal-backdrop');
@@ -958,7 +956,12 @@ const calendmodulehandler = () => {
     Event.append("id", eventToUpdate.id);
     let title = eventToUpdate.title;
 
-    ajax_send("POST", "components/fullcalendar/ajax.php", Event, result => delSucces(result, title));
+    if (eventToUpdate.extendedProps.user_id === cookieID || JSON.stringify(eventToUpdate.extendedProps.user_id) === cookieID) {
+      ajax_send("POST", "components/fullcalendar/ajax.php", Event, result => delSucces(result, title));
+    } else {
+      showMiniToast('Вы не имеете прав на удаление события ' + title, "danger");
+    }
+
     /*const Event = {
       operation: "del",
       id: eventToUpdate.id,
@@ -1000,7 +1003,6 @@ const calendmodulehandler = () => {
         showErrorToast(header, textStatus + errorThrown + jqXHR.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
       }
     });*/
-    btnDeleteEvent.removeEventListener('click', () => delEvent());
   }
 
   // Закрытие модала и сброс инпутов
@@ -1032,16 +1034,11 @@ const calendmodulehandler = () => {
       // Проверяем права пользователя и его ID и включаем возможность редактирования
       if (eventToUpdate.extendedProps.user_id === cookieID || JSON.stringify(eventToUpdate.extendedProps.user_id) === cookieID) {
         // Добавляем прослушку кликов по кнопкам Добавить и Обновить
-        updateEventBtn.addEventListener('click', () => addEvent());
-        btnDeleteEvent.addEventListener('click', () => delEvent());
         updateEventBtn.style.display = "block";
         btnDeleteEvent.style.display = "block";
         updateEventBtn.disabled = false;
         btnDeleteEvent.disabled = false;
       } else {
-        // Удаляем прослушку кликов по кнопкам Добавить и Обновить
-        updateEventBtn.removeEventListener('click', () => addEvent());
-        btnDeleteEvent.removeEventListener('click', () => delEvent());
         updateEventBtn.style.display = "block";
         btnDeleteEvent.style.display = "block";
         updateEventBtn.disabled = true;
@@ -1640,7 +1637,7 @@ const calendmodulehandler = () => {
       Event.append("calendar", $(eventLabel).val());
       Event.append("description", $(calendarEditor).val());
       Event.append("url", $(eventUrl).val());
-      Event.append("private", "$(privateSwitch).prop('checked') ? 1 : 0");
+      Event.append("private", $(privateSwitch).prop('checked') ? 1 : 0);
       Event.append("user_id", cookieID);
       Event.append("tzid", "Europe/Moscow");
       if ($(allDaySwitch).prop('checked')) {
@@ -1702,6 +1699,10 @@ const calendmodulehandler = () => {
       ajax_send("POST", "components/fullcalendar/ajax.php", Event, result => addSucces(result, title));
     }
   });
+
+  updateEventBtn.addEventListener('click', () => addEvent());
+  btnDeleteEvent.addEventListener('click', () => delEvent());
+
 
   // Сброс значений модала
   function resetValues() {
