@@ -600,7 +600,7 @@ const minicalendarhandler = () => {
     locale: 'ru',
     timeZone: 'Europe/Moscow',
     initialView: 'dayGridMonth',
-    height: 250,
+    height: 300,
     editable: false,
     selectable: true,
     businessHours: false,

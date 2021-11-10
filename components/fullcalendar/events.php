@@ -139,12 +139,16 @@ if (file_exists($path)) {
   }
 }
 
+// было
+/*
 if ($birthday) {
   echo json_encode($json, JSON_UNESCAPED_UNICODE);
 } else {
   echo "[]";
 }
+*/
 
+  echo json_encode($json, JSON_UNESCAPED_UNICODE);
 
 
 //Создаёт из строки массив с разбивкой по ',' если строка пустая возвращает NULL
