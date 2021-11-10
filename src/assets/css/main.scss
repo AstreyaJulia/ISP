@@ -1185,9 +1185,15 @@ code[class*="language-"], pre[class*="language-"] {
 
 .main-content.auth {
 
+  .form-control {
+    background-color: $white;
+    border: 1px solid $gray-300;
+    color: $gray-700;
+  }
+
   .left-auth {
-    border-right: 1px solid var(--ui-border);
-    box-shadow: var(--ui-shadow-elements);
+    border-right: 1px solid $gray-300;
+    box-shadow: $grey-shadow-6;
   }
 
   .right-auth {
@@ -1208,7 +1214,7 @@ code[class*="language-"], pre[class*="language-"] {
 }
 
 .danger {
-  color: var(--ui-text-mid);
+  color: $gray-500;
   font-size: 7rem;
   position: relative;
   line-height: 1;
@@ -1220,7 +1226,7 @@ code[class*="language-"], pre[class*="language-"] {
     left: -2px;
     text-shadow: 1px 0 $primary;
     top: 0;
-    color: var(--ui-text-mid);
+    color: $gray-500;
     background: transparent;
     overflow: hidden;
     clip: rect(0, 900px, 0, 0);
@@ -1233,7 +1239,7 @@ code[class*="language-"], pre[class*="language-"] {
     left: 2px;
     text-shadow: -1px 0 $danger;
     top: 0;
-    color: var(--ui-text-mid);
+    color: $gray-500;
     background: transparent;
     overflow: hidden;
     clip: rect(0, 900px, 0, 0);
