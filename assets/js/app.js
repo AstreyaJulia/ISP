@@ -237,7 +237,7 @@ const buttonsidebartoggleHandler = (evt) => {
     formData.append("sidebarWidth", "narrow");
   }
 
-  ajax_send("POST", "pages/admin/ajax.php", formData);
+  ajax_send("POST", "pages/admin/ajax.php", formData, result => console.log(result));
 };
 
 // Разворачивает сайдбар, не отодвигая контент. Переключает класс expanded у сайдбара
@@ -280,7 +280,7 @@ const darkmodetoggleHandler = () => {
     sidebarwrapper.dataset.themeName = "main-dark";
     formData.append("theme", "main-dark");
   }
-  ajax_send("POST", "pages/admin/ajax.php", formData);
+  ajax_send("POST", "pages/admin/ajax.php", formData, result => console.log(result));
   darkmodetogglbutton.classList.toggle('tumbler--night-mode');
 };
 
@@ -491,71 +491,60 @@ const maincontentscrollHandler = () => {
 
 // Цвета для Fullcalendar
 // Цвета событий, названия менять в разметке, в js менять не надо
-const calendarsColor = {
-  primary: 'primary',
-  success: 'success',
-  danger: 'danger',
-  warning: 'warning',
-  info: 'info',
-  pink: 'pink',
-  blue: 'blue',
-  orange: 'orange',
-  teal: 'teal',
-  azure: 'azure',
-}
 
 let calendCat = [
   {
-    id: 1,
     color: "primary",
     name: "События",
   },
   {
-    id: 2,
     color: "success",
     name: "Отпуск",
   },
   {
-    id: 3,
     color: "info",
     name: "Дежурство",
   },
   {
-    id: 4,
     color: "warning",
     name: "Важно",
   },
   {
-    id: 5,
     color: "danger",
     name: "Праздники",
   },
   {
-    id: 6,
     color: "pink",
     name: "Категория 1",
   },
   {
-    id: 7,
     color: "blue",
     name: "Категория 2",
   },
   {
-    id: 8,
     color: "orange",
     name: "Категория 3",
   },
   {
-    id: 9,
     color: "teal",
     name: "Категория 4",
   },
   {
-    id: 10,
     color: "azure",
     name: "Категория 5",
   },
 ]
+
+// Извлекает из объекта цвет-категория названия цветов для событий и всплывашек
+function araycal() {
+  let array = new Map();
+  for (let i = 0; i < calendCat.length; i++) {
+    array.set(calendCat[i].color, calendCat[i].color);
+  }
+  return (Object.fromEntries(array))
+}
+// Для использования в Fullcalendar
+const calendarsColor = araycal();
 
 // Мини календарь на главной
 
@@ -605,6 +594,7 @@ const minicalendarhandler = () => {
     selectable: true,
     businessHours: false,
     dayMaxEvents: false, //
+
     eventClassNames: function ({event: calendarEvent}) {
       const colorName = calendarsColor[calendarEvent._def.extendedProps.calendar];
       return [
@@ -1296,7 +1286,7 @@ const calendmodulehandler = () => {
 
     const header = `<p class="group-title mb-2">Календарь:</p>`;
 
-    const selAll = `<div class="form-check d-flex align-items-center mb-2">
+    const selAll = `<div class="form-check d-flex align-items-center mb-3">
                   <input class="form-check-input input-filter bg-dark select-all me-1" type="checkbox" id="select-all"
                          name="select-all" checked>
                   <label class="form-check-label" for="select-all">Все</label>
@@ -1748,7 +1738,7 @@ const calendmodulehandler = () => {
     $(calendarEditor).val('');
     repeatparams.style.display = "none";
     $(repparamSwitch).val('none');
-    $(eventLabel).val('');
+    $(modal).find(eventLabel).val('').trigger('change');
     // Параметры повторений
     $(startrepDate).val('');
     $(endrepDate).val('');

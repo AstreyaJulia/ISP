@@ -269,37 +269,6 @@
 
             </div>
             <div class="filter-group calendar-events-filter flex-column align-items-start" id="calEventFilter">
-              <p class="group-title mb-2">Календарь:</p>
-              <div class="form-check d-flex align-items-center mb-2">
-                <input class="form-check-input input-filter bg-dark select-all me-2" type="checkbox" id="select-all"
-                       name="select-all" checked>
-                <label class="form-check-label" for="select-all">Все</label>
-              </div>
-              <div class="form-check d-flex align-items-center mb-2">
-                <input class="form-check-input input-filter bg-primary me-2" type="checkbox" id="Primary" name="Primary"
-                       data-value="Primary" checked>
-                <label class="form-check-label" for="Primary">События</label>
-              </div>
-              <div class="form-check d-flex align-items-center mb-2">
-                <input class="form-check-input input-filter bg-danger me-2" type="checkbox" id="Danger" name="Danger"
-                       data-value="Danger" checked>
-                <label class="form-check-label" for="Danger">Праздники</label>
-              </div>
-              <div class="form-check d-flex align-items-center mb-2">
-                <input class="form-check-input input-filter bg-warning me-2" type="checkbox" id="Warning" name="Warning"
-                       data-value="Warning" checked>
-                <label class="form-check-label" for="Warning">Важно</label>
-              </div>
-              <div class="form-check d-flex align-items-center mb-2">
-                <input class="form-check-input input-filter bg-success me-2" type="checkbox" id="Success" name="Success"
-                       data-value="Success" checked>
-                <label class="form-check-label" for="Success">Отпуск</label>
-              </div>
-              <div class="form-check d-flex align-items-center mb-2">
-                <input class="form-check-input input-filter bg-info me-2" type="checkbox" id="Info" name="Info" data-value="Info"
-                       checked>
-                <label class="form-check-label" for="Info">Дежурство</label>
-              </div>
             </div>
 
           </div>
