@@ -1289,6 +1289,34 @@ const calendmodulehandler = () => {
     }
   }
 
+  // Селект для меток в модале
+  function renderCheckboxes() {
+    const parent = document.getElementById('calEventFilter');
+    parent.innerHTML = '';
+
+    const header = `<p class="group-title mb-2">Календарь:</p>`;
+
+    const selAll = `<div class="form-check d-flex align-items-center mb-2">
+                  <input class="form-check-input input-filter bg-dark select-all me-1" type="checkbox" id="select-all"
+                         name="select-all" checked>
+                  <label class="form-check-label" for="select-all">Все</label>
+                </div>`;
+
+    parent.insertAdjacentHTML('beforeend', header);
+    parent.insertAdjacentHTML('beforeend', selAll);
+
+    const createItem = ({id, color, name}) =>
+      `<div class="form-check d-flex align-items-center mb-2">
+                  <input class="form-check-input input-filter bg-${color} me-1" type="checkbox" id="${color}" name="${color}"
+                         data-value="${color}" checked>
+                  <label class="form-check-label" for="${color}">${name}</label>
+                </div>`;
+
+    const ElementsString = calendCat.map((color) => createItem(color)).join('');
+    parent.insertAdjacentHTML('beforeend', ElementsString);
+  }
+
+  renderCheckboxes();
 
   // Селект для меток в модале
   function renderBullets(option) {
@@ -1306,6 +1334,10 @@ const calendmodulehandler = () => {
   function renderOptions() {
     const parent = document.getElementById('select-label');
     parent.innerHTML = '';
+
+    const placeholderItem = `<option></option>`;
+
+    parent.insertAdjacentHTML('beforeend', placeholderItem);
 
     const createItem = ({id, color, name}) =>
       `<option data-label="${color}" value="${color}">${name}</option>`;
@@ -1454,6 +1486,7 @@ const calendmodulehandler = () => {
     }
   });
   // Рендеринг календаря
+
   calendar.render();
 
   // Валидация для jquery validate
@@ -1715,6 +1748,7 @@ const calendmodulehandler = () => {
     $(calendarEditor).val('');
     repeatparams.style.display = "none";
     $(repparamSwitch).val('none');
+    $(eventLabel).val('');
     // Параметры повторений
     $(startrepDate).val('');
     $(endrepDate).val('');
@@ -1750,8 +1784,14 @@ const calendmodulehandler = () => {
     resetValues();
   });
 
+
   // Выбрать все и другие фильтры
-  if ($(selectAll)) {
+  if (document.querySelector(".select-all")) {
+    // Фильтр событий
+    const calEventFilter = document.querySelector(".calendar-events-filter");
+    // Чекбокс Все в фильтре
+    const selectAll = document.querySelector(".select-all");
+
     $(selectAll).on('change', function () {
       const $this = $(this);
       if ($this.prop('checked')) {
@@ -3536,8 +3576,10 @@ const init = () => {
 
   // Разворачивалка сайдбара. Только для ширины экрана 1080 или если установлена настройка
   if (($(window).width() > 1080) || (sidebarwrapper.dataset.sidebarWidth === "narrow")) {
-    mainsidebar.addEventListener('mouseenter', sidebarexpandHandler);
-    mainsidebar.addEventListener('mouseleave', buttonsidebarcloseHandler);
+    if (mainsidebar) {
+      mainsidebar.addEventListener('mouseenter', sidebarexpandHandler);
+      mainsidebar.addEventListener('mouseleave', buttonsidebarcloseHandler);
+    }
   }
 
   // Прослушивание нажатия кнопки .top-search-button-toggle
@@ -3627,3 +3669,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Будет запущено все, что внутри const init
 init();
+

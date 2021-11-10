@@ -24,7 +24,7 @@
         </nav>
       </div>
     </header>
-    <div class="boxed-content container align-items-center justify-content-end d-flex mb-3">
+    <div class="container align-items-center justify-content-end d-flex mb-3">
       <button class="btn btn-primary" type="button" id="contentmenu" data-bs-toggle="dropdown" data-bs-placement="top"
               title="Меню">
         <i class="mdi mdi-cog-outline"></i>
@@ -33,7 +33,7 @@
         <li><a href="#" class="dropdown-item btn-print">Печать</a></li>
       </ul>
     </div>
-    <div class="calendar-wrapper boxed-content">
+    <div class="calendar-wrapper">
       <!-- Модал добавления/редактирования события -->
       <div id="addEventsModal" class="modal" aria-labelledby="addEventsModal" style="display: none;">
         <div class="modal-dialog modal-dialog-centered">
@@ -301,7 +301,7 @@
               </div>
 
             </div>
-            <div class="filter-group calendar-events-filter flex-column align-items-start">
+            <div class="filter-group calendar-events-filter flex-column align-items-start" id="calEventFilter">
               <p class="group-title mb-2">Календарь:</p>
               <div class="form-check d-flex align-items-center mb-2">
                 <input class="form-check-input input-filter bg-dark select-all me-2" type="checkbox" id="select-all"

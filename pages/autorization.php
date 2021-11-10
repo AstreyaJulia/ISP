@@ -1,12 +1,4 @@
 <?php
-spl_autoload_register(function($class) {
-    require (mb_strtolower($_SERVER['DOCUMENT_ROOT'] . '/' . str_replace('\\', '/', $class) . '.php'));
-});
-error_reporting(E_ALL);
-ini_set("display_errors", "on");
-
-//подключаем функции
-require_once $_SERVER['DOCUMENT_ROOT'] . "/core/extension/custom_functions.php";
 
 if (!empty($_POST['login']) and !empty($_POST['password']) and array_key_exists('aut', $_POST)) {
   // Пишем логин из формы в переменную для удобства работы:
@@ -90,23 +82,8 @@ if (!empty($_POST['login']) and !empty($_POST['password']) and array_key_exists(
     }
   }
 
-
-      
-
-    if (array_key_exists('reg', $_GET)) {
-      include $_SERVER['DOCUMENT_ROOT'] . "/components/autorization/tpl.register.php";
-    } else {
-      include $_SERVER['DOCUMENT_ROOT'] . "/components/autorization/tpl.autorization.php";
-    }
-
-
-
-
-
-  
-
-
-  
-
-
-
+  if (array_key_exists('reg', $_GET)) {
+    include $_SERVER['DOCUMENT_ROOT'] . "/components/autorization/tpl.register.php";
+  } else {
+    include $_SERVER['DOCUMENT_ROOT'] . "/components/autorization/tpl.autorization.php";
+  }
