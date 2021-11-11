@@ -238,6 +238,7 @@ const buttonsidebartoggleHandler = (evt) => {
   }
 
   ajax_send("POST", "pages/admin/ajax.php", formData, result => console.log(result));
+  window.location.reload();
 };
 
 // Разворачивает сайдбар, не отодвигая контент. Переключает класс expanded у сайдбара
@@ -584,6 +585,7 @@ const minicalendarhandler = () => {
       document.body.removeChild(tooltip);
     });
   }
+
 
   let calendar = new FullCalendar.Calendar(minicalendar, {
     locale: 'ru',
@@ -1793,15 +1795,27 @@ const calendmodulehandler = () => {
     });
   }
 
-  if ($(filterInput)) {
+ /* if ($(filterInput)) {
     $(filterInput).on('change', function () {
       $('.input-filter:checked').length < $(calEventFilter).find('input').length
         ? $(selectAll).prop('checked', false)
         : $(selectAll).prop('checked', true);
       calendar.refetchEvents();
     });
-  }
+  }*/
 
+  if ($(filterInput)) {
+    const filterInput2 = document.querySelectorAll('.input-filter:not(.select-all)');
+    filterInput2.forEach((filterInput) => {
+      filterInput.addEventListener('click', () => {
+        ('.input-filter:checked').length < $(calEventFilter).find('input').length
+          ? $(selectAll).prop('checked', false)
+          : $(selectAll).prop('checked', true);
+        calendar.refetchEvents();
+      });
+    });
+  }
+  
   // Фильтр Только мои
   if ($(privateinp)) {
     $(privateinp).on('change', function () {
@@ -3551,7 +3565,9 @@ const init = () => {
 
   // Прослушивание нажатия кнопки .sidebar-toggle-button
   if (sidebartogglbutton && sidebarwrapper) {
-    sidebartogglbutton.addEventListener('click', buttonsidebartoggleHandler);
+    sidebartogglbutton.addEventListener('click', (evt) => {
+      buttonsidebartoggleHandler(evt);
+    });
   }
 
   // Прослушивание нажатия кнопки .sidebar-expand-button

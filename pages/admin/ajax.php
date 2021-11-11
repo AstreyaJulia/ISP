@@ -37,7 +37,26 @@ if (isset($_POST['module'])) {
 }
 
 if (isset($_GET['test'])) {
+  $start = microtime(true);
   $room = new \Core\Model\Room($db);
+  
+  function buildTree(array $elements, $parentId = 0) {
+    $branch = array();
+
+    foreach ($elements as $element) {
+        if ($element['affiliation'] == $parentId) {
+            $children = buildTree($elements, $element['id']);
+            if ($children) {
+                $element['children'] = $children;
+            }
+            $branch[] = $element;
+        }
+    }
+
+    return $branch;
+  }
+
   echo '<pre>';
-  print_r($room->getRoomNew());
+  print_r(buildTree($room->getRoomNew()));
+  echo '<div style="text-align:right;">Время выполнения скрипта: '.(microtime(true) - $start).' сек.</div>';
 }

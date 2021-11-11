@@ -36,9 +36,9 @@
 	    // выводит статус пользователя (доступ разрешен - success; доступ запрещён - error)
 	    public function getStatus ($active){
 			if ($active == 1){
-				return "success";
+				return "bg-success";
 			} else {
-				return "error";
+				return "bg-danger";
 			}
 		}
 
