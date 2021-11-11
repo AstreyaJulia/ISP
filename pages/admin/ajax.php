@@ -45,18 +45,24 @@ if (isset($_GET['test'])) {
 
     foreach ($elements as $element) {
         if ($element['affiliation'] == $parentId) {
-            $children = buildTree($elements, $element['id']);
+          $arr_elem = [
+            'id' => $element['id'],
+            'name' => $element['name'],
+            'icon' => 'floor.png',
+            'isParent' => true
+          ];
+            $children = buildTree($elements, $arr_elem['id']);
             if ($children) {
-                $element['children'] = $children;
+                $arr_elem['children'] = $children;
             }
-            $branch[] = $element;
+            $branch[] = $arr_elem;
         }
     }
-
+    //return json_encode($branch, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
     return $branch;
   }
 
   echo '<pre>';
-  print_r(buildTree($room->getRoomNew()));
+  echo json_encode(buildTree($room->getRoomNew()), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
   echo '<div style="text-align:right;">Время выполнения скрипта: '.(microtime(true) - $start).' сек.</div>';
 }

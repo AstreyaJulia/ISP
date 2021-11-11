@@ -1,5 +1,5 @@
 <?php
-$start = microtime(true);
+//$start = microtime(true);
 spl_autoload_register(function($class) {
     require (mb_strtolower($_SERVER['DOCUMENT_ROOT'] . '/' . str_replace('\\', '/', $class) . '.php'));
 });
@@ -52,4 +52,4 @@ if (isset($_COOKIE['aut'])) {
 
 //Логирование
 $visits->startVizits($_SERVER, $_COOKIE);
-echo '<div style="text-align:right;">Время выполнения скрипта: '.(microtime(true) - $start).' сек.</div>';
+//echo '<div style="text-align:right;">Время выполнения скрипта: '.(microtime(true) - $start).' сек.</div>';
