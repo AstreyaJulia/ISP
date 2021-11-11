@@ -1795,15 +1795,6 @@ const calendmodulehandler = () => {
     });
   }
 
- /* if ($(filterInput)) {
-    $(filterInput).on('change', function () {
-      $('.input-filter:checked').length < $(calEventFilter).find('input').length
-        ? $(selectAll).prop('checked', false)
-        : $(selectAll).prop('checked', true);
-      calendar.refetchEvents();
-    });
-  }*/
-
   if ($(filterInput)) {
     const filterInput2 = document.querySelectorAll('.input-filter:not(.select-all)');
     filterInput2.forEach((filterInput) => {
@@ -1815,7 +1806,7 @@ const calendmodulehandler = () => {
       });
     });
   }
-  
+
   // Фильтр Только мои
   if ($(privateinp)) {
     $(privateinp).on('change', function () {
@@ -3131,7 +3122,19 @@ const zTreeHandler = () => {
 
   // zTree конфигурация, изучите API документацию (детали настройки)
   const setting = {};
+
+  let workplacesdata = {
+    module: "workplaces",
+    tree: "workplaces"
+  };
+
+  let placeitemsdata = {
+    module: "workplaces",
+    tree: "placeitems"
+  };
+
 // zTree data attributes, refer to the API documentation (treeNode data details)
+
   const workPlaceStructure = [
     {
       id: "01_00",
@@ -3539,8 +3542,11 @@ const zTreeHandler = () => {
       ]
     },
   ];
-
-
+/*
+  const workPlaceStructure = () => {
+    ajax_send("GET", "pages/admin/ajax.php", workplacesdata, result => result);
+  }
+*/
   zTreeObj = $.fn.zTree.init($("#workplace-tree"), setting, workPlaceStructure);
   zTreeObj = $.fn.zTree.init($("#placeitems-tree"), setting, placeitemsStructure);
 
@@ -3654,6 +3660,22 @@ const init = () => {
   const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl)
   });
+
+  // Всплывашка с временем отработки php
+  if (cookieID === "1") {
+    const toastcontainer = document.querySelector('.toasts-container');
+    // Удаляем скрытые всплывашки
+    const hiddentoasts = toastcontainer.querySelectorAll('.hide');
+    if (hiddentoasts) {
+      hiddentoasts.forEach((hiddentoast) => {
+        toastcontainer.removeChild(hiddentoast);
+      });
+    }
+
+    const toastscripttime = new bootstrap.Toast(document.querySelector('.toast-script-time'));
+    toastscripttime.show();
+
+  }
 
   // Отрисовка слайдера на дашбоарде
   if (sliderCarousel) {
