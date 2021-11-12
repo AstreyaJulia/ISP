@@ -55,3 +55,11 @@ ORDER BY
 ]
 
 еще лучше, если дата будет в привычном формате дд.мм.гггг
+
+
+рабочие места:
+
+SELECT ChildUserType.id, CONCAT (ParentUserType.name, " ", ChildUserType.name) AS name 
+    FROM `sdc_room_test` AS ChildUserType
+    LEFT JOIN `sdc_room_test` AS ParentUserType ON ChildUserType.affiliation = ParentUserType.id
+    WHERE ChildUserType.icon ='desktop'

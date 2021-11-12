@@ -20,7 +20,7 @@
 	    }
 
 	    public function getRoomNew() {
-	    	$sql = "SELECT sdc_room_test.id, sdc_user_attributes.fullname, jupiter_tab_num, ip, name, sdc_room_test.affiliation, alarm_button, phone_worck FROM sdc_room_test 
+	    	$sql = "SELECT sdc_room_test.id, sdc_user_attributes.fullname, jupiter_tab_num, ip, name, icon, sdc_room_test.affiliation, alarm_button, phone_worck FROM sdc_room_test 
 					LEFT JOIN sdc_user_attributes ON sdc_user_attributes.room=sdc_room_test.id";
 	        return $this->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
 	    }

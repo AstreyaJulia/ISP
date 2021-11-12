@@ -36,33 +36,26 @@ if (isset($_POST['module'])) {
   }
 }
 
-if (isset($_GET['test'])) {
-  $start = microtime(true);
+if ($_GET['test'] == 'test') {
   $room = new \Core\Model\Room($db);
-  
-  function buildTree(array $elements, $parentId = 0) {
+  function buildTree(array $elements, $parentId = NULL) {
     $branch = array();
-
     foreach ($elements as $element) {
         if ($element['affiliation'] == $parentId) {
           $arr_elem = [
             'id' => $element['id'],
             'name' => $element['name'],
-            'icon' => 'floor.png',
-            'isParent' => true
+            'icon' => '../../assets/img/icons/'.$element['icon'].'.png',
+            'open' => ($element['affiliation'] == NULL) ? true : false
           ];
-            $children = buildTree($elements, $arr_elem['id']);
-            if ($children) {
-                $arr_elem['children'] = $children;
-            }
-            $branch[] = $arr_elem;
+          $children = buildTree($elements, $arr_elem['id']);
+          if ($children) {
+              $arr_elem['children'] = $children;
+          }
+          $branch[] = $arr_elem;
         }
     }
-    //return json_encode($branch, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
     return $branch;
   }
-
-  echo '<pre>';
   echo json_encode(buildTree($room->getRoomNew()), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-  echo '<div style="text-align:right;">Время выполнения скрипта: '.(microtime(true) - $start).' сек.</div>';
 }

@@ -3120,8 +3120,21 @@ let zTreeObj;
 
 const zTreeHandler = () => {
 
+  function myOnClick(event, treeId, treeNode) {
+    alert(treeNode.id + ", " + treeNode.name);
+  }
+
   // zTree конфигурация, изучите API документацию (детали настройки)
-  const setting = {};
+  const setting = {
+    callback: {
+      onClick: myOnClick,
+    },
+    data: {
+      key: {
+        title: "id"
+      }
+    }
+  };
 
   let workplacesdata = {
     module: "workplaces",
@@ -3133,21 +3146,21 @@ const zTreeHandler = () => {
     tree: "placeitems"
   };
 
+  let test = {test: "test"};
+
 // zTree data attributes, refer to the API documentation (treeNode data details)
 
-  const workPlaceStructure = [
+  /*const workPlaceStructure = [
     {
       id: "01_00",
       name: "Сафоново",
       open: true,
       icon: "../../assets/img/icons/building.png",
-      isParent: true,
       children: [
         {
           id: "01_01",
           name: "1 этаж",
           icon: "../../assets/img/icons/floor.png",
-          isParent: true,
           children: [
             {
               id: "01_03",
@@ -3405,7 +3418,7 @@ const zTreeHandler = () => {
         }
       ]
     }
-  ];
+  ];*/
 
   const placeitemsStructure = [
     {
@@ -3542,12 +3555,14 @@ const zTreeHandler = () => {
       ]
     },
   ];
-/*
+
   const workPlaceStructure = () => {
-    ajax_send("GET", "pages/admin/ajax.php", workplacesdata, result => result);
+    ajax_send("GET", "pages/admin/ajax.php", test, result => $.fn.zTree.init($("#workplace-tree"), setting, result));
   }
-*/
-  zTreeObj = $.fn.zTree.init($("#workplace-tree"), setting, workPlaceStructure);
+
+  workPlaceStructure();
+
+  //zTreeObj = $.fn.zTree.init($("#workplace-tree"), setting, workPlaceStructure);
   zTreeObj = $.fn.zTree.init($("#placeitems-tree"), setting, placeitemsStructure);
 
 }
