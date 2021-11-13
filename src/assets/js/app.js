@@ -173,10 +173,10 @@ const ajax_send = (method, url, parameters, callback) => {
     if (xhr.status === 200) {
       let result;
       if (xhr.response) {
-        console.log('Успешно. Ответ: ', xhr.responseText);
+        //console.log('Успешно. Ответ: ', xhr.responseText);
         result = JSON.parse(xhr.response);
       } else {
-        console.log('Успешно. Без ответа.');
+        //console.log('Успешно. Без ответа.');
         result = "null";
       }
       callback(result);
@@ -3119,22 +3119,57 @@ const placeitemsTree = document.getElementById('placeitems-tree');
 let zTreeObj;
 
 const zTreeHandler = () => {
+  // Показать popover
+  function showPopover(treeNode) {
+    let tooltip = new bootstrap.Popover(event.el, {
+      template: '<div class="popover popover-info" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>',
+      title: treeNode.name,
+      content: treeNode.id,
+      placement: 'top',
+    });
+    tooltip.show();
+  }
+
+  // Скрыть popover
+  function hidePopover() {
+    let tooltips = document.querySelectorAll(".popover");
+    tooltips.forEach(function (tooltip) {
+      document.body.removeChild(tooltip);
+    });
+  }
 
   function myOnClick(event, treeId, treeNode) {
     alert(treeNode.id + ", " + treeNode.name);
   }
 
+  function myOnMouseUp(event, treeId, treeNode) {
+    showPopover(treeNode);
+    alert(treeNode ? treeNode.tId + ", " + treeNode.name : "isRoot");
+  }
+
+  function myOnMouseDown(event, treeId, treeNode) {
+    hidePopover();
+  }
+
   // zTree конфигурация, изучите API документацию (детали настройки)
-  const setting = {
+  const settingWorktree = {
     callback: {
       onClick: myOnClick,
+      onMouseUp: myOnMouseUp,
+      onMouseDown: myOnMouseDown,
     },
     data: {
       key: {
         title: "id"
+      },
+      render: function(title,treeNode){
+        return title + treeNode.id;
       }
     }
   };
+
+  const settingPlaceitems = {};
+
 
   let workplacesdata = {
     module: "workplaces",
@@ -3557,13 +3592,13 @@ const zTreeHandler = () => {
   ];
 
   const workPlaceStructure = () => {
-    ajax_send("GET", "pages/admin/ajax.php", test, result => $.fn.zTree.init($("#workplace-tree"), setting, result));
+    ajax_send("GET", "pages/admin/ajax.php", test, result => $.fn.zTree.init($("#workplace-tree"), settingWorktree, result));
   }
 
   workPlaceStructure();
 
   //zTreeObj = $.fn.zTree.init($("#workplace-tree"), setting, workPlaceStructure);
-  zTreeObj = $.fn.zTree.init($("#placeitems-tree"), setting, placeitemsStructure);
+  zTreeObj = $.fn.zTree.init($("#placeitems-tree"), settingPlaceitems, placeitemsStructure);
 
 }
 
