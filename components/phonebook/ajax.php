@@ -35,8 +35,8 @@ $phonebook = $phonebookClass->getSelect($primary_group);
 
 foreach ($phonebook as $row) {
   echo '<tr>
-	<td>' . $row->name . '</td>
-	<td>' . shortFIO($row->fullname) . '</td>
+	<td>' . $row->room . '</td>
+	<td>' . $row->fullname . '</td>
 	<td>' . $phonebookClass->getProfession($row->profession) . '</td>
 	<td>' . $row->phone_worck . '</td>
 </tr>' . PHP_EOL;
