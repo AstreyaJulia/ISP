@@ -67,7 +67,7 @@
           <tbody id="<?= $id; ?>">
           <?php foreach ($phonebook as $row): ?>
             <tr>
-              <td><?= $phonebookClass->getPosition($row->position); ?></td>
+              <td><?= $row->name; ?></td>
               <td><?= $row->fullname; ?></td>
               <td><?= $phonebookClass->getProfession($row->profession); ?></td>
               <td><?= $row->phone_worck; ?></td>

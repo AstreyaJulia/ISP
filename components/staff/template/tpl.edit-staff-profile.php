@@ -103,7 +103,7 @@
                       <div class="d-flex">
                         <select class="form-select" id="room" name="room" required>
                           <option value="<?= $row->room ?>"
-                                  selected><?= $roomClass->getPosition($row->position); ?></option><?= $roomClass->getFreeRoom(); ?>
+                                  selected><?= $row->name; ?></option><?= $roomClass->getFreeRoom(); ?>
 
                         </select>
                         <!-- Если в sdc_room есть записи, то класс у этой кнопки visually-hidden, у селекта room этот же класс убрать -->

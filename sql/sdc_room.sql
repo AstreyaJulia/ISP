@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Хост: 127.0.0.1:3306
--- Время создания: Ноя 12 2021 г., 15:45
--- Версия сервера: 10.4.12-MariaDB
--- Версия PHP: 7.4.14
+-- Хост: localhost
+-- Время создания: Ноя 13 2021 г., 12:27
+-- Версия сервера: 10.5.12-MariaDB-0+deb11u1
+-- Версия PHP: 7.4.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,10 +24,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `sdc_room_test`
+-- Структура таблицы `sdc_room`
 --
 
-CREATE TABLE `sdc_room_test` (
+CREATE TABLE `sdc_room` (
   `id` int(10) UNSIGNED NOT NULL,
   `jupiter_tab_num` varchar(2) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `ip` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
@@ -39,10 +39,10 @@ CREATE TABLE `sdc_room_test` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Дамп данных таблицы `sdc_room_test`
+-- Дамп данных таблицы `sdc_room`
 --
 
-INSERT INTO `sdc_room_test` (`id`, `jupiter_tab_num`, `ip`, `name`, `icon`, `affiliation`, `alarm_button`, `phone_worck`) VALUES
+INSERT INTO `sdc_room` (`id`, `jupiter_tab_num`, `ip`, `name`, `icon`, `affiliation`, `alarm_button`, `phone_worck`) VALUES
 (1, '20', '192.168.2.1', 'серв', 'desktop', 51, NULL, ''),
 (2, '21', '192.168.2.2', 'АРМ 2', 'desktop', 82, NULL, '5-13-28'),
 (3, '22', '192.168.2.3', 'АРМ 1', 'desktop', 82, NULL, '5-13-28'),
@@ -132,9 +132,9 @@ INSERT INTO `sdc_room_test` (`id`, `jupiter_tab_num`, `ip`, `name`, `icon`, `aff
 --
 
 --
--- Индексы таблицы `sdc_room_test`
+-- Индексы таблицы `sdc_room`
 --
-ALTER TABLE `sdc_room_test`
+ALTER TABLE `sdc_room`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
@@ -142,9 +142,9 @@ ALTER TABLE `sdc_room_test`
 --
 
 --
--- AUTO_INCREMENT для таблицы `sdc_room_test`
+-- AUTO_INCREMENT для таблицы `sdc_room`
 --
-ALTER TABLE `sdc_room_test`
+ALTER TABLE `sdc_room`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 COMMIT;
 

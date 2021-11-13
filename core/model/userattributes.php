@@ -72,28 +72,6 @@
         	return preg_replace('#(.*)\s+(.).*\s+(.).*#usi', '$1 $2.$3.', $fullname);
 		}
 
-		//Номера комнат сокращённо
-		public function getPosition($position){
-			//Получаем номер комнаты
-			$num_room = mb_substr($position, 1, strpos($position, '_') -2);
-			//Кабинеты
-			if (mb_substr($position, - strlen($position), 1) == "к") {
-				return "Каб.$num_room";
-			}
-			//Проход в кабинеты
-			if (mb_substr($position, - strlen($position), 1) == "п") {
-				return "Каб.$num_room";
-			}
-			//Серверная
-			if (mb_substr($position, - strlen($position), 2) == "се") {
-				return "Серверная";
-			}
-			//Совещательные комнаты
-			if (mb_substr($position, - strlen($position), 1) == "с") {
-				return "Сов. ком.$num_room";
-			}
-		}
-
 		//Получаем профессию из кодового значения с помощью справочника prof_array()
 		public function getProfession($profession) {
 			foreach (prof_array() as $key => $value) {
