@@ -55,11 +55,11 @@
             </a>
             <div class="dropdown-menu usermenu dropdown-menu-end p-0" aria-labelledby="usermenu">
               <div class="usermenu-header p-3 d-flex align-items-center">
-                <a class="user-avatar">
-                  <img src="assets/img/avatars/default.svg" alt="Администратор" width="300">
-                </a>
+                <div class="user-avatar rounded-circle avatar-sm bg-primary-20 m-0 me-1 d-flex align-items-center justify-content-center">
+                  <span class="font-medium-1 fw-bold text-primary">АС</span>
+                </div>
                 <div class="header-group">
-                  <p class="user-name"><span>Привет, </span><?= $_COOKIE['aut']['fullname']; ?></p>
+                  <p class="user-name"><?= $_COOKIE['aut']['fullname']; ?></p>
                   <p class="user-login"><a><span>@</span><?= $_COOKIE['aut']['login']; ?></a></p>
                 </div>
               </div>

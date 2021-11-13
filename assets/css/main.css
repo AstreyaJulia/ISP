@@ -53718,7 +53718,7 @@ a :hover {
   width: 250px;
 }
 .main-header .dropdown-menu.usermenu .dropdown-item {
-  color: var(--ui-text-mid);
+  color: var(--ui-text);
   display: flex;
   align-items: center;
   justify-content: space-between;
