@@ -12,13 +12,10 @@ if (!empty($_POST['login']) and !empty($_POST['password']) and array_key_exists(
     if (password_verify($_POST['password'], $hash)) {
       // Пользователь прошел авторизацию получим fullname
       $user_attributes = $db->run("SELECT fullname FROM sdc_user_attributes WHERE `internalKey` = ?",[$user->id])->fetch(\PDO::FETCH_LAZY);
-      //Приводим к виду Фамилия И.О.
-      $fullname = shortFIO($user_attributes->fullname);
-
       //запишем setcookie
       setcookie("aut[id]", "$user->id", time() + 3600 * 24 * 30);
       setcookie("aut[login]", "$login", time() + 3600 * 24 * 30);
-      setcookie("aut[fullname]", "$fullname", time() + 3600 * 24 * 30);
+      setcookie("aut[fullname]", "$user_attributes->fullname", time() + 3600 * 24 * 30);
       setcookie("aut[active]", "$user->active", time() + 3600 * 24 * 30);
       setcookie("aut[primary_group]", "$user->primary_group", time() + 3600 * 24 * 30);
       setcookie("aut[sudo]", "$user->sudo", time() + 3600 * 24 * 30);
@@ -57,9 +54,6 @@ if (!empty($_POST['login']) and !empty($_POST['password']) and array_key_exists(
 
         // Пользователь прошел авторизацию получим fullname
         $user_attributes = $db->run("SELECT fullname FROM sdc_user_attributes WHERE `internalKey` = ?",[$user->id])->fetch(\PDO::FETCH_LAZY);
-        //Приводим к виду Фамилия И.О.
-        $fullname = shortFIO($user_attributes->fullname);
-
         // Логин есть, записываем хэш пароль в бд
         $params = [
           ':login' => $login,
@@ -69,7 +63,7 @@ if (!empty($_POST['login']) and !empty($_POST['password']) and array_key_exists(
         // Пользователь прошел авторизацию, запишем cookie
         setcookie("aut[id]", "$user->id", time() + 3600 * 24 * 30);
         setcookie("aut[login]", "$login", time() + 3600 * 24 * 30);
-        setcookie("aut[fullname]", "$fullname", time() + 3600 * 24 * 30);
+        setcookie("aut[fullname]", "$user_attributes->fullname", time() + 3600 * 24 * 30);
         setcookie("aut[active]", "$user->active", time() + 3600 * 24 * 30);
         setcookie("aut[primary_group]", "$user->primary_group", time() + 3600 * 24 * 30);
         setcookie("aut[sudo]", "$user->sudo", time() + 3600 * 24 * 30);

@@ -14,6 +14,10 @@
 	function shortFIO($fullname) {
     	return preg_replace('#(.*)\s+(.).*\s+(.).*#usi', '$1 $2.$3.', $fullname);
 	}
+	//приводит  И.О.
+	function shortIO($fullname) {
+    	return preg_replace('#(.*)\s+(.).*\s+(.).*#usi', '$2$3', $fullname);
+	}
 
 	/*Устанавливает в выпадающем списке построенном из одномерного массива значение из базы данных
 	при условии что в массиве присутствуют 2 значения:

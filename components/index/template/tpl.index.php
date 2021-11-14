@@ -21,7 +21,7 @@
                     <div class="col-7">
                       <div class="p-3">
                         <p class="text-white text-uppercase  fw-bold font-small-1">С возвращением,</p>
-                        <p class="font-size-15 text-truncate text-light">Супер А.И.</p>
+                        <p class="font-size-15 text-truncate text-light"><?= shortFIO($_COOKIE['aut']['fullname']) ?></p>
 
                       </div>
                     </div>
