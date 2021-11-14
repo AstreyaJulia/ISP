@@ -1721,20 +1721,6 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
   &.widget-bdays {
     color: $white;
 
-    .congratulations-img-left {
-      width: 100px;
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
-
-    .congratulations-img-right {
-      width: 87.5px;
-      position: absolute;
-      top: 0;
-      right: 0;
-    }
-
     .today-birthdays-list {
 
       .today-birthdays-item {

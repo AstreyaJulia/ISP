@@ -54468,18 +54468,6 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
 .card.widget-bdays {
   color: #faf7fa;
 }
-.card.widget-bdays .congratulations-img-left {
-  width: 100px;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-.card.widget-bdays .congratulations-img-right {
-  width: 87.5px;
-  position: absolute;
-  top: 0;
-  right: 0;
-}
 .card.widget-bdays .today-birthdays-list .today-birthdays-item svg {
   width: auto;
   height: 24px;

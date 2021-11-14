@@ -254,11 +254,13 @@
     <div class="card">
       <div class="row" style="flex-wrap: nowrap">
         <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 pe-0">
+          <div class="d-flex align-items-center justify-content-center">
+            <img src="assets/img/calendar-img.png" alt="" width="2914" height="2874" style="width: 60%; height: auto" class="align-items-center">
+          </div>
           <div class="p-3">
             <button type="button" class="btn btn-primary ms-auto mt-1 mb-1 btn-block" id="myBtn"><i class="mdi mdi-plus me-2"></i>Событие
             </button>
           </div>
-
           <div class="card-body">
             <div class="filter-group calendar-private-filter flex-column align-items-start">
               <p class="group-title mb-2">События:</p>
@@ -270,13 +272,12 @@
             </div>
             <div class="filter-group calendar-events-filter flex-column align-items-start" id="calEventFilter">
             </div>
-
           </div>
         </div>
         <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12 ps-0">
           <div class="card-body">
             <div class="calendar-module">
-              <div id="calendar" class="calendar""></div>
+              <div id="calendar" class="calendar"></div>
           </div>
         </div>
       </div>
