@@ -122,7 +122,7 @@ if (!empty($_GET["editStaff"])) {
           public $profession = false;
           public $affiliation = false;
           public $room = false;
-          public $position = false;
+          public $name = false;
         };
 
     ob_start();
