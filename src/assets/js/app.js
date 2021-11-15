@@ -174,6 +174,12 @@ const ajax_send = (method, url, parameters, callback) => {
       let result;
       if (xhr.response) {
         //console.log('Успешно. Ответ: ', xhr.responseText);
+        //result = JSON.parse(xhr.response);
+        try {
+          JSON.parse(xhr.response);
+        } catch (e) {
+          result = xhr.response;
+        }
         result = JSON.parse(xhr.response);
       } else {
         //console.log('Успешно. Без ответа.');
@@ -851,15 +857,10 @@ const calendmodulehandler = () => {
       Event.append("end", $(modal).find(endDate).val());
       Event.append("url", $(eventUrl).val());
       Event.append("calendar", $(eventLabel).val());
-      Event.append("private", $(privateSwitch).prop('checked') ? 1 : 0);
+      Event.append("private", $(privateSwitch).prop('checked') ? '1' : '0');
       Event.append("description", $(calendarEditor).val());
       Event.append("tzid", "Europe/Moscow");
-      if ($(allDaySwitch).prop('checked')) {
-        // Если Весь день, то меняем переменную
-        Event.append("allDay", '1');
-      } else {
-        Event.append("allDay", null);
-      }
+      Event.append("allDay", $(allDaySwitch).prop('checked') ? '1' : null);
       // Параметры повторения. Если галочка включена
       if ($(repeatSwitch).prop('checked')) {
         if (Event.interval !== '') {
@@ -1497,6 +1498,9 @@ const calendmodulehandler = () => {
         required: true
       },
       'end-date': {
+        required: true
+      },
+      'select-label': {
         required: true
       }
     });
