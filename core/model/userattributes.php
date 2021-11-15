@@ -31,7 +31,7 @@
 	    //Вносим изменения в таблицу sdc_users
 	    public function setUpdateUser($params) {
 	    	unset($params[':internalKey'],$params[':fullname'],$params[':gender'],$params[':dob'],$params[':email'],
-	    		  $params[':mobilephone'],$params[':zip'],$params[':state'],$params[':city'],$params[':address'],$params[':photo'],
+	    		  $params[':mobilephone'],$params[':zip'],$params[':state'],$params[':city'],$params[':address'],
 	    		  $params[':comment'],$params[':website'],$params[':profession'],$params[':affiliation'],$params[':room']);
 	        $sql = "UPDATE sdc_users SET `username`=:username, `active`=:active, `primary_group`=:primary_group, `sudo`=:sudo WHERE `id` = :id";
 	        return $this->db->run($sql, $params);
@@ -52,7 +52,7 @@
 		    unset($params[':id'],$params[':username'],$params[':active'],$params[':primary_group'],$params[':sudo']);
 		    
 
-	        $sql = "UPDATE sdc_user_attributes SET `fullname`=:fullname, `gender`=:gender, `dob`=:dob, `email`=:email, `mobilephone`=:mobilephone, `zip`=:zip, `state`=:state, `city`=:city, `address`=:address, `photo`=:photo, `comment`=:comment, `website`=:website, `profession`=:profession, `affiliation`=:affiliation, `room`=:room WHERE `internalKey` = :internalKey";
+	        $sql = "UPDATE sdc_user_attributes SET `fullname`=:fullname, `gender`=:gender, `dob`=:dob, `email`=:email, `mobilephone`=:mobilephone, `zip`=:zip, `state`=:state, `city`=:city, `address`=:address, `comment`=:comment, `website`=:website, `profession`=:profession, `affiliation`=:affiliation, `room`=:room WHERE `internalKey` = :internalKey";
 	        return $this->db->run($sql, $params);
 	    }
 /*--------------------------------------------------
@@ -65,7 +65,7 @@
 
 	    //Добавляем запись в таблицу sdc_user_attributes
 	    public function setInsertUserAtr($params) {
-	        $sql = "INSERT INTO `sdc_user_attributes` (`internalKey`, `fullname`, `gender`, `dob`, `email`, `mobilephone`, `zip`, `state`, `city`, `address`, `photo`, `comment`, `website`, `profession`, `affiliation`, `room`) VALUES (:internalKey, :fullname, :gender, :dob, :email, :mobilephone, :zip, :state, :city, :address, :photo, :comment, :website, :profession, :affiliation, :room)";
+	        $sql = "INSERT INTO `sdc_user_attributes` (`internalKey`, `fullname`, `gender`, `dob`, `email`, `mobilephone`, `zip`, `state`, `city`, `address`, `comment`, `website`, `profession`, `affiliation`, `room`) VALUES (:internalKey, :fullname, :gender, :dob, :email, :mobilephone, :zip, :state, :city, :address, :comment, :website, :profession, :affiliation, :room)";
 	        return $this->db->run($sql, $params);
 	    }
 

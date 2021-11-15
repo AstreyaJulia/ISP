@@ -209,11 +209,6 @@
               <td>улица дом квартира</td>
             </tr>
             <tr>
-              <td>photo</td>
-              <td>varchar(191)</td>
-              <td>путь к фотографии пользователя</td>
-            </tr>
-            <tr>
               <td>comment</td>
               <td>text</td>
               <td>комментарий к профилю</td>

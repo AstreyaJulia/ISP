@@ -82,7 +82,6 @@ if (!empty($_GET["editStaff"])) {
         ':state' => $_POST["state"],
         ':city' => $_POST["city"],
         ':address' => $_POST["address"],
-        ':photo' => 'assets/img/avatars/default.svg',
         ':comment' => $_POST["comment"],
         ':website' => $_POST["website"],
         ':profession' => $_POST["profession"],
@@ -116,7 +115,6 @@ if (!empty($_GET["editStaff"])) {
           public $state = "67";
           public $city = "Сафоново";
           public $address = false;
-          public $photo = 'assets/img/avatars/default.svg';
           public $comment = false;
           public $website = false;
           public $profession = false;
@@ -173,7 +171,6 @@ if (!empty($_GET["editStaff"])) {
         ':state' => $_POST["state"],
         ':city' => $_POST["city"],
         ':address' => $_POST["address"],
-        ':photo' => 'assets/img/avatars/default.svg',
         ':comment' => $_POST["comment"],
         ':website' => $_POST["website"],
         ':profession' => $_POST["profession"],
