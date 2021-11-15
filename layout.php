@@ -26,7 +26,7 @@ if (file_exists($path)) {
   <div class="toasts-container">
   <?php if ($_COOKIE['aut']['id'] == 1): ?>
     <div class="toast align-items-center fade toast-script-time" role="alert" aria-live="assertive" aria-atomic="true"><div class="d-flex"><div class="toast-body">Время выполнения скрипта <?= (microtime(true) - $start) ?> сек.</div><button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Закрыть"></button></div></div>
-  <? endif ?>
+  <?php endif ?>
   </div>
 
   <div class="d-flex">
