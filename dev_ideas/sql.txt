@@ -60,15 +60,15 @@ ORDER BY
 рабочие места:
 
 SELECT ChildUserType.id, CONCAT (ParentUserType.name, " ", ChildUserType.name) AS name
-    FROM `sdc_room_test` AS ChildUserType
-    LEFT JOIN `sdc_room_test` AS ParentUserType ON ChildUserType.affiliation = ParentUserType.id
+    FROM `sdc_room` AS ChildUserType
+    LEFT JOIN `sdc_room` AS ParentUserType ON ChildUserType.affiliation = ParentUserType.id
     WHERE ChildUserType.icon ='desktop'
 
 
 ВСЕ рабочие места с пользователями через - и без:
     SELECT ChildUserType.id, CONCAT (ParentUserType.name, " ", ChildUserType.name, COALESCE(concat(" - ", (users.fullname)), " ")) AS name
-    FROM `sdc_room_test` AS ChildUserType
-             LEFT JOIN `sdc_room_test` AS ParentUserType ON ChildUserType.affiliation = ParentUserType.id
+    FROM `sdc_room` AS ChildUserType
+             LEFT JOIN `sdc_room` AS ParentUserType ON ChildUserType.affiliation = ParentUserType.id
              LEFT join `sdc_user_attributes` as users on ChildUserType.id = users.room
     WHERE ChildUserType.icon ='desktop'
 
@@ -76,8 +76,8 @@ SELECT ChildUserType.id, CONCAT (ParentUserType.name, " ", ChildUserType.name) A
 Рабочие места с пользователями, ТОЛЬКО те, в которых есть пользователи:
 
 SELECT ChildUserType.id, CONCAT (ParentUserType.name, " ", ChildUserType.name, " ", users.fullname) AS name
-FROM `sdc_room_test` AS ChildUserType
-         LEFT JOIN `sdc_room_test` AS ParentUserType ON ChildUserType.affiliation = ParentUserType.id
+FROM `sdc_room` AS ChildUserType
+         LEFT JOIN `sdc_room` AS ParentUserType ON ChildUserType.affiliation = ParentUserType.id
          LEFT join `sdc_user_attributes` as users on ChildUserType.id = users.room
 WHERE ChildUserType.icon ='desktop' and users.room is not null
 
@@ -85,7 +85,16 @@ WHERE ChildUserType.icon ='desktop' and users.room is not null
 Рабочие места, ТОЛЬКО те, к которым не привязан пользователь
 
 SELECT ChildUserType.id, CONCAT (ParentUserType.name, " ", ChildUserType.name) AS name
-FROM `sdc_room_test` AS ChildUserType
-         LEFT JOIN `sdc_room_test` AS ParentUserType ON ChildUserType.affiliation = ParentUserType.id
+FROM `sdc_room` AS ChildUserType
+         LEFT JOIN `sdc_room` AS ParentUserType ON ChildUserType.affiliation = ParentUserType.id
          LEFT join `sdc_user_attributes` as users on ChildUserType.id = users.room
 WHERE ChildUserType.icon ='desktop' and users.room is null
+
+
+Данные пользователя по ID
+SELECT *, Users.id, CONCAT (ParentUserType.name, ' / ', ChildUserType.name) AS name
+          FROM `sdc_users` AS Users
+            LEFT JOIN `sdc_user_attributes` AS UserAttributes on Users.id = UserAttributes.internalKey
+            LEFT JOIN `sdc_room` AS ChildUserType ON UserAttributes.room = ChildUserType.id
+            LEFT JOIN `sdc_room` AS ParentUserType ON ChildUserType.affiliation = ParentUserType.id
+          WHERE Users.id = ?

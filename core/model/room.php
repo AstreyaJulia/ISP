@@ -16,7 +16,7 @@
 	    }
 
 		public function getFreeRoom(){
-			$sql = "SELECT ChildUserType.id, CONCAT (ParentUserType.name, ' ', ChildUserType.name) AS name 
+			$sql = "SELECT ChildUserType.id, CONCAT (ParentUserType.name, ' / ', ChildUserType.name) AS name 
     				FROM `sdc_room` AS ChildUserType
     					LEFT JOIN `sdc_room` AS ParentUserType ON ChildUserType.affiliation = ParentUserType.id
     						LEFT JOIN sdc_user_attributes ON sdc_user_attributes.room=ChildUserType.id
