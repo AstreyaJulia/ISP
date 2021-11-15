@@ -55,32 +55,8 @@ if (isset($_POST['module']) or isset($_GET['module'])) {
         }
         return $branch;
       }
-      echo json_encode(buildTree($room->getRoomNew()), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+      echo json_encode(buildTree($room->getRoom()), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
       break;
     }
   }
-}
-
-if ($_GET['test'] == 'test') {
-  $room = new \Core\Model\Room($db);
-  function buildTree(array $elements, $parentId = NULL) {
-    $branch = array();
-    foreach ($elements as $element) {
-        if ($element['affiliation'] == $parentId) {
-          $arr_elem = [
-            'id' => $element['id'],
-            'name' => $element['name'],
-            'icon' => '../../assets/img/icons/'.$element['icon'].'.png',
-            'open' => ($element['affiliation'] == NULL) ? true : false
-          ];
-          $children = buildTree($elements, $arr_elem['id']);
-          if ($children) {
-              $arr_elem['children'] = $children;
-          }
-          $branch[] = $arr_elem;
-        }
-    }
-    return $branch;
-  }
-  echo json_encode(buildTree($room->getRoom()), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 }

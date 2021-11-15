@@ -64,9 +64,11 @@
                 </div>
               </div>
               <p class="usermenu-category p-3 pb-0 pt-0">Мой профиль</p>
+              <?php if ($_COOKIE['aut']['id'] != 1): ?>
               <a class="dropdown-item" href="?page=user-profile">Личная информация</a>
-              <a class="dropdown-item" href="#">Уведомления<span class="highlighted">10</span></a>
-              <a class="dropdown-item" href="#">Сообщения<span class="highlighted ">5</span></a>
+              <?php endif ?>
+              <!--a class="dropdown-item" href="#">Уведомления<span class="highlighted">10</span></a>
+              <a class="dropdown-item" href="#">Сообщения<span class="highlighted ">5</span></a-->
               <a class="dropdown-item">Тема
                 <div class="tumbler__wrapper">
                   <div class="tumbler"></div>

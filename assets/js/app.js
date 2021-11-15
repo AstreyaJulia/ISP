@@ -3181,7 +3181,7 @@ const zTreeHandler = () => {
     tree: "placeitems"
   };
 
-  let test = {test: "test"};
+  let test = {module: "workplaces"};
 
 // zTree data attributes, refer to the API documentation (treeNode data details)
 
