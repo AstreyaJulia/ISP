@@ -172,20 +172,28 @@ const ajax_send = (method, url, parameters, callback) => {
 
     if (xhr.status === 200) {
       let result;
-      if (xhr.response) {
-        //console.log('Успешно. Ответ: ', xhr.responseText);
-        //result = JSON.parse(xhr.response);
+
+      if (method === "GET") {
+        result = typeof xhr.response !== "string"
+          ? JSON.stringify(xhr.response)
+          : xhr.response;
         try {
           JSON.parse(xhr.response);
+          result = JSON.parse(xhr.response);
+          callback(result);
         } catch (e) {
-          result = xhr.response;
+          //result = xhr.response;
+          showErrorToast("Ошибка", xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
         }
-        result = JSON.parse(xhr.response);
-      } else {
-        //console.log('Успешно. Без ответа.');
-        result = "null";
       }
-      callback(result);
+      if (method === "POST") {
+        if (!xhr.response) {
+          callback("null");
+        } else {
+          showErrorToast("Ошибка", xhr.response, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
+        }
+      }
+
     } else if (xhr.status === 0) {
       header = "Не подключено. Проверьте сеть";
       showErrorToast(header, xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
@@ -860,13 +868,13 @@ const calendmodulehandler = () => {
       Event.append("private", $(privateSwitch).prop('checked') ? '1' : '0');
       Event.append("description", $(calendarEditor).val());
       Event.append("tzid", "Europe/Moscow");
-      Event.append("allDay", $(allDaySwitch).prop('checked') ? '1' : null);
+      Event.append("allDay", $(allDaySwitch).prop('checked') ? '1' : '0');
       // Параметры повторения. Если галочка включена
       if ($(repeatSwitch).prop('checked')) {
         if (Event.interval !== '') {
           Event.append("interval", $(daynum).val());
         } else {
-          Event.append("interval", null);
+          Event.append("interval", '0');
         }
         if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'daily-section') {
           // Ежедневно
@@ -878,7 +886,7 @@ const calendmodulehandler = () => {
           if (getweekdaycheck() !== "" || null) {
             Event.append("byweekday", getweekdaycheck());
           } else {
-            Event.append("byweekday", null);
+            Event.append("byweekday", '0');
           }
         } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'monthly-section') {
           // Ежемесячно
@@ -914,9 +922,9 @@ const calendmodulehandler = () => {
           Event.append("freq", 'YEARLY');
         } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'none') {
           // Без повторения
-          Event.append("freq", null);
-          Event.append("byweekday", null);
-          Event.append("bysetpos", null);
+          Event.append("freq", '0');
+          Event.append("byweekday", '0');
+          Event.append("bysetpos", '0');
         }
 
         // Начало повторения
@@ -925,13 +933,13 @@ const calendmodulehandler = () => {
         if ($(repdate).prop('checked')) {
           Event.append("until", moment($(endrepDate).val()).format('YYYY-MM-DD HH:mm:ss'));
         } else {
-          Event.append("until", null);
+          Event.append("until", '0');
         }
         // Кол-во повторений
         if ($(repcount).prop('checked')) {
           Event.append("count", $(repcountinp).val());
         } else {
-          Event.append("count", null);
+          Event.append("count", '0');
         }
 
         // Начало повторения
@@ -947,7 +955,7 @@ const calendmodulehandler = () => {
         }
 
       } else {
-        Event.append("interval", null);
+        Event.append("interval", '0');
       }
 
       if (eventToUpdate.extendedProps.user_id === cookieID || JSON.stringify(eventToUpdate.extendedProps.user_id) === cookieID) {
@@ -1745,6 +1753,10 @@ const calendmodulehandler = () => {
     repeatparams.style.display = "none";
     $(repparamSwitch).val('none');
     $(modal).find(eventLabel).val('').trigger('change');
+    $(repdate).prop('checked', false);
+    $(repdateinp).val('');
+    $(repcount).prop('checked', false);
+    $(repcountinp).val('');
     // Параметры повторений
     $(startrepDate).val('');
     $(endrepDate).val('');
