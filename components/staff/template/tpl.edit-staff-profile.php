@@ -84,23 +84,14 @@
               <div class="col-12 col-xxl-6 col-xl-6 col-lg-6 col-sm-6 col-xs-12">
                 <div class="row">
                   <div class="form-group">
-                    <label class="form-label" for="primary_group">Группа (может уберем его в форме и сделаем запись в базу в PHP условием в зависимости от выбранной должности? Зачем выбирать дважды?)</label>
-                    <select class="form-select" id="primary_group" name="primary_group" required>
-                      <option value="0">Не выбрана</option>
-                      <?= selectOptionArr(primary_group_array(), $row->primary_group); ?>
-                    </select></div>
-                  <div class="form-group">
                     <label class="form-label" for="room">Рабочее место</label>
                     <div class="d-flex">
                       <select class="form-select" id="room" name="room" required>
-                        <option value="<?= $row->room ?>"
-                                selected><?= $row->name; ?></option><?= $roomClass->getFreeRoom(); ?>
-
+                        <option value="<?= $row->room ?>" selected><?= $row->workplace; ?></option>
+                        <?= $roomClass->getFreeRoom(); ?>
                       </select>
                       <!-- Если в sdc_room есть записи, то класс у этой кнопки visually-hidden, у селекта room этот же класс убрать -->
-                      <a class="visually-hidden btn btn-outline-danger ms-2 btn-block" href="?page=workroom">Рабочих мест
-                        нет. Создать?</a>
-
+                      <a class="visually-hidden btn btn-outline-danger ms-2 btn-block" href="?page=workroom">Рабочих мест нет. Создать?</a>
                     </div>
                   </div>
                 </div>
@@ -109,7 +100,7 @@
                 <div class="form-group">
                   <label class="form-label" for="profession">Должность</label>
                   <select class="form-select" id="profession" name="profession">
-                    <?= selectOption(prof_array(), $row->profession); ?>
+                    <?= selectOptionArr($staffClass->getVocation(), $row->profession); ?>
                   </select>
                 </div>
                 <div class="form-group">

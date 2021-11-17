@@ -18,9 +18,6 @@ if ($_COOKIE['aut']['sudo'] == 1) {
 }
 
 
-
-
-
 //Редактируем ссылку
 if (!empty($_GET["editStaff"])) {
   $title = "Редактировать запись";
@@ -42,56 +39,34 @@ if (!empty($_GET["editStaff"])) {
     }
     
     if (!empty($_POST["username"]) and !empty($_POST["fullname"]) and $_GET["editStaff"] !== "add") {
-      //Редактируем запись в таблице sdc_users
-
-      if ($_POST["active"] == 1) {
-          $room = [
-            ':room' => $_POST["room"]
-          ];
-      } else {
-          $room = [
-            ':room' => NULL
-          ];
-      }
-      //Проверяем на отсутствие принадлежности судье
-      if (in_array($_POST["profession"], [6, 7, 9])) {
-          $affiliation = [
-            ':affiliation' => $_POST["affiliation"]
-          ];
-      } else {
-          $affiliation = [
-            ':affiliation' => ""
-          ];
-      }
-
+      
       $params = [
         //для таблицы sdc_users
-        ':id' => $_GET["editStaff"],
-        ':username' => $_POST["username"],
-        ':active' => $_POST["active"],
-        ':primary_group' => $_POST["primary_group"],
-        ':sudo' => $_POST["sudo"],
+        'id' => $_GET["editStaff"],
+        'username' => $_POST["username"],
+        'active' => $_POST["active"],
+        'sudo' => $_POST["sudo"],
         //для таблицы sdc_user_attributes
-        ':internalKey' => $_GET["editStaff"],
-        ':fullname' => $_POST["fullname"],
-        ':gender' => $_POST["gender"],
-        ':dob' => $_POST["dob"],
-        ':email' => $_POST["email"],
-        ':mobilephone' => $_POST["mobilephone"],
-        ':zip' => $_POST["zip"],
-        ':state' => $_POST["state"],
-        ':city' => $_POST["city"],
-        ':address' => $_POST["address"],
-        ':comment' => $_POST["comment"],
-        ':website' => $_POST["website"],
-        ':profession' => $_POST["profession"],
-        ':affiliation' => "",
-        ':room' => ""
+        'internalKey' => $_GET["editStaff"],
+        'fullname' => $_POST["fullname"],
+        'gender' => $_POST["gender"],
+        'dob' => $_POST["dob"],
+        'email' => $_POST["email"],
+        'mobilephone' => $_POST["mobilephone"],
+        'zip' => $_POST["zip"],
+        'state' => $_POST["state"],
+        'city' => $_POST["city"],
+        'address' => $_POST["address"],
+        'comment' => $_POST["comment"],
+        'website' => $_POST["website"],
+        'profession' => $_POST["profession"],
+        'affiliation' => in_array($_POST["profession"], [6, 7, 9]) ? $_POST["affiliation"] : "",//Проверяем  принадлежность судье
+        'room' => $_POST["active"] == 1 ? $_POST["room"] : NULL //Если не активен освобождаем рабочее место
       ];
-      $params = array_replace($params, $room, $affiliation);
-      $staffClass->setUpdateUser($params);
 
-      
+
+      //Редактируем запись в таблице sdc_users
+      $staffClass->setUpdateUser($params);
 
       //Редактируем запись в таблице sdc_user_attributes
       $staffClass->setUpdateUserAtr($params);
@@ -104,7 +79,6 @@ if (!empty($_GET["editStaff"])) {
         $row = new class {
           public $username = false;
           public $active = false;
-          public $primary_group = false;
           public $sudo = false;
           public $fullname = false;
           public $gender = false;
@@ -130,55 +104,32 @@ if (!empty($_GET["editStaff"])) {
 
     if (!empty($_POST["username"]) and !empty($_POST["fullname"]) and $_GET["editStaff"] == "add") {
       $params = [
-        ':username' => $_POST["username"],
-        ':active' => $_POST["active"],
-        ':primary_group' => $_POST["primary_group"],
-        ':sudo' => $_POST["sudo"]
+        'username' => $_POST["username"],
+        'active' => $_POST["active"],
+        'sudo' => $_POST["sudo"]
       ];
       //добавляем запись в таблицу sdc_users
       $staffClass->setInsertUser($params);
       //получаем id вставленной записи. Если запрос не выполнен вернёт 0. Используется после запроса INSERT
       $LAST_ID = $db->pdo->lastInsertId();
-      
-      if ($_POST["active"] == 1) {
-          $room = [
-            ':room' => $_POST["room"]
-          ];
-      } else {
-          $room = [
-            ':room' => NULL
-          ];
-      }
-      //Проверяем на отсутствие принадлежности судье
-      if (in_array($_POST["profession"], [6, 7, 9])) {
-          $affiliation = [
-            ':affiliation' => $_POST["affiliation"]
-          ];
-      } else {
-          $affiliation = [
-            ':affiliation' => ""
-          ];
-      }
 
       $params = [
-        ':internalKey' => $LAST_ID,
-        ':fullname' => $_POST["fullname"],
-        ':gender' => $_POST["gender"],
-        ':dob' => $_POST["dob"],
-        ':email' => $_POST["email"],
-        ':mobilephone' => $_POST["mobilephone"],
-        ':zip' => $_POST["zip"],
-        ':state' => $_POST["state"],
-        ':city' => $_POST["city"],
-        ':address' => $_POST["address"],
-        ':comment' => $_POST["comment"],
-        ':website' => $_POST["website"],
-        ':profession' => $_POST["profession"],
-        ':affiliation' => "",
-        ':room' => ""
+        'internalKey' => $LAST_ID,
+        'fullname' => $_POST["fullname"],
+        'gender' => $_POST["gender"],
+        'dob' => $_POST["dob"],
+        'email' => $_POST["email"],
+        'mobilephone' => $_POST["mobilephone"],
+        'zip' => $_POST["zip"],
+        'state' => $_POST["state"],
+        'city' => $_POST["city"],
+        'address' => $_POST["address"],
+        'comment' => $_POST["comment"],
+        'website' => $_POST["website"],
+        'profession' => $_POST["profession"],
+        'affiliation' => in_array($_POST["profession"], [6, 7, 9]) ? $_POST["affiliation"] : "",//Проверяем принадлежность судье
+        'room' => $_POST["active"] == 1 ? $_POST["room"] : NULL //Если не активен освобождаем рабочее место
       ];
-
-      $params = array_replace($params, $room, $affiliation);
 
       //добавляем запись в таблицу sdc_user_attributes
       $staffClass->setInsertUserAtr($params);

@@ -6,10 +6,26 @@
 		//Получаем запись по ID
 	    public function getSelectId($id) {
 	        $sql = "SELECT
-	        			*,
     					Users.id,
-    					CONCAT (ParentUserType.name, ' / ', ChildUserType.name) AS name,
-    					UserAttributes.affiliation
+    					Users.username,
+    					Users.active,
+    					Users.sudo,
+    					UserAttributes.internalKey,
+    					UserAttributes.fullname,
+    					UserAttributes.gender,
+    					UserAttributes.dob,
+    					UserAttributes.email,
+    					UserAttributes.mobilephone,
+    					UserAttributes.zip,
+    					UserAttributes.state,
+    					UserAttributes.city,
+    					UserAttributes.address,
+    					UserAttributes.comment,
+    					UserAttributes.website,
+    					UserAttributes.profession,
+    					UserAttributes.affiliation,
+    					UserAttributes.room,
+    					CONCAT (ParentUserType.name, ' / ', ChildUserType.name) AS workplace
 			        FROM `sdc_users` AS Users
 			        LEFT JOIN `sdc_user_attributes` AS UserAttributes on Users.id = UserAttributes.internalKey
 			        LEFT JOIN `sdc_room` AS ChildUserType ON UserAttributes.room = ChildUserType.id
@@ -18,11 +34,23 @@
 	        return $this->db->run($sql, $id)->fetchAll(\PDO::FETCH_CLASS);
 	    }
 
+	    //Получаем профессию из кодового значения
+		public function getVocation() {
+			$sql = "SELECT  `id`, `name`FROM `sdc_vocation` WHERE `parent_id` IS NOT NULL";
+			return $this->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
+		}
+
 		// Получаем дни рождения, возраст сегодня
 	    public function getBirthday() {
-	        $sql = "SELECT sdc_user_attributes.fullname, (YEAR(CURRENT_DATE()) - YEAR(sdc_user_attributes.dob)) AS age FROM sdc_users
-            LEFT JOIN sdc_user_attributes ON sdc_user_attributes.internalKey=sdc_users.id
-				    WHERE sdc_users.active = 1 and sdc_user_attributes.profession != '' and DAY(CURRENT_DATE()) = DAY(sdc_user_attributes.dob) and MONTH(CURRENT_DATE()) = MONTH(sdc_user_attributes.dob)";
+	        $sql = "SELECT
+	        			sdc_user_attributes.fullname,
+	        			(YEAR(CURRENT_DATE()) - YEAR(sdc_user_attributes.dob)) AS age
+	        		FROM sdc_users
+            		LEFT JOIN sdc_user_attributes ON sdc_user_attributes.internalKey=sdc_users.id
+				    WHERE 
+				    	sdc_users.active = 1 AND sdc_user_attributes.profession != '' AND
+				    	DAY(CURRENT_DATE()) = DAY(sdc_user_attributes.dob) AND
+				    	MONTH(CURRENT_DATE()) = MONTH(sdc_user_attributes.dob)";
 			return $this->db->run($sql)->fetchAll(\PDO::FETCH_CLASS);
 	    }
 
@@ -34,10 +62,13 @@
 
 	    //Вносим изменения в таблицу sdc_users
 	    public function setUpdateUser($params) {
-	    	unset($params[':internalKey'],$params[':fullname'],$params[':gender'],$params[':dob'],$params[':email'],
-	    		  $params[':mobilephone'],$params[':zip'],$params[':state'],$params[':city'],$params[':address'],
-	    		  $params[':comment'],$params[':website'],$params[':profession'],$params[':affiliation'],$params[':room']);
-	        $sql = "UPDATE sdc_users SET `username`=:username, `active`=:active, `primary_group`=:primary_group, `sudo`=:sudo WHERE `id` = :id";
+	    	$params = [
+				'id' => $params['id'],
+				'username' => $params['username'],
+				'active' => $params['active'],
+				'sudo' => $params['sudo']
+	    	];
+	        $sql = "UPDATE sdc_users SET `username`=:username, `active`=:active, `sudo`=:sudo WHERE `id` = :id";
 	        return $this->db->run($sql, $params);
 	    }
 
@@ -53,7 +84,7 @@
 	    //Вносим изменения в таблицу sdc_user_attributes
 	    public function setUpdateUserAtr($params) {
 	    	
-		    unset($params[':id'],$params[':username'],$params[':active'],$params[':primary_group'],$params[':sudo']);
+		    unset($params['id'],$params['username'],$params['active'],$params['sudo']);
 		    
 
 	        $sql = "UPDATE sdc_user_attributes SET `fullname`=:fullname, `gender`=:gender, `dob`=:dob, `email`=:email, `mobilephone`=:mobilephone, `zip`=:zip, `state`=:state, `city`=:city, `address`=:address, `comment`=:comment, `website`=:website, `profession`=:profession, `affiliation`=:affiliation, `room`=:room WHERE `internalKey` = :internalKey";
@@ -63,7 +94,7 @@
 */
 	    //Добавляем запись в таблицу sdc_users
 	    public function setInsertUser($params) {
-	        $sql = "INSERT INTO `sdc_users` (`username`, `active`, `primary_group`, `sudo`) VALUES (:username, :active, :primary_group, :sudo)";
+	        $sql = "INSERT INTO `sdc_users` (`username`, `active`, `sudo`) VALUES (:username, :active, :sudo)";
 	        return $this->db->run($sql, $params);
 	    }
 
@@ -87,6 +118,4 @@
 	            }
 	        }
 		}
-
-
 	}
