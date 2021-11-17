@@ -13,7 +13,7 @@
       <i class="mdi fs-4 mdi-close"></i>
     </a>
   </div>
-  <ul class="navigation-menu overlayscrollbar os-host-flexbox py-3 px-2 m-0">
+  <ul class="navigation-menu overlayscrollbar os-host-flexbox py-3 px-2 m-0 h-100">
     <li class="menu-item">
       <a
         class="menu-link position-relative rounded-2 d-flex align-items-center w-100 py-2 px-3 position-relative m-0 text-decoration-none rounded-2"
