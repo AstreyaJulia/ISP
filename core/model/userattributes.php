@@ -5,12 +5,16 @@
 
 		//Получаем запись по ID
 	    public function getSelectId($id) {
-	        $sql = "SELECT *, Users.id, CONCAT (ParentUserType.name, ' / ', ChildUserType.name) AS name
-          FROM `sdc_users` AS Users
-            LEFT JOIN `sdc_user_attributes` AS UserAttributes on Users.id = UserAttributes.internalKey
-            LEFT JOIN `sdc_room` AS ChildUserType ON UserAttributes.room = ChildUserType.id
-            LEFT JOIN `sdc_room` AS ParentUserType ON ChildUserType.affiliation = ParentUserType.id
-          WHERE Users.id = ?";
+	        $sql = "SELECT
+	        			*,
+    					Users.id,
+    					CONCAT (ParentUserType.name, ' / ', ChildUserType.name) AS name,
+    					UserAttributes.affiliation
+			        FROM `sdc_users` AS Users
+			        LEFT JOIN `sdc_user_attributes` AS UserAttributes on Users.id = UserAttributes.internalKey
+			        LEFT JOIN `sdc_room` AS ChildUserType ON UserAttributes.room = ChildUserType.id
+			        LEFT JOIN `sdc_room` AS ParentUserType ON ChildUserType.affiliation = ParentUserType.id
+			        WHERE Users.id = ?";
 	        return $this->db->run($sql, $id)->fetchAll(\PDO::FETCH_CLASS);
 	    }
 

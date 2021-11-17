@@ -73,7 +73,7 @@
               <td><?= $staffClass->getShortFIO($row->fullname)/*доделать как в дизайне*/
                 ; ?></td>
               <td><?= $row->dob; ?></td>
-              <td><?= $staffClass->getProfession($row->profession)/*доделать как в дизайне*/
+              <td><?= $row->profession/*доделать как в дизайне*/
                 ; ?></td>
               <td><?= $row->ip; ?></td>
               <td><?= $row->jupiter_tab_num; ?></td>
