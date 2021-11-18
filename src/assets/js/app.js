@@ -59,15 +59,24 @@ const overlayscrollbar = OverlayScrollbars(document.querySelectorAll(".overlaysc
 
 // Выбранные чекбоксы в группе, возвращает массив
 // Принимает группу элементов - allInputs
-function selectedCheckboxes(allInputs) {
+function selectedCheckboxes(allInputs, mode) {
   const filterInput = allInputs;
-  const selected = [];
-  for (let j = 0; j < filterInput.length; j++) {
-    if (filterInput[j].checked) {
-      selected.push(filterInput[j].value.toLowerCase());
-    }
+  const checkboxes = [];
+  switch (mode) {
+    case "selected":
+      for (let j = 0; j < filterInput.length; j++) {
+        if (filterInput[j].checked) {
+          checkboxes.push(filterInput[j].value.toLowerCase());
+        }
+      }
+      return checkboxes;
+    case "all":
+      for (let j = 0; j < filterInput.length; j++) {
+          checkboxes.push(filterInput[j].value.toLowerCase());
+      }
+      return checkboxes;
   }
-  return selected;
+
 }
 
 // Toast. Большие всплывашки с заголовком и временем
@@ -1434,7 +1443,7 @@ const calendmodulehandler = () => {
       startParam: moment(info.start).tz('Europe/Moscow').format('YYYY-MM-DD'),
       endParam: moment(info.end).tz('Europe/Moscow').format('YYYY-MM-DD'),
       //calendars: selectedCalendars(),
-      calendars: selectedCheckboxes(filterInput2),
+      calendars: selectedCheckboxes(filterInput2, 'selected'),
       private: privatecheck(),
     };
 
@@ -2403,7 +2412,16 @@ if (multimodal && multimodalbtns) {
 
 
 // Фильтр в телефонной книге
-const filterClickHandler = () => {
+
+//Фильтр в телефонном справочнике
+// Ищем группу фильтров с селектором button-group
+const filterGroup = document.querySelector('.phonebook-filter');
+
+// Куда будет выводиться результат
+const result = document.getElementById('filter');
+
+//ajax_send("GET", "pages/admin/ajax.php", test, result => $.fn.zTree.init($("#workplace-tree"), settingWorktree, result));
+/*const filterClickHandler = () => {
   //Обнуление строк фильтров - выбранного и пустого
   let filterItems = filterGroup.querySelectorAll('input[type=checkbox]');
 
@@ -2441,13 +2459,44 @@ const filterClickHandler = () => {
   }
 };
 
-//Фильтр в телефонном справочнике
-// Ищем группу фильтров с селектором button-group
-const filterGroup = document.querySelector('.phonebook-filter');
-// Куда будет выводиться результат
-const result = document.getElementById('filter');
+*/
+
 // Начальная строка без фильтров
-const string = '/components/phonebook/ajax.php/?';
+//const string = '/components/phonebook/ajax.php/?';
+
+/* Слушаем клик по каждому из фильтров телефонной книги */
+/*if (filterGroup && result) {
+  // Ищем в filter-group элементы фильтров checkbox
+  let filterItems = filterGroup.querySelectorAll('input[type=checkbox]');
+
+  filterItems.forEach(function (filter) {
+    filter.addEventListener('click', () => {
+      filterClickHandler();
+    });
+  });
+}
+*/
+
+const filterClickHandler = () => {
+  //Обнуление строк фильтров - выбранного и пустого
+  let filterItems = filterGroup.querySelectorAll('input[type=checkbox]');
+
+  let selected = selectedCheckboxes(filterItems, 'selected');
+
+  if (selected.length === 0) {
+    let data = {
+      filter: selectedCheckboxes(filterItems, 'all'),
+    };
+    ajax_send("GET", "components/phonebook/ajax.php", data, response => result.innerHTML = response);
+
+  } else  {
+    let data = {
+      filter: selected,
+    };
+
+    ajax_send("GET", "components/phonebook/ajax.php", data, response => result.innerHTML = response);
+  }
+};
 
 /* Слушаем клик по каждому из фильтров телефонной книги */
 if (filterGroup && result) {
@@ -2460,7 +2509,6 @@ if (filterGroup && result) {
     });
   });
 }
-
 
 // Tasks list
 // Tasks задачи. Контейнер
@@ -3759,6 +3807,12 @@ const init = () => {
     toastscripttime.show();
 
   }
+
+  // Загрузка телефонной книги
+  if (filterGroup && result) {
+    filterClickHandler();
+  }
+
 
   // Отрисовка слайдера на дашбоарде
   if (sliderCarousel) {
