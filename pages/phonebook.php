@@ -6,8 +6,10 @@
 	//задаем id для вывода результатов фильтра
 	$id = "filter";
 	//Группы пользователей
-	$primary_group = array(1, 2, 3, 4);
 	$phonebookClass = new \Core\Model\Phonebook($db);
+	foreach ($phonebookClass->getGroup() as $key => $value) {
+		$primary_group[] = $value->id;
+	}
 	$phonebook = $phonebookClass->getSelect($primary_group);
 
 	ob_start();

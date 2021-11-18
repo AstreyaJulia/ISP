@@ -15,29 +15,24 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/core/extension/reference_book.php";
 //Подключаемся  базе
 $db = new \Core\Config\DB($dbname, $user, $password, $host);
 
-$primary_group = "";
+
+// собираем массив для запроса
 if (isset($_GET["filter"])) {
   foreach ($_GET["filter"] as $key => $value) {
-    if ($_GET["filter"] [$key][0] != 0) {
-      $primary_group .= $_GET["filter"] [$key][0] . ",";
+    if ($_GET["filter"] [$key] != 0) {
+      $primary_group[] = $_GET["filter"] [$key] . ",";
     }
   }
-}
-//отрезаем последний символ т.к. знаем что это ","
-$primary_group = substr($primary_group, 0, -1);
-//получаем массив из полученной строки
-$primary_group = explode(',', $primary_group);
 
+	$phonebookClass = new \Core\Model\Phonebook($db);
+	$phonebook = $phonebookClass->getSelect($primary_group);
 
-$phonebookClass = new \Core\Model\Phonebook($db);
-$phonebook = $phonebookClass->getSelect($primary_group);
-
-
-foreach ($phonebook as $row) {
-  echo '<tr>
-	<td>' . $row->room . '</td>
-	<td>' . $row->fullname . '</td>
-	<td>' . $phonebookClass->getProfession($row->profession) . '</td>
-	<td>' . $row->phone_worck . '</td>
-</tr>' . PHP_EOL;
+	foreach ($phonebook as $row) {
+	  echo '<tr>
+		<td>' . $row->room . '</td>
+		<td>' . $row->fullname . '</td>
+		<td>' . $row->profession . '</td>
+		<td>' . $row->phone_worck . '</td>
+	</tr>' . PHP_EOL;
+	}
 }

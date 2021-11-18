@@ -109,13 +109,4 @@
 	    public function getShortFIO($fullname) {
         	return preg_replace('#(.*)\s+(.).*\s+(.).*#usi', '$1 $2.$3.', $fullname);
 		}
-
-		//Получаем профессию из кодового значения с помощью справочника prof_array()
-		public function getProfession($profession) {
-			foreach (prof_array() as $key => $value) {
-	            if ($key == $profession){
-	               return $value;
-	            }
-	        }
-		}
 	}

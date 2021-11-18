@@ -44,11 +44,11 @@
         <div class="card-body">
           <div class="filter-group phonebook-filter d-flex align-items-center">
             <p class="group-title p-0">Фильтр:</p>
-            <?php foreach (getGroupReplace() as $key => $value): ?>
+            <?php foreach ($phonebookClass->getGroup() as $key => $value): ?>
               <div class="form-check me-2">
-                <input class="form-check-input" type="checkbox" id="<?= $key; ?>" name="<?= $key; ?>"
-                       value="<?= getGroupReplace() [$key]["id"]; ?>">
-                <label class="form-check-label" for="<?= $key; ?>"><?= getGroupReplace() [$key]["name"]; ?></label>
+                <input class="form-check-input" type="checkbox" id="<?= $value->id ?>" name="<?= $value->id ?>"
+                       value="<?= $value->id ?>">
+                <label class="form-check-label" for="<?= $value->id ?>"><?=  $value->groupName ?></label>
               </div>
             <?php endforeach ?>
           </div>
@@ -69,7 +69,7 @@
             <tr>
               <td><?= $row->room; ?></td>
               <td><?= $row->fullname; ?></td>
-              <td><?= $phonebookClass->getProfession($row->profession); ?></td>
+              <td><?= $row->profession; ?></td>
               <td><?= $row->phone_worck; ?></td>
             </tr>
           <?php endforeach ?>
