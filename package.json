@@ -44,7 +44,6 @@
     "jquery-validation": "^1.19.3",
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.34",
-    "node-firebird": "^0.9.9",
     "node-gyp": "^8.4.0",
     "node-sass": "^6.0.1",
     "overlayscrollbars": "^1.13.1",

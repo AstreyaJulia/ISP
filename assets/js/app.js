@@ -57,6 +57,19 @@ const overlayscrollbar = OverlayScrollbars(document.querySelectorAll(".overlaysc
 
 // ГЛОБАЛЬНЫЕ ФУНКЦИИ
 
+// Выбранные чекбоксы в группе, возвращает массив
+// Принимает группу элементов - allInputs
+function selectedCheckboxes(allInputs) {
+  const filterInput = allInputs;
+  const selected = [];
+  for (let j = 0; j < filterInput.length; j++) {
+    if (filterInput[j].checked) {
+      selected.push(filterInput[j].value.toLowerCase());
+    }
+  }
+  return selected;
+}
+
 // Toast. Большие всплывашки с заголовком и временем
 // Всплывашка. Принимает заголовок header, текст text, время time в виде строки
 function showToast(header, text, time) {
@@ -1309,7 +1322,7 @@ const calendmodulehandler = () => {
     const createItem = ({id, color, name}) =>
       `<div class="form-check d-flex align-items-center mb-2">
                   <input class="form-check-input input-filter bg-${color} me-1" type="checkbox" id="${color}" name="${color}"
-                         data-value="${color}" checked>
+                         data-value="${color}" value="${color}" checked>
                   <label class="form-check-label" for="${color}">${name}</label>
                 </div>`;
 
@@ -1391,7 +1404,7 @@ const calendmodulehandler = () => {
   });
 
   // Выбранные чекбоксы
-  function selectedCalendars() {
+/*  function selectedCalendars() {
     const filterInput2 = document.querySelectorAll('.input-filter:not(.select-all)');
     const selected = [];
     for (let j = 0; j < filterInput2.length; j++) {
@@ -1401,6 +1414,7 @@ const calendmodulehandler = () => {
     }
     return selected;
   }
+*/
 
   function privatecheck() {
     if ($(privateinp).prop('checked')) {
@@ -1413,11 +1427,14 @@ const calendmodulehandler = () => {
   // Получение событий. Эта функция будет вызываться fullCalendar для получения и обновления событий.
   function fetchEvents(info, successCallback) {
     // Получение событий AJAX
+    const filterInput2 = document.querySelectorAll('.input-filter:not(.select-all)');
+
     let data = {
       // С не фиксированной датой не работают повторяющиеся собыия
       startParam: moment(info.start).tz('Europe/Moscow').format('YYYY-MM-DD'),
       endParam: moment(info.end).tz('Europe/Moscow').format('YYYY-MM-DD'),
-      calendars: selectedCalendars(),
+      //calendars: selectedCalendars(),
+      calendars: selectedCheckboxes(filterInput2),
       private: privatecheck(),
     };
 
