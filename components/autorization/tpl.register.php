@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="icon" href="assets/img/favicons/favicon.png" type="image/x-icon">
   <link rel="stylesheet" href="assets/css/main.css">
-  <title>Вход</title>
+  <title>Регистрация</title>
 </head>
 <body class="wrapper fixed page-body">
 <!-- Основное содержимое -->
@@ -19,7 +19,7 @@
       <div class="form-group">
         <p class="h5">Регистрация</p>
       </div>
-      <form action="?reg" method="post" class="form auth-form mx-0 my-auto">
+      <form action="" method="post" class="form auth-form mx-0 my-auto">
         <div class="form-group">
           <label class="form-label" for="login">Имя пользователя</label>
           <input name="login" value="<?php if (isset($_POST['login'])) echo $_POST['login'] ; ?>" class="form-control" id="login" type="text"
@@ -29,7 +29,7 @@
         <div class="form-group">
           <label class="form-label" for="password">Пароль</label>
           <div class="form-control-wrap">
-            <input class="form-control passinput" name="pass" id="password" type="password" placeholder="Введите пароль" required>
+            <input class="form-control passinput" name="password" id="password" type="password" placeholder="Введите пароль" required>
             <a tabindex="-1" class="form-icon form-icon-right passcode-switch is-hidden" data-bs-target="password"
                data-bs-toggle="tooltip" data-bs-placement="top" title="Показать / скрыть пароль">
               <em class="passcode-icon icon-show icon mdi mdi-eye-outline"></em>

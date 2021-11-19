@@ -165,7 +165,7 @@ const cookieID = getCookie('aut[id]');
 // Ajax. Передача GET и POST запросов
 //method - POST или GET, url - адрес, parameters - параметры get запроса или отсылаемое тело POST, callback - в какую
 // функцию передать результат
-const ajax_send = (method, url, parameters, callback) => {
+const ajax_send = (method, url, parameters, datatype, callback) => {
   //Создаём новый XMLHttpRequest-объект
   let xhr = new XMLHttpRequest();
 
@@ -196,16 +196,20 @@ const ajax_send = (method, url, parameters, callback) => {
       let result;
 
       if (method === "GET") {
-        result = typeof xhr.response !== "string"
-          ? JSON.stringify(xhr.response)
-          : xhr.response;
-        try {
-          JSON.parse(xhr.response);
-          result = JSON.parse(xhr.response);
-          callback(result);
-        } catch (e) {
-          //result = xhr.response;
-          showErrorToast("Ошибка", xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
+        if (datatype === "json") {
+          result = typeof xhr.response !== "string"
+            ? JSON.stringify(xhr.response)
+            : xhr.response;
+          try {
+            JSON.parse(xhr.response);
+            result = JSON.parse(xhr.response);
+            callback(result);
+          } catch (e) {
+            //result = xhr.response;
+            showErrorToast("Ошибка", xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
+          }
+        } else if (datatype === "text") {
+          callback(xhr.responseText);
         }
       }
       if (method === "POST") {
@@ -273,7 +277,7 @@ const buttonsidebartoggleHandler = (evt) => {
     formData.append("sidebarWidth", "narrow");
   }
 
-  ajax_send("POST", "pages/admin/ajax.php", formData, result => console.log(result));
+  ajax_send("POST", "pages/admin/ajax.php", formData, "json", result => console.log(result));
   window.location.reload();
 };
 
@@ -317,7 +321,7 @@ const darkmodetoggleHandler = () => {
     sidebarwrapper.dataset.themeName = "main-dark";
     formData.append("theme", "main-dark");
   }
-  ajax_send("POST", "pages/admin/ajax.php", formData, result => console.log(result));
+  ajax_send("POST", "pages/admin/ajax.php", formData, "json", result => console.log(result));
   darkmodetogglbutton.classList.toggle('tumbler--night-mode');
 };
 
@@ -599,7 +603,7 @@ const minicalendarhandler = () => {
       private: '0',
     };
 
-    ajax_send("GET", "components/fullcalendar/events.php", data, result => successCallback(result));
+    ajax_send("GET", "components/fullcalendar/events.php", data, "json", result => successCallback(result));
   }
 
   // Показать popover
@@ -981,7 +985,7 @@ const calendmodulehandler = () => {
       }
 
       if (eventToUpdate.extendedProps.user_id === cookieID || JSON.stringify(eventToUpdate.extendedProps.user_id) === cookieID) {
-        ajax_send("POST", "components/fullcalendar/ajax.php", Event, result => updSucces(result, title));
+        ajax_send("POST", "components/fullcalendar/ajax.php", Event, "json", result => updSucces(result, title));
       } else {
         showMiniToast('Вы не имеете прав на правку события ' + title, "danger");
       }
@@ -1006,7 +1010,7 @@ const calendmodulehandler = () => {
     let title = eventToUpdate.title;
 
     if (eventToUpdate.extendedProps.user_id === cookieID || JSON.stringify(eventToUpdate.extendedProps.user_id) === cookieID) {
-      ajax_send("POST", "components/fullcalendar/ajax.php", Event, result => delSucces(result, title));
+      ajax_send("POST", "components/fullcalendar/ajax.php", Event, "json", result => delSucces(result, title));
     } else {
       showMiniToast('Вы не имеете прав на удаление события ' + title, "danger");
     }
@@ -1447,7 +1451,7 @@ const calendmodulehandler = () => {
       private: privatecheck(),
     };
 
-    ajax_send("GET", "components/fullcalendar/events.php", data, result => successCallback(result));
+    ajax_send("GET", "components/fullcalendar/events.php", data, "json", result => successCallback(result));
   }
 
   // Показать popover
@@ -1759,7 +1763,7 @@ const calendmodulehandler = () => {
         }
       }
 
-      ajax_send("POST", "components/fullcalendar/ajax.php", Event, result => addSucces(result, title));
+      ajax_send("POST", "components/fullcalendar/ajax.php", Event, "json", result => addSucces(result, title));
     }
   });
 
@@ -2487,14 +2491,14 @@ const filterClickHandler = () => {
     let data = {
       filter: selectedCheckboxes(filterItems, 'all'),
     };
-    ajax_send("GET", "components/phonebook/ajax.php", data, response => result.innerHTML = response);
+    ajax_send("GET", "components/phonebook/ajax.php", data, "text", response => {result.innerHTML = ""; result.innerHTML = response});
 
   } else  {
     let data = {
       filter: selected,
     };
 
-    ajax_send("GET", "components/phonebook/ajax.php", data, response => result.innerHTML = response);
+    ajax_send("GET", "components/phonebook/ajax.php", data, "text", response => {result.innerHTML = ""; result.innerHTML = response});
   }
 };
 
