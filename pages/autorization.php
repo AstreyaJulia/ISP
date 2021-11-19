@@ -1,49 +1,25 @@
 <?php
-$login = $_POST['login'] ?? ""; // Пишем логин из формы в переменную для удобства работы:
+
+  $autorizationClass = new \Core\Model\Autorization($db);
+  // Пишем логин из формы в переменную для удобства работы
+  $login = $_POST['login'] ?? "";
+
 if (!empty($_POST['login']) and !empty($_POST['password']) and array_key_exists('aut', $_POST)) {
   // Формируем и отсылаем SQL запрос:
-  $user = $db->run("SELECT
-                      sdc_users.password
-                    FROM sdc_users 
-                    WHERE `username` = ? AND `active` = 1",[$login])->fetch(\PDO::FETCH_LAZY);
+  $user = $autorizationClass->getPassword($login);
   //Если пользователь с таким логином есть
   if (!empty($user)) {
     $hash = $user->password; // соленый пароль из БД
     // Проверяем соответствие хеша из базы введенному паролю
     if (password_verify($_POST['password'], $hash)) {
-      // Пользователь прошел авторизацию получим свойсива для куки
-      $sql = "SELECT
-                sdc_user_attributes.fullname,
-                sdc_users.id,
-                sdc_users.sudo,
-                sdc_users.active,
-                sdc_vocation.parent_id AS primary_group
-              FROM sdc_users
-              LEFT JOIN sdc_user_attributes ON sdc_user_attributes.internalKey=sdc_users.id
-              LEFT JOIN sdc_vocation ON sdc_vocation.id = sdc_user_attributes.profession
-              WHERE sdc_users.username = ?";
-      $user_attributes = $db->run($sql, [$login])->fetch(\PDO::FETCH_LAZY);
-      //запишем cookie
-      setcookie("aut[id]", "$user_attributes->id", time() + 3600 * 24 * 30);
-      setcookie("aut[login]", "$login", time() + 3600 * 24 * 30);
-      setcookie("aut[fullname]", "$user_attributes->fullname", time() + 3600 * 24 * 30);
-      setcookie("aut[active]", "$user_attributes->active", time() + 3600 * 24 * 30);
-      setcookie("aut[primary_group]", "$user_attributes->primary_group", time() + 3600 * 24 * 30);
-      setcookie("aut[sudo]", "$user_attributes->sudo", time() + 3600 * 24 * 30);
-      //переходим на главную страницу
-      header("refresh:1;url=/");
+      // Пользователь прошел авторизацию запишем cookie
+      $autorizationClass->setCookie($login);
+
     } else {
       // Пароль не подошел
       $error_pass = "Пароль не подошел";
     }
   } else {
-      // Пользователь неверно ввел логин - удаляем cookie
-      setcookie("aut[id]", "", time() - 3600, "/");
-      setcookie("aut[login]", "", time() - 3600, "/");
-      setcookie("aut[fullname]", "", time() - 3600, "/");
-      setcookie("aut[active]", "", time() - 3600, "/");
-      setcookie("aut[primary_group]", "", time() - 3600, "/");
-      setcookie("aut[sudo]", "", time() - 3600, "/");
       $error_login = "Неверный логин";
     }
   }
@@ -53,46 +29,20 @@ if (!empty($_POST['login']) and !empty($_POST['password']) and array_key_exists(
   // Если пароль и подтверждение совпадают...
     if ($_POST["password"] == $_POST["passrep"]) {
       $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-      // Пробуем получить юзера с таким логином
-      $user = $db->run("SELECT
-                          sdc_users.username
-                        FROM sdc_users
-                        WHERE `username` = ? AND password = '' AND `active` = 1",[$login])->fetch(\PDO::FETCH_LAZY);
-
       // Если юзера с таким логином нет
-      if (empty($user)) {
+      if (empty($autorizationClass->getUserActive($login))) {
         // Логина нет, выведем сообщение об этом
         $error_login = "Такого логина нет, либо он уже загегестрирован";
       } else {
         // Логин есть, записываем хэш пароль в бд
         $params = [
-          ':login' => $login,
-          ':password' => $password
+          'login' => $login,
+          'password' => $password
         ];
-        $user_attributes = $db->run("UPDATE sdc_users SET `password`=:password WHERE `username` = :login", $params);
-
-        // Пользователь прошел регистрацию получим свойсива для куки
-        $sql = "SELECT
-                  sdc_user_attributes.fullname,
-                  sdc_users.id,
-                  sdc_users.sudo,
-                  sdc_users.active,
-                  sdc_vocation.parent_id AS primary_group
-                FROM sdc_users
-                LEFT JOIN sdc_user_attributes ON sdc_user_attributes.internalKey=sdc_users.id
-                LEFT JOIN sdc_vocation ON sdc_vocation.id = sdc_user_attributes.profession
-                WHERE sdc_users.username = ?";
-        $user_attributes = $db->run($sql, [$login])->fetch(\PDO::FETCH_LAZY);
-        
-        // запишем cookie
-        setcookie("aut[id]", "$user_attributes->id", time() + 3600 * 24 * 30);
-        setcookie("aut[login]", "$login", time() + 3600 * 24 * 30);
-        setcookie("aut[fullname]", "$user_attributes->fullname", time() + 3600 * 24 * 30);
-        setcookie("aut[active]", "$user_attributes->active", time() + 3600 * 24 * 30);
-        setcookie("aut[primary_group]", "$user_attributes->primary_group", time() + 3600 * 24 * 30);
-        setcookie("aut[sudo]", "$user_attributes->sudo", time() + 3600 * 24 * 30);
-        //переходим на главную страницу
-        header("refresh:1;url=/");
+        // Пишем пароль в базу
+        $autorizationClass->setUserPassword($params);
+        // Считаем что пользователь прошел регистрацию, запишем cookie
+        $autorizationClass->setCookie($login);
       }
     } else {
       // Пароль и подтверждение НЕ совпадают - выведем сообщение
