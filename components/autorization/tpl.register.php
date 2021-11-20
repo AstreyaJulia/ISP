@@ -25,7 +25,7 @@
           <input name="login" value="<?php if (isset($_POST['login'])) echo $_POST['login'] ; ?>" class="form-control" id="login" type="text"
                  placeholder="Введите логин" required>
         </div>
-        <p class="error-message text-danger"><?php if (isset($error_login)) echo $error_login; ?></p>
+        <p class="error-message text-danger"><?= $error_login_reg ?></p>
         <div class="form-group">
           <label class="form-label" for="password">Пароль</label>
           <div class="form-control-wrap">
@@ -43,7 +43,7 @@
             <input class="form-control passinput" name="passrep" id="passrep" type="password" placeholder="Введите пароль" required>
           </div>
         </div>
-        <p class="error-message text-danger"><?php if (isset($error_pass)) echo $error_pass; ?></p>
+        <p class="error-message text-danger"><?= $error_pass_reg ?></p>
         <div class="form-group">
           <button type="submit" name="reg" class="btn btn-primary btn-block">Зарегистрироваться</button>
         </div>

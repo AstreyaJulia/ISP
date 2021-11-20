@@ -10,7 +10,7 @@
 	    public function __construct(DB $db) {
 	        $this->db = $db;
 	    }
-	    
+
 	    // Получаем пароль активного пользователя
 	    public function getPassword($login) {
 	    	$sql = "SELECT
@@ -20,7 +20,7 @@
 	    	return $this->db->run($sql,[$login])->fetch(PDO::FETCH_LAZY);
 	    }
 
-	    // Получаем не зарегистрированного пользователя
+	    // Получаем пользователя не закончившего авторизацию
 	    public function getUserActive($login) {
 	    	$sql = "SELECT
                       sdc_users.username
@@ -66,5 +66,47 @@
 	    	return $this->db->run($sql, $params);
 	    }
 
+	    // Авторизация пользователя
+	    public function setUserAutorization() {
+	    	if (!empty($_POST['login']) and !empty($_POST['password']) and array_key_exists('aut', $_POST)) {
+	   			$login = $_POST['login'];
+			  //Если пользователь с таким логином есть
+			  if (!empty($this->getPassword($login))) {
+			    // Проверяем соответствие хеша из базы введенному паролю
+			    if (password_verify($_POST['password'], $this->getPassword($login)->password)) {
+			      // Пользователь прошел авторизацию запишем cookie
+			      $this->setCookie($login);
+			    } else {
+			      return array ("error_pass" => "Пароль не подошел");
+			    }
+			  } else {
+			      return array ("error_login" => "Неверный логин");
+			    }
+			}
+	    }
 
+	    // Регистрация пользователя
+	    public function setUserRregister() {
+	    	if (!empty($_POST["login"]) and !empty($_POST["password"]) and !empty($_POST["passrep"]) and array_key_exists('reg', $_POST)) {
+	    		$login = $_POST['login'];
+			    // Если пароль и подтверждение совпадают...
+			    if ($_POST["password"] == $_POST["passrep"]) {
+			      // Проверяем существование логина
+			      if (empty($this->getUserActive($login))) {
+			        return array ("error_login" => "Такого логина нет, либо он уже авторизован");
+			      } else {
+			        // Логин есть, записываем хэш пароль в бд
+			        $params = [
+			          'login' => $login,
+			          'password' => password_hash($_POST['password'], PASSWORD_DEFAULT)
+			        ];
+			        $this->setUserPassword($params);
+			        // Считаем что пользователь закончил регистрацию, запишем cookie
+			        $this->setCookie($login);
+			      }
+			    } else {
+			      return array ("error_pass" => "Пароли не совпадают");
+			    }
+			}
+	    }
 	}
