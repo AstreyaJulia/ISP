@@ -98,3 +98,22 @@ SELECT *, Users.id, CONCAT (ParentUserType.name, ' / ', ChildUserType.name) AS n
             LEFT JOIN `sdc_room` AS ChildUserType ON UserAttributes.room = ChildUserType.id
             LEFT JOIN `sdc_room` AS ParentUserType ON ChildUserType.affiliation = ParentUserType.id
           WHERE Users.id = ?
+
+
+
+
+
+//Полнотекстовый поиск. В базе необходимо сделать индес типа FULLTEXT
+$str = "чер супер свет сотрудник";
+
+$str_sql = "";
+foreach (explode(" ", $str) as $key => $value) {
+  $str_sql .= '*'.$value.'*';
+}
+
+// Приводим $str_sql к виду "*чер**супер**свет**сотрудник*"
+$sql = "SELECT
+      sdc_user_attributes.fullname,
+      sdc_user_attributes.comment
+    FROM sdc_user_attributes
+    WHERE MATCH (`fullname`,`comment`) AGAINST ('$str_sql' IN BOOLEAN MODE)";
