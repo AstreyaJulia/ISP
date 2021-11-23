@@ -117,3 +117,16 @@ $sql = "SELECT
       sdc_user_attributes.comment
     FROM sdc_user_attributes
     WHERE MATCH (`fullname`,`comment`) AGAINST ('$str_sql' IN BOOLEAN MODE)";
+
+
+// составим запрос из приходящих параметров
+function setUpdateUser($params, $where) {
+    $str = [];
+    foreach ($params as $key => $value) {
+      if ("`".$key."`=:".$key != str_replace(' ', '', '`id` = :id')) {
+        $str[] = "`".$key."`=:".$key;
+      }
+    }
+      $str = implode(", ", $str);
+        return "UPDATE sdc_users SET $str WHERE $where";
+  }
