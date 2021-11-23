@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Окт 11 2021 г., 10:43
+-- Время создания: Ноя 23 2021 г., 10:34
 -- Версия сервера: 10.4.12-MariaDB
 -- Версия PHP: 7.4.14
 
@@ -46,11 +46,6 @@ CREATE TABLE `sdc_calendar` (
   `bymonth` varchar(50) DEFAULT NULL,
   `bysetpos` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Дамп данных таблицы `sdc_users`
---
-
 
 --
 -- Структура таблицы `sdc_proxy_list`
@@ -120,18 +115,18 @@ INSERT INTO `sdc_room` (`id`, `jupiter_tab_num`, `ip`, `name`, `icon`, `affiliat
 (33, '2W', '192.168.2.33', 'АРМ 2', 'desktop', 57, NULL, '4-17-94'),
 (34, '2X', '192.168.2.34', 'АРМ 6', 'desktop', 57, NULL, '4-17-94'),
 (35, '2Y', '192.168.2.35', 'АРМ 5', 'desktop', 57, NULL, '4-17-94'),
-(36, '2Z', '192.168.2.36', 'АРМ 1', 'desktop', 83, NULL, '4-37-94'),
+(36, '', '192.168.2.71', 'АРМ 1', 'desktop', 83, NULL, '4-37-94'),
 (37, '2Б', '192.168.2.37', 'АРМ 1', 'desktop', 68, NULL, '2-56-16'),
 (38, '2Г', '192.168.2.38', 'АРМ 3', 'desktop', 65, NULL, '2-28-78'),
 (39, '', '192.168.2.66', 'АРМ 2', 'desktop', 62, 8, '4-44-85'),
 (40, '', '192.168.2.64', 'АРМ 1', 'desktop', 60, 6, '4-25-06'),
 (41, '', '192.168.2.72', 'АРМ 1', 'desktop', 61, 7, '4-17-08'),
 (42, '', '192.168.2.67', 'АРМ 1', 'desktop', 63, 9, '5-13-25'),
-(43, '', '192.168.2.68', 'к10_1', 'desktop', 64, 10, '2-28-78'),
+(43, '', '192.168.2.68', 'ARM 1', 'desktop', 64, 10, '2-28-78'),
 (44, '', '192.168.2.65', 'АРМ 1', 'desktop', 70, 16, '4-17-96'),
 (45, '', '192.168.2.115', 'АРМ 1', 'desktop', 58, 2, '4-41-32'),
 (46, '', '192.168.2.63', 'АРМ 1', 'desktop', 59, 5, '5-13-26'),
-(47, '', '192.168.2.71', 'АРМ 8', 'desktop', 57, NULL, '4-17-94'),
+(47, '2Z', '192.168.2.36', 'АРМ 8', 'desktop', 57, NULL, '4-17-94'),
 (48, '', '192.168.2.61', 'АРМ 1', 'desktop', 66, 12, '2-15-10'),
 (49, '', '', 'Сафоново', 'building', NULL, NULL, NULL),
 (50, '', '', 'Холм-Жирки', 'building', NULL, NULL, NULL),
@@ -178,15 +173,17 @@ CREATE TABLE `sdc_users` (
   `username` varchar(100) NOT NULL DEFAULT '',
   `password` varchar(255) NOT NULL DEFAULT '',
   `active` tinyint(1) UNSIGNED NOT NULL DEFAULT 1,
-  `primary_group` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `sudo` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
   `sidebar` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
   `theme` int(1) UNSIGNED NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Дамп данных таблицы `sdc_users`
+--
 
-INSERT INTO `sdc_users` (`id`, `username`, `password`, `active`, `primary_group`, `sudo`, `sidebar`, `theme`) VALUES
-  (1, 'chainik', '$2y$10$ajAnKFrS/4p4Vc3IWZCfwug2HOVWoN6mf0/IeltVpaT3R7lJq21N2', 1, 3, 1, 0, 0);
+INSERT INTO `sdc_users` (`id`, `username`, `password`, `active`, `sudo`, `sidebar`, `theme`) VALUES
+  (1, 'chainik', '$2y$10$ajAnKFrS/4p4Vc3IWZCfwug2HOVWoN6mf0/IeltVpaT3R7lJq21N2', 1, 1, 0, 0);
 
 --
 -- Структура таблицы `sdc_user_attributes`
@@ -232,6 +229,50 @@ CREATE TABLE `sdc_visits` (
   `HTTP_REFERER` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+
+--
+-- Структура таблицы `sdc_vocation`
+--
+
+CREATE TABLE `sdc_vocation` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `parent_id` int(10) DEFAULT NULL,
+  `name` varchar(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Таблица с привязкой должностей к группам';
+
+--
+-- Дамп данных таблицы `sdc_vocation`
+--
+
+INSERT INTO `sdc_vocation` (`id`, `parent_id`, `name`) VALUES
+(1, 24, 'Председатель'),
+(2, 24, 'Заместитель председателя'),
+(3, 24, 'Судья'),
+(4, 27, 'Начальник отдела'),
+(5, 27, 'Заместитель начальника отдела'),
+(6, 25, 'Помощник председателя суда'),
+(7, 25, 'Помощник судьи'),
+(8, 27, 'Консультант'),
+(9, 26, 'Секретарь судебного заседания'),
+(10, 27, 'Главный специалист'),
+(11, 27, 'Ведущий специалист'),
+(12, 27, 'Секретарь суда'),
+(13, 27, 'Специалист'),
+(14, 27, 'Старший специалист 1 разряда'),
+(15, 27, 'Старший специалист 2 разряда'),
+(16, 27, 'Старший специалист 3 разряда'),
+(17, 27, 'Специалист 1 разряда'),
+(18, 27, 'Специалист 2 разряда'),
+(19, 27, 'Специалист 3 разряда'),
+(20, 27, 'Администратор'),
+(21, 27, 'Рабочий, 1 разряд'),
+(22, 27, 'Рабочий, 2 разряд'),
+(23, 27, 'Рабочий, 3 разряд'),
+(24, NULL, 'Судьи'),
+(25, NULL, 'Помощники судей'),
+(26, NULL, 'Секретари судебного заседания'),
+(27, NULL, 'Канцелярия');
+
 --
 -- Индексы сохранённых таблиц
 --
@@ -276,6 +317,12 @@ ALTER TABLE `sdc_visits`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `sdc_vocation`
+--
+ALTER TABLE `sdc_vocation`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT для сохранённых таблиц
 --
 
@@ -314,7 +361,14 @@ ALTER TABLE `sdc_user_attributes`
 --
 ALTER TABLE `sdc_visits`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+
+--
+-- AUTO_INCREMENT для таблицы `sdc_vocation`
+--
+ALTER TABLE `sdc_vocation`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 COMMIT;
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
