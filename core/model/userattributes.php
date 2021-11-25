@@ -68,7 +68,7 @@
 				'active' => $params['active'],
 				'sudo' => $params['sudo']
 	    	];
-	        $sql = "UPDATE sdc_users SET `username`=:username, `active`=:active, `sudo`=:sudo WHERE `id` = :id";
+	    	$sql = updateQuery('sdc_users', $params, '`id` = :id');
 	        return $this->db->run($sql, $params);
 	    }
 
@@ -78,7 +78,7 @@
 */
 	    //Вносим изменения в таблицу sdc_user_attributes из профиля пользователя
 	    public function setUpdUserAtr($params) {
-	        $sql = "UPDATE sdc_user_attributes SET `fullname`=:fullname, `email`=:email, `mobilephone`=:mobilephone, `dob`=:dob, `gender`=:gender, `state`=:state, `city`=:city, `address`=:address, `zip`=:zip, `website`=:website WHERE `internalKey`=:internalKey";
+	    	$sql = updateQuery('sdc_user_attributes', $params, '`internalKey`=:internalKey');
 	        return $this->db->run($sql, $params);
 	    }
 	    //Вносим изменения в таблицу sdc_user_attributes
@@ -87,7 +87,7 @@
 		    unset($params['id'],$params['username'],$params['active'],$params['sudo']);
 		    
 
-	        $sql = "UPDATE sdc_user_attributes SET `fullname`=:fullname, `gender`=:gender, `dob`=:dob, `email`=:email, `mobilephone`=:mobilephone, `zip`=:zip, `state`=:state, `city`=:city, `address`=:address, `comment`=:comment, `website`=:website, `profession`=:profession, `affiliation`=:affiliation, `room`=:room WHERE `internalKey` = :internalKey";
+	        $sql = updateQuery('sdc_user_attributes', $params, '`internalKey`=:internalKey');
 	        return $this->db->run($sql, $params);
 	    }
 /*--------------------------------------------------

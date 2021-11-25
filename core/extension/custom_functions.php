@@ -69,3 +69,25 @@
 			echo "visually-hidden";
 		}
 	}
+
+	/*
+	Формируем запрос из передаваемых значений
+	$table - имя таблицы для обновления записи
+	$params - массив всех полей для запроса
+			$params = array(
+				"id" => "valueID",
+				"name" => "valueName",
+				"property" => "valueProperty"
+			)
+	$where - условие в формате `id` = :id'
+	*/
+	function updateQuery($table, $params, $where) {
+	    $str = [];
+	    foreach ($params as $key => $value) {
+	      if ("`".$key."`=:".$key != str_replace(' ', '', $where)) {
+	        $str[] = "`".$key."`=:".$key;
+	      }
+	    }
+	    $str = implode(", ", $str);
+	    return "UPDATE $table SET $str WHERE $where";
+	}

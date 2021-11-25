@@ -8,17 +8,17 @@
 	//Сохраняем изменения в профиле пользователя
 	if (array_key_exists('editUser',$_POST)) {
 	    $params = [
-	        ':internalKey' => $_COOKIE["aut"]["id"],
-	        ':fullname' => $_POST["fullname"],
-			':email' => $_POST["email"],
-			':mobilephone' => $_POST["mobilephone"],
-			':dob' => $_POST["dob"],
-			':gender' => $_POST["gender"],
-			':state' => $_POST["state"],
-			':city' => $_POST["city"],
-			':address' => $_POST["address"],
-			':zip' => $_POST["zip"],
-			':website' => $_POST["website"]
+	        'internalKey' => $_COOKIE["aut"]["id"],
+	        'fullname' => $_POST["fullname"],
+			'email' => $_POST["email"],
+			'mobilephone' => $_POST["mobilephone"],
+			'dob' => $_POST["dob"],
+			'gender' => $_POST["gender"],
+			'state' => $_POST["state"],
+			'city' => $_POST["city"],
+			'address' => $_POST["address"],
+			'zip' => $_POST["zip"],
+			'website' => $_POST["website"]
 	    ];
 		$staffUserAttributes->setUpdUserAtr($params);
 	}
