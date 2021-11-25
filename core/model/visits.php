@@ -15,8 +15,8 @@
 	public function startVizits($server, $cookie) {
 		// Собираем поля для статистики
 		$uri = rawurldecode($server['REQUEST_URI']);
-		$userId = $cookie['aut']['id'];
-		$login = $cookie['aut']['login'];
+		$userId = $cookie['aut']['id'] ?? "";
+		$login = $cookie['aut']['login'] ?? "pest";
 		$ip = $server['REMOTE_ADDR'];
 		$ref = rawurldecode($server['HTTP_REFERER'] ?? "Нет");
 		$dtime = date('Y-m-d H:i:s');
