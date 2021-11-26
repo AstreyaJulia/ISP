@@ -3,11 +3,7 @@
   $autorizationClass = new \Core\Model\Autorization($db);
 
   // авторизация пользователя
-  $autorizationClass->setUserAutorization();
-  // неверно введён пароль при авторизации
-  $error_pass = $autorizationClass->setUserAutorization()["error_pass"] ?? "";
-  // неверно введён логин при авторизации
-  $error_login = $autorizationClass->setUserAutorization()["error_login"] ?? "";
+  $error = $autorizationClass->setUserAutorization() ?? array ("pass" => "", "login" => "");
 
   //Регистрация пользователя
   $autorizationClass->setUserRregister();

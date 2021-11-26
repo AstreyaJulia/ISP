@@ -77,10 +77,10 @@
 			      // Пользователь прошел авторизацию запишем cookie
 			      $this->setCookie($login);
 			    } else {
-			      return array ("error_pass" => "Пароль не подошел");
+			      return array ("pass" => "Пароль не подошел", "login" => "");
 			    }
 			  } else {
-			      return array ("error_login" => "Неверный логин");
+			      return array ("pass" => "", "login" => "Неверный логин");
 			    }
 			}
 	    }

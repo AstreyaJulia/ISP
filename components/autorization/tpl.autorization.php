@@ -25,7 +25,7 @@
           <input name="login" value="<?php if (isset($_POST['login'])) echo $_POST['login'] ; ?>" class="form-control" id="login" type="text"
                  placeholder="Введите логин" required>
         </div>
-        <p class="error-message text-danger"><?= $error_login ?></p>
+        <p class="error-message text-danger"><?= $error['login'] ?></p>
         <div class="form-group">
           <label class="form-label" for="pass">Пароль</label>
           <div class="form-control-wrap">
@@ -37,7 +37,7 @@
             </a>
           </div>
         </div>
-        <p class="error-message text-danger"><?= $error_pass ?></p>
+        <p class="error-message text-danger"><?= $error['pass'] ?></p>
         <div class="form-group">
           <button type="submit" name="aut" class="btn btn-primary btn-block">Войти</button>
         </div>
