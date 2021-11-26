@@ -22,10 +22,8 @@
 	    ];
 		$staffUserAttributes->setUpdUserAtr($params);
 	}
-	//Удаляем пароль
-	if (array_key_exists('DropPass',$_GET)) {
-		$staffUserAttributes->setDropPass([$_COOKIE["aut"]["id"]]);
-	}
+	//Сбрасываем пароль
+	$staffUserAttributes->setDropPass([$_COOKIE["aut"]["id"]]);
 
 	// получаем данные личного кабинета пользователя
 	$userProfile = $staffUserAttributes->getSelectId([$_COOKIE["aut"]["id"]]);

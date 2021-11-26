@@ -39,11 +39,9 @@
                            placeholder="Введите логин"
                            id="login" required disabled>
                     <div class="input-group-prepend">
-                      <a class="btn btn-primary btn-block" href="?page=user-profile&DropPass">Сброс пароля</a>
+                      <button type="submit" name="DropPass" class="btn btn-primary btn-block">Сброс пароля</button>
                     </div>
                   </div>
-
-
                 </div>
               </div>
               <div class="col-12 col-xxl-6 col-xl-6 col-lg-6 col-sm-6 col-xs-12">

@@ -56,8 +56,10 @@
 
 	    //Удаляем пароль
 	    public function setDropPass($params) {
-	        $sql = "UPDATE sdc_users SET `password`='' WHERE `id` = ?";
-	        return $this->db->run($sql, $params);
+	    	if (array_key_exists('DropPass',$_POST)) {
+		        $sql = "UPDATE sdc_users SET `password`='' WHERE `id` = ?";
+		        return $this->db->run($sql, $params);
+		    }
 	    }
 
 	    //Вносим изменения в таблицу sdc_users
@@ -66,10 +68,6 @@
 	        return $this->db->run($sql, $params);
 	    }
 
-
-/*--------------------------------------------------
-Сделать универсальный запрос с ключами из $params
-*/
 	    //Вносим изменения в таблицу sdc_user_attributes из профиля пользователя
 	    public function setUpdUserAtr($params) {
 	    	$sql = updateQuery('sdc_user_attributes', $params, '`internalKey`=:internalKey');
@@ -81,6 +79,7 @@
 	        return $this->db->run($sql, $params);
 	    }
 /*--------------------------------------------------
+Сделать универсальный запрос с ключами из $params
 */
 	    //Добавляем запись в таблицу sdc_users
 	    public function setInsertUser($params) {
@@ -93,7 +92,8 @@
 	        $sql = "INSERT INTO `sdc_user_attributes` (`internalKey`, `fullname`, `gender`, `dob`, `email`, `mobilephone`, `zip`, `state`, `city`, `address`, `comment`, `website`, `profession`, `affiliation`, `room`) VALUES (:internalKey, :fullname, :gender, :dob, :email, :mobilephone, :zip, :state, :city, :address, :comment, :website, :profession, :affiliation, :room)";
 	        return $this->db->run($sql, $params);
 	    }
-
+/*--------------------------------------------------
+*/
 
 	    //приводит Фамилию Имя Отчество к виду Фамилия И.О.
 	    public function getShortFIO($fullname) {
