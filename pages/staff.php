@@ -39,15 +39,19 @@ if (!empty($_GET["editStaff"])) {
     }
     
     if (!empty($_POST["username"]) and !empty($_POST["fullname"]) and $_GET["editStaff"] !== "add") {
-      
+      //Редактируем запись в таблице sdc_users
       $params = [
         //для таблицы sdc_users
         'id' => $_GET["editStaff"],
         'username' => $_POST["username"],
         'active' => $_POST["active"],
         'sudo' => $_POST["sudo"],
-        //для таблицы sdc_user_attributes
-        'internalKey' => $_GET["editStaff"],
+      ];
+      $staffClass->setUpdateUser($params);
+
+      //Редактируем запись в таблице sdc_user_attributes
+      $params = [
+        'internalKey' => $editStaf[0]->internalKey,
         'fullname' => $_POST["fullname"],
         'gender' => $_POST["gender"],
         'dob' => $_POST["dob"],
@@ -63,12 +67,6 @@ if (!empty($_GET["editStaff"])) {
         'affiliation' => in_array($_POST["profession"], [6, 7, 9]) ? $_POST["affiliation"] : "",//Проверяем  принадлежность судье
         'room' => $_POST["active"] == 1 ? $_POST["room"] : NULL //Если не активен освобождаем рабочее место
       ];
-
-
-      //Редактируем запись в таблице sdc_users
-      $staffClass->setUpdateUser($params);
-
-      //Редактируем запись в таблице sdc_user_attributes
       $staffClass->setUpdateUserAtr($params);
 
       //переходим в раздел

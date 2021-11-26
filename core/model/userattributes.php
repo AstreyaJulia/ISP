@@ -62,12 +62,6 @@
 
 	    //Вносим изменения в таблицу sdc_users
 	    public function setUpdateUser($params) {
-	    	$params = [
-				'id' => $params['id'],
-				'username' => $params['username'],
-				'active' => $params['active'],
-				'sudo' => $params['sudo']
-	    	];
 	    	$sql = updateQuery('sdc_users', $params, '`id` = :id');
 	        return $this->db->run($sql, $params);
 	    }
@@ -83,10 +77,6 @@
 	    }
 	    //Вносим изменения в таблицу sdc_user_attributes
 	    public function setUpdateUserAtr($params) {
-	    	
-		    unset($params['id'],$params['username'],$params['active'],$params['sudo']);
-		    
-
 	        $sql = updateQuery('sdc_user_attributes', $params, '`internalKey`=:internalKey');
 	        return $this->db->run($sql, $params);
 	    }
