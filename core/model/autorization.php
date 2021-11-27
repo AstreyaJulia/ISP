@@ -93,7 +93,7 @@
 			    if ($_POST["password"] == $_POST["passrep"]) {
 			      // Проверяем существование логина
 			      if (empty($this->getUserActive($login))) {
-			        return array ("error_login" => "Такого логина нет, либо он уже авторизован");
+			        return array ("pass" => "", "login" => "Такого логина нет, либо он уже авторизован");
 			      } else {
 			        // Логин есть, записываем хэш пароль в бд
 			        $params = [
@@ -105,7 +105,7 @@
 			        $this->setCookie($login);
 			      }
 			    } else {
-			      return array ("error_pass" => "Пароли не совпадают");
+			      return array ("pass" => "Пароли не совпадают", "login" => "");
 			    }
 			}
 	    }
