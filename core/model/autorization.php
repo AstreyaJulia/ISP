@@ -67,7 +67,7 @@
 	    }
 
 	    // Авторизация пользователя
-	    public function setUserAutorization() {
+	    public function getUserAutorization() {
 	    	if (!empty($_POST['login']) and !empty($_POST['password']) and array_key_exists('aut', $_POST)) {
 	   			$login = $_POST['login'];
 			  //Если пользователь с таким логином есть
@@ -108,5 +108,17 @@
 			      return array ("pass" => "Пароли не совпадают", "login" => "");
 			    }
 			}
+	    }
+
+	    public function getAutorization() {
+	    	if (array_key_exists('reg', $_GET)) {
+			    //Регистрация пользователя
+			    $error = $this->setUserRregister() ?? array ("pass" => "", "login" => "");
+			    include $_SERVER['DOCUMENT_ROOT'] . "/components/autorization/tpl.register.php";
+		  } else {
+			    // авторизация пользователя
+			    $error = $this->getUserAutorization() ?? array ("pass" => "", "login" => "");
+			    include $_SERVER['DOCUMENT_ROOT'] . "/components/autorization/tpl.autorization.php";
+		  }
 	    }
 	}
