@@ -1342,7 +1342,7 @@
           fontStyle.push(f, ":", fontcss[f], ";");
         }
         html.push("<a id='", node.tId, consts.id.A, "' class='", consts.className.LEVEL, node.level,
-          nodeClasses.add ? ' ' + nodeClasses.add.join(' ') : '',
+          nodeClasses.add ? ' ' + nodeClasses.add.join(' ') : '', 
           "' treeNode", consts.id.A,
           node.click ? " onclick=\"" + node.click + "\"" : "",
           ((url != null && url.length > 0) ? " href='" + url + "'" : ""), " target='", view.makeNodeTarget(node), "' style='", fontStyle.join(''),
@@ -2921,7 +2921,7 @@
         var oldLevel = node.level;
         node.level = (parentNode) ? parentNode.level + 1 : 0;
         view.repairNodeLevelClass(setting, node, oldLevel);
-
+        
         if (!children) return;
         for (var i = 0, l = children.length; i < l; i++) {
           if (children[i]) data.setSonNodeLevel(setting, node, children[i]);

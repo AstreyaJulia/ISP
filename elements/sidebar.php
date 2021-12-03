@@ -123,6 +123,11 @@
             <span class="ms-2">Задачи</span></a></li>
         <li class="submenu-item mb-2 p-0"><a
             class="submenu-link d-flex align-items-center w-100 py-2 px-3 position-relative m-0 text-decoration-none rounded-2"
+            href="?page=stats">
+            <i class="mdi fs-4 mdi-chart-arc"></i>
+            <span class="ms-2">Статистика</span></a></li>
+        <li class="submenu-item mb-2 p-0"><a
+            class="submenu-link d-flex align-items-center w-100 py-2 px-3 position-relative m-0 text-decoration-none rounded-2"
             href="?page=uikit">
             <i class="mdi fs-4 mdi-flower-outline"></i>
             <span class="ms-2">UI Kit</span></a></li>
