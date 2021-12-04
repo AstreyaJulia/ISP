@@ -138,7 +138,6 @@ const apexChartOptions = (chartname) => {
       },
     },
     colors: [colors.theme['primary']],
-
     dataLabels: {
       enabled: false
     },
@@ -176,6 +175,19 @@ const apexChartOptions = (chartname) => {
         show: false,
       },
     },
+    colors: [colors.theme['green']],
+    fill: {
+      type: 'gradient',
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        gradientToColors: [colors.themeLighter['green'], colors.theme['green']],
+        opacityFrom: 0.7,
+        opacityTo: 0.55,
+        stops: [0, 80, 100]
+      }
+    },
     dataLabels: {
       enabled: false
     },
@@ -200,6 +212,19 @@ const apexChartOptions = (chartname) => {
       toolbar: {
         show: false,
       },
+    },
+    colors: [colors.theme['red']],
+    fill: {
+      type: 'gradient',
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        gradientToColors: [colors.themeLighter['red'], colors.theme['red']],
+        opacityFrom: 0.7,
+        opacityTo: 0.55,
+        stops: [0, 80, 100]
+      }
     },
     dataLabels: {
       enabled: false
@@ -226,6 +251,19 @@ const apexChartOptions = (chartname) => {
         show: false,
       },
     },
+    colors: [colors.theme['orange']],
+    fill: {
+      type: 'gradient',
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        gradientToColors: [colors.themeLighter['orange'], colors.theme['orange']],
+        opacityFrom: 0.7,
+        opacityTo: 0.55,
+        stops: [0, 80, 100]
+      }
+    },
     dataLabels: {
       enabled: false
     },
@@ -250,6 +288,19 @@ const apexChartOptions = (chartname) => {
       toolbar: {
         show: false,
       },
+    },
+    colors: [colors.theme['blue']],
+    fill: {
+      type: 'gradient',
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        gradientToColors: [colors.themeLighter['blue'], colors.theme['blue']],
+        opacityFrom: 0.7,
+        opacityTo: 0.55,
+        stops: [0, 80, 100]
+      }
     },
     dataLabels: {
       enabled: false
@@ -276,6 +327,19 @@ const apexChartOptions = (chartname) => {
         show: false,
       },
     },
+    colors: [colors.theme['teal']],
+    fill: {
+      type: 'gradient',
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        gradientToColors: [colors.themeLighter['teal'], colors.theme['teal']],
+        opacityFrom: 0.7,
+        opacityTo: 0.55,
+        stops: [0, 80, 100]
+      }
+    },
     dataLabels: {
       enabled: false
     },
@@ -300,6 +364,19 @@ const apexChartOptions = (chartname) => {
       toolbar: {
         show: false,
       },
+    },
+    colors: [colors.theme['yellow']],
+    fill: {
+      type: 'gradient',
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        gradientToColors: [colors.themeLighter['yellow'], colors.theme['yellow']],
+        opacityFrom: 0.7,
+        opacityTo: 0.55,
+        stops: [0, 80, 100]
+      }
     },
     dataLabels: {
       enabled: false
@@ -326,6 +403,19 @@ const apexChartOptions = (chartname) => {
         show: false,
       },
     },
+    colors: [colors.theme['azure']],
+    fill: {
+      type: 'gradient',
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        gradientToColors: [colors.themeLighter['azure'], colors.theme['azure']],
+        opacityFrom: 0.7,
+        opacityTo: 0.55,
+        stops: [0, 80, 100]
+      }
+    },
     dataLabels: {
       enabled: false
     },
@@ -350,6 +440,19 @@ const apexChartOptions = (chartname) => {
       toolbar: {
         show: false,
       },
+    },
+    colors: [colors.theme['cyan']],
+    fill: {
+      type: 'gradient',
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        gradientToColors: [colors.themeLighter['cyan'], colors.theme['cyan']],
+        opacityFrom: 0.7,
+        opacityTo: 0.55,
+        stops: [0, 80, 100]
+      }
     },
     dataLabels: {
       enabled: false

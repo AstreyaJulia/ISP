@@ -156,7 +156,7 @@ $content = '
     <div class="card mb-3">
     <div class="d-flex justify-content-between">
             <div class="d-flex flex-column p-3">
-              <h6 class="surtitle">Статистика</h6>
+              <h6 class="surtitle">Статистика (до 2012 в картотеку не вносилось)</h6>
               <h5 class="mb-0">Дела об адм. правонарушениях (рассмотрено)</h5>
             </div>
             <div class="d-flex me-2 flex-column p-3">
@@ -186,7 +186,7 @@ $content = '
     <div class="card mb-3">
     <div class="d-flex justify-content-between">
             <div class="d-flex flex-column p-3">
-              <h6 class="surtitle">Статистика</h6>
+              <h6 class="surtitle">Статистика (до 2013 в картотеку не вносилось)</h6>
               <h5 class="mb-0">Жалобы по адм. делам (рассмотрено)</h5>
             </div>
             <div class="d-flex me-2 flex-column p-3">
