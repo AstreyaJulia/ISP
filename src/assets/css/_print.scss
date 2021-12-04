@@ -7,44 +7,58 @@
   .page-wrapper,
   .page-body {
     margin: 0 !important;
-    top: 0 !important;
+    //top: 0 !important;
     padding: 0 !important;
     max-width: none !important;
     max-height: none !important;
-    overflow: hidden !important;
+    //overflow: hidden !important;
     position: unset !important;
     font-size: 12px !important;
     line-height: normal !important;
+    height: 100% !important;
+  }
+
+  .page-body,
+  .page-wrapper {
+    position: relative !important;
+    height: 100% !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    overflow: auto !important;
+    min-height: unset  !important;
+  }
+
+  .main-content {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+  }
+
+  .page-body,
+  .page-wrapper,
+  .page-wrapper .d-flex,
+  .d-flex.flex-column.w-100.vh-100 {
+    display: block !important;
   }
 
   p {
     page-break-before: always !important;
   }
 
-  .main-content-header .breadcrumb,
-  .main-content-header .header-right,
-  .dataTables_length,
-  .dataTables_filter,
-  .dataTables_info,
-  .dataTables_paginate,
-  .sorting:before,
-  .sorting:after,
-  .progress-container,
-  .spinner-wrapper,
-  .back-to-top,
-  .main-header,
-  .main-sidebar,
+  .page-body .main-sidebar,
   .toasts-container,
-  .table-toolbar,
-  .table-toolbutton,
-  .badge-big,
-  .badge-status,
-  .badge,
-  .faq-categories .col-3,
-  .filter-group,
-  .fc-button-group,
-  .page-wrapper > div:not(.main-content),
-  .calendar-wrapper .col-2 {
+  .progress-container,
+  .search-input,
+  .main-header,
+  .main-content-header .btn-back,
+  .main-content-header .header-right,
+  .apexcharts-tooltip,
+  .apexcharts-xaxistooltip,
+  .apexcharts-yaxistooltip,
+  .apexcharts-yaxistooltip-text,
+  .back-to-top {
     display: none !important;
   }
 
