@@ -533,6 +533,42 @@ const apexChartList = document.querySelectorAll('.apexchart');
 
 const apexChartOptions = (chartname) => {
 
+
+  const safpeopleChart = {
+    series: [{
+      name: 'Население г. Сафоново',
+      data: [43500, 46100, 45273, 44444, 43845, 43477, 43145, 42707, 42147, 41510, 41138]
+    }],
+    chart: {
+      height: 350,
+      type: 'area',
+    },
+    colors: [colors.theme['secondary']],
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'smooth'
+    },
+    fill: {
+      type: 'gradient',
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        gradientToColors: [colors.themeLighter['secondary'], colors.theme['secondary']],
+        opacityFrom: 0.7,
+        opacityTo: 0.55,
+        stops: [0, 80, 100]
+      }
+    },
+    xaxis: {
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020]
+    },
+    tooltip: {
+      x: {show: false}
+    },
+  }
   const postoutboxChart = {
     series: [{
       name: 'Исходящая почта',
@@ -541,9 +577,6 @@ const apexChartOptions = (chartname) => {
     chart: {
       height: 350,
       type: 'area',
-      toolbar: {
-        show: false,
-      },
     },
     colors: [colors.theme['primary']],
     dataLabels: {
@@ -579,9 +612,6 @@ const apexChartOptions = (chartname) => {
     chart: {
       height: 350,
       type: 'area',
-      toolbar: {
-        show: false,
-      },
     },
     colors: [colors.theme['green']],
     fill: {
@@ -617,9 +647,6 @@ const apexChartOptions = (chartname) => {
     chart: {
       height: 350,
       type: 'area',
-      toolbar: {
-        show: false,
-      },
     },
     colors: [colors.theme['red']],
     fill: {
@@ -655,9 +682,6 @@ const apexChartOptions = (chartname) => {
     chart: {
       height: 350,
       type: 'area',
-      toolbar: {
-        show: false,
-      },
     },
     colors: [colors.theme['orange']],
     fill: {
@@ -693,9 +717,6 @@ const apexChartOptions = (chartname) => {
     chart: {
       height: 350,
       type: 'area',
-      toolbar: {
-        show: false,
-      },
     },
     colors: [colors.theme['blue']],
     fill: {
@@ -731,9 +752,6 @@ const apexChartOptions = (chartname) => {
     chart: {
       height: 350,
       type: 'area',
-      toolbar: {
-        show: false,
-      },
     },
     colors: [colors.theme['teal']],
     fill: {
@@ -769,9 +787,6 @@ const apexChartOptions = (chartname) => {
     chart: {
       height: 350,
       type: 'area',
-      toolbar: {
-        show: false,
-      },
     },
     colors: [colors.theme['yellow']],
     fill: {
@@ -807,9 +822,6 @@ const apexChartOptions = (chartname) => {
     chart: {
       height: 350,
       type: 'area',
-      toolbar: {
-        show: false,
-      },
     },
     colors: [colors.theme['azure']],
     fill: {
@@ -845,9 +857,6 @@ const apexChartOptions = (chartname) => {
     chart: {
       height: 350,
       type: 'area',
-      toolbar: {
-        show: false,
-      },
     },
     colors: [colors.theme['cyan']],
     fill: {
@@ -876,7 +885,10 @@ const apexChartOptions = (chartname) => {
     },
   }
 
+
   switch (chartname) {
+    case 'safpeopleChart':
+      return safpeopleChart;
     case 'postinboxChart':
       return postinboxChart;
     case 'postoutboxChart':
