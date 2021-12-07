@@ -132,6 +132,75 @@
           <div class="d-flex justify-content-between">
             <div class="d-flex flex-column p-3">
               <h6 class="surtitle">Статистика</h6>
+              <h5 class="mb-0">Обращения на портале ГАС Правосудие, без исковых заявлений</h5>
+            </div>
+            <div class="d-flex me-2 flex-column p-3">
+              <div>
+                <a class="dropdown-toggle no-carret text-secondary" id="menu14" data-bs-toggle="dropdown"><i
+                    class="mdi mdi-dots-vertical"></i></a>
+                <ul class="dropdown-menu dropdown-arrow" aria-labelledby="menu14" data-bs-popper="none">
+                  <li class="dropdown-item">
+                    <a><i class="mdi mdi-sync me-2"></i>Обновить данные</a>
+                  </li>
+                  <li class="dropdown-item">
+                    <a><i class="mdi mdi-list-status me-2"></i>Детализация</a>
+                  </li>
+                  <li class="dropdown-item">
+                    <a><i class="mdi mdi-pulse me-2"></i>Статистика</a>
+                  </li>
+                  <li class="dropdown-item">
+                    <a><i class="mdi mdi-table-off me-2"></i>Очистить данные</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="card-body pe-md-0 p-0" style="position: relative;">
+            <div class="apexchart" data-chart-name="eosChart" style="min-height: 315px;">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xxl-4 col-xl-6 col-md-6 col-12">
+        <div class="card mb-3">
+          <div class="d-flex justify-content-between">
+            <div class="d-flex flex-column p-3">
+              <h6 class="surtitle">Статистика</h6>
+              <h5 class="mb-0">Исковые заявления поданные через портал ГАС Правосудие</h5>
+            </div>
+            <div class="d-flex me-2 flex-column p-3">
+              <div>
+                <a class="dropdown-toggle no-carret text-secondary" id="menu14" data-bs-toggle="dropdown"><i
+                    class="mdi mdi-dots-vertical"></i></a>
+                <ul class="dropdown-menu dropdown-arrow" aria-labelledby="menu14" data-bs-popper="none">
+                  <li class="dropdown-item">
+                    <a><i class="mdi mdi-sync me-2"></i>Обновить данные</a>
+                  </li>
+                  <li class="dropdown-item">
+                    <a><i class="mdi mdi-list-status me-2"></i>Детализация</a>
+                  </li>
+                  <li class="dropdown-item">
+                    <a><i class="mdi mdi-pulse me-2"></i>Статистика</a>
+                  </li>
+                  <li class="dropdown-item">
+                    <a><i class="mdi mdi-table-off me-2"></i>Очистить данные</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="card-body pe-md-0 p-0" style="position: relative;">
+            <div class="apexchart" data-chart-name="eosgcaseChart" style="min-height: 315px;">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xxl-4 col-xl-6 col-md-6 col-12">
+        <div class="card mb-3">
+          <div class="d-flex justify-content-between">
+            <div class="d-flex flex-column p-3">
+              <h6 class="surtitle">Статистика</h6>
               <h5 class="mb-0">Гражданские дела (рассмотрено)</h5>
             </div>
             <div class="d-flex me-2 flex-column p-3">

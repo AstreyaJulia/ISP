@@ -45,7 +45,13 @@
             href="?page=phonebook">
             <i class="mdi fs-4 mdi-phone-classic"></i>
             <span class="ms-2">Телефонный справочник</span></a></li>
+        <li class="submenu-item mb-2 p-0"><a
+            class="submenu-link d-flex align-items-center w-100 py-2 px-3 position-relative m-0 text-decoration-none rounded-2"
+            href="?page=stats">
+            <i class="mdi fs-4 mdi-chart-arc"></i>
+            <span class="ms-2">Статистика</span></a></li>
       </ul>
+
 
     <li class="menu-item with-sub">
       <a
@@ -61,11 +67,6 @@
             href="?page=faq">
             <i class="mdi fs-4 mdi-lightbulb-on-outline"></i>
             <span class="ms-2">База знаний</span></a></li>
-        <li class="submenu-item mb-2 p-0"><a
-            class="submenu-link d-flex align-items-center w-100 py-2 px-3 position-relative m-0 text-decoration-none rounded-2"
-            href="?page=stats">
-            <i class="mdi fs-4 mdi-chart-arc"></i>
-            <span class="ms-2">Статистика</span></a></li>
       </ul>
     </li>
     <?php if ($_COOKIE['aut']['sudo'] == 1): ?>

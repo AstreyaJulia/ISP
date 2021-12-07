@@ -884,6 +884,77 @@ const apexChartOptions = (chartname) => {
       x: {show: false}
     },
   }
+  const eosChart = {
+    series: [{
+      name: 'Обращения на портале ГАС Правосудие, без исковых',
+      data: [87, 230, 423, 588]
+    }],
+    chart: {
+      height: 350,
+      type: 'area',
+    },
+    colors: [colors.theme['primary']],
+    fill: {
+      type: 'gradient',
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        gradientToColors: [colors.themeLighter['primary'], colors.theme['primary']],
+        opacityFrom: 0.7,
+        opacityTo: 0.55,
+        stops: [0, 80, 100]
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'smooth'
+    },
+    xaxis: {
+      categories: [2018, 2019, 2020, 2021]
+    },
+    tooltip: {
+      x: {show: false}
+    },
+  }
+  const eosgcaseChart = {
+    series: [{
+      name: 'Исковые заявления поданные через портал ГАС Правосудие',
+      data: [21, 43, 35, 93]
+    }],
+    chart: {
+      height: 350,
+      type: 'area',
+    },
+    colors: [colors.theme['green']],
+    fill: {
+      type: 'gradient',
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        gradientToColors: [colors.themeLighter['green'], colors.theme['green']],
+        opacityFrom: 0.7,
+        opacityTo: 0.55,
+        stops: [0, 80, 100]
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'smooth'
+    },
+    xaxis: {
+      categories: [2018, 2019, 2020, 2021]
+    },
+    tooltip: {
+      x: {show: false}
+    },
+  }
+
 
 
   switch (chartname) {
@@ -907,6 +978,10 @@ const apexChartOptions = (chartname) => {
       return u1caseChart;
     case 'mucaseChart':
       return mucaseChart;
+    case 'eosChart':
+      return eosChart;
+    case 'eosgcaseChart':
+      return eosgcaseChart;
   }
 }
 
