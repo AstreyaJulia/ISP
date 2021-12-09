@@ -4,7 +4,7 @@
       <div class="header-left d-flex align-items-center justify-content-between p-2">
         <a class="btn-back me-3" role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Назад"><i
             class="mdi mdi-24px mdi-arrow-left"></i></a>
-        <p class="h5 main-content-title mb-0">Статистика</p>
+        <p class="h5 main-content-title mb-0">Графики</p>
       </div>
       <div class="header-right d-flex align-items-center justify-content-between p-2">
         <nav aria-label="breadcrumb" class="align-items-center d-xxl-flex d-xl-flex d-md-flex d-sm-none d-none">
@@ -17,7 +17,7 @@
             </li>
             <li class="breadcrumb-item p-2">
               <a class="p-2" data-bs-toggle="tooltip" data-bs-placement="top"
-                 title="Статистика">Статистика
+                 title="Статистика">Графики
               </a>
             </li>
           </ol>
@@ -195,7 +195,6 @@
           </div>
         </div>
       </div>
-
       <div class="col-xxl-4 col-xl-6 col-md-6 col-12">
         <div class="card mb-3">
           <div class="d-flex justify-content-between">
@@ -434,7 +433,6 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </main>

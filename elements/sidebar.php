@@ -30,7 +30,6 @@
         <span class="ms-2">Каталог ссылок</span>
       </a>
     </li>
-
     <li class="menu-item with-sub">
       <a
         class="menu-link position-relative rounded-2 d-flex align-items-center w-100 py-2 px-3 position-relative m-0 text-decoration-none rounded-2"
@@ -45,13 +44,24 @@
             href="?page=phonebook">
             <i class="mdi fs-4 mdi-phone-classic"></i>
             <span class="ms-2">Телефонный справочник</span></a></li>
+      </ul>
+    </li>
+    <li class="menu-item with-sub">
+      <a
+        class="menu-link position-relative rounded-2 d-flex align-items-center w-100 py-2 px-3 position-relative m-0 text-decoration-none rounded-2"
+      >
+        <i class="mdi fs-4 mdi-chart-arc"></i>
+        <span class="ms-2">Статистика</span>
+        <i class="menu-arrow position-absolute mdi mdi-chevron-right"></i>
+      </a>
+      <ul class="sub-menu mt-2 mx-0 mb-0 ps-0">
         <li class="submenu-item mb-2 p-0"><a
             class="submenu-link d-flex align-items-center w-100 py-2 px-3 position-relative m-0 text-decoration-none rounded-2"
             href="?page=stats">
             <i class="mdi fs-4 mdi-chart-arc"></i>
-            <span class="ms-2">Статистика</span></a></li>
+            <span class="ms-2">Графики</span></a></li>
       </ul>
-
+    </li>
 
     <li class="menu-item with-sub">
       <a

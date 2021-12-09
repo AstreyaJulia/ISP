@@ -521,6 +521,13 @@ a {
   left: var(--sidebar-width);
 }
 
+.main-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+}
+
 // Сайдбар
 
 .page-body[data-sidebar-width="narrow"] .main-sidebar {

@@ -2,45 +2,30 @@
 
 @media print {
 
-  .main-content,
-  .content-wrapper,
-  .page-wrapper,
-  .page-body {
-    margin: 0 !important;
-    //top: 0 !important;
-    padding: 0 !important;
-    max-width: none !important;
-    max-height: none !important;
-    //overflow: hidden !important;
-    position: unset !important;
-    font-size: 12px !important;
-    line-height: normal !important;
-    height: 100% !important;
-  }
-
-  .page-body,
+.page-body {
+  position: relative !important;
+  top: 0 !important;
+  left: 0 ;
+  width: 100% !important;
+  height: auto !important;
+}
   .page-wrapper {
-    position: relative !important;
-    height: 100% !important;
-    top: 0 !important;
-    bottom: 0 !important;
-    overflow: auto !important;
-    min-height: unset  !important;
+    min-height: revert !important;
+    overflow: hidden;
   }
 
   .main-content {
-    position: absolute !important;
     top: 0 !important;
     left: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
+    overflow: hidden;
+    position: revert !important;
+    padding: 0 !important;
+    margin: 0 !important;
   }
 
-  .page-body,
-  .page-wrapper,
-  .page-wrapper .d-flex,
-  .d-flex.flex-column.w-100.vh-100 {
-    display: block !important;
+  .main-content-wrapper {
+    height: auto !important;
+    overflow: hidden;
   }
 
   p {
@@ -58,7 +43,14 @@
   .apexcharts-xaxistooltip,
   .apexcharts-yaxistooltip,
   .apexcharts-yaxistooltip-text,
-  .back-to-top {
+  .apexcharts-toolbar,
+  .back-to-top,
+  .dataTables_length,
+  .dataTables_filter,
+  .dataTables_paginate,
+  .dataTables_info,
+  .faq-categories-list,
+  .faq-categories .col-3 {
     display: none !important;
   }
 
@@ -83,7 +75,7 @@
     color: #000 !important;
     box-shadow: none !important;
     text-shadow: none !important;
-    //overflow: hidden !important;
+    overflow: hidden !important;
   }
 
   .main-content-header > *,
