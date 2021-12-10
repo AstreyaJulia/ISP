@@ -28,21 +28,42 @@ $content = '
       </div>
     </header>
         <div class="row tetris-wrapper">
-        <div class="col-12">
+        <div class="col-4 d-flex flex-column align-items-center">
+        <p>
+  <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+    <i class="mdi mdi-star-outline text-white"></i> Рейтинг игроков
+  </button>
+</p>
+<div style="min-height: 120px;">
+  <div class="collapse" id="collapseWidthExample">
+    <div class="card card-body">
+    <table>
+    <tr>
+    <td><i class="mdi mdi-crown"></i></td>
+    <td>Игрок 1</td>
+    <td>100</td>
+</tr>
+</table>
+    </div>
+  </div>
+</div>
+        </div>
+        <div class="col-4">
+        <canvas width="320" height="640" id="game" class="tetris-canvas"></canvas>
         <div class="row" style="height: 54px;">
         <div class="col-12">
                <button class="tetr-start-game btn btn-primary mb-3" style="width: 320px;">Начать игру</button>
 </div>
 </div>
-<div class="row">
-<div class="col-12">
-<canvas width="320" height="640" id="game" class="tetris-canvas"></canvas>
-<canvas style="border: 0" width="450" height="100" id="score"></canvas>
-</div>
-</div>
+        </div>
+        <div class="col-4">
+        <canvas style="border: 0" width="450" height="100" id="score"></canvas>
+
+        </div>
+
+
 
 </div>
-        </div>
 
       </div>
 </main>

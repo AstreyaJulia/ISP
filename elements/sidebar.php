@@ -30,6 +30,14 @@
         <span class="ms-2">Каталог ссылок</span>
       </a>
     </li>
+    <li class="menu-item">
+      <a
+        class="menu-link position-relative rounded-2 d-flex align-items-center w-100 py-2 px-3 position-relative m-0 text-decoration-none rounded-2"
+        href="?page=fullcalendar">
+        <i class="mdi fs-4 mdi-calendar"></i>
+        <span class="ms-2">Календарь</span>
+      </a>
+    </li>
     <li class="menu-item with-sub">
       <a
         class="menu-link position-relative rounded-2 d-flex align-items-center w-100 py-2 px-3 position-relative m-0 text-decoration-none rounded-2"
@@ -97,11 +105,6 @@
             <span class="ms-2">Панель управления</span></a></li>
         <li class="submenu-item mb-2 p-0"><a
             class="submenu-link d-flex align-items-center w-100 py-2 px-3 position-relative m-0 text-decoration-none rounded-2"
-            href="?page=staff">
-            <i class="mdi fs-4 mdi-account-multiple"></i>
-            <span class="ms-2">Сотрудники</span></a></li>
-        <li class="submenu-item mb-2 p-0"><a
-            class="submenu-link d-flex align-items-center w-100 py-2 px-3 position-relative m-0 text-decoration-none rounded-2"
             href="?page=workroom">
             <i class="mdi fs-4 mdi-wan"></i>
             <span class="ms-2">Рабочие места</span></a></li>
@@ -127,11 +130,6 @@
         <i class="menu-arrow position-absolute mdi mdi-chevron-right"></i>
       </a>
       <ul class="sub-menu mt-2 mx-0 mb-0 ps-0">
-        <li class="submenu-item mb-2 p-0"><a
-            class="submenu-link d-flex align-items-center w-100 py-2 px-3 position-relative m-0 text-decoration-none rounded-2"
-            href="?page=fullcalendar">
-            <i class="mdi fs-4 mdi-calendar"></i>
-            <span class="ms-2">Календарь</span></a></li>
         <li class="submenu-item mb-2 p-0"><a
             class="submenu-link d-flex align-items-center w-100 py-2 px-3 position-relative m-0 text-decoration-none rounded-2"
             href="?page=to-do">

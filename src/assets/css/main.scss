@@ -978,7 +978,6 @@ a {
   width: 40px;
   height: 40px;
   text-align: center;
-  color: $white;
   position: fixed;
   border-radius: 10%;
   background-color: $primary;
@@ -990,12 +989,21 @@ a {
   justify-content: center;
   align-items: center;
   font-size: 24px;
+  z-index: 99999;
 
-  :hover {
+  i {
+    color: $white;
+  }
+
+  &:hover {
     transition: all 0.3s ease;
     opacity: 1;
     cursor: pointer;
     color: $white;
+
+    i {
+      color: $white;
+    }
   }
 }
 

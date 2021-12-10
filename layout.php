@@ -17,7 +17,7 @@ if (file_exists($path)) {
   </div>
 </div>
 <!-- Кнопка назад наверх -->
-<a class="back-to-top waves-effect" style="display: none;" data-bs-toggle="tooltip" data-bs-placement="top"
+<a class="back-to-top waves-effect" style="display: none;" data-bs-toggle="tooltip" data-bs-placement="bottom"
    title="Наверх страницы">
   <i class="mdi mdi-arrow-up"></i>
 </a>

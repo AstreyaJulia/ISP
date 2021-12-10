@@ -24,14 +24,15 @@
     </div>
     <div class="right-header">
         <ul class="nav align-items-center">
-          <li class="d-none d-sm-block topbar-divider"></li>
+          <!--
+          <li class="d-none d-sm-block topbar-divider"></li> -->
           <!-- Кнопка открытия поиска -->
-          <li class="nav-item ms-2 me-2">
+          <!-- <li class="nav-item ms-2 me-2">
             <a class="nav-link waves-effect waves-light top-search-button-toggle" data-bs-toggle="tooltip"
                data-bs-placement="top" title="Открыть окно поиска">
               <i class="mdi mdi-magnify"></i>
             </a>
-          </li>
+          </li> -->
           <li class="d-none d-sm-block topbar-divider"></li>
           <li
             class="today-group d-sm-flex d-md-flex d-lg-flex d-xl-flex d-xxl-flex d-none align-items-center justify-content-center ms-3">
