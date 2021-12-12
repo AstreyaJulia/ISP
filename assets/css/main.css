@@ -53816,6 +53816,8 @@ a :hover {
 }
 .toasts-container .toast {
   box-shadow: var(--ui-shadow-elements);
+  background-color: var(--ui-bg);
+  border: 1px solid rgba(var(--ui-text-mid), 0.5);
 }
 .toasts-container .toast-header i {
   font-size: 20px;
@@ -54277,7 +54279,7 @@ a :hover {
   bottom: 20px;
   right: 36px;
   transition: all 0.3s ease;
-  opacity: 0.7;
+  opacity: 0.5;
   box-shadow: 0 0 10px #6C5CE8;
   justify-content: center;
   align-items: center;
@@ -59828,7 +59830,6 @@ $theme-map-light: (
 }
 
 .tetris-canvas {
-  border: 1px solid #1F2B3A;
   background-color: #1F2B3A;
   margin: 0 auto;
 }

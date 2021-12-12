@@ -387,6 +387,8 @@ a {
 
   .toast {
     box-shadow: var(--ui-shadow-elements);
+    background-color: var(--ui-bg);
+    border: 1px solid rgba(var(--ui-text-mid), .5);
 
     &-header i {
       font-size: 20px;
