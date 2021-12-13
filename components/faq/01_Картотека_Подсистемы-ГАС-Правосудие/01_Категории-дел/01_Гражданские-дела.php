@@ -1,5 +1,6 @@
 ﻿<?php
-$ourData = file_get_contents($_SERVER['DOCUMENT_ROOT'] . "/data/categories-civil-cases.json");
+$path = 'http://192.168.0.254:8079/api_GAS/categories-civil-cases.php';
+$ourData = file_get_contents($path);
 $row = json_decode($ourData);
 ?>
 <table class="table dataTable nosort">

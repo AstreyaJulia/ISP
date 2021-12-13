@@ -1,6 +1,14 @@
 <?php
-$path ="http://192.168.0.254:8079/api_GAS/categories-material.php";
+//header("Content-Type: application/json; charset=windows-1251");
+//header('Content-Type: text/html; charset=windows-1251');
+header('Content-Type: text/html; charset=utf-8');
+error_reporting(E_ALL);
+ini_set("display_errors", "on");
+
+$path = 'http://192.168.0.254:8079/api_GAS/categories-material.php';
+
 $ourData = file_get_contents($path);
+
 $row = json_decode($ourData);
 $F1 = array_column($row, 'F1');
 $NAME = array_column($row, 'NAME');
@@ -56,3 +64,5 @@ array_walk($array, function ($item, $key) use (&$resultArray) {
   <?php endforeach ?>
   </tbody>
 </table>
+
+
