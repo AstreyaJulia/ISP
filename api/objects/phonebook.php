@@ -33,11 +33,23 @@
 	    // Группы пользователей
 	    public function getGroup() {
 	        $sql = "SELECT
-	        			sdc_vocation.id,
-	        			sdc_vocation.name AS groupName
-					FROM `sdc_vocation` 
-					WHERE sdc_vocation.parent_id IS NULL";
+	        			Vocation.id,
+	        			Vocation.name AS groupName
+					FROM `sdc_vocation` AS Vocation
+					WHERE Vocation.parent_id IS NULL";
 	        return $this->db->run($sql)->fetchAll(\PDO::FETCH_CLASS);
+	    }
+
+	    // количество активных пользователей при использовании пагинации
+	    public function count($group) {
+	    	$prepare = str_repeat('?,', count($group) - 1) . '?';
+	    	$sql = "SELECT
+	    				COUNT(*) as `total_rows`
+	    			FROM `sdc_users` AS Users
+	    				LEFT JOIN `sdc_user_attributes` AS UserAttributes on Users.id = UserAttributes.internalKey
+                        LEFT JOIN `sdc_vocation` AS Vocation ON Vocation.id=UserAttributes.profession
+	    			WHERE Users.active=1 and Users.id !=1 AND Vocation.parent_id IN($prepare)";
+	        return $this->db->run($sql, $group)->fetchColumn();
 	    }
 
 	}
