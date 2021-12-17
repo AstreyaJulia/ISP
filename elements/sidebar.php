@@ -105,11 +105,6 @@
             <span class="ms-2">Панель управления</span></a></li>
         <li class="submenu-item mb-2 p-0"><a
             class="submenu-link d-flex align-items-center w-100 py-2 px-3 position-relative m-0 text-decoration-none rounded-2"
-            href="?page=workroom">
-            <i class="mdi fs-4 mdi-wan"></i>
-            <span class="ms-2">Рабочие места</span></a></li>
-        <li class="submenu-item mb-2 p-0"><a
-            class="submenu-link d-flex align-items-center w-100 py-2 px-3 position-relative m-0 text-decoration-none rounded-2"
             href="?page=workplaces">
             <i class="mdi fs-4 mdi-wan"></i>
             <span class="ms-2">Рабочие места</span></a></li>
