@@ -9,7 +9,7 @@
 	    public function __construct(DB $db) {
 	        $this->db = $db;
 	    }
-	    
+
 	    public function visits() {
 	        $sql = "SELECT
 	        			count(id) AS count,

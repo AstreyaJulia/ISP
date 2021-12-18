@@ -97,7 +97,12 @@
         </div>
       </div>
       <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
-
+        <div class="card card mb-3 p-3">
+          <div class="widget-content">
+            <h6 class="surtitle">Посещения</h6>
+            <div class="apexchart" data-chart-name="successLineChart"></div>
+          </div>
+        </div>
       </div>
 
       <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">

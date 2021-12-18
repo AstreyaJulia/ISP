@@ -533,7 +533,6 @@ const apexChartList = document.querySelectorAll('.apexchart');
 
 const apexChartOptions = (chartname) => {
 
-
   const safpeopleChart = {
     series: [{
       name: 'Население г. Сафоново',
@@ -954,8 +953,51 @@ const apexChartOptions = (chartname) => {
       x: {show: false}
     },
   }
+// Рефералы
+  const successLineChartData = () => {
+    return {
+      data: [50, 0, 50, 40, 90, 0, 40, 25, 80, 40, 45],
+    }
+  }
+  const successLineChart = {
+    chart: {
+      height: 100,
+      type: 'line',
+      toolbar: {
+        show: false
+      }
+    },
+    grid: {
+      show: false,
+    },
+    legend: {
+      show: false,
+    },
+    dataLabels: {
+      enabled: false
+    },
+    colors: [colors.theme['success']],
+    stroke: {
+      width: 3,
+      curve: 'smooth'
+    },
+    series: [{
+      data: ajax_send("GET", "api/visits/getVisits.php", null, "json", result => result.count)
 
-
+    }],
+    xaxis: {
+      categories: ajax_send("GET", "api/visits/getVisits.php", null, "json", result => result.day)
+    },
+    yaxis: {
+      show: false,
+      labels: {
+        show: false
+      },
+      axisBorder: {
+        show: false
+      }
+    },
+  };
 
   switch (chartname) {
     case 'safpeopleChart':
@@ -982,6 +1024,8 @@ const apexChartOptions = (chartname) => {
       return eosChart;
     case 'eosgcaseChart':
       return eosgcaseChart;
+    case 'successLineChart':
+      return successLineChart;
   }
 }
 
@@ -1162,7 +1206,12 @@ const ajax_send = (method, url, parameters, datatype, callback) => {
   switch (method) {
     // Настраиваем его: GET или POST, URL
     case "GET":
-      let queryString = Object.keys(parameters).map(key => key + '=' + parameters[key]).join('&');
+      let queryString;
+      if (parameters !== null) {
+        queryString = Object.keys(parameters).map(key => key + '=' + parameters[key]).join('&');
+      } else {
+        queryString = null;
+      }
       xhr.open(method, url + "?" + queryString, true);
       xhr.setRequestHeader('Accept', 'application/json, text/plain, */*');
       xhr.send(null);
@@ -4194,44 +4243,15 @@ const placeitemsTree = document.getElementById('placeitems-tree');
 let zTreeObj;
 
 const zTreeHandler = () => {
-  // Показать popover
-  function showPopover(treeNode) {
-    let tooltip = new bootstrap.Popover(event.el, {
-      template: '<div class="popover popover-info" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>',
-      title: treeNode.name,
-      content: treeNode.id,
-      placement: 'top',
-    });
-    tooltip.show();
-  }
-
-  // Скрыть popover
-  function hidePopover() {
-    let tooltips = document.querySelectorAll(".popover");
-    tooltips.forEach(function (tooltip) {
-      document.body.removeChild(tooltip);
-    });
-  }
 
   function myOnClick(event, treeId, treeNode) {
     alert(treeNode.id + ", " + treeNode.name);
   }
 
-  function myOnMouseUp(event, treeId, treeNode) {
-    showPopover(treeNode);
-    alert(treeNode ? treeNode.tId + ", " + treeNode.name : "isRoot");
-  }
-
-  function myOnMouseDown(event, treeId, treeNode) {
-    hidePopover();
-  }
-
   // zTree конфигурация, изучите API документацию (детали настройки)
   const settingWorktree = {
     callback: {
-      onClick: myOnClick,
-      onMouseUp: myOnMouseUp,
-      onMouseDown: myOnMouseDown,
+      onClick: myOnClick
     },
     data: {
       key: {
@@ -4244,7 +4264,6 @@ const zTreeHandler = () => {
   };
 
   const settingPlaceitems = {};
-
 
   let workplacesdata = {
     module: "workplaces",
