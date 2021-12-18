@@ -4667,7 +4667,7 @@ const zTreeHandler = () => {
   ];
 
   const workPlaceStructure = () => {
-    ajax_send("GET", "pages/admin/ajax.php", test, result => $.fn.zTree.init($("#workplace-tree"), settingWorktree, result));
+    ajax_send("GET", "pages/admin/ajax.php", test, "json", result => {$.fn.zTree.init($("#workplace-tree"), settingWorktree, result); console.log(result)});
   }
 
   workPlaceStructure();

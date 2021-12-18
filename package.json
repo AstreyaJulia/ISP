@@ -14,7 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "@babel/cli": "^7.16.0",
-    "@babel/core": "^7.16.0",
+    "@babel/core": "^7.16.5",
     "@fullcalendar/core": "^5.10.1",
     "@fullcalendar/daygrid": "^5.10.1",
     "@fullcalendar/moment-timezone": "^5.10.1",
@@ -76,7 +76,7 @@
     "node": "14.17.3"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.16.4",
+    "@babel/preset-env": "^7.16.5",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.2.3",
     "babel-preset-latest": "^6.24.1",
