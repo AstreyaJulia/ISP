@@ -1,5 +1,54 @@
 'use strict';
 
+let array;
+
+function handleResponse(response) {
+  response.json().then((json) => {
+    //console.log('what should I do with this json?', json, response);
+    console.log('что мне сделать с этим json?', json);
+    return json;
+  })
+}
+fetch('api/visits/getVisits.php').then(handleResponse);
+
+const ajax_send_promise = (method, url, parameters) => new Promise((onFulfilled, onFail) => {
+  const xhr = new XMLHttpRequest();
+  switch (method) {
+    // Настраиваем его: GET или POST, URL
+    case "GET":
+      let queryString;
+      if (parameters !== null) {
+        queryString = Object.keys(parameters).map(key => key + '=' + parameters[key]).join('&');
+      } else {
+        queryString = null;
+      }
+      xhr.open(method, url + "?" + queryString, true);
+      xhr.setRequestHeader('Accept', 'application/json, text/plain, */*');
+      xhr.onload = () => onFulfilled(JSON.parse(xhr.response));
+      xhr.onerror = () => onFail(xhr.status);
+      xhr.send(null);
+      break;
+
+    case "POST":
+      xhr.open(method, url, true);
+      xhr.setRequestHeader('Accept', 'application/json, text/plain, */*');
+      xhr.onload = () => onFulfilled(JSON.parse(xhr.response));
+      xhr.onerror = () => onFail(xhr.status);
+      xhr.send(parameters);
+      break;
+  }
+
+});
+
+//ajax_send_promise("GET", `api/visits/getVisits.php`, null).then((data) => {handleResponse(data);});
+const getdata = async () => {
+  return await fetch('api/visits/getVisits.php').then(handleResponse);
+}
+
+//array = getdata();
+
+//console.log(array);
+
 // Цвета
 const colors = {
   theme: {
@@ -982,11 +1031,11 @@ const apexChartOptions = (chartname) => {
       curve: 'smooth'
     },
     series: [{
-      data: ajax_send("GET", "api/visits/getVisits.php", null, "json", result => result.count)
+      data: array.value.count
 
     }],
     xaxis: {
-      categories: ajax_send("GET", "api/visits/getVisits.php", null, "json", result => result.day)
+      categories: array.value.day
     },
     yaxis: {
       show: false,
