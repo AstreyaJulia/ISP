@@ -9,7 +9,8 @@ function handleResponse(response) {
     return json;
   })
 }
-fetch('api/visits/getVisits.php').then(handleResponse);
+//fetch('api/visits/getVisits.php').then(handleResponse);
+fetch('api/visits/getVisits.php').then((response) => response.json()).then((json) => console.log(json));
 
 const ajax_send_promise = (method, url, parameters) => new Promise((onFulfilled, onFail) => {
   const xhr = new XMLHttpRequest();
@@ -42,12 +43,20 @@ const ajax_send_promise = (method, url, parameters) => new Promise((onFulfilled,
 
 //ajax_send_promise("GET", `api/visits/getVisits.php`, null).then((data) => {handleResponse(data);});
 const getdata = async () => {
-  return await fetch('api/visits/getVisits.php').then(handleResponse);
+  return await fetch('api/visits/getVisits.php').then((data) => {return data.json()});
+}
+const successLineChartData = () => {
+  return {
+    data: [50, 0, 50, 40, 90, 0, 40, 25, 80, 40, 45],
+  }
 }
 
+//console.log(array);
+console.log(successLineChartData())
+//fetch('api/visits/getVisits.php').then((data) => {console.log(data)});
 //array = getdata();
 
-//console.log(array);
+//console.log(getdata);
 
 // Цвета
 const colors = {
@@ -1010,10 +1019,10 @@ const apexChartOptions = (chartname) => {
   }
   const successLineChart = {
     chart: {
-      height: 100,
+      height: 350,
       type: 'line',
       toolbar: {
-        show: false
+        show: true
       }
     },
     grid: {
@@ -1030,13 +1039,14 @@ const apexChartOptions = (chartname) => {
       width: 3,
       curve: 'smooth'
     },
-    series: [{
-      data: array.value.count
-
-    }],
-    xaxis: {
-      categories: array.value.day
+    series: [],
+    noData: {
+      text: 'Loading...'
     },
+  /*
+      xaxis: {
+        categories: array.value.day
+      },*/
     yaxis: {
       show: false,
       labels: {
@@ -4883,6 +4893,45 @@ const init = () => {
     });
   }
 
+  const options = {
+    chart: {
+      height: 350,
+      type: 'bar',
+    },
+    dataLabels: {
+      enabled: false
+    },
+    series: [],
+    title: {
+      text: 'Ajax Example',
+    },
+    noData: {
+      text: 'Loading...'
+    }
+  };
+
+  let apexchartVisits = new ApexCharts(document.querySelector(".apexchart1"), apexChartOptions("successLineChart"));
+  apexchartVisits.render();
+  //apexChartInit(chartVisits, "successLineChart");
+  $.getJSON('api/visits/getVisits.php', function(response) {
+    apexchartVisits.updateSeries([{
+      name: 'Посещеничя',
+      data: response
+    }])
+  });
+
+  /*fetch('api/visits/getVisits.php').then((json) => apexchartVisits.updateSeries([{
+      name: 'Посещения',
+      data: json
+    }])
+  );*/
+
+  /*$.getJSON("api/visits/getVisits.php", function(response) {
+    chartVisits.updateSeries([{
+      name: 'Sales',
+      data: response
+    }])
+  });*/
 
   // Отрисовка слайдера на дашбоарде
   if (sliderCarousel) {

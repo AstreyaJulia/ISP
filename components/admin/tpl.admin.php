@@ -100,7 +100,7 @@
         <div class="card card mb-3 p-3">
           <div class="widget-content">
             <h6 class="surtitle">Посещения</h6>
-            <div class="apexchart" data-chart-name="successLineChart"></div>
+            <div class="apexchart1" data-chart-name="successLineChart"></div>
           </div>
         </div>
       </div>

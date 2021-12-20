@@ -7,13 +7,13 @@
 
     $visitsClass = new \Api\Objects\Visits($db);
 
-    $data = $visitsClass->getVisits();
+    $data = $visitsClass->visits();
 
     // установим код ответа - 200 OK
     http_response_code(200);
 
     //время выполнения скрипта
-    $data["time"] = (microtime(true) - $start);
+    //$data["time"] = (microtime(true) - $start);
 
     // вывод в json-формате
     echo json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
