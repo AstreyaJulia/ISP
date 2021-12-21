@@ -37,6 +37,7 @@
           </div>
 
           <div class="col-xxl-8 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+            <!-- Новости
             <div class="news-widget">
               <div class="news-list d-flex flex-wrap">
                 <div class="card widget flex-grow-1 mb-3">
@@ -100,6 +101,7 @@
                 <a href="#" class="btn btn-outline-primary btn-sm">Все новости</a>
               </div>
             </div>
+            -->
           </div>
 
         </div>

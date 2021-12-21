@@ -30,7 +30,6 @@
       </div>
     </header>
     <div class="boxed-content container align-items-center justify-content-end d-flex mb-3">
-      <a class="btn btn-primary" href="?page=staff&editStaff=add">Добавить сотрудника</a>
       <button class="btn btn-primary ms-2" type="button" id="contentmenu" data-bs-toggle="dropdown"
               data-bs-placement="top" title="Меню">
         <i class="mdi mdi-cog-outline"></i>
@@ -38,6 +37,51 @@
       <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="contentmenu">
         <a href="#" class="dropdown-item btn-print">Печать</a>
       </ul>
+    </div>
+    <div class="boxed-content row">
+      <div class="col-lg-3 col-sm-6">
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="d-flex align-items-start">
+              <div class="d-flex flex-grow-1 flex-shrink-1 flex-column">
+                <p class="text-muted mb-2">Зарегистрировано</p>
+                <h5 class="mb-0">51</h5>
+              </div>
+              <div class="card-icon bg-primary-lighter text-primary grey-shadow-2">
+                <i class="mdi mdi-account-group-outline"></i>
+              </div>            </div>
+          </div>
+        </div>      </div>
+      <div class="col-lg-3 col-sm-6">
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="d-flex align-items-start">
+              <div class="d-flex flex-grow-1 flex-shrink-1 flex-column">
+                <p class="text-muted mb-2">Активно</p>
+                <h5 class="mb-0">45</h5>
+              </div>
+              <div class="card-icon bg-success-lighter text-success grey-shadow-2">
+                <i class="mdi mdi-account-eye-outline"></i>
+              </div>          </div>
+        </div>      </div>
+    </div>
+      <div class="col-lg-3 col-sm-6">
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="d-flex align-items-start">
+              <div class="d-flex flex-grow-1 flex-shrink-1 flex-column">
+                <p class="text-muted mb-2">Заблокировано</p>
+                <h5 class="mb-0">6</h5>
+              </div>
+              <div class="card-icon bg-danger-lighter text-danger grey-shadow-2">
+                <i class="mdi mdi-account-cancel"></i>
+              </div>
+            </div>      </div>
+      </div>
+    </div>
+      <div class="col-lg-3 col-sm-6 align-items-center d-flex">
+        <a class="btn btn-primary btn-block mb-3" href="?page=staff&editStaff=add">Добавить сотрудника</a>
+      </div>
     </div>
     <div class="boxed-content">
       <div class="card">

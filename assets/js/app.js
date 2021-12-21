@@ -1019,7 +1019,7 @@ const apexChartOptions = (chartname) => {
   }
   const successLineChart = {
     chart: {
-      height: 300,
+      height: 350,
       type: 'line',
       toolbar: {
         show: true

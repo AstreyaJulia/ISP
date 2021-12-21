@@ -44,14 +44,6 @@
           <div class="widget-content">
             <div class="d-flex align-items-center justify-content-between mb-2">
               <h6 class="surtitle">Пользователи</h6>
-              <div>
-                <a class="dropdown-toggle no-carret text-secondary" id="menu4" data-bs-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
-                <ul class="dropdown-menu" aria-labelledby="menu4" data-bs-popper="none">
-                  <li class="dropdown-item">
-                    <a><i class="mdi mdi-sync me-2"></i>Обновить данные</a>
-                  </li>
-                </ul>
-              </div>
             </div>
             <div class="widget-content">
               <div class="pt-1">

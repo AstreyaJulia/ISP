@@ -45861,7 +45861,11 @@ table.dataTable > thead .sorting_desc_disabled:before {
   line-height: inherit;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  content: "\f0737";
+  content: "\f0143";
+  right: 0.3rem;
+  top: 0.5rem;
+  width: 14px;
+  height: 14px;
 }
 
 table.dataTable > thead .sorting:after,
@@ -45876,8 +45880,11 @@ table.dataTable > thead .sorting_desc_disabled:after {
   line-height: inherit;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  content: "\f072e";
-  color: #6C5CE8;
+  content: "\f0140";
+  right: 0.3rem;
+  top: 1.3rem;
+  width: 14px;
+  height: 14px;
 }
 
 div.dataTables_wrapper div.dataTables_filter input[type=search] {
