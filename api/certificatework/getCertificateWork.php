@@ -10,7 +10,7 @@
     $quarter = isset($_GET['quarter']) ? explode(',', $_GET["quarter"]) : die();
     $year = $_GET['year'] ?? die();
 
-    $certificate = $CertificateWorkClass->getSelect($quarter, $year);
+    $certificate["data"] = $CertificateWorkClass->getSelect($quarter, $year);
 
     if ($certificate) {
         // установим код ответа - 200 OK
