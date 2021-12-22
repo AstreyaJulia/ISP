@@ -109,6 +109,18 @@
 
       <!-- Правая половина дашбоарда. Узкая-->
       <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-5 col-sm-6 col-12">
+        <!-- Анимация
+        <div class="card mb-3 container-fluid p-0 stars-animation">
+          <div class="card-body">
+            <i class="mdi mdi-close-thick star"></i>
+            <i class="mdi mdi-close-thick star"></i>
+            <i class="mdi mdi-close-thick star"></i>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+          </div>
+        </div>
+        -->
 
         <div class="card mb-3 container-fluid p-0">
           <div class="card-body">
@@ -121,6 +133,7 @@
         <div class="card today-events mb-3 visually-hidden"><!-- Пока нет календаря-->
           <div class="card-body">
             <h5 class="widget-title">События сегодня</h5>
+
             <ul class="today-events-list">
               <li class="today-events-item">
                 <p class="event-time">Весь день</p>
@@ -129,14 +142,30 @@
                 </div>
               </li>
             </ul>
+
           </div>
         </div>
-        <div class="card position-relative bg-primary widget-bdays <?php visuallyHidden($birthday); ?>">
+        <div class="card position-relative confetti-animation bg-primary widget-bdays <?php visuallyHidden($birthday); ?>">
           <div>
             <div class="row g-0">
               <div class="col-9">
                 <div class="card-body">
                   <p class="text-white text-uppercase fw-bold mb-0 font-small-1">Дни рождения сегодня</p>
+                  <div class="confetti">
+                    <div class="confetti-piece"></div>
+                    <div class="confetti-piece"></div>
+                    <div class="confetti-piece"></div>
+                    <div class="confetti-piece"></div>
+                    <div class="confetti-piece"></div>
+                    <div class="confetti-piece"></div>
+                    <div class="confetti-piece"></div>
+                    <div class="confetti-piece"></div>
+                    <div class="confetti-piece"></div>
+                    <div class="confetti-piece"></div>
+                    <div class="confetti-piece"></div>
+                    <div class="confetti-piece"></div>
+                    <div class="confetti-piece"></div>
+                  </div>
                   <ul class="today-birthdays-list list-unstyled px-3 mb-0 mx-auto d-flex align-items-center flex-wrap">
                     <?php foreach ($birthday as $row): ?>
                       <li class="today-birthdays-item d-flex align-items-center mt-3 me-4">
@@ -229,10 +258,6 @@
                   </ul>
                 </div>
 
-              </div>
-              <div class="col-3 d-flex flex-column">
-                <img src="../../../assets/img/decore-left.png" class="congratulations-img-left" alt="card-img-left" style="height: auto">
-                <img src="../../../assets/img/decore-right.png" class="congratulations-img-right" alt="card-img-right" style="height: auto">
               </div>
             </div>
           </div>

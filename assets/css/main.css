@@ -52989,6 +52989,12 @@ ul.ztree.zTreeDragUL {
 
 html {
   overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
 }
 
 h1, .h1,
@@ -54622,6 +54628,226 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
   transition: all 0.2s ease;
 }
 
+.confetti-animation {
+  position: relative;
+}
+.confetti-animation .confetti {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+}
+.confetti-animation .confetti-piece {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  top: 100%;
+  opacity: 0;
+  border-radius: 10px 50px 35px 20px;
+  -webkit-animation: makeItRain 5s infinite ease-out;
+  animation: makeItRain 5s infinite ease-out;
+}
+.confetti-animation .confetti-piece:nth-child(1) {
+  left: 7%;
+  -webkit-transform: rotate(-40deg);
+  transform: rotate(-40deg);
+  -webkit-animation: makeItRain 6s infinite ease-out;
+  animation: makeItRain 6s infinite ease-out;
+}
+.confetti-animation .confetti-piece:nth-child(2) {
+  left: 14%;
+  -webkit-transform: rotate(4deg);
+  transform: rotate(4deg);
+  -webkit-animation: makeItRain 7s infinite ease-out;
+  animation: makeItRain 7s infinite ease-out;
+}
+.confetti-animation .confetti-piece:nth-child(3) {
+  left: 21%;
+  -webkit-transform: rotate(-51deg);
+  transform: rotate(-51deg);
+  -webkit-animation: makeItRain 5s infinite ease-out;
+  animation: makeItRain 5s infinite ease-out;
+}
+.confetti-animation .confetti-piece:nth-child(4) {
+  left: 28%;
+  -webkit-transform: rotate(61deg);
+  transform: rotate(61deg);
+  -webkit-animation: makeItRain 6s infinite ease-out;
+  animation: makeItRain 6s infinite ease-out;
+}
+.confetti-animation .confetti-piece:nth-child(5) {
+  left: 35%;
+  -webkit-transform: rotate(-52deg);
+  transform: rotate(-52deg);
+  -webkit-animation: makeItRain 5s infinite ease-out;
+  animation: makeItRain 5s infinite ease-out;
+}
+.confetti-animation .confetti-piece:nth-child(6) {
+  left: 42%;
+  -webkit-transform: rotate(38deg);
+  transform: rotate(38deg);
+  -webkit-animation: makeItRain 4s infinite ease-out;
+  animation: makeItRain 4s infinite ease-out;
+}
+.confetti-animation .confetti-piece:nth-child(7) {
+  left: 49%;
+  -webkit-transform: rotate(11deg);
+  transform: rotate(11deg);
+  -webkit-animation: makeItRain 8s infinite ease-out;
+  animation: makeItRain 8s infinite ease-out;
+}
+.confetti-animation .confetti-piece:nth-child(8) {
+  left: 56%;
+  -webkit-transform: rotate(49deg);
+  transform: rotate(49deg);
+  -webkit-animation: makeItRain 7s infinite ease-out;
+  animation: makeItRain 7s infinite ease-out;
+}
+.confetti-animation .confetti-piece:nth-child(9) {
+  left: 63%;
+  -webkit-transform: rotate(-72deg);
+  transform: rotate(-72deg);
+  -webkit-animation: makeItRain 6s infinite ease-out;
+  animation: makeItRain 6s infinite ease-out;
+}
+.confetti-animation .confetti-piece:nth-child(10) {
+  left: 70%;
+  -webkit-transform: rotate(10deg);
+  transform: rotate(10deg);
+  -webkit-animation: makeItRain 5s infinite ease-out;
+  animation: makeItRain 5s infinite ease-out;
+}
+.confetti-animation .confetti-piece:nth-child(11) {
+  left: 77%;
+  -webkit-transform: rotate(4deg);
+  transform: rotate(4deg);
+  -webkit-animation: makeItRain 8s infinite ease-out;
+  animation: makeItRain 8s infinite ease-out;
+}
+.confetti-animation .confetti-piece:nth-child(12) {
+  left: 84%;
+  -webkit-transform: rotate(42deg);
+  transform: rotate(42deg);
+  -webkit-animation: makeItRain 4s infinite ease-out;
+  animation: makeItRain 4s infinite ease-out;
+}
+.confetti-animation .confetti-piece:nth-child(13) {
+  left: 91%;
+  -webkit-transform: rotate(-72deg);
+  transform: rotate(-72deg);
+  -webkit-animation: makeItRain 6s infinite ease-out;
+  animation: makeItRain 6s infinite ease-out;
+}
+.confetti-animation .confetti-piece:nth-child(odd) {
+  background-color: #fca549;
+}
+.confetti-animation .confetti-piece:nth-child(even) {
+  z-index: 1;
+}
+.confetti-animation .confetti-piece:nth-child(4n) {
+  width: 5px;
+  height: 12px;
+}
+.confetti-animation .confetti-piece:nth-child(3n) {
+  width: 3px;
+  height: 10px;
+}
+.confetti-animation .confetti-piece:nth-child(4n-7) {
+  background-color: #ff63a5;
+}
+
+@-webkit-keyframes makeItRain {
+  from {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  to {
+    -webkit-transform: translateY(-350px);
+  }
+}
+.stars-animation {
+  position: relative;
+}
+.stars-animation .circle {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: #6C5CE8;
+  position: absolute;
+}
+.stars-animation i {
+  color: #6C5CE8;
+  position: absolute;
+}
+.stars-animation .star:nth-of-type(1) {
+  bottom: 29%;
+  left: 75px;
+  position: absolute;
+  -webkit-animation: star 5s linear infinite;
+  animation: star 5s linear infinite;
+}
+.stars-animation .star:nth-of-type(2) {
+  bottom: 31%;
+  right: 8%;
+  -webkit-animation: star 7s linear infinite;
+  animation: star 7s linear infinite;
+}
+.stars-animation .star:nth-of-type(3) {
+  bottom: 54%;
+  left: 30%;
+  opacity: 0.2;
+  -webkit-animation: star 10s linear infinite;
+  animation: star 10s linear infinite;
+}
+.stars-animation .circle:nth-of-type(1) {
+  bottom: 50%;
+  left: 5%;
+  -webkit-animation: move2 1.2s infinite alternate;
+  animation: move2 1.2s infinite alternate;
+}
+.stars-animation .circle:nth-of-type(2) {
+  bottom: 45%;
+  right: 30%;
+  -webkit-animation: move2 1.4s infinite alternate;
+  animation: move2 1.4s infinite alternate;
+}
+.stars-animation .circle:nth-of-type(3) {
+  bottom: 65%;
+  right: 18%;
+  opacity: 0.2;
+  -webkit-animation: move2 1.6s infinite alternate;
+  animation: move2 1.6s infinite alternate;
+}
+
+@keyframes star {
+  0% {
+    -webkit-transform: scale(1) rotate(0deg);
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    -webkit-transform: scale(0.5) rotate(45deg);
+    transform: scale(0.5) rotate(45deg);
+  }
+  100% {
+    -webkit-transform: scale(1) rotate(0deg);
+    transform: scale(1) rotate(0deg);
+  }
+}
+@keyframes move2 {
+  0% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  100% {
+    -webkit-transform: translateY(-5px);
+    transform: translateY(-5px);
+  }
+}
 :root [data-sidebar-width=narrow] {
   --sidebar-width: 75px;
 }
