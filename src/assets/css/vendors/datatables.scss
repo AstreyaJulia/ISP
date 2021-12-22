@@ -1,0 +1,166 @@
+@import "../custom";
+
+table.dataTable > thead .sorting:before,
+table.dataTable > thead .sorting_asc:before,
+table.dataTable > thead .sorting_desc:before,
+table.dataTable > thead .sorting_asc_disabled:before,
+table.dataTable > thead .sorting_desc_disabled:before {
+  display: inline-block;
+  font: normal normal normal 24px/1 "Material Design Icons";
+  font-size: inherit;
+  text-rendering: auto;
+  line-height: inherit;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "\F0143";
+  right: 0.3rem;
+  top: 0.5rem;
+  width: 14px;
+  height: 14px
+}
+
+table.dataTable > thead .sorting:after,
+table.dataTable > thead .sorting_asc:after,
+table.dataTable > thead .sorting_desc:after,
+table.dataTable > thead .sorting_asc_disabled:after,
+table.dataTable > thead .sorting_desc_disabled:after {
+  display: inline-block;
+  font: normal normal normal 24px/1 "Material Design Icons";
+  font-size: inherit;
+  text-rendering: auto;
+  line-height: inherit;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "\F0140";
+  //color: $primary;
+  right: 0.3rem;
+  top: 1.3rem;
+  width: 14px;
+  height: 14px
+}
+
+div.dataTables_wrapper div.dataTables_filter input[type="search"] {
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  background-clip: padding-box;
+  appearance: none;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  color: var(--ui-text);
+  background-color: var(--ui-bg);
+  border: 1px solid var(--ui-border);
+}
+
+.dataTables_filter input[type="search"]:focus {
+  outline: 0;
+  color: var(--ui-text);
+  background-color: var(--ui-bg);
+  border-color: $primary-light;
+  box-shadow: 0 0 0 0.25rem $primary-20;
+}
+
+.dataTables_length,
+.dataTables_filter {
+  display: inline-flex;
+  align-items: center;
+  margin: 10px 30px 0 20px;
+}
+
+.dataTables_length select {
+  display: block;
+  width: 100%;
+  padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+  -moz-padding-start: calc(0.75rem - 3px);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  background-image: escape-svg($form-select-indicator);
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 16px 12px;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  appearance: none;
+  margin: 0 5px;
+  color: var(--ui-text);
+  background-color: var(--ui-bg);
+  border: 1px solid var(--ui-border);
+}
+
+.dataTables_length select:focus {
+  outline: 0;
+  border-color: $primary-light;
+  box-shadow: 0 0 0 0.25rem $primary-20;
+}
+
+div.dataTables_wrapper div.dataTables_filter input {
+  display: inline-flex;
+}
+
+.dataTables_info {
+  margin: auto 20px 20px 20px;
+  display: inline-flex;
+  min-width: 250px;
+  align-self: end;
+}
+
+div.dataTables_wrapper div.dataTables_paginate {
+  display: inline-flex;
+  margin: auto 20px 20px 20px;
+  align-self: end;
+}
+
+.dataTables_paginate {
+  display: flex;
+  padding-left: 0;
+}
+
+.dataTables_paginate span {
+  display: flex;
+  padding-left: 0;
+  flex-direction: row;
+  justify-content: space-between;
+  vertical-align: bottom;
+}
+
+.paginate_button.previous {
+  border-top-left-radius: .25rem;
+  border-bottom-left-radius: .25rem;
+}
+
+.paginate_button.next {
+  border-top-right-radius: .25rem;
+  border-bottom-right-radius: .25rem;
+}
+
+.paginate_button {
+  display: flex;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  margin: -1px;
+  padding: .5rem 1rem;
+  position: relative;
+  text-decoration: none;
+  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  cursor: pointer;
+  color: $primary;
+  background-color: var(--ui-bg);
+  border: 1px solid var(--ui-border);
+}
+
+.paginate_button:hover {
+  text-decoration: none;
+  background-color: $primary-20;
+}
+
+.paginate_button.current {
+  z-index: 3;
+  color: var(--ui-bg);
+  background-color: $primary;
+  border-color: $primary;
+}

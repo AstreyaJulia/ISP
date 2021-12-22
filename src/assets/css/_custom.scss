@@ -1,0 +1,652 @@
+@import "../../../node_modules/bootstrap/scss/functions";
+@import "../../../node_modules/bootstrap/scss/variables";
+@import "../../../node_modules/bootstrap/scss/mixins";
+@import "mixin";
+
+$font-family-sans-serif: "TT Norms Pro", Arial, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+// Размеры
+
+//Ширина сайдбара
+$sidebar-min: 75px;
+$sidebar-max: 270px;
+
+$sidebar-width-min: (
+  '--sidebar-width': $sidebar-min,
+);
+
+$sidebar-width-max: (
+  '--sidebar-width': $sidebar-max,
+);
+
+// Ширина сайдбара
+:root [data-sidebar-width="narrow"] {
+  @include spread-map($sidebar-width-min);
+}
+
+:root [data-sidebar-width="wide"] {
+  @include spread-map($sidebar-width-max);
+}
+
+// Высота хедера
+$header-height: 69px;
+
+// Цветовая схема
+
+// Цвета. Менять тут
+$white: #faf7fa;
+$gray-100: #eff0f6;
+$gray-200: #E5E9F2;
+$gray-300: #DBDFEA;
+$gray-400: #B7C2D0;
+$gray-500: #8091A7;
+$gray-600: #566577;
+$gray-700: #344357;
+$gray-800: #293545;
+$gray-900: #1F2B3A;
+$black: #111827;
+
+$blue: #3c64f4;
+$indigo: #2C3782;
+$purple: #6C5CE8;
+$pink: #ff63a5;
+$red: #ea1548;
+$orange: #ef630a;
+$yellow: #fca549;
+$green: #00B795;
+$teal: #01CFC9;
+$cyan: #1CC8EE;
+$azure: #1c9aee;
+
+// Тема. Менять тут в виде ссылок на цвета
+$primary:       $purple;
+$secondary:     $gray-600;
+$success:       $green;
+$info:          $cyan;
+$warning:       $yellow;
+$danger:        $red;
+$light:         $gray-100;
+$dark:          $gray-900;
+
+// Процент осветления для Light цветов
+$lightpercent: 35;
+
+// Процент осветления для Lighter цветов
+$lighterpercent: 65;
+
+// Процент затемнения для Dark цветов
+$darkpercent: 35;
+
+// Процент затемнения для Darker цветов
+$darkerpercent: 65;
+
+$grays: map-merge($grays, (
+  "100": $gray-100,
+  "200": $gray-200,
+  "300": $gray-300,
+  "400": $gray-400,
+  "500": $gray-500,
+  "600": $gray-600,
+  "700": $gray-700,
+  "800": $gray-800,
+  "900": $gray-900
+));
+
+$colors: map-merge($colors, (
+  "blue":       $blue,
+  "indigo":     $indigo,
+  "purple":     $purple,
+  "pink":       $pink,
+  "red":        $red,
+  "orange":     $orange,
+  "yellow":     $yellow,
+  "green":      $green,
+  "teal":       $teal,
+  "cyan":       $cyan,
+  "white":      $white,
+  "gray":       $gray-600,
+  "gray-dark":  $gray-800
+));
+
+$primary-light: mix($white, $primary, $lightpercent) !default;
+$secondary-light: mix($white, $secondary, $lightpercent) !default;
+$success-light: mix($white, $success, $lightpercent) !default;
+$info-light: mix($white, $info, $lightpercent) !default;
+$warning-light: mix($white, $warning, $lightpercent) !default;
+$danger-light: mix($white, $danger, $lightpercent) !default;
+$dark-light: mix($white, $dark, $lightpercent) !default;
+$pink-light: mix($white, $pink, $lightpercent) !default;
+$blue-light: mix($white, $blue, $lightpercent) !default;
+$indigo-light: mix($white, $indigo, $lightpercent) !default;
+$orange-light: mix($white, $orange, $lightpercent) !default;
+$teal-light: mix($white, $teal, $lightpercent) !default;
+$azure-light: mix($white, $azure, $lightpercent) !default;
+
+$light-colors: (
+  "primary-light": $primary-light,
+  "secondary-light": $secondary-light,
+  "success-light": $success-light,
+  "info-light": $info-light,
+  "warning-light": $warning-light,
+  "danger-light": $danger-light,
+  "dark-light": $dark-light,
+  "pink-light": $pink-light,
+  "blue-light": $blue-light,
+  "indigo-light": $indigo-light,
+  "orange-light": $orange-light,
+  "teal-light": $teal-light,
+  "azure-light": $azure-light,
+);
+
+@each $color_name, $color in $light-colors {
+  .bg-#{$color_name} {
+    background-color: $color !important;
+  }
+}
+
+$primary-lighter: mix($white, $primary, $lighterpercent) !default;
+$secondary-lighter: mix($white, $secondary, $lighterpercent) !default;
+$success-lighter: mix($white, $success, $lighterpercent) !default;
+$info-lighter: mix($white, $info, $lighterpercent) !default;
+$warning-lighter: mix($white, $warning, $lighterpercent) !default;
+$danger-lighter: mix($white, $danger, $lighterpercent) !default;
+$dark-lighter: mix($white, $dark, $lighterpercent) !default;
+$pink-lighter: mix($white, $pink, $lighterpercent) !default;
+$blue-lighter: mix($white, $blue, $lighterpercent) !default;
+$indigo-lighter: mix($white, $indigo, $lighterpercent) !default;
+$azure-lighter: mix($white, $azure, $lighterpercent) !default;
+$orange-lighter: mix($white, $orange, $lighterpercent) !default;
+$teal-lighter: mix($white, $teal, $lighterpercent) !default;
+
+$lighter-colors: (
+  "primary-lighter": $primary-lighter,
+  "secondary-lighter": $secondary-lighter,
+  "success-lighter": $success-lighter,
+  "info-lighter": $info-lighter,
+  "warning-lighter": $warning-lighter,
+  "danger-lighter": $danger-lighter,
+  "dark-lighter": $dark-lighter,
+  "pink-lighter": $pink-lighter,
+  "blue-lighter": $blue-lighter,
+  "indigo-lighter": $indigo-lighter,
+  "orange-lighter": $orange-lighter,
+  "teal-lighter": $teal-lighter,
+  "azure-lighter": $azure-lighter,
+);
+
+@each $color_name, $color in $lighter-colors {
+  .bg-#{$color_name} {
+    background-color: $color !important;
+  }
+}
+
+$primary-dark: mix($black, $primary, $darkpercent) !default;
+$secondary-dark: mix($black, $secondary, $darkpercent) !default;
+$success-dark: mix($black, $success, $darkpercent) !default;
+$info-dark: mix($black, $info, $darkpercent) !default;
+$warning-dark: mix($black, $warning, $darkpercent) !default;
+$danger-dark: mix($black, $danger, $darkpercent) !default;
+$pink-dark: mix($black, $pink, $darkpercent) !default;
+$blue-dark: mix($black, $blue, $darkpercent) !default;
+$indigo-dark: mix($black, $indigo, $darkpercent) !default;
+$azure-dark: mix($black, $azure, $darkpercent) !default;
+$orange-dark: mix($black, $orange, $darkpercent) !default;
+$teal-dark: mix($black, $teal, $darkpercent) !default;
+
+$dark-colors: (
+  "primary-dark": $primary-dark,
+  "secondary-dark": $secondary-dark,
+  "success-dark": $success-dark,
+  "info-dark": $info-dark,
+  "warning-dark": $warning-dark,
+  "danger-dark": $danger-dark,
+  "pink-dark": $pink-dark,
+  "blue-dark": $blue-dark,
+  "indigo-dark": $indigo-dark,
+  "orange-dark": $orange-dark,
+  "teal-dark": $teal-dark,
+  "azure-dark": $azure-dark,
+);
+
+@each $color_name, $color in $dark-colors {
+  .bg-#{$color_name} {
+    background-color: $color !important;
+  }
+}
+
+$primary-darker: mix($black, $primary, $darkerpercent) !default;
+$secondary-darker: mix($black, $secondary, $darkerpercent) !default;
+$success-darker: mix($black, $success, $darkerpercent) !default;
+$info-darker: mix($black, $info, $darkerpercent) !default;
+$warning-darker: mix($black, $warning, $darkerpercent) !default;
+$danger-darker: mix($black, $danger, $darkerpercent) !default;
+$pink-darker: mix($black, $pink, $darkerpercent) !default;
+$blue-darker: mix($black, $blue, $darkerpercent) !default;
+$indigo-darker: mix($black, $indigo, $darkerpercent) !default;
+$azure-darker: mix($black, $azure, $darkerpercent) !default;
+$orange-darker: mix($black, $orange, $darkerpercent) !default;
+$teal-darker: mix($black, $teal, $darkerpercent) !default;
+
+$darker-colors: (
+  "primary-darker": $primary-darker,
+  "secondary-darker": $secondary-darker,
+  "success-darker": $success-darker,
+  "info-darker": $info-darker,
+  "warning-darker": $warning-darker,
+  "danger-darker": $danger-darker,
+  "pink-darker": $pink-darker,
+  "blue-darker": $blue-darker,
+  "indigo-darker": $indigo-darker,
+  "orange-darker": $orange-darker,
+  "teal-darker": $teal-darker,
+  "azure-darker": $azure-darker,
+);
+
+@each $color_name, $color in $darker-colors {
+  .bg-#{$color_name} {
+    background-color: $color !important;
+  }
+}
+
+// Trans 50% colors
+$primary-50: rgba($primary, .5) !default;
+$secondary-50: rgba($secondary, .5) !default;
+$success-50: rgba($success, .5) !default;
+$info-50: rgba($info, .5) !default;
+$warning-50: rgba($warning, .5) !default;
+$danger-50: rgba($danger, .5) !default;
+$dark-50: rgba($dark, .5) !default;
+$pink-50: rgba($pink, .5) !default;
+$blue-50: rgba($blue, .5) !default;
+$white-50: rgba($white, .5) !default;
+$azure-50: rgba($azure, .5) !default;
+$indigo-50: rgba($indigo, .5) !default;
+$orange-50: rgba($orange, .5) !default;
+$teal-50: rgba($teal, .5) !default;
+
+$trans-50-colors: (
+  "primary-50": $primary-50,
+  "secondary-50": $secondary-50,
+  "success-50": $success-50,
+  "info-50": $info-50,
+  "warning-50": $warning-50,
+  "danger-50": $danger-50,
+  "dark-50": $dark-50,
+  "pink-50": $pink-50,
+  "blue-50": $blue-50,
+  "indigo-50": $indigo-50,
+  "orange-50": $orange-50,
+  "teal-50": $teal-50,
+  "azure-50": $azure-50,
+  "white-50": $white-50,
+);
+
+@each $color_name, $color in $trans-50-colors {
+  .bg-#{$color_name} {
+    background-color: $color !important;
+  }
+}
+
+//Trans 20% colors
+
+$primary-20: rgba($primary, .2) !default;
+$secondary-20: rgba($secondary, .2) !default;
+$success-20: rgba($success, .2) !default;
+$info-20: rgba($info, .2) !default;
+$warning-20: rgba($warning, .2) !default;
+$danger-20: rgba($danger, .2) !default;
+$dark-20: rgba($dark, .2) !default;
+$pink-20: rgba($pink, .2) !default;
+$blue-20: rgba($blue, .2) !default;
+$white-20: rgba($white, .2) !default;
+$azure-20: rgba($azure, .2) !default;
+$indigo-20: rgba($indigo, .2) !default;
+$orange-20: rgba($orange, .2) !default;
+$teal-20: rgba($teal, .2) !default;
+
+$trans-20-colors: (
+  "primary-20": $primary-20,
+  "secondary-20": $secondary-20,
+  "success-20": $success-20,
+  "info-20": $info-20,
+  "warning-20": $warning-20,
+  "danger-20": $danger-20,
+  "dark-20": $dark-20,
+  "pink-20": $pink-20,
+  "blue-20": $blue-20,
+  "indigo-20": $indigo-20,
+  "orange-20": $orange-20,
+  "teal-20": $teal-20,
+  "azure-20": $azure-20,
+  "white-20": $white-20,
+);
+
+@each $color_name, $color in $trans-20-colors {
+  .bg-#{$color_name} {
+    background-color: $color !important;
+  }
+}
+
+$custom-theme-colors: (
+  "primary": $primary,
+  "secondary": $secondary,
+  "success": $success,
+  "info": $info,
+  "warning": $warning,
+  "danger": $danger,
+  "light": $light,
+  "dark": $dark,
+);
+
+$theme-colors: map-merge($theme-colors, $custom-theme-colors);
+
+// Тени
+$grey-shadow-1: 0 8px 16px rgba($gray-900, 0.06);
+$grey-shadow-2: 0 4px 8px -2px rgba($gray-900, 0.06);
+$grey-shadow-3: 0 2px 4px -2px rgba($gray-900, 0.1);
+$grey-shadow-4: 0 16px 8px -4px rgba($gray-900, 0.05);
+$grey-shadow-5: 0 8px 24px -4px rgba($gray-900, 0.1);
+$grey-shadow-6: 1px 2px 6px 0 rgba($gray-900, 0.15);
+
+$white-shadow-1: 0 8px 16px rgba($gray-100, 0.04);
+$white-shadow-2: 0 4px 8px -2px rgba($gray-100, 0.04);
+$white-shadow-3: 0 2px 4px -2px rgba($gray-100, 0.08);
+$white-shadow-4: 0 16px 8px -4px rgba($gray-100, 0.03);
+$white-shadow-5: 0 8px 24px -4px rgba($gray-100, 0.08);
+$white-shadow-6: 1px 2px 6px 0 rgba($gray-100, 0.12);
+
+$shadows: (
+  "grey-shadow-1": $grey-shadow-1,
+  "grey-shadow-2": $grey-shadow-2,
+  "grey-shadow-3": $grey-shadow-3,
+  "grey-shadow-4": $grey-shadow-4,
+  "grey-shadow-5": $grey-shadow-5,
+  "grey-shadow-6": $grey-shadow-6,
+  "white-shadow-1": $white-shadow-1,
+  "white-shadow-2": $white-shadow-2,
+  "white-shadow-3": $white-shadow-3,
+  "white-shadow-4": $white-shadow-4,
+  "white-shadow-5": $white-shadow-5,
+  "white-shadow-6": $white-shadow-6,
+);
+
+@each $shadow_name, $shadow in $shadows {
+  .#{$shadow_name} {
+    box-shadow: $shadow !important;
+  }
+}
+
+// Градиенты
+$gradient-primary: linear-gradient(45deg, mix($white, $primary, 30) 0%, darken($primary, 10) 100%);
+$gradient-secondary: linear-gradient(45deg, mix($white, $secondary, 30) 0%, darken($secondary, 10) 100%);
+$gradient-success: linear-gradient(45deg, mix($white, $success, 30) 0%, darken($success, 10) 100%);
+$gradient-info: linear-gradient(45deg, mix($white, $info, 30) 0%, darken($info, 10) 100%);
+$gradient-warning: linear-gradient(45deg, mix($white, $warning, 30) 0%, darken($warning, 10) 100%);
+$gradient-danger: linear-gradient(45deg, mix($white, $danger, 30) 0%, darken($danger, 10) 100%);
+$gradient-light: linear-gradient(45deg, mix($white, $light, 30) 0%, darken($light, 10) 100%);
+$gradient-dark: linear-gradient(45deg, mix($white, $dark, 30) 0%, darken($dark, 10) 100%);
+$gradient-pink: linear-gradient(45deg, mix($white, $pink, 30) 0%, darken($pink, 10) 100%);
+$gradient-blue: linear-gradient(45deg, mix($white, $blue, 30) 0%, darken($blue, 10) 100%);
+$gradient-indigo: linear-gradient(45deg, mix($white, $indigo, 30) 0%, darken($indigo, 10) 100%);
+$gradient-azure: linear-gradient(45deg, mix($white, $azure, 30) 0%, darken($azure, 10) 100%);
+$gradient-orange: linear-gradient(45deg, mix($white, $orange, 30) 0%, darken($orange, 10) 100%);
+$gradient-teal: linear-gradient(45deg, mix($white, $teal, 30) 0%, darken($teal, 10) 100%);
+
+$gradients: (
+  "gradient-primary": $gradient-primary,
+  "gradient-secondary": $gradient-secondary,
+  "gradient-success": $gradient-success,
+  "gradient-info": $gradient-info,
+  "gradient-warning": $gradient-warning,
+  "gradient-danger": $gradient-danger,
+  "gradient-light": $gradient-light,
+  "gradient-dark": $gradient-dark,
+  "gradient-pink": $gradient-pink,
+  "gradient-blue": $gradient-blue,
+  "gradient-indigo": $gradient-indigo,
+  "gradient-azure": $gradient-azure,
+  "gradient-orange": $gradient-orange,
+  "gradient-teal": $gradient-teal,
+);
+
+@each $gradient_name, $gradient in $gradients {
+  .bg-#{$gradient_name} {
+    background: $gradient !important;
+  }
+}
+
+// Градиенты из 2 цветов
+$gradient-purple-cyan: linear-gradient(45deg, $purple, $cyan 100%);
+$gradient-purple-teal: linear-gradient(45deg, $purple, $teal 100%);
+$gradient-purple-azure: linear-gradient(45deg, $purple, $azure 100%);
+$gradient-purple-indigo: linear-gradient(45deg, $purple, $indigo 100%);
+$gradient-purple-blue: linear-gradient(45deg, $purple, $blue 100%);
+$gradient-purple-pink: linear-gradient(45deg, $purple, $pink 100%);
+$gradient-purple-red: linear-gradient(45deg, $purple, $red 100%);
+$gradient-green-cyan: linear-gradient(45deg, $green, $cyan 100%);
+$gradient-green-yellow: linear-gradient(45deg, $green, $yellow 100%);
+$gradient-green-blue: linear-gradient(45deg, $green, $blue 100%);
+$gradient-green-teal: linear-gradient(45deg, $green, $teal 100%);
+$gradient-green-azure: linear-gradient(45deg, $green, $azure 100%);
+$gradient-cyan-purple: linear-gradient(45deg, $cyan, $purple 100%);
+$gradient-cyan-green: linear-gradient(45deg, $cyan, $green 100%);
+$gradient-cyan-blue: linear-gradient(45deg, $cyan, $blue 100%);
+$gradient-cyan-teal: linear-gradient(45deg, $cyan, $teal 100%);
+$gradient-cyan-azure: linear-gradient(45deg, $cyan, $azure 100%);
+$gradient-cyan-pink: linear-gradient(45deg, $cyan, $pink 100%);
+$gradient-cyan-indigo: linear-gradient(45deg, $cyan, $indigo 100%);
+$gradient-yellow-green: linear-gradient(45deg, $yellow, $green 100%);
+$gradient-yellow-red: linear-gradient(45deg, $yellow, $red 100%);
+$gradient-yellow-orange: linear-gradient(45deg, $yellow, $orange 100%);
+$gradient-yellow-pink: linear-gradient(45deg, $yellow, $pink 100%);
+$gradient-red-purple: linear-gradient(45deg, $red, $purple 100%);
+$gradient-red-yellow: linear-gradient(45deg, $red, $yellow 100%);
+$gradient-red-blue: linear-gradient(45deg, $red, $blue 100%);
+$gradient-red-azure: linear-gradient(45deg, $red, $azure 100%);
+$gradient-red-orange: linear-gradient(45deg, $red, $orange 100%);
+$gradient-red-pink: linear-gradient(45deg, $red, $pink 100%);
+$gradient-red-indigo: linear-gradient(45deg, $red, $indigo 100%);
+$gradient-blue-purple: linear-gradient(45deg, $blue, $purple 100%);
+$gradient-blue-green: linear-gradient(45deg, $blue, $green 100%);
+$gradient-blue-cyan: linear-gradient(45deg, $blue, $cyan 100%);
+$gradient-blue-teal: linear-gradient(45deg, $blue, $teal 100%);
+$gradient-blue-azure: linear-gradient(45deg, $blue, $azure 100%);
+$gradient-blue-pink: linear-gradient(45deg, $blue, $pink 100%);
+$gradient-blue-indigo: linear-gradient(45deg, $blue, $indigo 100%);
+$gradient-teal-purple: linear-gradient(45deg, $teal, $purple 100%);
+$gradient-teal-green: linear-gradient(45deg, $teal, $green 100%);
+$gradient-teal-cyan: linear-gradient(45deg, $teal, $cyan 100%);
+$gradient-teal-blue: linear-gradient(45deg, $teal, $blue 100%);
+$gradient-teal-azure: linear-gradient(45deg, $teal, $azure 100%);
+$gradient-teal-indigo: linear-gradient(45deg, $teal, $indigo 100%);
+$gradient-azure-purple: linear-gradient(45deg, $azure, $purple 100%);
+$gradient-azure-green: linear-gradient(45deg, $azure, $green 100%);
+$gradient-azure-cyan: linear-gradient(45deg, $azure, $cyan 100%);
+$gradient-azure-blue: linear-gradient(45deg, $azure, $blue 100%);
+$gradient-azure-teal: linear-gradient(45deg, $azure, $teal 100%);
+$gradient-azure-pink: linear-gradient(45deg, $azure, $pink 100%);
+$gradient-azure-indigo: linear-gradient(45deg, $azure, $indigo 100%);
+$gradient-orange-yellow: linear-gradient(45deg, $orange, $yellow 100%);
+$gradient-orange-red: linear-gradient(45deg, $orange, $red 100%);
+$gradient-orange-pink: linear-gradient(45deg, $orange, $pink 100%);
+$gradient-pink-purple: linear-gradient(45deg, $pink, $purple 100%);
+$gradient-pink-cyan: linear-gradient(45deg, $pink, $cyan 100%);
+$gradient-pink-yellow: linear-gradient(45deg, $pink, $yellow 100%);
+$gradient-pink-red: linear-gradient(45deg, $pink, $red 100%);
+$gradient-pink-blue: linear-gradient(45deg, $pink, $blue 100%);
+$gradient-pink-azure: linear-gradient(45deg, $pink, $azure 100%);
+$gradient-pink-orange: linear-gradient(45deg, $pink, $orange 100%);
+$gradient-pink-indigo: linear-gradient(45deg, $pink, $indigo 100%);
+$gradient-indigo-purple: linear-gradient(45deg, $indigo, $purple 100%);
+$gradient-indigo-green: linear-gradient(45deg, $indigo, $green 100%);
+$gradient-indigo-cyan: linear-gradient(45deg, $indigo, $cyan 100%);
+$gradient-indigo-red: linear-gradient(45deg, $indigo, $red 100%);
+$gradient-indigo-blue: linear-gradient(45deg, $indigo, $blue 100%);
+$gradient-indigo-teal: linear-gradient(45deg, $indigo, $teal 100%);
+$gradient-indigo-azure: linear-gradient(45deg, $indigo, $azure 100%);
+$gradient-indigo-pink: linear-gradient(45deg, $indigo, $pink 100%);
+
+$gradients-2colors: (
+  "gradient-purple-cyan": $gradient-purple-cyan,
+  "gradient-purple-teal": $gradient-purple-teal,
+  "gradient-purple-azure": $gradient-purple-azure,
+  "gradient-purple-indigo": $gradient-purple-indigo,
+  "gradient-purple-blue": $gradient-purple-blue,
+  "gradient-purple-pink": $gradient-purple-pink,
+  "gradient-purple-red": $gradient-purple-red,
+  "gradient-green-cyan": $gradient-green-cyan,
+  "gradient-green-yellow": $gradient-green-yellow,
+  "gradient-green-blue": $gradient-green-blue,
+  "gradient-green-teal": $gradient-green-teal,
+  "gradient-green-azure": $gradient-green-azure,
+  "gradient-cyan-purple": $gradient-cyan-purple,
+  "gradient-cyan-green": $gradient-cyan-green,
+  "gradient-cyan-blue": $gradient-cyan-blue,
+  "gradient-cyan-teal": $gradient-cyan-teal,
+  "gradient-cyan-azure": $gradient-cyan-azure,
+  "gradient-cyan-pink": $gradient-cyan-pink,
+  "gradient-cyan-indigo": $gradient-cyan-indigo,
+  "gradient-yellow-green": $gradient-yellow-green,
+  "gradient-yellow-red": $gradient-yellow-red,
+  "gradient-yellow-orange": $gradient-yellow-orange,
+  "gradient-yellow-pink": $gradient-yellow-pink,
+  "gradient-red-purple": $gradient-red-purple,
+  "gradient-red-yellow": $gradient-red-yellow,
+  "gradient-red-blue": $gradient-red-blue,
+  "gradient-red-azure": $gradient-red-azure,
+  "gradient-red-orange": $gradient-red-orange,
+  "gradient-red-pink": $gradient-red-pink,
+  "gradient-red-indigo": $gradient-red-indigo,
+  "gradient-blue-purple": $gradient-blue-purple,
+  "gradient-blue-green": $gradient-blue-green,
+  "gradient-blue-cyan": $gradient-blue-cyan,
+  "gradient-blue-teal": $gradient-blue-teal,
+  "gradient-blue-azure": $gradient-blue-azure,
+  "gradient-blue-pink": $gradient-blue-pink,
+  "gradient-blue-indigo": $gradient-blue-indigo,
+  "gradient-teal-purple": $gradient-teal-purple,
+  "gradient-teal-green": $gradient-teal-green,
+  "gradient-teal-cyan": $gradient-teal-cyan,
+  "gradient-teal-blue": $gradient-teal-blue,
+  "gradient-teal-azure": $gradient-teal-azure,
+  "gradient-teal-indigo": $gradient-teal-indigo,
+  "gradient-azure-purple": $gradient-azure-purple,
+  "gradient-azure-green": $gradient-azure-green,
+  "gradient-azure-cyan": $gradient-azure-cyan,
+  "gradient-azure-blue": $gradient-azure-blue,
+  "gradient-azure-teal": $gradient-azure-teal,
+  "gradient-azure-pink": $gradient-azure-pink,
+  "gradient-azure-indigo": $gradient-azure-indigo,
+  "gradient-orange-yellow": $gradient-orange-yellow,
+  "gradient-orange-red": $gradient-orange-red,
+  "gradient-orange-pink": $gradient-orange-pink,
+  "gradient-pink-purple": $gradient-pink-purple,
+  "gradient-pink-cyan": $gradient-pink-cyan,
+  "gradient-pink-yellow": $gradient-pink-yellow,
+  "gradient-pink-red": $gradient-pink-red,
+  "gradient-pink-blue": $gradient-pink-blue,
+  "gradient-pink-azure": $gradient-pink-azure,
+  "gradient-pink-orange": $gradient-pink-orange,
+  "gradient-pink-indigo": $gradient-pink-indigo,
+  "gradient-indigo-purple": $gradient-indigo-purple,
+  "gradient-indigo-green": $gradient-indigo-green,
+  "gradient-indigo-cyan": $gradient-indigo-cyan,
+  "gradient-indigo-red": $gradient-indigo-red,
+  "gradient-indigo-blue": $gradient-indigo-blue,
+  "gradient-indigo-teal": $gradient-indigo-teal,
+  "gradient-indigo-azure": $gradient-indigo-azure,
+  "gradient-indigo-pink": $gradient-indigo-pink,
+);
+
+@each $gradient_name, $gradient in $gradients-2colors {
+  .bg-#{$gradient_name} {
+    background: $gradient !important;
+  }
+}
+
+// Цвета соц сетей
+$social: (
+  "facebook": #3b5998,
+  "twitter": #55acee,
+  "googleplus": #dd4b39,
+  "linkedin": #007bb6,
+  "instagram": linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%),
+  "pinterest": #cb2027,
+  "youtube": #c4302b,
+  "odnoklassniki": #E77D08,
+);
+
+@each $social_name, $color in $social {
+  .bg-#{$social_name} {
+    background: $color !important;
+  }
+}
+
+// Цвета светлой и темной темы
+
+/*
+$theme-map-light: (
+  var(--ui-bg): $white,
+  var(--ui-bg-mid): $gray-100, $lighter
+  var(--ui-border): $gray-300,
+  var(--ui-shadow): $grey-shadow-3,
+  var(--ui-shadow-elements): $grey-shadow-6,
+  var(--ui-text): $gray-700, $gray-dark
+  var(--ui-text-mid): $gray-500, $secondary
+  var(--ui-text-bold): $gray-900, $dark
+);
+ */
+
+$theme-map-light: (
+  '--ui-bg': $white,
+  '--ui-bg-mid': $gray-100,
+  '--ui-border': $gray-300,
+  '--ui-shadow': $grey-shadow-3,
+  '--ui-shadow-elements': $grey-shadow-6,
+  '--ui-text': $gray-700,
+  '--ui-text-mid': $gray-500,
+  '--ui-text-bold': $gray-900,
+);
+
+$theme-map-dark: (
+  '--ui-bg': $gray-900,
+  '--ui-bg-mid': $gray-800,
+  '--ui-border': $gray-700,
+  '--ui-shadow': $white-shadow-3,
+  '--ui-shadow-elements': $white-shadow-6,
+  '--ui-text': $gray-300,
+  '--ui-text-mid': $gray-500,
+  '--ui-text-bold': $gray-100,
+);
+
+// Цветовые схемы
+:root [data-theme-name="main-light"] {
+  @include spread-map($theme-map-light);
+}
+
+:root [data-theme-name="main-dark"] {
+  @include spread-map($theme-map-dark);
+}
+
+$link-color: $purple;
+$link-hover-color: shift-color($link-color, $link-shade-percentage);
+$border-color: var(--ui-border);
+$link-decoration: none;
+$headings-font-weight: 700;
+
+$theme-colors: map-merge($theme-colors, (
+  "pink": $pink,
+  "blue": $blue,
+  "cyan": $cyan,
+  "indigo": $indigo,
+  "orange": $orange,
+  "teal": $teal,
+  "azure": $azure,
+  "white": $white,
+));
+
+$theme-colors: map-merge($theme-colors, $custom-theme-colors);
+$theme-colors-rgb: map-loop($theme-colors, to-rgb, "$value");
+$utilities-colors: map-merge($utilities-colors, $theme-colors-rgb);
+$utilities-text-colors: map-loop($utilities-colors, rgba-css-var, "$key", "text");
+$utilities-bg-colors: map-loop($utilities-colors, rgba-css-var, "$key", "bg");
