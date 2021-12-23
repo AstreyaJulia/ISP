@@ -1,6 +1,12 @@
 // Шрифты
 @import "fonts";
-@import "../../../node_modules/@mdi/font/scss/materialdesignicons";
+@import "../../../node_modules/@mdi/font/scss/variables";
+@import "../../../node_modules/@mdi/font/scss/functions";
+@import "vendors/mdifont";
+@import "../../../node_modules/@mdi/font/scss/core";
+@import "../../../node_modules/@mdi/font/scss/icons";
+@import "../../../node_modules/@mdi/font/scss/extras";
+@import "../../../node_modules/@mdi/font/scss/animated";
 @import "weather-icons/weather-icons";
 
 // Custom
