@@ -1235,7 +1235,12 @@ const ajax_send = (method, url, parameters, datatype, callback) => {
     case "GET":
       let queryString;
       if (parameters !== null) {
-        queryString = Object.keys(parameters).map(key => key + '=' + parameters[key]).join('&');
+        if (typeof parameters === 'object' &&
+          !Array.isArray(parameters)) {
+          queryString = Object.keys(parameters).map(key => key + '=' + parameters[key]).join('&');
+        } else {
+          queryString = parameters;
+        }
       } else {
         queryString = null;
       }
@@ -1280,7 +1285,7 @@ const ajax_send = (method, url, parameters, datatype, callback) => {
       }
       if (method === "POST") {
         if (!xhr.response) {
-          callback("null");
+          callback('null');
         } else {
           showErrorToast("Ошибка", xhr.response, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
         }
@@ -1344,7 +1349,6 @@ const buttonsidebartoggleHandler = (evt) => {
   }
 
   ajax_send("POST", "pages/admin/ajax.php", formData, "json", result => result);
-  window.location.reload();
 };
 
 // Разворачивает сайдбар, не отодвигая контент. Переключает класс expanded у сайдбара
