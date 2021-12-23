@@ -9,7 +9,7 @@
 
     $sidebarClass->sudo = $_GET['sudo'];
 
-    $sidebar = sidebarTree($sidebarClass->getSidebar());
+    $sidebar["data"] = sidebarTree($sidebarClass->getSidebar());
 
     // установим код ответа - 200 OK
     http_response_code(200);

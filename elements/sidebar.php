@@ -20,11 +20,11 @@ $menu = json_decode($ourData);
     </a>
   </div>
   <ul class="navigation-menu overlayscrollbar os-host-flexbox py-3 px-2 m-0 h-100">
-    <?php foreach ($menu as $row => $key): ?>
+    <?php foreach ($menu->data as $row => $key): ?>
           <li class="<?= empty($key->isfolder) ? 'menu-item' : 'menu-item with-sub' ?>">
           <a class="menu-link position-relative rounded-2 d-flex align-items-center w-100 py-2 px-3 position-relative m-0 text-decoration-none rounded-2" <?= isset($key->alias) ? 'href="'.$key->alias.'"' : '' ?>>
-            <?= $key->icon ?? '' ?>
-            <span class="ms-2"><?= $key->pagetitle ?? '' ?></span>
+            <?= $key->icon ?>
+            <span class="ms-2"><?= $key->pagetitle ?></span>
             <?= empty($key->isfolder) ? '' : '<i class="menu-arrow position-absolute mdi mdi-chevron-right"></i>' ?>
           </a>
     <?php if(isset($key->children)): ?>
