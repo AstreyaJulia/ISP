@@ -1,5 +1,5 @@
 <main class="main-content scroll-y">
-  <div class="ps-3 pe-3 ">
+  <div class="p-3 pt-0">
     <header class="main-content-header d-flex align-items-center justify-content-between flex-wrap">
       <div class="header-left d-flex align-items-center justify-content-between p-2">
         <a class="btn-back me-3" role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Назад"><i
@@ -25,76 +25,106 @@
       </div>
     </header>
     <div class="row flex-wrap">
-        <table class="table dataTable sort table-users">
-		  <thead>
-		  <tr>
-		    <th rowspan="2">№ п/п</th>
-		    <th rowspan="2">СУДЬЯ (фамилия, инициалы)</th>
-		    <th colspan="3">Окончено дел</th>
-		    <th colspan="3">Рассмотрено дел в апелляционном порядке</th>
-		    <th colspan="6">Рассмотрено материалов</th>
-		    <th rowspan="2">всего дел и материалов (сумма граф 3-14,17)</th>
-		    <th rowspan="2">Рассмотрено материалов по которым отказано в принятии заявлений, которые оставлены без движения</th>
-		    <th rowspan="2">Рассмотрено администра-тивных материалов по жалобам на постановле-ния по делам об адм. правонаруш.</th>
-		</tr>
-		<tr>
-		    <th>уголовных</th>
-		    <th>гражданских</th>
-		    <th>административных</th>
-		    <th>уголовных</th>
-		    <th>гражданских</th>
-		    <th>административных</th>
-		    <th>В порядке ст. 108 УПК РФ</th>
-		    <th>В порядке ст. 109 УПК РФ</th>
-		    <th>В порядке ст. 125 УПК РФ</th>
-		    <th>В порядке ст. 165 УПК РФ</th>
-		    <th>В порядке ст. 397 УПК РФ</th>
-		    <th>В порядке ст. 398 УПК РФ</th>
-		</tr>
-		<tr>
-			<th></th>
-			<th>2</th>
-			<th>3</th>
-			<th>4</th>
-			<th>5</th>
-			<th>6</th>
-			<th>7</th>
-			<th>8</th>
-			<th>9</th>
-			<th>10</th>
-			<th>11</th>
-			<th>12</th>
-			<th>13</th>
-			<th>14</th>
-			<th>15</th>
-			<th>16</th>
-			<th>17</th>
-		</tr>
-		</thead>
-		<tbody>
-		  <?php foreach ($row->data as $value => $key): ?>
-		  	<tr>
-			  	<td><?= $i++ ?></td>
-			  	<td><?= $key->fullname ?></td>
-			  	<td><?= $key->col_3 ?></td>
-			  	<td><?= $key->col_4 ?></td>
-			  	<td><?= $key->col_5 ?></td>
-			  	<td><?= $key->col_6 ?></td>
-			  	<td><?= $key->col_7 ?></td>
-			  	<td><?= $key->col_8 ?></td>
-			  	<td><?= $key->col_9 ?></td>
-			  	<td><?= $key->col_10 ?></td>
-			  	<td><?= $key->col_11 ?></td>
-			  	<td><?= $key->col_12 ?></td>
-			  	<td><?= $key->col_13 ?></td>
-			  	<td><?= $key->col_14 ?></td>
-			  	<td><?= $key->col_15 ?></td>
-			  	<td><?= $key->col_16 ?></td>
-			  	<td><?= $key->col_17 ?></td>
-		  	</tr>
-		  <?php endforeach ?>
-		</tbody>
-		</table>
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="row">
+              <div class="col-3">
+                <label for="period">Период</label>
+                  <select class="form-control" id="period" name="period">
+                    <optgroup label="2021">
+                      <option value="1">1 квартал</option>
+                      <option value="2">2 квартал</option>
+                      <option value="1, 2">1 полугодие</option>
+                      <option value="3">3 квартал</option>
+                      <option value="1, 2, 3">9 месяцев</option>
+                      <option value="4">4 квартал</option>
+                      <option value="1, 2, 3, 4">12 месяцев</option>
+                    </optgroup>
+                  </select>
+              </div>
+              <div class="col-2">
+                <label for="year">Год</label>
+                <select class="form-control" name="year" id="year">
+                  <option value="2021">2021</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead>
+              <tr>
+                <th rowspan="2" class="text-center">№ п/п</th>
+                <th rowspan="2" class="text-center"><span>СУДЬЯ</span><br><span>(фамилия, инициалы)</span></th>
+                <th colspan="3" class="text-center">Окончено дел</th>
+                <th colspan="3" class="text-center"><span>Рассмотрено дел</span><br><span>в ап. порядке</span></th>
+                <th colspan="6" class="text-center">Рассмотрено материалов</th>
+                <th rowspan="2" class="rotate-90"><span style="max-height: 200px">всего дел и материалов (сумма граф 3-14,17)</th>
+                <th rowspan="2" class="rotate-90"><span style="max-height: 200px">Рассмотрено материалов по которым отказано в принятии заявлений, которые оставлены без движения</span></th>
+                <th rowspan="2" class="rotate-90"><span style="max-height: 200px">Рассмотрено административных материалов по жалобам на постановления по делам об адм. правонаруш.</span></th>
+              </tr>
+              <tr>
+                <th class="rotate-90 text-center"><span>уголовных</span></th>
+                <th class="rotate-90 text-center"><span>гражданских</span></th>
+                <th class="rotate-90 text-center"><span>административных</span></th>
+                <th class="rotate-90 text-center"><span>уголовных</span></th>
+                <th class="rotate-90 text-center"><span>гражданских</span></th>
+                <th class="rotate-90 text-center"><span>административных</span></th>
+                <th class="rotate-90 text-center"><span>В порядке ст. 108 УПК</span></th>
+                <th class="rotate-90 text-center"><span>В порядке ст. 109 УПК</span></th>
+                <th class="rotate-90 text-center"><span>В порядке ст. 125 УПК</span></th>
+                <th class="rotate-90 text-center"><span>В порядке ст. 165 УПК</span></th>
+                <th class="rotate-90 text-center"><span>В порядке ст. 397 УПК</span></th>
+                <th class="rotate-90 text-center"><span>В порядке ст. 398 УПК</span></th>
+              </tr>
+              <tr>
+                <th></th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th>
+                <th>6</th>
+                <th>7</th>
+                <th>8</th>
+                <th>9</th>
+                <th>10</th>
+                <th>11</th>
+                <th>12</th>
+                <th>13</th>
+                <th>14</th>
+                <th>15</th>
+                <th>16</th>
+                <th>17</th>
+              </tr>
+              </thead>
+              <tbody>
+              <?php foreach ($row->data as $value => $key): ?>
+                <tr>
+                  <td><?= $i++ ?></td>
+                  <td><?= $key->fullname ?></td>
+                  <td><?= $key->col_3 ?></td>
+                  <td><?= $key->col_4 ?></td>
+                  <td><?= $key->col_5 ?></td>
+                  <td><?= $key->col_6 ?></td>
+                  <td><?= $key->col_7 ?></td>
+                  <td><?= $key->col_8 ?></td>
+                  <td><?= $key->col_9 ?></td>
+                  <td><?= $key->col_10 ?></td>
+                  <td><?= $key->col_11 ?></td>
+                  <td><?= $key->col_12 ?></td>
+                  <td><?= $key->col_13 ?></td>
+                  <td><?= $key->col_14 ?></td>
+                  <td><?= $key->col_15 ?></td>
+                  <td><?= $key->col_16 ?></td>
+                  <td><?= $key->col_17 ?></td>
+                </tr>
+              <?php endforeach ?>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </main>

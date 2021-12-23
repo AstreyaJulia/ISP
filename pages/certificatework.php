@@ -1,5 +1,5 @@
 <?php
-$path = 'http://isp/api/certificatework/getCertificateWork.php?quarter=1,2,3,4&year=2021';
+$path = 'http://dev/api/certificatework/getCertificateWork.php?quarter=1,2,3,4&year=2021';
 $ourData = file_get_contents($path);
 $row = json_decode($ourData);
 $title = "Справка о работе судей";

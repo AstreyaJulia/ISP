@@ -1156,6 +1156,33 @@ code[class*="language-"], pre[class*="language-"] {
 // Таблицы
 .table {
   color: var(--ui-text);
+  border-color: var(--ui-border);
+
+  & > :not(caption) > * > * {
+    padding: 0.25rem 0.25rem;
+  }
+
+  th {
+    font-weight: 500;
+    background-color: var(--ui-bg-mid);
+
+    &.rotate-90 {
+      vertical-align: bottom;
+      text-align: center;
+      span {
+        -ms-writing-mode: tb-rl;
+        -webkit-writing-mode: vertical-rl;
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+        //white-space: nowrap;
+      }
+    }
+
+  }
+
+  & > :not(:first-child) {
+    border-top: 1px solid;
+  }
 
   .fa {
     display: inline-block;
@@ -1202,6 +1229,11 @@ code[class*="language-"], pre[class*="language-"] {
       color: $danger;
     }
   }
+}
+
+.table-bordered {
+  color: var(--ui-text);
+  border-color: var(--ui-border);
 }
 
 // Страница авторизации / входа
@@ -2060,18 +2092,18 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
     width: 5px;
     height: 5px;
     border-radius: 50%;
-    background-color: $primary;
+    background-color: $success;
     position: absolute;
   }
 
   & i {
-    color: $primary;
+    color: $success;
     position: absolute;
   }
 
   .star {
     &:nth-of-type(1) {
-      bottom: 29%;
+      bottom: 10%;
       left: 75px;
       position: absolute;
       -webkit-animation: star 5s linear infinite;
@@ -2080,7 +2112,7 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
 
     &:nth-of-type(2) {
       bottom: 31%;
-      right: 8%;
+      right: 40%;
       -webkit-animation: star 7s linear infinite;
       animation: star 7s linear infinite;
     }
@@ -2140,6 +2172,7 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
     -webkit-transform: translateY(-5px);
     transform: translateY(-5px); }
 }
+
 
 // Модули. Отключить ненужное
 

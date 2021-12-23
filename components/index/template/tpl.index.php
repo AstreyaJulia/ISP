@@ -16,12 +16,19 @@
 
           <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
               <div class="card overflow-hidden mb-3">
-                <div class="bg-primary">
+                <div class="bg-success-lighter stars-animation">
+                  <i class="mdi mdi-close-thick star"></i>
+                  <i class="mdi mdi-close-thick star"></i>
+                  <i class="mdi mdi-close-thick star"></i>
+                  <div class="circle"></div>
+                  <div class="circle"></div>
+                  <div class="circle"></div>
+
                   <div class="row">
                     <div class="col-7">
                       <div class="p-3">
-                        <p class="text-white text-uppercase  fw-bold font-small-1">С возвращением,</p>
-                        <p class="font-size-15 text-truncate text-light"><?= shortFIO($_COOKIE['aut']['fullname']) ?></p>
+                        <p class="text-uppercase  fw-bold font-small-1">С возвращением,</p>
+                        <p class="font-size-15 text-truncate"><?= shortFIO($_COOKIE['aut']['fullname']) ?></p>
 
                       </div>
                     </div>
