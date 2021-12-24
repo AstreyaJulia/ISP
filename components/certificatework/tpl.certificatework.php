@@ -25,7 +25,7 @@
       </div>
     </header>
     <div class="row flex-wrap">
-      <div class="col-12">
+      <div class="col-xxl-12 col-xl-12 col-m-12 col-s-12 col-sm-12 col-12">
         <div class="card">
           <div class="card-header">
             <div class="row">
