@@ -1,8 +1,9 @@
 <?php
 $sudo = $_COOKIE['aut']['sudo'];
-$path = $host_api."/api/elements/sidebar.php?sudo=$sudo";
+$path = $host_api. $_SERVER['SERVER_NAME']. "/api/elements/sidebar.php?sudo=$sudo";
 $ourData = file_get_contents($path);
 $menu = json_decode($ourData);
+var_dump($path);
 ?>
 <!-- Сайдбар -->
 <aside class="main-sidebar d-flex position-absolute flex-column">
