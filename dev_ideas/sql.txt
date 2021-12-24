@@ -1,4 +1,9 @@
-<?php
+select year as year, quarter as quarter
+from sdc_certificate_work
+group by year, quarter
+
+года и кварталы для справки
+
 
 // Кол-во всех посещений за текущий день. current_date - сегодняшняя дата
 select count (*)
