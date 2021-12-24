@@ -31,6 +31,52 @@ const ajax_send_promise = (method, url, parameters) => new Promise((onFulfilled,
 
 //ajax_send_promise("GET", `api/visits/getVisits.php`, null).then((data) => {handleResponse(data);});
 
+// Справка по судьям
+const certBtn = document.querySelector('.cert-get');
+
+function certBtnHandler() {
+  let value = document.querySelector('.cert-select');
+  let year = $(value).find(':selected').parent().attr('label');
+  let data = {
+    quarter: value.value,
+    year: year,
+  };
+
+  function createtable(data) {
+    const createrowString = ({col_3, col_4, col_5, col_6, col_7, col_8, col_9, col_10, col_11, col_12, col_13, col_14, col_15, col_16, col_17, fullname}) =>
+      `<tr>
+<td></td>
+<td>${fullname}</td>
+<td>${col_3}</td>
+<td>${col_4}</td>
+<td>${col_5}</td>
+<td>${col_6}</td>
+<td>${col_7}</td>
+<td>${col_8}</td>
+<td>${col_9}</td>
+<td>${col_10}</td>
+<td>${col_11}</td>
+<td>${col_12}</td>
+<td>${col_13}</td>
+<td>${col_14}</td>
+<td>${col_15}</td>
+<td>${col_16}</td>
+<td>${col_17}</td>
+</tr>`;
+      document.querySelector('.cert-table').innerHTML = '';
+        const taskElementsString = data.data.map((col_3, col_4, col_5, col_6, col_7, col_8, col_9, col_10, col_11, col_12, col_13, col_14, col_15, col_16, col_17, fullname) => createrowString(col_3, col_4, col_5, col_6, col_7, col_8, col_9, col_10, col_11, col_12, col_13, col_14, col_15, col_16, col_17, fullname)).join('');
+        document.querySelector('.cert-table').insertAdjacentHTML('beforeend', taskElementsString);
+  }
+
+  ajax_send("GET", "api/certificatework/getCertificateWork.php", data, "json", response => {createtable(response);});
+
+}
+if (certBtn) {
+  certBtn.addEventListener('click', function() {
+    certBtnHandler()
+  })
+}
+
 // Цвета
 const colors = {
   theme: {

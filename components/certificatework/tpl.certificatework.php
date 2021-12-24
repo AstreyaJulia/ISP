@@ -29,25 +29,31 @@
         <div class="card">
           <div class="card-header">
             <div class="row">
-              <div class="col-3">
+              <div class="col-6">
                 <label for="period">Период</label>
-                  <select class="form-control" id="period" name="period">
-                    <optgroup label="2021">
-                      <option value="1">1 квартал</option>
-                      <option value="2">2 квартал</option>
-                      <option value="1, 2">1 полугодие</option>
-                      <option value="3">3 квартал</option>
-                      <option value="1, 2, 3">9 месяцев</option>
-                      <option value="4">4 квартал</option>
-                      <option value="1, 2, 3, 4">12 месяцев</option>
+                <div class="input-group mb-3">
+                  <select class="form-control cert-select" id="period" name="period">
+                    <optgroup label="2021" id="2021">
+                      <option value="1">1 квартал 2021</option>
+                      <option value="2">2 квартал 2021</option>
+                      <option value="1,2">1 полугодие 2021</option>
+                      <option value="3">3 квартал 2021</option>
+                      <option value="1,2,3">9 месяцев 2021</option>
+                      <option value="4">4 квартал 2021</option>
+                      <option value="1,2,3,4">12 месяцев 2021</option>
+                    </optgroup>
+                    <optgroup label="2020" id="2020">
+                      <option value="1">1 квартал 2020</option>
+                      <option value="2">2 квартал 2020</option>
+                      <option value="1,2">1 полугодие 2020</option>
+                      <option value="3">3 квартал 2020</option>
+                      <option value="1,2,3">9 месяцев 2020</option>
+                      <option value="4">4 квартал 2020</option>
+                      <option value="1,2,3,4">12 месяцев 2020</option>
                     </optgroup>
                   </select>
-              </div>
-              <div class="col-2">
-                <label for="year">Год</label>
-                <select class="form-control" name="year" id="year">
-                  <option value="2021">2021</option>
-                </select>
+                  <button class="btn btn-primary cert-get">Сформировать</button>
+                </div>
               </div>
             </div>
           </div>
@@ -98,7 +104,7 @@
                 <th>17</th>
               </tr>
               </thead>
-              <tbody>
+              <tbody class="cert-table">
               <?php foreach ($row->data as $value => $key): ?>
                 <tr>
                   <td><?= $i++ ?></td>

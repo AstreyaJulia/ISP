@@ -1,6 +1,6 @@
 <?php
 $sudo = $_COOKIE['aut']['sudo'];
-$path = "http://isp/api/elements/sidebar.php?sudo=$sudo";
+$path = $host_api."/api/elements/sidebar.php?sudo=$sudo";
 $ourData = file_get_contents($path);
 $menu = json_decode($ourData);
 ?>

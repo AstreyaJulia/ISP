@@ -130,3 +130,79 @@ function setUpdateUser($params, $where) {
       $str = implode(", ", $str);
         return "UPDATE sdc_users SET $str WHERE $where";
   }
+
+  // для образца
+
+  select sum (reward)
+  from ozon
+  where date_return is null
+  вознаграждение по выданным
+
+  select count (*)
+  from ozon
+  where date_return is null
+  всего выдано
+
+
+  вознаграждение по дням
+  SELECT round(sum (reward), 2) AS reward,
+      DATE_ADD( date_client, INTERVAL 1 DAY ) AS day
+  FROM
+      ozon
+  GROUP BY
+      DATE_ADD( date_client, INTERVAL 1 DAY )
+  ORDER BY
+      day
+
+  SELECT (YEAR(date_client) * 100) + MONTH(date_client) AS month, round(sum (reward), 2) AS reward
+  FROM
+      ozon
+  GROUP BY
+      month
+
+  CONVERT(dtime, GETDATE())(CAST(dtime AS DATE))
+
+
+
+  сумма заказов и средняя стоимость заказов по людям
+  select LEFT(o.notpr, 8)                                                    as user,
+         round(SUM(o.cost), 2)                                               as sum_cost,
+         count(o.notpr)                                                      as count_otp,
+         round(avg(o.cost), 2)                                               as avg_cost,
+         max(o.date_client)                                                  as last_order,
+         count(r.notpr)                                                      as count_return,
+         round(SUM(ifnull(r.cost, 0)), 2)                                    as sum_return,
+         round(((sum(ifnull(o.reward, 0))) + (SUM(ifnull(r.reward, 0)))), 2) as reward
+  from ozon o
+           left outer join ozon_return r on o.notpr = r.notpr
+  where o.date_return is null
+  GROUP BY user
+
+
+  Данные по выдаче, отправлениям по месяцам
+  select (YEAR(o.date_client) * 100) + MONTH(o.date_client)                  AS month,
+         count(distinct (LEFT(o.notpr, 8)))                                  as users,
+         round(SUM(o.cost), 2)                                               as sum_cost,
+         count(o.notpr)                                                      as count_otp,
+         round(avg(o.cost), 2)                                               as avg_cost,
+         count(r.notpr)                                                      as count_return,
+         round(SUM(ifnull(r.cost, 0)), 2)                                    as sum_return,
+         round(((sum(ifnull(o.reward, 0))) + (SUM(ifnull(r.reward, 0))) + (SUM(ifnull(p.reward, 0)))), 2) as sum_reward
+  from ozon o
+           left outer join ozon_return r on o.notpr = r.notpr
+           left outer join ozon_princip p on o.notpr = p.notpr
+  where o.date_return is null
+  GROUP BY month
+
+
+  wb
+  select (YEAR(wb.date) * 100) + MONTH(wb.date) AS month,
+         round(SUM(wb.cost), 2)                 as sum_cost,
+         round(SUM(wb.`return`), 2)             as sum_return,
+         round(avg(wb.cost), 2)                 as avg_cost,
+         round(avg(wb.`return`), 2)             as avg_return,
+         round(SUM(wb.`reward`), 2)             as sum_reward,
+         round(avg(wb.`reward`), 2)             as avg_reward
+  from wb
+  GROUP BY month
+
