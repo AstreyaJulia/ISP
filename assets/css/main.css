@@ -46266,8 +46266,8 @@ table.dataTable > thead .sorting_desc_disabled:before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   content: "\f0143";
-  right: 0.3rem;
-  top: 0.5rem;
+  right: 0.35rem;
+  top: 0;
   width: 14px;
   height: 14px;
 }
@@ -46285,8 +46285,8 @@ table.dataTable > thead .sorting_desc_disabled:after {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   content: "\f0140";
-  right: 0.3rem;
-  top: 1.3rem;
+  right: 0.35rem;
+  top: 0.6rem;
   width: 14px;
   height: 14px;
 }
