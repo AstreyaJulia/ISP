@@ -9,7 +9,7 @@
 	    public function __construct(DB $db) {
 	        $this->db = $db;
 	    }
-	    
+
 	    public function getSelect($quarter, $year) {
 	    	$prepare = str_repeat('?,', count($quarter) - 1) . '?';
 	        $sql = "SELECT
@@ -26,7 +26,7 @@
 					    SUM(`12`) AS `col_12`,
 					    SUM(`13`) AS `col_13`,
 					    SUM(`14`) AS `col_14`,
-					    SUM(nvl(`3`,0) + nvl(`4`,0) + nvl(`5`,0) + nvl(`6`,0) + nvl(`7`,0) + nvl(`8`,0) + nvl(`9`,0) + nvl(`10`,0) + nvl(`11`,0) + nvl(`12`,0) + nvl(`13`,0) + nvl(`14`,0) + nvl(`17`,0)) AS `col_15`,
+					    SUM(IFNULL(`3`,0) + IFNULL(`4`,0) + IFNULL(`5`,0) + IFNULL(`6`,0) + IFNULL(`7`,0) + IFNULL(`8`,0) + IFNULL(`9`,0) + IFNULL(`10`,0) + IFNULL(`11`,0) + IFNULL(`12`,0) + IFNULL(`13`,0) + IFNULL(`14`,0) + IFNULL(`17`,0)) AS `col_15`,
 					    SUM(`16`) AS `col_16`,
 					    SUM(`17`) AS `col_17`
 					FROM sdc_certificate_work AS CertWork
