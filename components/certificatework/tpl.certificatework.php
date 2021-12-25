@@ -55,6 +55,9 @@
                   <button class="btn btn-primary cert-get">Сформировать</button>
                 </div>
               </div>
+              <div class="col-6 d-flex align-items-end">
+                <a class="btn btn-primary cert-get mb-3" href="">Редактировать текущую</a>
+              </div>
             </div>
           </div>
           <div class="table-responsive">
@@ -62,13 +65,13 @@
               <thead>
               <tr>
                 <th rowspan="2" class="text-center">№ п/п</th>
-                <th rowspan="2" class="text-center"><span>СУДЬЯ</span><br><span>(фамилия, инициалы)</span></th>
+                <th rowspan="2" class="text-center"><span>Судья</span><br><span>(фамилия, инициалы)</span></th>
                 <th colspan="3" class="text-center">Окончено дел</th>
                 <th colspan="3" class="text-center"><span>Рассмотрено дел</span><br><span>в ап. порядке</span></th>
                 <th colspan="6" class="text-center">Рассмотрено материалов</th>
-                <th rowspan="2" class="rotate-90"><span style="max-height: 200px">всего дел и материалов (сумма граф 3-14,17)</th>
-                <th rowspan="2" class="rotate-90"><span style="max-height: 200px">Рассмотрено материалов по которым отказано в принятии заявлений, которые оставлены без движения</span></th>
-                <th rowspan="2" class="rotate-90"><span style="max-height: 200px">Рассмотрено административных материалов по жалобам на постановления по делам об адм. правонаруш.</span></th>
+                <th rowspan="2" class="rotate-90" style="max-width: 100px; min-width: 50px"><span style="max-height: 250px; max-width: 100px; min-width: 100px">всего дел и материалов (сумма граф 3-14,17)</th>
+                <th rowspan="2" class="rotate-90" style="max-width: 100px; min-width: 50px"><span style="max-height: 250px; max-width: 100px; min-width: 100px">Рассмотрено материалов по которым отказано в принятии заявлений, которые оставлены без движения</span></th>
+                <th rowspan="2" class="rotate-90" style="max-width: 100px; min-width: 50px"><span style="max-height: 250px; max-width: 100px; min-width: 100px">Рассмотрено административных материалов по жалобам на постановления по делам об адм. правонаруш.</span></th>
               </tr>
               <tr>
                 <th class="rotate-90 text-center"><span>уголовных</span></th>

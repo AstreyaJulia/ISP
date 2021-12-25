@@ -13,8 +13,8 @@
 	    public function getSelect($quarter, $year) {
 	    	$prepare = str_repeat('?,', count($quarter) - 1) . '?';
 	        $sql = "SELECT
-	        			UserAttributes.fullname AS fullname,
-						IFNULL(SUM(`3`),'') AS col_3,
+	        	  (select UserAttributes.fullname from sdc_user_attributes order by UserAttributes.fullname limit 1) AS fullname,
+						  IFNULL(SUM(`3`),'') AS col_3,
 					    IFNULL(SUM(`4`),'') AS col_4,
 					    IFNULL(SUM(`5`),'') AS col_5,
 					    IFNULL(SUM(`6`),'') AS col_6,
