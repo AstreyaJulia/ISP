@@ -29,6 +29,7 @@
         "col_16" => array_sum(array_column($certificate["data"], "col_16")),
         "col_17" => array_sum(array_column($certificate["data"], "col_17"))
     ];
+    $certificate["optgroup"] = $CertificateWorkClass->optgroup();
 
     if ($certificate) {
         // установим код ответа - 200 OK

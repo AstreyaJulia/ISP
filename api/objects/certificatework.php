@@ -37,4 +37,74 @@
 					$quarter[] = $year;
 	        return $this->db->run($sql, $quarter)->fetchAll(\PDO::FETCH_CLASS);
 	    }
+
+	    public function getPeriod() {
+	    	/*$sql = "SELECT 
+		    		year AS year,
+		    		GROUP_CONCAT(distinct quarter ORDER BY quarter ASC SEPARATOR ', ') AS quarter
+					FROM sdc_certificate_work
+					GROUP BY year";
+			return $this->db->run($sql)->fetchAll(\PDO::FETCH_CLASS);*/
+			$sql = "SELECT
+						year AS year,
+						quarter as quarter
+					from sdc_certificate_work
+					group by year, quarter";
+
+			return $this->db->run($sql)->fetchAll(\PDO::FETCH_GROUP);
+
+
+	    }
+
+	    public function optgroup() {
+	    	$output = array();
+	    	$option = array();
+	    	foreach ($this->getPeriod() as $year => $arrQuarter) {
+	    		foreach ($arrQuarter as $key => $value) {
+	    			//var_dump($value);
+	    			switch ($value["quarter"]) {
+		    			case "4":
+		    				$option[] = [
+			    				["value" => "1", "description" => "1 квартал"],
+			    				["value" => "2", "description" => "2 квартал"],
+			    				["value" => "1,2", "description" => "1 полугодие"],
+			    				["value" => "3", "description" => "3 квартал"],
+			    				["value" => "1,2,3", "description" => "9 месяцев"],
+			    				["value" => "4", "description" => "4 квартал"],
+			    				["value" => "1,2,3,4", "description" => "12 месяцев"]
+			    			];
+		    			break;
+		    			case "3":
+		    				$option[] = [
+			    				["value" => "1", "description" => "1 квартал"],
+			    				["value" => "2", "description" => "2 квартал"],
+			    				["value" => "1,2", "description" => "1 полугодие"],
+			    				["value" => "3", "description" => "3 квартал"],
+			    				["value" => "1,2,3", "description" => "9 месяцев"],
+			    			];
+			    		break;
+		    			case "2":
+		    				$option[] = [
+			    				["value" => "1", "description" => "1 квартал"],
+			    				["value" => "2", "description" => "2 квартал"],
+			    				["value" => "1,2", "description" => "1 полугодие"],
+			    			];
+			    		break;
+		    			case "1":
+		    				$option[] = [
+			    				["value" => "1", "description" => "1 квартал"],
+			    			];
+			    		break;
+		    		}
+		    		$output[$year] = 
+		    			$option[$key]
+		    		;
+		    		
+	    		}
+	    		//var_dump($value);
+	    		
+	    	}
+	    	return $output;
+	    	//return $output;
+	    }
 	}
