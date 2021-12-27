@@ -99,7 +99,7 @@
               <tbody class="cert-table">
               <?php foreach ($row->data as $value => $key): ?>
                 <tr>
-                  <td></td>
+                  <td><?= $key->row_num ?></td>
                   <td><?= $key->fullname ?></td>
                   <td><?= $key->col_3 ?></td>
                   <td><?= $key->col_4 ?></td>

@@ -13,8 +13,10 @@
 	    public function getSelect($quarter, $year) {
 	    	$prepare = str_repeat('?,', count($quarter) - 1) . '?';
 	        $sql = "SELECT
-	        	  (select UserAttributes.fullname from sdc_user_attributes order by UserAttributes.fullname limit 1) AS fullname,
-						  IFNULL(SUM(`3`),'') AS col_3,
+	        			ROW_NUMBER() OVER (PARTITION BY year ORDER BY fullname) AS row_num,
+	        			REGEXP_REPLACE(UserAttributes.fullname,'^(.*)\\\s+(.).*\\\s+(.).*$','\\\\1 \\\\2. \\\\3.') AS fullname,
+	        	  		/*(select UserAttributes.fullname from sdc_user_attributes order by UserAttributes.fullname limit 1) AS fullname,*/
+						IFNULL(SUM(`3`),'') AS col_3,
 					    IFNULL(SUM(`4`),'') AS col_4,
 					    IFNULL(SUM(`5`),'') AS col_5,
 					    IFNULL(SUM(`6`),'') AS col_6,
@@ -39,12 +41,6 @@
 	    }
 
 	    public function getPeriod() {
-	    	/*$sql = "SELECT 
-		    		year AS year,
-		    		GROUP_CONCAT(distinct quarter ORDER BY quarter ASC SEPARATOR ', ') AS quarter
-					FROM sdc_certificate_work
-					GROUP BY year";
-			return $this->db->run($sql)->fetchAll(\PDO::FETCH_CLASS);*/
 			$sql = "SELECT
 						year AS year,
 						quarter as quarter
@@ -52,8 +48,6 @@
 					group by year, quarter";
 
 			return $this->db->run($sql)->fetchAll(\PDO::FETCH_GROUP);
-
-
 	    }
 
 	    public function optgroup() {
@@ -61,7 +55,6 @@
 	    	$option = array();
 	    	foreach ($this->getPeriod() as $year => $arrQuarter) {
 	    		foreach ($arrQuarter as $key => $value) {
-	    			//var_dump($value);
 	    			switch ($value["quarter"]) {
 		    			case "4":
 		    				$option[] = [
@@ -96,15 +89,9 @@
 			    			];
 			    		break;
 		    		}
-		    		$output[$year] = 
-		    			$option[$key]
-		    		;
-		    		
+		    		$output[$year] = $option[$key];
 	    		}
-	    		//var_dump($value);
-	    		
 	    	}
 	    	return $output;
-	    	//return $output;
 	    }
 	}

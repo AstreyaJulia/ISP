@@ -12,6 +12,7 @@
 
     $certificate["data"] = $CertificateWorkClass->getSelect($quarter, $year);
     $certificate["data"][] = [
+        "row_num" => "",
         "fullname" => "Итого",
         "col_3" => array_sum(array_column($certificate["data"], "col_3")),
         "col_4" => array_sum(array_column($certificate["data"], "col_4")),
