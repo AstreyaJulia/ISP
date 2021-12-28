@@ -10,6 +10,7 @@
 	        $this->db = $db;
 	    }
 
+	    //Получаем всех действующих судей
 	    public function getJudge() {
 	        $sql = "SELECT
 						Users.id,
@@ -21,6 +22,7 @@
 	        return $this->db->run($sql)->fetchAll(\PDO::FETCH_CLASS);
 	    }
 
+	    //Получаем статистику по году и кварталу
 	    public function getSelect($quarter, $year) {
 	    	$prepare = str_repeat('?,', count($quarter) - 1) . '?';
 	        $sql = "SELECT
@@ -51,22 +53,43 @@
 	        return $this->db->run($sql, $quarter)->fetchAll(\PDO::FETCH_CLASS);
 	    }
 
+	    // Получаем все сохранившиеся отчетные периоды в сгруппированном виде
 	    public function getPeriod() {
 			$sql = "SELECT
 						year AS year,
 						quarter AS quarter
 					FROM sdc_certificate_work
+					GROUP BY year, quarter
 					ORDER BY year DESC";
 			return $this->db->run($sql)->fetchAll(\PDO::FETCH_GROUP);
 	    }
 
+	    // Формируем необходимый массив из отчетных периодов
 	    public function optgroup() {
 	    	$output = array();
 	    	$option = array();
 	    	foreach ($this->getPeriod() as $year => $arrQuarter) {
 	    		foreach ($arrQuarter as $key => $value) {
 	    			switch ($value["quarter"]) {
-		    			case "4":
+		    			case "1":
+		    				$option[] = [
+			    				["value" => "1", "description" => "1 квартал"],
+			    			];
+		    			case "2":
+		    				$option[] = [
+			    				["value" => "1", "description" => "1 квартал"],
+			    				["value" => "2", "description" => "2 квартал"],
+			    				["value" => "1,2", "description" => "1 полугодие"],
+			    			];
+		    			case "3":
+		    				$option[] = [
+			    				["value" => "1", "description" => "1 квартал"],
+			    				["value" => "2", "description" => "2 квартал"],
+			    				["value" => "1,2", "description" => "1 полугодие"],
+			    				["value" => "3", "description" => "3 квартал"],
+			    				["value" => "1,2,3", "description" => "9 месяцев"],
+			    			];
+			    		case "4":
 		    				$option[] = [
 			    				["value" => "1", "description" => "1 квартал"],
 			    				["value" => "2", "description" => "2 квартал"],
@@ -77,27 +100,6 @@
 			    				["value" => "1,2,3,4", "description" => "12 месяцев"]
 			    			];
 		    			break;
-		    			case "3":
-		    				$option[] = [
-			    				["value" => "1", "description" => "1 квартал"],
-			    				["value" => "2", "description" => "2 квартал"],
-			    				["value" => "1,2", "description" => "1 полугодие"],
-			    				["value" => "3", "description" => "3 квартал"],
-			    				["value" => "1,2,3", "description" => "9 месяцев"],
-			    			];
-			    		break;
-		    			case "2":
-		    				$option[] = [
-			    				["value" => "1", "description" => "1 квартал"],
-			    				["value" => "2", "description" => "2 квартал"],
-			    				["value" => "1,2", "description" => "1 полугодие"],
-			    			];
-			    		break;
-		    			case "1":
-		    				$option[] = [
-			    				["value" => "1", "description" => "1 квартал"],
-			    			];
-			    		break;
 		    		}
 		    		$output[$year] = $option[$key];
 	    		}
