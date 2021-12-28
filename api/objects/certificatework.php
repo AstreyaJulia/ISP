@@ -10,6 +10,17 @@
 	        $this->db = $db;
 	    }
 
+	    public function getJudge() {
+	        $sql = "SELECT
+						Users.id,
+						REGEXP_REPLACE(UserAttributes.fullname,'^(.*)\\\s+(.).*\\\s+(.).*$','\\\\1 \\\\2. \\\\3.') AS fullname
+					FROM sdc_users AS Users
+						LEFT JOIN `sdc_user_attributes` AS UserAttributes ON Users.id = UserAttributes.internalKey
+					WHERE Users.active = 1 AND UserAttributes.profession IN(1,2,3)
+					ORDER BY UserAttributes.fullname";
+	        return $this->db->run($sql)->fetchAll(\PDO::FETCH_CLASS);
+	    }
+
 	    public function getSelect($quarter, $year) {
 	    	$prepare = str_repeat('?,', count($quarter) - 1) . '?';
 	        $sql = "SELECT
@@ -43,10 +54,9 @@
 	    public function getPeriod() {
 			$sql = "SELECT
 						year AS year,
-						quarter as quarter
-					from sdc_certificate_work
-					group by year, quarter";
-
+						quarter AS quarter
+					FROM sdc_certificate_work
+					ORDER BY year DESC";
 			return $this->db->run($sql)->fetchAll(\PDO::FETCH_GROUP);
 	    }
 

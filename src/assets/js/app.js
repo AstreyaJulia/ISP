@@ -43,9 +43,9 @@ function certBtnHandler() {
   };
 
   function createtable(data) {
-    const createrowString = ({col_3, col_4, col_5, col_6, col_7, col_8, col_9, col_10, col_11, col_12, col_13, col_14, col_15, col_16, col_17, fullname}) =>
+    const createrowString = ({col_3, col_4, col_5, col_6, col_7, col_8, col_9, col_10, col_11, col_12, col_13, col_14, col_15, col_16, col_17, fullname, row_num}) =>
       `<tr>
-<td></td>
+<td>${row_num}</td>
 <td>${fullname}</td>
 <td>${col_3}</td>
 <td>${col_4}</td>
@@ -64,7 +64,7 @@ function certBtnHandler() {
 <td>${col_17}</td>
 </tr>`;
       document.querySelector('.cert-table').innerHTML = '';
-        const taskElementsString = data.data.map((col_3, col_4, col_5, col_6, col_7, col_8, col_9, col_10, col_11, col_12, col_13, col_14, col_15, col_16, col_17, fullname) => createrowString(col_3, col_4, col_5, col_6, col_7, col_8, col_9, col_10, col_11, col_12, col_13, col_14, col_15, col_16, col_17, fullname)).join('');
+        const taskElementsString = data.data.map((col_3, col_4, col_5, col_6, col_7, col_8, col_9, col_10, col_11, col_12, col_13, col_14, col_15, col_16, col_17, fullname, row_num) => createrowString(col_3, col_4, col_5, col_6, col_7, col_8, col_9, col_10, col_11, col_12, col_13, col_14, col_15, col_16, col_17, fullname, row_num)).join('');
         document.querySelector('.cert-table').insertAdjacentHTML('beforeend', taskElementsString);
   }
 

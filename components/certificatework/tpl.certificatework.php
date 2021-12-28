@@ -36,7 +36,7 @@
                     <?php foreach ($row->optgroup as $year => $arrQuarter): ?>
                     <optgroup label="<?= $year ?>" id="2021">
                     <?php foreach ($arrQuarter as $key => $value): ?>
-                      <option value="<?= $value->value ?>"><?= $value->description ?></option>
+                      <option value="<?= $value->value ?>"><?= $value->description.' '.$year.'г.' ?></option>
                     <?php endforeach ?>
                     </optgroup>
                     <?php endforeach ?>
@@ -53,7 +53,7 @@
             <table class="table table-bordered">
               <thead>
               <tr>
-                <th rowspan="2" class="text-center">№ п/п</th>
+                <th rowspan="2" class="text-center">№<br>п/п</th>
                 <th rowspan="2" class="text-center"><span>Судья</span><br><span>(фамилия, инициалы)</span></th>
                 <th colspan="3" class="text-center">Окончено дел</th>
                 <th colspan="3" class="text-center"><span>Рассмотрено дел</span><br><span>в ап. порядке</span></th>
