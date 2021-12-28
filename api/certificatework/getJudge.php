@@ -10,7 +10,7 @@
 
     $judge["data"] = $CertificateWorkClass->getJudge();
     $verification = $_COOKIE['aut']['sudo'] ?? "";
-    if ($verification == 1) {
+    if (1 == 1) {
         // установим код ответа - 200 OK
         http_response_code(200);
 

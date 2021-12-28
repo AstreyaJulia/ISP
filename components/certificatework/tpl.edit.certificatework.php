@@ -75,25 +75,27 @@
               </tr>
               </thead>
               <tbody class="cert-table">
+                <?php foreach ($row->data as $key => $value): ?>
                 <tr>
+                  <td><?= $i++ ?></td>
+                  <td><?= $value->fullname ?><input style="display:none" type="number" name="judges" value="<?= $value->id ?>"></td>
+                  <td><input type="number" name="col_3" value=""></td>
+                  <td><input type="number" name="col_4" value=""></td>
+                  <td><input type="number" name="col_5" value=""></td>
+                  <td><input type="number" name="col_6" value=""></td>
+                  <td><input type="number" name="col_7" value=""></td>
+                  <td><input type="number" name="col_8" value=""></td>
+                  <td><input type="number" name="col_9" value=""></td>
+                  <td><input type="number" name="col_10" value=""></td>
+                  <td><input type="number" name="col_11" value=""></td>
+                  <td><input type="number" name="col_12" value=""></td>
+                  <td><input type="number" name="col_13" value=""></td>
+                  <td><input type="number" name="col_14" value=""></td>
                   <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td><input type="number" name="col_16" value=""></td>
+                  <td><input type="number" name="col_17" value=""></td>
                 </tr>
+                <?php endforeach ?>
               </tbody>
             </table>
           </div>

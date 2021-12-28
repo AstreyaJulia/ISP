@@ -1,10 +1,22 @@
 <?php
-$path = $host_api.'/api/certificatework/getCertificateWork.php?quarter&year';
+
+$verification = array_key_exists('edit', $_GET) ?? "";
+switch ($verification) {
+    case 'true':
+        $i = 1;
+        $path = $host_api.'/api/certificatework/getJudge.php';
+        break;
+    
+    default:
+        $path = $host_api.'/api/certificatework/getCertificateWork.php?quarter&year';
+        break;
+}
+
 $ourData = file_get_contents($path);
 $row = json_decode($ourData);
 $title = "Справка о работе судей";
 
-$verification = array_key_exists('edit', $_GET) ?? "";
+
 ob_start();
 switch ($verification) {
     case 'true':
