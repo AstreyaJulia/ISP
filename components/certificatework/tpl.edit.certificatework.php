@@ -28,6 +28,8 @@
       <div class="col-xxl-12 col-xl-12 col-m-12 col-s-12 col-sm-12 col-12">
         <div class="card">
           <div class="table-responsive">
+            <form action="api" method="post">
+
             <table class="table table-bordered">
               <thead>
               <tr>
@@ -74,30 +76,33 @@
                 <th>17</th>
               </tr>
               </thead>
-              <tbody class="cert-table">
+                <tbody class="cert-table">
                 <?php foreach ($row->data as $key => $value): ?>
-                <tr>
-                  <td><?= $i++ ?></td>
-                  <td><?= $value->fullname ?><input style="display:none" type="number" name="judges" value="<?= $value->id ?>"></td>
-                  <td><input type="number" name="col_3" value=""></td>
-                  <td><input type="number" name="col_4" value=""></td>
-                  <td><input type="number" name="col_5" value=""></td>
-                  <td><input type="number" name="col_6" value=""></td>
-                  <td><input type="number" name="col_7" value=""></td>
-                  <td><input type="number" name="col_8" value=""></td>
-                  <td><input type="number" name="col_9" value=""></td>
-                  <td><input type="number" name="col_10" value=""></td>
-                  <td><input type="number" name="col_11" value=""></td>
-                  <td><input type="number" name="col_12" value=""></td>
-                  <td><input type="number" name="col_13" value=""></td>
-                  <td><input type="number" name="col_14" value=""></td>
-                  <td></td>
-                  <td><input type="number" name="col_16" value=""></td>
-                  <td><input type="number" name="col_17" value=""></td>
-                </tr>
+                  <tr>
+                    <td><?= $i++ ?></td>
+                    <td><?= $value->fullname ?><input style="display:none" name="judges" value="<?= $value->id ?>"></td>
+                    <td><input class="form-control" name="col_3" value=""></td>
+                    <td><input class="form-control" name="col_4" value=""></td>
+                    <td><input class="form-control" name="col_5" value=""></td>
+                    <td><input class="form-control" name="col_6" value=""></td>
+                    <td><input class="form-control" name="col_7" value=""></td>
+                    <td><input class="form-control" name="col_8" value=""></td>
+                    <td><input class="form-control" name="col_9" value=""></td>
+                    <td><input class="form-control" name="col_10" value=""></td>
+                    <td><input class="form-control" name="col_11" value=""></td>
+                    <td><input class="form-control" name="col_12" value=""></td>
+                    <td><input class="form-control" name="col_13" value=""></td>
+                    <td><input class="form-control" name="col_14" value=""></td>
+                    <td></td>
+                    <td><input class="form-control" name="col_16" value=""></td>
+                    <td><input class="form-control" name="col_17" value=""></td>
+                  </tr>
                 <?php endforeach ?>
-              </tbody>
+                </tbody>
             </table>
+            <button class="btn btn-primary" type="submit">Отправить</button>
+            </form>
+
           </div>
         </div>
       </div>
