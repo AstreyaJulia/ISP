@@ -8,7 +8,37 @@
 	    public function __construct(DB $db) {
 	        $this->db = $db;
 	    }
-	    
+
+
+	    public function getInsertCURL($params, $host_api) {
+	    	unset($params['editLink']);
+		    $data = $params;
+		    $data_string = json_encode ($data, JSON_UNESCAPED_UNICODE);
+		    $curl = curl_init($host_api.'/api/proxylist/insertLink.php');
+		    curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+		    curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
+		    // Принимаем в виде массива. (false - в виде объекта)
+		    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		    curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+		       'Content-Type: application/json',
+		       'Content-Length: ' . strlen($data_string))
+		    );
+		    $result = curl_exec($curl);
+		    curl_close($curl);
+		    header("Location: /?page=proxylist");
+		    $message = json_decode($result);
+		    return $message->message;
+	    }
+
+
+
+
+
+
+/*
+Старые записи.
+До переезда на api.
+*/
 	    //Получаем все записи
 	    public function getSelectAll() {
 	        $sql = "SELECT * FROM sdc_proxy_list";
