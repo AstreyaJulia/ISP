@@ -21,18 +21,29 @@
 	        $this->sudo = $_GET["sudo"] ?? "";
 	    }
 
+	    //Изменяем  ссылку
+	    public function updateLink($params) {
+	        $sql = "UPDATE
+	        			sdc_proxy_list
+	        		SET `menuindex`=:menuindex, `id_group`=:id_group, `href`=:href, `name_href`=:name_href, `proxy_href`=:proxy_href
+	        		WHERE `id` = :editLink";
+	        // выполняем запрос
+	        if ($this->db->run($sql, $params)) {
+	            return true;
+	        }
+	        return false;
+	    }
+
 	    //Добавляем ссылку
 	    public function insertLink($params) {
 	        $sql = "INSERT INTO `sdc_proxy_list` 
 	        			(`menuindex`, `id_group`, `href`, `name_href`, `proxy_href`) 
 	        		VALUES 
 	        			(:menuindex, :id_group, :href, :name_href, :proxy_href)";
-
 	        // выполняем запрос
 	        if ($this->db->run($sql, $params)) {
 	            return true;
 	        }
-
 	        return false;
 	    }
 	    
@@ -45,6 +56,20 @@
 					WHERE id_group = 0
 					ORDER BY menuindex + 0 ASC";
 	        return $this->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
+	    }
+
+	    //Получаем одну запись
+	    public function getReadOne($id) {
+			$sql = "SELECT
+						id,
+						id_group AS parent_id,
+						menuindex,
+						name_href,
+						href,
+						proxy_href
+					FROM sdc_proxy_list
+					WHERE id = ? AND id_group != 0";
+	        return $this->db->run($sql,[$id])->fetchAll(\PDO::FETCH_ASSOC);
 	    }
 
 	    //Получаем все записи

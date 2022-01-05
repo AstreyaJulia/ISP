@@ -20,23 +20,23 @@ if (
     !empty($data["name_href"])
 ) {
     // создание ссылки
-    if($proxyListClass->insertLink($data)){
+    if($proxyListClass->updateLink($data)){
 
         // установим код ответа - 201 создано
         http_response_code(201);
 
         // сообщим пользователю
-        echo json_encode(array("message" => "Ссылка создана."), JSON_UNESCAPED_UNICODE);
+        echo json_encode(array("message" => "Ссылка изменена."), JSON_UNESCAPED_UNICODE);
     }
 
-    // если не удается создать ссылку, сообщим пользователю
+    // если не удается изменить ссылку, сообщим пользователю
     else {
 
         // установим код ответа - 503 сервис недоступен
         http_response_code(503);
 
         // сообщим пользователю
-        echo json_encode(array("message" => "Невозможно создать ссылку."), JSON_UNESCAPED_UNICODE);
+        echo json_encode(array("message" => "Невозможно изменить ссылку."), JSON_UNESCAPED_UNICODE);
     }
 }
 
@@ -47,5 +47,5 @@ else {
     http_response_code(400);
 
     // сообщим пользователю
-    echo json_encode(array("message" => "Невозможно создать ссылку. Данные неполные."), JSON_UNESCAPED_UNICODE);
+    echo json_encode(array("message" => "Невозможно изменить ссылку. Данные неполные."), JSON_UNESCAPED_UNICODE);
 }

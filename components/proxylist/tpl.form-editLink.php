@@ -35,7 +35,7 @@
           <div class="card-body">
             <div class="form-group">
               <label class="form-label" for="link-title">Заголовок (название) ссылки</label>
-              <input class="form-control" type="text" value="" name="name_href" autocomplete="off"
+              <input class="form-control" type="text" value="<?= $name_href ?>" name="name_href" autocomplete="off"
                      placeholder="Введите название ссылки" id="link-title" required>
             </div>
             <div class="form-group row">
@@ -43,21 +43,21 @@
                 <label class="form-label" for="category">Категория (каталог)</label>
                 <select class="form-select" id="category" name="id_group" required>
                   <option value=""></option>
-                  <?php foreach ($row->data as $key => $value): ?>
-                      <option value="<?= $value->id ?>"><?= $value->name_href ?></option>
+                  <?php foreach ($row->data->category as $key => $value): ?>
+                      <option value="<?= $value->id ?>" <?= $value->selected ?? ''?>><?= $value->name_href ?></option>
                   <?php endforeach ?>
                 </select>
               </div>
               <div class="col-2">
                 <label class="form-label" for="menuindex">Позиция в меню</label>
-                <input class="form-control" type="number" id="menuindex" value=""
+                <input class="form-control" type="number" id="menuindex" value="<?= $menuindex ?>"
                        placeholder="Например: 12" name="menuindex"
                        autocomplete="off" required>
               </div>
             </div>
             <div class="form-group">
               <label class="form-label" for="url">Адрес (URL) ссылки</label>
-              <input class="form-control" type="url" id="url" value=""
+              <input class="form-control" type="url" id="url" value="<?= $href ?>"
                      placeholder="Например: https://google.com" name="href"
                      autocomplete="off" required>
             </div>
@@ -65,12 +65,12 @@
             <div class="form-group">
               <label class="form-label" for="ccproxy">Запись для Ccproxy</label>
               <textarea class="form-control" name="proxy_href" id="ccproxy"
-                        placeholder="Введите адреса или домены сайтов для списка разрешенных сайтов Ccproxy, разделяя записи точкой с запятой - ; без разделения записи пробелами. Например: *google.com;*google.com;"></textarea>
+                        placeholder="Введите адреса или домены сайтов для списка разрешенных сайтов Ccproxy, разделяя записи точкой с запятой - ; без разделения записи пробелами. Например: *google.com;*google.com;"><?= $proxy_href ?></textarea>
             </div>
           </div>
           <div class="card-footer">
             <div class="button-group d-flex align-items-center justify-content-end">
-              <button type="submit" class="btn btn-primary me-3" name="editLink" value="add">Сохранить</button>
+              <button type="submit" class="btn btn-primary me-3" name="editLink" value="<?= $editLinkValue ?>">Сохранить</button>
               <button type="button" class="btn btn-outline-danger btn-back">Отмена</button>
             </div>
           </div>

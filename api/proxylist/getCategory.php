@@ -7,7 +7,7 @@
 
     $proxyListClass = new \Api\Objects\ProxyList($db);
 
-    $proxylist["data"] = $proxyListClass->getСategory();
+    $proxylist["data"]["category"] = $proxyListClass->getСategory();
 
 
 
