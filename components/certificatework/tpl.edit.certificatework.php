@@ -80,22 +80,22 @@
                 <?php foreach ($row->data as $key => $value): ?>
                   <tr>
                     <td><?= $i++ ?></td>
-                    <td><?= $value->fullname ?><input style="display:none" name="judges-<?= $value->id ?>" value="<?= $value->id ?>"></td>
-                    <td><input class="form-control" name="col_3-j<?= $value->id ?>" value=""></td>
-                    <td><input class="form-control" name="col_4-j<?= $value->id ?>" value=""></td>
-                    <td><input class="form-control" name="col_5-j<?= $value->id ?>" value=""></td>
-                    <td><input class="form-control" name="col_6-j<?= $value->id ?>" value=""></td>
-                    <td><input class="form-control" name="col_7-j<?= $value->id ?>" value=""></td>
-                    <td><input class="form-control" name="col_8-j<?= $value->id ?>" value=""></td>
-                    <td><input class="form-control" name="col_9-j<?= $value->id ?>" value=""></td>
-                    <td><input class="form-control" name="col_10-j<?= $value->id ?>" value=""></td>
-                    <td><input class="form-control" name="col_11-j<?= $value->id ?>" value=""></td>
-                    <td><input class="form-control" name="col_12-j<?= $value->id ?>" value=""></td>
-                    <td><input class="form-control" name="col_13-j<?= $value->id ?>" value=""></td>
-                    <td><input class="form-control" name="col_14-j<?= $value->id ?>" value=""></td>
+                    <td><?= $value->USERNAME ?><input style="display:none" name="judges[<?= $i-2 ?>]" value="<?= $value->idGAS ?>"></td>
+                    <td><input class="form-control" name="col_3[<?= $i-2 ?>]" value="<?= $value->col_3 ?>"></td>
+                    <td><input class="form-control" name="col_4[<?= $i-2 ?>]" value="<?= $value->col_4 ?>"></td>
+                    <td><input class="form-control" name="col_5[<?= $i-2 ?>]" value="<?= $value->col_5 ?>"></td>
+                    <td><input class="form-control" name="col_6[<?= $i-2 ?>]" value="<?= $value->col_6 ?>"></td>
+                    <td><input class="form-control" name="col_7[<?= $i-2 ?>]" value="<?= $value->col_7 ?>"></td>
+                    <td><input class="form-control" name="col_8[<?= $i-2 ?>]" value="<?= $value->col_8 ?>"></td>
+                    <td><input class="form-control" name="col_9[<?= $i-2 ?>]" value="<?= $value->col_9 ?>"></td>
+                    <td><input class="form-control" name="col_10[<?= $i-2 ?>]" value="<?= $value->col_10 ?>"></td>
+                    <td><input class="form-control" name="col_11[<?= $i-2 ?>]" value="<?= $value->col_11 ?>"></td>
+                    <td><input class="form-control" name="col_12[<?= $i-2 ?>]" value="<?= $value->col_12 ?>"></td>
+                    <td><input class="form-control" name="col_13[<?= $i-2 ?>]" value="<?= $value->col_13 ?>"></td>
+                    <td><input class="form-control" name="col_14[<?= $i-2 ?>]" value="<?= $value->col_14 ?>"></td>
                     <td></td>
-                    <td><input class="form-control" name="col_16-j<?= $value->id ?>" value=""></td>
-                    <td><input class="form-control" name="col_17-j<?= $value->id ?>" value=""></td>
+                    <td><input class="form-control" name="col_16[<?= $i-2 ?>]" value="-"></td>
+                    <td><input class="form-control" name="col_17[<?= $i-2 ?>]" value="<?= $value->col_17 ?>"></td>
                   </tr>
                 <?php endforeach ?>
                 </tbody>

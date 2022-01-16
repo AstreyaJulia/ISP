@@ -13,7 +13,8 @@
 	    //Получаем всех действующих судей
 	    public function getJudge() {
 	        $sql = "SELECT
-						Users.id,
+						Users.id AS id,
+						UserAttributes.idGAS AS idGAS,
 						REGEXP_REPLACE(UserAttributes.fullname,'^(.*)\\\s+(.).*\\\s+(.).*$','\\\\1 \\\\2. \\\\3.') AS fullname
 					FROM sdc_users AS Users
 						LEFT JOIN `sdc_user_attributes` AS UserAttributes ON Users.id = UserAttributes.internalKey

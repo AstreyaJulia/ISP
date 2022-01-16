@@ -5,10 +5,11 @@
 
     require_once $_SERVER['DOCUMENT_ROOT'] . "/api/config/core.php";
 
-    $CertificateWorkClass = new \Api\Objects\CertificateWork($db);
+    // получаем данные из ГАС Правосудие
+    $ourData = file_get_contents("http://isp/data/judges-certificate-work.json");
 
+    $judge["data"] = json_decode($ourData);
 
-    $judge["data"] = $CertificateWorkClass->getJudge();
     $verification = $_COOKIE['aut']['sudo'] ?? "";
     if (1 == 1) {
         // установим код ответа - 200 OK
