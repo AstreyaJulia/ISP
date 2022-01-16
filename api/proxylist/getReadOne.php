@@ -11,8 +11,11 @@
 
     if ($proxyListClass->getReadOne($id)) {
        $proxylist["data"]["link"] = $proxyListClass->getReadOne($id);
-       $category = $proxyListClass->getСategory();
-       foreach ($category as $key => $value) {
+       /* 
+            список категорий + 
+            для категории которой принадлежит ссылка ставим атрибут selected
+       */
+       foreach ($proxyListClass->getСategory() as $key => $value) {
            if ($proxylist["data"]["link"][0]["parent_id"]== $value["id"]) {
                 $proxylist["data"]["category"][] = [
                     "id" => $value["id"],
