@@ -613,7 +613,7 @@ const apexChartOptions = (chartname) => {
   const safpeopleChart = {
     series: [{
       name: 'Население г. Сафоново',
-      data: [43500, 46100, 45273, 44444, 43845, 43477, 43145, 42707, 42147, 41510, 41138]
+      data: [43500, 46100, 45273, 44444, 43845, 43477, 43145, 42707, 42147, 41510, 41138, 40537]
     }],
     chart: {
       height: 350,
@@ -639,7 +639,7 @@ const apexChartOptions = (chartname) => {
       }
     },
     xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020]
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
     },
     tooltip: {
       x: {show: false}
@@ -648,7 +648,7 @@ const apexChartOptions = (chartname) => {
   const postoutboxChart = {
     series: [{
       name: 'Исходящая почта',
-      data: [11610, 29513, 28845, 30240, 23662, 36230, 41202, 37862, 36211, 36859, 34827]
+      data: [11610, 29513, 28845, 30240, 23662, 36230, 41202, 37862, 36211, 36859, 34827, 38381]
     }],
     chart: {
       height: 350,
@@ -674,7 +674,7 @@ const apexChartOptions = (chartname) => {
       }
     },
     xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020]
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
     },
     tooltip: {
       x: {show: false}
@@ -683,7 +683,7 @@ const apexChartOptions = (chartname) => {
   const postinboxChart = {
     series: [{
       name: 'Входящая почта',
-      data: [4147, 9372, 12395, 12226, 11378, 11481, 11418, 12372, 11721, 11917, 12308]
+      data: [4147, 9372, 12395, 12226, 11378, 11481, 11418, 12372, 11721, 11917, 12308, 15209]
     }],
     chart: {
       height: 350,
@@ -709,7 +709,7 @@ const apexChartOptions = (chartname) => {
       curve: 'smooth'
     },
     xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020]
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
     },
     tooltip: {
       x: {show: false}
@@ -718,7 +718,7 @@ const apexChartOptions = (chartname) => {
   const gcaseChart = {
     series: [{
       name: 'Гражданские дела',
-      data: [1777, 1935, 2108, 2892, 2784, 2593, 2454, 2145, 1785, 1388, 1587]
+      data: [1777, 1935, 2108, 2892, 2784, 2593, 2454, 2145, 1785, 1388, 1587, 1893]
     }],
     chart: {
       height: 350,
@@ -744,7 +744,7 @@ const apexChartOptions = (chartname) => {
       curve: 'smooth'
     },
     xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020]
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
     },
     tooltip: {
       x: {show: false}
@@ -753,7 +753,7 @@ const apexChartOptions = (chartname) => {
   const g1caseChart = {
     series: [{
       name: 'Гражданские дела ап. инстанции',
-      data: [45, 62, 43, 60, 58, 57, 42, 35, 51, 68, 58]
+      data: [45, 62, 43, 60, 58, 57, 42, 35, 51, 68, 58, 49]
     }],
     chart: {
       height: 350,
@@ -779,7 +779,7 @@ const apexChartOptions = (chartname) => {
       curve: 'smooth'
     },
     xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020]
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
     },
     tooltip: {
       x: {show: false}
@@ -788,7 +788,7 @@ const apexChartOptions = (chartname) => {
   const admcaseChart = {
     series: [{
       name: 'Дела об адм. правонарушениях',
-      data: [30, 25, 33, 1096, 1044, 844, 817, 882, 695, 467, 382]
+      data: [30, 25, 33, 1096, 1044, 844, 817, 882, 695, 467, 382, 1157]
     }],
     chart: {
       height: 350,
@@ -814,7 +814,7 @@ const apexChartOptions = (chartname) => {
       curve: 'smooth'
     },
     xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020]
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
     },
     tooltip: {
       x: {show: false}
@@ -823,7 +823,7 @@ const apexChartOptions = (chartname) => {
   const adm1caseChart = {
     series: [{
       name: 'Жалобы по адм. делам',
-      data: [0, 0, 0, 0, 166, 204, 205, 198, 145, 138, 123]
+      data: [0, 0, 0, 0, 166, 204, 205, 198, 145, 138, 123, 96]
     }],
     chart: {
       height: 350,
@@ -849,7 +849,7 @@ const apexChartOptions = (chartname) => {
       curve: 'smooth'
     },
     xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020]
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
     },
     tooltip: {
       x: {show: false}
@@ -858,7 +858,7 @@ const apexChartOptions = (chartname) => {
   const ucaseChart = {
     series: [{
       name: 'Уголовные дела',
-      data: [275, 366, 364, 294, 360, 373, 254, 214, 282, 251, 240]
+      data: [275, 366, 364, 294, 360, 373, 254, 214, 282, 251, 240, 297]
     }],
     chart: {
       height: 350,
@@ -884,7 +884,7 @@ const apexChartOptions = (chartname) => {
       curve: 'smooth'
     },
     xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020]
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
     },
     tooltip: {
       x: {show: false}
@@ -893,7 +893,7 @@ const apexChartOptions = (chartname) => {
   const u1caseChart = {
     series: [{
       name: 'Уголовные дела ап. инстанции',
-      data: [15, 30, 17, 17, 13, 8, 14, 9, 9, 6, 13]
+      data: [15, 30, 17, 17, 13, 8, 14, 9, 9, 6, 13, 9]
     }],
     chart: {
       height: 350,
@@ -919,7 +919,7 @@ const apexChartOptions = (chartname) => {
       curve: 'smooth'
     },
     xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020]
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
     },
     tooltip: {
       x: {show: false}
@@ -928,7 +928,7 @@ const apexChartOptions = (chartname) => {
   const mucaseChart = {
     series: [{
       name: 'Материалы в порядке уг. производства, всего',
-      data: [545, 3440, 2634, 1662, 1232, 1852, 1926, 1604, 2216, 1564, 1494]
+      data: [545, 3440, 2634, 1662, 1232, 1852, 1926, 1604, 2216, 1564, 1494, 1157]
     }],
     chart: {
       height: 350,
@@ -954,7 +954,7 @@ const apexChartOptions = (chartname) => {
       curve: 'smooth'
     },
     xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020]
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
     },
     tooltip: {
       x: {show: false}
@@ -963,7 +963,7 @@ const apexChartOptions = (chartname) => {
   const eosChart = {
     series: [{
       name: 'Обращения на портале ГАС Правосудие, без исковых',
-      data: [87, 230, 423, 588]
+      data: [87, 230, 423, 624]
     }],
     chart: {
       height: 350,
@@ -998,7 +998,7 @@ const apexChartOptions = (chartname) => {
   const eosgcaseChart = {
     series: [{
       name: 'Исковые заявления поданные через портал ГАС Правосудие',
-      data: [21, 43, 35, 93]
+      data: [21, 43, 35, 128]
     }],
     chart: {
       height: 350,

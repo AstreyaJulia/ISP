@@ -38,12 +38,58 @@
                   </div>
                 </div>
               </div>
+              <div class="card overflow-hidden mb-3">
+                <div class="bg-success-lighter stars-animation">
+                  <i class="mdi mdi-close-thick star"></i>
+                  <i class="mdi mdi-close-thick star"></i>
+                  <i class="mdi mdi-close-thick star"></i>
+                  <div class="circle"></div>
+                  <div class="circle"></div>
+                  <div class="circle"></div>
+
+                  <div class="row">
+                    <div class="col-7">
+                      <div class="p-3">
+                        <p class="text-uppercase  fw-bold font-small-1">Не опубликованные дела</p>
+                        <p class="font-size-15 text-truncate"><?= $notPub ?></p>
+                      </div>
+                    </div>
+                    <div class="col-5 align-self-end d-flex align-items-center justify-content-end">
+                      <img src="/assets/img/profile-img.png" alt="" class="img-fluid m-3" style="width: 80px">
+                    </div>
+                  </div>
+                </div>
+              </div>
 
             <!-- <div id="carouselNews" class="carousel slide card mb-3" data-bs-ride="carousel"></div> -->
 
           </div>
 
           <div class="col-xxl-8 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+            <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>FULL_NUMBER</th>
+                  <th>VERDICT_DATE</th>
+                  <th>VALIDITY_DATE</th>
+                  <th>DATE_UNTILL</th>
+                  <th>STAT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php foreach ($row as $key => $value): ?>
+                <tr>
+                  <td><?= $value->FULL_NUMBER ?></td>
+                  <td><?= date("d.m.Y", strtotime($value->VERDICT_DATE)) ?></td>
+                  <td><?= $value->VALIDITY_DATE ? date("d.m.Y", strtotime($value->VALIDITY_DATE)): "" ?></td>
+                  <td><?= $value->DATE_UNTILL ?></td>
+                  <td><?= $value->STAT ?></td>
+                </tr>
+                <?php endforeach ?>
+              </tbody>
+            </table>
+            </div>
             <!-- Новости
             <div class="news-widget">
               <div class="news-list d-flex flex-wrap">

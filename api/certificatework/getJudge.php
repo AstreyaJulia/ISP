@@ -6,7 +6,7 @@
     require_once $_SERVER['DOCUMENT_ROOT'] . "/api/config/core.php";
 
     // получаем данные из ГАС Правосудие
-    $ourData = file_get_contents("http://isp/data/judges-certificate-work.json");
+    $ourData = file_get_contents("http://192.168.0.254:8079/api_GAS/judges-certificate-work.php");
 
     $judge["data"] = json_decode($ourData);
 
