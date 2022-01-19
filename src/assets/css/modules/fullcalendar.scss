@@ -363,3 +363,34 @@
   }
 }
 
+.fc-toolbar-chunk {
+  display: flex;
+  align-items: center;
+
+  div {
+    display: flex;
+    align-items: center;
+  }
+
+  .fc-prev-button {
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .fc-next-button {
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.today-calendar-widget {
+  .fc-prev-button, .fc-next-button {
+    width: 24px;
+    height: 24px;
+  }
+
+}

@@ -38,28 +38,20 @@
                   </div>
                 </div>
               </div>
-              <div class="card overflow-hidden mb-3">
-                <div class="bg-success-lighter stars-animation">
-                  <i class="mdi mdi-close-thick star"></i>
-                  <i class="mdi mdi-close-thick star"></i>
-                  <i class="mdi mdi-close-thick star"></i>
-                  <div class="circle"></div>
-                  <div class="circle"></div>
-                  <div class="circle"></div>
 
-                  <div class="row">
-                    <div class="col-7">
-                      <div class="p-3">
-                        <p class="text-uppercase  fw-bold font-small-1">Не опубликованные дела</p>
-                        <p class="font-size-15 text-truncate"><?= $notPub ?></p>
-                      </div>
-                    </div>
-                    <div class="col-5 align-self-end d-flex align-items-center justify-content-end">
-                      <img src="/assets/img/profile-img.png" alt="" class="img-fluid m-3" style="width: 80px">
-                    </div>
+            <a class="card bg-danger-lighter" href="#">
+              <div class="card-body">
+                <div class="d-flex align-items-center">
+                  <div class="card-icon small bg-gradient-danger text-white grey-shadow-2 me-3">
+                    <i class="mdi mdi-lightbulb-on-outline"></i>
                   </div>
+                  <div class="d-flex flex-grow-1 flex-shrink-1 flex-column">
+                    <p class="text-dark text-uppercase fw-bold font-small-1 mb-0">Актов не опубликовано</p>
+                  </div>
+                  <h4 class="mb-0 text-danger"><?= $notPub ?></h4>
                 </div>
               </div>
+            </a>
 
             <!-- <div id="carouselNews" class="carousel slide card mb-3" data-bs-ride="carousel"></div> -->
 
@@ -317,6 +309,7 @@
 
         </div>
       </div>
+    </div>
 </main>
 
 

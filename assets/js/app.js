@@ -1752,8 +1752,8 @@ const minicalendarhandler = () => {
       ];
     },
     headerToolbar: {
-      right: 'prev,next,today',
-      left: 'title',
+      right: 'prev,title,next',
+      left: 'today',
     },
     eventSources: [fetchevents],
     eventMouseEnter: function (event,) {

@@ -58436,6 +58436,32 @@ $theme-map-light: (
   display: none;
 }
 
+.fc-toolbar-chunk {
+  display: flex;
+  align-items: center;
+}
+.fc-toolbar-chunk div {
+  display: flex;
+  align-items: center;
+}
+.fc-toolbar-chunk .fc-prev-button {
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.fc-toolbar-chunk .fc-next-button {
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.today-calendar-widget .fc-prev-button, .today-calendar-widget .fc-next-button {
+  width: 24px;
+  height: 24px;
+}
+
 :root [data-sidebar-width=narrow] {
   --sidebar-width: 75px;
 }
