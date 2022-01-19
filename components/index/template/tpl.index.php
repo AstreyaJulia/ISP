@@ -39,14 +39,14 @@
                 </div>
               </div>
 
-            <a class="card bg-danger-lighter" href="#">
+            <a class="card bg-danger-lighter" href="?page=sudact">
               <div class="card-body">
                 <div class="d-flex align-items-center">
                   <div class="card-icon small bg-gradient-danger text-white grey-shadow-2 me-3">
                     <i class="mdi mdi-lightbulb-on-outline"></i>
                   </div>
                   <div class="d-flex flex-grow-1 flex-shrink-1 flex-column">
-                    <p class="text-dark text-uppercase fw-bold font-small-1 mb-0">Актов не опубликовано</p>
+                    <p class="text-secondary text-uppercase fw-bold font-small-1 mb-0">Актов не опубликовано</p>
                   </div>
                   <h4 class="mb-0 text-danger"><?= $notPub ?></h4>
                 </div>
