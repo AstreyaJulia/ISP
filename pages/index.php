@@ -13,14 +13,6 @@ if ($file_headers) {
     $row = json_decode($ourData);
     $notPub = count($row);
 } else {
-    $row = array();
-    $value = new class {
-        public $FULL_NUMBER = false;
-        public $VERDICT_DATE = false;
-        public $VALIDITY_DATE = false;
-        public $DATE_UNTILL = false;
-        public $STAT = false;
-    };
     $notPub = "Что-то пошло не так";
 }
 // количество неопубликованых актов

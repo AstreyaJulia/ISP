@@ -58,30 +58,6 @@
           </div>
 
           <div class="col-xxl-8 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-            <div class="table-responsive">
-            <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th>FULL_NUMBER</th>
-                  <th>VERDICT_DATE</th>
-                  <th>VALIDITY_DATE</th>
-                  <th>DATE_UNTILL</th>
-                  <th>STAT</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php foreach ($row as $key => $value): ?>
-                <tr>
-                  <td><?= $value->FULL_NUMBER ?></td>
-                  <td><?= date("d.m.Y", strtotime($value->VERDICT_DATE)) ?></td>
-                  <td><?= $value->VALIDITY_DATE ? date("d.m.Y", strtotime($value->VALIDITY_DATE)): "" ?></td>
-                  <td><?= $value->DATE_UNTILL ?></td>
-                  <td><?= $value->STAT ?></td>
-                </tr>
-                <?php endforeach ?>
-              </tbody>
-            </table>
-            </div>
             <!-- Новости
             <div class="news-widget">
               <div class="news-list d-flex flex-wrap">
