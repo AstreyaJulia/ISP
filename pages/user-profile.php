@@ -31,6 +31,7 @@
 
 	//событие на кнопку выход
 	if(array_key_exists('logOut',$_GET)) {
+		setcookie ("aut[jwt]", "", time() - 3600, "/");
 		setcookie ("aut[id]", "", time() - 3600, "/");
 		setcookie ("aut[idGAS]", "", time() - 3600, "/");
 		setcookie ("aut[login]", "", time() - 3600, "/");

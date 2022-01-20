@@ -6,9 +6,46 @@
 	{
 
 		protected $db;
+		public $jwt;
 
 	    public function __construct(DB $db) {
 	        $this->db = $db;
+	    }
+
+	    public function login($params, $host_api) {
+		    $data_string = json_encode ($params, JSON_UNESCAPED_UNICODE);
+		    $curl = curl_init($host_api);
+		    curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+		    curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
+		    // Принимаем в виде массива. (false - в виде объекта)
+		    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		    curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+		       'Content-Type: application/json',
+		       'Content-Length: ' . strlen($data_string))
+		    );
+		    $result = curl_exec($curl);
+		    curl_close($curl);
+		    $message = json_decode($result);
+		    $this->jwt = $message->jwt ?? "";
+		    $messages = $message->message ?? "";
+		    return $messages;
+	    }
+
+	    public function validateLogin($params, $host_api) {
+		    $data_string = json_encode ($params, JSON_UNESCAPED_UNICODE);
+		    $curl = curl_init($host_api);
+		    curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+		    curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
+		    // Принимаем в виде массива. (false - в виде объекта)
+		    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		    curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+		       'Content-Type: application/json',
+		       'Content-Length: ' . strlen($data_string))
+		    );
+		    $result = curl_exec($curl);
+		    curl_close($curl);
+		    $message = json_decode($result);
+		    return $message;
 	    }
 
 	    // Получаем пароль активного пользователя
@@ -49,6 +86,7 @@
 
 	    // Запишем куку из метода getUserAttributes()
 	    public function setCookie($login) {
+	    	setcookie("aut[jwt]", $this->jwt, time() + 3600 * 24 * 30);
 	    	setcookie("aut[id]", $this->getUserAttributes($login)->id, time() + 3600 * 24 * 30);
 	    	setcookie("aut[idGAS]", $this->getUserAttributes($login)->idGAS, time() + 3600 * 24 * 30);
 		    setcookie("aut[login]", $this->getUserAttributes($login)->username, time() + 3600 * 24 * 30);

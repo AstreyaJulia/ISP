@@ -12,3 +12,4 @@ Thumbs.db
 /data/proxylist/whitelist.txt
 /data/proxylist/blacklist.txt
 conection.php
+*dev*

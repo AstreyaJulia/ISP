@@ -19,8 +19,8 @@ $db = new \Core\Config\DB($dbname, $user, $password, $host);
 $key = "your_secret_key";
 $iss = "http://any-site.org";
 $aud = "http://any-site.com";
-$iat = 1356999524;
-$nbf = 1357000000;
+$iat = time() - (60 * 60);
+$nbf = $iat + (60 * 60); // valid for 1 hour
 
 // URL домашней страницы
 //$home_url="http://php-oop-mysql/api/";
