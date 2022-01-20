@@ -14,7 +14,7 @@ table.dataTable > thead .sorting_desc_disabled:before {
   -moz-osx-font-smoothing: grayscale;
   content: "\F0143";
   right: 0.35rem;
-  top: 0;
+  top: calc(50% - 18px);
   width: 14px;
   height: 14px
 }
@@ -34,7 +34,7 @@ table.dataTable > thead .sorting_desc_disabled:after {
   content: "\F0140";
   //color: $primary;
   right: 0.35rem;
-  top: 0.6rem;
+  top: calc(50% - 4px);
   width: 14px;
   height: 14px
 }

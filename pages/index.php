@@ -4,20 +4,34 @@ $title = "Главная страница";
 $UserAttributes = new \Core\Model\UserAttributes($db);
 $birthday = $UserAttributes->getBirthday();
 
+// параметры $_GET запроса
+$queryParams = [
+    'idJudge' => $_COOKIE["aut"]["idGAS"] ?? "",
+];
 
-$url_file = "http://192.168.0.254:8079/api_GAS/oracle.php?idJudge=8500013";
-$file_headers = @get_headers($url_file);
+// URL страницы, которую открываем
+$url = 'http://192.168.0.254:8079/api_GAS/publication-acts.php?'. http_build_query($queryParams);
 
-if ($file_headers) {
-    $ourData = file_get_contents("http://192.168.0.254:8079/api_GAS/oracle.php?idJudge=8500013");
-    $row = json_decode($ourData);
-    $notPub = count($row);
+$ch = curl_init($url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//ожидания при попытке подключения секунд (0 - бесконечно)
+curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
+
+$response = curl_exec($ch);
+curl_close($ch);
+
+if ($response) {
+    $row = json_decode($response);
+    $message = "Актов не опубликовано";
+    // количество неопубликованых актов
+    $notPub = is_array($row) ? count($row):  0;
 } else {
-    $notPub = "Что-то пошло не так";
+    $message = "";
+    // сообщим об ошибке в $url
+    $notPub = "Недоступен ГАС";
 }
-// количество неопубликованых актов
-
+// подключаем шаблон
 ob_start();
-include "components/index/template/tpl.index.php";
-$content = ob_get_contents();
+    include "components/index/template/tpl.index.php";
+    $content = ob_get_contents();
 ob_end_clean();

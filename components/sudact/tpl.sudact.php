@@ -25,18 +25,30 @@
       </div>
     </header>
     <div class="row boxed-content">
+
       <div class="card">
-        <div class="d-flex flex-column p-3">
-          <h6 class="surtitle">Внимание</h6>
-          <p class="mb-0"></p>
+        <div class="accordion my-3" id="accordionExample">
+          <div class="accordion-item">
+              <div class="accordion-button" role="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <h6 class="accordion-header surtitle text-danger font-small-1">Внимание</h6>
+              </div>
+            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <p><strong>* Дата, указаная в графе</strong> <code>"Опубликовать до"</code> вычисляется <strong>автоматически</strong>, для приговоров - дата вступления в законную силу + 30 дней, для актов - дата рассмотрения + 30 дней.</p>
+                <p>Уголовные дела, находящиеся на <strong>обжаловании</strong>, в списке тоже отображаются, их публикуют после вступления в законную силу после возвращения из суда ап. инстанции (без изменения, измененные).</p>
+                <p><strong>Отмененные</strong> приговоры по уголовным делам зпрещаются к публикации с указанием причины <code>"Отменено вышестоящей инстанцией"</code></p>
+              </div>
+            </div>
+          </div>
         </div>
-        <table class="table-responsive table table-bordered dataTable sort">
+
+        <table class="table-responsive table dataTable sort">
           <thead>
           <tr>
             <th>Номер дела</th>
             <th>Дата рассмотрения</th>
             <th>Дата вступления в законную силу</th>
-            <th>Опубликовать до*</th>
+            <th>Опубликовать до *</th>
             <th>Статус</th>
           </tr>
           </thead>

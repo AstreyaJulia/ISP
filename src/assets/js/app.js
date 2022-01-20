@@ -2605,9 +2605,8 @@ const calendmodulehandler = () => {
     },
     eventSources: [fetchEvents],
     headerToolbar: {
-      left: 'title',
-      center: '',
-      right: 'prev,next,today dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+      left: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek',
+      right: 'today prev,title,next'
     },
     eventMouseEnter: function (event,) {
       if (event.event.display !== "background") {

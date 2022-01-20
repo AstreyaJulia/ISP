@@ -1165,12 +1165,13 @@ code[class*="language-"], pre[class*="language-"] {
   border-color: var(--ui-border);
 
   & > :not(caption) > * > * {
-    padding: 0.25rem 0.25rem;
+    padding: 0.5rem 0.5rem;
   }
 
   th {
     font-weight: 500;
     background-color: var(--ui-bg-mid);
+    vertical-align: center;
 
     &.rotate-90 {
       vertical-align: bottom;
@@ -2099,12 +2100,12 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
     width: 5px;
     height: 5px;
     border-radius: 50%;
-    background-color: $success;
+    background-color: $white;
     position: absolute;
   }
 
   & i {
-    color: $success;
+    color: $white;
     position: absolute;
   }
 

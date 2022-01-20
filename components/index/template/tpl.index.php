@@ -16,7 +16,7 @@
 
           <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
               <div class="card overflow-hidden mb-3">
-                <div class="bg-success-lighter stars-animation">
+                <div class="bg-primary stars-animation">
                   <i class="mdi mdi-close-thick star"></i>
                   <i class="mdi mdi-close-thick star"></i>
                   <i class="mdi mdi-close-thick star"></i>
@@ -27,9 +27,8 @@
                   <div class="row">
                     <div class="col-7">
                       <div class="p-3">
-                        <p class="text-uppercase  fw-bold font-small-1">С возвращением,</p>
-                        <p class="font-size-15 text-truncate"><?= shortFIO($_COOKIE['aut']['fullname']) ?></p>
-
+                        <p class="text-uppercase fw-bold font-small-1 text-white">С возвращением,</p>
+                        <p class="font-size-15 text-truncate text-light"><?= shortFIO($_COOKIE['aut']['fullname']) ?></p>
                       </div>
                     </div>
                     <div class="col-5 align-self-end d-flex align-items-center justify-content-end">
@@ -38,20 +37,21 @@
                   </div>
                 </div>
               </div>
-
-            <a class="card bg-danger-lighter" href="?page=sudact">
-              <div class="card-body">
-                <div class="d-flex align-items-center">
-                  <div class="card-icon small bg-gradient-danger text-white grey-shadow-2 me-3">
-                    <i class="mdi mdi-lightbulb-on-outline"></i>
+            <?php if ($notPub): ?>
+              <a class="card bg-danger-lighter" href="?page=sudact">
+                <div class="card-body">
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon small bg-gradient-danger text-white grey-shadow-2 me-3">
+                      <i class="mdi mdi-lightbulb-on-outline"></i>
+                    </div>
+                    <div class="d-flex flex-grow-1 flex-shrink-1 flex-column">
+                      <p class="text-secondary text-uppercase fw-bold font-small-1 mb-0"><?= $message ?></p>
+                    </div>
+                    <h4 class="mb-0 text-danger"><?= $notPub ?></h4>
                   </div>
-                  <div class="d-flex flex-grow-1 flex-shrink-1 flex-column">
-                    <p class="text-secondary text-uppercase fw-bold font-small-1 mb-0">Актов не опубликовано</p>
-                  </div>
-                  <h4 class="mb-0 text-danger"><?= $notPub ?></h4>
                 </div>
-              </div>
-            </a>
+              </a>
+            <?php endif ?>
 
             <!-- <div id="carouselNews" class="carousel slide card mb-3" data-bs-ride="carousel"></div> -->
 

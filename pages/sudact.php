@@ -4,13 +4,24 @@ $title = "Публикация судебных актов";
 $UserAttributes = new \Core\Model\UserAttributes($db);
 $birthday = $UserAttributes->getBirthday();
 
+// параметры $_GET запроса
+$queryParams = [
+    'idJudge' => $_COOKIE["aut"]["idGAS"] ?? "",
+];
 
-$url_file = "http://192.168.0.254:8079/api_GAS/oracle.php?idJudge=8500013";
-$file_headers = @get_headers($url_file);
+// URL страницы, которую открываем
+$url = 'http://192.168.0.254:8079/api_GAS/publication-acts.php?'. http_build_query($queryParams);
 
-if ($file_headers) {
-    $ourData = file_get_contents("http://192.168.0.254:8079/api_GAS/oracle.php?idJudge=8500013");
-    $row = json_decode($ourData);
+$ch = curl_init($url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//ожидание при попытке подключения, секунд (0 - бесконечно)
+curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
+
+$response = curl_exec($ch);
+curl_close($ch);
+
+if (!empty($response)) {
+    $row = json_decode($response) ?? array();
 } else {
     $row = array();
     $value = new class {
@@ -20,11 +31,9 @@ if ($file_headers) {
         public $DATE_UNTILL = false;
         public $STAT = false;
     };
-    $notPub = "Что-то пошло не так";
 }
-// количество неопубликованых актов
 
 ob_start();
-include "components/sudact/tpl.sudact.php";
-$content = ob_get_contents();
+    include "components/sudact/tpl.sudact.php";
+    $content = ob_get_contents();
 ob_end_clean();
