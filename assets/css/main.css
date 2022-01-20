@@ -55256,6 +55256,41 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
   animation: move2 1.6s infinite alternate;
 }
 
+.clouds-animation img {
+  z-index: 3;
+  animation: cosmo-balloon 10s linear infinite;
+}
+.clouds-animation .cloud {
+  position: absolute;
+  animation: cloud 50s linear infinite;
+}
+.clouds-animation .cloud:nth-of-type(1) {
+  width: 100px;
+  top: -37px;
+  right: 20px;
+  opacity: 0.7;
+}
+.clouds-animation .cloud:nth-of-type(2) {
+  width: 150px;
+  top: -200px;
+  left: 10px;
+  opacity: 0.8;
+}
+.clouds-animation .cloud:nth-of-type(3) {
+  width: 120px;
+  top: -180px;
+  left: 70px;
+}
+
+.accordion-item {
+  background-color: var(--ui-bg);
+  border: 1px solid var(--ui-border);
+}
+.accordion-button:not(.collapsed) {
+  color: #6C5CE8;
+  background-color: rgba(108, 92, 232, 0.2);
+}
+
 @keyframes star {
   0% {
     -webkit-transform: scale(1) rotate(0deg);
@@ -55278,6 +55313,28 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
   100% {
     -webkit-transform: translateY(-5px);
     transform: translateY(-5px);
+  }
+}
+@keyframes cloud {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(500px);
+  }
+}
+@keyframes cosmo-balloon {
+  0% {
+    transform: rotate(0);
+  }
+  33% {
+    transform: rotate(5deg);
+  }
+  66% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(-7deg);
   }
 }
 :root [data-sidebar-width=narrow] {
@@ -57832,6 +57889,15 @@ $theme-map-light: (
   min-height: 595px;
 }
 
+.today-calendar .fc-icon-mdi::before,
+.calendar-module .fc-icon-mdi::before {
+  display: inline-block;
+  font: normal normal normal 24px/1 "Material Design Icons";
+  font-size: inherit;
+  text-rendering: auto;
+  line-height: inherit;
+  vertical-align: unset;
+}
 .today-calendar td, .today-calendar th, .today-calendar table,
 .calendar-module td,
 .calendar-module th,

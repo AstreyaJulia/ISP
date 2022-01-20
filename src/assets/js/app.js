@@ -2583,6 +2583,7 @@ const calendmodulehandler = () => {
   }
 
   const calendar = new FullCalendar.Calendar(calendarEl, {
+    themeSystem: 'standard',
     locale: 'ru',
     timeZone: 'Europe/Moscow',
     initialView: 'dayGridMonth',
