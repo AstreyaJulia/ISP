@@ -698,15 +698,15 @@ group by A.ID
 UNION ALL
 
 /* Уг. дела - постановления, без приговоров */
-SELECT DISTINCT A.ID                                            AS ID,
+SELECT DISTINCT A.ID                                                 AS ID,
                 max(A.FULL_NUMBER)                                   AS FULL_NUMBER,
                 max(A1.NAME)                                         AS FIELD_FIO,
                 max(A.VERDICT_DATE)                                  AS VERDICT_DATE,
                 max(A.VERDICT_DATE)                                  AS VALIDITY_DATE,
                 max(A.VERDICT_DATE + INTERVAL '30' DAY)              AS DATE_UNTILL,
                 max((CASE
-                     when b.ID_DOCUM is null then 'Не загружен в БСР'
-                     else 'Загружен в БСР, не опубликован' END)) AS STAT
+                         when b.ID_DOCUM is null then 'Не загружен в БСР'
+                         else 'Загружен в БСР, не опубликован' END)) AS STAT
 FROM U1_CASE@IBASEDATA.US.ORACLE.COM A
          left join bsr.BSRP b on a.ID = b.ID_AGORA
          left join bsr.RUB_DOCUM r on b.ID_DOCUM = r.ID_DOCUM
@@ -728,15 +728,15 @@ group by A.ID
 UNION ALL
 
 /* Уг дела АП. инст. */
-SELECT DISTINCT A.ID                                            AS ID,
+SELECT DISTINCT A.ID                                                 AS ID,
                 max(A.FULL_NUMBER)                                   AS FULL_NUMBER,
                 max(A1.NAME)                                         AS FIELD_FIO,
                 max(A.VERDICT_DATE)                                  AS VERDICT_DATE,
                 max(A.VERDICT_DATE)                                  AS VALIDITY_DATE,
                 max(A.VERDICT_DATE + INTERVAL '30' DAY)              AS DATE_UNTILL,
                 max((CASE
-                     when b.ID_DOCUM is null then 'Не загружен в БСР'
-                     else 'Загружен в БСР, не опубликован' END)) AS STAT
+                         when b.ID_DOCUM is null then 'Не загружен в БСР'
+                         else 'Загружен в БСР, не опубликован' END)) AS STAT
 FROM U1_case@IBASEDATA.US.ORACLE.COM A
          left join bsr.BSRP b on a.ID = b.ID_AGORA
          left join bsr.RUB_DOCUM r on b.ID_DOCUM = r.ID_DOCUM
@@ -753,15 +753,15 @@ group by A.ID
 
 UNION ALL
 
-SELECT DISTINCT A.ID                                            AS ID,
+SELECT DISTINCT A.ID                                                 AS ID,
                 max(A.FULL_NUMBER)                                   AS FULL_NUMBER,
                 max(A1.NAME)                                         as FIELD_FIO,
                 max(A.RESULT_DATE)                                   AS VERDICT_DATE,
                 max(A.RESULT_DATE)                                   AS VALIDITY_DATE,
                 max(A.RESULT_DATE + INTERVAL '30' DAY)               AS DATE_UNTILL,
                 max((CASE
-                     when b.ID_DOCUM is null then 'Не загружен в БСР'
-                     else 'Загружен в БСР, не опубликован' END)) AS STAT
+                         when b.ID_DOCUM is null then 'Не загружен в БСР'
+                         else 'Загружен в БСР, не опубликован' END)) AS STAT
 FROM G1_CASE@IBASEDATA.US.ORACLE.COM A
          left join bsr.BSRP b on a.ID = b.ID_AGORA
          left join bsr.RUB_DOCUM r on b.ID_DOCUM = r.ID_DOCUM
@@ -783,7 +783,7 @@ group by A.ID
 
 UNION ALL
 
-SELECT A.ID                                                                                              AS ID,
+SELECT A.ID                                                                                                   AS ID,
        max(A.CASE_NUMBER)                                                                                     AS FULL_NUMBER,
        max(A2.NAME)                                                                                           AS FIELD_FIO,
        max(A.DECREE_DATE)                                                                                     AS VERDICT_DATE,
@@ -800,11 +800,12 @@ WHERE (extract(YEAR FROM to_date(A.DECREE_DATE)) = extract(YEAR FROM to_date(cur
   AND A.JUDGE_ID = :JUDGE
   AND b.DATEPUBLIC is null
   AND ((e.PRICH is null) AND (b.P_ANNOT is null))
+  AND b.PRPUB <> 1
 group by A.ID
 
 UNION ALL
 
-SELECT A.ID                                                                                              AS ID,
+SELECT A.ID                                                                                                   AS ID,
        max(A.CASE_NUMBER)                                                                                     AS FULL_NUMBER,
        max(A.DEFENDANT_NAME)                                                                                  AS FIELD_FIO,
        max(A.DECREE_DATE)                                                                                     AS VERDICT_DATE,
@@ -822,3 +823,20 @@ WHERE A.COURT_I_LEVEL IN (70060000, 70060002)
   AND b.DATEPUBLIC is null
   AND ((e.PRICH is null) AND (b.P_ANNOT is null))
 group by A.ID
+
+
+
+
+/* ID судей в Агоре */
+8500014 - Асеев
+9300076 - Басурова
+9300120 - Вайцещук
+8500009 - Дроздов
+8500016 - Кривчук
+9000032 - Мельничук
+9300113 - Мильченко
+9300132 - Павлова
+8500013 - Сабанцев
+9300127 - Соловьев
+8500015 - Тарасова
+8500018 - Штукина

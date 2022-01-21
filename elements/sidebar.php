@@ -23,7 +23,7 @@ $menu = json_decode($ourData);
     <?php foreach ($menu->data as $row => $key): ?>
           <li class="<?= empty($key->isfolder) ? 'menu-item' : 'menu-item with-sub' ?>">
           <a class="menu-link position-relative rounded-2 d-flex align-items-center w-100 py-2 px-3 position-relative m-0 text-decoration-none rounded-2" <?= isset($key->alias) ? 'href="'.$key->alias.'"' : '' ?>>
-            <?= $key->icon ?>
+            <i class="mdi fs-4 <?= $key->icon ?>"></i>
             <span class="ms-2"><?= $key->pagetitle ?></span>
             <?= empty($key->isfolder) ? '' : '<i class="menu-arrow position-absolute mdi mdi-chevron-right"></i>' ?>
           </a>
@@ -32,7 +32,7 @@ $menu = json_decode($ourData);
       <ul class="sub-menu mt-2 mx-0 mb-0 ps-0">
             <li class="submenu-item mb-2 p-0">
               <a class="submenu-link d-flex align-items-center w-100 py-2 px-3 position-relative m-0 text-decoration-none rounded-2" href="<?= $child->alias ?>">
-                  <?= $child->icon ?>
+                  <i class="mdi fs-4 <?= $child->icon ?>"></i>
                   <span class="ms-2"><?= $child->pagetitle ?></span>
               </a>
           </li>

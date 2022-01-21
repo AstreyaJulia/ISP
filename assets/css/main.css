@@ -54437,7 +54437,7 @@ code[class*=language-] .c, pre[class*=language-] .c {
 .table th {
   font-weight: 500;
   background-color: var(--ui-bg-mid);
-  vertical-align: center;
+  vertical-align: middle;
 }
 .table th.rotate-90 {
   vertical-align: bottom;

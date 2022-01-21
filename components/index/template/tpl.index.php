@@ -13,44 +13,24 @@
       <div class="col-xxl-9 col-xl-8 col-lg-8 col-md-7 col-sm-6 col-12">
         <!-- Первая строка левой половины -->
         <div class="row">
-
           <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-              <div class="card overflow-hidden mb-3">
-                <div class="bg-primary stars-animation">
-                  <i class="mdi mdi-close-thick star"></i>
-                  <i class="mdi mdi-close-thick star"></i>
-                  <i class="mdi mdi-close-thick star"></i>
-                  <div class="circle"></div>
-                  <div class="circle"></div>
-                  <div class="circle"></div>
-
-                  <div class="row">
-                    <div class="col-7">
-                      <div class="p-3">
-                        <p class="text-uppercase fw-bold font-small-1 text-white">С возвращением,</p>
-                        <p class="font-size-15 text-truncate text-light"><?= shortFIO($_COOKIE['aut']['fullname']) ?></p>
-                      </div>
-                    </div>
-                    <div class="col-5 align-self-end d-flex align-items-center justify-content-end">
-                      <img src="/assets/img/cosmonaut-laptop.svg" alt="" class="img-fluid m-3" style="max-width: 100px">
-                    </div>
-                  </div>
-                </div>
-              </div>
             <div class="card overflow-hidden mb-3">
-              <div class="bg-info clouds-animation position-relative">
-                <img class="cloud" src="assets/img/cloud1.svg" alt="">
-                <img class="cloud" src="assets/img/cloud2.svg" alt="">
-                <img class="cloud" src="assets/img/cloud1.svg" alt="">
+              <div class="bg-primary stars-animation">
+                <i class="mdi mdi-close-thick star"></i>
+                <i class="mdi mdi-close-thick star"></i>
+                <i class="mdi mdi-close-thick star"></i>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
                 <div class="row">
                   <div class="col-7">
                     <div class="p-3">
-                      <p class="text-uppercase fw-bold font-small-1 text-white">С Днём рождения,</p>
+                      <p class="text-uppercase fw-bold font-small-1 text-white">С возвращением,</p>
                       <p class="font-size-15 text-truncate text-light"><?= shortFIO($_COOKIE['aut']['fullname']) ?></p>
                     </div>
                   </div>
                   <div class="col-5 align-self-end d-flex align-items-center justify-content-end">
-                    <img src="/assets/img/cosmonaut-balloon.svg" alt="" class="img-fluid m-3 me-5" style="max-width: 100px">
+                    <img src="/assets/img/cosmonaut-laptop.svg" alt="" class="img-fluid m-3" style="max-width: 100px">
                   </div>
                 </div>
               </div>
@@ -75,93 +55,13 @@
             <!-- <div id="carouselNews" class="carousel slide card mb-3" data-bs-ride="carousel"></div> -->
 
           </div>
-
           <div class="col-xxl-8 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-            <!-- Новости
-            <div class="news-widget">
-              <div class="news-list d-flex flex-wrap">
-                <div class="card widget flex-grow-1 mb-3">
-                  <div class="card-body">
-                    <div class="news-body flex-grow-1">
-                      <div class="news-header d-flex justify-content-between">
-                        <span class="badge bg-primary-lighter mb-2 text-primary">Обновления</span>
-                        <small class="opacity-50 text-nowrap">сейчас</small>
-                      </div>
-                      <p class="news-header mb-1"
-                         style="text-overflow: ellipsis; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical;">
-                        Обновление ПИ СДП, ПИ БСР, ПИ Судимость, ПИ Право, ПИ ПОЭСО, ПИ АУ, ПИ ОО, ПИ Присяжные, ПИ ИСП,
-                        ПИ ИК,
-                        ПИ Фемида, ПИ СТАКС, ПИ Недвижимость, ПИ Кадры-П</p>
-                      <div class="news-footer d-flex justify-content-between">
-                        <a href="#">Подробнее</a>
-                        <div class="news-toolbuttons">
-                          <a role="button" class="p-1" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                             data-bs-original-title="В избранное"><i
-                              class="mdi mdi-heart-outline text-secondary opacity-50"></i></a>
-                          <a role="button" class="p-1" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                             data-bs-original-title="Скопировать ссылку"><i
-                              class="mdi mdi-share-variant-outline text-secondary opacity-50"></i></a>
-                          <a class="ms-3 p-1" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                             data-bs-original-title="Просмотры"><i
-                              class="mdi mdi-eye-outline text-secondary opacity-50"></i><small
-                              class="ms-1 text-secondary opacity-50">10</small></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="card widget flex-grow-1 mb-3">
-                  <div class="card-body">
-                    <div class="news-body flex-grow-1">
-                      <div class="news-header d-flex justify-content-between">
-                        <span class="badge bg-info-lighter mb-2 text-info">Литература</span>
-                        <small class="opacity-50 text-nowrap">31.09.2021</small>
-                      </div>
-                      <p class="news-header mb-1">Вестник фемиды</p>
-                      <div class="news-footer d-flex justify-content-between">
-                        <a href="#">Подробнее</a>
-                        <div class="news-toolbuttons">
-                          <a role="button" class="p-1" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                             data-bs-original-title="В избранное"><i
-                              class="mdi mdi-heart-outline text-secondary opacity-50"></i></a>
-                          <a role="button" class="p-1" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                             data-bs-original-title="Скопировать ссылку"><i
-                              class="mdi mdi-share-variant-outline text-secondary opacity-50"></i></a>
-                          <a class="ms-3 p-1" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                             data-bs-original-title="Просмотры"><i
-                              class="mdi mdi-eye-outline text-secondary opacity-50"></i><small
-                              class="ms-1 text-secondary opacity-50">10</small></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="d-flex justify-content-between align-items-center mb-3">
-                <a href="#" class="btn btn-outline-primary btn-sm">Все новости</a>
-              </div>
-            </div>
-            -->
           </div>
 
         </div>
       </div>
-
       <!-- Правая половина дашбоарда. Узкая-->
       <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-5 col-sm-6 col-12">
-        <!-- Анимация
-        <div class="card mb-3 container-fluid p-0 stars-animation">
-          <div class="card-body">
-            <i class="mdi mdi-close-thick star"></i>
-            <i class="mdi mdi-close-thick star"></i>
-            <i class="mdi mdi-close-thick star"></i>
-            <div class="circle"></div>
-            <div class="circle"></div>
-            <div class="circle"></div>
-          </div>
-        </div>
-        -->
-
         <div class="card mb-3 container-fluid p-0">
           <div class="card-body">
             <div class="today-calendar">
@@ -169,7 +69,6 @@
             </div>
           </div>
         </div>
-
         <div class="card today-events mb-3 visually-hidden"><!-- Пока нет календаря-->
           <div class="card-body">
             <h5 class="widget-title">События сегодня</h5>
@@ -185,7 +84,8 @@
 
           </div>
         </div>
-        <div class="card position-relative confetti-animation bg-primary widget-bdays <?php visuallyHidden($birthday); ?>">
+        <div
+          class="card position-relative confetti-animation bg-primary widget-bdays <?php visuallyHidden($birthday); ?>">
           <div>
             <div class="row g-0">
               <div class="col-9">
