@@ -10,6 +10,13 @@
 
 @font-face {
   font-family: "TT Norms Pro";
+  src: local("TT Norms Pro Medium"), url("../../assets/fonts/TTNormsPro-Medium.woff2") format("woff2"), url("../../assets/fonts/TTNormsPro-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "TT Norms Pro";
   src: local("TT Norms Pro Bold"), url("../../assets/fonts/TTNormsPro-Bold.woff2") format("woff2"), url("../../assets/fonts/TTNormsPro-Bold.woff") format("woff");
   font-weight: 700;
   font-style: normal;

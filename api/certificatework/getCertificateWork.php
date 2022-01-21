@@ -10,7 +10,27 @@
     $quarter = isset($_GET['quarter']) ? explode(',', $_GET["quarter"]) : die();
     $year = $_GET['year'] ?? die();
 
-    $certificate = $CertificateWorkClass->getSelect($quarter, $year);
+    $certificate["data"] = $CertificateWorkClass->getSelect($quarter, $year);
+    $certificate["data"][] = [
+        "row_num" => "",
+        "fullname" => "Итого",
+        "col_3" => array_sum(array_column($certificate["data"], "col_3")),
+        "col_4" => array_sum(array_column($certificate["data"], "col_4")),
+        "col_5" => array_sum(array_column($certificate["data"], "col_5")),
+        "col_6" => array_sum(array_column($certificate["data"], "col_6")),
+        "col_7" => array_sum(array_column($certificate["data"], "col_7")),
+        "col_8" => array_sum(array_column($certificate["data"], "col_8")),
+        "col_9" => array_sum(array_column($certificate["data"], "col_9")),
+        "col_10" => array_sum(array_column($certificate["data"], "col_10")),
+        "col_11" => array_sum(array_column($certificate["data"], "col_11")),
+        "col_12" => array_sum(array_column($certificate["data"], "col_12")),
+        "col_13" => array_sum(array_column($certificate["data"], "col_13")),
+        "col_14" => array_sum(array_column($certificate["data"], "col_14")),
+        "col_15" => array_sum(array_column($certificate["data"], "col_15")),
+        "col_16" => array_sum(array_column($certificate["data"], "col_16")),
+        "col_17" => array_sum(array_column($certificate["data"], "col_17"))
+    ];
+    $certificate["optgroup"] = $CertificateWorkClass->optgroup();
 
     if ($certificate) {
         // установим код ответа - 200 OK

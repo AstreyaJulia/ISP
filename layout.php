@@ -9,7 +9,7 @@ if (file_exists($path)) {
   echo "не подключен: elements/head.php";
 }
 ?>
-<body class="page-body" data-sidebar-width="<?= $sirebar ?>" data-theme-name="<?= $theme ?>">
+<body class="page-body" data-sidebar-width="<?= $sidebar ?>" data-theme-name="<?= $theme ?>">
 
 <!-- Спиннер-индикатор загрузки -->
 <div class="spinner-wrapper">

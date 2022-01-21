@@ -1,6 +1,12 @@
 // Шрифты
 @import "fonts";
-@import "../../../node_modules/@mdi/font/scss/materialdesignicons";
+@import "../../../node_modules/@mdi/font/scss/variables";
+@import "../../../node_modules/@mdi/font/scss/functions";
+@import "vendors/mdifont";
+@import "../../../node_modules/@mdi/font/scss/core";
+@import "../../../node_modules/@mdi/font/scss/icons";
+@import "../../../node_modules/@mdi/font/scss/extras";
+@import "../../../node_modules/@mdi/font/scss/animated";
 @import "weather-icons/weather-icons";
 
 // Custom
@@ -1156,6 +1162,34 @@ code[class*="language-"], pre[class*="language-"] {
 // Таблицы
 .table {
   color: var(--ui-text);
+  border-color: var(--ui-border);
+
+  & > :not(caption) > * > * {
+    padding: 0.5rem 0.5rem;
+  }
+
+  th {
+    font-weight: 500;
+    background-color: var(--ui-bg-mid);
+    vertical-align: middle;
+
+    &.rotate-90 {
+      vertical-align: bottom;
+      text-align: center;
+      span {
+        -ms-writing-mode: tb-rl;
+        -webkit-writing-mode: vertical-rl;
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+        //white-space: nowrap;
+      }
+    }
+
+  }
+
+  & > :not(:first-child) {
+    border-top: 1px solid;
+  }
 
   .fa {
     display: inline-block;
@@ -1202,6 +1236,11 @@ code[class*="language-"], pre[class*="language-"] {
       color: $danger;
     }
   }
+}
+
+.table-bordered {
+  color: var(--ui-text);
+  border-color: var(--ui-border);
 }
 
 // Страница авторизации / входа
@@ -1391,6 +1430,7 @@ code[class*="language-"], pre[class*="language-"] {
     background-color: var(--ui-bg);
     border: 1px solid var(--ui-border);
     color: var(--ui-text);
+    padding: 0.25rem 0.5rem;
 
     &:disabled, &[readonly] {
       background-color: var(--ui-bg);
@@ -2060,18 +2100,18 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
     width: 5px;
     height: 5px;
     border-radius: 50%;
-    background-color: $primary;
+    background-color: $white;
     position: absolute;
   }
 
   & i {
-    color: $primary;
+    color: $white;
     position: absolute;
   }
 
   .star {
     &:nth-of-type(1) {
-      bottom: 29%;
+      bottom: 10%;
       left: 75px;
       position: absolute;
       -webkit-animation: star 5s linear infinite;
@@ -2080,7 +2120,7 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
 
     &:nth-of-type(2) {
       bottom: 31%;
-      right: 8%;
+      right: 40%;
       -webkit-animation: star 7s linear infinite;
       animation: star 7s linear infinite;
     }
@@ -2121,6 +2161,54 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
 
 }
 
+.clouds-animation {
+
+  img {
+    z-index: 3;
+    animation: cosmo-balloon 10s linear infinite;
+  }
+
+  .cloud {
+    position: absolute;
+    animation: cloud 50s linear infinite;
+
+    &:nth-of-type(1) {
+      width: 100px;
+      top: -37px;
+      right: 20px;
+      opacity: 0.7;
+    }
+
+    &:nth-of-type(2) {
+      width: 150px;
+      top: -200px;
+      left: 10px;
+      opacity: 0.8;
+    }
+
+    &:nth-of-type(3) {
+      width: 120px;
+      top: -180px;
+      left: 70px;
+    }
+  }
+}
+
+.accordion {
+  &-item {
+    background-color: var(--ui-bg);
+    border: 1px solid var(--ui-border);
+  }
+
+  &-button {
+
+    &:not(.collapsed) {
+      color: $primary;
+      background-color: $primary-20;
+    }
+  }
+}
+
 @keyframes star {
   0% {
     -webkit-transform: scale(1) rotate(0deg);
@@ -2140,6 +2228,25 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
     -webkit-transform: translateY(-5px);
     transform: translateY(-5px); }
 }
+
+@keyframes cloud {
+  0% {
+    transform: translateY(0); }
+  100% {
+    transform: translateY(500px); }
+}
+
+@keyframes cosmo-balloon {
+  0% {
+    transform: rotate(0); }
+  33% {
+    transform: rotate(5deg); }
+  66% {
+    transform: rotate(0); }
+  100% {
+    transform: rotate(-7deg); }
+}
+
 
 // Модули. Отключить ненужное
 

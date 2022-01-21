@@ -11,7 +11,14 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/conection.php";
 //Подключаемся  базе
 $db = new \Core\Config\DB($dbname, $user, $password, $host);
 $visits = new \Core\Model\Visits($db);
+// Авторизация пользователя
+$autorizationClass = new \Core\Model\Autorization($db);
 
+$params = [
+    "jwt" => $_COOKIE['aut']['jwt'] ?? ""
+];
+
+$validateLogin = $autorizationClass->validateLogin($params, $host_api.'/api/autorization/validatetoken.php');
 //подключаем функции
 require_once "core/extension/custom_functions.php";
 //подключаем справочники
@@ -25,12 +32,12 @@ if (isset($_GET["page"])) {
     $path = "pages/$page.php";
 }
 
-//проверяем наличие куки аторизации
-if (isset($_COOKIE['aut'])) {
-    /*--------------------------------------*/
+//проверяем наличие токена аторизации
+$active = $validateLogin->data->active ?? "";
+if ($active == 1) {
     $user = new \Core\Model\User($db);
-    $sirebar = $user->getSirebar($_COOKIE['aut']['id']);
-    $theme = $user->getTheme($_COOKIE['aut']['id']);
+    $sidebar = $user->getSirebar($validateLogin->data->id);
+    $theme = $user->getTheme($validateLogin->data->id);
 
     if (file_exists($path) and $page != "404" and $page != "autorization") {
         $content_page = file_get_contents($path);
@@ -43,9 +50,6 @@ if (isset($_COOKIE['aut'])) {
         $content = "Извините, произошла ошибка, Запрашиваемая страница не найдена!";
         include "pages/404.php";
     }
-
-
-    /*--------------------------------------*/
 } else {
     include "pages/autorization.php";
 }

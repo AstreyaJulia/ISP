@@ -1,5 +1,4 @@
 <?php
 
-  $autorizationClass = new \Core\Model\Autorization($db);
-
+  $autorizationClass->login($_POST, $host_api.'/api/autorization/login.php') ?? "";
   $autorizationClass->getAutorization();

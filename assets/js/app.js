@@ -1,17 +1,5 @@
 'use strict';
 
-let array;
-
-function handleResponse(response) {
-  response.json().then((json) => {
-    //console.log('what should I do with this json?', json, response);
-    console.log('что мне сделать с этим json?', json);
-    return json;
-  })
-}
-//fetch('api/visits/getVisits.php').then(handleResponse);
-fetch('api/visits/getVisits.php').then((response) => response.json()).then((json) => console.log(json));
-
 const ajax_send_promise = (method, url, parameters) => new Promise((onFulfilled, onFail) => {
   const xhr = new XMLHttpRequest();
   switch (method) {
@@ -42,21 +30,52 @@ const ajax_send_promise = (method, url, parameters) => new Promise((onFulfilled,
 });
 
 //ajax_send_promise("GET", `api/visits/getVisits.php`, null).then((data) => {handleResponse(data);});
-const getdata = async () => {
-  return await fetch('api/visits/getVisits.php').then((data) => {return data.json()});
-}
-const successLineChartData = () => {
-  return {
-    data: [50, 0, 50, 40, 90, 0, 40, 25, 80, 40, 45],
+
+// Справка по судьям
+const certBtn = document.querySelector('.cert-get');
+
+function certBtnHandler() {
+  let value = document.querySelector('.cert-select');
+  let year = $(value).find(':selected').parent().attr('label');
+  let data = {
+    quarter: value.value,
+    year: year,
+  };
+
+  function createtable(data) {
+    const createrowString = ({col_3, col_4, col_5, col_6, col_7, col_8, col_9, col_10, col_11, col_12, col_13, col_14, col_15, col_16, col_17, fullname, row_num}) =>
+      `<tr>
+<td>${row_num}</td>
+<td>${fullname}</td>
+<td>${col_3}</td>
+<td>${col_4}</td>
+<td>${col_5}</td>
+<td>${col_6}</td>
+<td>${col_7}</td>
+<td>${col_8}</td>
+<td>${col_9}</td>
+<td>${col_10}</td>
+<td>${col_11}</td>
+<td>${col_12}</td>
+<td>${col_13}</td>
+<td>${col_14}</td>
+<td>${col_15}</td>
+<td>${col_16}</td>
+<td>${col_17}</td>
+</tr>`;
+      document.querySelector('.cert-table').innerHTML = '';
+        const taskElementsString = data.data.map((col_3, col_4, col_5, col_6, col_7, col_8, col_9, col_10, col_11, col_12, col_13, col_14, col_15, col_16, col_17, fullname, row_num) => createrowString(col_3, col_4, col_5, col_6, col_7, col_8, col_9, col_10, col_11, col_12, col_13, col_14, col_15, col_16, col_17, fullname, row_num)).join('');
+        document.querySelector('.cert-table').insertAdjacentHTML('beforeend', taskElementsString);
   }
+
+  ajax_send("GET", "api/certificatework/getCertificateWork.php", data, "json", response => {createtable(response);});
+
 }
-
-//console.log(array);
-console.log(successLineChartData())
-//fetch('api/visits/getVisits.php').then((data) => {console.log(data)});
-//array = getdata();
-
-//console.log(getdata);
+if (certBtn) {
+  certBtn.addEventListener('click', function() {
+    certBtnHandler()
+  })
+}
 
 // Цвета
 const colors = {
@@ -594,7 +613,7 @@ const apexChartOptions = (chartname) => {
   const safpeopleChart = {
     series: [{
       name: 'Население г. Сафоново',
-      data: [43500, 46100, 45273, 44444, 43845, 43477, 43145, 42707, 42147, 41510, 41138]
+      data: [43500, 46100, 45273, 44444, 43845, 43477, 43145, 42707, 42147, 41510, 41138, 40537]
     }],
     chart: {
       height: 350,
@@ -620,7 +639,7 @@ const apexChartOptions = (chartname) => {
       }
     },
     xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020]
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
     },
     tooltip: {
       x: {show: false}
@@ -629,7 +648,7 @@ const apexChartOptions = (chartname) => {
   const postoutboxChart = {
     series: [{
       name: 'Исходящая почта',
-      data: [11610, 29513, 28845, 30240, 23662, 36230, 41202, 37862, 36211, 36859, 34827]
+      data: [11610, 29513, 28845, 30240, 23662, 36230, 41202, 37862, 36211, 36859, 34827, 38381]
     }],
     chart: {
       height: 350,
@@ -655,7 +674,7 @@ const apexChartOptions = (chartname) => {
       }
     },
     xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020]
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
     },
     tooltip: {
       x: {show: false}
@@ -664,7 +683,7 @@ const apexChartOptions = (chartname) => {
   const postinboxChart = {
     series: [{
       name: 'Входящая почта',
-      data: [4147, 9372, 12395, 12226, 11378, 11481, 11418, 12372, 11721, 11917, 12308]
+      data: [4147, 9372, 12395, 12226, 11378, 11481, 11418, 12372, 11721, 11917, 12308, 15209]
     }],
     chart: {
       height: 350,
@@ -690,7 +709,7 @@ const apexChartOptions = (chartname) => {
       curve: 'smooth'
     },
     xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020]
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
     },
     tooltip: {
       x: {show: false}
@@ -699,7 +718,7 @@ const apexChartOptions = (chartname) => {
   const gcaseChart = {
     series: [{
       name: 'Гражданские дела',
-      data: [1777, 1935, 2108, 2892, 2784, 2593, 2454, 2145, 1785, 1388, 1587]
+      data: [1777, 1935, 2108, 2892, 2784, 2593, 2454, 2145, 1785, 1388, 1587, 1893]
     }],
     chart: {
       height: 350,
@@ -725,7 +744,7 @@ const apexChartOptions = (chartname) => {
       curve: 'smooth'
     },
     xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020]
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
     },
     tooltip: {
       x: {show: false}
@@ -734,7 +753,7 @@ const apexChartOptions = (chartname) => {
   const g1caseChart = {
     series: [{
       name: 'Гражданские дела ап. инстанции',
-      data: [45, 62, 43, 60, 58, 57, 42, 35, 51, 68, 58]
+      data: [45, 62, 43, 60, 58, 57, 42, 35, 51, 68, 58, 49]
     }],
     chart: {
       height: 350,
@@ -760,7 +779,7 @@ const apexChartOptions = (chartname) => {
       curve: 'smooth'
     },
     xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020]
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
     },
     tooltip: {
       x: {show: false}
@@ -769,7 +788,7 @@ const apexChartOptions = (chartname) => {
   const admcaseChart = {
     series: [{
       name: 'Дела об адм. правонарушениях',
-      data: [30, 25, 33, 1096, 1044, 844, 817, 882, 695, 467, 382]
+      data: [30, 25, 33, 1096, 1044, 844, 817, 882, 695, 467, 382, 1157]
     }],
     chart: {
       height: 350,
@@ -795,7 +814,7 @@ const apexChartOptions = (chartname) => {
       curve: 'smooth'
     },
     xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020]
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
     },
     tooltip: {
       x: {show: false}
@@ -804,7 +823,7 @@ const apexChartOptions = (chartname) => {
   const adm1caseChart = {
     series: [{
       name: 'Жалобы по адм. делам',
-      data: [0, 0, 0, 0, 166, 204, 205, 198, 145, 138, 123]
+      data: [0, 0, 0, 0, 166, 204, 205, 198, 145, 138, 123, 96]
     }],
     chart: {
       height: 350,
@@ -830,7 +849,7 @@ const apexChartOptions = (chartname) => {
       curve: 'smooth'
     },
     xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020]
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
     },
     tooltip: {
       x: {show: false}
@@ -839,7 +858,7 @@ const apexChartOptions = (chartname) => {
   const ucaseChart = {
     series: [{
       name: 'Уголовные дела',
-      data: [275, 366, 364, 294, 360, 373, 254, 214, 282, 251, 240]
+      data: [275, 366, 364, 294, 360, 373, 254, 214, 282, 251, 240, 297]
     }],
     chart: {
       height: 350,
@@ -865,7 +884,7 @@ const apexChartOptions = (chartname) => {
       curve: 'smooth'
     },
     xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020]
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
     },
     tooltip: {
       x: {show: false}
@@ -874,7 +893,7 @@ const apexChartOptions = (chartname) => {
   const u1caseChart = {
     series: [{
       name: 'Уголовные дела ап. инстанции',
-      data: [15, 30, 17, 17, 13, 8, 14, 9, 9, 6, 13]
+      data: [15, 30, 17, 17, 13, 8, 14, 9, 9, 6, 13, 9]
     }],
     chart: {
       height: 350,
@@ -900,7 +919,7 @@ const apexChartOptions = (chartname) => {
       curve: 'smooth'
     },
     xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020]
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
     },
     tooltip: {
       x: {show: false}
@@ -909,7 +928,7 @@ const apexChartOptions = (chartname) => {
   const mucaseChart = {
     series: [{
       name: 'Материалы в порядке уг. производства, всего',
-      data: [545, 3440, 2634, 1662, 1232, 1852, 1926, 1604, 2216, 1564, 1494]
+      data: [545, 3440, 2634, 1662, 1232, 1852, 1926, 1604, 2216, 1564, 1494, 1157]
     }],
     chart: {
       height: 350,
@@ -935,7 +954,7 @@ const apexChartOptions = (chartname) => {
       curve: 'smooth'
     },
     xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020]
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
     },
     tooltip: {
       x: {show: false}
@@ -944,7 +963,7 @@ const apexChartOptions = (chartname) => {
   const eosChart = {
     series: [{
       name: 'Обращения на портале ГАС Правосудие, без исковых',
-      data: [87, 230, 423, 588]
+      data: [87, 230, 423, 624]
     }],
     chart: {
       height: 350,
@@ -979,7 +998,7 @@ const apexChartOptions = (chartname) => {
   const eosgcaseChart = {
     series: [{
       name: 'Исковые заявления поданные через портал ГАС Правосудие',
-      data: [21, 43, 35, 93]
+      data: [21, 43, 35, 128]
     }],
     chart: {
       height: 350,
@@ -1012,11 +1031,6 @@ const apexChartOptions = (chartname) => {
     },
   }
 // Рефералы
-  const successLineChartData = () => {
-    return {
-      data: [50, 0, 50, 40, 90, 0, 40, 25, 80, 40, 45],
-    }
-  }
   const successLineChart = {
     chart: {
       height: 350,
@@ -1267,7 +1281,12 @@ const ajax_send = (method, url, parameters, datatype, callback) => {
     case "GET":
       let queryString;
       if (parameters !== null) {
-        queryString = Object.keys(parameters).map(key => key + '=' + parameters[key]).join('&');
+        if (typeof parameters === 'object' &&
+          !Array.isArray(parameters)) {
+          queryString = Object.keys(parameters).map(key => key + '=' + parameters[key]).join('&');
+        } else {
+          queryString = parameters;
+        }
       } else {
         queryString = null;
       }
@@ -1312,7 +1331,7 @@ const ajax_send = (method, url, parameters, datatype, callback) => {
       }
       if (method === "POST") {
         if (!xhr.response) {
-          callback("null");
+          callback('null');
         } else {
           showErrorToast("Ошибка", xhr.response, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
         }
@@ -1375,8 +1394,7 @@ const buttonsidebartoggleHandler = (evt) => {
     formData.append("sidebarWidth", "narrow");
   }
 
-  ajax_send("POST", "pages/admin/ajax.php", formData, "json", result => console.log(result));
-  window.location.reload();
+  ajax_send("POST", "pages/admin/ajax.php", formData, "json", result => result);
 };
 
 // Разворачивает сайдбар, не отодвигая контент. Переключает класс expanded у сайдбара
@@ -1419,7 +1437,7 @@ const darkmodetoggleHandler = () => {
     sidebarwrapper.dataset.themeName = "main-dark";
     formData.append("theme", "main-dark");
   }
-  ajax_send("POST", "pages/admin/ajax.php", formData, "json", result => console.log(result));
+  ajax_send("POST", "pages/admin/ajax.php", formData, "json", result => result);
   darkmodetogglbutton.classList.toggle('tumbler--night-mode');
 };
 
@@ -1479,15 +1497,6 @@ const activeselectHandler = () => {
     roomselect.disabled = true;
     roomselect.selectedIndex = 0;
   }
-}
-
-/* Возвращает текущий день, месяц и день недели в элементы с классами today-group-day,
-*  today-group-month, today-group-dayw */
-if (document.querySelector('.today-group')) {
-  document.querySelector(".today-group-dayw").innerHTML = moment().tz('Europe/Moscow').format('dddd');
-  document.querySelector(".today-group-day").innerHTML = moment().tz('Europe/Moscow').format('D');
-  document.querySelector(".today-group-month").innerHTML = moment().tz('Europe/Moscow').format('MMMM');
-
 }
 
 // Переключает класс .active у ближайшего .list-group-item нажатой ссылки списка ссылок
@@ -1743,8 +1752,8 @@ const minicalendarhandler = () => {
       ];
     },
     headerToolbar: {
-      right: 'prev,next,today',
-      left: 'title',
+      right: 'prev,title,next',
+      left: 'today',
     },
     eventSources: [fetchevents],
     eventMouseEnter: function (event,) {
@@ -1757,6 +1766,7 @@ const minicalendarhandler = () => {
     },
   });
   calendar.render();
+  setInterval(() => {calendar.refetchEvents();}, 1000);
 }
 
 // Календарь. Модуль
@@ -2137,7 +2147,7 @@ const calendmodulehandler = () => {
       window.open((eventToUpdate).url, '_blank');
     });
 
-    console.log(eventToUpdate);
+    //console.log(eventToUpdate);
     // Запрет на редактирование событий без id и фоновых
     if (info.event.id !== "" && info.event.display !== "background") {
       showModal();
@@ -2573,6 +2583,7 @@ const calendmodulehandler = () => {
   }
 
   const calendar = new FullCalendar.Calendar(calendarEl, {
+    themeSystem: 'standard',
     locale: 'ru',
     timeZone: 'Europe/Moscow',
     initialView: 'dayGridMonth',
@@ -2595,9 +2606,8 @@ const calendmodulehandler = () => {
     },
     eventSources: [fetchEvents],
     headerToolbar: {
-      left: 'title',
-      center: '',
-      right: 'prev,next,today dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+      left: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek',
+      right: 'today prev,title,next'
     },
     eventMouseEnter: function (event,) {
       if (event.event.display !== "background") {
@@ -2617,6 +2627,7 @@ const calendmodulehandler = () => {
   // Рендеринг календаря
 
   calendar.render();
+  setInterval(() => {calendar.refetchEvents();}, 1000);
 
   // Валидация для jquery validate
   if ($(eventForm).length) {
@@ -4371,112 +4382,6 @@ const weatherHandler = () => {
   xhr.send(data);
 }
 
-// Слайдер
-// Массив слайдера
-let slides_arr = [
-  {
-    id: 0,
-    image:
-      "assets/img/slider/cosmonaut.jpg",
-    header: "Поехали!",
-    text: "тут ссылка скрыта",
-    hideLink: "visually-hidden",
-    link: "?page=to-do"
-  },
-  {
-    id: 1,
-    image:
-      "assets/img/slider/hello.jpg",
-    header: "Приветствуем на внутреннем сайте суда!",
-    text: "",
-    hideLink: "",
-    link: "?page=to-do"
-  },
-  {
-    id: 2,
-    image:
-      "assets/img/slider/wear_masks.jpg",
-    header: "Пожалуйста, не забывайте носить маску.",
-    text: "это описание не помещается в контейнер слайдера полностью, оно должно быть обрезано, чтобы контейнер не переполнился и верстка не развалилась, поэтому он обрезается точками",
-    hideLink: "",
-    link: "?page=to-do"
-  },
-];
-
-const sliderCarousel = document.getElementById("carouselNews");
-
-
-const CarouselIndicators =
-  `<div class="row g-0 position-absolute" style="left: 0; bottom: 0; right: 0;">
-<div class="col-xxl-8 col-xl-8 col-lg-8 col-md-7 col-sm-6 col-12 position-relative">
-<div class="carousel-indicators">
-            </div>
-</div>
-</div>
-`;
-
-const CarouselInner =
-  `<div class="carousel-inner" style="border-radius: 0.25rem;">
-            </div>`;
-
-const CarouselControls =
-  `<div class="row g-0 position-absolute" style="top: 0; left: 0; bottom: 0; right: 0;">
-<div class="col-xxl-8 col-xl-8 col-lg-8 col-md-7 col-sm-6 col-12 position-relative">
-<button class="carousel-control-prev h-100" type="button" data-bs-target="#carouselNews"
-                    data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span> <span
-                class="visually-hidden">Предыдущий</span></button>
-
-                <button class="carousel-control-next h-100" type="button" data-bs-target="#carouselNews"
-                    data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span> <span
-                class="visually-hidden">Следующий</span></button>
-</div>
-</div>
-
-            `;
-
-const createSliderItemString = ({image, header, text, hideLink, link}) =>
-
-  `<div class="carousel-item" data-bs-interval="10000">
-  <div class="row g-0">
-  <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-7 col-sm-6 col-12">
-      <img src="${image}" alt="${header}" aria-label="${header}" style="object-fit: cover; width: 100%;">
-</div>
-<div class="col-xxl-4 col-xl-4 col-lg-4 col-md-5 col-sm-6 col-12">
-    <div class="carousel-caption d-flex flex-column w-100 p-3" style="min-width: 0; flex-basis: 50%; position: revert; text-align: left">
-                <h6 style="max-height: 40px;">${header}</h6>
-        <p class="d-xxl-flex d-xl-flex d-lg-flex d-md-none d-sm-none d-none">${text}</p>
-      <a href="${link}" class="mt-auto mb-0 ${hideLink}" style="max-height: 25px;">Подробнее</a>
-    </div>
-
-</div>
-  </div>
-</div>`;
-
-const createDotsItemString = ({id, header}) =>
-  `<button type="button" data-bs-target="#carouselNews" data-bs-slide-to="${id}" aria-label="${header}" style="width: 10px; height: 10px; border-radius: 50%;"></button>`;
-
-// Рендеринг слайдера
-const sliderRender = (slideArray) => {
-  sliderCarousel.insertAdjacentHTML('beforeend', CarouselIndicators);
-  sliderCarousel.insertAdjacentHTML('beforeend', CarouselInner);
-  sliderCarousel.insertAdjacentHTML('beforeend', CarouselControls);
-  const sliderContainer = document.querySelector('.carousel-inner');
-  const sliderDotsContainer = document.querySelector('.carousel-indicators');
-
-  sliderContainer.innerHTML = '';
-  sliderDotsContainer.innerHTML = '';
-  const sliderElementsString = slideArray.map((image) => createSliderItemString(image)).join('');
-  const dotsElementsString = slideArray.map((image) => createDotsItemString(image)).join('');
-  sliderContainer.insertAdjacentHTML('beforeend', sliderElementsString);
-  sliderDotsContainer.insertAdjacentHTML('beforeend', dotsElementsString);
-
-  // Показывает 1 слайд
-  let slide1 = sliderContainer.firstChild;
-  let dot1 = sliderDotsContainer.firstChild;
-  slide1.classList.add('active');
-  dot1.classList.add('active');
-}
-
 // Рабочие места. Древья
 const workPlaceTree = document.getElementById('workplace-tree');
 const placeitemsTree = document.getElementById('placeitems-tree');
@@ -4927,7 +4832,7 @@ const zTreeHandler = () => {
   ];
 
   const workPlaceStructure = () => {
-    ajax_send("GET", "pages/admin/ajax.php", test, "json", result => {$.fn.zTree.init($("#workplace-tree"), settingWorktree, result); console.log(result)});
+    ajax_send("GET", "pages/admin/ajax.php", test, "json", result => {$.fn.zTree.init($("#workplace-tree"), settingWorktree, result);});
   }
 
   workPlaceStructure();
@@ -4939,6 +4844,34 @@ const zTreeHandler = () => {
 
 // Определение функции, запускающейся при полной загрузке страницы
 const init = () => {
+
+  /* Возвращает текущий день, месяц и день недели в элементы с классами today-group-day,
+*  today-group-month, today-group-dayw */
+  if (document.querySelector('.today-group')) {
+    document.querySelector(".today-group-dayw").innerHTML = moment().tz('Europe/Moscow').format('dddd');
+    document.querySelector(".today-group-day").innerHTML = moment().tz('Europe/Moscow').format('D');
+    document.querySelector(".today-group-month").innerHTML = moment().tz('Europe/Moscow').format('MMMM');
+
+  }
+
+  // Обновление каждые 5 минут
+  setInterval(() => {
+
+    // Погода
+    if (document.querySelector('.weather-info')) {
+      weatherHandler();
+    }
+
+    /* Возвращает текущий день, месяц и день недели в элементы с классами today-group-day,
+*  today-group-month, today-group-dayw */
+    if (document.querySelector('.today-group')) {
+      document.querySelector(".today-group-dayw").innerHTML = moment().tz('Europe/Moscow').format('dddd');
+      document.querySelector(".today-group-day").innerHTML = moment().tz('Europe/Moscow').format('D');
+      document.querySelector(".today-group-month").innerHTML = moment().tz('Europe/Moscow').format('MMMM');
+
+    }
+
+  }, 300000);
 
   if (sidebarwrapper.dataset.sidebarWidth === "wide") {
     sidebartogglbutton.querySelector('i').classList.add('mdi-crosshairs-gps');
@@ -5075,50 +5008,16 @@ const init = () => {
     });
   }
 
-  const options = {
-    chart: {
-      height: 350,
-      type: 'bar',
-    },
-    dataLabels: {
-      enabled: false
-    },
-    series: [],
-    title: {
-      text: 'Ajax Example',
-    },
-    noData: {
-      text: 'Loading...'
-    }
-  };
-
-  let apexchartVisits = new ApexCharts(document.querySelector(".apexchart1"), apexChartOptions("successLineChart"));
-  apexchartVisits.render();
-  //apexChartInit(chartVisits, "successLineChart");
-  $.getJSON('api/visits/getVisits.php', function(response) {
-    apexchartVisits.updateSeries([{
-      name: 'Посещеничя',
-      data: response
-    }])
-  });
-
-  /*fetch('api/visits/getVisits.php').then((json) => apexchartVisits.updateSeries([{
-      name: 'Посещения',
-      data: json
-    }])
-  );*/
-
-  /*$.getJSON("api/visits/getVisits.php", function(response) {
-    chartVisits.updateSeries([{
-      name: 'Sales',
-      data: response
-    }])
-  });*/
-
-  // Отрисовка слайдера на дашбоарде
-  if (sliderCarousel) {
-    sliderRender(slides_arr);
-  }
+ if (document.querySelector(".apexchart1")) {
+   let apexchartVisits = new ApexCharts(document.querySelector(".apexchart1"), apexChartOptions("successLineChart"));
+   apexchartVisits.render();
+   $.getJSON('api/visits/getVisits.php', function(response) {
+     apexchartVisits.updateSeries([{
+       name: 'Посещеничя',
+       data: response
+     }])
+   });
+ }
 
   if (workPlaceTree) {
     zTreeHandler();

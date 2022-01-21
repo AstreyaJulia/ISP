@@ -4,8 +4,8 @@
 	define('DB_USER', 'user');
 	define('DB_PASS', 'password');
 	define('DB_NAME', 'dbname');*/
-
-	$host = '';
+  $host_api = "http://" . $_SERVER['SERVER_NAME'];
+	$host = "";
 	$dbname = "";
 	$user = "";
 	$password = "";

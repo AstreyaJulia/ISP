@@ -50,7 +50,7 @@ exports.images = images;
 
 const copy = () => {
   return gulp.src([
-      "src/assets/fonts/*.{woff2,woff}",
+      "src/assets/fonts/*.*",
       "src/assets/modules/**/*.{js,map,css,json}",
       "src/assets/js/app.js"
     ],

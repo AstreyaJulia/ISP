@@ -27,7 +27,7 @@
     <div class="card list-tab-group boxed-content">
       <div class="card-body">
         <div class="row">
-          <ul class="list-group col-5 m-0 p-0 overlayscrollbar">
+          <ul class="list-group col-5 m-0 p-0">
             <?php foreach ($family as $goodname => $properties): ?>
               <li class="list-group-item" id="<?= $properties['id']; ?>">
                 <div class="list-group-body">

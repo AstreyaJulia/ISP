@@ -28,7 +28,8 @@
           </ol>
         </nav>
         <div>
-          <button class="btn btn-primary" type="button" id="contentmenu" data-bs-toggle="dropdown" data-bs-placement="top"
+          <button class="btn btn-primary" type="button" id="contentmenu" data-bs-toggle="dropdown"
+                  data-bs-placement="top"
                   title="Меню">
             <i class="mdi mdi-cog-outline"></i>
           </button>
@@ -64,7 +65,11 @@
                     <small class="text-muted d-inline-block mb-2">Активно</small>
                     <small class="float-end"><?= $staffCount->activeUsers ?></small>
                     <div class="progress progress-sm mb-3">
-                      <div class="progress-bar bg-gradient-success" role="progressbar" style="width: <?= $staffCount->activeUsersPercent ?>%" aria-valuenow="<?= $staffCount->activeUsersPercent ?>" aria-valuemin="0" aria-valuemax="100" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="<?= $staffCount->activeUsers ?>"></div>
+                      <div class="progress-bar bg-gradient-success" role="progressbar"
+                           style="width: <?= $staffCount->activeUsersPercent ?>%"
+                           aria-valuenow="<?= $staffCount->activeUsersPercent ?>" aria-valuemin="0" aria-valuemax="100"
+                           data-bs-toggle="tooltip" data-bs-placement="top"
+                           data-bs-original-title="<?= $staffCount->activeUsers ?>"></div>
                     </div>
                   </div>
                 </div>
@@ -76,7 +81,11 @@
                     <small class="text-muted d-inline-block mb-2">Заблокировано</small>
                     <small class="float-end"><?= $staffCount->disableUsers ?></small>
                     <div class="progress progress-sm mb-3">
-                      <div class="progress-bar bg-gradient-danger" role="progressbar" style="width: <?= $staffCount->disableUsersPercent ?>%" aria-valuenow="<?= $staffCount->disableUsersPercent ?>" aria-valuemin="0" aria-valuemax="100" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="<?= $staffCount->disableUsers ?>"></div>
+                      <div class="progress-bar bg-gradient-danger" role="progressbar"
+                           style="width: <?= $staffCount->disableUsersPercent ?>%"
+                           aria-valuenow="<?= $staffCount->disableUsersPercent ?>" aria-valuemin="0" aria-valuemax="100"
+                           data-bs-toggle="tooltip" data-bs-placement="top"
+                           data-bs-original-title="<?= $staffCount->disableUsers ?>"></div>
                     </div>
                   </div>
                 </div>
@@ -84,8 +93,10 @@
               </div>
             </div>
           </div>
-          <a class="btn btn-primary btn-block mb-3 text-decoration-none" href="?page=staff&editStaff=add" target="_blank"><i class="mdi mdi-account-plus-outline me-2"></i><span>Добавить</span></a>
-          <a class="btn btn-primary btn-block text-decoration-none" href="?page=staff" target="_blank"><i class="mdi mdi-account-wrench-outline me-2"></i><span>Управление</span></a>
+          <a class="btn btn-primary btn-block mb-3 text-decoration-none" href="?page=staff&editStaff=add"
+             target="_blank"><i class="mdi mdi-account-plus-outline me-2"></i><span>Добавить</span></a>
+          <a class="btn btn-primary btn-block text-decoration-none" href="?page=staff" target="_blank"><i
+              class="mdi mdi-account-wrench-outline me-2"></i><span>Управление</span></a>
         </div>
       </div>
       <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
@@ -98,11 +109,37 @@
       </div>
 
       <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
+        <!-- Разработка и тестирование -->
+        <div class="card mb-3 p-3">
+          <div class="widget-content">
+            <div class="d-flex align-items-center justify-content-between mb-2">
+              <h6 class="surtitle">Разработка и тестирование</h6>
+            </div>
+          </div>
+          <!-- Кнопки -->
+          <a class="btn btn-primary btn-block text-decoration-none mb-3" href="?page=test" target="_blank"><span>Тестовая страница</span></a>
+          <a class="btn btn-primary btn-block text-decoration-none mb-3" href="?page=to-do" target="_blank"><span>Задачи</span></a>
+          <a class="btn btn-primary btn-block text-decoration-none mb-3" href="?page=tetris" target="_blank"><span>Тетрис</span></a>
+          <a class="btn btn-primary btn-block text-decoration-none mb-3" href="?page=workplaces" target="_blank"><span>Рабочие места</span></a>
+        </div>
 
-      </div>
-
-      <div class="col-xxl-3 col-xl-12 col-lg-4 col-md-12 col-sm-6 col-12">
-
+        <div class="card mb-3 p-3">
+          <div class="widget-content">
+            <div class="d-flex align-items-center justify-content-between mb-2">
+              <h6 class="surtitle">Дизайн и UI-kit</h6>
+            </div>
+          </div>
+          <!-- Кнопки -->
+          <a class="btn btn-primary btn-block text-decoration-none" href="?page=uikit" target="_blank"><span>UI-Kit</span></a>
+        </div>
+        <div class="card mb-3 p-3">
+          <div class="widget-content">
+            <div class="d-flex align-items-center justify-content-between mb-2">
+              <h6 class="surtitle">Документация</h6>
+            </div>
+          </div>
+          <a class="btn btn-primary btn-block text-decoration-none" href="?page=documentation" target="_blank"><span>Документация</span></a>
+        </div>
       </div>
 
     </div>

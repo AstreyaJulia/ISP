@@ -60,7 +60,7 @@
 	    // выводит роль пользователя
 	    public function getSudo ($sudo){
 			if ($sudo == 1){
-				return '<span class="badge-big secondary">Админ</span>';
+				return '<span class="badge-big bg-danger-lighter ms-2 text-danger">Админ</span>';
 			}
 		}
 
