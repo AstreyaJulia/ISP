@@ -30,6 +30,7 @@
       </div>
     </header>
     <div class="boxed-content">
+      <!-- Тут поиск
       <div class="row">
         <div class="col">
           <div class="form-group">
@@ -37,7 +38,7 @@
             <input class="form-control" type="search" placeholder="Введите слова для поиска" id="search">
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="row faq-cards">
         <p class="h5">Навигация</p>
         <?php foreach ($dir as $key => $value): ?>
