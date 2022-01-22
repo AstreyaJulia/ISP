@@ -645,6 +645,84 @@ const apexChartOptions = (chartname) => {
       x: {show: false}
     },
   }
+  const inflationChart = {
+    /* https://уровень-инфляции.рф/%D1%82%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D1%8B-%D0%B8%D0%BD%D1%84%D0%BB%D1%8F%D1%86%D0%B8%D0%B8 */
+    series: [{
+      name: 'Уровень инфляции в России',
+      data: [8.78, 6.10, 6.58, 6.45, 11.36, 12.91, 5.38, 2.52, 4.27, 3.05, 4.91, 8.39]
+    }],
+    chart: {
+      height: 350,
+      type: 'area',
+    },
+    annotations: {
+      yaxis: [{
+        y: 4,
+        borderColor: '#00B795',
+        label: {
+          borderColor: '#00B795',
+          style: {
+            color: '#FFFFFF',
+            background: '#00B795',
+          },
+          text: 'Оптимальный уровень',
+        }
+      }],
+      xaxis: [{
+        x: 2014,
+        x2: 2015,
+        fillColor: '#f6bc9a',
+        opacity: 0.4,
+        label: {
+          borderColor: '#f6bc9a',
+          style: {
+            color: '#fff',
+            background: '#ef630a',
+          },
+          offsetY: -10,
+          text: 'Валютный кризис',
+        }
+      },
+        {
+          x: 2020,
+          label: {
+            borderColor: '#ef630a',
+            style: {
+              color: '#FFFFFF',
+              background: '#ef630a',
+            },
+            text: 'Рецессия COVID-19',
+          }
+        }
+      ],
+    },
+    colors: [colors.theme['primary']],
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'smooth'
+    },
+    fill: {
+      type: 'gradient',
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        gradientToColors: [colors.themeLighter['primary'], colors.theme['primary']],
+        opacityFrom: 0.7,
+        opacityTo: 0.55,
+        stops: [0, 80, 100]
+      }
+    },
+    xaxis: {
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
+    },
+    tooltip: {
+      x: {show: false}
+    },
+  }
+
   const postoutboxChart = {
     series: [{
       name: 'Исходящая почта',
@@ -1099,6 +1177,8 @@ const apexChartOptions = (chartname) => {
       return eosgcaseChart;
     case 'successLineChart':
       return successLineChart;
+    case 'inflationChart':
+      return inflationChart;
   }
 }
 

@@ -30,13 +30,19 @@
           <div class="card-body">
             <h5 class="mb-4">Выберите графики в списке:</h5>
 
-            <div class="filter-group flex-column align-items-start stat-filters ps-4">
+            <div class="filter-group flex-column align-items-start stat-filters ps-4 overlayscrollbar">
               <p class="group-title mb-2">Общее:</p>
               <div class="form-check d-flex align-items-center mb-2 flex-shrink-0">
                 <input class="form-check-input input-filter flex-shrink-0 bg-secondary me-2" type="checkbox" id="stat-population"
                        name="stat-population" data-value="stat-population" value="stat-population">
                 <label class="form-check-label" for="stat-population">Население г. Сафоново</label>
               </div>
+              <div class="form-check d-flex align-items-center mb-2 flex-shrink-0">
+                <input class="form-check-input input-filter flex-shrink-0 bg-primary me-2" type="checkbox" id="stat-inflation"
+                       name="stat-inflation" data-value="stat-inflation" value="stat-inflation">
+                <label class="form-check-label" for="stat-inflation">Уровень инфляции в России</label>
+              </div>
+
               <p class="group-title mb-2 mt-3">Корреспонденция:</p>
               <div class="form-check d-flex align-items-center mb-2 flex-shrink-0">
                 <input class="form-check-input input-filter flex-shrink-0 bg-primary me-2" type="checkbox" id="stat-inbox" name="stat-inbox"
@@ -136,6 +142,41 @@
               </div>
             </div>
           </div>
+          <div class="col-xxl-4 col-xl-6 col-md-6 col-12 stat-card d-none stat-inflation">
+            <div class="card mb-3">
+              <div class="d-flex justify-content-between">
+                <div class="d-flex flex-column p-3">
+                  <h6 class="surtitle">Общее</h6>
+                  <h5 class="mb-0" title="см. уголовные дела 1 инст.">Уровень инфляции в России</h5>
+                </div>
+                <div class="d-flex me-2 flex-column p-3">
+                  <div>
+                    <a class="dropdown-toggle no-carret text-secondary" id="menu14" data-bs-toggle="dropdown"><i
+                        class="mdi mdi-dots-vertical"></i></a>
+                    <ul class="dropdown-menu dropdown-arrow" aria-labelledby="menu14" data-bs-popper="none">
+                      <li class="dropdown-item">
+                        <a><i class="mdi mdi-sync me-2"></i>Обновить данные</a>
+                      </li>
+                      <li class="dropdown-item">
+                        <a><i class="mdi mdi-list-status me-2"></i>Детализация</a>
+                      </li>
+                      <li class="dropdown-item">
+                        <a><i class="mdi mdi-pulse me-2"></i>Статистика</a>
+                      </li>
+                      <li class="dropdown-item">
+                        <a><i class="mdi mdi-table-off me-2"></i>Очистить данные</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body pe-md-0 p-0" style="position: relative;">
+                <div class="apexchart" data-chart-name="inflationChart" style="min-height: 315px;">
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div class="col-xxl-4 col-xl-6 col-md-6 col-12 stat-card d-none stat-inbox">
             <div class="card mb-3">
               <div class="d-flex justify-content-between">
@@ -306,7 +347,7 @@
               </div>
             </div>
           </div>
-          <div class="col-xxl-4 col-xl-6 col-md-6 col-12 stat-card d-none stat-u1cases">
+          <div class="col-xxl-4 col-xl-6 col-md-6 col-12 stat-card d-none stat-a1cases">
             <div class="card mb-3">
               <div class="d-flex justify-content-between">
                 <div class="d-flex flex-column p-3">
@@ -340,7 +381,7 @@
               </div>
             </div>
           </div>
-          <div class="col-xxl-4 col-xl-6 col-md-6 col-12 stat-card d-none stat-g2cases">
+          <div class="col-xxl-4 col-xl-6 col-md-6 col-12 stat-card d-none stat-u1cases">
             <div class="card mb-3">
               <div class="d-flex justify-content-between">
                 <div class="d-flex flex-column p-3">
@@ -374,7 +415,7 @@
               </div>
             </div>
           </div>
-          <div class="col-xxl-4 col-xl-6 col-md-6 col-12 stat-card d-none stat-u2cases">
+          <div class="col-xxl-4 col-xl-6 col-md-6 col-12 stat-card d-none stat-mcases">
             <div class="card mb-3">
               <div class="d-flex justify-content-between">
                 <div class="d-flex flex-column p-3">
@@ -409,7 +450,7 @@
             </div>
           </div>
 
-          <div class="col-xxl-4 col-xl-6 col-md-6 col-12 stat-card d-none stat-a1cases">
+          <div class="col-xxl-4 col-xl-6 col-md-6 col-12 stat-card d-none stat-g2cases">
             <div class="card mb-3">
               <div class="d-flex justify-content-between">
                 <div class="d-flex flex-column p-3">
@@ -443,7 +484,7 @@
               </div>
             </div>
           </div>
-          <div class="col-xxl-4 col-xl-6 col-md-6 col-12 stat-card d-none stat-mcases">
+          <div class="col-xxl-4 col-xl-6 col-md-6 col-12 stat-card d-none stat-a2cases">
             <div class="card mb-3">
               <div class="d-flex justify-content-between">
                 <div class="d-flex flex-column p-3">
@@ -477,7 +518,7 @@
               </div>
             </div>
           </div>
-          <div class="col-xxl-4 col-xl-6 col-md-6 col-12 stat-card d-none stat-a2cases">
+          <div class="col-xxl-4 col-xl-6 col-md-6 col-12 stat-card d-none stat-u2cases">
             <div class="card mb-3">
               <div class="d-flex justify-content-between">
                 <div class="d-flex flex-column p-3">
