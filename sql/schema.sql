@@ -240,6 +240,7 @@ INSERT INTO `sdc_users` (`id`, `username`, `password`, `active`, `sudo`, `sideba
 CREATE TABLE `sdc_user_attributes` (
   `id` int(10) UNSIGNED NOT NULL,
   `internalKey` int(10) NOT NULL,
+  `idGAS` int(11) null,
   `fullname` varchar(100) NOT NULL DEFAULT '',
   `gender` int(1) NOT NULL DEFAULT 0,
   `dob` date DEFAULT NULL,
@@ -320,6 +321,44 @@ INSERT INTO `sdc_vocation` (`id`, `parent_id`, `name`) VALUES
 (25, NULL, 'Помощники судей'),
 (26, NULL, 'Секретари судебного заседания'),
 (27, NULL, 'Канцелярия');
+
+create table sdc_access_service
+(
+	id int(10) null,
+	name varchar(100) null,
+	description varchar(255) null,
+	affiliation int(10) null,
+	login varchar(100) null,
+	pass varchar(100) null,
+	constraint sdc_access_service_pk
+		primary key (id)
+);
+
+create table sdc_certificate_work
+(
+	id int(10) null,
+	judges int(2) null,
+	year int(4) null,
+	quarter int(1) null,
+	`3` int(5) null,
+	`4` int(5) null,
+	`5` int(5) null,
+	`6` int(5) null,
+	`7` int(5) null,
+	`8` int(5) null,
+	`12` int(5) null,
+	`10` int(5) null,
+	`11` int(5) null,
+	`9` int(5) null,
+	`13` int(5) null,
+	`14` int(5) null,
+	`16` int(5) null,
+	`17` int(5) null,
+	constraint sdc_certificate_work_pk
+		primary key (id)
+);
+
+
 
 --
 -- Индексы сохранённых таблиц
