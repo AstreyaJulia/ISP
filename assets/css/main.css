@@ -29800,6 +29800,12 @@
   background: linear-gradient(45deg, #2C3782, #ff63a5 100%) !important;
 }
 
+.text-gradient {
+  background-clip: text !important;
+  color: transparent;
+  display: inline-flex;
+}
+
 .bg-facebook {
   background: #3b5998 !important;
 }
@@ -46211,6 +46217,12 @@ table.dataTable.table-striped > tbody > tr.odd {
   background: linear-gradient(45deg, #2C3782, #ff63a5 100%) !important;
 }
 
+.text-gradient {
+  background-clip: text !important;
+  color: transparent;
+  display: inline-flex;
+}
+
 .bg-facebook {
   background: #3b5998 !important;
 }
@@ -47139,6 +47151,12 @@ div.dataTables_wrapper div.dataTables_paginate {
 
 .bg-gradient-indigo-pink {
   background: linear-gradient(45deg, #2C3782, #ff63a5 100%) !important;
+}
+
+.text-gradient {
+  background-clip: text !important;
+  color: transparent;
+  display: inline-flex;
 }
 
 .bg-facebook {
@@ -48550,6 +48568,12 @@ $theme-map-light: (
 
 .bg-gradient-indigo-pink {
   background: linear-gradient(45deg, #2C3782, #ff63a5 100%) !important;
+}
+
+.text-gradient {
+  background-clip: text !important;
+  color: transparent;
+  display: inline-flex;
 }
 
 .bg-facebook {
@@ -50041,6 +50065,12 @@ THEMES:
   background: linear-gradient(45deg, #2C3782, #ff63a5 100%) !important;
 }
 
+.text-gradient {
+  background-clip: text !important;
+  color: transparent;
+  display: inline-flex;
+}
+
 .bg-facebook {
   background: #3b5998 !important;
 }
@@ -51319,6 +51349,12 @@ $theme-map-light: (
 
 .bg-gradient-indigo-pink {
   background: linear-gradient(45deg, #2C3782, #ff63a5 100%) !important;
+}
+
+.text-gradient {
+  background-clip: text !important;
+  color: transparent;
+  display: inline-flex;
 }
 
 .bg-facebook {
@@ -52984,6 +53020,12 @@ span.flatpickr-weekday {
 
 .bg-gradient-indigo-pink {
   background: linear-gradient(45deg, #2C3782, #ff63a5 100%) !important;
+}
+
+.text-gradient {
+  background-clip: text !important;
+  color: transparent;
+  display: inline-flex;
 }
 
 .bg-facebook {
@@ -56100,6 +56142,12 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
   background: linear-gradient(45deg, #2C3782, #ff63a5 100%) !important;
 }
 
+.text-gradient {
+  background-clip: text !important;
+  color: transparent;
+  display: inline-flex;
+}
+
 .bg-facebook {
   background: #3b5998 !important;
 }
@@ -56987,6 +57035,12 @@ $theme-map-light: (
   background: linear-gradient(45deg, #2C3782, #ff63a5 100%) !important;
 }
 
+.text-gradient {
+  background-clip: text !important;
+  color: transparent;
+  display: inline-flex;
+}
+
 .bg-facebook {
   background: #3b5998 !important;
 }
@@ -57869,6 +57923,12 @@ $theme-map-light: (
 
 .bg-gradient-indigo-pink {
   background: linear-gradient(45deg, #2C3782, #ff63a5 100%) !important;
+}
+
+.text-gradient {
+  background-clip: text !important;
+  color: transparent;
+  display: inline-flex;
 }
 
 .bg-facebook {
@@ -59293,6 +59353,12 @@ $theme-map-light: (
   background: linear-gradient(45deg, #2C3782, #ff63a5 100%) !important;
 }
 
+.text-gradient {
+  background-clip: text !important;
+  color: transparent;
+  display: inline-flex;
+}
+
 .bg-facebook {
   background: #3b5998 !important;
 }
@@ -60182,6 +60248,12 @@ $theme-map-light: (
 
 .bg-gradient-indigo-pink {
   background: linear-gradient(45deg, #2C3782, #ff63a5 100%) !important;
+}
+
+.text-gradient {
+  background-clip: text !important;
+  color: transparent;
+  display: inline-flex;
 }
 
 .bg-facebook {

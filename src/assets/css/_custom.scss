@@ -564,6 +564,12 @@ $gradients-2colors: (
   }
 }
 
+.text-gradient {
+  background-clip: text !important;
+  color: transparent;
+  display: inline-flex;
+}
+
 // Цвета соц сетей
 $social: (
   "facebook": #3b5998,
