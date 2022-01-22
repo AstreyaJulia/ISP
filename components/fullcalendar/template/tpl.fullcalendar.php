@@ -254,8 +254,8 @@
     <div class="card">
       <div class="row" style="flex-wrap: nowrap">
         <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 pe-0">
-          <div class="d-flex align-items-center justify-content-center pt-3">
-            <img src="assets/img/calendar-img.png" alt="" width="2914" height="2874" style="width: 60%; height: auto" class="align-items-center">
+          <div class="d-flex align-items-center justify-content-center pt-5">
+            <img src="assets/img/cosmonaut-laptop.svg" alt="" style="width: 60%; height: auto" class="align-items-center">
           </div>
           <div class="p-3">
             <button type="button" class="btn btn-primary ms-auto mt-1 mb-1 btn-block" id="myBtn"><i class="mdi mdi-plus me-2"></i>Событие

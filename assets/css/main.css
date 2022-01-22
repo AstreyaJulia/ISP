@@ -54528,11 +54528,6 @@ code[class*=language-] .c, pre[class*=language-] .c {
   border-right: 1px solid #DBDFEA;
   box-shadow: 1px 2px 6px 0 rgba(31, 43, 58, 0.15);
 }
-.main-content.auth .right-auth {
-  opacity: 0.8;
-  background-image: linear-gradient(to right, #9e92ee, #9e92ee 5px, #DBDFEA 5px, #DBDFEA);
-  background-size: 10px 100%;
-}
 
 .main-content.err404 {
   height: 100vh;
@@ -55270,7 +55265,8 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
 }
 .stars-animation .star:nth-of-type(5) {
   bottom: 60%;
-  right: 5%;
+  right: 35%;
+  opacity: 0.7;
   -webkit-animation: star 11s linear infinite;
   animation: star 11s linear infinite;
 }
@@ -55301,7 +55297,7 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
   animation: move2 1.6s infinite alternate;
 }
 
-.clouds-animation img {
+.clouds-animation .cosmonaut {
   z-index: 3;
   animation: cosmo-balloon 10s linear infinite;
 }
@@ -55325,6 +55321,28 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
   width: 120px;
   top: -180px;
   left: 70px;
+}
+
+.auth-image {
+  clip-path: circle(43% at 50% 50%);
+  background-color: #1CC8EE;
+}
+.auth-image .clouds-animation .cloud:nth-of-type(1) {
+  width: 20%;
+  top: -7.4%;
+  right: 4%;
+  opacity: 0.7;
+}
+.auth-image .clouds-animation .cloud:nth-of-type(2) {
+  width: 30%;
+  top: -40%;
+  left: 2%;
+  opacity: 0.8;
+}
+.auth-image .clouds-animation .cloud:nth-of-type(3) {
+  width: 24%;
+  top: -36%;
+  left: 14%;
 }
 
 .accordion-item {

@@ -15,7 +15,7 @@
         <div class="row">
           <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
             <div class="card overflow-hidden mb-3">
-              <div class="bg-primary stars-animation">
+              <div class="bg-primary-dark stars-animation">
                 <i class="mdi mdi-star star"></i>
                 <i class="mdi mdi-star star"></i>
                 <i class="mdi mdi-star star"></i>
@@ -33,14 +33,14 @@
                     </div>
                   </div>
                   <div class="col-5 align-self-end d-flex align-items-center justify-content-end">
-                    <img src="/assets/img/cosmonaut-laptop.svg" alt="" class="img-fluid m-3" style="max-width: 100px">
+                    <img src="/assets/img/cosmonaut-flag.svg" alt="" class="img-fluid m-3" style="max-width: 100px">
                   </div>
                 </div>
               </div>
             </div>
 
             <?php if ($notPub): ?>
-              <a class="card bg-danger-lighter" href="?page=sudact">
+              <a class="card bg-danger-lighter mb-3" href="?page=sudact">
                 <div class="card-body">
                   <div class="d-flex align-items-center">
                     <div class="card-icon small bg-gradient-danger text-white grey-shadow-2 me-3">

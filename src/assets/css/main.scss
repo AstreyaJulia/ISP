@@ -1258,11 +1258,6 @@ code[class*="language-"], pre[class*="language-"] {
     box-shadow: $grey-shadow-6;
   }
 
-  .right-auth {
-    opacity: 0.8;
-    background-image: linear-gradient(to right, $primary-light, $primary-light 5px, $gray-300 5px, $gray-300);
-    background-size: 10px 100%;
-  }
 }
 
 // Страница 404
@@ -2144,7 +2139,8 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
 
     &:nth-of-type(5) {
       bottom: 60%;
-      right: 5%;
+      right: 35%;
+      opacity: 0.7;
       -webkit-animation: star 11s linear infinite;
       animation: star 11s linear infinite;
     }
@@ -2187,7 +2183,7 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
 
 .clouds-animation {
 
-  img {
+  .cosmonaut {
     z-index: 3;
     animation: cosmo-balloon 10s linear infinite;
   }
@@ -2216,6 +2212,38 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
       left: 70px;
     }
   }
+}
+
+.auth-image {
+  clip-path: circle(43% at 50% 50%);
+  background-color: $info;
+
+  .clouds-animation {
+
+    .cloud {
+
+      &:nth-of-type(1) {
+        width: 20%;
+        top: -7.4%;
+        right: 4%;
+        opacity: 0.7;
+      }
+
+      &:nth-of-type(2) {
+        width: 30%;
+        top: -40%;
+        left: 2%;
+        opacity: 0.8;
+      }
+
+      &:nth-of-type(3) {
+        width: 24%;
+        top: -36%;
+        left: 14%;
+      }
+    }
+  }
+
 }
 
 .accordion {
