@@ -1,5 +1,5 @@
 <?php
-if ($_COOKIE['aut']['sudo'] == 1) {
+if ($userAtributes->data->sudo == 1) {
   $title = "Рабочие места";
   $desc = "Описание чего-то коротко";
   $i = 1;

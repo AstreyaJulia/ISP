@@ -12,18 +12,12 @@ error_reporting(E_ALL);
 date_default_timezone_set('Europe/Moscow');
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/conection.php";
+
 //Подключаемся  базе
 $db = new \Core\Config\DB($dbname, $user, $password, $host);
- 
-// переменные, используемые для JWT
-$key = "your_secret_key";
-$iss = "http://any-site.org";
-$aud = "http://any-site.com";
-$iat = time() - (60 * 60);
-$nbf = $iat + (60 * 60); // valid for 1 hour
 
 // URL домашней страницы
-//$home_url="http://php-oop-mysql/api/";
+//$home_url="http://isp/api/";
 
 // страница указана в параметре URL, страница по умолчанию одна
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
@@ -33,6 +27,3 @@ $records_per_page = 10;
 
 // расчёт для запроса предела записей
 $from_record_num = ($records_per_page * $page) - $records_per_page;
-
-
-//echo '<div style="text-align:right;">Время выполнения скрипта: '.(microtime(true) - $start).' сек.</div>';

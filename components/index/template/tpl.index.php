@@ -29,7 +29,7 @@
                   <div class="col-7">
                     <div class="p-3">
                       <p class="text-uppercase fw-bold font-small-1 text-white">С возвращением,</p>
-                      <p class="font-size-15 text-truncate text-light"><?= shortFIO($_COOKIE['aut']['fullname']) ?></p>
+                      <p class="font-size-15 text-truncate text-light"><?= shortFIO(shortFIO($userAtributes->data->fullname)) ?></p>
                     </div>
                   </div>
                   <div class="col-5 align-self-end d-flex align-items-center justify-content-end">

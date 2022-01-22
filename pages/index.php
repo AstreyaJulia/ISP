@@ -6,7 +6,7 @@ $birthday = $UserAttributes->getBirthday();
 
 // параметры $_GET запроса
 $queryParams = [
-    'idJudge' => $_COOKIE["aut"]["idGAS"] ?? "",
+    'idJudge' => $userAtributes->data->idGAS ?? "",
 ];
 
 // URL страницы, которую открываем

@@ -1,10 +1,11 @@
 <?php
-    // заголовки
-    header("Access-Control-Allow-Origin: http://localhost/rest-api-authentication-example/");
+    // необходимые HTTP-заголовки
+    header("Access-Control-Allow-Origin: *");
     header("Content-Type: application/json; charset=UTF-8");
-    header("Access-Control-Allow-Methods: POST");
-    header("Access-Control-Max-Age: 3600");
-    header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/api/config/core.php";
+
+    $userAtributes = new \Api\Objects\User($db);
 
     // Файл с настройками
     require_once $_SERVER['DOCUMENT_ROOT'] . "/api/config/jwt.php";
@@ -13,7 +14,7 @@
     $data = json_decode(file_get_contents("php://input"));
 
     // получаем JWT
-    $jwt=isset($data->jwt) ? $data->jwt : "";
+    $jwt = $data->jwt ?? "";
 
     // если JWT не пуст
     if($jwt) {
@@ -22,15 +23,27 @@
         try {
             // декодирование jwt
             $decoded = \Firebase\JWT\JWT::decode($jwt, $key, array('HS256'));
+            $userAtributes->username = $decoded->data->username;
+            $userAtributes->loginExists();
      
             // код ответа
             http_response_code(200);
-     
+
+            $output['data'] = [
+                "id" => $userAtributes->id,
+                "idGAS" => $userAtributes->idGAS,
+                "username" => $userAtributes->username,
+                "fullname" => $userAtributes->fullname,
+                //"password" => $userAtributes->password,
+                "active" => $userAtributes->active,
+                "sudo" => $userAtributes->sudo,
+                "sidebar" => $userAtributes->sidebar == 0 ? "narrow": "wide",
+                "theme" => $userAtributes->theme == 0 ? "main-dark": "main-light",
+                "membership" => $userAtributes->membership
+            ];
+            $output["time"] = (microtime(true) - $start);
             // показать детали
-            echo json_encode(array(
-                "message" => "Доступ разрешен.",
-                "data" => $decoded->data
-            ));
+            echo json_encode($output, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
         }
 
         // если декодирование не удалось, это означает, что JWT является недействительным
@@ -56,4 +69,14 @@
         // сообщить пользователю что доступ запрещен
         echo json_encode(array("message" => "Доступ запрещён."));
     }
-?>
+
+
+
+
+
+
+    //время выполнения скрипта
+    $proxylist["time"] = (microtime(true) - $start);
+
+    // вывод в json-формате
+    

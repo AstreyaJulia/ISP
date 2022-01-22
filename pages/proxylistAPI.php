@@ -3,7 +3,7 @@
     $proxylistClass = new \Core\Model\ProxyList($db);
 
     // Проверяем права записанные в куку заменить на jwt
-    $verification = $_COOKIE["aut"]["sudo"] ?? "";
+    $verification = $userAtributes->data->sudo ?? "";
     // Проверяем переданный GET для редактирования ссылки
     $verificationAdd = $_POST['editLink'] ?? "";
 
@@ -79,7 +79,7 @@ $title = "Каталог ссылок";
 $desc = "Описание чего-то коротко";
 $ProxyListClass = new \Core\Model\ProxyList($db);
 //Если есть атрибут sudo = 1 добавляем админские плюшки
-if ($_COOKIE['aut']['sudo'] == 1) {
+if ($userAtributes->data->sudo == 1) {
     $ProxyList = $ProxyListClass->getSelectAll();
 } else {
 // не показываем blacklist
@@ -100,7 +100,7 @@ $menuindexGroup  = array_column($family, 'menuindex');
 array_multisort($menuindexGroup, SORT_ASC, $family);
 $content = "";
 //Если входит в группу sudo отображаем с кнопочками
-if($_COOKIE['aut']['sudo'] == 1) {
+if($userAtributes->data->sudo == 1) {
     //формируем страницу
     ob_start();
         include "components/proxylist/template/tpl.proxylist-sudo.php";

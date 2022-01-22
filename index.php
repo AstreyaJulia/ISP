@@ -18,7 +18,8 @@ $params = [
     "jwt" => $_COOKIE['aut']['jwt'] ?? ""
 ];
 
-$validateLogin = $autorizationClass->validateLogin($params, $host_api.'/api/autorization/validatetoken.php');
+// Получаем ключ
+$token = $autorizationClass::sendPOST($params, $host_api.'/api/autorization/validatetoken.php');
 //подключаем функции
 require_once "core/extension/custom_functions.php";
 //подключаем справочники
@@ -33,11 +34,11 @@ if (isset($_GET["page"])) {
 }
 
 //проверяем наличие токена аторизации
-$active = $validateLogin->data->active ?? "";
+$active = $token->data->active ?? "";
 if ($active == 1) {
-    $user = new \Core\Model\User($db);
-    $sidebar = $user->getSirebar($validateLogin->data->id);
-    $theme = $user->getTheme($validateLogin->data->id);
+    $userAtributes = $autorizationClass::sendPOST($params, $host_api.'/api/user/useratributes.php');
+    $sidebar = $userAtributes->data->sidebar;
+    $theme = $userAtributes->data->theme;
 
     if (file_exists($path) and $page != "404" and $page != "autorization") {
         $content_page = file_get_contents($path);

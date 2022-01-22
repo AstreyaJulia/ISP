@@ -57,15 +57,15 @@
             <div class="dropdown-menu usermenu dropdown-menu-end p-0" aria-labelledby="usermenu">
               <div class="usermenu-header p-3 d-flex align-items-center">
                 <div class="user-avatar rounded-circle avatar-sm bg-primary-20 m-0 me-1 d-flex align-items-center justify-content-center">
-                  <span class="font-medium-1 fw-bold text-primary"><?= shortIO($_COOKIE['aut']['fullname']) ?></span>
+                  <span class="font-medium-1 fw-bold text-primary"><?= shortIO($userAtributes->data->fullname) ?></span>
                 </div>
                 <div class="header-group">
-                  <p class="user-name"><?= shortFIO($_COOKIE['aut']['fullname']) ?></p>
-                  <p class="user-login"><a><span>@</span><?= $_COOKIE['aut']['login']; ?></a></p>
+                  <p class="user-name"><?= shortFIO($userAtributes->data->fullname) ?></p>
+                  <p class="user-login"><a><span>@</span><?= $userAtributes->data->username ?></a></p>
                 </div>
               </div>
               <p class="usermenu-category p-3 pb-0 pt-0">Мой профиль</p>
-              <?php if ($_COOKIE['aut']['id'] != 1): ?>
+              <?php if ($userAtributes->data->id != 1): ?>
               <a class="dropdown-item" href="?page=user-profile">Личная информация</a>
               <?php endif ?>
               <!--a class="dropdown-item" href="#">Уведомления<span class="highlighted">10</span></a>

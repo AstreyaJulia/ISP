@@ -1,5 +1,5 @@
 <?php
-$sudo = $_COOKIE['aut']['sudo'];
+$sudo = $userAtributes->data->sudo;
 $path = $host_api."/api/elements/sidebar.php?sudo=$sudo";
 $ourData = file_get_contents($path);
 $menu = json_decode($ourData);

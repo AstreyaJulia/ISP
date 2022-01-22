@@ -6,33 +6,16 @@
 	{
 
 		protected $db;
-		public $jwt;
+		private $jwt;
+		private $message;
 
 	    public function __construct(DB $db) {
 	        $this->db = $db;
 	    }
 
-	    public function login($params, $host_api) {
-		    $data_string = json_encode ($params, JSON_UNESCAPED_UNICODE);
-		    $curl = curl_init($host_api);
-		    curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
-		    curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
-		    // Принимаем в виде массива. (false - в виде объекта)
-		    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-		    curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-		       'Content-Type: application/json',
-		       'Content-Length: ' . strlen($data_string))
-		    );
-		    $result = curl_exec($curl);
-		    curl_close($curl);
-		    $message = json_decode($result);
-		    $this->jwt = $message->jwt ?? "";
-		    $messages = $message->message ?? "";
-		    return $messages;
-	    }
-
-	    public function validateLogin($params, $host_api) {
-		    $data_string = json_encode ($params, JSON_UNESCAPED_UNICODE);
+	    // Отправка данных методом $_POST
+	    public static function sendPOST($params, $host_api) {
+	    	$data_string = json_encode ($params, JSON_UNESCAPED_UNICODE);
 		    $curl = curl_init($host_api);
 		    curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
 		    curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
@@ -48,26 +31,33 @@
 		    return $message;
 	    }
 
-	    // Получаем пароль активного пользователя
-	    public function getPassword($login) {
-	    	$sql = "SELECT
-                      sdc_users.password
-                    FROM sdc_users 
-                    WHERE `username` = ? AND `active` = 1";
-	    	return $this->db->run($sql,[$login])->fetch(PDO::FETCH_LAZY);
+	    public function login($params, $host_api) {
+		    $this->jwt = self::sendPOST($params, $host_api)->jwt ?? "";
+		    $this->message = self::sendPOST($params, $host_api)->message ?? "";
 	    }
 
-	    // Получаем пользователя не закончившего авторизацию
-	    public function getUserActive($login) {
-	    	$sql = "SELECT
-                      sdc_users.username
-                    FROM sdc_users
-                    WHERE `username` = ? AND password = '' AND `active` = 1";
-	    	return $this->db->run($sql,[$login])->fetch(PDO::FETCH_LAZY);
+	    // Запишем куку
+	    public function setCookie() {
+	    	setcookie("aut[id]", $this->getUserAttributes()->id, time() + 3600 * 24 * 30);/* удалить нужен для:
+	    																							components/fullcalendar/events.php
+	    																							pages/admin/ajax.php */
+	    	setcookie("aut[jwt]", $this->jwt, time() + 3600 * 24 * 30);
+		    //переходим на главную страницу
+		    header("refresh:1;url=/");
 	    }
 
-	    // Получаем свойства активного пользователя
-	    protected function getUserAttributes($login) {
+	    // Авторизация пользователя
+	    public function getUserAutorization() {
+	    	if ($this->message == "Успешный вход в систему.") {
+		      $this->setCookie();
+		    } else {
+		      return array ("pass" => $this->message, "login" => "");
+		    }
+	    }
+
+
+	    // Получаем свойства активного пользователя удалить
+	    protected function getUserAttributes() {
 	    	$sql = "SELECT
 						IFNULL(AffiliationJudge.idGAS, UserAttributes.idGAS) AS idGAS,
 				    	UserAttributes.fullname,
@@ -81,50 +71,15 @@
 				    LEFT JOIN sdc_vocation ON sdc_vocation.id = UserAttributes.profession
 				    LEFT JOIN sdc_user_attributes AS AffiliationJudge ON UserAttributes.affiliation = AffiliationJudge.id
 				    WHERE sdc_users.username = ?";
-	    	return $this->db->run($sql,[$login])->fetch(PDO::FETCH_LAZY);
+	    	return $this->db->run($sql,[$_POST['login']])->fetch(PDO::FETCH_LAZY);
 	    }
 
-	    // Запишем куку из метода getUserAttributes()
-	    public function setCookie($login) {
-	    	setcookie("aut[jwt]", $this->jwt, time() + 3600 * 24 * 30);
-	    	setcookie("aut[id]", $this->getUserAttributes($login)->id, time() + 3600 * 24 * 30);
-	    	setcookie("aut[idGAS]", $this->getUserAttributes($login)->idGAS, time() + 3600 * 24 * 30);
-		    setcookie("aut[login]", $this->getUserAttributes($login)->username, time() + 3600 * 24 * 30);
-		    setcookie("aut[fullname]", $this->getUserAttributes($login)->fullname, time() + 3600 * 24 * 30);
-		    setcookie("aut[active]", $this->getUserAttributes($login)->active, time() + 3600 * 24 * 30);
-		    setcookie("aut[primary_group]", $this->getUserAttributes($login)->primary_group, time() + 3600 * 24 * 30);
-		    setcookie("aut[sudo]", $this->getUserAttributes($login)->sudo, time() + 3600 * 24 * 30);
-		    //переходим на главную страницу
-		    header("refresh:1;url=/");
-	    }
 
-	    // Запишем пароль пользователя
-	    public function setUserPassword($params) {
-	    	$sql = "UPDATE
-	    				sdc_users
-	    			SET `password`=:password
-	    			WHERE `username` = :login";
-	    	return $this->db->run($sql, $params);
-	    }
 
-	    // Авторизация пользователя
-	    public function getUserAutorization() {
-	    	if (!empty($_POST['login']) and !empty($_POST['password']) and array_key_exists('aut', $_POST)) {
-	   			$login = $_POST['login'];
-			  //Если пользователь с таким логином есть
-			  if (!empty($this->getPassword($login))) {
-			    // Проверяем соответствие хеша из базы введенному паролю
-			    if (password_verify($_POST['password'], $this->getPassword($login)->password)) {
-			      // Пользователь прошел авторизацию запишем cookie
-			      $this->setCookie($login);
-			    } else {
-			      return array ("pass" => "Пароль не подошел", "login" => "");
-			    }
-			  } else {
-			      return array ("pass" => "", "login" => "Неверный логин");
-			    }
-			}
-	    }
+
+
+
+
 
 	    // Регистрация пользователя
 	    public function setUserRregister() {

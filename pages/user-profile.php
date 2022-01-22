@@ -8,7 +8,7 @@
 	//Сохраняем изменения в профиле пользователя
 	if (array_key_exists('editUser',$_POST)) {
 	    $params = [
-	        'internalKey' => $_COOKIE["aut"]["id"],
+	        'internalKey' => $userAtributes->data->id,
 	        'fullname' => $_POST["fullname"],
 			'email' => $_POST["email"],
 			'mobilephone' => $_POST["mobilephone"],
@@ -23,22 +23,16 @@
 		$staffUserAttributes->setUpdUserAtr($params);
 	}
 	//Сбрасываем пароль
-	$staffUserAttributes->setDropPass([$_COOKIE["aut"]["id"]]);
+	$staffUserAttributes->setDropPass([$userAtributes->data->id]);
 
 	// получаем данные личного кабинета пользователя
-	$userProfile = $staffUserAttributes->getSelectId([$_COOKIE["aut"]["id"]]);
+	$userProfile = $staffUserAttributes->getSelectId([$userAtributes->data->id]);
 
 
 	//событие на кнопку выход
 	if(array_key_exists('logOut',$_GET)) {
-		setcookie ("aut[jwt]", "", time() - 3600, "/");
 		setcookie ("aut[id]", "", time() - 3600, "/");
-		setcookie ("aut[idGAS]", "", time() - 3600, "/");
-		setcookie ("aut[login]", "", time() - 3600, "/");
-		setcookie ("aut[fullname]", "", time() - 3600, "/");
-		setcookie ("aut[active]", "", time() - 3600, "/");
-		setcookie ("aut[primary_group]", "", time() - 3600, "/");
-		setcookie ("aut[sudo]", "", time() - 3600, "/");
+		setcookie ("aut[jwt]", "", time() - 3600, "/");
 		header( "refresh:1;url=/" );
 	}
 
