@@ -29916,8 +29916,13 @@ $theme-map-light: (
 .dataTables_paginate,
 .dataTables_info,
 .faq-categories-list,
-.faq-categories .col-3 {
+.faq-categories .col-3,
+.stat-filters-col {
     display: none !important;
+  }
+
+  .stat-cards-col {
+    width: 100% !important;
   }
 
   .calendar-wrapper {

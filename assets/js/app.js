@@ -1105,6 +1105,7 @@ const apexChartOptions = (chartname) => {
 const apexChartInit = (chart, chartName) => {
   let apexChart = new ApexCharts(chart, apexChartOptions(chartName));
   apexChart.render();
+  apexChart.updateSeries(apexChartOptions(chartName).series);
 }
 
 // Меню сайдбара
@@ -4842,8 +4843,36 @@ const zTreeHandler = () => {
 
 }
 
+/* Статистика - Графики */
+const statCards = document.querySelectorAll('.stat-card');
+const statFilters = document.querySelectorAll('.stat-filters .input-filter');
+
 // Определение функции, запускающейся при полной загрузке страницы
 const init = () => {
+  /* Фильтры в стат графиках */
+  if (statCards && statFilters) {
+
+    statFilters.forEach((statFilter) => {
+      statFilter.addEventListener('click', () => {
+        if (statFilter.checked) {
+          for(let i = 0; i < statCards.length; i++) {
+            if (statCards[i].classList.contains(statFilter.dataset.value)) {
+              statCards[i].classList.remove('d-none');
+
+              const chart = statCards[i].querySelector('.apexchart');
+              apexChartInit(chart, chart.dataset.chartName);
+            }
+          }
+        } else {
+          for(let i = 0; i < statCards.length; i++) {
+            if (statCards[i].classList.contains(statFilter.dataset.value)) {
+              statCards[i].classList.add('d-none');
+            }
+          }
+        }
+      });
+    });
+  }
 
   /* Возвращает текущий день, месяц и день недели в элементы с классами today-group-day,
 *  today-group-month, today-group-dayw */
@@ -5001,19 +5030,19 @@ const init = () => {
   }
 
   // Инициализация графиков Apex JS
-  if (apexChartList) {
+  /*if (apexChartList) {
     apexChartList.forEach((chart) => {
       const chartName = chart.dataset.chartName;
       apexChartInit(chart, chartName);
     });
-  }
+  }*/
 
  if (document.querySelector(".apexchart1")) {
    let apexchartVisits = new ApexCharts(document.querySelector(".apexchart1"), apexChartOptions("successLineChart"));
    apexchartVisits.render();
    $.getJSON('api/visits/getVisits.php', function(response) {
      apexchartVisits.updateSeries([{
-       name: 'Посещеничя',
+       name: 'Посещения',
        data: response
      }])
    });
