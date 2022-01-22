@@ -16,9 +16,12 @@
           <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
             <div class="card overflow-hidden mb-3">
               <div class="bg-primary stars-animation">
-                <i class="mdi mdi-close-thick star"></i>
-                <i class="mdi mdi-close-thick star"></i>
-                <i class="mdi mdi-close-thick star"></i>
+                <i class="mdi mdi-star star"></i>
+                <i class="mdi mdi-star star"></i>
+                <i class="mdi mdi-star star"></i>
+                <i class="mdi mdi-star-four-points star"></i>
+                <i class="mdi mdi-star-four-points star"></i>
+                <i class="mdi mdi-star-four-points star"></i>
                 <div class="circle"></div>
                 <div class="circle"></div>
                 <div class="circle"></div>

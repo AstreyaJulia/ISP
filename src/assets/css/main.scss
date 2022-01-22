@@ -2133,6 +2133,30 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
       animation: star 10s linear infinite;
     }
 
+    &:nth-of-type(4) {
+      bottom: 5%;
+      right: 10px;
+      opacity: 0.7;
+      position: absolute;
+      -webkit-animation: star 10s linear infinite;
+      animation: star 10s linear infinite;
+    }
+
+    &:nth-of-type(5) {
+      bottom: 60%;
+      right: 5%;
+      -webkit-animation: star 11s linear infinite;
+      animation: star 11s linear infinite;
+    }
+
+    &:nth-of-type(6) {
+      bottom: 90%;
+      left: 60%;
+      opacity: 0.2;
+      -webkit-animation: star 10s linear infinite;
+      animation: star 10s linear infinite;
+    }
+
   }
 
   .circle {
