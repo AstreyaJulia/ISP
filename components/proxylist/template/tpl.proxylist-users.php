@@ -24,12 +24,19 @@
         </nav>
       </div>
     </header>
-    <div class="card list-tab-group boxed-content">
+
+    <div class="boxed-content">
+      <div class="row">
+        <div class="col-12">
+          <div class="card list-tab-group flex-fill">
+
       <div class="card-body">
-        <div class="row">
-          <ul class="list-group col-5 m-0 p-0">
+        <div class="row vh-75">
+          <div class="col-5 m-0 p-0">
+
+            <ul class="list-group d-flex">
             <?php foreach ($family as $goodname => $properties): ?>
-              <li class="list-group-item" id="<?= $properties['id']; ?>">
+              <li class="list-group-item" id="<?= $properties['id']; ?>" style="height: 100%;">
                 <div class="list-group-body">
                   <a class="list-group-link"><?= $properties['name_href']; ?></a>
                   <i class="menu-arrow mdi mdi-chevron-right"></i>
@@ -37,7 +44,8 @@
               </li>
             <?php endforeach ?>
           </ul>
-          <div class="tab-content col-7">
+          </div>
+          <div class="tab-content col-7 p-0">
             <?php foreach ($family as $goodname => $properties): ?>
               <ul class="tab-list-group overlayscrollbar" id="<?= $properties['id']; ?>-list">
                 <?php foreach ($properties as $property => $value): ?>
@@ -61,6 +69,9 @@
           </div>
         </div>
       </div>
-    </div>
+          </div>
+          </div>
+          </div>
+          </div>
   </div>
 </main>
