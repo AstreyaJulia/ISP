@@ -43,7 +43,25 @@ function certBtnHandler() {
   };
 
   function createtable(data) {
-    const createrowString = ({col_3, col_4, col_5, col_6, col_7, col_8, col_9, col_10, col_11, col_12, col_13, col_14, col_15, col_16, col_17, fullname, row_num}) =>
+    const createrowString = ({
+                               col_3,
+                               col_4,
+                               col_5,
+                               col_6,
+                               col_7,
+                               col_8,
+                               col_9,
+                               col_10,
+                               col_11,
+                               col_12,
+                               col_13,
+                               col_14,
+                               col_15,
+                               col_16,
+                               col_17,
+                               fullname,
+                               row_num
+                             }) =>
       `<tr>
 <td>${row_num}</td>
 <td>${fullname}</td>
@@ -63,16 +81,19 @@ function certBtnHandler() {
 <td>${col_16}</td>
 <td>${col_17}</td>
 </tr>`;
-      document.querySelector('.cert-table').innerHTML = '';
-        const taskElementsString = data.data.map((col_3, col_4, col_5, col_6, col_7, col_8, col_9, col_10, col_11, col_12, col_13, col_14, col_15, col_16, col_17, fullname, row_num) => createrowString(col_3, col_4, col_5, col_6, col_7, col_8, col_9, col_10, col_11, col_12, col_13, col_14, col_15, col_16, col_17, fullname, row_num)).join('');
-        document.querySelector('.cert-table').insertAdjacentHTML('beforeend', taskElementsString);
+    document.querySelector('.cert-table').innerHTML = '';
+    const taskElementsString = data.data.map((col_3, col_4, col_5, col_6, col_7, col_8, col_9, col_10, col_11, col_12, col_13, col_14, col_15, col_16, col_17, fullname, row_num) => createrowString(col_3, col_4, col_5, col_6, col_7, col_8, col_9, col_10, col_11, col_12, col_13, col_14, col_15, col_16, col_17, fullname, row_num)).join('');
+    document.querySelector('.cert-table').insertAdjacentHTML('beforeend', taskElementsString);
   }
 
-  ajax_send("GET", "api/certificatework/getCertificateWork.php", data, "json", response => {createtable(response);});
+  ajax_send("GET", "api/certificatework/getCertificateWork.php", data, "json", response => {
+    createtable(response);
+  });
 
 }
+
 if (certBtn) {
-  certBtn.addEventListener('click', function() {
+  certBtn.addEventListener('click', function () {
     certBtnHandler()
   })
 }
@@ -236,39 +257,39 @@ const tetrgame = () => {
     // https://tetris.fandom.com/wiki/SRS
     const tetrominos = {
       'I': [
-        [0,0,0,0],
-        [1,1,1,1],
-        [0,0,0,0],
-        [0,0,0,0]
+        [0, 0, 0, 0],
+        [1, 1, 1, 1],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0]
       ],
       'J': [
-        [1,0,0],
-        [1,1,1],
-        [0,0,0],
+        [1, 0, 0],
+        [1, 1, 1],
+        [0, 0, 0],
       ],
       'L': [
-        [0,0,1],
-        [1,1,1],
-        [0,0,0],
+        [0, 0, 1],
+        [1, 1, 1],
+        [0, 0, 0],
       ],
       'O': [
-        [1,1],
-        [1,1],
+        [1, 1],
+        [1, 1],
       ],
       'S': [
-        [0,1,1],
-        [1,1,0],
-        [0,0,0],
+        [0, 1, 1],
+        [1, 1, 0],
+        [0, 0, 0],
       ],
       'Z': [
-        [1,1,0],
-        [0,1,1],
-        [0,0,0],
+        [1, 1, 0],
+        [0, 1, 1],
+        [0, 0, 0],
       ],
       'T': [
-        [0,1,0],
-        [1,1,1],
-        [0,0,0],
+        [0, 1, 0],
+        [1, 1, 1],
+        [0, 0, 0],
       ]
     };
 
@@ -414,13 +435,13 @@ const tetrgame = () => {
       }
 
       // проверяем, чтобы заполненные ряды очистились снизу вверх
-      for (let row = playfield.length - 1; row >= 0; ) {
+      for (let row = playfield.length - 1; row >= 0;) {
         // если ряд заполнен
         if (playfield[row].every(cell => !!cell)) {
 
           score += 10;
           // считаем уровень
-          level = Math.floor(score/100) + 1;
+          level = Math.floor(score / 100) + 1;
           // если игрок побил прошлый рекорд
           if (score > record) {
             // ставим его очки как рекорд
@@ -436,11 +457,10 @@ const tetrgame = () => {
           // очищаем его и опускаем всё вниз на одну клетку
           for (let r = row; r >= 0; r--) {
             for (let c = 0; c < playfield[r].length; c++) {
-              playfield[r][c] = playfield[r-1][c];
+              playfield[r][c] = playfield[r - 1][c];
             }
           }
-        }
-        else {
+        } else {
           // переходим к следующему ряду
           row--;
         }
@@ -472,7 +492,7 @@ const tetrgame = () => {
     }
 
     function showScore() {
-      contextScore.clearRect(0,0,canvasScore.width,canvasScore.height);
+      contextScore.clearRect(0, 0, canvasScore.width, canvasScore.height);
       contextScore.globalAlpha = 1;
       contextScore.fillStyle = '#1F2B3A';
       contextScore.font = '18px TT Norms Pro';
@@ -488,7 +508,7 @@ const tetrgame = () => {
       // начинаем анимацию
       rAF = requestAnimationFrame(loop);
       // очищаем холст
-      context.clearRect(0,0,canvas.width,canvas.height);
+      context.clearRect(0, 0, canvas.width, canvas.height);
 
       // рисуем игровое поле с учётом заполненных фигур
       for (let row = 0; row < 20; row++) {
@@ -498,7 +518,7 @@ const tetrgame = () => {
             context.fillStyle = colors[name];
 
             // рисуем всё на один пиксель меньше, чтобы получился эффект «в клетку»
-            context.fillRect(col * grid, row * grid, grid-1, grid-1);
+            context.fillRect(col * grid, row * grid, grid - 1, grid - 1);
           }
         }
       }
@@ -530,7 +550,7 @@ const tetrgame = () => {
             if (tetromino.matrix[row][col]) {
 
               // и снова рисуем на один пиксель меньше
-              context.fillRect((tetromino.col + col) * grid, (tetromino.row + row) * grid, grid-1, grid-1);
+              context.fillRect((tetromino.col + col) * grid, (tetromino.row + row) * grid, grid - 1, grid - 1);
             }
           }
         }
@@ -538,7 +558,7 @@ const tetrgame = () => {
     }
 
     // следим за нажатиями на клавиши
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener('keydown', function (e) {
       // если игра закончилась — сразу выходим
       if (gameOver) return;
 
@@ -566,7 +586,7 @@ const tetrgame = () => {
       }
 
       // стрелка вниз — ускорить падение
-      if(e.which === 40) {
+      if (e.which === 40) {
         // смещаем фигуру на строку вниз
         const row = tetromino.row + 1;
         // если опускаться больше некуда — запоминаем новое положение
@@ -581,9 +601,9 @@ const tetrgame = () => {
       }
     });
 
-    canvas.onblur = function() {
+    canvas.onblur = function () {
       const me = this;
-      setTimeout(function() {
+      setTimeout(function () {
         me.focus();
       }, 500);
     }
@@ -594,7 +614,7 @@ const tetrgame = () => {
 
 
   // старт игры
-  startbtn.addEventListener('click', () =>{
+  startbtn.addEventListener('click', () => {
     start();
     startbtn.style.display = "none";
     startbtn.focus = false;
@@ -645,6 +665,77 @@ const apexChartOptions = (chartname) => {
       x: {show: false}
     },
   }
+  const smolOblpeopleChart = {
+    series: [{
+      name: 'Население Смоленской области',
+      data: [993018, 982887, 980482, 975188, 967896, 964791, 958630, 953201, 949348, 942363, 934889, 921127]
+    }],
+    chart: {
+      height: 350,
+      type: 'area',
+    },
+    colors: [colors.theme['secondary']],
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'smooth'
+    },
+    fill: {
+      type: 'gradient',
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        gradientToColors: [colors.themeLighter['secondary'], colors.theme['secondary']],
+        opacityFrom: 0.7,
+        opacityTo: 0.55,
+        stops: [0, 80, 100]
+      }
+    },
+    xaxis: {
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
+    },
+    tooltip: {
+      x: {show: false}
+    },
+  }
+  const smolOblnoworkChart = {
+    series: [{
+      name: 'Количество безработных в Смоленской области, тыс. человек',
+      data: [40.8, 41.5, 30.9, 28.1, 26.9, 32.8, 31.4, 29.8, 26.2, 25.3, 25.3, ]
+    }],
+    chart: {
+      height: 350,
+      type: 'area',
+    },
+    colors: [colors.theme['secondary']],
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'smooth'
+    },
+    fill: {
+      type: 'gradient',
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        gradientToColors: [colors.themeLighter['secondary'], colors.theme['secondary']],
+        opacityFrom: 0.7,
+        opacityTo: 0.55,
+        stops: [0, 80, 100]
+      }
+    },
+    xaxis: {
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
+    },
+    tooltip: {
+      x: {show: false}
+    },
+  }
+
   const inflationChart = {
     /* https://уровень-инфляции.рф/%D1%82%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D1%8B-%D0%B8%D0%BD%D1%84%D0%BB%D1%8F%D1%86%D0%B8%D0%B8 */
     series: [{
@@ -828,6 +919,42 @@ const apexChartOptions = (chartname) => {
       x: {show: false}
     },
   }
+  const gcaseOblChart = {
+    series: [{
+      name: 'Гражданские дела (область)',
+      data: [30095, 28470, 31392, 32393, 34753, 33232, 31409, 21203, 24391, 18543, 23220,]
+    }],
+    chart: {
+      height: 350,
+      type: 'area',
+    },
+    colors: [colors.theme['red']],
+    fill: {
+      type: 'gradient',
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        gradientToColors: [colors.themeLighter['red'], colors.theme['red']],
+        opacityFrom: 0.7,
+        opacityTo: 0.55,
+        stops: [0, 80, 100]
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'smooth'
+    },
+    xaxis: {
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
+    },
+    tooltip: {
+      x: {show: false}
+    },
+  }
+
   const g1caseChart = {
     series: [{
       name: 'Гражданские дела ап. инстанции',
@@ -968,6 +1095,42 @@ const apexChartOptions = (chartname) => {
       x: {show: false}
     },
   }
+  const ucaseOblChart = {
+    series: [{
+      name: 'Уголовные дела (область)',
+      data: [4124, 4038, 3696, 3257, 3799, 3563, 3210, 2217, 3061, 3626, 3713,]
+    }],
+    chart: {
+      height: 350,
+      type: 'area',
+    },
+    colors: [colors.theme['yellow']],
+    fill: {
+      type: 'gradient',
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        gradientToColors: [colors.themeLighter['yellow'], colors.theme['yellow']],
+        opacityFrom: 0.7,
+        opacityTo: 0.55,
+        stops: [0, 80, 100]
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'smooth'
+    },
+    xaxis: {
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
+    },
+    tooltip: {
+      x: {show: false}
+    },
+  }
+
   const u1caseChart = {
     series: [{
       name: 'Уголовные дела ап. инстанции',
@@ -1135,10 +1298,10 @@ const apexChartOptions = (chartname) => {
     noData: {
       text: 'Loading...'
     },
-  /*
-      xaxis: {
-        categories: array.value.day
-      },*/
+    /*
+        xaxis: {
+          categories: array.value.day
+        },*/
     yaxis: {
       show: false,
       labels: {
@@ -1179,6 +1342,14 @@ const apexChartOptions = (chartname) => {
       return successLineChart;
     case 'inflationChart':
       return inflationChart;
+    case 'gcaseOblChart':
+      return gcaseOblChart;
+    case 'ucaseOblChart':
+      return ucaseOblChart;
+    case 'smolOblpeopleChart':
+      return smolOblpeopleChart;
+    case 'smolOblnoworkChart':
+      return smolOblnoworkChart;
   }
 }
 
@@ -1260,7 +1431,7 @@ function selectedCheckboxes(allInputs, mode) {
       return checkboxes;
     case "all":
       for (let j = 0; j < filterInput.length; j++) {
-          checkboxes.push(filterInput[j].value.toLowerCase());
+        checkboxes.push(filterInput[j].value.toLowerCase());
       }
       return checkboxes;
   }
@@ -1772,6 +1943,7 @@ function araycal() {
   }
   return (Object.fromEntries(array))
 }
+
 // Для использования в Fullcalendar
 const calendarsColor = araycal();
 
@@ -1847,7 +2019,9 @@ const minicalendarhandler = () => {
     },
   });
   calendar.render();
-  setInterval(() => {calendar.refetchEvents();}, 1000);
+  setInterval(() => {
+    calendar.refetchEvents();
+  }, 1000);
 }
 
 // Календарь. Модуль
@@ -2606,17 +2780,17 @@ const calendmodulehandler = () => {
   });
 
   // Выбранные чекбоксы
-/*  function selectedCalendars() {
-    const filterInput2 = document.querySelectorAll('.input-filter:not(.select-all)');
-    const selected = [];
-    for (let j = 0; j < filterInput2.length; j++) {
-      if ($(filterInput2[j]).prop('checked')) {
-        selected.push(filterInput2[j].dataset.value.toLowerCase());
+  /*  function selectedCalendars() {
+      const filterInput2 = document.querySelectorAll('.input-filter:not(.select-all)');
+      const selected = [];
+      for (let j = 0; j < filterInput2.length; j++) {
+        if ($(filterInput2[j]).prop('checked')) {
+          selected.push(filterInput2[j].dataset.value.toLowerCase());
+        }
       }
+      return selected;
     }
-    return selected;
-  }
-*/
+  */
 
   function privatecheck() {
     if ($(privateinp).prop('checked')) {
@@ -2708,7 +2882,9 @@ const calendmodulehandler = () => {
   // Рендеринг календаря
 
   calendar.render();
-  setInterval(() => {calendar.refetchEvents();}, 1000);
+  setInterval(() => {
+    calendar.refetchEvents();
+  }, 1000);
 
   // Валидация для jquery validate
   if ($(eventForm).length) {
@@ -3863,14 +4039,20 @@ const filterClickHandler = () => {
     let data = {
       filter: selectedCheckboxes(filterItems, 'all'),
     };
-    ajax_send("GET", "components/phonebook/ajax.php", data, "text", response => {result.innerHTML = ""; result.innerHTML = response});
+    ajax_send("GET", "components/phonebook/ajax.php", data, "text", response => {
+      result.innerHTML = "";
+      result.innerHTML = response
+    });
 
-  } else  {
+  } else {
     let data = {
       filter: selected,
     };
 
-    ajax_send("GET", "components/phonebook/ajax.php", data, "text", response => {result.innerHTML = ""; result.innerHTML = response});
+    ajax_send("GET", "components/phonebook/ajax.php", data, "text", response => {
+      result.innerHTML = "";
+      result.innerHTML = response
+    });
   }
 };
 
@@ -4484,7 +4666,7 @@ const zTreeHandler = () => {
       key: {
         title: "id"
       },
-      render: function(title,treeNode){
+      render: function (title, treeNode) {
         return title + treeNode.id;
       }
     }
@@ -4913,7 +5095,9 @@ const zTreeHandler = () => {
   ];
 
   const workPlaceStructure = () => {
-    ajax_send("GET", "pages/admin/ajax.php", test, "json", result => {$.fn.zTree.init($("#workplace-tree"), settingWorktree, result);});
+    ajax_send("GET", "pages/admin/ajax.php", test, "json", result => {
+      $.fn.zTree.init($("#workplace-tree"), settingWorktree, result);
+    });
   }
 
   workPlaceStructure();
@@ -4935,7 +5119,7 @@ const init = () => {
     statFilters.forEach((statFilter) => {
       statFilter.addEventListener('click', () => {
         if (statFilter.checked) {
-          for(let i = 0; i < statCards.length; i++) {
+          for (let i = 0; i < statCards.length; i++) {
             if (statCards[i].classList.contains(statFilter.dataset.value)) {
               statCards[i].classList.remove('d-none');
 
@@ -4944,7 +5128,7 @@ const init = () => {
             }
           }
         } else {
-          for(let i = 0; i < statCards.length; i++) {
+          for (let i = 0; i < statCards.length; i++) {
             if (statCards[i].classList.contains(statFilter.dataset.value)) {
               statCards[i].classList.add('d-none');
             }
@@ -5117,16 +5301,16 @@ const init = () => {
     });
   }*/
 
- if (document.querySelector(".apexchart1")) {
-   let apexchartVisits = new ApexCharts(document.querySelector(".apexchart1"), apexChartOptions("successLineChart"));
-   apexchartVisits.render();
-   $.getJSON('api/visits/getVisits.php', function(response) {
-     apexchartVisits.updateSeries([{
-       name: 'Посещения',
-       data: response
-     }])
-   });
- }
+  if (document.querySelector(".apexchart1")) {
+    let apexchartVisits = new ApexCharts(document.querySelector(".apexchart1"), apexChartOptions("successLineChart"));
+    apexchartVisits.render();
+    $.getJSON('api/visits/getVisits.php', function (response) {
+      apexchartVisits.updateSeries([{
+        name: 'Посещения',
+        data: response
+      }])
+    });
+  }
 
   if (workPlaceTree) {
     zTreeHandler();
