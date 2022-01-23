@@ -58012,6 +58012,17 @@ $theme-map-light: (
   min-height: 595px;
 }
 
+.today-calendar .fc-direction-ltr .fc-button-group > .fc-button:not(:last-child),
+.calendar-module .fc-direction-ltr .fc-button-group > .fc-button:not(:last-child) {
+  border-top-right-radius: 0.25em;
+  border-bottom-right-radius: 0.25em;
+}
+.today-calendar .fc-direction-ltr .fc-button-group > .fc-button:not(:first-child),
+.calendar-module .fc-direction-ltr .fc-button-group > .fc-button:not(:first-child) {
+  margin-left: 10px;
+  border-top-left-radius: 0.25em;
+  border-bottom-left-radius: 0.25em;
+}
 .today-calendar .fc-icon-mdi::before,
 .calendar-module .fc-icon-mdi::before {
   display: inline-block;
@@ -58075,7 +58086,8 @@ $theme-map-light: (
 .calendar-module .fc .fc-button-primary:not(:disabled):active,
 .calendar-module .fc .fc-button-primary:not(:disabled).fc-button-active {
   background-color: transparent;
-  color: #4c44a4;
+  color: #faf7fa;
+  background-color: #6C5CE8;
 }
 .today-calendar .fc .fc-button-primary:hover, .today-calendar .fc .fc-button-primary:active,
 .calendar-module .fc .fc-button-primary:hover,

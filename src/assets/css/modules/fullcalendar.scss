@@ -20,6 +20,17 @@
 .today-calendar,
 .calendar-module {
 
+  .fc-direction-ltr .fc-button-group > .fc-button:not(:last-child) {
+    border-top-right-radius: 0.25em;
+    border-bottom-right-radius: 0.25em;
+  }
+
+  .fc-direction-ltr .fc-button-group > .fc-button:not(:first-child) {
+    margin-left: 10px;
+    border-top-left-radius: 0.25em;
+    border-bottom-left-radius: 0.25em;
+  }
+
   .fc-icon-mdi::before {
     display: inline-block;
     font: normal normal normal 24px/1 "Material Design Icons";
@@ -78,8 +89,8 @@
         color: $primary;
 
         &:not(:disabled):active, &:not(:disabled).fc-button-active {
-          background-color: transparent;
-          color: $primary-dark;
+          color: $white;
+          background-color: $primary;
         }
 
         &:hover,
