@@ -19,11 +19,18 @@
 
     // устанавливаем значения
     $userClass->username = $data->login;
-    $login_exists = $userClass->loginExists();
+    $userClass->password = $data->password;
+    $userClass->passrep = $data->passrep;
+    $password_matched = $userClass->passwordMatched();
 
-    // существует ли login и соответствует ли пароль тому, что находится в базе данных
-    if ( $login_exists && password_verify($data->password, $userClass->password) ) {
-        // присвоим значения свойствам объекта
+    // существует ли login и совпали ли пароли
+    if ($password_matched && $userClass->loginActiveExists() ) {
+        // Запишем пароль в б.д.
+        $userClass->setUserPassword();
+        /*
+        Считаем что пользователь успешно зарегистрировался
+        присвоим значения свойствам объекта
+        */
         $userClass->assignValues();
 
         $token = array(

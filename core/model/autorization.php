@@ -7,6 +7,7 @@
 
 		protected $db;
 		private $jwt;
+		public $username;
 		private $message;
 
 	    public function __construct(DB $db) {
@@ -32,8 +33,9 @@
 	    }
 
 	    public function login($params, $host_api) {
-		    $this->jwt = self::sendPOST($params, $host_api)->jwt ?? "";
-		    $this->message = self::sendPOST($params, $host_api)->message ?? "";
+	    	$output = self::sendPOST($params, $host_api);
+		    $this->jwt = $output->jwt ?? "";
+		    $this->message = $output->message ?? "";
 	    }
 
 	    // Запишем куку
@@ -55,7 +57,6 @@
 		    }
 	    }
 
-
 	    // Получаем свойства активного пользователя удалить
 	    protected function getUserAttributes() {
 	    	$sql = "SELECT
@@ -71,48 +72,24 @@
 				    LEFT JOIN sdc_vocation ON sdc_vocation.id = UserAttributes.profession
 				    LEFT JOIN sdc_user_attributes AS AffiliationJudge ON UserAttributes.affiliation = AffiliationJudge.id
 				    WHERE sdc_users.username = ?";
-	    	return $this->db->run($sql,[$_POST['login']])->fetch(PDO::FETCH_LAZY);
+	    	return $this->db->run($sql,[$this->username])->fetch(PDO::FETCH_LAZY);
 	    }
-
-
-
-
-
-
-
 
 	    // Регистрация пользователя
-	    public function setUserRregister() {
-	    	if (!empty($_POST["login"]) and !empty($_POST["password"]) and !empty($_POST["passrep"]) and array_key_exists('reg', $_POST)) {
-	    		$login = $_POST['login'];
-			    // Если пароль и подтверждение совпадают...
-			    if ($_POST["password"] == $_POST["passrep"]) {
-			      // Проверяем существование логина
-			      if (empty($this->getUserActive($login))) {
-			        return array ("pass" => "", "login" => "Такого логина нет, либо он уже авторизован");
-			      } else {
-			        // Логин есть, записываем хэш пароль в бд
-			        $params = [
-			          'login' => $login,
-			          'password' => password_hash($_POST['password'], PASSWORD_DEFAULT)
-			        ];
-			        $this->setUserPassword($params);
-			        // Считаем что пользователь закончил регистрацию, запишем cookie
-			        $this->setCookie($login);
-			      }
-			    } else {
-			      return array ("pass" => "Пароли не совпадают", "login" => "");
-			    }
-			}
+	    public function setUserRregister($params, $host_api) {
+	    	$this->jwt = self::sendPOST($params, $host_api)->jwt ?? "";
+		    $this->message = self::sendPOST($params, $host_api)->message ?? "";
 	    }
 
-	    public function getAutorization() {
+	    public function getAutorization($host_api) {
 	    	if (array_key_exists('reg', $_GET)) {
 			    //Регистрация пользователя
-			    $error = $this->setUserRregister() ?? array ("pass" => "", "login" => "");
+			    $this->login($_POST, $host_api.'/api/autorization/registration.php') ?? "";
+			    $error = $this->getUserAutorization() ?? array ("pass" => "", "login" => "");
 			    include $_SERVER['DOCUMENT_ROOT'] . "/components/autorization/tpl.register.php";
 		  } else {
 			    // авторизация пользователя
+		  		$this->login($_POST, $host_api.'/api/autorization/login.php') ?? "";
 			    $error = $this->getUserAutorization() ?? array ("pass" => "", "login" => "");
 			    include $_SERVER['DOCUMENT_ROOT'] . "/components/autorization/tpl.autorization.php";
 		  }

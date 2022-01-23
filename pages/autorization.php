@@ -1,4 +1,3 @@
 <?php
-
-  $autorizationClass->login($_POST, $host_api.'/api/autorization/login.php') ?? "";
-  $autorizationClass->getAutorization();
+  $autorizationClass->username = $_POST['login'] ?? "";
+  $autorizationClass->getAutorization($host_api);
