@@ -840,3 +840,14 @@ group by A.ID
 9300127 - Соловьев
 8500015 - Тарасова
 8500018 - Штукина
+
+/* Рассмотренные сверх срока по id судьи */
+SELECT A.CASE_ID,
+       A.CASE_NUMBER,
+       A.PLAINTIFF_INFO || ', ' || A.DEFENDANT_INFO,
+       A.ENTRY_DATE
+FROM G1_OVER_PERIOD_CASE2(cast(cast(Extract(year FROM cast('NOW' as date)) as varchar(10)) || '-01-01' as DATE), cast('NOW' as timestamp)) A
+  LEFT OUTER JOIN GROUPCONTENT OA2
+ON A.JUDGE_NAME = OA2.USERNAME
+WHERE
+    OA2.GROUPCONTENTID = :judge
