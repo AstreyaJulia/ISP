@@ -700,6 +700,42 @@ const apexChartOptions = (chartname) => {
       x: {show: false}
     },
   }
+  const smolOblworkpeopleChart = {
+    series: [{
+      name: 'Трудоспособное население Смоленской области',
+      data: [633809, 596862, 627128, 625958, 593611, 615842, 607983, 586273, 598980, 587725, 587237, ]
+    }],
+    chart: {
+      height: 350,
+      type: 'area',
+    },
+    colors: [colors.theme['secondary']],
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'smooth'
+    },
+    fill: {
+      type: 'gradient',
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        gradientToColors: [colors.themeLighter['secondary'], colors.theme['secondary']],
+        opacityFrom: 0.7,
+        opacityTo: 0.55,
+        stops: [0, 80, 100]
+      }
+    },
+    xaxis: {
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
+    },
+    tooltip: {
+      x: {show: false}
+    },
+  }
+
   const smolOblnoworkChart = {
     series: [{
       name: 'Количество безработных в Смоленской области, тыс. человек',
@@ -1025,6 +1061,42 @@ const apexChartOptions = (chartname) => {
       x: {show: false}
     },
   }
+  const admcaseOblChart = {
+    series: [{
+      name: 'Дела об адм. правонарушениях (область)',
+      data: [1487, 1334, 1315, 6150, 5856, 5316, 5080, 5352, 5232, 4805, 6768, ]
+    }],
+    chart: {
+      height: 350,
+      type: 'area',
+    },
+    colors: [colors.theme['blue']],
+    fill: {
+      type: 'gradient',
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        gradientToColors: [colors.themeLighter['blue'], colors.theme['blue']],
+        opacityFrom: 0.7,
+        opacityTo: 0.55,
+        stops: [0, 80, 100]
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'smooth'
+    },
+    xaxis: {
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
+    },
+    tooltip: {
+      x: {show: false}
+    },
+  }
+
   const adm1caseChart = {
     series: [{
       name: 'Жалобы по адм. делам',
@@ -1350,6 +1422,10 @@ const apexChartOptions = (chartname) => {
       return smolOblpeopleChart;
     case 'smolOblnoworkChart':
       return smolOblnoworkChart;
+    case 'admcaseOblChart':
+      return admcaseOblChart;
+    case 'smolOblworkpeopleChart':
+      return smolOblworkpeopleChart;
   }
 }
 

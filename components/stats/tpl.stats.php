@@ -43,6 +43,11 @@
                 <label class="form-check-label" for="stat-smolOblpopulation">Население Смоленской области</label>
               </div>
               <div class="form-check d-flex align-items-center mb-2 flex-shrink-0">
+                <input class="form-check-input input-filter flex-shrink-0 bg-secondary me-2" type="checkbox" id="stat-smolOblworkpeople"
+                       name="stat-smolOblworkpeople" data-value="stat-smolOblworkpeople" value="stat-smolOblworkpeople">
+                <label class="form-check-label" for="stat-smolOblworkpeople">Трудоспособное население Смоленской области</label>
+              </div>
+              <div class="form-check d-flex align-items-center mb-2 flex-shrink-0">
                 <input class="form-check-input input-filter flex-shrink-0 bg-secondary me-2" type="checkbox" id="stat-smolOblnowork"
                        name="stat-smolOblnowork" data-value="stat-smolOblnowork" value="stat-smolOblnowork">
                 <label class="form-check-label" for="stat-smolOblnowork">Количество безработных в Смоленской области, тыс. человек</label>
@@ -112,7 +117,7 @@
                        data-value="stat-u2cases" value="stat-u2cases">
                 <label class="form-check-label" for="stat-u2cases">Уголовные дела ап. инстанции</label>
               </div>
-              <p class="group-title mb-2 mt-3">Рассмотрение дел 1 инстанции районными (городскими) судами Смоленской области:</p>
+              <p class="group-title mb-2 mt-3">Рассмотрение дел 1 инстанции районными (городскими) судами Смоленской области (по 29 судам в 2010 г., по 21 судам с 2011 г.):</p>
               <div class="form-check d-flex align-items-center mb-2 flex-shrink-0">
                 <input class="form-check-input input-filter flex-shrink-0 bg-danger me-2" type="checkbox" id="stat-g1oblcases" name="stat-g1oblcases"
                        data-value="stat-g1oblcases" value="stat-g1oblcases">
@@ -122,6 +127,11 @@
                 <input class="form-check-input input-filter flex-shrink-0 bg-warning me-2" type="checkbox" id="stat-u1oblcases" name="stat-u1oblcases"
                        data-value="stat-u1oblcases" value="stat-u1oblcases">
                 <label class="form-check-label" for="stat-u1oblcases">Уголовные дела</label>
+              </div>
+              <div class="form-check d-flex align-items-center mb-2 flex-shrink-0">
+                <input class="form-check-input input-filter flex-shrink-0 bg-blue me-2" type="checkbox" id="stat-adm1oblcases" name="stat-adm1oblcases"
+                       data-value="stat-adm1oblcases" value="stat-u1oblcases">
+                <label class="form-check-label" for="stat-adm1oblcases">Дела об адм. правонарушениях</label>
               </div>
             </div>
           </div>
@@ -197,6 +207,41 @@
               </div>
             </div>
           </div>
+          <div class="col-xxl-4 col-xl-6 col-md-6 col-12 stat-card d-none stat-smolOblworkpeople">
+            <div class="card mb-3">
+              <div class="d-flex justify-content-between">
+                <div class="d-flex flex-column p-3">
+                  <h6 class="surtitle">Общее</h6>
+                  <h5 class="mb-0">Трудоспособное население Смоленской области</h5>
+                </div>
+                <div class="d-flex me-2 flex-column p-3">
+                  <div>
+                    <a class="dropdown-toggle no-carret text-secondary" id="menu14" data-bs-toggle="dropdown"><i
+                        class="mdi mdi-dots-vertical"></i></a>
+                    <ul class="dropdown-menu dropdown-arrow" aria-labelledby="menu14" data-bs-popper="none">
+                      <li class="dropdown-item">
+                        <a><i class="mdi mdi-sync me-2"></i>Обновить данные</a>
+                      </li>
+                      <li class="dropdown-item">
+                        <a><i class="mdi mdi-list-status me-2"></i>Детализация</a>
+                      </li>
+                      <li class="dropdown-item">
+                        <a><i class="mdi mdi-pulse me-2"></i>Статистика</a>
+                      </li>
+                      <li class="dropdown-item">
+                        <a><i class="mdi mdi-table-off me-2"></i>Очистить данные</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body pe-md-0 p-0" style="position: relative;">
+                <div class="apexchart" data-chart-name="smolOblworkpeopleChart" style="min-height: 315px;">
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div class="col-xxl-4 col-xl-6 col-md-6 col-12 stat-card d-none stat-smolOblnowork">
             <div class="card mb-3">
               <div class="d-flex justify-content-between">
@@ -231,7 +276,6 @@
               </div>
             </div>
           </div>
-
           <div class="col-xxl-4 col-xl-6 col-md-6 col-12 stat-card d-none stat-inflation">
             <div class="card mb-3">
               <div class="d-flex justify-content-between">
@@ -266,7 +310,6 @@
               </div>
             </div>
           </div>
-
           <div class="col-xxl-4 col-xl-6 col-md-6 col-12 stat-card d-none stat-inbox">
             <div class="card mb-3">
               <div class="d-flex justify-content-between">
@@ -539,7 +582,6 @@
               </div>
             </div>
           </div>
-
           <div class="col-xxl-4 col-xl-6 col-md-6 col-12 stat-card d-none stat-g2cases">
             <div class="card mb-3">
               <div class="d-flex justify-content-between">
@@ -706,6 +748,40 @@
               </div>
               <div class="card-body pe-md-0 p-0" style="position: relative;">
                 <div class="apexchart" data-chart-name="ucaseOblChart" style="min-height: 315px;">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xxl-4 col-xl-6 col-md-6 col-12 stat-card d-none stat-adm1oblcases">
+            <div class="card mb-3">
+              <div class="d-flex justify-content-between">
+                <div class="d-flex flex-column p-3">
+                  <h6 class="surtitle">Рассмотрение дел 1 инстанции (по области)</h6>
+                  <h5 class="mb-0">Дела об адм. правонарушениях</h5>
+                </div>
+                <div class="d-flex me-2 flex-column p-3">
+                  <div>
+                    <a class="dropdown-toggle no-carret text-secondary" id="menu14" data-bs-toggle="dropdown"><i
+                        class="mdi mdi-dots-vertical"></i></a>
+                    <ul class="dropdown-menu dropdown-arrow" aria-labelledby="menu14" data-bs-popper="none">
+                      <li class="dropdown-item">
+                        <a><i class="mdi mdi-sync me-2"></i>Обновить данные</a>
+                      </li>
+                      <li class="dropdown-item">
+                        <a><i class="mdi mdi-list-status me-2"></i>Детализация</a>
+                      </li>
+                      <li class="dropdown-item">
+                        <a><i class="mdi mdi-pulse me-2"></i>Статистика</a>
+                      </li>
+                      <li class="dropdown-item">
+                        <a><i class="mdi mdi-table-off me-2"></i>Очистить данные</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body pe-md-0 p-0" style="position: relative;">
+                <div class="apexchart" data-chart-name="admcaseOblChart" style="min-height: 315px;">
                 </div>
               </div>
             </div>
