@@ -18,7 +18,7 @@
 
 	    public function __construct(DB $db) {
 	        $this->db = $db;
-	        $this->sudo = $_GET["sudo"] ?? "";
+	        $this->sudo = $_POST["sudo"] ?? "";
 	    }
 
 	    //Изменяем  ссылку

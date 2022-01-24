@@ -15,7 +15,7 @@
     else if (array_key_exists("editLink", $_GET) && !empty($_GET["editLink"])) {
         $path = $host_api.'/api/proxylist/getReadOne.php?id='.$_GET['editLink'];
     } else {
-        $path = $host_api.'/api/proxylist/getProxyList.php?sudo='.$verification;
+        $path = $autorizationClass::sendPOST($params, $host_api.'/api/proxylist/getProxyList.php');
     }
 
     $ourData = file_get_contents($path);
