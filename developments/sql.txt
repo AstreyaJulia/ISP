@@ -851,3 +851,56 @@ FROM G1_OVER_PERIOD_CASE2(cast(cast(Extract(year FROM cast('NOW' as date)) as va
 ON A.JUDGE_NAME = OA2.USERNAME
 WHERE
     OA2.GROUPCONTENTID = :judge
+
+
+/* Не рассмотренные */
+/* Без движения */
+SELECT
+    OA0.FULL_NUMBER ,
+    max (case('Оставлено без движения: ' || cast(Extract(day FROM cast(OA0.SYS_EVENT_DATE as date)) as varchar(10)) || '.' || cast(Extract(month FROM cast(OA0.SYS_EVENT_DATE as date)) as varchar(10)) || '.' || cast(Extract(year FROM cast(OA0.SYS_EVENT_DATE as date)) as varchar(10))) as varchar(255)) as SYS_EVENT_DATE ,
+    max ((SELECT G1_GET_PARTS_INFO2_BY_CASE_ID.PARTS_INFO FROM G1_GET_PARTS_INFO2_BY_CASE_ID(G1_CASE.ID, null, null))) as NAME3,
+    max (case('Срок до: ' || cast(Extract(day FROM cast(OA1.CONTROL_DATE as date)) as varchar(10)) || '.' || cast(Extract(month FROM cast(OA1.CONTROL_DATE as date)) as varchar(10)) || '.' || cast(Extract(year FROM cast(OA1.CONTROL_DATE as date)) as varchar(10))) as varchar(255)) as CONTROL_DATE
+FROM
+    G1_CASE OA0
+        LEFT OUTER JOIN G1_EVENT OA1 ON OA0.ID  = OA1.CASE_ID
+WHERE
+    (OA0.JUDGE_ID IN (9300076)) AND
+    (OA0.RESULT_DATE IS NULL) AND
+    (OA0.SYS_EVENT_RESULT_ID IN (50550202))
+    group by OA0.FULL_NUMBER
+
+UNION ALL
+
+/* Приостановленные */
+
+SELECT
+    OA0.FULL_NUMBER ,
+    max(case('Приостановлено : ' || cast(Extract(day FROM cast(SYS_EVENT_DATE as date)) as varchar(10)) || '.' || cast(Extract(month FROM cast(SYS_EVENT_DATE as date)) as varchar(10)) || '.' || cast(Extract(year FROM cast(SYS_EVENT_DATE as date)) as varchar(10))) as varchar(255)) as SYS_EVENT_DATE ,
+    max ((SELECT G1_GET_PARTS_INFO2_BY_CASE_ID.PARTS_INFO FROM G1_GET_PARTS_INFO2_BY_CASE_ID(G1_CASE.ID, null, null))) as NAME3,
+    max(case(case('Причина: ' || OA1.NAME) as varchar(255)) as NAME
+FROM
+    G1_CASE OA0
+        LEFT OUTER JOIN CATALOGCONTENT OA1 ON OA0.SYS_REASON_FOR_RESULT_ID = OA1.CONTENTID
+WHERE
+    (OA0.JUDGE_ID IN (9300076)) AND
+    (OA0.RESULT_DATE IS NULL) AND
+    (OA0.SYS_EVENT_RESULT_ID IN (50550208))
+    GROUP BY OA0.FULL_NUMBER
+
+UNION ALL
+
+/* Не рассмотренные */
+SELECT
+    OA0.FULL_NUMBER ,
+    max(case('Дата последнего события: ' || cast(Extract(day FROM cast(SYS_EVENT_DATE as date)) as varchar(10)) || '.' || cast(Extract(month FROM cast(SYS_EVENT_DATE as date)) as varchar(10)) || '.' || cast(Extract(year FROM cast(SYS_EVENT_DATE as date)) as varchar(10))) as varchar(255)) as SYS_EVENT_DATE,
+    max ((SELECT G1_GET_PARTS_INFO2_BY_CASE_ID.PARTS_INFO FROM G1_GET_PARTS_INFO2_BY_CASE_ID(G1_CASE.ID, null, null))) as NAME3,
+    max(OA1.NAME) as NAME
+FROM
+    G1_CASE OA0
+        LEFT OUTER JOIN CATALOGCONTENT OA1 ON OA0.SYS_EVENT_NAME_ID = OA1.CONTENTID
+        LEFT OUTER JOIN CATALOGCONTENT OA2 ON OA0.SYS_EVENT_RESULT_ID = OA2.CONTENTID
+WHERE
+    (OA0.JUDGE_ID IN (9300076)) AND
+    ((OA0.RESULT_DATE IS NULL) AND
+    (OA0.SYS_EVENT_NAME_ID IN (913490039,913490022,913490021,913490050,913490018,913490013,913490032,913490031,913490001,913490007,913490005,913490030,913490024,913490019,913490016,913490004,913490033,913490006,50540213,50540235,50540101,50540225,50540109,50540104,50540228,50540216,50540217,50540203,50540258,50540241,50540201,50540257,50540227,50540204,50540259,50540205,50540207,50540260,50540202,50540263,50540206)))
+    GROUP BY FULL_NUMBER
