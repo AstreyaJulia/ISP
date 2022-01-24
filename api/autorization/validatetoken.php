@@ -54,6 +54,6 @@
         http_response_code(401);
      
         // сообщить пользователю что доступ запрещен
-        echo json_encode(array("message" => "Доступ запрещён."));
+        echo json_encode(array("message" => "Доступ запрещён."), JSON_UNESCAPED_UNICODE);
     }
 ?>
