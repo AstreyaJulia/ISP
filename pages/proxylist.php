@@ -13,13 +13,17 @@
     }
     // Редактируем ссылку
     else if (array_key_exists("editLink", $_GET) && !empty($_GET["editLink"])) {
-        $path = $host_api.'/api/proxylist/getReadOne.php?id='.$_GET['editLink'];
+        // Собираес ID-ссылки и jwt
+        $editLink = array_merge($tokenJWT, array("id" => $_GET["editLink"]));
+        $row = $autorizationClass::sendGET($editLink, $host_api.'/api/proxylist/getReadOne.php?');
     } else {
-        $path = $autorizationClass::sendPOST($params, $host_api.'/api/proxylist/getProxyList.php');
+        $row = $autorizationClass::sendPOST($tokenJWT, $host_api.'/api/proxylist/getProxyList.php');
     }
 
+/*
     $ourData = file_get_contents($path);
     $row = json_decode($ourData);
+*/
 
     $id = $row->data->link[0]->id ?? "";
     $menuindex = $row->data->link[0]->menuindex ?? "";

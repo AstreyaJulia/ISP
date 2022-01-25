@@ -31,6 +31,21 @@
 		    $message = json_decode($result);
 		    return $message;
 	    }
+	    // Отправка данных методом $_GET
+	    public static function sendGET($params, $host_api) {
+	    	// URL страницы, которую открываем
+			$url = $host_api. http_build_query($params);
+
+			$ch = curl_init($url);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			//ожидание при попытке подключения, секунд (0 - бесконечно)
+			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
+
+			$result = curl_exec($ch);
+			curl_close($ch);
+			$message = json_decode($result);
+			return $message;
+	    }
 
 	    public function login($params, $host_api) {
 	    	$output = self::sendPOST($params, $host_api);

@@ -14,12 +14,12 @@ $visits = new \Core\Model\Visits($db);
 // Авторизация пользователя
 $autorizationClass = new \Core\Model\Autorization($db);
 
-$params = [
+$tokenJWT = [
     "jwt" => $_COOKIE['aut']['jwt'] ?? ""
 ];
 
 // Получаем ключ
-$token = $autorizationClass::sendPOST($params, $host_api.'/api/autorization/validatetoken.php');
+$token = $autorizationClass::sendPOST($tokenJWT, $host_api.'/api/autorization/validatetoken.php');
 //подключаем функции
 require_once "core/extension/custom_functions.php";
 //подключаем справочники
@@ -36,7 +36,7 @@ if (isset($_GET["page"])) {
 //проверяем наличие токена аторизации
 $active = $token->data->active ?? "";
 if ($active == 1) {
-    $userAtributes = $autorizationClass::sendPOST($params, $host_api.'/api/user/useratributes.php');
+    $userAtributes = $autorizationClass::sendPOST($tokenJWT, $host_api.'/api/user/useratributes.php');
     $sidebar = $userAtributes->data->sidebar;
     $theme = $userAtributes->data->theme;
 
