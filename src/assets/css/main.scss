@@ -1111,6 +1111,15 @@ a {
 
 // Code pre
 
+code {
+  color: $danger-dark;
+  word-wrap: break-word;
+  padding: .2em .4em;
+  margin: 0;
+  background-color: rgba($danger, .1);
+  border-radius: 6px;
+}
+
 code[class*="language-"], pre[class*="language-"] {
   color: $white;
   text-align: left;
