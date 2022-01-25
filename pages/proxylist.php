@@ -13,29 +13,21 @@
     }
     // Редактируем ссылку
     else if (array_key_exists("editLink", $_GET) && !empty($_GET["editLink"])) {
-        // Собираес ID-ссылки и jwt
+        // Собираем ID-ссылки и jwt
         $editLink = array_merge($tokenJWT, array("id" => $_GET["editLink"]));
         $row = $autorizationClass::sendGET($editLink, $host_api.'/api/proxylist/getReadOne.php?');
     } else {
         $row = $autorizationClass::sendPOST($tokenJWT, $host_api.'/api/proxylist/getProxyList.php');
     }
 
-/*
-    $ourData = file_get_contents($path);
-    $row = json_decode($ourData);
-*/
-
     $id = $row->data->link[0]->id ?? "";
     $menuindex = $row->data->link[0]->menuindex ?? "";
     $name_href = $row->data->link[0]->name_href ?? "";
     $href = $row->data->link[0]->href ?? "";
     $proxy_href = $row->data->link[0]->proxy_href ?? "";
-    // проверка для добавления, редактирования записи
-    $editLinkValue = (array_key_exists("editLink", $_GET) && empty($_GET["editLink"])) ? "add": $id;
 
-    /*echo "<pre>";
-    var_dump($row->data->link[0]->name_href);
-    die();*/
+    // Устанавливаем значение кнопки для добавления, редактирования записи
+    $editLinkValue = (array_key_exists("editLink", $_GET) && empty($_GET["editLink"])) ? "add": $id;
 
     ob_start();
         if (array_key_exists("editLink", $_GET)) {
@@ -63,5 +55,9 @@
             запишем сообщение в переменную $info
             Теряется при переходе на новую страницу (нужно писать в куку или сессию)
         */
-        $info = $proxylistClass->updateCURL($_POST, $host_api);  
+        $editLink = array_merge($tokenJWT, $_POST);
+
+        $info = $autorizationClass::sendPOST($editLink, $host_api.'/api/proxylist/updateLink.php')->message;
+
+        header("Location: /?page=proxylist");
     }
