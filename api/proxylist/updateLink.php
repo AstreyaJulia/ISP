@@ -26,13 +26,16 @@
         // если декодирование выполнено успешно, показать данные пользователю
         try {
             // декодирование jwt
-            $decoded = \Firebase\JWT\JWT::decode($jwt, $key, array('HS256'))->data->sudo;
+            $decoded = \Firebase\JWT\JWT::decode($jwt, $key, array('HS256'));
+            // проверяем права пользователя
+            if ($decoded->data->sudo != 1) {
+                throw new Exception("Недостаточно прав для редактирования записи");
+            }
 
             if (
                 !empty($data["id_group"]) &&
                 !empty($data["href"]) &&
-                !empty($data["name_href"]) &&
-                $decoded == 1
+                !empty($data["name_href"])
             ) {
                 // создание ссылки
                 try {
