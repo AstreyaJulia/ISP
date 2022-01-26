@@ -17,7 +17,6 @@
     $jwt = $data["jwt"] ?? "";
     unset($data["jwt"]);
 
-
     // Файлы jwt
     require_once $_SERVER['DOCUMENT_ROOT'] . "/api/config/jwt.php";
 
@@ -27,16 +26,17 @@
         // если декодирование выполнено успешно, показать данные пользователю
         try {
             // декодирование jwt
-            $decoded = \Firebase\JWT\JWT::decode($jwt, $key, array('HS256'));
+            $decoded = \Firebase\JWT\JWT::decode($jwt, $key, array('HS256'))->data->sudo;
 
             if (
                 !empty($data["id_group"]) &&
                 !empty($data["href"]) &&
-                !empty($data["name_href"])
+                !empty($data["name_href"]) &&
+                $decoded == 1
             ) {
                 // создание ссылки
-                if($proxyListClass->updateLink($data)){
-
+                try {
+                    $proxyListClass->updateLink($data);
                     // установим код ответа - 201 создано
                     http_response_code(201);
 
@@ -45,14 +45,13 @@
                 }
 
                 // если не удается изменить ссылку, сообщим пользователю 
-                // не срабатывает если передали лишние параметры попробовать try->catch
-                else {
+                catch (Exception $e) {
 
                     // установим код ответа - 503 сервис недоступен
                     http_response_code(503);
 
                     // сообщим пользователю
-                    echo json_encode(array("message" => "Невозможно изменить ссылку."), JSON_UNESCAPED_UNICODE);
+                    echo json_encode(array("message" => "Невозможно изменить ссылку.", "error" => $e->getMessage()), JSON_UNESCAPED_UNICODE);
                 }
             }
 
