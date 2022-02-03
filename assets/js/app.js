@@ -735,7 +735,6 @@ const apexChartOptions = (chartname) => {
       x: {show: false}
     },
   }
-
   const smolOblnoworkChart = {
     series: [{
       name: 'Количество безработных в Смоленской области, тыс. человек',
@@ -771,7 +770,6 @@ const apexChartOptions = (chartname) => {
       x: {show: false}
     },
   }
-
   const inflationChart = {
     /* https://уровень-инфляции.рф/%D1%82%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D1%8B-%D0%B8%D0%BD%D1%84%D0%BB%D1%8F%D1%86%D0%B8%D0%B8 */
     series: [{
@@ -849,7 +847,6 @@ const apexChartOptions = (chartname) => {
       x: {show: false}
     },
   }
-
   const postoutboxChart = {
     series: [{
       name: 'Исходящая почта',
@@ -885,6 +882,41 @@ const apexChartOptions = (chartname) => {
       x: {show: false}
     },
   }
+  const emailoutboxChart = {
+    series: [{
+      name: 'Исходящая эл. почта',
+      data: [1810, 3170, 3959]
+    }],
+    chart: {
+      height: 350,
+      type: 'area',
+    },
+    colors: [colors.theme['primary']],
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'smooth'
+    },
+    fill: {
+      type: 'gradient',
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        gradientToColors: [colors.themeLighter['primary'], colors.theme['primary']],
+        opacityFrom: 0.7,
+        opacityTo: 0.55,
+        stops: [0, 80, 100]
+      }
+    },
+    xaxis: {
+      categories: [2019, 2020, 2021]
+    },
+    tooltip: {
+      x: {show: false}
+    },
+  }
   const postinboxChart = {
     series: [{
       name: 'Входящая почта',
@@ -915,6 +947,41 @@ const apexChartOptions = (chartname) => {
     },
     xaxis: {
       categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
+    },
+    tooltip: {
+      x: {show: false}
+    },
+  }
+  const emailinboxChart = {
+    series: [{
+      name: 'Входящая эл. почта',
+      data: [6489, 8384, 10450]
+    }],
+    chart: {
+      height: 350,
+      type: 'area',
+    },
+    colors: [colors.theme['green']],
+    fill: {
+      type: 'gradient',
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        gradientToColors: [colors.themeLighter['green'], colors.theme['green']],
+        opacityFrom: 0.7,
+        opacityTo: 0.55,
+        stops: [0, 80, 100]
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'smooth'
+    },
+    xaxis: {
+      categories: [2019, 2020, 2021]
     },
     tooltip: {
       x: {show: false}
@@ -990,7 +1057,6 @@ const apexChartOptions = (chartname) => {
       x: {show: false}
     },
   }
-
   const g1caseChart = {
     series: [{
       name: 'Гражданские дела ап. инстанции',
@@ -1096,7 +1162,6 @@ const apexChartOptions = (chartname) => {
       x: {show: false}
     },
   }
-
   const adm1caseChart = {
     series: [{
       name: 'Жалобы по адм. делам',
@@ -1202,7 +1267,6 @@ const apexChartOptions = (chartname) => {
       x: {show: false}
     },
   }
-
   const u1caseChart = {
     series: [{
       name: 'Уголовные дела ап. инстанции',
@@ -1275,7 +1339,7 @@ const apexChartOptions = (chartname) => {
   }
   const eosChart = {
     series: [{
-      name: 'Обращения на портале ГАС Правосудие, без исковых',
+      name: 'Обращения, без исковых',
       data: [87, 230, 423, 624]
     }],
     chart: {
@@ -1310,7 +1374,7 @@ const apexChartOptions = (chartname) => {
   }
   const eosgcaseChart = {
     series: [{
-      name: 'Исковые заявления поданные через портал ГАС Правосудие',
+      name: 'Исковые заявления',
       data: [21, 43, 35, 128]
     }],
     chart: {
@@ -1426,6 +1490,10 @@ const apexChartOptions = (chartname) => {
       return admcaseOblChart;
     case 'smolOblworkpeopleChart':
       return smolOblworkpeopleChart;
+    case 'emailoutboxChart':
+      return emailoutboxChart;
+    case 'emailinboxChart':
+      return emailinboxChart;
   }
 }
 
