@@ -37,7 +37,7 @@
                 !empty($data["href"]) &&
                 !empty($data["name_href"])
             ) {
-                // создание ссылки
+                // редактирование ссылки
                 try {
                     $proxyListClass->updateLink($data);
                     // установим код ответа - 201 создано
