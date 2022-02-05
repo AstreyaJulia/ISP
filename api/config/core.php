@@ -1,7 +1,22 @@
 <?php
 $start = microtime(true);
 spl_autoload_register(function($class) {
-    require (mb_strtolower($_SERVER['DOCUMENT_ROOT'] . '/' . str_replace('\\', '/', $class) . '.php'));
+    // вырезаем имя класса
+    $lastNsPos = strrpos($class, '\\');
+    $className = substr($class, $lastNsPos + 1);
+    // путь до файла
+    $namespace = substr($class,0,$lastNsPos + 1);
+    $namespace = str_replace('/',DIRECTORY_SEPARATOR,$namespace);
+    $namespace = str_replace('\\',DIRECTORY_SEPARATOR,$namespace);
+    // корень сайта
+    $home = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR;
+
+    if (in_array($className,["BeforeValidException", "ExpiredException", "SignatureInvalidException", "JWT"])) {
+        require_once (mb_strtolower($home.'api'.DIRECTORY_SEPARATOR.'libs'.DIRECTORY_SEPARATOR.$namespace).$className.'.php');
+    } else {
+        require_once (mb_strtolower($home.$namespace.$className.'.php'));
+    }
+
 });
 
 // показывать сообщения об ошибках

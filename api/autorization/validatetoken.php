@@ -6,6 +6,20 @@
     header("Access-Control-Max-Age: 3600");
     header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
+    spl_autoload_register(function($class) {
+        // вырезаем имя класса
+        $lastNsPos = strrpos($class, '\\');
+        $className = substr($class, $lastNsPos + 1);
+        // путь до файла
+        $namespace = substr($class,0,$lastNsPos + 1);
+        $namespace = str_replace('/',DIRECTORY_SEPARATOR,$namespace);
+        $namespace = str_replace('\\',DIRECTORY_SEPARATOR,$namespace);
+        // корень сайта
+        $home = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR;
+
+        require_once mb_strtolower($home.'api'.DIRECTORY_SEPARATOR.'libs'.DIRECTORY_SEPARATOR.$namespace).$className.'.php';
+    });
+
     // Файл с настройками
     require_once $_SERVER['DOCUMENT_ROOT'] . "/api/config/jwt.php";
 

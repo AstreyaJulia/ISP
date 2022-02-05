@@ -26,9 +26,9 @@
         // если декодирование выполнено успешно, показать данные пользователю
         try {
             // декодирование jwt
-            $decoded = \Firebase\JWT\JWT::decode($jwt, $key, array('HS256'));
+            $proxyListClass->secureJWT($jwt, $key);
             // проверяем права пользователя
-            if ($decoded->data->sudo != 1) {
+            if ($proxyListClass->getSudo() != 1) {
                 throw new Exception("Недостаточно прав для редактирования записи");
             }
 
@@ -75,7 +75,7 @@
             echo json_encode(array(
                 "message" => "Доступ закрыт.",
                 "error" => $e->getMessage()
-            ));
+            ), JSON_UNESCAPED_UNICODE);
         }
     }
 

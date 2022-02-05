@@ -19,7 +19,7 @@
         // если декодирование выполнено успешно, показать данные пользователя
         try {
             // декодирование jwt
-            $decoded = \Firebase\JWT\JWT::decode($jwt, $key, array('HS256'));
+            $proxyListClass->secureJWT($jwt, $key);
 
             $readOne = $proxyListClass->getReadOne($id);
             if ($proxyListClass->getReadOne($id)) {
@@ -67,7 +67,7 @@
             echo json_encode(array(
                 "message" => "Доступ закрыт.",
                 "error" => $e->getMessage()
-            ));
+            ), JSON_UNESCAPED_UNICODE);
         }
     }
 

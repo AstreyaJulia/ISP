@@ -1,11 +1,13 @@
 <?php
 	namespace Api\Objects;
 	use Core\Config\DB;
+	use Firebase\JWT\JWT;
 
 	class ProxyList {
 
 		private $sudo;
 		protected $db;
+		private $classJWT;
 
 		// свойства объекта
 		protected $id;
@@ -18,7 +20,17 @@
 
 	    public function __construct(DB $db) {
 	        $this->db = $db;
-	        $this->sudo = $_POST["sudo"] ?? "";
+	        $this->classJWT = new JWT;
+	    }
+
+	    public function secureJWT ($jwt, $key) {
+	    	$decoded = $this->classJWT::decode($jwt, $key, array('HS256'));
+	    	$this->sudo = $decoded->data->sudo;
+	    	return $decoded;
+	    }
+
+	    public function getSudo() {
+	    	return $this->sudo;
 	    }
 
 	    //Редактируем  ссылку
@@ -100,7 +112,7 @@
 
 	    //Получаем все записи
 	    public function getProxyList() {
-	    	$where = $this->sudo == 1 ? "" : "WHERE id != 6";
+	    	$where = $this->sudo == 1 ? "" : "WHERE id != 6 AND id_group != 6";
 			$sql = "SELECT
 						id,
 						id_group AS parent_id,
