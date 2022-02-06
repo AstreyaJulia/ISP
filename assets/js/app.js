@@ -39,16 +39,19 @@ const sendAjaxPromise = (method, url, parameters) => new Promise((onFulfilled, o
 /** @type {HTMLButtonElement} Кнопка Сформировать */
 const certBtn = document.querySelector('.cert-get');
 
+/** Получить квартал и год из селекта */
 function certBtnHandler() {
-  const value = document.querySelector('.cert-select');
+  /** @type {string} */
+  const quarter = document.querySelector('.cert-select').value;
   const year = $(value).find(':selected').parent().attr('label');
   const data = {
-    quarter: value.value,
+    quarter: quarter,
     year: year,
   };
 
-  function createtable(data) {
-    const createrowString = ({
+  /** Вставить данные справки по судьям в таблицу */
+  function createTable(data) {
+    const createRowString = ({
                                col_3,
                                col_4,
                                col_5,
@@ -87,23 +90,25 @@ function certBtnHandler() {
 <td>${col_17}</td>
 </tr>`;
     document.querySelector('.cert-table').innerHTML = '';
-    const taskElementsString = data.data.map((col_3, col_4, col_5, col_6, col_7, col_8, col_9, col_10, col_11, col_12, col_13, col_14, col_15, col_16, col_17, fullname, row_num) => createrowString(col_3, col_4, col_5, col_6, col_7, col_8, col_9, col_10, col_11, col_12, col_13, col_14, col_15, col_16, col_17, fullname, row_num)).join('');
+    const taskElementsString = data.data.map((col_3, col_4, col_5, col_6, col_7, col_8, col_9, col_10, col_11, col_12, col_13, col_14, col_15, col_16, col_17, fullname, row_num) => createRowString(col_3, col_4, col_5, col_6, col_7, col_8, col_9, col_10, col_11, col_12, col_13, col_14, col_15, col_16, col_17, fullname, row_num)).join('');
     document.querySelector('.cert-table').insertAdjacentHTML('beforeend', taskElementsString);
   }
 
+  /** Отправить запрос с параметрами и вставить в таблицу справки по судьям */
   ajax_send("GET", "api/certificatework/getCertificateWork.php", data, "json", response => {
-    createtable(response);
+    createTable(response);
   });
 
 }
 
+/** Прослушиватель нажатия кнопки Сформировать справки по судьям */
 if (certBtn) {
   certBtn.addEventListener('click', function () {
     certBtnHandler()
   })
 }
 
-// Цвета
+/** Цвета */
 const colors = {
   theme: {
     'primary': '#6C5CE8',
@@ -220,36 +225,36 @@ const colors = {
   transparent: 'transparent',
 };
 
-// Tetris
-
+/** Тетрис */
 const tetrwrapper = document.querySelector(".tetris-wrapper");
 const tetrgame = () => {
-  // License CC0 1.0 Universal
-  // https://gist.github.com/straker/3c98304f8a6a9174efd8292800891ea1
-  // https://tetris.fandom.com/wiki/Tetris_Guideline
 
-  // получаем доступ к основному холсту
+  /** License CC0 1.0 Universal */
+  /** https://gist.github.com/straker/3c98304f8a6a9174efd8292800891ea1 */
+  /** https://tetris.fandom.com/wiki/Tetris_Guideline */
+
+  /** получаем доступ к основному холсту */
   const canvas = document.getElementById('game');
   const context = canvas.getContext('2d');
 
-  // Кнопка начала игры
+  /** Кнопка начала игры */
   const startbtn = document.querySelector('.tetr-start-game');
 
-  // получаем доступ к холсту с игровой статистикой
+  /** получаем доступ к холсту с игровой статистикой */
   const canvasScore = document.getElementById('score');
   const contextScore = canvasScore.getContext('2d');
 
   const start = () => {
-    // размер квадратика
+    /** размер квадратика */
     const grid = 32;
-    // массив с последовательностями фигур, на старте — пустой
+    /** массив с последовательностями фигур, на старте — пустой */
     const tetrominoSequence = [];
 
-    // с помощью двумерного массива следим за тем, что находится в каждой клетке игрового поля
-    // размер поля — 10 на 20, и несколько строк ещё находится за видимой областью
+    /** с помощью двумерного массива следим за тем, что находится в каждой клетке игрового поля */
+    /** размер поля — 10 на 20, и несколько строк ещё находится за видимой областью */
     const playfield = [];
 
-    // заполняем сразу массив пустыми ячейками
+    /** заполняем сразу массив пустыми ячейками */
     for (let row = -2; row < 20; row++) {
       playfield[row] = [];
 
@@ -258,8 +263,8 @@ const tetrgame = () => {
       }
     }
 
-    // как рисовать каждую фигуру
-    // https://tetris.fandom.com/wiki/SRS
+    /** как рисовать каждую фигуру */
+    /** https://tetris.fandom.com/wiki/SRS */
     const tetrominos = {
       'I': [
         [0, 0, 0, 0],
@@ -298,7 +303,7 @@ const tetrgame = () => {
       ]
     };
 
-    // цвет каждой фигуры
+    /** цвет каждой фигуры */
     const colors = {
       'I': '#1CC8EE',
       'O': '#F4B740',
@@ -309,39 +314,38 @@ const tetrgame = () => {
       'L': '#ef630a'
     };
 
-    // счётчик
+    /** счётчик */
     let count = 0;
-    // текущая фигура в игре
+    /** текущая фигура в игре */
     let tetromino = getNextTetromino();
-    // следим за кадрами анимации, чтобы если что — остановить игру
+    /** следим за кадрами анимации, чтобы если что — остановить игру */
     let rAF = null;
-    // флаг конца игры, на старте — неактивный
+    /** флаг конца игры, на старте — неактивный */
     let gameOver = false;
 
-    // количество набранных очков на старте
+    /** количество набранных очков на старте */
     let score = 0;
-    // рекорд игры
+    /** рекорд игры */
     let record = 0;
-    // текущий уровень сложности
+    /** текущий уровень сложности */
     let level = 1;
-    // имя игрока с наибольшим рейтингом
+    /** имя игрока с наибольшим рейтингом */
     let recordName = '';
 
-    // спрашиваем имя игрока при запуске
-    //name = prompt("Ваше имя", "");
+    /** берем имя игрока из разметки */
     let name = document.querySelector(".user-name").innerHTML;
 
-    // Узнаём размер хранилища
+    /** Узнаём размер хранилища */
     const Storage_size = localStorage.length;
-    // Если в хранилище уже что-то есть…
+    /** Если в хранилище уже что-то есть… */
     if (Storage_size > 0) {
-      // …то достаём оттуда значение рекорда и имя чемпиона
+      /** …то достаём оттуда значение рекорда и имя чемпиона */
       record = localStorage.record;
       recordName = localStorage.recordName;
     }
 
-    // Функция возвращает случайное число в заданном диапазоне
-    // https://stackoverflow.com/a/1527820/2124254
+    /** Функция возвращает случайное число в заданном диапазоне */
+    /** https://stackoverflow.com/a/1527820/2124254 */
     function getRandomInt(min, max) {
       min = Math.ceil(min);
       max = Math.floor(max);
@@ -349,142 +353,142 @@ const tetrgame = () => {
       return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    // создаём последовательность фигур, которая появится в игре
-    //https://tetris.fandom.com/wiki/Random_Generator
+    /** создаём последовательность фигур, которая появится в игре */
+    /** https://tetris.fandom.com/wiki/Random_Generator */
     function generateSequence() {
-      // тут — сами фигуры
+      /** тут — сами фигуры */
       const sequence = ['I', 'J', 'L', 'O', 'S', 'T', 'Z'];
 
       while (sequence.length) {
-        // случайным образом находим любую из них
+        /** случайным образом находим любую из них */
         const rand = getRandomInt(0, sequence.length - 1);
         const name = sequence.splice(rand, 1)[0];
-        // помещаем выбранную фигуру в игровой массив с последовательностями
+        /** помещаем выбранную фигуру в игровой массив с последовательностями */
         tetrominoSequence.push(name);
       }
     }
 
-    // получаем следующую фигуру
+    /** получаем следующую фигуру */
     function getNextTetromino() {
-      // если следующей нет — генерируем
+      /** если следующей нет — генерируем */
       if (tetrominoSequence.length === 0) {
         generateSequence();
       }
-      // берём первую фигуру из массива
+      /** берём первую фигуру из массива */
       const name = tetrominoSequence.pop();
-      // сразу создаём матрицу, с которой мы отрисуем фигуру
+      /** сразу создаём матрицу, с которой мы отрисуем фигуру */
       const matrix = tetrominos[name];
 
-      // I и O стартуют с середины, остальные — чуть левее
+      /** I и O стартуют с середины, остальные — чуть левее */
       const col = playfield[0].length / 2 - Math.ceil(matrix[0].length / 2);
 
-      // I начинает с 21 строки (смещение -1), а все остальные — со строки 22 (смещение -2)
+      /** I начинает с 21 строки (смещение -1), а все остальные — со строки 22 (смещение -2) */
       const row = name === 'I' ? -1 : -2;
 
-      // вот что возвращает функция
+      /** вот что возвращает функция */
       return {
-        name: name,      // название фигуры (L, O, и т. д.)
-        matrix: matrix,  // матрица с фигурой
-        row: row,        // текущая строка (фигуры стартуют за видимой областью холста)
-        col: col         // текущий столбец
+        name: name,       /** название фигуры (L, O, и т. д.) */
+        matrix: matrix,   /** матрица с фигурой */
+        row: row,         /** текущая строка (фигуры стартуют за видимой областью холста) */
+        col: col          /** текущий столбец */
       };
     }
 
-    // поворачиваем матрицу на 90 градусов
-    // https://codereview.stackexchange.com/a/186834
+    /** поворачиваем матрицу на 90 градусов */
+    /** https://codereview.stackexchange.com/a/186834 */
     function rotate(matrix) {
       const N = matrix.length - 1;
-      // на входе матрица, и на выходе тоже отдаём матрицу
+      /** на входе матрица, и на выходе тоже отдаём матрицу */
       return matrix.map((row, i) =>
         row.map((val, j) => matrix[N - j][i])
       );
     }
 
-    // проверяем после появления или вращения, может ли матрица (фигура) быть в этом месте поля или она вылезет за его границы
+    /** проверяем после появления или вращения, может ли матрица (фигура) быть в этом месте поля или она вылезет за его границы */
     function isValidMove(matrix, cellRow, cellCol) {
-      // проверяем все строки и столбцы
+      /** проверяем все строки и столбцы */
       for (let row = 0; row < matrix.length; row++) {
         for (let col = 0; col < matrix[row].length; col++) {
           if (matrix[row][col] && (
-            // если выходит за границы поля…
+            /** если выходит за границы поля… */
             cellCol + col < 0 ||
             cellCol + col >= playfield[0].length ||
             cellRow + row >= playfield.length ||
-            // …или пересекается с другими фигурами
+            /** …или пересекается с другими фигурами */
             playfield[cellRow + row][cellCol + col])
           ) {
-            // то возвращаем, что нет, так не пойдёт
+            /** то возвращаем, что нет, так не пойдёт */
             return false;
           }
         }
       }
-      // а если мы дошли до этого момента и не закончили раньше — то всё в порядке
+      /** а если мы дошли до этого момента и не закончили раньше — то всё в порядке */
       return true;
     }
 
-    // когда фигура окончательна встала на своё место
+    /** когда фигура окончательна встала на своё место */
     function placeTetromino() {
-      // обрабатываем все строки и столбцы в игровом поле
+      /** обрабатываем все строки и столбцы в игровом поле */
       for (let row = 0; row < tetromino.matrix.length; row++) {
         for (let col = 0; col < tetromino.matrix[row].length; col++) {
           if (tetromino.matrix[row][col]) {
 
-            // если край фигуры после установки вылезает за границы поля, то игра закончилась
+            /** если край фигуры после установки вылезает за границы поля, то игра закончилась */
             if (tetromino.row + row < 0) {
               return showGameOver();
             }
-            // если всё в порядке, то записываем в массив игрового поля нашу фигуру
+            /** если всё в порядке, то записываем в массив игрового поля нашу фигуру */
             playfield[tetromino.row + row][tetromino.col + col] = tetromino.name;
           }
         }
       }
 
-      // проверяем, чтобы заполненные ряды очистились снизу вверх
+      /** проверяем, чтобы заполненные ряды очистились снизу вверх */
       for (let row = playfield.length - 1; row >= 0;) {
-        // если ряд заполнен
+        /** если ряд заполнен */
         if (playfield[row].every(cell => !!cell)) {
 
           score += 10;
-          // считаем уровень
+          /** считаем уровень */
           level = Math.floor(score / 100) + 1;
-          // если игрок побил прошлый рекорд
+          /** если игрок побил прошлый рекорд */
           if (score > record) {
-            // ставим его очки как рекорд
+            /** ставим его очки как рекорд */
             record = score;
-            // заносим в хранилище значение рекорда
+            /** заносим в хранилище значение рекорда */
             localStorage.record = record;
-            // меняем имя чемпиона
+            /** меняем имя чемпиона */
             recordName = name;
-            // заносим в хранилище его имя
+            /** заносим в хранилище его имя */
             localStorage.recordName = recordName;
           }
 
-          // очищаем его и опускаем всё вниз на одну клетку
+          /** очищаем его и опускаем всё вниз на одну клетку */
           for (let r = row; r >= 0; r--) {
             for (let c = 0; c < playfield[r].length; c++) {
               playfield[r][c] = playfield[r - 1][c];
             }
           }
         } else {
-          // переходим к следующему ряду
+          /** переходим к следующему ряду */
           row--;
         }
       }
-      // получаем следующую фигуру
+      /** получаем следующую фигуру */
       tetromino = getNextTetromino();
     }
 
-    // показываем надпись Game Over
+    /** показываем надпись Game Over */
     function showGameOver() {
-      // прекращаем всю анимацию игры
+      /** прекращаем всю анимацию игры */
       cancelAnimationFrame(rAF);
-      // ставим флаг окончания
+      /** ставим флаг окончания */
       gameOver = true;
-      // рисуем чёрный прямоугольник посередине поля
+      /** рисуем чёрный прямоугольник посередине поля */
       context.fillStyle = 'black';
       context.globalAlpha = 0.75;
       context.fillRect(0, canvas.height / 2 - 30, canvas.width, 60);
-      // пишем надпись белым моноширинным шрифтом по центру
+      /** пишем надпись белым моноширинным шрифтом по центру */
       context.globalAlpha = 1;
       context.fillStyle = 'white';
       context.font = '36px TT Norms Pro';
@@ -508,53 +512,53 @@ const tetrgame = () => {
 
     }
 
-    // главный цикл игры
+    /** главный цикл игры */
     function loop() {
-      // начинаем анимацию
+      /** начинаем анимацию */
       rAF = requestAnimationFrame(loop);
-      // очищаем холст
+      /** очищаем холст */
       context.clearRect(0, 0, canvas.width, canvas.height);
 
-      // рисуем игровое поле с учётом заполненных фигур
+      /** рисуем игровое поле с учётом заполненных фигур */
       for (let row = 0; row < 20; row++) {
         for (let col = 0; col < 10; col++) {
           if (playfield[row][col]) {
             const name = playfield[row][col];
             context.fillStyle = colors[name];
 
-            // рисуем всё на один пиксель меньше, чтобы получился эффект «в клетку»
+            /** рисуем всё на один пиксель меньше, чтобы получился эффект «в клетку» */
             context.fillRect(col * grid, row * grid, grid - 1, grid - 1);
           }
         }
       }
 
-      // выводим статистику
+      /** выводим статистику */
       showScore();
 
-      // рисуем текущую фигуру
+      /** рисуем текущую фигуру */
       if (tetromino) {
 
-        // фигура сдвигается вниз каждые 36 кадров минус значение текущего уровня. Чем больше уровень, тем быстрее падает.
+        /** фигура сдвигается вниз каждые 36 кадров минус значение текущего уровня. Чем больше уровень, тем быстрее падает. */
         if (++count > (36 - level)) {
           tetromino.row++;
           count = 0;
 
-          // если движение закончилось — рисуем фигуру в поле и проверяем, можно ли удалить строки
+          /** если движение закончилось — рисуем фигуру в поле и проверяем, можно ли удалить строки */
           if (!isValidMove(tetromino.matrix, tetromino.row, tetromino.col)) {
             tetromino.row--;
             placeTetromino();
           }
         }
 
-        // не забываем про цвет текущей фигуры
+        /** не забываем про цвет текущей фигуры */
         context.fillStyle = colors[tetromino.name];
 
-        // отрисовываем её
+        /** отрисовываем её */
         for (let row = 0; row < tetromino.matrix.length; row++) {
           for (let col = 0; col < tetromino.matrix[row].length; col++) {
             if (tetromino.matrix[row][col]) {
 
-              // и снова рисуем на один пиксель меньше
+              /** и снова рисуем на один пиксель меньше */
               context.fillRect((tetromino.col + col) * grid, (tetromino.row + row) * grid, grid - 1, grid - 1);
             }
           }
@@ -562,46 +566,46 @@ const tetrgame = () => {
       }
     }
 
-    // следим за нажатиями на клавиши
+    /** следим за нажатиями на клавиши */
     document.addEventListener('keydown', function (e) {
-      // если игра закончилась — сразу выходим
+      /** если игра закончилась — сразу выходим */
       if (gameOver) return;
 
-      // стрелки влево и вправо
+      /** стрелки влево и вправо */
       if (e.which === 37 || e.which === 39) {
         const col = e.which === 37
-          // если влево, то уменьшаем индекс в столбце, если вправо — увеличиваем
+          /** если влево, то уменьшаем индекс в столбце, если вправо — увеличиваем */
           ? tetromino.col - 1
           : tetromino.col + 1;
 
-        // если так ходить можно, то запоминаем текущее положение
+        /** если так ходить можно, то запоминаем текущее положение */
         if (isValidMove(tetromino.matrix, tetromino.row, col)) {
           tetromino.col = col;
         }
       }
 
-      // стрелка вверх — поворот
+      /** стрелка вверх — поворот */
       if (e.which === 38) {
-        // поворачиваем фигуру на 90 градусов
+        /** поворачиваем фигуру на 90 градусов */
         const matrix = rotate(tetromino.matrix);
-        // если так ходить можно — запоминаем
+        /** если так ходить можно — запоминаем */
         if (isValidMove(matrix, tetromino.row, tetromino.col)) {
           tetromino.matrix = matrix;
         }
       }
 
-      // стрелка вниз — ускорить падение
+      /** стрелка вниз — ускорить падение */
       if (e.which === 40) {
-        // смещаем фигуру на строку вниз
+        /** смещаем фигуру на строку вниз */
         const row = tetromino.row + 1;
-        // если опускаться больше некуда — запоминаем новое положение
+        /** если опускаться больше некуда — запоминаем новое положение */
         if (!isValidMove(tetromino.matrix, row, tetromino.col)) {
           tetromino.row = row - 1;
-          // ставим на место и смотрим на заполненные ряды
+          /** ставим на место и смотрим на заполненные ряды */
           placeTetromino();
           return;
         }
-        // запоминаем строку, куда стала фигура
+        /** запоминаем строку, куда стала фигура */
         tetromino.row = row;
       }
     });
@@ -617,8 +621,7 @@ const tetrgame = () => {
 
   }
 
-
-  // старт игры
+  /** старт игры */
   startbtn.addEventListener('click', () => {
     start();
     startbtn.style.display = "none";
