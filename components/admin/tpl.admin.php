@@ -121,6 +121,7 @@
           <a class="btn btn-primary btn-block text-decoration-none mb-3" href="?page=to-do" target="_blank"><span>Задачи</span></a>
           <a class="btn btn-primary btn-block text-decoration-none mb-3" href="?page=tetris" target="_blank"><span>Тетрис</span></a>
           <a class="btn btn-primary btn-block text-decoration-none mb-3" href="?page=workplaces" target="_blank"><span>Рабочие места</span></a>
+          <a class="btn btn-primary btn-block text-decoration-none mb-3" href="?page=certificatework" target="_blank"><span>Справка о работе судей</span></a>
         </div>
 
         <div class="card mb-3 p-3">

@@ -1,9 +1,15 @@
 'use strict';
 
-const ajax_send_promise = (method, url, parameters) => new Promise((onFulfilled, onFail) => {
+/**
+ * Отправка GET и POST
+ * @param {string} method - метод - GET или POST
+ * @param {string} url - url запроса
+ * @param {Object} parameters - параметры в виде массива
+ */
+const sendAjaxPromise = (method, url, parameters) => new Promise((onFulfilled, onFail) => {
   const xhr = new XMLHttpRequest();
   switch (method) {
-    // Настраиваем его: GET или POST, URL
+    /** Настраиваем его: GET или POST, URL */
     case "GET":
       let queryString;
       if (parameters !== null) {
@@ -26,18 +32,17 @@ const ajax_send_promise = (method, url, parameters) => new Promise((onFulfilled,
       xhr.send(parameters);
       break;
   }
-
 });
 
-//ajax_send_promise("GET", `api/visits/getVisits.php`, null).then((data) => {handleResponse(data);});
 
-// Справка по судьям
+/** Справка по судьям */
+/** @type {HTMLButtonElement} Кнопка Сформировать */
 const certBtn = document.querySelector('.cert-get');
 
 function certBtnHandler() {
-  let value = document.querySelector('.cert-select');
-  let year = $(value).find(':selected').parent().attr('label');
-  let data = {
+  const value = document.querySelector('.cert-select');
+  const year = $(value).find(':selected').parent().attr('label');
+  const data = {
     quarter: value.value,
     year: year,
   };
