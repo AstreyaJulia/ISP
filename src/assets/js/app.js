@@ -2677,6 +2677,7 @@ function calendmodulehandler(settings) {
       );
 
       /** Если в конце повторения включена дата, то блокируется ввоб кол-ва повторений и наоборот */
+      // FIXME общие прослушиватели для добавления / редактирования
       repdate.addEventListener('click', function () {
         if (repdate.checked === true) {
           repdateinp.disabled = false;
@@ -2984,14 +2985,6 @@ function calendmodulehandler(settings) {
     dateFormat: 'Y-m-d H:i',
   });
 
-  function privatecheck() {
-    if (privateinp.checked === true) {
-      return 1;
-    } else {
-      return 0;
-    }
-  }
-
   /**
    * Получение событий. Эта функция будет вызываться fullCalendar для получения и обновления событий.
    * @param info
@@ -3144,7 +3137,6 @@ function calendmodulehandler(settings) {
       }
     })
 
-    // Выбор повторения для дня
     /** Выбор повторения для дня */
     repparamSwitch.addEventListener('change', () =>
       repparamSwitchHandler(repparamSwitch.options[repparamSwitch.selectedIndex].value)
@@ -3289,29 +3281,7 @@ function calendmodulehandler(settings) {
   function resetValues() {
     eventForm.reset();
     repeatparams.style.display = "none";
-    $(repparamSwitch).val('none');
     $(addDelEventModal).find(eventLabel).val('').trigger('change');
-    $(repdate).prop('checked', false);
-    $(repdateinp).val('');
-    $(repcount).prop('checked', false);
-    $(repcountinp).val('');
-    // Параметры повторений
-    $(startrepDate).val('');
-    $(endrepDate).val('');
-    $(monday).prop('checked', false);
-    $(tuesday).prop('checked', false);
-    $(wednesday).prop('checked', false);
-    $(thursday).prop('checked', false);
-    $(friday).prop('checked', false);
-    $(saturday).prop('checked', false);
-    $(sunday).prop('checked', false);
-    // Скрытие заголовков и кнопок
-    updateEventButton.style.display = "none";
-    btnDeleteEvent.style.display = "none";
-    addEventFormSubmit.style.display = "none";
-    cancelBtn.style.display = "none";
-    addEventTitle.style.display = "none";
-    editEventTitle.style.display = "none";
     // Переключить вкладку на Основное
     maintab.classList.add('active');
     mainpane.classList.add('show');
@@ -3325,11 +3295,8 @@ function calendmodulehandler(settings) {
     monthlysection.style.display = "none";
   }
 
-  // Когда модал закрыт, сбросить значения
-  $(addDelEventModal).on('hidden.bs.modal', function () {
-    resetValues();
-  });
-
+  /** Когда модал закрыт, сбросить значения */
+  addDelEventModal.addEventListener('hidden.bs.modal', resetValues);
 
   // Выбрать все и другие фильтры
   if (document.querySelector(".select-all")) {
