@@ -20,6 +20,10 @@
         try {
             // декодирование jwt
             $proxyListClass->secureJWT($jwt, $key);
+            // проверяем права пользователя
+            if ($proxyListClass->getSudo() != 1) {
+                throw new Exception("Недостаточно прав для просмотра записи");
+            }
 
             $readOne = $proxyListClass->getReadOne($id);
             if ($proxyListClass->getReadOne($id)) {

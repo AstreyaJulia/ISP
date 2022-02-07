@@ -9,7 +9,7 @@
 
     // Добавляем ссылку
     if (array_key_exists("editLink", $_GET) && empty($_GET["editLink"])) {
-        $path = $host_api.'/api/proxylist/getCategory.php';
+        $row = $autorizationClass::sendGET(array(), $host_api.'/api/proxylist/getCategory.php?');
     }
     // Редактируем ссылку
     else if (array_key_exists("editLink", $_GET) && !empty($_GET["editLink"])) {
