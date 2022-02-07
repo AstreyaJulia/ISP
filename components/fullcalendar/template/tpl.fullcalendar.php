@@ -7,7 +7,7 @@
           <div class="modal-content add-edit-event-content">
             <form class="event-form" name="eventForm">
             <div class="modal-header">
-              <h5 class="add-event-title modal-title" style="display: none;">Добавить событие</h5>
+              <h5 class="add-event-title modal-title">Добавить событие</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
             </div>
             <div class="modal-body">
@@ -32,27 +32,19 @@
                             <label for="start-date" class="">Название события:</label>
                             <div class="event-title">
                               <input id="title" type="text" placeholder="Введите название" class="form-control"
-                                     name="task" required>
+                                     name="eventTitle" required>
                             </div>
                           </div>
                           <div class="form-group">
                             <div class="form-check form-switch">
-                              <input type="checkbox" class="form-check-input private-switch" id="customSwitch1">
+                              <input type="checkbox" class="form-check-input" name="privateCheck">
                               <label class="form-check-label" for="customSwitch1">Вижу только я (приватное событие)</label>
                             </div>
                           </div>
                           <div class="form-group">
                             <label for="select-label" class="">Категория события:</label>
                             <div class="cat-select position-relative" id="cat-select">
-                              <select class="select2 select-label form-control w-100" id="select-label" name="select-label" required>
-                                <option data-label="primary" value="Primary" selected>События
-                                </option>
-                                <option data-label="danger" value="Danger">Праздники</option>
-                                <option data-label="warning" value="Warning">Важно</option>
-                                <option data-label="success" value="Success">Отпуск</option>
-                                <option data-label="info" value="Info">Дежурство</option>
-                              </select>
-
+                              <select class="select2 select-label form-control w-100" name="selectLabel" required></select>
                             </div>
                           </div>
                           <div class="col-md-6 col-sm-6 col-12">
@@ -69,26 +61,26 @@
                             <div class="form-group end-date ">
                               <label for="end-date" class="">Конец события:</label>
                               <div>
-                                <input id="end-date" placeholder="Дата окончания" type="text"
+                                <input name="dateEnd" placeholder="Дата окончания" type="text"
                                        class="form-control flatpickr-input position-relative" required>
                               </div>
                             </div>
                           </div>
                           <div class="form-group">
                             <div class="form-check form-switch">
-                              <input type="checkbox" name="dateEnd" class="form-check-input allDay-switch" id="customSwitch3">
-                              <label class="form-check-label" for="customSwitch3">Весь день</label>
+                              <input type="checkbox" class="form-check-input" name="allDaySwitch">
+                              <label class="form-check-label" for="customSwitch3" >Весь день</label>
                             </div>
 
                           </div>
                           <div class="col-md-12">
                             <label for="start-date" class="">Описание события:</label>
                             <div class="event-description">
-                          <textarea id="event-description-editor" placeholder="Введите описание" rows="3"
-                                    class="form-control" name="event-description-editor"></textarea>
+                          <textarea placeholder="Введите описание" rows="3"
+                                    class="form-control" name="eventDescription"></textarea>
                             </div>
                           </div>
-                          <p class="text-danger mt-3 mb-0 p-0 ms-3 me-3">Внимание. Удаляя повторяющееся событие, вы удаляете
+                          <p class="text-danger mt-3 mb-0 p-0 ms-3 me-3 delete-warning">Внимание. Удаляя повторяющееся событие, вы удаляете
                             ВСЕ повторения.</p>
                         </div>
                       </div>
@@ -96,7 +88,7 @@
                         <div class="row mt-3">
                           <div class="form-group">
                             <div class="form-check form-switch">
-                              <input type="checkbox" class="form-check-input repeat-switch" id="customSwitch2">
+                              <input type="checkbox" class="form-check-input" name="repeatSwitch">
                               <label class="form-check-label" for="customSwitch2">Это событие повторяется</label>
                             </div>
                           </div>
