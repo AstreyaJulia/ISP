@@ -32,29 +32,25 @@
                 throw new Exception("Недостаточно прав для редактирования записи");
             }
 
-            if (
-                !empty($data["id_group"]) &&
-                !empty($data["href"]) &&
-                !empty($data["name_href"])
-            ) {
-                // редактирование ссылки
+            if (!empty($data["name_href"])) {
+                // редактирование группы
                 try {
-                    $proxyListClass->updateLink($data);
+                    $proxyListClass->updateGroup($data);
                     // установим код ответа - 201 создано
                     http_response_code(201);
 
                     // сообщим пользователю
-                    echo json_encode(array("message" => "Ссылка изменена."), JSON_UNESCAPED_UNICODE);
+                    echo json_encode(array("message" => "Группа изменена."), JSON_UNESCAPED_UNICODE);
                 }
 
-                // если не удается изменить ссылку, сообщим пользователю 
+                // если не удается изменить группу, сообщим пользователю 
                 catch (Exception $e) {
 
                     // установим код ответа - 503 сервис недоступен
                     http_response_code(503);
 
                     // сообщим пользователю
-                    echo json_encode(array("message" => "Невозможно изменить ссылку.", "error" => $e->getMessage()), JSON_UNESCAPED_UNICODE);
+                    echo json_encode(array("message" => "Невозможно изменить группу.", "error" => $e->getMessage()), JSON_UNESCAPED_UNICODE);
                 }
             }
 
@@ -65,7 +61,7 @@
                 http_response_code(400);
 
                 // сообщим пользователю
-                echo json_encode(array("message" => "Невозможно изменить ссылку. Данные неполные."), JSON_UNESCAPED_UNICODE);
+                echo json_encode(array("message" => "Невозможно изменить группу. Данные неполные."), JSON_UNESCAPED_UNICODE);
             }
         }
 
@@ -79,7 +75,7 @@
             echo json_encode(array(
                 "message" => "Доступ закрыт.",
                 "error" => $e->getMessage()
-            ));
+            ), JSON_UNESCAPED_UNICODE);
         }
     }
 

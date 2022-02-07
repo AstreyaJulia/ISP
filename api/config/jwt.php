@@ -1,11 +1,5 @@
 <?php
 
-// подключение файлов jwt
-include_once $_SERVER['DOCUMENT_ROOT'] . '/api/libs/firebase/jwt/BeforeValidException.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/api/libs/firebase/jwt/ExpiredException.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/api/libs/firebase/jwt/SignatureInvalidException.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/api/libs/firebase/jwt/JWT.php';
-
 // переменные, используемые для JWT
 $key = "your_secret_key";
 $iss = "http://any-site.org";

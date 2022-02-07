@@ -904,3 +904,18 @@ WHERE
     ((OA0.RESULT_DATE IS NULL) AND
     (OA0.SYS_EVENT_NAME_ID IN (913490039,913490022,913490021,913490050,913490018,913490013,913490032,913490031,913490001,913490007,913490005,913490030,913490024,913490019,913490016,913490004,913490033,913490006,50540213,50540235,50540101,50540225,50540109,50540104,50540228,50540216,50540217,50540203,50540258,50540241,50540201,50540257,50540227,50540204,50540259,50540205,50540207,50540260,50540202,50540263,50540206)))
     GROUP BY OA0.FULL_NUMBER
+
+
+Посещения по пользователям и сотрудникам
+
+select u.username    AS ACC,
+       a2.fullname   as fullname,
+       max(v.dtime) as last_access
+
+from sdc_visits v
+         left join sdc_user_attributes a on v.id = a.id
+         left join sdc_users u on v.UserID = u.id
+         left join sdc_room r on v.REMOTE_ADDR = r.ip
+         left join sdc_user_attributes a2 on r.id = a2.room
+where v.UserID <> '' AND v.REMOTE_ADDR <> ''
+group by u.username, a2.fullname

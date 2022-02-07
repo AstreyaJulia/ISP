@@ -69,6 +69,16 @@
                        data-value="stat-outbox" value="stat-outbox">
                 <label class="form-check-label" for="stat-outbox">Входящая</label>
               </div>
+              <div class="form-check d-flex align-items-center mb-2 flex-shrink-0">
+                <input class="form-check-input input-filter flex-shrink-0 bg-primary me-2" type="checkbox" id="stat-emailoutbox" name="stat-emailoutboxx"
+                       data-value="stat-emailoutbox" value="stat-emailoutbox">
+                <label class="form-check-label" for=stat-emailoutbox">Исходящая электронная почта</label>
+              </div>
+              <div class="form-check d-flex align-items-center mb-2 flex-shrink-0">
+                <input class="form-check-input input-filter flex-shrink-0 bg-success me-2" type="checkbox" id="stat-emailoutbox" name="stat-emailinbox"
+                       data-value="stat-emailinbox" value="stat-emailoutbox">
+                <label class="form-check-label" for="stat-emailinbox">Входящая электронная почта</label>
+              </div>
               <p class="group-title mb-2 mt-3">Портал ГАС Правосудие:</p>
               <div class="form-check d-flex align-items-center mb-2 flex-shrink-0">
                 <input class="form-check-input input-filter flex-shrink-0 bg-primary me-2" type="checkbox" id="stat-ineos" name="stat-ineos"
@@ -146,26 +156,6 @@
                   <h6 class="surtitle">Общее</h6>
                   <h5 class="mb-0">Население г. Сафоново</h5>
                 </div>
-                <div class="d-flex me-2 flex-column p-3">
-                  <div>
-                    <a class="dropdown-toggle no-carret text-secondary" id="menu14" data-bs-toggle="dropdown"><i
-                        class="mdi mdi-dots-vertical"></i></a>
-                    <ul class="dropdown-menu dropdown-arrow" aria-labelledby="menu14" data-bs-popper="none">
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-sync me-2"></i>Обновить данные</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-list-status me-2"></i>Детализация</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-pulse me-2"></i>Статистика</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-table-off me-2"></i>Очистить данные</a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
               </div>
               <div class="card-body pe-md-0 p-0" style="position: relative;">
                 <div class="apexchart" data-chart-name="safpeopleChart" style="min-height: 315px;">
@@ -179,26 +169,6 @@
                 <div class="d-flex flex-column p-3">
                   <h6 class="surtitle">Общее</h6>
                   <h5 class="mb-0">Население Смоленской области</h5>
-                </div>
-                <div class="d-flex me-2 flex-column p-3">
-                  <div>
-                    <a class="dropdown-toggle no-carret text-secondary" id="menu14" data-bs-toggle="dropdown"><i
-                        class="mdi mdi-dots-vertical"></i></a>
-                    <ul class="dropdown-menu dropdown-arrow" aria-labelledby="menu14" data-bs-popper="none">
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-sync me-2"></i>Обновить данные</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-list-status me-2"></i>Детализация</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-pulse me-2"></i>Статистика</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-table-off me-2"></i>Очистить данные</a>
-                      </li>
-                    </ul>
-                  </div>
                 </div>
               </div>
               <div class="card-body pe-md-0 p-0" style="position: relative;">
@@ -214,26 +184,6 @@
                   <h6 class="surtitle">Общее</h6>
                   <h5 class="mb-0">Трудоспособное население Смоленской области</h5>
                 </div>
-                <div class="d-flex me-2 flex-column p-3">
-                  <div>
-                    <a class="dropdown-toggle no-carret text-secondary" id="menu14" data-bs-toggle="dropdown"><i
-                        class="mdi mdi-dots-vertical"></i></a>
-                    <ul class="dropdown-menu dropdown-arrow" aria-labelledby="menu14" data-bs-popper="none">
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-sync me-2"></i>Обновить данные</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-list-status me-2"></i>Детализация</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-pulse me-2"></i>Статистика</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-table-off me-2"></i>Очистить данные</a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
               </div>
               <div class="card-body pe-md-0 p-0" style="position: relative;">
                 <div class="apexchart" data-chart-name="smolOblworkpeopleChart" style="min-height: 315px;">
@@ -241,33 +191,12 @@
               </div>
             </div>
           </div>
-
           <div class="col-xxl-4 col-xl-6 col-md-6 col-12 stat-card d-none stat-smolOblnowork">
             <div class="card mb-3">
               <div class="d-flex justify-content-between">
                 <div class="d-flex flex-column p-3">
                   <h6 class="surtitle">Общее</h6>
                   <h5 class="mb-0">Количество безработных в Смоленской области, тыс. чел.</h5>
-                </div>
-                <div class="d-flex me-2 flex-column p-3">
-                  <div>
-                    <a class="dropdown-toggle no-carret text-secondary" id="menu14" data-bs-toggle="dropdown"><i
-                        class="mdi mdi-dots-vertical"></i></a>
-                    <ul class="dropdown-menu dropdown-arrow" aria-labelledby="menu14" data-bs-popper="none">
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-sync me-2"></i>Обновить данные</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-list-status me-2"></i>Детализация</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-pulse me-2"></i>Статистика</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-table-off me-2"></i>Очистить данные</a>
-                      </li>
-                    </ul>
-                  </div>
                 </div>
               </div>
               <div class="card-body pe-md-0 p-0" style="position: relative;">
@@ -283,26 +212,6 @@
                   <h6 class="surtitle">Общее</h6>
                   <h5 class="mb-0" title="см. уголовные дела 1 инст.">Уровень инфляции в России</h5>
                 </div>
-                <div class="d-flex me-2 flex-column p-3">
-                  <div>
-                    <a class="dropdown-toggle no-carret text-secondary" id="menu14" data-bs-toggle="dropdown"><i
-                        class="mdi mdi-dots-vertical"></i></a>
-                    <ul class="dropdown-menu dropdown-arrow" aria-labelledby="menu14" data-bs-popper="none">
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-sync me-2"></i>Обновить данные</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-list-status me-2"></i>Детализация</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-pulse me-2"></i>Статистика</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-table-off me-2"></i>Очистить данные</a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
               </div>
               <div class="card-body pe-md-0 p-0" style="position: relative;">
                 <div class="apexchart" data-chart-name="inflationChart" style="min-height: 315px;">
@@ -317,29 +226,37 @@
                   <h6 class="surtitle">Корреспонденция</h6>
                   <h5 class="mb-0">Исходящая</h5>
                 </div>
-                <div class="d-flex me-2 flex-column p-3">
-                  <div>
-                    <a class="dropdown-toggle no-carret text-secondary" id="menu14" data-bs-toggle="dropdown"><i
-                        class="mdi mdi-dots-vertical"></i></a>
-                    <ul class="dropdown-menu dropdown-arrow" aria-labelledby="menu14" data-bs-popper="none">
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-sync me-2"></i>Обновить данные</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-list-status me-2"></i>Детализация</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-pulse me-2"></i>Статистика</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-table-off me-2"></i>Очистить данные</a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
               </div>
               <div class="card-body pe-md-0 p-0" style="position: relative;">
                 <div class="apexchart" data-chart-name="postoutboxChart" style="min-height: 315px;">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xxl-4 col-xl-6 col-md-6 col-12 stat-card d-none stat-emailoutbox">
+            <div class="card mb-3">
+              <div class="d-flex justify-content-between">
+                <div class="d-flex flex-column p-3">
+                  <h6 class="surtitle">Электронная почта</h6>
+                  <h5 class="mb-0">Исходящая</h5>
+                </div>
+              </div>
+              <div class="card-body pe-md-0 p-0" style="position: relative;">
+                <div class="apexchart" data-chart-name="emailoutboxChart" style="min-height: 315px;">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xxl-4 col-xl-6 col-md-6 col-12 stat-card d-none stat-emailinbox">
+            <div class="card mb-3">
+              <div class="d-flex justify-content-between">
+                <div class="d-flex flex-column p-3">
+                  <h6 class="surtitle">Электронная почта</h6>
+                  <h5 class="mb-0">Входящая</h5>
+                </div>
+              </div>
+              <div class="card-body pe-md-0 p-0" style="position: relative;">
+                <div class="apexchart" data-chart-name="emailinboxChart" style="min-height: 315px;">
                 </div>
               </div>
             </div>
@@ -349,27 +266,7 @@
               <div class="d-flex justify-content-between">
                 <div class="d-flex flex-column p-3">
                   <h6 class="surtitle">Корреспонденция</h6>
-                  <h5 class="mb-0">Входящая</h5>
-                </div>
-                <div class="d-flex me-2 flex-column p-3">
-                  <div>
-                    <a class="dropdown-toggle no-carret text-secondary" id="menu14" data-bs-toggle="dropdown"><i
-                        class="mdi mdi-dots-vertical"></i></a>
-                    <ul class="dropdown-menu dropdown-arrow" aria-labelledby="menu14" data-bs-popper="none">
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-sync me-2"></i>Обновить данные</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-list-status me-2"></i>Детализация</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-pulse me-2"></i>Статистика</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-table-off me-2"></i>Очистить данные</a>
-                      </li>
-                    </ul>
-                  </div>
+                  <h5 class="mb-0">Входящая, включая обращения, эл. почту</h5>
                 </div>
               </div>
               <div class="card-body pe-md-0 p-0" style="position: relative;">
@@ -385,26 +282,6 @@
                   <h6 class="surtitle">Портал ГАС Правосудие</h6>
                   <h5 class="mb-0">Обращения (без исковых заявлений)</h5>
                 </div>
-                <div class="d-flex me-2 flex-column p-3">
-                  <div>
-                    <a class="dropdown-toggle no-carret text-secondary" id="menu14" data-bs-toggle="dropdown"><i
-                        class="mdi mdi-dots-vertical"></i></a>
-                    <ul class="dropdown-menu dropdown-arrow" aria-labelledby="menu14" data-bs-popper="none">
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-sync me-2"></i>Обновить данные</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-list-status me-2"></i>Детализация</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-pulse me-2"></i>Статистика</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-table-off me-2"></i>Очистить данные</a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
               </div>
               <div class="card-body pe-md-0 p-0" style="position: relative;">
                 <div class="apexchart" data-chart-name="eosChart" style="min-height: 315px;">
@@ -418,26 +295,6 @@
                 <div class="d-flex flex-column p-3">
                   <h6 class="surtitle">Портал ГАС Правосудие</h6>
                   <h5 class="mb-0">Поданные исковые заявления</h5>
-                </div>
-                <div class="d-flex me-2 flex-column p-3">
-                  <div>
-                    <a class="dropdown-toggle no-carret text-secondary" id="menu14" data-bs-toggle="dropdown"><i
-                        class="mdi mdi-dots-vertical"></i></a>
-                    <ul class="dropdown-menu dropdown-arrow" aria-labelledby="menu14" data-bs-popper="none">
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-sync me-2"></i>Обновить данные</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-list-status me-2"></i>Детализация</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-pulse me-2"></i>Статистика</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-table-off me-2"></i>Очистить данные</a>
-                      </li>
-                    </ul>
-                  </div>
                 </div>
               </div>
               <div class="card-body pe-md-0 p-0" style="position: relative;">
@@ -453,26 +310,6 @@
                   <h6 class="surtitle">Рассмотрение дел 1 инстанции</h6>
                   <h5 class="mb-0">Гражданские дела</h5>
                 </div>
-                <div class="d-flex me-2 flex-column p-3">
-                  <div>
-                    <a class="dropdown-toggle no-carret text-secondary" id="menu14" data-bs-toggle="dropdown"><i
-                        class="mdi mdi-dots-vertical"></i></a>
-                    <ul class="dropdown-menu dropdown-arrow" aria-labelledby="menu14" data-bs-popper="none">
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-sync me-2"></i>Обновить данные</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-list-status me-2"></i>Детализация</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-pulse me-2"></i>Статистика</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-table-off me-2"></i>Очистить данные</a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
               </div>
               <div class="card-body pe-md-0 p-0" style="position: relative;">
                 <div class="apexchart" data-chart-name="gcaseChart" style="min-height: 315px;">
@@ -486,26 +323,6 @@
                 <div class="d-flex flex-column p-3">
                   <h6 class="surtitle">Рассмотрение дел 1 инстанции (с 2012 г.)</h6>
                   <h5 class="mb-0">Дела об адм. правонарушениях</h5>
-                </div>
-                <div class="d-flex me-2 flex-column p-3">
-                  <div>
-                    <a class="dropdown-toggle no-carret text-secondary" id="menu14" data-bs-toggle="dropdown"><i
-                        class="mdi mdi-dots-vertical"></i></a>
-                    <ul class="dropdown-menu dropdown-arrow" aria-labelledby="menu14" data-bs-popper="none">
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-sync me-2"></i>Обновить данные</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-list-status me-2"></i>Детализация</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-pulse me-2"></i>Статистика</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-table-off me-2"></i>Очистить данные</a>
-                      </li>
-                    </ul>
-                  </div>
                 </div>
               </div>
               <div class="card-body pe-md-0 p-0" style="position: relative;">
@@ -521,26 +338,6 @@
                   <h6 class="surtitle">Рассмотрение дел 1 инстанции</h6>
                   <h5 class="mb-0">Уголовные дела</h5>
                 </div>
-                <div class="d-flex me-2 flex-column p-3">
-                  <div>
-                    <a class="dropdown-toggle no-carret text-secondary" id="menu14" data-bs-toggle="dropdown"><i
-                        class="mdi mdi-dots-vertical"></i></a>
-                    <ul class="dropdown-menu dropdown-arrow" aria-labelledby="menu14" data-bs-popper="none">
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-sync me-2"></i>Обновить данные</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-list-status me-2"></i>Детализация</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-pulse me-2"></i>Статистика</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-table-off me-2"></i>Очистить данные</a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
               </div>
               <div class="card-body pe-md-0 p-0" style="position: relative;">
                 <div class="apexchart" data-chart-name="ucaseChart" style="min-height: 315px;">
@@ -554,26 +351,6 @@
                 <div class="d-flex flex-column p-3">
                   <h6 class="surtitle">Рассмотрение материалов</h6>
                   <h5 class="mb-0">Материалы в порядке уг. производства, всего</h5>
-                </div>
-                <div class="d-flex me-2 flex-column p-3">
-                  <div>
-                    <a class="dropdown-toggle no-carret text-secondary" id="menu14" data-bs-toggle="dropdown"><i
-                        class="mdi mdi-dots-vertical"></i></a>
-                    <ul class="dropdown-menu dropdown-arrow" aria-labelledby="menu14" data-bs-popper="none">
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-sync me-2"></i>Обновить данные</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-list-status me-2"></i>Детализация</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-pulse me-2"></i>Статистика</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-table-off me-2"></i>Очистить данные</a>
-                      </li>
-                    </ul>
-                  </div>
                 </div>
               </div>
               <div class="card-body pe-md-0 p-0" style="position: relative;">
@@ -589,26 +366,6 @@
                   <h6 class="surtitle">Рассмотрение дел апелляционной инстанции</h6>
                   <h5 class="mb-0">Гражданские дела</h5>
                 </div>
-                <div class="d-flex me-2 flex-column p-3">
-                  <div>
-                    <a class="dropdown-toggle no-carret text-secondary" id="menu14" data-bs-toggle="dropdown"><i
-                        class="mdi mdi-dots-vertical"></i></a>
-                    <ul class="dropdown-menu dropdown-arrow" aria-labelledby="menu14" data-bs-popper="none">
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-sync me-2"></i>Обновить данные</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-list-status me-2"></i>Детализация</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-pulse me-2"></i>Статистика</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-table-off me-2"></i>Очистить данные</a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
               </div>
               <div class="card-body pe-md-0 p-0" style="position: relative;">
                 <div class="apexchart" data-chart-name="g1caseChart" style="min-height: 315px;">
@@ -622,26 +379,6 @@
                 <div class="d-flex flex-column p-3">
                   <h6 class="surtitle">Рассмотрение дел апелляционной инстанции (с 2013 г.)</h6>
                   <h5 class="mb-0">Жалобы по адм. делам</h5>
-                </div>
-                <div class="d-flex me-2 flex-column p-3">
-                  <div>
-                    <a class="dropdown-toggle no-carret text-secondary" id="menu14" data-bs-toggle="dropdown"><i
-                        class="mdi mdi-dots-vertical"></i></a>
-                    <ul class="dropdown-menu dropdown-arrow" aria-labelledby="menu14" data-bs-popper="none">
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-sync me-2"></i>Обновить данные</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-list-status me-2"></i>Детализация</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-pulse me-2"></i>Статистика</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-table-off me-2"></i>Очистить данные</a>
-                      </li>
-                    </ul>
-                  </div>
                 </div>
               </div>
               <div class="card-body pe-md-0 p-0" style="position: relative;">
@@ -657,26 +394,6 @@
                   <h6 class="surtitle">Рассмотрение дел апелляционной инстанции</h6>
                   <h5 class="mb-0">Уголовные дела</h5>
                 </div>
-                <div class="d-flex me-2 flex-column p-3">
-                  <div>
-                    <a class="dropdown-toggle no-carret text-secondary" id="menu14" data-bs-toggle="dropdown"><i
-                        class="mdi mdi-dots-vertical"></i></a>
-                    <ul class="dropdown-menu dropdown-arrow" aria-labelledby="menu14" data-bs-popper="none">
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-sync me-2"></i>Обновить данные</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-list-status me-2"></i>Детализация</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-pulse me-2"></i>Статистика</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-table-off me-2"></i>Очистить данные</a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
               </div>
               <div class="card-body pe-md-0 p-0" style="position: relative;">
                 <div class="apexchart" data-chart-name="u1caseChart" style="min-height: 315px;">
@@ -690,26 +407,6 @@
                 <div class="d-flex flex-column p-3">
                   <h6 class="surtitle">Рассмотрение дел 1 инстанции (по области)</h6>
                   <h5 class="mb-0">Гражданские дела</h5>
-                </div>
-                <div class="d-flex me-2 flex-column p-3">
-                  <div>
-                    <a class="dropdown-toggle no-carret text-secondary" id="menu14" data-bs-toggle="dropdown"><i
-                        class="mdi mdi-dots-vertical"></i></a>
-                    <ul class="dropdown-menu dropdown-arrow" aria-labelledby="menu14" data-bs-popper="none">
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-sync me-2"></i>Обновить данные</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-list-status me-2"></i>Детализация</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-pulse me-2"></i>Статистика</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-table-off me-2"></i>Очистить данные</a>
-                      </li>
-                    </ul>
-                  </div>
                 </div>
               </div>
               <div class="card-body pe-md-0 p-0" style="position: relative;">
@@ -725,26 +422,6 @@
                   <h6 class="surtitle">Рассмотрение дел 1 инстанции (по области)</h6>
                   <h5 class="mb-0">Уголовные дела</h5>
                 </div>
-                <div class="d-flex me-2 flex-column p-3">
-                  <div>
-                    <a class="dropdown-toggle no-carret text-secondary" id="menu14" data-bs-toggle="dropdown"><i
-                        class="mdi mdi-dots-vertical"></i></a>
-                    <ul class="dropdown-menu dropdown-arrow" aria-labelledby="menu14" data-bs-popper="none">
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-sync me-2"></i>Обновить данные</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-list-status me-2"></i>Детализация</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-pulse me-2"></i>Статистика</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-table-off me-2"></i>Очистить данные</a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
               </div>
               <div class="card-body pe-md-0 p-0" style="position: relative;">
                 <div class="apexchart" data-chart-name="ucaseOblChart" style="min-height: 315px;">
@@ -758,26 +435,6 @@
                 <div class="d-flex flex-column p-3">
                   <h6 class="surtitle">Рассмотрение дел 1 инстанции (по области)</h6>
                   <h5 class="mb-0">Дела об адм. правонарушениях</h5>
-                </div>
-                <div class="d-flex me-2 flex-column p-3">
-                  <div>
-                    <a class="dropdown-toggle no-carret text-secondary" id="menu14" data-bs-toggle="dropdown"><i
-                        class="mdi mdi-dots-vertical"></i></a>
-                    <ul class="dropdown-menu dropdown-arrow" aria-labelledby="menu14" data-bs-popper="none">
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-sync me-2"></i>Обновить данные</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-list-status me-2"></i>Детализация</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-pulse me-2"></i>Статистика</a>
-                      </li>
-                      <li class="dropdown-item">
-                        <a><i class="mdi mdi-table-off me-2"></i>Очистить данные</a>
-                      </li>
-                    </ul>
-                  </div>
                 </div>
               </div>
               <div class="card-body pe-md-0 p-0" style="position: relative;">
