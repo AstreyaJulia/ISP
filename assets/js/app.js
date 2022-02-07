@@ -2458,8 +2458,8 @@ function calendmodulehandler(settings) {
    */
   function checkweekdays(array) {
     console.log(array)
-    Array.from(array).map((currElement, index) => {
-      wdayscheck[index].checked = true;
+    array.map((currElement, index) => {
+      wdayscheck[currElement].checked = true;
     });
   }
 
@@ -2738,7 +2738,7 @@ function calendmodulehandler(settings) {
   function getEventParams(info) {
 
     let event = info.event;
-    console.log(event._def.recurringDef.typeData.rruleSet._rrule[0].options.freq)
+    console.log(event._def.recurringDef)
 
     /** Название события */
     eventTitle.value = event.title;
@@ -2823,19 +2823,21 @@ function calendmodulehandler(settings) {
           daynum.setAttribute('max', '100');
           break
         case null:
+          repparamSwitch.value = '';
           break
       }
     }
-
-    getRepeatsEvent(event._def.recurringDef.typeData.rruleSet._rrule[0].options.freq);
-
-    if (event._def.recurringDef.typeData.rruleSet._rrule[0].options.freq === 2) {
-      /** Чекбоксы дней недель */
-      checkweekdays(event._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday);
-    }
-
+    
     /** Повторять до даты */
     if (event._def.recurringDef !== null) {
+
+      getRepeatsEvent(event._def.recurringDef.typeData.rruleSet._rrule[0].options.freq);
+
+      if (event._def.recurringDef.typeData.rruleSet._rrule[0].options.freq === 2) {
+        /** Чекбоксы дней недель */
+        checkweekdays(event._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday);
+      }
+
       /** Для еженедельного */
       repeatSwitch.checked = true;
       repeatparams.style.display = "block";

@@ -77,7 +77,7 @@
                             <label for="start-date" class="">Описание события:</label>
                             <div class="event-description">
                           <textarea placeholder="Введите описание" rows="3"
-                                    class="form-control" name="eventDescription"></textarea>
+                                    class="form-control overlayscrollbar" name="eventDescription"></textarea>
                             </div>
                           </div>
                           <p class="text-danger mt-3 mb-0 p-0 ms-3 me-3 delete-warning">Внимание. Удаляя повторяющееся событие, вы удаляете
