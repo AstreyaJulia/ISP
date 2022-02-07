@@ -2708,20 +2708,10 @@ function calendmodulehandler(settings) {
 
       function checkStartDate() {
         startDate.value > endDate.value ? endDate.value = startDate.value : false;
-        /*
-                if (startDate.value > endDate.value) {
-          endDate.value = startDate.value
-        }
-         */
       }
 
       function checkEndDate() {
         startDate.value > endDate.value ? startDate.value = endDate.value : false;
-        /*
-                if (startDate.value > endDate.value) {
-          startDate.value = endDate.value
-        }
-         */
       }
 
       /** Проверка дат начала и конца, при изменении даты, меняет неправильную */
@@ -3014,7 +3004,6 @@ function calendmodulehandler(settings) {
       startParam: moment(info.start).tz('Europe/Moscow').format('YYYY-MM-DD'),
       endParam: moment(info.end).tz('Europe/Moscow').format('YYYY-MM-DD'),
       calendars: selectedCheckboxes(filterInput2, 'selected'),
-      //private: privatecheck(),
       private: privateinp.checked === true ? 1 : 0
     };
 
