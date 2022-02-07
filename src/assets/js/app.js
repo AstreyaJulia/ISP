@@ -2086,17 +2086,17 @@ const calendCat = [
   },
 ]
 
-// Извлекает из объекта цвет-категория названия цветов для событий и всплывашек
-function araycal() {
+/**
+ * Извлекает из объекта цвет-категория названия цветов для событий и всплывашек
+ * @returns {{[p: string]: any}}
+ */
+const calendarsColor = () => {
   let array = new Map();
   for (let i = 0; i < calendCat.length; i++) {
     array.set(calendCat[i].color, calendCat[i].color);
   }
   return (Object.fromEntries(array))
 }
-
-// Для использования в Fullcalendar
-const calendarsColor = araycal();
 
 // Мини календарь на главной
 
@@ -2175,12 +2175,21 @@ const minicalendarhandler = () => {
   }, 1000);
 }
 
-// Календарь. Модуль
-// Контейнер для календаря
+/**
+ * Календарь. Модуль
+ */
+
+/**
+ * Контейнер для календаря
+ * @type {HTMLElement}
+ */
 const calendarEl = document.getElementById('calendar');
 
-
-const calendModuleSettings = {
+/**
+ * Настройки для модуля календаря
+ * @type {{addEventTitle: string, addEventFormSubmit: string, cancelBtn: string, addDelEventModal: string, closeAddEventModalCrossButton: string, daysForRepeatEvents: string[], eventLabel: string, addEventButton: string}}
+ */
+const calendarModuleSettings = {
   addEventButton: ".add-event-button",
   addDelEventModal: ".add-del-event-modal",
   addEventFormSubmit: ".add-update-event-submit",
@@ -2227,8 +2236,10 @@ function calendmodulehandler(settings) {
   /** Инпут ввода даты окончания события */
   let endDate = eventForm.elements.dateEnd;
 
-
-  // Селект категории события
+  /**
+   * Селект категории события
+   * @type {HTMLElement}
+   */
   const eventLabel = document.getElementById(settings.eventLabel);
 
   // Переключатель Весь день
@@ -2736,11 +2747,11 @@ function calendmodulehandler(settings) {
         repparamSwitch.required = true;
         startrepDate.value = moment(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.dtstart).utc().format('YYYY-MM-DD HH:mm');
         if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.until) {
-          endrepDate.value =  moment(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.until).utc().format('YYYY-MM-DD HH:mm');
+          endrepDate.value = moment(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.until).utc().format('YYYY-MM-DD HH:mm');
           repdate.checked = true;
           endrepDate.checked = false;
         } else {
-          endrepDate.value =  "";
+          endrepDate.value = "";
           repdate.checked = false;
           endrepDate.checked = true;
         }
@@ -2770,12 +2781,12 @@ function calendmodulehandler(settings) {
               if (array === '[0,1,2,3,4]') {
                 lastworkdmonth.checked = true;
               } else if (array === '[0,1,2,3,4]') {
-              firstworkdmonth.checked = true;
-            } else if (array === '[0,1,2,3,4,5,6]') {
-              firstdmonth.checked = true;
-            } else if (array === '[0,1,2,3,4,5,6]') {
-              lastdmonth.checked = true;
-            }
+                firstworkdmonth.checked = true;
+              } else if (array === '[0,1,2,3,4,5,6]') {
+                firstdmonth.checked = true;
+              } else if (array === '[0,1,2,3,4,5,6]') {
+                lastdmonth.checked = true;
+              }
               break
           }
         }
@@ -5345,7 +5356,7 @@ const init = () => {
 
   // Отрисовка модуля календаря
   if (calendarEl) {
-    calendmodulehandler(calendModuleSettings);
+    calendmodulehandler(calendarModuleSettings);
   }
 
   // Отрисовка виджета календаря

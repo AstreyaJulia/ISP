@@ -386,9 +386,9 @@ const tetrgame = () => {
 
       /** вот что возвращает функция */
       return {
-        name: name,       /** название фигуры (L, O, и т. д.) */
-        matrix: matrix,   /** матрица с фигурой */
-        row: row,         /** текущая строка (фигуры стартуют за видимой областью холста) */
+        name: name, /** название фигуры (L, O, и т. д.) */
+        matrix: matrix, /** матрица с фигурой */
+        row: row, /** текущая строка (фигуры стартуют за видимой областью холста) */
         col: col          /** текущий столбец */
       };
     }
@@ -710,7 +710,7 @@ const apexChartOptions = (chartname) => {
   const smolOblworkpeopleChart = {
     series: [{
       name: 'Трудоспособное население Смоленской области',
-      data: [633809, 596862, 627128, 625958, 593611, 615842, 607983, 586273, 598980, 587725, 587237, ]
+      data: [633809, 596862, 627128, 625958, 593611, 615842, 607983, 586273, 598980, 587725, 587237,]
     }],
     chart: {
       height: 350,
@@ -745,7 +745,7 @@ const apexChartOptions = (chartname) => {
   const smolOblnoworkChart = {
     series: [{
       name: 'Количество безработных в Смоленской области, тыс. человек',
-      data: [40.8, 41.5, 30.9, 28.1, 26.9, 32.8, 31.4, 29.8, 26.2, 25.3, 25.3, ]
+      data: [40.8, 41.5, 30.9, 28.1, 26.9, 32.8, 31.4, 29.8, 26.2, 25.3, 25.3,]
     }],
     chart: {
       height: 350,
@@ -1137,7 +1137,7 @@ const apexChartOptions = (chartname) => {
   const admcaseOblChart = {
     series: [{
       name: 'Дела об адм. правонарушениях (область)',
-      data: [1487, 1334, 1315, 6150, 5856, 5316, 5080, 5352, 5232, 4805, 6768, ]
+      data: [1487, 1334, 1315, 6150, 5856, 5316, 5080, 5352, 5232, 4805, 6768,]
     }],
     chart: {
       height: 350,
@@ -2179,47 +2179,58 @@ const minicalendarhandler = () => {
 // Контейнер для календаря
 const calendarEl = document.getElementById('calendar');
 
-const calendmodulehandler = () => {
 
-  /** Кнопка ДОбавить событие */
-  const addEventButton = document.querySelector(".add-event-button");
+const calendModuleSettings = {
+  addEventButton: ".add-event-button",
+  addDelEventModal: ".add-del-event-modal",
+  addEventFormSubmit: ".add-update-event-submit",
+  addEventTitle: ".add-event-title",
+  closeAddEventModalCrossButton: ".btn-close",
+  cancelBtn: ".delete-discard-event-button",
+  eventLabel: "select-label",
+  daysForRepeatEvents: ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU']
+}
 
-  /** Модал добавления/удаления события */
-  const addDelEventModal = document.querySelector(".add-del-event-modal");
+/**
+ *
+ * @param settings {Object} объект настроек и параметров
+ */
+function calendmodulehandler(settings) {
 
-  /** Кнопка Добавить событие в модале добавления/редактирования. Отправка формы */
-  const addEventFormSubmit = document.querySelector(".add-event-submit");
+  /** Кнопка Добавить событие @type {HTMLButtonElement} */
+  const addEventButton = document.querySelector(settings.addEventButton);
 
-  /** Кнопка Сохранить событие в модале добавления/редактирования. Отправка формы */
-  const updateEventButton = document.querySelector(".update-event-button");
+  /** Модал добавления/удаления события @type {HTMLElement} */
+  const addDelEventModal = document.querySelector(settings.addDelEventModal);
 
-  // Заголовок модала Добавить событие. Для переключения в заголовке слов редактировать / создать
-  const addEventTitle = document.querySelector(".add-event-title");
-  // Заголовок модала Редактировать событие. Для переключения в заголовке слов редактировать / создать
-  const editEventTitle = document.querySelector(".edit-event-title");
+  /** Кнопка Добавить/Сохранить событие в модале добавления/редактирования. Отправка формы @type {HTMLButtonElement} */
+  const addEventFormSubmit = document.querySelector(settings.addEventFormSubmit);
 
-  // Кнопка закрыть на модале (крестик)
-  const span = addDelEventModal.querySelector(".btn-close");
-  // Кнопка отмены на модале
-  const cancelBtn = document.getElementById("discard");
-  // Кнопка удалить событие на модале
-  const btnDeleteEvent = document.getElementById("delete");
+  /** Заголовок в модале добавления/редактирования @type {HTMLElement} */
+  const addEventTitle = document.querySelector(settings.addEventTitle);
 
-  // Форма в модале
-  const eventForm = addDelEventModal.querySelector(".event-form");
+  /** Кнопка Закрыть (крестик) модал добавления/редактирования @type {HTMLButtonElement} */
+  const closeAddEventModalCrossButton = addDelEventModal.querySelector(settings.closeAddEventModalCrossButton);
 
-  // Название события в модале
-  const eventTitle = document.getElementById("title");
+  /** Кнопка Отмена/Удалить событие в модале добавления/редактирования @type {HTMLButtonElement} */
+  const cancelBtn = document.querySelector(settings.cancelBtn);
+
+  /** Форма в модале добавления/редактирования @type {HTMLFormElement} */
+  const eventForm = document.forms.eventForm;
+
+  /** Инпут ввода названия события */
+  let eventTitle = eventForm.elements.task;
+
+  /** Инпут ввода даты начала события */
+  let startDate = eventForm.elements.dateStart;
+
+  /** Инпут ввода даты окончания события */
+  let endDate = eventForm.elements.dateEnd;
+
+
   // Селект категории события
-  const eventLabel = document.getElementById("select-label");
-  // Дата начала
-  const startDate = document.getElementById("start-date");
-  // Дата окончания
-  const endDate = document.getElementById("end-date");
-  // URL события
-  const eventUrl = document.getElementById("event-url");
-  // Кнопка открыть ссылку
-  const urlopen = document.getElementById("urlopen");
+  const eventLabel = document.getElementById(settings.eventLabel);
+
   // Переключатель Весь день
   const allDaySwitch = document.querySelector(".allDay-switch");
   // Переключатель Вижу только я (приватное событие)
@@ -2315,53 +2326,54 @@ const calendmodulehandler = () => {
   // Событие для просмотра
   let eventToUpdate;
 
-  // Функции
 
-  // Скрыть модал
+  /**
+   * Закрыть модел. Показывает темный оверлей
+   */
   function hideModal() {
-    addDelEventModal.style.display = "none";
-    addDelEventModal.classList.remove('show');
-    const btn = document.querySelector('.modal-backdrop');
-    if (btn) {
-      document.body.removeChild(btn);
+    const modalBackdrop = document.querySelector(".modal-backdrop");
+    if (modalBackdrop) {
+      document.body.removeChild(modalBackdrop);
     }
   }
 
-  // Показать модал
+  /**
+   * Показать модал. Скрывает темный оверлей
+   */
   function showModal() {
-    addDelEventModal.classList.add('show');
-    addDelEventModal.style.display = "block";
-    const btn = document.createElement("div");
-    btn.setAttribute('class', 'modal-backdrop fade show')
-    document.body.appendChild(btn);
+    const modalBackdrop = document.createElement("div");
+    modalBackdrop.setAttribute('class', 'modal-backdrop fade show')
+    document.body.appendChild(modalBackdrop);
   }
 
-  // Отметить чекбоксы дней недели по массиву
+  /**
+   * Отметить чекбоксы дней недели по массиву
+   * @param array массив дней
+   */
   function checkweekdays(array) {
-    for (let j = 0; j < array.length; j++) {
-      $(wdayscheck[array[j]]).prop('checked', true);
-    }
+    Array.from(array).map((currElement, index) => {
+      wdayscheck[index].checked = true;
+    });
   }
 
-  // Сформировать строку дней недели по чекбоксам
+  /**
+   * Сформировать строку дней недели по чекбоксам
+   * @returns {string} строка вида "TH, FR, SA, SU"
+   */
   function getweekdaycheck() {
-    const days = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'];
-    let array = '';
-    let count = 1;
-    for (let j = 0; j < wdayscheck.length; j++) {
-      if ($(wdayscheck[j]).prop('checked')) {
-        if (count === 1) {
-          array = array + days[j];
-        } else {
-          array = array + ', ' + days[j];
-        }
-        count++;
+    let array = [];
+    Array.from(wdayscheck).map((currElement, index) => {
+      if (currElement.checked === true) {
+        array.push(settings.daysForRepeatEvents[index])
       }
-    }
-    return array;
+    });
+    return array.join(", ");
   }
 
-  // Выбор повторения
+  /**
+   * Выбор повторения
+   * @param info
+   */
   function repswitch(info) {
     if ($(repeatSwitch).prop('checked')) {
       if (info == null) {
@@ -2386,7 +2398,9 @@ const calendmodulehandler = () => {
     }
   }
 
-  // Обновление события
+  /**
+   * Обновление события
+   */
   const addEvent = () => {
     function updSucces(result, title) {
       hideModal();
@@ -2405,7 +2419,6 @@ const calendmodulehandler = () => {
       let title = $(addDelEventModal).find(eventTitle).val();
       Event.append("start", $(addDelEventModal).find(startDate).val());
       Event.append("end", $(addDelEventModal).find(endDate).val());
-      Event.append("url", $(eventUrl).val());
       Event.append("calendar", $(eventLabel).val());
       Event.append("private", $(privateSwitch).prop('checked') ? '1' : '0');
       Event.append("description", $(calendarEditor).val());
@@ -2509,8 +2522,16 @@ const calendmodulehandler = () => {
     }
   }
 
-  // Удаление события
+  /**
+   * Удалить событие
+   */
   const delEvent = () => {
+
+    /**
+     * Скрыть модал. Сбросить инпуты. Показать всплывашку что удалено. Обновить события
+     * @param result результат отправки запроса на сервер
+     * @param title название удаляемого события
+     */
     function delSucces(result, title) {
       hideModal();
       resetValues();
@@ -2533,287 +2554,298 @@ const calendmodulehandler = () => {
 
   }
 
-  // Закрытие модала и сброс инпутов
+  /** Закрытие модала и сброс инпутов */
   const closeAddEvModal = () => {
     hideModal();
     resetValues();
   }
 
-  // Событие при нажатии на событие
+  /**
+   * Переключатель повторений
+   * @param mode значение repparamSwitch.options[repparamSwitch.selectedIndex].value
+   */
+  function repparamSwitchHandler(mode) {
+    switch (mode) {
+      case 'none':
+        intervalsection.style.display = "none";
+        weeklysection.style.display = "none";
+        monthlysection.style.display = "none";
+        evdmonth.checked = false;
+        break
+
+      case 'daily-section':
+        intervalsection.style.display = "block";
+        weeklysection.style.display = "none";
+        monthlysection.style.display = "none";
+        evdmonth.checked = false;
+        daynumlabel2.textContent = 'Каждый';
+        daynumlabel1.textContent = 'день';
+        daynum.setAttribute('max', '31');
+        break
+
+      case 'weekly-section':
+        intervalsection.style.display = "block";
+        weeklysection.style.display = "block";
+        monthlysection.style.display = "none";
+
+        /** Получаем текущий день недели, ставим галочку в параметрах */
+        if (!(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday)) {
+          checkweekdays([moment(startDate.value).weekday()]);
+        }
+
+        evdmonth.checked = false;
+        daynumlabel2.textContent = 'Каждую';
+        daynumlabel1.textContent = 'неделю';
+        daynum.setAttribute('max', '53');
+        break
+
+      case 'monthly-section':
+        intervalsection.style.display = "block";
+        weeklysection.style.display = "none";
+        monthlysection.style.display = "block";
+
+        /** Переключаем на дефолтное радио */
+        evdmonth.checked = true;
+        dayofmonth.value = moment(startDate.value.date());
+        daynumlabel2.textContent = 'Каждый';
+        daynumlabel1.textContent = 'месяц';
+        daynum.setAttribute('max', '12');
+        break
+
+      case 'yearly-section':
+        intervalsection.style.display = "block";
+        weeklysection.style.display = "none";
+        monthlysection.style.display = "none";
+        evdmonth.checked = false;
+        daynumlabel2.textContent = 'Каждый';
+        daynumlabel1.textContent = 'год';
+        daynum.setAttribute('max', '100');
+        break
+    }
+  }
+
+  /**
+   * Нажатие на событие в календаре
+   * @param info нажатое событие
+   */
   function eventClick(info) {
+
     eventToUpdate = info.event;
 
-    // Прослушка кликов по кнопке закрыть
-    span.addEventListener('click', () => closeAddEvModal());
+    /** Добавляем прослушиватель нажатия кнопки Закрыть */
+    closeAddEventModalCrossButton.addEventListener('click', () => closeAddEvModal());
 
-    // Открывает ссылку в новом окне
-    if ((eventToUpdate).url) {
-      info.jsEvent.preventDefault();
-    }
-    // Открывашка ссылки
-    $(urlopen).on('click', function () {
-      window.open((eventToUpdate).url, '_blank');
-    });
-
-    //console.log(eventToUpdate);
-    // Запрет на редактирование событий без id и фоновых
+    /** Запретить редактирование событий без id и фоновых */
     if (info.event.id !== "" && info.event.display !== "background") {
+
+      /** Меняем названия кнопок */
+      addEventFormSubmit.textContent = "Обновить";
+      cancelBtn.textContent = "Удалить";
+
       showModal();
-      // Проверяем права пользователя и его ID и включаем возможность редактирования
+
+      /** Проверить права пользователя и его ID, включаем возможность редактирования */
       if (eventToUpdate.extendedProps.user_id === cookieID || JSON.stringify(eventToUpdate.extendedProps.user_id) === cookieID) {
-        // Добавляем прослушку кликов по кнопкам Добавить и Обновить
-        updateEventButton.style.display = "block";
-        btnDeleteEvent.style.display = "block";
-        updateEventButton.disabled = false;
-        btnDeleteEvent.disabled = false;
+
+        /** Добавляем прослушку кликов по кнопкам Добавить и Обновить */
+        addEventFormSubmit.disabled = false;
+        cancelBtn.disabled = false;
       } else {
-        updateEventButton.style.display = "block";
-        btnDeleteEvent.style.display = "block";
-        updateEventButton.disabled = true;
-        btnDeleteEvent.disabled = true;
+        addEventFormSubmit.disabled = true;
+        cancelBtn.disabled = true;
       }
-      editEventTitle.style.display = "block";
-      $(eventTitle).val(eventToUpdate.title);
-      // Приватное событие
-      if (eventToUpdate.extendedProps.private === 0 || eventToUpdate.extendedProps.private === "0") {
-        $(privateSwitch).prop('checked', false)
-      } else {
-        $(privateSwitch).prop('checked', true)
-      }
-      // Разные даты начала и конца события для создаваемых событий при нажатии на кнопку создания и на день
+      addEventTitle.textContent = "Редактировать событие";
+
+      eventTitle = eventToUpdate.title;
+
+      /** Приватное событие */
+      privateSwitch.checked = !(eventToUpdate.extendedProps.private === 0 || eventToUpdate.extendedProps.private === "0");
+
+      /** Разные даты начала и конца события для создаваемых событий при нажатии на кнопку создания и на день */
       const date = moment(info.date).format('YYYY-MM-DD HH:mm');
-      $(startDate).val(date);
-      $(endDate).val(date);
+      startDate.value = date;
+      endDate.value = date;
 
-      // Если включили повторение, то дата начала повторения берется из даты начала события
-      repeatSwitch.addEventListener('click', () => repswitch(moment($(startDate).val()).format('YYYY-MM-DD HH:mm')));
+      /** Если включили повторение, то дата начала повторения берется из даты начала события */
+      repeatSwitch.addEventListener('click', () =>
+        repswitch(moment(startDate.value).format('YYYY-MM-DD HH:mm'))
+      );
 
-      // Выбор повторения для дня
-      $(repparamSwitch).on('change', function () {
-        if (
-          repparamSwitch.options[repparamSwitch.selectedIndex].value === 'none') {
-          intervalsection.style.display = "none";
-          weeklysection.style.display = "none";
-          monthlysection.style.display = "none";
-          $(evdmonth).prop("checked", false);
-        }
-        if (
-          repparamSwitch.options[repparamSwitch.selectedIndex].value === 'daily-section') {
-          intervalsection.style.display = "block";
-          weeklysection.style.display = "none";
-          monthlysection.style.display = "none";
-          $(evdmonth).prop("checked", false);
-          daynumlabel2.innerHTML = 'Каждый';
-          daynumlabel1.innerHTML = 'день';
-          daynum.setAttribute('max', '31');
-        }
-        if (
-          repparamSwitch.options[repparamSwitch.selectedIndex].value === 'weekly-section') {
-          intervalsection.style.display = "block";
-          weeklysection.style.display = "block";
-          monthlysection.style.display = "none";
-          // Получаем текущий день недели, ставим галочку в параметрах
-          if (!(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday)) {
-            checkweekdays([moment($(startDate).val()).weekday()]);
-          }
-          $(evdmonth).prop("checked", false);
-          daynumlabel2.innerHTML = 'Каждую';
-          daynumlabel1.innerHTML = 'неделю';
-          daynum.setAttribute('max', '53');
-        }
-        if (
-          repparamSwitch.options[repparamSwitch.selectedIndex].value === 'monthly-section') {
-          intervalsection.style.display = "block";
-          weeklysection.style.display = "none";
-          monthlysection.style.display = "block";
-          // Переключаем на дефолтное радио
-          $(evdmonth).prop("checked", true);
-          $(dayofmonth).val(moment($(startDate).val()).date());
-          daynumlabel2.innerHTML = 'Каждый';
-          daynumlabel1.innerHTML = 'месяц';
-          daynum.setAttribute('max', '12');
-        }
-        if (
-          repparamSwitch.options[repparamSwitch.selectedIndex].value === 'yearly-section') {
-          intervalsection.style.display = "block";
-          weeklysection.style.display = "none";
-          monthlysection.style.display = "none";
-          $(evdmonth).prop("checked", false);
-          daynumlabel2.innerHTML = 'Каждый';
-          daynumlabel1.innerHTML = 'год';
-          daynum.setAttribute('max', '100');
-        }
-      })
+      /** Выбор повторения для дня */
+      repparamSwitch.addEventListener('change', () =>
+        repparamSwitchHandler(repparamSwitch.options[repparamSwitch.selectedIndex].value)
+      );
 
-      // Если в конце повторения включена дата, то блокируется ввоб кол-ва повторений и наоборот
-      $(repdate).on('click', function () {
-        if ($(repdate).is(':checked')) {
-          $(repdateinp).prop("disabled", false);
-          $(repcount).prop("checked", false);
+      /** Если в конце повторения включена дата, то блокируется ввоб кол-ва повторений и наоборот */
+      // FIXME общие прослушиватели для добавления / редактирования
+      repdate.addEventListener('click', function () {
+        if (repdate.checked === true) {
+          repdateinp.disabled = false;
+          repcount.checked = false;
         } else {
-          $(repdateinp).prop("disabled", true);
+          repdateinp.disabled = true;
         }
       })
-      $(repcount).on('click', function () {
-        if ($(repcount).is(':checked')) {
-          $(repcountinp).prop("disabled", false);
-          $(repdate).prop("checked", false);
+
+      repcount.addEventListener('click', function () {
+        if (repcount.checked === true) {
+          repcountinp.disabled = false;
+          repdate.checked = false;
         } else {
-          $(repcountinp).prop("disabled", true);
+          repcountinp.disabled = true;
         }
       })
 
-      // Если переключают на весь день, то меняется диапазон времени на весь день, и наоборот, на текущее время, не меняя введенной даты
-      $(allDaySwitch).on('click', function () {
-        if ($(allDaySwitch).prop('checked')) {
-          $(startDate).val(moment($(startDate).val()).hour(0).minutes(0).format('YYYY-MM-DD HH:mm'));
-          $(endDate).val(moment($(endDate).val()).hour(23).minutes(59).format('YYYY-MM-DD HH:mm'));
+      /** Если переключают на весь день, то меняется диапазон времени на весь день, и наоборот, на текущее время, не меняя введенной даты */
+      allDaySwitch.addEventListener('click', function () {
+        if (allDaySwitch.checked === true) {
+          startDate.value = moment(startDate.value.hour(0).minutes(0).format('YYYY-MM-DD HH:mm'));
+          endDate.value = moment(endDate.value.hour(23).minutes(59).format('YYYY-MM-DD HH:mm'));
         } else {
-          $(startDate).val(moment($(startDate).val()).hour(moment().hour()).minutes(moment().minutes()).format('YYYY-MM-DD HH:mm'));
-          $(endDate).val(moment($(endDate).val()).hour(moment().hour()).minutes(moment().minutes()).format('YYYY-MM-DD HH:mm'));
+          startDate.value = moment(startDate.value.hour(moment().hour()).minutes(moment().minutes()).format('YYYY-MM-DD HH:mm'));
+          endDate.value = moment(endDate.value.hour(moment().hour()).minutes(moment().minutes()).format('YYYY-MM-DD HH:mm'));
         }
       })
 
-      // Проверка дат начала и конца, при изменении даты, меняет неправильную
-      $(startDate).on('change', function () {
-        if ($(startDate).val() > $(endDate).val()) {
-          $(endDate).val($(startDate).val());
-        }
-      })
-      $(endDate).on('change', function () {
-        if ($(startDate).val() > $(endDate).val()) {
-          $(startDate).val($(endDate).val());
-        }
-      })
+      function checkStartDate() {
+        startDate.value > endDate.value ? endDate.value = startDate.value : false;
+      }
 
-      // Повторять до даты
+      function checkEndDate() {
+        startDate.value > endDate.value ? startDate.value = endDate.value : false;
+      }
+
+      /** Проверка дат начала и конца, при изменении даты, меняет неправильную */
+      startDate.addEventListener('change', checkStartDate);
+      endDate.addEventListener('change', checkEndDate);
+
+      /** Повторять до даты */
       if (eventToUpdate._def.recurringDef !== null) {
-        // Для еженедельного
+        /** Для еженедельного */
+
+        // FIXME проверить повторение в функции getRepeatsEvent
         if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.freq === 2) {
           intervalsection.style.display = "block";
-          // Чекбоксы дней недель
+          /** Чекбоксы дней недель */
           let array = eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday;
-          for (let i = 0; i < array.length; i++) {
-            if (array[i] === 0) {
-              $(monday).prop('checked', true)
-            }
-            if (array[i] === 1) {
-              $(tuesday).prop('checked', true)
-            }
-            if (array[i] === 2) {
-              $(wednesday).prop('checked', true)
-            }
-            if (array[i] === 3) {
-              $(thursday).prop('checked', true)
-            }
-            if (array[i] === 4) {
-              $(friday).prop('checked', true)
-            }
-            if (array[i] === 5) {
-              $(saturday).prop('checked', true)
-            }
-            if (array[i] === 6) {
-              $(sunday).prop('checked', true)
-            }
-          }
+          checkweekdays(array);
         }
 
-        $(repeatSwitch).prop('checked', true);
+        repeatSwitch.checked = true;
         repeatparams.style.display = "block";
-        $(repparamSwitch).prop('required', true);
-        $(startrepDate).val(moment(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.dtstart).utc().format('YYYY-MM-DD HH:mm'));
+        repparamSwitch.required = true;
+        startrepDate.value = moment(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.dtstart).utc().format('YYYY-MM-DD HH:mm');
         if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.until) {
-          $(endrepDate).val(moment(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.until).utc().format('YYYY-MM-DD HH:mm'));
-          $(repdate).prop('checked', true);
-          $(endrepDate).prop("disabled", false);
+          endrepDate.value =  moment(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.until).utc().format('YYYY-MM-DD HH:mm');
+          repdate.checked = true;
+          endrepDate.checked = false;
         } else {
-          $(endrepDate).val("");
-          $(repdate).prop('checked', false);
-          $(endrepDate).prop("disabled", true);
+          endrepDate.value =  "";
+          repdate.checked = false;
+          endrepDate.checked = true;
         }
-        // Кол-во повторений
+        /** Кол-во повторений */
         if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.count) {
-          $(repcountinp).val(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.count);
-          $(repcount).prop('checked', true);
+          repcountinp.value = eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.count;
+          repcount.checked = true;
         } else {
-          $(repcountinp).val("");
-          $(repcount).prop('checked', false);
+          repcountinp.value = "";
+          repcount.checked = false;
         }
 
-        if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.freq === 3) {
-          $(repparamSwitch).val('daily-section');
-          weeklysection.style.display = "none";
-          monthlysection.style.display = "none";
-          intervalsection.style.display = "block";
-          daynumlabel2.innerHTML = 'Каждый';
-          daynumlabel1.innerHTML = 'день';
-          daynum.setAttribute('max', '31');
-        } else if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.freq === 2) {
-          $(repparamSwitch).val('weekly-section');
-          weeklysection.style.display = "block";
-          monthlysection.style.display = "none";
-          intervalsection.style.display = "block";
-          daynumlabel2.innerHTML = 'Каждую';
-          daynumlabel1.innerHTML = 'неделю';
-          daynum.setAttribute('max', '53');
-        } else if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.freq === 1) {
-          $(repparamSwitch).val('monthly-section');
-          monthlysection.style.display = "block";
-          weeklysection.style.display = "none";
-          intervalsection.style.display = "block";
-          daynumlabel2.innerHTML = 'Каждый';
-          daynumlabel1.innerHTML = 'месяц';
-          daynum.setAttribute('max', '12');
-          // Чекбоксы повторения для месяца
-          if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.bysetpos === null) {
-            $(evdmonth).prop("checked", true);
-            $(dayofmonth).val(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.bymonthday[0]);
+        /**
+         * Чекбоксы повторения для месяца
+         * @param num
+         * @param array
+         */
+        function getCheckboxesForMonth(num, array) {
+          switch (num) {
+            case 'null':
+              evdmonth.checked = true;
+              dayofmonth.value = eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.bymonthday[0];
+              break
+            case '1':
+              break
+            case '-1':
+              if (array === '[0,1,2,3,4]') {
+                lastworkdmonth.checked = true;
+              } else if (array === '[0,1,2,3,4]') {
+              firstworkdmonth.checked = true;
+            } else if (array === '[0,1,2,3,4,5,6]') {
+              firstdmonth.checked = true;
+            } else if (array === '[0,1,2,3,4,5,6]') {
+              lastdmonth.checked = true;
+            }
+              break
           }
-          if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.bysetpos === -1 &&
-            JSON.stringify(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday) === '[0,1,2,3,4]') {
-            $(lastworkdmonth).prop("checked", true);
-          }
-          if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.bysetpos === 1 &&
-            JSON.stringify(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday) === '[0,1,2,3,4]') {
-            $(firstworkdmonth).prop("checked", true);
-          }
-          if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.bysetpos === 1 &&
-            JSON.stringify(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday) === '[0,1,2,3,4,5,6]') {
-            $(firstdmonth).prop("checked", true);
-          }
-          if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.bysetpos === -1 &&
-            JSON.stringify(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday) === '[0,1,2,3,4,5,6]') {
-            $(lastdmonth).prop("checked", true);
-          }
-        } else if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.freq === 0) {
-          $(repparamSwitch).val('yearly-section');
-          weeklysection.style.display = "none";
-          monthlysection.style.display = "none";
-          intervalsection.style.display = "block";
-          daynumlabel2.innerHTML = 'Каждый';
-          daynumlabel1.innerHTML = 'год';
-          daynum.setAttribute('max', '100');
-        } else if (eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.freq === null) {
-          return;
         }
+
+        /**
+         * Получить повторения из события, открыть нужные вкладки
+         * @param num
+         */
+        function getRepeatsEvent(num) {
+          switch (num) {
+            case '3':
+              repparamSwitch.value = 'daily-section';
+              weeklysection.style.display = "none";
+              monthlysection.style.display = "none";
+              intervalsection.style.display = "block";
+              daynumlabel2.innerHTML = 'Каждый';
+              daynumlabel1.innerHTML = 'день';
+              daynum.setAttribute('max', '31');
+              break
+            case '2':
+              repparamSwitch.value = 'weekly-section';
+              weeklysection.style.display = "block";
+              monthlysection.style.display = "none";
+              intervalsection.style.display = "block";
+              daynumlabel2.innerHTML = 'Каждую';
+              daynumlabel1.innerHTML = 'неделю';
+              daynum.setAttribute('max', '53');
+              break
+            case '1':
+              repparamSwitch.value = 'monthly-section';
+              monthlysection.style.display = "block";
+              weeklysection.style.display = "none";
+              intervalsection.style.display = "block";
+              daynumlabel2.innerHTML = 'Каждый';
+              daynumlabel1.innerHTML = 'месяц';
+              daynum.setAttribute('max', '12');
+
+              /** Чекбоксы повторения для месяца */
+              getCheckboxesForMonth(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.bysetpos, JSON.stringify(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday));
+
+              break
+            case '0':
+              repparamSwitch.value = 'yearly-section';
+              weeklysection.style.display = "none";
+              monthlysection.style.display = "none";
+              intervalsection.style.display = "block";
+              daynumlabel2.innerHTML = 'Каждый';
+              daynumlabel1.innerHTML = 'год';
+              daynum.setAttribute('max', '100');
+              break
+            case 'null':
+              break
+          }
+        }
+
+        getRepeatsEvent(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.freq);
+
       } else {
-        $(repeatSwitch).prop('checked', false);
+        repeatSwitch.checked = false;
       }
 
       start.setDate(eventToUpdate.start, true, 'YYYY-MM-DD HH:mm');
-      if (eventToUpdate.allDay === true) {
-        $(allDaySwitch).prop('checked', true)
-      } else if (eventToUpdate.allDay === false) {
-        $(allDaySwitch).prop('checked', false)
-      }
+      eventToUpdate.allDay === true ? allDaySwitch.checked = true : allDaySwitch.checked = false;
       eventToUpdate.end !== null
         ? end.setDate(eventToUpdate.end, true, 'YYYY-MM-DD HH:mm')
         : end.setDate(eventToUpdate.start, true, 'YYYY-MM-DD HH:mm');
       $(addDelEventModal).find(eventLabel).val(eventToUpdate.extendedProps.calendar).trigger('change');
       $(addDelEventModal).find(calendarEditor).val(eventToUpdate.extendedProps.description);
-      $(addDelEventModal).find(eventUrl).val(eventToUpdate.url);
 
-      $(repdate).on('click', function () {
+      repdate.addEventListener('click', function () {
         if ($(repdate).is(':checked')) {
           $(repdateinp).prop("disabled", false);
           $(repcount).prop("checked", false);
@@ -2821,7 +2853,8 @@ const calendmodulehandler = () => {
           $(repdateinp).prop("disabled", true);
         }
       })
-      $(repcount).on('click', function () {
+
+      repcount.addEventListener('click', function () {
         if ($(repcount).is(':checked')) {
           $(repcountinp).prop("disabled", false);
           $(repdate).prop("checked", false);
@@ -2832,10 +2865,12 @@ const calendmodulehandler = () => {
     }
   }
 
-  // Селект для меток в модале
+  /**
+   * Селект для меток в модале
+   */
   function renderCheckboxes() {
     const parent = document.getElementById('calEventFilter');
-    parent.innerHTML = '';
+    parent.textContent = '';
 
     const header = `<p class="group-title mb-2">Календарь:</p>`;
 
@@ -2861,7 +2896,11 @@ const calendmodulehandler = () => {
 
   renderCheckboxes();
 
-  // Селект для меток в модале
+  /**
+   * Селект для меток в модале
+   * @param option
+   * @returns {string|*}
+   */
   function renderBullets(option) {
     if (!option.id) {
       return option.text;
@@ -2873,10 +2912,12 @@ const calendmodulehandler = () => {
       option.text;
   }
 
-  // Селект для меток в модале
+  /**
+   * Селект для меток в модале
+   */
   function renderOptions() {
     const parent = document.getElementById('select-label');
-    parent.innerHTML = '';
+    parent.textContent = '';
 
     const placeholderItem = `<option></option>`;
 
@@ -2902,14 +2943,20 @@ const calendmodulehandler = () => {
     }
   });
 
-  // Датапикер начало события
+  /**
+   * Датапикер начало события
+   * @type {jQuery|Instance|Instance[]|*}
+   */
   const start = startDate.flatpickr({
     locale: "ru",
     enableTime: true,
     dateFormat: 'Y-m-d H:i',
   });
 
-  // Датапикер конец события
+  /**
+   * Датапикер конец события
+   * @type {jQuery|Instance|Instance[]|*}
+   */
   const end = endDate.flatpickr({
     locale: "ru",
     enableTime: true,
@@ -2918,59 +2965,48 @@ const calendmodulehandler = () => {
     }
   });
 
-  // Датапикер начало повторения
+  /**
+   * Датапикер начало повторения
+   * @type {Instance}
+   */
   const startrep = startrepDate.flatpickr({
     locale: "ru",
     enableTime: true,
     dateFormat: 'Y-m-d H:i',
   });
 
-  // Датапикер конца повторения
+  /**
+   * Датапикер конца повторения
+   * @type {Instance}
+   */
   const endrep = endrepDate.flatpickr({
     locale: "ru",
     enableTime: true,
     dateFormat: 'Y-m-d H:i',
   });
 
-  // Выбранные чекбоксы
-  /*  function selectedCalendars() {
-      const filterInput2 = document.querySelectorAll('.input-filter:not(.select-all)');
-      const selected = [];
-      for (let j = 0; j < filterInput2.length; j++) {
-        if ($(filterInput2[j]).prop('checked')) {
-          selected.push(filterInput2[j].dataset.value.toLowerCase());
-        }
-      }
-      return selected;
-    }
-  */
-
-  function privatecheck() {
-    if ($(privateinp).prop('checked')) {
-      return 1;
-    } else {
-      return 0;
-    }
-  }
-
-  // Получение событий. Эта функция будет вызываться fullCalendar для получения и обновления событий.
+  /**
+   * Получение событий. Эта функция будет вызываться fullCalendar для получения и обновления событий.
+   * @param info
+   * @param successCallback ф-я коллбек для передачи
+   */
   function fetchEvents(info, successCallback) {
-    // Получение событий AJAX
     const filterInput2 = document.querySelectorAll('.input-filter:not(.select-all)');
-
     let data = {
-      // С не фиксированной датой не работают повторяющиеся собыия
+      /** С не фиксированной датой не работают повторяющиеся собыия */
       startParam: moment(info.start).tz('Europe/Moscow').format('YYYY-MM-DD'),
       endParam: moment(info.end).tz('Europe/Moscow').format('YYYY-MM-DD'),
-      //calendars: selectedCalendars(),
       calendars: selectedCheckboxes(filterInput2, 'selected'),
-      private: privatecheck(),
+      private: privateinp.checked === true ? 1 : 0
     };
 
     ajax_send("GET", "components/fullcalendar/events.php", data, "json", result => successCallback(result));
   }
 
-  // Показать popover
+  /**
+   * Показать popover
+   * @param event
+   */
   function showPopover(event) {
     const classpopover = "popover-" + event.event.extendedProps.calendar.toLowerCase();
     let tooltip = new bootstrap.Popover(event.el, {
@@ -2982,7 +3018,9 @@ const calendmodulehandler = () => {
     tooltip.show();
   }
 
-  // Скрыть popover
+  /**
+   * Скрыть popover
+   */
   function hidePopover() {
     let tooltips = document.querySelectorAll(".popover");
     tooltips.forEach(function (tooltip) {
@@ -3068,7 +3106,7 @@ const calendmodulehandler = () => {
     showModal();
 
     // Прослушка кликов по кнопкам отмена и закрыть
-    span.addEventListener('click', () => closeAddEvModal());
+    closeAddEventModalCrossButton.addEventListener('click', () => closeAddEvModal());
     cancelBtn.addEventListener('click', () => closeAddEvModal());
 
     // Показываем кнопку Добавить
@@ -3099,60 +3137,10 @@ const calendmodulehandler = () => {
       }
     })
 
-    // Выбор повторения для дня
-    $(repparamSwitch).on('change', function () {
-      if (
-        repparamSwitch.options[repparamSwitch.selectedIndex].value === 'none') {
-        intervalsection.style.display = "none";
-        weeklysection.style.display = "none";
-        monthlysection.style.display = "none";
-        $(evdmonth).prop("checked", false);
-      }
-      if (
-        repparamSwitch.options[repparamSwitch.selectedIndex].value === 'daily-section') {
-        intervalsection.style.display = "block";
-        weeklysection.style.display = "none";
-        monthlysection.style.display = "none";
-        $(evdmonth).prop("checked", false);
-        daynumlabel2.innerHTML = 'Каждый';
-        daynumlabel1.innerHTML = 'день';
-        daynum.setAttribute('max', '31');
-      }
-      if (
-        repparamSwitch.options[repparamSwitch.selectedIndex].value === 'weekly-section') {
-        intervalsection.style.display = "block";
-        weeklysection.style.display = "block";
-        monthlysection.style.display = "none";
-        // Получаем текущий день недели, ставим галочку в параметрах
-        checkweekdays([moment($(startDate).val()).weekday()]);
-        $(evdmonth).prop("checked", false);
-        daynumlabel2.innerHTML = 'Каждую';
-        daynumlabel1.innerHTML = 'неделю';
-        daynum.setAttribute('max', '53');
-      }
-      if (
-        repparamSwitch.options[repparamSwitch.selectedIndex].value === 'monthly-section') {
-        intervalsection.style.display = "block";
-        weeklysection.style.display = "none";
-        monthlysection.style.display = "block";
-        // Переключаем на дефолтное радио
-        $(evdmonth).prop("checked", true);
-        $(dayofmonth).val(moment($(startDate).val()).date());
-        daynumlabel2.innerHTML = 'Каждый';
-        daynumlabel1.innerHTML = 'месяц';
-        daynum.setAttribute('max', '12');
-      }
-      if (
-        repparamSwitch.options[repparamSwitch.selectedIndex].value === 'yearly-section') {
-        intervalsection.style.display = "block";
-        weeklysection.style.display = "none";
-        monthlysection.style.display = "none";
-        $(evdmonth).prop("checked", false);
-        daynumlabel2.innerHTML = 'Каждый';
-        daynumlabel1.innerHTML = 'год';
-        daynum.setAttribute('max', '100');
-      }
-    })
+    /** Выбор повторения для дня */
+    repparamSwitch.addEventListener('change', () =>
+      repparamSwitchHandler(repparamSwitch.options[repparamSwitch.selectedIndex].value)
+    );
 
     // Если в конце повторения включена дата, то блокируется ввоб кол-ва повторений и наоборот
     $(repdate).on('click', function () {
@@ -3291,38 +3279,9 @@ const calendmodulehandler = () => {
 
   // Сброс значений модала
   function resetValues() {
-    $(endDate).val('');
-    $(eventUrl).val('');
-    $(startDate).val('');
-    $(eventTitle).val('');
-    $(allDaySwitch).prop('checked', false);
-    $(privateSwitch).prop('checked', false);
-    $(repeatSwitch).prop('checked', false);
-    $(calendarEditor).val('');
+    eventForm.reset();
     repeatparams.style.display = "none";
-    $(repparamSwitch).val('none');
     $(addDelEventModal).find(eventLabel).val('').trigger('change');
-    $(repdate).prop('checked', false);
-    $(repdateinp).val('');
-    $(repcount).prop('checked', false);
-    $(repcountinp).val('');
-    // Параметры повторений
-    $(startrepDate).val('');
-    $(endrepDate).val('');
-    $(monday).prop('checked', false);
-    $(tuesday).prop('checked', false);
-    $(wednesday).prop('checked', false);
-    $(thursday).prop('checked', false);
-    $(friday).prop('checked', false);
-    $(saturday).prop('checked', false);
-    $(sunday).prop('checked', false);
-    // Скрытие заголовков и кнопок
-    updateEventButton.style.display = "none";
-    btnDeleteEvent.style.display = "none";
-    addEventFormSubmit.style.display = "none";
-    cancelBtn.style.display = "none";
-    addEventTitle.style.display = "none";
-    editEventTitle.style.display = "none";
     // Переключить вкладку на Основное
     maintab.classList.add('active');
     mainpane.classList.add('show');
@@ -3336,11 +3295,8 @@ const calendmodulehandler = () => {
     monthlysection.style.display = "none";
   }
 
-  // Когда модал закрыт, сбросить значения
-  $(addDelEventModal).on('hidden.bs.modal', function () {
-    resetValues();
-  });
-
+  /** Когда модал закрыт, сбросить значения */
+  addDelEventModal.addEventListener('hidden.bs.modal', resetValues);
 
   // Выбрать все и другие фильтры
   if (document.querySelector(".select-all")) {
@@ -5389,7 +5345,7 @@ const init = () => {
 
   // Отрисовка модуля календаря
   if (calendarEl) {
-    calendmodulehandler();
+    calendmodulehandler(calendModuleSettings);
   }
 
   // Отрисовка виджета календаря
