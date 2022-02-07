@@ -2043,7 +2043,7 @@ const maincontentscrollHandler = () => {
 // Цвета для Fullcalendar
 // Цвета событий, названия менять в разметке, в js менять не надо
 
-let calendCat = [
+const calendCat = [
   {
     color: "primary",
     name: "События",
@@ -2180,16 +2180,18 @@ const minicalendarhandler = () => {
 const calendarEl = document.getElementById('calendar');
 
 const calendmodulehandler = () => {
-  //Элементы
-  const neweventbtn = document.getElementById("myBtn");
-  //Модал и его элементы
-  // Модал добавления события
-  const modal = document.getElementById("addEventsModal");
 
-  // Кнопка "Добавить событие" в модале добавления события. Сохраняет событие
-  const addEventBtn = document.getElementById("add-event-btn");
-  // Кпока "Сохранить" событие на модале
-  const updateEventBtn = document.getElementById("edit-event");
+  /** Кнопка ДОбавить событие */
+  const addEventButton = document.querySelector(".add-event-button");
+
+  /** Модал добавления/удаления события */
+  const addDelEventModal = document.querySelector(".add-del-event-modal");
+
+  /** Кнопка Добавить событие в модале добавления/редактирования. Отправка формы */
+  const addEventFormSubmit = document.querySelector(".add-event-submit");
+
+  /** Кнопка Сохранить событие в модале добавления/редактирования. Отправка формы */
+  const updateEventButton = document.querySelector(".update-event-button");
 
   // Заголовок модала Добавить событие. Для переключения в заголовке слов редактировать / создать
   const addEventTitle = document.querySelector(".add-event-title");
@@ -2197,14 +2199,14 @@ const calendmodulehandler = () => {
   const editEventTitle = document.querySelector(".edit-event-title");
 
   // Кнопка закрыть на модале (крестик)
-  const span = modal.querySelector(".btn-close");
+  const span = addDelEventModal.querySelector(".btn-close");
   // Кнопка отмены на модале
   const cancelBtn = document.getElementById("discard");
   // Кнопка удалить событие на модале
   const btnDeleteEvent = document.getElementById("delete");
 
   // Форма в модале
-  const eventForm = modal.querySelector(".event-form");
+  const eventForm = addDelEventModal.querySelector(".event-form");
 
   // Название события в модале
   const eventTitle = document.getElementById("title");
@@ -2317,8 +2319,8 @@ const calendmodulehandler = () => {
 
   // Скрыть модал
   function hideModal() {
-    modal.style.display = "none";
-    modal.classList.remove('show');
+    addDelEventModal.style.display = "none";
+    addDelEventModal.classList.remove('show');
     const btn = document.querySelector('.modal-backdrop');
     if (btn) {
       document.body.removeChild(btn);
@@ -2327,8 +2329,8 @@ const calendmodulehandler = () => {
 
   // Показать модал
   function showModal() {
-    modal.classList.add('show');
-    modal.style.display = "block";
+    addDelEventModal.classList.add('show');
+    addDelEventModal.style.display = "block";
     const btn = document.createElement("div");
     btn.setAttribute('class', 'modal-backdrop fade show')
     document.body.appendChild(btn);
@@ -2399,10 +2401,10 @@ const calendmodulehandler = () => {
       let Event = new FormData();
       Event.append("operation", "upd");
       Event.append("id", eventToUpdate.id);
-      Event.append("title", $(modal).find(eventTitle).val());
-      let title = $(modal).find(eventTitle).val();
-      Event.append("start", $(modal).find(startDate).val());
-      Event.append("end", $(modal).find(endDate).val());
+      Event.append("title", $(addDelEventModal).find(eventTitle).val());
+      let title = $(addDelEventModal).find(eventTitle).val();
+      Event.append("start", $(addDelEventModal).find(startDate).val());
+      Event.append("end", $(addDelEventModal).find(endDate).val());
       Event.append("url", $(eventUrl).val());
       Event.append("calendar", $(eventLabel).val());
       Event.append("private", $(privateSwitch).prop('checked') ? '1' : '0');
@@ -2560,14 +2562,14 @@ const calendmodulehandler = () => {
       // Проверяем права пользователя и его ID и включаем возможность редактирования
       if (eventToUpdate.extendedProps.user_id === cookieID || JSON.stringify(eventToUpdate.extendedProps.user_id) === cookieID) {
         // Добавляем прослушку кликов по кнопкам Добавить и Обновить
-        updateEventBtn.style.display = "block";
+        updateEventButton.style.display = "block";
         btnDeleteEvent.style.display = "block";
-        updateEventBtn.disabled = false;
+        updateEventButton.disabled = false;
         btnDeleteEvent.disabled = false;
       } else {
-        updateEventBtn.style.display = "block";
+        updateEventButton.style.display = "block";
         btnDeleteEvent.style.display = "block";
-        updateEventBtn.disabled = true;
+        updateEventButton.disabled = true;
         btnDeleteEvent.disabled = true;
       }
       editEventTitle.style.display = "block";
@@ -2807,9 +2809,9 @@ const calendmodulehandler = () => {
       eventToUpdate.end !== null
         ? end.setDate(eventToUpdate.end, true, 'YYYY-MM-DD HH:mm')
         : end.setDate(eventToUpdate.start, true, 'YYYY-MM-DD HH:mm');
-      $(modal).find(eventLabel).val(eventToUpdate.extendedProps.calendar).trigger('change');
-      $(modal).find(calendarEditor).val(eventToUpdate.extendedProps.description);
-      $(modal).find(eventUrl).val(eventToUpdate.url);
+      $(addDelEventModal).find(eventLabel).val(eventToUpdate.extendedProps.calendar).trigger('change');
+      $(addDelEventModal).find(calendarEditor).val(eventToUpdate.extendedProps.description);
+      $(addDelEventModal).find(eventUrl).val(eventToUpdate.url);
 
       $(repdate).on('click', function () {
         if ($(repdate).is(':checked')) {
@@ -3043,7 +3045,7 @@ const calendmodulehandler = () => {
       submitHandler: function (form, event) {
         event.preventDefault();
         if ($(eventForm).valid()) {
-          $(modal)('hide');
+          $(addDelEventModal)('hide');
         }
       },
       'title': {
@@ -3070,7 +3072,7 @@ const calendmodulehandler = () => {
     cancelBtn.addEventListener('click', () => closeAddEvModal());
 
     // Показываем кнопку Добавить
-    addEventBtn.style.display = "block";
+    addEventFormSubmit.style.display = "block";
     // Показываем кнопку Отмена
     cancelBtn.style.display = "block";
     addEventTitle.style.display = "block";
@@ -3194,12 +3196,12 @@ const calendmodulehandler = () => {
     })
   }
 
-  $(neweventbtn).on('click', function () {
+  $(addEventButton).on('click', function () {
     neweventmodal(null);
   });
 
   // Кнопка - Добавление нового события
-  $(addEventBtn).on('click', function () {
+  $(addEventFormSubmit).on('click', function () {
 
     function addSucces(result, title) {
       hideModal();
@@ -3284,7 +3286,7 @@ const calendmodulehandler = () => {
     }
   });
 
-  updateEventBtn.addEventListener('click', () => addEvent());
+  updateEventButton.addEventListener('click', () => addEvent());
   btnDeleteEvent.addEventListener('click', () => delEvent());
 
   // Сброс значений модала
@@ -3299,7 +3301,7 @@ const calendmodulehandler = () => {
     $(calendarEditor).val('');
     repeatparams.style.display = "none";
     $(repparamSwitch).val('none');
-    $(modal).find(eventLabel).val('').trigger('change');
+    $(addDelEventModal).find(eventLabel).val('').trigger('change');
     $(repdate).prop('checked', false);
     $(repdateinp).val('');
     $(repcount).prop('checked', false);
@@ -3315,9 +3317,9 @@ const calendmodulehandler = () => {
     $(saturday).prop('checked', false);
     $(sunday).prop('checked', false);
     // Скрытие заголовков и кнопок
-    updateEventBtn.style.display = "none";
+    updateEventButton.style.display = "none";
     btnDeleteEvent.style.display = "none";
-    addEventBtn.style.display = "none";
+    addEventFormSubmit.style.display = "none";
     cancelBtn.style.display = "none";
     addEventTitle.style.display = "none";
     editEventTitle.style.display = "none";
@@ -3335,7 +3337,7 @@ const calendmodulehandler = () => {
   }
 
   // Когда модал закрыт, сбросить значения
-  $(modal).on('hidden.bs.modal', function () {
+  $(addDelEventModal).on('hidden.bs.modal', function () {
     resetValues();
   });
 

@@ -2,18 +2,17 @@
   <div class="p-3">
     <div class="calendar-wrapper">
       <!-- Модал добавления/редактирования события -->
-      <div id="addEventsModal" class="modal" aria-labelledby="addEventsModal" style="display: none;">
+      <div class="modal add-del-event-modal" aria-labelledby="addEventsModal" style="display: none;">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content add-edit-event-content">
+            <form class="event-form" name="eventForm">
             <div class="modal-header">
               <h5 class="add-event-title modal-title" style="display: none;">Добавить событие</h5>
-              <h5 class="edit-event-title modal-title" style="display: none;">Редактировать событие</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
             </div>
             <div class="modal-body">
               <div class="add-edit-event-box">
                 <div class="add-edit-event-content">
-                  <form class="event-form">
 
                     <nav>
                       <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
@@ -60,7 +59,7 @@
                             <div class="form-group start-date ">
                               <label for="start-date" class="">Начало события:</label>
                               <div>
-                                <input id="start-date" placeholder="Дата начала"
+                                <input name="dateStart" placeholder="Дата начала"
                                        class="form-control flatpickr-input position-relative"
                                        type="text" required>
                               </div>
@@ -77,19 +76,10 @@
                           </div>
                           <div class="form-group">
                             <div class="form-check form-switch">
-                              <input type="checkbox" class="form-check-input allDay-switch" id="customSwitch3">
+                              <input type="checkbox" name="dateEnd" class="form-check-input allDay-switch" id="customSwitch3">
                               <label class="form-check-label" for="customSwitch3">Весь день</label>
                             </div>
 
-                          </div>
-                          <div class="form-group">
-                            <label for="event-url">URL</label>
-                            <div class="input-group">
-                              <input type="url" class="form-control" id="event-url"
-                                     placeholder="Введите ссылку в формате http://google.com">
-                              <button type="button" class="btn btn-primary" id="urlopen"><i class="mdi mdi-web"></i>
-                              </button>
-                            </div>
                           </div>
                           <div class="col-md-12">
                             <label for="start-date" class="">Описание события:</label>
@@ -231,22 +221,17 @@
                         </div>
                       </div>
                     </div>
-                  </form>
                 </div>
               </div>
             </div>
-
             <div class="modal-footer mt-3">
-              <button id="add-event-btn" class="btn btn-primary add-event-btn" style="display: none;">Добавить
+              <button class="btn btn-primary add-update-event-submit" type="submit">Добавить
                 событие
               </button>
-              <button id="edit-event" class="btn btn-primary edit-event" style="display: none;">Сохранить</button>
-              <button id="discard" class="btn btn-outline-danger" style="display: none;">Отмена
-              </button>
-              <button id="delete" class="btn btn-outline-danger btn-delete-event"
-                      style="display: none;">Удалить
+              <button class="btn btn-outline-danger delete-discard-event-button">Отмена
               </button>
             </div>
+            </form>
           </div>
         </div>
       </div>
@@ -258,7 +243,7 @@
             <img src="assets/img/cosmonaut-laptop.svg" alt="" style="width: 60%; height: auto" class="align-items-center">
           </div>
           <div class="p-3">
-            <button type="button" class="btn btn-primary ms-auto mt-1 mb-1 btn-block" id="myBtn"><i class="mdi mdi-plus me-2"></i>Событие
+            <button type="button" class="btn btn-primary ms-auto mt-1 mb-1 btn-block add-event-button"><i class="mdi mdi-plus me-2"></i>Событие
             </button>
           </div>
           <div class="card-body">
