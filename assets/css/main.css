@@ -53881,7 +53881,7 @@ a :hover {
 }
 .dropdown-menu.active,
 .dropdown-menu :active {
-  color: #faf7fa;
+  color: var(--ui-text);
 }
 
 .dropdown-toggle.no-carret::after {
@@ -54736,6 +54736,9 @@ code[class*=language-] .c, pre[class*=language-] .c {
   background-color: var(--ui-bg);
   border-color: #9e92ee;
   box-shadow: 0 0 0 0.25rem rgba(var(--ui-text-bold), 0.25);
+}
+.form .input-error {
+  min-height: 1em;
 }
 .form-label {
   color: var(--ui-text);
@@ -58113,15 +58116,42 @@ $theme-map-light: (
   opacity: 0.5;
   color: #566577;
 }
+.today-calendar .fc .fc-addEvBtn-button,
+.calendar-module .fc .fc-addEvBtn-button {
+  color: #fff;
+  background-color: #6C5CE8;
+  border-color: #6C5CE8;
+}
+.today-calendar .fc .fc-addEvBtn-button:hover,
+.calendar-module .fc .fc-addEvBtn-button:hover {
+  background-color: #5c4ec5;
+  border-color: #564aba;
+}
+.today-calendar .fc .fc-addEvBtn-buttonactive,
+.calendar-module .fc .fc-addEvBtn-buttonactive {
+  background-color: #564aba;
+  border-color: #5145ae;
+}
+.today-calendar .fc .fc-addEvBtn-button:focus:not(:focus-visible),
+.calendar-module .fc .fc-addEvBtn-button:focus:not(:focus-visible) {
+  outline: 0;
+}
+.today-calendar .fc .fc-addEvBtn-button:focus,
+.calendar-module .fc .fc-addEvBtn-button:focus {
+  background-color: #5c4ec5;
+  border-color: #564aba;
+  box-shadow: 0 0 0 0.25rem rgba(130, 116, 235, 0.5);
+}
+.today-calendar .fc .fc-filterBtn-button,
+.calendar-module .fc .fc-filterBtn-button {
+  color: #6C5CE8;
+  border: 1px solid #6C5CE8;
+}
 .today-calendar .fc .fc-event-primary,
 .calendar-module .fc .fc-event-primary {
   background-color: rgba(108, 92, 232, 0.4);
   border: 1px solid #6C5CE8;
   color: var(--ui-text);
-}
-.today-calendar .fc .fc-event-primaryfc-bg-event,
-.calendar-module .fc .fc-event-primaryfc-bg-event {
-  border: 1px solid rgba(108, 92, 232, 0.4);
 }
 .today-calendar .fc .fc-event-primary .fc-daygrid-event-dot,
 .calendar-module .fc .fc-event-primary .fc-daygrid-event-dot {
@@ -58137,10 +58167,6 @@ $theme-map-light: (
   border: 1px solid #566577;
   color: var(--ui-text);
 }
-.today-calendar .fc .fc-event-secondaryfc-bg-event,
-.calendar-module .fc .fc-event-secondaryfc-bg-event {
-  border: 1px solid rgba(86, 101, 119, 0.4);
-}
 .today-calendar .fc .fc-event-secondary .fc-daygrid-event-dot,
 .calendar-module .fc .fc-event-secondary .fc-daygrid-event-dot {
   border-color: #3e4a5b;
@@ -58154,10 +58180,6 @@ $theme-map-light: (
   background-color: rgba(0, 183, 149, 0.4);
   border: 1px solid #00B795;
   color: var(--ui-text);
-}
-.today-calendar .fc .fc-event-successfc-bg-event,
-.calendar-module .fc .fc-event-successfc-bg-event {
-  border: 1px solid rgba(0, 183, 149, 0.4);
 }
 .today-calendar .fc .fc-event-success .fc-daygrid-event-dot,
 .calendar-module .fc .fc-event-success .fc-daygrid-event-dot {
@@ -58173,10 +58195,6 @@ $theme-map-light: (
   border: 1px solid #1CC8EE;
   color: var(--ui-text);
 }
-.today-calendar .fc .fc-event-infofc-bg-event,
-.calendar-module .fc .fc-event-infofc-bg-event {
-  border: 1px solid rgba(28, 200, 238, 0.4);
-}
 .today-calendar .fc .fc-event-info .fc-daygrid-event-dot,
 .calendar-module .fc .fc-event-info .fc-daygrid-event-dot {
   border-color: #188aa8;
@@ -58190,10 +58208,6 @@ $theme-map-light: (
   background-color: rgba(252, 165, 73, 0.4);
   border: 1px solid #fca549;
   color: var(--ui-text);
-}
-.today-calendar .fc .fc-event-warningfc-bg-event,
-.calendar-module .fc .fc-event-warningfc-bg-event {
-  border: 1px solid rgba(252, 165, 73, 0.4);
 }
 .today-calendar .fc .fc-event-warning .fc-daygrid-event-dot,
 .calendar-module .fc .fc-event-warning .fc-daygrid-event-dot {
@@ -58209,10 +58223,6 @@ $theme-map-light: (
   border: 1px solid #ea1548;
   color: var(--ui-text);
 }
-.today-calendar .fc .fc-event-dangerfc-bg-event,
-.calendar-module .fc .fc-event-dangerfc-bg-event {
-  border: 1px solid rgba(234, 21, 72, 0.4);
-}
 .today-calendar .fc .fc-event-danger .fc-daygrid-event-dot,
 .calendar-module .fc .fc-event-danger .fc-daygrid-event-dot {
   border-color: #9e163c;
@@ -58226,10 +58236,6 @@ $theme-map-light: (
   background-color: rgba(239, 240, 246, 0.4);
   border: 1px solid #eff0f6;
   color: var(--ui-text);
-}
-.today-calendar .fc .fc-event-lightfc-bg-event,
-.calendar-module .fc .fc-event-lightfc-bg-event {
-  border: 1px solid rgba(239, 240, 246, 0.4);
 }
 .today-calendar .fc .fc-event-light .fc-daygrid-event-dot,
 .calendar-module .fc .fc-event-light .fc-daygrid-event-dot {
@@ -58245,10 +58251,6 @@ $theme-map-light: (
   border: 1px solid #1F2B3A;
   color: var(--ui-text);
 }
-.today-calendar .fc .fc-event-darkfc-bg-event,
-.calendar-module .fc .fc-event-darkfc-bg-event {
-  border: 1px solid rgba(31, 43, 58, 0.4);
-}
 .today-calendar .fc .fc-event-dark .fc-daygrid-event-dot,
 .calendar-module .fc .fc-event-dark .fc-daygrid-event-dot {
   border-color: #1a2433;
@@ -58262,10 +58264,6 @@ $theme-map-light: (
   background-color: rgba(255, 99, 165, 0.4);
   border: 1px solid #ff63a5;
   color: var(--ui-text);
-}
-.today-calendar .fc .fc-event-pinkfc-bg-event,
-.calendar-module .fc .fc-event-pinkfc-bg-event {
-  border: 1px solid rgba(255, 99, 165, 0.4);
 }
 .today-calendar .fc .fc-event-pink .fc-daygrid-event-dot,
 .calendar-module .fc .fc-event-pink .fc-daygrid-event-dot {
@@ -58281,10 +58279,6 @@ $theme-map-light: (
   border: 1px solid #3c64f4;
   color: var(--ui-text);
 }
-.today-calendar .fc .fc-event-bluefc-bg-event,
-.calendar-module .fc .fc-event-bluefc-bg-event {
-  border: 1px solid rgba(60, 100, 244, 0.4);
-}
 .today-calendar .fc .fc-event-blue .fc-daygrid-event-dot,
 .calendar-module .fc .fc-event-blue .fc-daygrid-event-dot {
   border-color: #2d49ac;
@@ -58298,10 +58292,6 @@ $theme-map-light: (
   background-color: rgba(28, 200, 238, 0.4);
   border: 1px solid #1CC8EE;
   color: var(--ui-text);
-}
-.today-calendar .fc .fc-event-cyanfc-bg-event,
-.calendar-module .fc .fc-event-cyanfc-bg-event {
-  border: 1px solid rgba(28, 200, 238, 0.4);
 }
 .today-calendar .fc .fc-event-cyan .fc-daygrid-event-dot,
 .calendar-module .fc .fc-event-cyan .fc-daygrid-event-dot {
@@ -58317,10 +58307,6 @@ $theme-map-light: (
   border: 1px solid #2C3782;
   color: var(--ui-text);
 }
-.today-calendar .fc .fc-event-indigofc-bg-event,
-.calendar-module .fc .fc-event-indigofc-bg-event {
-  border: 1px solid rgba(44, 55, 130, 0.4);
-}
 .today-calendar .fc .fc-event-indigo .fc-daygrid-event-dot,
 .calendar-module .fc .fc-event-indigo .fc-daygrid-event-dot {
   border-color: #232c62;
@@ -58334,10 +58320,6 @@ $theme-map-light: (
   background-color: rgba(239, 99, 10, 0.4);
   border: 1px solid #ef630a;
   color: var(--ui-text);
-}
-.today-calendar .fc .fc-event-orangefc-bg-event,
-.calendar-module .fc .fc-event-orangefc-bg-event {
-  border: 1px solid rgba(239, 99, 10, 0.4);
 }
 .today-calendar .fc .fc-event-orange .fc-daygrid-event-dot,
 .calendar-module .fc .fc-event-orange .fc-daygrid-event-dot {
@@ -58353,10 +58335,6 @@ $theme-map-light: (
   border: 1px solid #01CFC9;
   color: var(--ui-text);
 }
-.today-calendar .fc .fc-event-tealfc-bg-event,
-.calendar-module .fc .fc-event-tealfc-bg-event {
-  border: 1px solid rgba(1, 207, 201, 0.4);
-}
 .today-calendar .fc .fc-event-teal .fc-daygrid-event-dot,
 .calendar-module .fc .fc-event-teal .fc-daygrid-event-dot {
   border-color: #078f90;
@@ -58370,10 +58348,6 @@ $theme-map-light: (
   background-color: rgba(28, 154, 238, 0.4);
   border: 1px solid #1c9aee;
   color: var(--ui-text);
-}
-.today-calendar .fc .fc-event-azurefc-bg-event,
-.calendar-module .fc .fc-event-azurefc-bg-event {
-  border: 1px solid rgba(28, 154, 238, 0.4);
 }
 .today-calendar .fc .fc-event-azure .fc-daygrid-event-dot,
 .calendar-module .fc .fc-event-azure .fc-daygrid-event-dot {
@@ -58389,10 +58363,6 @@ $theme-map-light: (
   border: 1px solid #faf7fa;
   color: var(--ui-text);
 }
-.today-calendar .fc .fc-event-whitefc-bg-event,
-.calendar-module .fc .fc-event-whitefc-bg-event {
-  border: 1px solid rgba(250, 247, 250, 0.4);
-}
 .today-calendar .fc .fc-event-white .fc-daygrid-event-dot,
 .calendar-module .fc .fc-event-white .fc-daygrid-event-dot {
   border-color: #a8a9b0;
@@ -58400,6 +58370,11 @@ $theme-map-light: (
 .today-calendar .fc .fc-event-white .fc-event-main,
 .calendar-module .fc .fc-event-white .fc-event-main {
   color: var(--ui-text);
+}
+.today-calendar .fc .fc-bg-event .fc-event-title,
+.calendar-module .fc .fc-bg-event .fc-event-title {
+  font-style: normal;
+  color: #1F2B3A;
 }
 .today-calendar .fc .fc-highlight,
 .calendar-module .fc .fc-highlight {

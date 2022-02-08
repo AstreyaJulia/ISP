@@ -112,15 +112,41 @@
 
     }
 
+    .fc-addEvBtn-button {
+      color: #fff;
+      background-color: #6C5CE8;
+      border-color: #6C5CE8;
+
+      &:hover {
+        background-color: #5c4ec5;
+        border-color: #564aba;
+      }
+
+      &active {
+        background-color: #564aba;
+        border-color: #5145ae;
+      }
+
+      &:focus:not(:focus-visible) {
+        outline: 0;
+      }
+      &:focus {
+        background-color: #5c4ec5;
+        border-color: #564aba;
+        box-shadow: 0 0 0 0.25rem rgba(130, 116, 235, 0.5);
+      }
+    }
+
+    .fc-filterBtn-button {
+      color: #6C5CE8;
+      border: 1px solid #6C5CE8;
+    }
+
     @each $color_name, $color in $theme-colors {
       .fc-event-#{$color_name} {
         background-color: rgba($color, .4);
         border: 1px solid $color;
         color: var(--ui-text);
-
-        &fc-bg-event {
-          border: 1px solid rgba($color, .4);
-        }
 
         .fc-daygrid-event-dot {
           border-color: mix($black, $color, $darkpercent);
@@ -131,6 +157,11 @@
         }
 
       }
+    }
+
+    .fc-bg-event .fc-event-title {
+      font-style: normal;
+      color: $dark;
     }
 
     .fc-highlight {
