@@ -55,7 +55,7 @@
           </div>
           <div class="card-footer">
             <div class="button-group d-flex align-items-center justify-content-end">
-              <button type="submit" class="btn btn-primary me-3" name="editGroup" value="add">Сохранить</button>
+              <button type="submit" class="btn btn-primary me-3" name="editGroup" value="<?= $editGroupValue ?>">Сохранить</button>
               <button type="button" class="btn btn-outline-danger btn-back">Отмена</button>
             </div>
           </div>

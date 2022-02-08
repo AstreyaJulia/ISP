@@ -9,7 +9,7 @@
     // Проверяем переданный POST для редактирования группы
     $verificationEditGroup = $_POST['editGroup'] ?? "";
 
-    // Добавляем ссылку
+    // Получаем группу при добавлении ссылки
     if (array_key_exists("editLink", $_GET) && empty($_GET["editLink"])) {
         $row = $autorizationClass::sendGET(array(), $host_api.'/api/proxylist/getCategory.php?');
     }
@@ -34,8 +34,10 @@
     $href = $row->data->link[0]->href ?? "";
     $proxy_href = $row->data->link[0]->proxy_href ?? "";
 
-    // Устанавливаем значение кнопки для добавления, редактирования записи
+    // Устанавливаем значение кнопки для добавления, редактирования ссылки
     $editLinkValue = (array_key_exists("editLink", $_GET) && empty($_GET["editLink"])) ? "add": $id;
+    // Устанавливаем значение кнопки для добавления, редактирования группы
+    $editGroupValue = (array_key_exists("editGroup", $_GET) && empty($_GET["editGroup"])) ? "add": $id;
 
     ob_start();
         if (array_key_exists("editLink", $_GET)) {
@@ -49,22 +51,28 @@
     ob_end_clean();
 
 
-    // Добавляем запись
+    // Добавляем ссылку
     if (empty($_GET["editLink"]) && $verificationEditLink == "add") {
+        // собираем массив для отправки
+        unset($_POST['editLink']);
+        $insertLink = array_merge($tokenJWT, $_POST);
         /*
             запишем сообщение в переменную $info
             Теряется при переходе на новую страницу (нужно писать в куку или сессию)
         */
-        $info = $proxylistClass->insertCURL($_POST, $host_api);  
+        $info = $autorizationClass::sendPOST($insertLink, $host_api.'/api/proxylist/insertLink.php')->message;
+
+        header("Location: /?page=proxylist");
     }
 
-    // Редактируем запись
+    // Редактируем ссылку
     if (!empty($_GET["editLink"]) && !empty($verificationEditLink) && $verificationEditLink != "add") {
+        // собираем массив для отправки
+        $editLink = array_merge($tokenJWT, $_POST);
         /*
             запишем сообщение в переменную $info
             Теряется при переходе на новую страницу (нужно писать в куку или сессию)
         */
-        $editLink = array_merge($tokenJWT, $_POST);
 
         $info = $autorizationClass::sendPOST($editLink, $host_api.'/api/proxylist/updateLink.php')->message;
 
