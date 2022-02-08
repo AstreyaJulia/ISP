@@ -27,7 +27,7 @@
     <?php if ($verification == 1): ?>
     <div class="container align-items-center justify-content-end d-flex mb-3">
       <form method="get" action="" class="me-3">
-        <button type="submit" class="btn btn-primary me-2" name="editGroup" value="">Группу</button>
+        <a class="btn btn-primary" href="?page=proxylist&editGroup">Группу</a>
         <a class="btn btn-primary" href="?page=proxylist&editLink">Ссылку</a>
       </form>
     </div>

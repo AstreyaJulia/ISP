@@ -106,7 +106,7 @@
 						href,
 						proxy_href
 					FROM sdc_proxy_list
-					WHERE id = ? AND id_group != 0";
+					WHERE id = ?";
 	        return $this->db->run($sql,[$id])->fetchAll(\PDO::FETCH_ASSOC);
 	    }
 
