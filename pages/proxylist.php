@@ -78,3 +78,33 @@
 
         header("Location: /?page=proxylist");
     }
+
+    // Добавляем группу
+    if (empty($_GET["editGroup"]) && $verificationEditGroup == "add") {
+        // собираем массив для отправки
+        unset($_POST['editGroup']);
+        $insertLink = array_merge($tokenJWT, $_POST);
+        /*
+            запишем сообщение в переменную $info
+            Теряется при переходе на новую страницу (нужно писать в куку или сессию)
+        */
+        $info = $autorizationClass::sendPOST($insertLink, $host_api.'/api/proxylist/insertGroup.php')->message;
+
+        header("Location: /?page=proxylist");
+    }
+
+    // Редактируем группу
+    if (!empty($_GET["editGroup"]) && !empty($verificationEditGroup) && $verificationEditGroup != "add") {
+        // собираем массив для отправки
+        $editGroup = array_merge($tokenJWT, $_POST);
+        /*
+            запишем сообщение в переменную $info
+            Теряется при переходе на новую страницу (нужно писать в куку или сессию)
+        */
+
+        $info = $autorizationClass::sendPOST($editGroup, $host_api.'/api/proxylist/updateGroup.php')->message;
+
+        header("Location: /?page=proxylist");
+    }
+//$delLink = 1;
+    var_dump(isset($delLink));

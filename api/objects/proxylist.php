@@ -33,6 +33,19 @@
 	    	return $this->sudo;
 	    }
 
+	    //Удаляем запись
+	    public function delRecord($params) {
+	    	if (isset($params["delLink"])) {
+	    		$where = "WHERE `id` = :id";
+	    		$params = array('id' => $params["delLink"]);
+	    	} elseif (isset($params["delGroup"])) {
+	    		$where = "WHERE `id` = :id or `id_group` = :id_group";
+	    		$params = array('id' =>$params["delGroup"], 'id_group' => $params["delGroup"]);
+	    	}
+	        $sql = "DELETE FROM `sdc_proxy_list` $where";
+	        return $this->db->run($sql, $params);
+	    }
+
 	    //Редактируем  ссылку
 	    public function updateLink($params) {
 	        $sql = "UPDATE
