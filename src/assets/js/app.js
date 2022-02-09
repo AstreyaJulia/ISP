@@ -2561,6 +2561,7 @@ function calendmodulehandler(settings) {
         addEventTitle.textContent = "Добавить событие";
         addEventFormSubmit.addEventListener('click', addEvent);
         cancelBtn.addEventListener('click', closeAddEvModal);
+        deleteWarningMessage.classList.add('d-none');
         break
       case 'update':
         addEventFormSubmit.textContent = "Обновить";
@@ -3270,9 +3271,6 @@ function calendmodulehandler(settings) {
     }
   }
 
-  addEventButton.addEventListener('click', function () {
-    neweventmodal(null);
-  })
 
   /** Добавление нового события */
   function addEvent() {

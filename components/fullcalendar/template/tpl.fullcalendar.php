@@ -2,8 +2,8 @@
   <div class="p-3">
     <div class="calendar-wrapper">
       <!-- Модал добавления/редактирования события -->
-      <div class="modal add-del-event-modal" aria-labelledby="addEventsModal" style="display: none;">
-        <div class="modal-dialog modal-dialog-centered">
+      <div class="modal add-del-event-modal modal-slide-in" aria-labelledby="addEventsModal" style="display: none;">
+        <div class="modal-dialog sidebar-lg">
           <div class="modal-content add-edit-event-content">
             <form class="event-form form-validate" name="eventForm" novalidate>
               <div class="modal-header">
