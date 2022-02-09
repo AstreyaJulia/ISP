@@ -53,7 +53,7 @@
     "sass": "^1.49.7",
     "select2": "^4.1.0-rc.0",
     "select2-bootstrap-5-theme": "^1.2.0",
-    "stylelint": "^14.3.0"
+    "stylelint": "^14.4.0"
   },
   "browserslist": [
     "last 2 versions",
