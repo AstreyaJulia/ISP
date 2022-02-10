@@ -82,7 +82,7 @@
                             <i class="mdi mdi-pencil-outline"></i>
                           </a>
                           <a class="list-group-toolbutton btnmodal-multiaction" data-modaction="1"
-                             data-link="?page=proxylist&delGroup=<?= $value->id ?>">
+                             data-link="?page=proxylist&delRecord=<?= $value->id ?>">
                             <i class="mdi mdi-delete-outline"></i>
                           </a>
                         </div>
@@ -95,29 +95,29 @@
                   <?php foreach ($row->data->children as $row => $children): ?>
                     <ul class="tab-list-group" id="<?= $row ?>-list">
                       <?php foreach ($children as $key => $value): ?>
-                            <li class="list-group-item">
-                              <?php if ($verification == 1): ?>
-                              <div class="list-group-number">
-                                <p><?= $value->menuindex; ?></p>
-                              </div>
-                              <?php endif ?>
-                              <div class="list-group-body">
-                                <a class="list-group-link" href="<?= $value->href ?>"
-                                   target="_blank"><?= $value->name_href ?></a>
-                              </div>
-                              <?php if ($verification == 1): ?>
-                              <div class="list-group-toolbar">
-                                <a class="list-group-toolbutton btnmodal-multiaction"
-                                   href="?page=proxylist&editLink=<?= $value->id; ?>">
-                                  <i class="mdi mdi-pencil-outline"></i>
-                                </a>
-                                <a class="list-group-toolbutton btnmodal-multiaction" data-modaction="2"
-                                   data-link="?page=proxylist&delLink=<?= $value->id; ?>">
-                                  <i class="mdi mdi-delete-outline"></i>
-                                </a>
-                              </div>
-                            <?php endif ?>
-                            </li>
+                        <li class="list-group-item">
+                          <?php if ($verification == 1): ?>
+                          <div class="list-group-number">
+                            <p><?= $value->menuindex; ?></p>
+                          </div>
+                          <?php endif ?>
+                          <div class="list-group-body">
+                            <a class="list-group-link" href="<?= $value->href ?>"
+                               target="_blank"><?= $value->name_href ?></a>
+                          </div>
+                          <?php if ($verification == 1): ?>
+                          <div class="list-group-toolbar">
+                            <a class="list-group-toolbutton btnmodal-multiaction"
+                               href="?page=proxylist&editLink=<?= $value->id; ?>">
+                              <i class="mdi mdi-pencil-outline"></i>
+                            </a>
+                            <a class="list-group-toolbutton btnmodal-multiaction" data-modaction="2"
+                               data-link="?page=proxylist&delRecord=<?= $value->id; ?>">
+                              <i class="mdi mdi-delete-outline"></i>
+                            </a>
+                          </div>
+                        <?php endif ?>
+                        </li>
                       <?php endforeach ?>
                     </ul>
                   <?php endforeach ?>

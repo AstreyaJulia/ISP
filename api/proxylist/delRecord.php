@@ -7,7 +7,7 @@
 
     $proxyListClass = new \Api\Objects\ProxyList($db);
 
-    $id = $_GET['id'] ?? die();
+    $id = $_GET['delRecord'] ?? die();
     $jwt = $_GET['jwt'] ?? die();
 
     // Файлы jwt
@@ -22,30 +22,15 @@
             $proxyListClass->secureJWT($jwt, $key);
             // проверяем права пользователя
             if ($proxyListClass->getSudo() != 1) {
-                throw new Exception("Недостаточно прав для просмотра записи");
+                throw new Exception("Недостаточно прав для удаления записи");
             }
 
-            $readOne = $proxyListClass->getReadOne($id);
-            if ($proxyListClass->getReadOne($id)) {
-               $proxylist["data"]["link"] = $proxyListClass->getReadOne($id);
-               /* 
-                    список категорий + 
-                    для категории которой принадлежит ссылка ставим атрибут selected
-               */
-               foreach ($proxyListClass->getСategory() as $key => $value) {
-                   if ($proxylist["data"]["link"][0]["parent_id"]== $value["id"]) {
-                        $proxylist["data"]["category"][] = [
-                            "id" => $value["id"],
-                            "selected" => "selected",
-                            "name_href" => $value["name_href"]
-                       ];
-                   } else {
-                    $proxylist["data"]["category"][] = $value;
-                   }
-               }
-
+            if ($proxyListClass->delRecord($id)) {
+               
                // установим код ответа - 200 OK
                 http_response_code(200);
+
+                $proxylist["message"] = "Запись удалена";
 
                 //время выполнения скрипта
                 $proxylist["time"] = (microtime(true) - $start);
@@ -57,7 +42,7 @@
                 http_response_code(404);
 
                 // сообщим пользователю, что ссылки с таким $id не существует
-                echo json_encode(array("message" => "Ссылки не существует."), JSON_UNESCAPED_UNICODE);
+                echo json_encode(array("message" => "Записи не существует."), JSON_UNESCAPED_UNICODE);
             }
         }
 

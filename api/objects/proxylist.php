@@ -35,15 +35,14 @@
 
 	    //Удаляем запись
 	    public function delRecord($params) {
-	    	if (isset($params["delLink"])) {
-	    		$where = "WHERE `id` = :id";
-	    		$params = array('id' => $params["delLink"]);
-	    	} elseif (isset($params["delGroup"])) {
-	    		$where = "WHERE `id` = :id or `id_group` = :id_group";
-	    		$params = array('id' =>$params["delGroup"], 'id_group' => $params["delGroup"]);
-	    	}
-	        $sql = "DELETE FROM `sdc_proxy_list` $where";
-	        return $this->db->run($sql, $params);
+	    	$params = array('id' => $params, 'id_group' => $params);
+
+	        $sql = "DELETE FROM `sdc_proxy_list`
+	        		WHERE `id` = :id or `id_group` = :id_group";
+	        if ($this->db->run($sql, $params)) {
+	        	return true;
+	        }
+	        return false;
 	    }
 
 	    //Редактируем  ссылку

@@ -50,7 +50,6 @@
         $content = ob_get_contents();
     ob_end_clean();
 
-
     // Добавляем ссылку
     if (empty($_GET["editLink"]) && $verificationEditLink == "add") {
         // собираем массив для отправки
