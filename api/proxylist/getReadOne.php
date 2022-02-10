@@ -7,8 +7,15 @@
 
     $proxyListClass = new \Api\Objects\ProxyList($db);
 
-    $id = $_GET['id'] ?? die();
     $jwt = $_GET['jwt'] ?? die();
+
+    if (array_key_exists('editLink', $_GET)) {
+        $id = $_GET['editLink'];
+    } else if (array_key_exists('editGroup', $_GET)) {
+        $id = $_GET['editGroup'];
+    } else {
+        die();
+    }
 
     // Файлы jwt
     require_once $_SERVER['DOCUMENT_ROOT'] . "/api/config/jwt.php";

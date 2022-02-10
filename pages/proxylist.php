@@ -16,14 +16,21 @@
     // Редактируем ссылку
     else if (array_key_exists("editLink", $_GET) && !empty($_GET["editLink"])) {
         // Собираем ID-ссылки и jwt
-        $editLink = array_merge($tokenJWT, array("id" => $_GET["editLink"]));
+        $editLink = array_merge($tokenJWT, array("editLink" => $_GET["editLink"]));
         $row = $autorizationClass::sendGET($editLink, $host_api.'/api/proxylist/getReadOne.php?');
     }
     // Редактируем группу
     else if (array_key_exists("editGroup", $_GET) && !empty($_GET["editGroup"])) {
         // Собираем ID-ссылки и jwt
-        $editGroup = array_merge($tokenJWT, array("id" => $_GET["editGroup"]));
+        $editGroup = array_merge($tokenJWT, array("editGroup" => $_GET["editGroup"]));
         $row = $autorizationClass::sendGET($editGroup, $host_api.'/api/proxylist/getReadOne.php?');
+    }
+    // Удаляем запись
+    else if (array_key_exists("delRecord", $_GET) && !empty($_GET["delRecord"])){
+        // Собираем ID-ссылки и jwt
+        $delRecord = array_merge($tokenJWT, array("delRecord" => $_GET["delRecord"]));
+        $autorizationClass::sendGET($delRecord, $host_api.'/api/proxylist/delRecord.php?');
+        header("Location: /?page=proxylist");
     } else {
         $row = $autorizationClass::sendPOST($tokenJWT, $host_api.'/api/proxylist/getProxyList.php');
     }
@@ -105,5 +112,3 @@
 
         header("Location: /?page=proxylist");
     }
-//$delLink = 1;
-    var_dump(isset($delLink));
