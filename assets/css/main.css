@@ -53629,24 +53629,9 @@ a :hover {
 
 .modal .modal-header .btn-close {
   padding: 0.8rem;
-  box-shadow: 0 5px 20px 0 rgba(34, 41, 47, 0.1);
   border-radius: 0.357rem;
-  background-color: #fff;
   opacity: 1;
-  transition: all 0.23s ease 0.1s;
   position: relative;
-  transform: translate(18px, -10px);
-}
-
-.modal .modal-header .btn-close:hover, .modal .modal-header .btn-close:focus, .modal .modal-header .btn-close:active {
-  opacity: 1;
-  outline: none;
-  transform: translate(15px, -2px);
-  box-shadow: none;
-}
-
-.modal .modal-fullscreen .modal-header .btn-close {
-  transform: translate(0, 0);
 }
 
 .modal .modal-content {
@@ -53713,8 +53698,6 @@ a :hover {
 }
 
 .modal-slide-in .modal-dialog .modal-content {
-  padding-bottom: 1.8875rem;
-  padding-top: 1.8875rem;
   overflow: auto;
   border-radius: 0;
   height: 100%;
@@ -53741,19 +53724,6 @@ a :hover {
     width: 30rem;
   }
 }
-.modal-slide-in .btn-close {
-  top: 0.4rem;
-  z-index: 10;
-  transform: none;
-  position: absolute;
-  top: 1.5rem;
-  right: 1.4rem;
-  margin: 0;
-  padding: 0 !important;
-  line-height: 0.5;
-  transform: translate(0, -50%);
-}
-
 .modal-slide-in.fade .modal-dialog,
 .modal-slide-in .modal.fade .modal-dialog {
   transform: translateX(100%);

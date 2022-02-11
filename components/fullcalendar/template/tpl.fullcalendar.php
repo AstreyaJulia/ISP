@@ -3,34 +3,21 @@
     <div class="calendar-wrapper">
       <!-- Модал добавления/редактирования события -->
       <div class="modal add-del-event-modal modal-slide-in" aria-labelledby="addEventsModal" style="display: none;">
-        <div class="modal-dialog sidebar-lg">
-          <div class="modal-content add-edit-event-content">
-            <form class="event-form form-validate" name="eventForm" novalidate>
-              <div class="modal-header">
-                <h5 class="add-event-title modal-title">Добавить событие</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
-              </div>
-              <div class="modal-body">
-                <div class="add-edit-event-box">
-                  <div class="add-edit-event-content">
-
-                    <nav>
-                      <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
-                        <button class="nav-link active" id="nav-main-tab" data-bs-toggle="tab"
-                                data-bs-target="#nav-main"
-                                type="button" role="tab" aria-controls="nav-main" aria-selected="true">Основное
-                        </button>
-                        <button class="nav-link" id="nav-rep-tab" data-bs-toggle="tab" data-bs-target="#nav-rep"
-                                type="button" role="tab" aria-controls="nav-rep" aria-selected="false">Повторение
-                        </button>
-                      </div>
-                    </nav>
-
-                    <div class="tab-content" id="nav-tabContent">
-                      <div class="tab-pane fade show active" id="nav-main" role="tabpanel"
-                           aria-labelledby="nav-main-tab">
+        <div class="modal-dialog sidebar-lg h-100">
+          <div class="modal-content add-edit-event-content h-100 overflow-hidden">
+            <div class="overlayscrollbar h-100">
+              <form class="event-form form-validate d-flex flex-column justify-content-between h-100" name="eventForm"
+                    novalidate>
+                <div>
+                  <div class="modal-header">
+                    <h5 class="add-event-title modal-title">Добавить событие</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="add-edit-event-box">
+                      <div class="add-edit-event-content">
                         <fieldset>
-                          <div class="row">
+                          <div class="row mt-3">
                             <div class="form-group">
                               <div class="d-flex flex-column">
                                 <label for="eventTitle" class="">Название события:</label>
@@ -41,7 +28,7 @@
                             </div>
                             <div class="form-group">
                               <div class="form-check form-switch">
-                                <input type="checkbox" class="form-check-input" name="privateCheck">
+                                <input type="checkbox" class="form-check-input" name="privateCheck" id="customSwitch1">
                                 <label class="form-check-label" for="customSwitch1">Вижу только я (приватное
                                   событие)</label>
                               </div>
@@ -85,23 +72,19 @@
                               </div>
                             </div>
                             <div class="col-md-12">
-                              <label for="start-date" class="">Описание события:</label>
+                              <label for="eventDescription" class="">Описание события:</label>
                               <div class="event-description">
                           <textarea placeholder="Введите описание" rows="3"
-                                    class="form-control overlayscrollbar" name="eventDescription"></textarea>
+                                    class="form-control overlayscrollbar" name="eventDescription"
+                                    id="eventDescription"></textarea>
                               </div>
                             </div>
-                            <p class="text-danger mt-3 mb-0 p-0 ms-3 me-3 delete-warning">Внимание. Удаляя повторяющееся
-                              событие, вы удаляете
-                              ВСЕ повторения.</p>
                           </div>
                         </fieldset>
-                      </div>
-                      <div class="tab-pane fade" id="nav-rep" role="tabpanel" aria-labelledby="nav-rep-tab">
                         <div class="row mt-3">
                           <div class="form-group">
                             <div class="form-check form-switch">
-                              <input type="checkbox" class="form-check-input" name="repeatSwitch">
+                              <input type="checkbox" class="form-check-input" name="repeatSwitch" id="customSwitch2">
                               <label class="form-check-label" for="customSwitch2">Это событие повторяется</label>
                             </div>
                           </div>
@@ -125,7 +108,6 @@
                                   <label for="daynum" class="form-label mb-0" id="daynum-label">день</label>
                                 </div>
                               </div>
-
                               <div id="weekly-section" style="display: none">
 
                                 <div class="d-week-check d-flex">
@@ -161,7 +143,6 @@
                                 </div>
 
                               </div>
-
                               <div id="monthly-section" style="display: none">
                                 <div class="form-check mb-3">
                                   <div class="form-group d-flex align-items-end position-relative mb-0">
@@ -190,10 +171,9 @@
                                     месяца</label>
                                 </div>
                               </div>
-
                               <div id="repdiap">
                                 <p>Диапазон повторения:</p>
-                                <div class="form-group startrep-date ">
+                                <div class="form-group startrep-date">
                                   <label for="startrep-date" class="">Начало повторения:</label>
                                   <div>
                                     <input id="startrep-date" placeholder="Дата начала"
@@ -201,7 +181,6 @@
                                            type="text">
                                   </div>
                                   <p class="mt-3">Конец повторения (если не выбрано - бесконечно):</p>
-
                                   <div class="form-check mt-3">
                                     <div class="form-group d-flex align-items-end position-relative">
                                       <input type="checkbox" name="radios" class="form-check-input me-2" id="Radio5">
@@ -221,23 +200,27 @@
                                     </div>
                                   </div>
                                 </div>
-                              </div
+                              </div>
                             </div>
                           </div>
                         </div>
+                        <p class="text-danger delete-warning mt-3">Внимание. Удаляя повторяющееся
+                          событие, вы удаляете
+                          ВСЕ повторения.</p>
+
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="modal-footer mt-3">
-                <button class="btn btn-primary add-update-event-submit btn-submit" type="submit">Добавить
-                  событие
-                </button>
-                <button class="btn btn-outline-danger delete-discard-event-button">Отмена
-                </button>
-              </div>
-            </form>
+                <div class="modal-footer">
+                  <button class="btn btn-primary add-update-event-submit btn-submit" type="submit">Добавить
+                    событие
+                  </button>
+                  <button class="btn btn-outline-danger delete-discard-event-button">Отмена
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
@@ -249,7 +232,6 @@
             <img src="assets/img/cosmonaut-laptop.svg" alt="" style="width: 60%; height: auto"
                  class="align-items-center">
           </div>
-
           <div class="card-body">
             <div>
               <div class="filter-group calendar-private-filter flex-column align-items-start p-3">
@@ -273,7 +255,5 @@
         </div>
 
       </div>
-
-
     </div>
 </main>

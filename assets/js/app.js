@@ -2271,7 +2271,7 @@ const minicalendarhandler = () => {
 
   let calendar = new FullCalendar.Calendar(minicalendar, {
     locale: 'ru',
-    timeZone: 'Europe/Moscow',
+    timeZone: settings.timezone,
     initialView: 'dayGridMonth',
     height: 300,
     editable: false,
@@ -2333,7 +2333,11 @@ const calendarModuleSettings = {
   filterInput: ".input-filter",
   selectAll: ".select-all",
   privateinp: "Private",
-  repeatparams: ".repeat-col"
+  repeatparams: ".repeat-col",
+  timezone: 'Europe/Moscow',
+  datetimeformat: 'YYYY-MM-DD HH:mm',
+  bddatetimeformat: 'YYYY-MM-DD HH:mm',
+  datepickerformat: "Y-m-d H:i"
 }
 
 /**
@@ -2422,12 +2426,6 @@ function calendmodulehandler(settings) {
   const startrepDate = document.getElementById("startrep-date");
   // поле ввода окончания повторения
   const endrepDate = document.getElementById("endrep-date");
-  // Таб Основное на модале
-  const maintab = document.getElementById("nav-main-tab");
-  // Таб Повторение на модале
-  const reptab = document.getElementById("nav-rep-tab");
-  // Вкладка Основное на модале
-  const mainpane = document.getElementById("nav-main");
   // Вкладка Повторение на модале
   const reppane = document.getElementById("nav-rep");
   // Все чекбоксы дней недель
@@ -2500,7 +2498,7 @@ function calendmodulehandler(settings) {
 
     /** Если включили повторение, то дата начала повторения берется из даты начала события */
     repeatSwitch.addEventListener('click', () =>
-      repswitch(moment(startDate.value).format('YYYY-MM-DD HH:mm'))
+      repswitch(moment(startDate.value).format(settings.datetimeformat))
     );
 
     /** Выбор повторения для дня */
@@ -2511,11 +2509,11 @@ function calendmodulehandler(settings) {
     /** Если переключают на весь день, то меняется диапазон времени на весь день, и наоборот, на текущее время, не меняя введенной даты */
     allDaySwitch.addEventListener('click', function () {
       if (allDaySwitch.checked === true) {
-        startDate.value = moment(startDate.value).hour(0).minutes(0).format('YYYY-MM-DD HH:mm');
-        endDate.value = moment(endDate.value).hour(23).minutes(59).format('YYYY-MM-DD HH:mm');
+        startDate.value = moment(startDate.value).hour(0).minutes(0).format(settings.datetimeformat);
+        endDate.value = moment(endDate.value).hour(23).minutes(59).format(settings.datetimeformat);
       } else {
-        startDate.value = moment(startDate.value).hour(moment().hour()).minutes(moment().minutes()).format('YYYY-MM-DD HH:mm');
-        endDate.value = moment(endDate.value).hour(moment().hour()).minutes(moment().minutes()).format('YYYY-MM-DD HH:mm');
+        startDate.value = moment(startDate.value).hour(moment().hour()).minutes(moment().minutes()).format(settings.datetimeformat);
+        endDate.value = moment(endDate.value).hour(moment().hour()).minutes(moment().minutes()).format(settings.datetimeformat);
       }
     })
 
@@ -2584,7 +2582,6 @@ function calendmodulehandler(settings) {
    * @param array массив дней
    */
   function checkweekdays(array) {
-    console.log(array)
     array.map((currElement, index) => {
       wdayscheck[currElement].checked = true;
     });
@@ -2611,13 +2608,13 @@ function calendmodulehandler(settings) {
   function repswitch(info) {
     if (repeatSwitch.checked === true) {
       if (info == null) {
-        const date = moment().tz('Europe/Moscow').format('YYYY-MM-DD HH:mm');
+        const date = moment().tz(settings.timezone).format(settings.datetimeformat);
         startrepDate.value = date;
-        endrepDate.value = moment(date).tz('Europe/Moscow').add(9, 'years').format('YYYY-MM-DD HH:mm');
+        endrepDate.value = moment(date).tz(settings.timezone).add(9, 'years').format(settings.datetimeformat);
       } else {
-        const date = moment(info).tz('Europe/Moscow').format('YYYY-MM-DD HH:mm');
+        const date = moment(info).tz(settings.timezone).format(settings.datetimeformat);
         startrepDate.value = date;
-        endrepDate.value = moment(date).tz('Europe/Moscow').add(9, 'years').format('YYYY-MM-DD HH:mm');
+        endrepDate.value = moment(date).tz(settings.timezone).add(9, 'years').format(settings.datetimeformat);
       }
       repeatparams.style.display = "block";
       repparamSwitch.required = true;
@@ -2652,7 +2649,7 @@ function calendmodulehandler(settings) {
       Event.append("calendar", $(eventLabel).val());
       Event.append("private", $(privateSwitch).prop('checked') ? '1' : '0');
       Event.append("description", $(calendarEditor).val());
-      Event.append("tzid", "Europe/Moscow");
+      Event.append("tzid", settings.timezone);
       Event.append("allDay", $(allDaySwitch).prop('checked') ? '1' : '0');
       // Параметры повторения. Если галочка включена
       if ($(repeatSwitch).prop('checked')) {
@@ -2713,10 +2710,10 @@ function calendmodulehandler(settings) {
         }
 
         // Начало повторения
-        Event.append("dtstart", moment($(startrepDate).val()).format('YYYY-MM-DD HH:mm:ss'));
+        Event.append("dtstart", moment($(startrepDate).val()).format(settings.datetimeformat));
         // Диапазон повторения
         if ($(repdate).prop('checked')) {
-          Event.append("until", moment($(endrepDate).val()).format('YYYY-MM-DD HH:mm:ss'));
+          Event.append("until", moment($(endrepDate).val()).format(settings.datetimeformat));
         } else {
           Event.append("until", '0');
         }
@@ -2728,11 +2725,11 @@ function calendmodulehandler(settings) {
         }
 
         // Начало повторения
-        Event.append("dtstart", moment($(startrepDate).val()).format('YYYY-MM-DD HH:mm:ss'));
+        Event.append("dtstart", moment($(startrepDate).val()).format(settings.datetimeformat));
 
         // Диапазон повторения
         if ($(repdate).prop('checked')) {
-          Event.append("until", moment($(endrepDate).val()).format('YYYY-MM-DD HH:mm:ss'));
+          Event.append("until", moment($(endrepDate).val()).format(settings.datetimeformat));
         }
         // Кол-во повторений
         if ($(repcount).prop('checked')) {
@@ -2868,9 +2865,9 @@ function calendmodulehandler(settings) {
     /** Приватное событие */
     privateSwitch.checked = !(event.extendedProps.private === 0 || event.extendedProps.private === "0");
     /** Разные даты начала и конца события для создаваемых событий при нажатии на кнопку создания и на день */
-    const date = moment(info.date).format('YYYY-MM-DD HH:mm');
-    startDatepicker.setDate(date, true, 'YYYY-MM-DD HH:mm')
-    endDatepicker.setDate(date, true, 'YYYY-MM-DD HH:mm')
+    const date = moment(info.date).format(settings.datetimeformat);
+    startDatepicker.setDate(date, true, settings.datetimeformat)
+    endDatepicker.setDate(date, true, settings.datetimeformat)
 
     /**
      * Чекбоксы повторения для месяца
@@ -2953,7 +2950,7 @@ function calendmodulehandler(settings) {
 
     /** Повторять до даты */
     if (event._def.recurringDef !== null) {
-      deleteWarningMessage.classList.contains('d-none') ? deleteWarningMessage.classList.remove('d-none') : false
+      deleteWarningMessage.classList.remove('d-none');
       getRepeatsEvent(event._def.recurringDef.typeData.rruleSet._rrule[0].options.freq);
 
       if (event._def.recurringDef.typeData.rruleSet._rrule[0].options.freq === 2) {
@@ -2965,9 +2962,9 @@ function calendmodulehandler(settings) {
       repeatSwitch.checked = true;
       repeatparams.style.display = "block";
       repparamSwitch.required = true;
-      startrepDate.value = moment(event._def.recurringDef.typeData.rruleSet._rrule[0].options.dtstart).utc().format('YYYY-MM-DD HH:mm');
+      startrepDate.value = moment(event._def.recurringDef.typeData.rruleSet._rrule[0].options.dtstart).utc().format(settings.datetimeformat);
       if (event._def.recurringDef.typeData.rruleSet._rrule[0].options.until) {
-        endrepDate.value = moment(event._def.recurringDef.typeData.rruleSet._rrule[0].options.until).utc().format('YYYY-MM-DD HH:mm');
+        endrepDate.value = moment(event._def.recurringDef.typeData.rruleSet._rrule[0].options.until).utc().format(settings.datetimeformat);
         repdate.checked = true;
         endrepDate.checked = false;
       } else {
@@ -2987,11 +2984,11 @@ function calendmodulehandler(settings) {
       repeatSwitch.checked = false;
     }
 
-    startDatepicker.setDate(event.start, true, 'YYYY-MM-DD HH:mm');
+    startDatepicker.setDate(event.start, true, settings.datetimeformat);
     event.allDay === true ? allDaySwitch.checked = true : allDaySwitch.checked = false;
     event.end !== null
-      ? endDatepicker.setDate(event.end, true, 'YYYY-MM-DD HH:mm')
-      : endDatepicker.setDate(event.start, true, 'YYYY-MM-DD HH:mm');
+      ? endDatepicker.setDate(event.end, true, settings.datetimeformat)
+      : endDatepicker.setDate(event.start, true, settings.datetimeformat);
     $(addDelEventModal).find(eventLabel).val(event.extendedProps.calendar).trigger('change');
     $(addDelEventModal).find(calendarEditor).val(event.extendedProps.description);
   }
@@ -3104,7 +3101,7 @@ function calendmodulehandler(settings) {
   const startDatepicker = startDate.flatpickr({
     locale: "ru",
     enableTime: true,
-    dateFormat: 'Y-m-d H:i',
+    dateFormat: settings.datepickerformat,
   });
 
   /**
@@ -3114,7 +3111,7 @@ function calendmodulehandler(settings) {
   const endDatepicker = endDate.flatpickr({
     locale: "ru",
     enableTime: true,
-    dateFormat: 'Y-m-d H:i',
+    dateFormat: settings.datepickerformat,
     onReady: function (selectedDates, dateStr, instance) {
     }
   });
@@ -3126,7 +3123,7 @@ function calendmodulehandler(settings) {
   const startRepeatDatepicker = startrepDate.flatpickr({
     locale: "ru",
     enableTime: true,
-    dateFormat: 'Y-m-d H:i',
+    dateFormat: settings.datepickerformat,
   });
 
   /**
@@ -3136,7 +3133,7 @@ function calendmodulehandler(settings) {
   const endRepeatDatepicker = endrepDate.flatpickr({
     locale: "ru",
     enableTime: true,
-    dateFormat: 'Y-m-d H:i',
+    dateFormat: settings.datepickerformat,
   });
 
   /**
@@ -3148,8 +3145,8 @@ function calendmodulehandler(settings) {
     const filterInput2 = document.querySelectorAll('.input-filter:not(.select-all)');
     let data = {
       /** С не фиксированной датой не работают повторяющиеся собыия */
-      startParam: moment(info.start).tz('Europe/Moscow').format('YYYY-MM-DD'),
-      endParam: moment(info.end).tz('Europe/Moscow').format('YYYY-MM-DD'),
+      startParam: moment(info.start).tz(settings.timezone).format('YYYY-MM-DD'),
+      endParam: moment(info.end).tz(settings.timezone).format('YYYY-MM-DD'),
       calendars: selectedCheckboxes(filterInput2, 'selected'),
       private: privateinp.checked === true ? 1 : 0
     };
@@ -3183,7 +3180,7 @@ function calendmodulehandler(settings) {
   const calendar = new FullCalendar.Calendar(calendarEl, {
     themeSystem: 'standard',
     locale: 'ru',
-    timeZone: 'Europe/Moscow',
+    timeZone: settings.timezone,
     initialView: 'dayGridMonth',
     editable: true,
     dragScroll: false,
@@ -3231,27 +3228,7 @@ function calendmodulehandler(settings) {
 
   /** Рендеринг календаря */
   calendar.render();
-  /*function renderFilterDrop() {
-    const filterBtn = calendarEl.querySelector('.fc-filterBtn-button');
-    filterBtn.classList.add('dropdown-toggle');
-    filterBtn.id = 'filterDropdown';
-    filterBtn.ariaExpanded = "false";
-    filterBtn.dataset.bsToggle = 'dropdown';
-    const filterDropdown = `<div class="dropdown-menu" aria-labelledby="filterDropdown">
-                <div class="filter-group calendar-private-filter flex-column align-items-start p-3">
-                  <p class="group-title mb-2">События:</p>
-                  <div class="form-check d-flex align-items-center mb-2">
-                    <input class="form-check-input bg-primary me-2" type="checkbox" id="Private" name="Private">
-                    <label class="form-check-label" for="Private">Только мои</label>
-                  </div>
-                </div>
-                <div class="filter-group calendar-events-filter flex-column align-items-start p-3" id="calEventFilter">
-                </div>
-              </div>`;
-    filterBtn.insertAdjacentHTML('afterend', filterDropdown);
-  }
 
-  renderFilterDrop();*/
   setInterval(() => {
     calendar.refetchEvents();
   }, 1000);
@@ -3265,9 +3242,9 @@ function calendmodulehandler(settings) {
       $(startDate).val("");
       $(endDate).val("");
     } else {
-      const date = moment(info.date).format('YYYY-MM-DD HH:mm');
-      startDatepicker.setDate(date, true, 'YYYY-MM-DD HH:mm');
-      endDatepicker.setDate(date, true, 'YYYY-MM-DD HH:mm');
+      const date = moment(info.date).format(settings.datetimeformat);
+      startDatepicker.setDate(date, true, settings.datetimeformat);
+      endDatepicker.setDate(date, true, settings.datetimeformat);
     }
   }
 
@@ -3287,13 +3264,13 @@ function calendmodulehandler(settings) {
       Event.append("operation", "add");
       Event.append("title", eventTitle.value);
       let title = eventTitle.value;
-      Event.append("start", moment(startDate.value).format('YYYY-MM-DD HH:mm:ss'));
-      Event.append("end", moment(endDate.value).format('YYYY-MM-DD HH:mm:ss'));
+      Event.append("start", moment(startDate.value).format(settings.datetimeformat));
+      Event.append("end", moment(endDate.value).format(settings.datetimeformat));
       Event.append("calendar", eventLabel.value);
       Event.append("description", calendarEditor.value);
       Event.append("private", privateSwitch.checked === true ? '1' : '0');
       Event.append("user_id", cookieID);
-      Event.append("tzid", "Europe/Moscow");
+      Event.append("tzid", settings.timezone);
       if (allDaySwitch.checked === true) {
         /** Если Весь день, то меняем переменную */
         Event.append("allDay", "1");
@@ -3339,10 +3316,10 @@ function calendmodulehandler(settings) {
         }
 
         /** Начало повторения */
-        Event.append("dtstart", moment(startrepDate.value).format('YYYY-MM-DD HH:mm:ss'));
+        Event.append("dtstart", moment(startrepDate.value).format('YYYY-MM-DD HH:mm'));
         /** Диапазон повторения */
         if (repdate.checked === true) {
-          Event.append("until", moment(endrepDate.value).format('YYYY-MM-DD HH:mm:ss'));
+          Event.append("until", moment(endrepDate.value).format('YYYY-MM-DD HH:mm'));
         }
         /** Кол-во повторений */
         if (repcount.checked === true) {
@@ -3358,13 +3335,6 @@ function calendmodulehandler(settings) {
     eventForm.reset();
     repeatparams.style.display = "none";
     $(addDelEventModal).find(eventLabel).val('').trigger('change');
-    // Переключить вкладку на Основное
-    maintab.classList.add('active');
-    mainpane.classList.add('show');
-    mainpane.classList.add('active');
-    reptab.classList.remove('active');
-    reppane.classList.remove('show');
-    reppane.classList.remove('active');
     // Скрыть параметры повторения
     intervalsection.style.display = "none";
     weeklysection.style.display = "none";
