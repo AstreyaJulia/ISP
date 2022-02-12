@@ -127,9 +127,9 @@ function enableValidation() {
 
 
 /** ждем загрузки DOM */
-document.addEventListener('DOMContentLoaded', function () {
+/*document.addEventListener('DOMContentLoaded', function () {
   enableValidation();
-});
+});*/
 
 
 /**
@@ -2414,7 +2414,6 @@ function calendmodulehandler(settings) {
   // Секции с параметрами повторения по неделям, месяцам, годам
   const weeklysection = document.getElementById("weekly-section");
   const monthlysection = document.getElementById("monthly-section");
-  //const yearlysection = document.getElementById("yearly-section");
   // Секция с интервалом
   const intervalsection = document.getElementById("interval-section");
   // Метка "день" в интервале
@@ -2430,20 +2429,6 @@ function calendmodulehandler(settings) {
   const reppane = document.getElementById("nav-rep");
   // Все чекбоксы дней недель
   const wdayscheck = document.querySelectorAll('.wdays-check');
-  // Чекбокс Пн
-  const monday = document.getElementById("monday");
-  // Чекбокс Вт
-  const tuesday = document.getElementById("tuesday");
-  // Чекбокс Ср
-  const wednesday = document.getElementById("wednesday");
-  // Чекбокс Чт
-  const thursday = document.getElementById("thursday");
-  // Чекбокс Пт
-  const friday = document.getElementById("friday");
-  // Чекбокс Сб
-  const saturday = document.getElementById("saturday");
-  // Чекбокс Вс
-  const sunday = document.getElementById("sunday");
   // Радио Закончить после даты
   const repdate = document.getElementById("Radio5");
   // Радио Закончить после повторений
@@ -2508,13 +2493,17 @@ function calendmodulehandler(settings) {
 
     /** Если переключают на весь день, то меняется диапазон времени на весь день, и наоборот, на текущее время, не меняя введенной даты */
     allDaySwitch.addEventListener('click', function () {
+      let start;
+      let end;
       if (allDaySwitch.checked === true) {
-        startDate.value = moment(startDate.value).hour(0).minutes(0).format(settings.datetimeformat);
-        endDate.value = moment(endDate.value).hour(23).minutes(59).format(settings.datetimeformat);
+        start = moment(startDate.value).hour(0).minutes(0).format(settings.datetimeformat);
+        end = moment(endDate.value).hour(23).minutes(59).format(settings.datetimeformat);
       } else {
-        startDate.value = moment(startDate.value).hour(moment().hour()).minutes(moment().minutes()).format(settings.datetimeformat);
-        endDate.value = moment(endDate.value).hour(moment().hour()).minutes(moment().minutes()).format(settings.datetimeformat);
+        start = moment(startDate.value).hour(moment().hour()).minutes(moment().minutes()).format(settings.datetimeformat);
+        end = moment(endDate.value).hour(moment().hour()).minutes(moment().minutes()).format(settings.datetimeformat);
       }
+      startDatepicker.setDate(start, true);
+      endDatepicker.setDate(end, true);
     })
 
     function checkStartDate() {
@@ -2533,10 +2522,14 @@ function calendmodulehandler(settings) {
 
     function repDateCheck() {
       if (repdate.checked === true) {
+        repdateinp.nextSibling.disabled = false;
         repdateinp.disabled = false;
         repcount.checked = false;
       } else {
+        repdateinp.nextSibling.disabled = true;
         repdateinp.disabled = true;
+        repdateinp.value = "";
+        endRepeatDatepicker.setDate('', true)
       }
     }
     function repCountCheck() {
@@ -2545,6 +2538,7 @@ function calendmodulehandler(settings) {
         repdate.checked = false;
       } else {
         repcountinp.disabled = true;
+        repcountinp.value = "";
       }
     }
 
@@ -2575,6 +2569,7 @@ function calendmodulehandler(settings) {
     const modalBackdrop = document.createElement("div");
     modalBackdrop.setAttribute('class', 'modal-backdrop fade show')
     document.body.appendChild(modalBackdrop);
+    setInputEvtListeners(eventForm);
   }
 
   /**
@@ -2625,6 +2620,10 @@ function calendmodulehandler(settings) {
       repparamSwitch.value = 'none';
       repparamSwitch.required = false;
     }
+    /*repparamSwitch.addEventListener('input', () => {
+      validateInput(eventForm, repparamSwitch);
+    });*/
+    setInputEvtListeners(eventForm);
   }
 
   /**
@@ -2817,9 +2816,9 @@ function calendmodulehandler(settings) {
         monthlysection.style.display = "none";
 
         /** Получаем текущий день недели, ставим галочку в параметрах */
-        if (!(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday)) {
+        /*if (!(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday)) {
           checkweekdays([moment(startDate.value).weekday()]);
-        }
+        }*/
 
         evdmonth.checked = false;
         daynumlabel2.textContent = 'Каждую';
@@ -3101,6 +3100,8 @@ function calendmodulehandler(settings) {
   const startDatepicker = startDate.flatpickr({
     locale: "ru",
     enableTime: true,
+    altInput: true,
+    altFormat: "d.m.Y H:i",
     dateFormat: settings.datepickerformat,
   });
 
@@ -3111,6 +3112,8 @@ function calendmodulehandler(settings) {
   const endDatepicker = endDate.flatpickr({
     locale: "ru",
     enableTime: true,
+    altInput: true,
+    altFormat: "d.m.Y H:i",
     dateFormat: settings.datepickerformat,
     onReady: function (selectedDates, dateStr, instance) {
     }
@@ -3123,6 +3126,8 @@ function calendmodulehandler(settings) {
   const startRepeatDatepicker = startrepDate.flatpickr({
     locale: "ru",
     enableTime: true,
+    altInput: true,
+    altFormat: "d.m.Y H:i",
     dateFormat: settings.datepickerformat,
   });
 
@@ -3133,6 +3138,8 @@ function calendmodulehandler(settings) {
   const endRepeatDatepicker = endrepDate.flatpickr({
     locale: "ru",
     enableTime: true,
+    altInput: true,
+    altFormat: "d.m.Y H:i",
     dateFormat: settings.datepickerformat,
   });
 

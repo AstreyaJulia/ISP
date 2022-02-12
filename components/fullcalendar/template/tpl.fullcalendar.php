@@ -21,8 +21,10 @@
                             <div class="form-group">
                               <div class="d-flex flex-column">
                                 <label for="eventTitle" class="">Название события:</label>
-                                <input type="text" placeholder="Введите название" class="form-control"
-                                       name="eventTitle" id="eventTitle" required minlength="2" maxlength="100">
+                                <textarea type="text" placeholder="Введите название" rows="2"
+                                          class="form-control overlayscrollbar"
+                                          name="eventTitle" id="eventTitle" required minlength="2"
+                                          maxlength="100"></textarea>
                                 <span class="input-error text-danger font-size-base" id="eventTitle-error"></span>
                               </div>
                             </div>
@@ -99,6 +101,7 @@
                                   <option value="monthly-section">Ежемесячно</option>
                                   <option value="yearly-section">Ежегодно</option>
                                 </select>
+                                <span class="input-error text-danger font-size-base" id="dayrepopt-error"></span>
                               </div>
                               <div id="interval-section" style="display: none">
                                 <div class="form-group d-flex align-items-center position-relative">
@@ -179,15 +182,18 @@
                                     <input id="startrep-date" placeholder="Дата начала"
                                            class="form-control flatpickr-input position-relative"
                                            type="text">
+                                    <span class="input-error text-danger font-size-base" id="startrep-date-error"></span>
                                   </div>
                                   <p class="mt-3">Конец повторения (если не выбрано - бесконечно):</p>
                                   <div class="form-check mt-3">
                                     <div class="form-group d-flex align-items-end position-relative">
-                                      <input type="checkbox" name="radios" class="form-check-input me-2" id="Radio5">
-                                      <label class="form-check-label me-2" for="Radio5">Закончить после</label>
+                                      <input type="checkbox" name="radios" class="form-check-input me-2 flex-shrink-0"
+                                             id="Radio5">
+                                      <label class="form-check-label flex-shrink-0  me-2" for="Radio5">Закончить после</label>
                                       <input id="endrep-date" placeholder="Дата окончания"
                                              class="form-control flatpickr-input position-relative"
-                                             type="text" style="width: 200px" disabled>
+                                             type="text" disabled>
+                                      <span class="input-error text-danger font-size-base" id="endrep-date-error"></span>
                                       <label for="endrep-date"></label>
                                     </div>
 
@@ -207,7 +213,6 @@
                         <p class="text-danger delete-warning mt-3">Внимание. Удаляя повторяющееся
                           событие, вы удаляете
                           ВСЕ повторения.</p>
-
                       </div>
                     </div>
                   </div>
@@ -232,18 +237,14 @@
             <img src="assets/img/cosmonaut-laptop.svg" alt="" style="width: 60%; height: auto"
                  class="align-items-center">
           </div>
-          <div class="card-body">
-            <div>
-              <div class="filter-group calendar-private-filter flex-column align-items-start p-3">
-                <p class="group-title mb-2">События:</p>
-                <div class="form-check d-flex align-items-center mb-2">
-                  <input class="form-check-input bg-primary me-2" type="checkbox" id="Private" name="Private">
-                  <label class="form-check-label" for="Private">Только мои</label>
-                </div>
-              </div>
-              <div class="filter-group calendar-events-filter flex-column align-items-start p-3" id="calEventFilter">
-              </div>
+          <div class="filter-group calendar-private-filter flex-column align-items-start p-3">
+            <p class="group-title mb-2">События:</p>
+            <div class="form-check d-flex align-items-center mb-2">
+              <input class="form-check-input bg-primary me-2" type="checkbox" id="Private" name="Private">
+              <label class="form-check-label" for="Private">Только мои</label>
             </div>
+          </div>
+          <div class="filter-group calendar-events-filter flex-column align-items-start p-3" id="calEventFilter">
           </div>
         </div>
         <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12 ps-0">
@@ -253,7 +254,6 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
 </main>
