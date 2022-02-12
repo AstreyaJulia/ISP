@@ -1,4 +1,5 @@
 import {cookieID} from "./globalfunc"
+import {ajax_send} from "./globalfunc"
 
 // Меню сайдбара
 const sidebarnavmenu = document.querySelector('.navigation-menu');

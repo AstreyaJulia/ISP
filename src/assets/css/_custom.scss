@@ -612,12 +612,14 @@ $theme-map-light: (
 $theme-map-light: (
   '--ui-bg': $white,
   '--ui-bg-mid': $gray-100,
-  '--ui-border': $gray-300,
+  '--ui-border': $gray-400,
   '--ui-shadow': $grey-shadow-3,
   '--ui-shadow-elements': $grey-shadow-6,
-  '--ui-text': $gray-700,
-  '--ui-text-mid': $gray-500,
-  '--ui-text-bold': $gray-900,
+  '--ui-text-lighter': $gray-600,
+  '--ui-text-light': $gray-700,
+  '--ui-text': $gray-800,
+  '--ui-text-mid': $gray-900,
+  '--ui-text-bold': $black,
 );
 
 $theme-map-dark: (
@@ -626,9 +628,11 @@ $theme-map-dark: (
   '--ui-border': $gray-700,
   '--ui-shadow': $white-shadow-3,
   '--ui-shadow-elements': $white-shadow-6,
-  '--ui-text': $gray-300,
-  '--ui-text-mid': $gray-500,
-  '--ui-text-bold': $gray-100,
+  '--ui-text-lighter': $gray-600,
+  '--ui-text-light': $gray-500,
+  '--ui-text': $gray-400,
+  '--ui-text-mid': $gray-200,
+  '--ui-text-bold': $white,
 );
 
 // Цветовые схемы

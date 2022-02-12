@@ -719,7 +719,7 @@ a {
   .submenu-item {
 
     &:not(.active) a {
-      color: var(--ui-text);
+      color: var(--ui-text-light);
     }
 
   }
@@ -1568,11 +1568,11 @@ code[class*="language-"], pre[class*="language-"] {
 // Формы
 
 .form {
-  &-control {
+  &-control,
+  &-select {
     background-color: var(--ui-bg);
     border: 1px solid var(--ui-border);
     color: var(--ui-text);
-    padding: 0.25rem 0.5rem;
 
     &:disabled, &[readonly] {
       background-color: var(--ui-bg);
