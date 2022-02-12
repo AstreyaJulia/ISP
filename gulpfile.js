@@ -8,8 +8,10 @@ const del = require("del");
 const sync = require("browser-sync").create();
 const webpack = require('webpack-stream');
 
-// Styles
-
+/**
+ * Стили
+ * @returns {*} scss-файл в css
+ */
 const styles = () => {
   return gulp.src("src/assets/css/main.scss")
     .pipe(plumber())
@@ -19,11 +21,16 @@ const styles = () => {
     .pipe(gulp.dest("assets/css"))
     .pipe(sync.stream());
 }
-
+/**
+ * Экспорт задачи стилей
+ * @type {function(): *}
+ */
 exports.styles = styles;
 
-// JS
-
+/**
+ * JS-бандл
+ * @returns {*} точка входа JS-бандла
+ */
 const jsbundle = () => {
   return gulp.src("src/entry.js")
     .pipe(webpack({config : require("./webpack.config.js"),
@@ -33,12 +40,17 @@ const jsbundle = () => {
     }))
     .pipe(gulp.dest("assets/js/"));
 }
-
+/**
+ * Экспорт задачи JS-бандла
+ * @type {function(): *}
+ */
 exports.jsbundle = jsbundle;
 
 
-// Images
-
+/**
+ * Изображения
+ * @returns {*}
+ */
 const images = () => {
   return gulp.src("src/assets/img/**/*")
     .pipe(gulp.dest("assets/img"))
@@ -52,7 +64,7 @@ const copy = () => {
   return gulp.src([
       "src/assets/fonts/*.*",
       "src/assets/modules/**/*.{js,map,css,json}",
-      "src/assets/js/app.js"
+      /*"src/assets/js/app.js"*/
     ],
     {
       base: "src/assets/"
@@ -166,6 +178,7 @@ const build = gulp.series(
   clean,
   gulp.parallel(
     styles,
+    jsbundle,
     copy,
     images
   ),
@@ -188,6 +201,7 @@ exports.default = gulp.series(
   clean,
   gulp.parallel(
     styles,
+    jsbundle,
     copy,
     images
   ),
