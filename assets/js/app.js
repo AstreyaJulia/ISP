@@ -1,5 +1,4 @@
 /******/ (function() { // webpackBootstrap
-/******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./src/assets/js/const.js":
@@ -8,6 +7,7 @@
   \********************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "COLORS": function() { return /* binding */ COLORS; }
@@ -130,1747 +130,29 @@ const colors = {
 };
 const COLORS = colors;
 
-/***/ })
+/***/ }),
 
-/******/ 	});
-/************************************************************************/
-/******/ 	// The module cache
-/******/ 	var __webpack_module_cache__ = {};
-/******/ 	
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/ 		// Check if module is in cache
-/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
-/******/ 		if (cachedModule !== undefined) {
-/******/ 			return cachedModule.exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = __webpack_module_cache__[moduleId] = {
-/******/ 			// no module.id needed
-/******/ 			// no module.loaded needed
-/******/ 			exports: {}
-/******/ 		};
-/******/ 	
-/******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
-/******/ 	
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/ 	
-/************************************************************************/
-/******/ 	/* webpack/runtime/define property getters */
-/******/ 	!function() {
-/******/ 		// define getter functions for harmony exports
-/******/ 		__webpack_require__.d = function(exports, definition) {
-/******/ 			for(var key in definition) {
-/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 				}
-/******/ 			}
-/******/ 		};
-/******/ 	}();
-/******/ 	
-/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	!function() {
-/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
-/******/ 	}();
-/******/ 	
-/******/ 	/* webpack/runtime/make namespace object */
-/******/ 	!function() {
-/******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = function(exports) {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
-/******/ 	}();
-/******/ 	
-/************************************************************************/
-var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-!function() {
-/*!******************************!*\
-  !*** ./src/assets/js/app.js ***!
-  \******************************/
+/***/ "./src/assets/js/globalfunc.js":
+/*!*************************************!*\
+  !*** ./src/assets/js/globalfunc.js ***!
+  \*************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _const__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./const */ "./src/assets/js/const.js");
-
-
-
-/** */
-
-/**
- * Настройки валидации
- * @param {string} formSelector - класс формы
- * @param {string} inputSelector - класс инпута
- * @param {string} submitButtonSelector - класс кнопки отправки формы
- * @param {string} inactiveButtonClass - класс, к-рый делает кнопку отправки формы заблокированной
- * @param {string} inputErrorClass - класс, подсвечивающий поле с ошибками
- * @param {string} errorClass - класс, делающий ошибку видимой
- */
-
-/** @type {Object} */
-
-const validationSettings = {
-  formSelector: '.form-validate',
-  inputSelector: '.form-control:not(div)',
-  submitButtonSelector: '.btn-submit',
-  inactiveButtonClass: 'disabled',
-  inputErrorClass: 'border-danger',
-  errorClass: 'd-flex'
-};
-/**
- * Включение ошибки валидации инпута
- * @param {HTMLInputElement} input - валидируемый инпут
- * @param {HTMLFormElement} form - элемент формы
- * @param {string} message - сообщение об ошибке
- */
-
-function showInputError(input, form, message) {
-  /** @type {HTMLElement} */
-  const error = form.querySelector(`#${input.id}-error`);
-  /** @type {string} */
-
-  error.textContent = message;
-  input.classList.add(validationSettings.inputErrorClass);
-}
-/**
- * Выключение ошибки валидации инпута
- * @param {HTMLInputElement} input - валидируемый инпут
- * @param {HTMLFormElement} form - элемент формы
- */
-
-
-function hideInputError(input, form) {
-  /** @type {HTMLElement} */
-  const error = form.querySelector(`#${input.id}-error`);
-  /** @type {string} */
-
-  error.textContent = "";
-  input.classList.remove(validationSettings.inputErrorClass);
-}
-/**
- * Валидация инпута
- * @param {HTMLInputElement} input - валидируемый инпут
- * @param {HTMLFormElement} form - элемент формы
- */
-
-
-function validateInput(form, input) {
-  /** Если инпут не прошел валидацию (?) показывает ошибку, иначе (:) убирает ошибку */
-  !input.validity.valid ? showInputError(input, form, input.validationMessage) : hideInputError(input, form);
-}
-/**
- * Переключатель состояния кнопки отправки формы
- * @param {HTMLCollection} inputArray - коллекция валидируемых инпутов
- * @param {HTMLButtonElement} submitButton - кнопка отправки формы
- */
-
-
-function switchSubmitButton(inputArray, submitButton) {
-  if (Array.from(inputArray).filter(input => !input.validity.valid).length === 0) {
-    submitButton.disabled = false;
-    submitButton.classList.remove(validationSettings.inactiveButtonClass);
-  } else {
-    submitButton.disabled = true;
-    submitButton.classList.add(validationSettings.inactiveButtonClass);
-  }
-}
-/**
- * Создание прослушивателей
- * @param {Element} form - элемент формы, на которую вешаем прослушиватели
- */
-
-
-function setInputEvtListeners(form) {
-  /** @type {HTMLCollection} */
-  const inputArray = form.querySelectorAll(validationSettings.inputSelector);
-  /** @type {HTMLButtonElement} */
-
-  const submitButton = form.querySelector(validationSettings.submitButtonSelector);
-  /** Валидация при открытии формы */
-
-  switchSubmitButton(inputArray, submitButton);
-  /** Вешаем прослушиватель input каждому инпуту */
-
-  Array.from(inputArray).forEach(input => {
-    input.addEventListener('input', () => {
-      /** Валидация инпута, включает/выключает ошибки */
-      validateInput(form, input);
-      /** Переключалка состояния кнопки отправки формы */
-
-      switchSubmitButton(inputArray, submitButton);
-    });
-  });
-}
-/**
- * Функция включения валидации
- */
-
-
-function enableValidation() {
-  /** @type {HTMLCollection} */
-  const formsArray = document.querySelectorAll(validationSettings.formSelector);
-  Array.from(formsArray).forEach(form => {
-    form.addEventListener('submit', evt => {
-      evt.preventDefault();
-    });
-    setInputEvtListeners(form);
-  });
-}
-/** ждем загрузки DOM */
-
-/*document.addEventListener('DOMContentLoaded', function () {
-  enableValidation();
-});*/
-
-/**
- * Отправка GET и POST
- * @param {string} method - метод - GET или POST
- * @param {string} url - url запроса
- * @param {Object} parameters - параметры в виде массива
- */
-
-
-const sendAjaxPromise = (method, url, parameters) => new Promise((onFulfilled, onFail) => {
-  const xhr = new XMLHttpRequest();
-
-  switch (method) {
-    /** Настраиваем его: GET или POST, URL */
-    case "GET":
-      let queryString;
-
-      if (parameters !== null) {
-        queryString = Object.keys(parameters).map(key => key + '=' + parameters[key]).join('&');
-      } else {
-        queryString = null;
-      }
-
-      xhr.open(method, url + "?" + queryString, true);
-      xhr.setRequestHeader('Accept', 'application/json, text/plain, */*');
-
-      xhr.onload = () => onFulfilled(JSON.parse(xhr.response));
-
-      xhr.onerror = () => onFail(xhr.status);
-
-      xhr.send(null);
-      break;
-
-    case "POST":
-      xhr.open(method, url, true);
-      xhr.setRequestHeader('Accept', 'application/json, text/plain, */*');
-
-      xhr.onload = () => onFulfilled(JSON.parse(xhr.response));
-
-      xhr.onerror = () => onFail(xhr.status);
-
-      xhr.send(parameters);
-      break;
-  }
-});
-/** Справка по судьям */
-
-/** @type {HTMLButtonElement} Кнопка Сформировать */
-
-
-const certBtn = document.querySelector('.cert-get');
-/** Получить квартал и год из селекта */
-
-function certBtnHandler() {
-  let value = document.querySelector('.cert-select');
-  let year = $(value).find(':selected').parent().attr('label');
-  let data = {
-    quarter: value.value,
-    year: year
-  };
-  /** Вставить данные справки по судьям в таблицу */
-
-  function createTable(data) {
-    const createRowString = ({
-      col_3,
-      col_4,
-      col_5,
-      col_6,
-      col_7,
-      col_8,
-      col_9,
-      col_10,
-      col_11,
-      col_12,
-      col_13,
-      col_14,
-      col_15,
-      col_16,
-      col_17,
-      fullname,
-      row_num
-    }) => `<tr>
-<td>${row_num}</td>
-<td>${fullname}</td>
-<td>${col_3}</td>
-<td>${col_4}</td>
-<td>${col_5}</td>
-<td>${col_6}</td>
-<td>${col_7}</td>
-<td>${col_8}</td>
-<td>${col_9}</td>
-<td>${col_10}</td>
-<td>${col_11}</td>
-<td>${col_12}</td>
-<td>${col_13}</td>
-<td>${col_14}</td>
-<td>${col_15}</td>
-<td>${col_16}</td>
-<td>${col_17}</td>
-</tr>`;
-
-    document.querySelector('.cert-table').innerHTML = '';
-    const taskElementsString = data.data.map((col_3, col_4, col_5, col_6, col_7, col_8, col_9, col_10, col_11, col_12, col_13, col_14, col_15, col_16, col_17, fullname, row_num) => createRowString(col_3, col_4, col_5, col_6, col_7, col_8, col_9, col_10, col_11, col_12, col_13, col_14, col_15, col_16, col_17, fullname, row_num)).join('');
-    document.querySelector('.cert-table').insertAdjacentHTML('beforeend', taskElementsString);
-  }
-  /** Отправить запрос с параметрами и вставить в таблицу справки по судьям */
-
-
-  ajax_send("GET", "api/certificatework/getCertificateWork.php", data, "json", response => {
-    createTable(response);
-  });
-}
-/** Прослушиватель нажатия кнопки Сформировать справки по судьям */
-
-
-if (certBtn) {
-  certBtn.addEventListener('click', function () {
-    certBtnHandler();
-  });
-}
-/** Тетрис */
-
-
-const tetrwrapper = document.querySelector(".tetris-wrapper");
-
-const tetrgame = () => {
-  /** License CC0 1.0 Universal */
-
-  /** https://gist.github.com/straker/3c98304f8a6a9174efd8292800891ea1 */
-
-  /** https://tetris.fandom.com/wiki/Tetris_Guideline */
-
-  /** получаем доступ к основному холсту */
-  const canvas = document.getElementById('game');
-  const context = canvas.getContext('2d');
-  /** Кнопка начала игры */
-
-  const startbtn = document.querySelector('.tetr-start-game');
-  /** получаем доступ к холсту с игровой статистикой */
-
-  const canvasScore = document.getElementById('score');
-  const contextScore = canvasScore.getContext('2d');
-
-  const start = () => {
-    /** размер квадратика */
-    const grid = 32;
-    /** массив с последовательностями фигур, на старте — пустой */
-
-    const tetrominoSequence = [];
-    /** с помощью двумерного массива следим за тем, что находится в каждой клетке игрового поля */
-
-    /** размер поля — 10 на 20, и несколько строк ещё находится за видимой областью */
-
-    const playfield = [];
-    /** заполняем сразу массив пустыми ячейками */
-
-    for (let row = -2; row < 20; row++) {
-      playfield[row] = [];
-
-      for (let col = 0; col < 10; col++) {
-        playfield[row][col] = 0;
-      }
-    }
-    /** как рисовать каждую фигуру */
-
-    /** https://tetris.fandom.com/wiki/SRS */
-
-
-    const tetrominos = {
-      'I': [[0, 0, 0, 0], [1, 1, 1, 1], [0, 0, 0, 0], [0, 0, 0, 0]],
-      'J': [[1, 0, 0], [1, 1, 1], [0, 0, 0]],
-      'L': [[0, 0, 1], [1, 1, 1], [0, 0, 0]],
-      'O': [[1, 1], [1, 1]],
-      'S': [[0, 1, 1], [1, 1, 0], [0, 0, 0]],
-      'Z': [[1, 1, 0], [0, 1, 1], [0, 0, 0]],
-      'T': [[0, 1, 0], [1, 1, 1], [0, 0, 0]]
-    };
-    /** цвет каждой фигуры */
-
-    const colors = {
-      'I': _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.info,
-      'O': _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.warning,
-      'T': _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.primary,
-      'S': _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.success,
-      'Z': _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.danger,
-      'J': _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.blue,
-      'L': _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.orange
-    };
-    /** счётчик */
-
-    let count = 0;
-    /** текущая фигура в игре */
-
-    let tetromino = getNextTetromino();
-    /** следим за кадрами анимации, чтобы если что — остановить игру */
-
-    let rAF = null;
-    /** флаг конца игры, на старте — неактивный */
-
-    let gameOver = false;
-    /** количество набранных очков на старте */
-
-    let score = 0;
-    /** рекорд игры */
-
-    let record = 0;
-    /** текущий уровень сложности */
-
-    let level = 1;
-    /** имя игрока с наибольшим рейтингом */
-
-    let recordName = '';
-    /** берем имя игрока из разметки */
-
-    let name = document.querySelector(".user-name").innerHTML;
-    /** Узнаём размер хранилища */
-
-    const Storage_size = localStorage.length;
-    /** Если в хранилище уже что-то есть… */
-
-    if (Storage_size > 0) {
-      /** …то достаём оттуда значение рекорда и имя чемпиона */
-      record = localStorage.record;
-      recordName = localStorage.recordName;
-    }
-    /** Функция возвращает случайное число в заданном диапазоне */
-
-    /** https://stackoverflow.com/a/1527820/2124254 */
-
-
-    function getRandomInt(min, max) {
-      min = Math.ceil(min);
-      max = Math.floor(max);
-      return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-    /** создаём последовательность фигур, которая появится в игре */
-
-    /** https://tetris.fandom.com/wiki/Random_Generator */
-
-
-    function generateSequence() {
-      /** тут — сами фигуры */
-      const sequence = ['I', 'J', 'L', 'O', 'S', 'T', 'Z'];
-
-      while (sequence.length) {
-        /** случайным образом находим любую из них */
-        const rand = getRandomInt(0, sequence.length - 1);
-        const name = sequence.splice(rand, 1)[0];
-        /** помещаем выбранную фигуру в игровой массив с последовательностями */
-
-        tetrominoSequence.push(name);
-      }
-    }
-    /** получаем следующую фигуру */
-
-
-    function getNextTetromino() {
-      /** если следующей нет — генерируем */
-      if (tetrominoSequence.length === 0) {
-        generateSequence();
-      }
-      /** берём первую фигуру из массива */
-
-
-      const name = tetrominoSequence.pop();
-      /** сразу создаём матрицу, с которой мы отрисуем фигуру */
-
-      const matrix = tetrominos[name];
-      /** I и O стартуют с середины, остальные — чуть левее */
-
-      const col = playfield[0].length / 2 - Math.ceil(matrix[0].length / 2);
-      /** I начинает с 21 строки (смещение -1), а все остальные — со строки 22 (смещение -2) */
-
-      const row = name === 'I' ? -1 : -2;
-      /** вот что возвращает функция */
-
-      return {
-        name: name,
-
-        /** название фигуры (L, O, и т. д.) */
-        matrix: matrix,
-
-        /** матрица с фигурой */
-        row: row,
-
-        /** текущая строка (фигуры стартуют за видимой областью холста) */
-        col: col
-        /** текущий столбец */
-
-      };
-    }
-    /** поворачиваем матрицу на 90 градусов */
-
-    /** https://codereview.stackexchange.com/a/186834 */
-
-
-    function rotate(matrix) {
-      const N = matrix.length - 1;
-      /** на входе матрица, и на выходе тоже отдаём матрицу */
-
-      return matrix.map((row, i) => row.map((val, j) => matrix[N - j][i]));
-    }
-    /** проверяем после появления или вращения, может ли матрица (фигура) быть в этом месте поля или она вылезет за его границы */
-
-
-    function isValidMove(matrix, cellRow, cellCol) {
-      /** проверяем все строки и столбцы */
-      for (let row = 0; row < matrix.length; row++) {
-        for (let col = 0; col < matrix[row].length; col++) {
-          if (matrix[row][col] && (
-          /** если выходит за границы поля… */
-          cellCol + col < 0 || cellCol + col >= playfield[0].length || cellRow + row >= playfield.length ||
-          /** …или пересекается с другими фигурами */
-          playfield[cellRow + row][cellCol + col])) {
-            /** то возвращаем, что нет, так не пойдёт */
-            return false;
-          }
-        }
-      }
-      /** а если мы дошли до этого момента и не закончили раньше — то всё в порядке */
-
-
-      return true;
-    }
-    /** когда фигура окончательна встала на своё место */
-
-
-    function placeTetromino() {
-      /** обрабатываем все строки и столбцы в игровом поле */
-      for (let row = 0; row < tetromino.matrix.length; row++) {
-        for (let col = 0; col < tetromino.matrix[row].length; col++) {
-          if (tetromino.matrix[row][col]) {
-            /** если край фигуры после установки вылезает за границы поля, то игра закончилась */
-            if (tetromino.row + row < 0) {
-              return showGameOver();
-            }
-            /** если всё в порядке, то записываем в массив игрового поля нашу фигуру */
-
-
-            playfield[tetromino.row + row][tetromino.col + col] = tetromino.name;
-          }
-        }
-      }
-      /** проверяем, чтобы заполненные ряды очистились снизу вверх */
-
-
-      for (let row = playfield.length - 1; row >= 0;) {
-        /** если ряд заполнен */
-        if (playfield[row].every(cell => !!cell)) {
-          score += 10;
-          /** считаем уровень */
-
-          level = Math.floor(score / 100) + 1;
-          /** если игрок побил прошлый рекорд */
-
-          if (score > record) {
-            /** ставим его очки как рекорд */
-            record = score;
-            /** заносим в хранилище значение рекорда */
-
-            localStorage.record = record;
-            /** меняем имя чемпиона */
-
-            recordName = name;
-            /** заносим в хранилище его имя */
-
-            localStorage.recordName = recordName;
-          }
-          /** очищаем его и опускаем всё вниз на одну клетку */
-
-
-          for (let r = row; r >= 0; r--) {
-            for (let c = 0; c < playfield[r].length; c++) {
-              playfield[r][c] = playfield[r - 1][c];
-            }
-          }
-        } else {
-          /** переходим к следующему ряду */
-          row--;
-        }
-      }
-      /** получаем следующую фигуру */
-
-
-      tetromino = getNextTetromino();
-    }
-    /** показываем надпись Game Over */
-
-
-    function showGameOver() {
-      /** прекращаем всю анимацию игры */
-      cancelAnimationFrame(rAF);
-      /** ставим флаг окончания */
-
-      gameOver = true;
-      /** рисуем чёрный прямоугольник посередине поля */
-
-      context.fillStyle = 'black';
-      context.globalAlpha = 0.75;
-      context.fillRect(0, canvas.height / 2 - 30, canvas.width, 60);
-      /** пишем надпись белым моноширинным шрифтом по центру */
-
-      context.globalAlpha = 1;
-      context.fillStyle = 'white';
-      context.font = '36px TT Norms Pro';
-      context.textAlign = 'center';
-      context.textBaseline = 'middle';
-      context.fillText('GAME OVER!', canvas.width / 2, canvas.height / 2);
-      startbtn.disabled = false;
-      startbtn.style.display = "block";
-    }
-
-    function showScore() {
-      contextScore.clearRect(0, 0, canvasScore.width, canvasScore.height);
-      contextScore.globalAlpha = 1;
-      contextScore.fillStyle = '#1F2B3A';
-      contextScore.font = '18px TT Norms Pro';
-      contextScore.fillText('Уровень: ' + level, 15, 20);
-      contextScore.fillText('Очков:   ' + score, 15, 50);
-      contextScore.fillText('Чемпион: ' + recordName, 160, 20);
-      contextScore.fillText('Рекорд:  ' + record, 160, 50);
-    }
-    /** главный цикл игры */
-
-
-    function loop() {
-      /** начинаем анимацию */
-      rAF = requestAnimationFrame(loop);
-      /** очищаем холст */
-
-      context.clearRect(0, 0, canvas.width, canvas.height);
-      /** рисуем игровое поле с учётом заполненных фигур */
-
-      for (let row = 0; row < 20; row++) {
-        for (let col = 0; col < 10; col++) {
-          if (playfield[row][col]) {
-            const name = playfield[row][col];
-            context.fillStyle = colors[name];
-            /** рисуем всё на один пиксель меньше, чтобы получился эффект «в клетку» */
-
-            context.fillRect(col * grid, row * grid, grid - 1, grid - 1);
-          }
-        }
-      }
-      /** выводим статистику */
-
-
-      showScore();
-      /** рисуем текущую фигуру */
-
-      if (tetromino) {
-        /** фигура сдвигается вниз каждые 36 кадров минус значение текущего уровня. Чем больше уровень, тем быстрее падает. */
-        if (++count > 36 - level) {
-          tetromino.row++;
-          count = 0;
-          /** если движение закончилось — рисуем фигуру в поле и проверяем, можно ли удалить строки */
-
-          if (!isValidMove(tetromino.matrix, tetromino.row, tetromino.col)) {
-            tetromino.row--;
-            placeTetromino();
-          }
-        }
-        /** не забываем про цвет текущей фигуры */
-
-
-        context.fillStyle = colors[tetromino.name];
-        /** отрисовываем её */
-
-        for (let row = 0; row < tetromino.matrix.length; row++) {
-          for (let col = 0; col < tetromino.matrix[row].length; col++) {
-            if (tetromino.matrix[row][col]) {
-              /** и снова рисуем на один пиксель меньше */
-              context.fillRect((tetromino.col + col) * grid, (tetromino.row + row) * grid, grid - 1, grid - 1);
-            }
-          }
-        }
-      }
-    }
-    /** следим за нажатиями на клавиши */
-
-
-    document.addEventListener('keydown', function (e) {
-      /** если игра закончилась — сразу выходим */
-      if (gameOver) return;
-      /** стрелки влево и вправо */
-
-      if (e.which === 37 || e.which === 39) {
-        const col = e.which === 37
-        /** если влево, то уменьшаем индекс в столбце, если вправо — увеличиваем */
-        ? tetromino.col - 1 : tetromino.col + 1;
-        /** если так ходить можно, то запоминаем текущее положение */
-
-        if (isValidMove(tetromino.matrix, tetromino.row, col)) {
-          tetromino.col = col;
-        }
-      }
-      /** стрелка вверх — поворот */
-
-
-      if (e.which === 38) {
-        /** поворачиваем фигуру на 90 градусов */
-        const matrix = rotate(tetromino.matrix);
-        /** если так ходить можно — запоминаем */
-
-        if (isValidMove(matrix, tetromino.row, tetromino.col)) {
-          tetromino.matrix = matrix;
-        }
-      }
-      /** стрелка вниз — ускорить падение */
-
-
-      if (e.which === 40) {
-        /** смещаем фигуру на строку вниз */
-        const row = tetromino.row + 1;
-        /** если опускаться больше некуда — запоминаем новое положение */
-
-        if (!isValidMove(tetromino.matrix, row, tetromino.col)) {
-          tetromino.row = row - 1;
-          /** ставим на место и смотрим на заполненные ряды */
-
-          placeTetromino();
-          return;
-        }
-        /** запоминаем строку, куда стала фигура */
-
-
-        tetromino.row = row;
-      }
-    });
-
-    canvas.onblur = function () {
-      const me = this;
-      setTimeout(function () {
-        me.focus();
-      }, 500);
-    };
-
-    rAF = requestAnimationFrame(loop);
-  };
-  /** старт игры */
-
-
-  startbtn.addEventListener('click', () => {
-    start();
-    startbtn.style.display = "none";
-    startbtn.focus = false;
-    canvas.focus();
-  });
-}; // Chart JS
-// Apex Charts
-
-
-const themeColors = [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.primary, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.warning, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.danger, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.success, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.info];
-const apexChartList = document.querySelectorAll('.apexchart');
-
-const apexChartOptions = chartname => {
-  const safpeopleChart = {
-    series: [{
-      name: 'Население г. Сафоново',
-      data: [43500, 46100, 45273, 44444, 43845, 43477, 43145, 42707, 42147, 41510, 41138, 40537]
-    }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    colors: [colors.theme['secondary']],
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [colors.themeLighter['secondary'], colors.theme['secondary']],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
-      }
-    },
-    xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
-      }
-    }
-  };
-  const smolOblpeopleChart = {
-    series: [{
-      name: 'Население Смоленской области',
-      data: [993018, 982887, 980482, 975188, 967896, 964791, 958630, 953201, 949348, 942363, 934889, 921127]
-    }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    colors: [colors.theme['secondary']],
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [colors.themeLighter['secondary'], colors.theme['secondary']],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
-      }
-    },
-    xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
-      }
-    }
-  };
-  const smolOblworkpeopleChart = {
-    series: [{
-      name: 'Трудоспособное население Смоленской области',
-      data: [633809, 596862, 627128, 625958, 593611, 615842, 607983, 586273, 598980, 587725, 587237]
-    }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    colors: [colors.theme['secondary']],
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [colors.themeLighter['secondary'], colors.theme['secondary']],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
-      }
-    },
-    xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
-      }
-    }
-  };
-  const smolOblnoworkChart = {
-    series: [{
-      name: 'Количество безработных в Смоленской области, тыс. человек',
-      data: [40.8, 41.5, 30.9, 28.1, 26.9, 32.8, 31.4, 29.8, 26.2, 25.3, 25.3]
-    }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    colors: [colors.theme['secondary']],
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [colors.themeLighter['secondary'], colors.theme['secondary']],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
-      }
-    },
-    xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
-      }
-    }
-  };
-  const inflationChart = {
-    /* https://уровень-инфляции.рф/%D1%82%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D1%8B-%D0%B8%D0%BD%D1%84%D0%BB%D1%8F%D1%86%D0%B8%D0%B8 */
-    series: [{
-      name: 'Уровень инфляции в России',
-      data: [8.78, 6.10, 6.58, 6.45, 11.36, 12.91, 5.38, 2.52, 4.27, 3.05, 4.91, 8.39]
-    }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    annotations: {
-      yaxis: [{
-        y: 4,
-        borderColor: '#00B795',
-        label: {
-          borderColor: '#00B795',
-          style: {
-            color: '#FFFFFF',
-            background: '#00B795'
-          },
-          text: 'Оптимальный уровень'
-        }
-      }],
-      xaxis: [{
-        x: 2014,
-        x2: 2015,
-        fillColor: '#f6bc9a',
-        opacity: 0.4,
-        label: {
-          borderColor: '#f6bc9a',
-          style: {
-            color: '#fff',
-            background: '#ef630a'
-          },
-          offsetY: -10,
-          text: 'Валютный кризис'
-        }
-      }, {
-        x: 2020,
-        label: {
-          borderColor: '#ef630a',
-          style: {
-            color: '#FFFFFF',
-            background: '#ef630a'
-          },
-          text: 'Рецессия COVID-19'
-        }
-      }]
-    },
-    colors: [colors.theme['primary']],
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [colors.themeLighter['primary'], colors.theme['primary']],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
-      }
-    },
-    xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
-      }
-    }
-  };
-  const postoutboxChart = {
-    series: [{
-      name: 'Исходящая почта',
-      data: [11610, 29513, 28845, 30240, 23662, 36230, 41202, 37862, 36211, 36859, 34827, 38381]
-    }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    colors: [colors.theme['primary']],
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [colors.themeLighter['primary'], colors.theme['primary']],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
-      }
-    },
-    xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
-      }
-    }
-  };
-  const emailoutboxChart = {
-    series: [{
-      name: 'Исходящая эл. почта',
-      data: [1810, 3170, 3959]
-    }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    colors: [colors.theme['primary']],
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [colors.themeLighter['primary'], colors.theme['primary']],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
-      }
-    },
-    xaxis: {
-      categories: [2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
-      }
-    }
-  };
-  const postinboxChart = {
-    series: [{
-      name: 'Входящая почта',
-      data: [4147, 9372, 12395, 12226, 11378, 11481, 11418, 12372, 11721, 11917, 12308, 15209]
-    }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    colors: [colors.theme['green']],
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [colors.themeLighter['green'], colors.theme['green']],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
-      }
-    }
-  };
-  const emailinboxChart = {
-    series: [{
-      name: 'Входящая эл. почта',
-      data: [6489, 8384, 10450]
-    }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    colors: [colors.theme['green']],
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [colors.themeLighter['green'], colors.theme['green']],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    xaxis: {
-      categories: [2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
-      }
-    }
-  };
-  const gcaseChart = {
-    series: [{
-      name: 'Гражданские дела',
-      data: [1777, 1935, 2108, 2892, 2784, 2593, 2454, 2145, 1785, 1388, 1587, 1893]
-    }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    colors: [colors.theme['red']],
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [colors.themeLighter['red'], colors.theme['red']],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
-      }
-    }
-  };
-  const gcaseOblChart = {
-    series: [{
-      name: 'Гражданские дела (область)',
-      data: [30095, 28470, 31392, 32393, 34753, 33232, 31409, 21203, 24391, 18543, 23220]
-    }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    colors: [colors.theme['red']],
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [colors.themeLighter['red'], colors.theme['red']],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
-      }
-    }
-  };
-  const g1caseChart = {
-    series: [{
-      name: 'Гражданские дела ап. инстанции',
-      data: [45, 62, 43, 60, 58, 57, 42, 35, 51, 68, 58, 49]
-    }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    colors: [colors.theme['orange']],
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [colors.themeLighter['orange'], colors.theme['orange']],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
-      }
-    }
-  };
-  const admcaseChart = {
-    series: [{
-      name: 'Дела об адм. правонарушениях',
-      data: [30, 25, 33, 1096, 1044, 844, 817, 882, 695, 467, 382, 1157]
-    }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    colors: [colors.theme['blue']],
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [colors.themeLighter['blue'], colors.theme['blue']],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
-      }
-    }
-  };
-  const admcaseOblChart = {
-    series: [{
-      name: 'Дела об адм. правонарушениях (область)',
-      data: [1487, 1334, 1315, 6150, 5856, 5316, 5080, 5352, 5232, 4805, 6768]
-    }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    colors: [colors.theme['blue']],
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [colors.themeLighter['blue'], colors.theme['blue']],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
-      }
-    }
-  };
-  const adm1caseChart = {
-    series: [{
-      name: 'Жалобы по адм. делам',
-      data: [0, 0, 0, 0, 166, 204, 205, 198, 145, 138, 123, 96]
-    }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    colors: [colors.theme['teal']],
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [colors.themeLighter['teal'], colors.theme['teal']],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
-      }
-    }
-  };
-  const ucaseChart = {
-    series: [{
-      name: 'Уголовные дела',
-      data: [275, 366, 364, 294, 360, 373, 254, 214, 282, 251, 240, 297]
-    }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    colors: [colors.theme['yellow']],
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [colors.themeLighter['yellow'], colors.theme['yellow']],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
-      }
-    }
-  };
-  const ucaseOblChart = {
-    series: [{
-      name: 'Уголовные дела (область)',
-      data: [4124, 4038, 3696, 3257, 3799, 3563, 3210, 2217, 3061, 3626, 3713]
-    }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    colors: [colors.theme['yellow']],
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [colors.themeLighter['yellow'], colors.theme['yellow']],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
-      }
-    }
-  };
-  const u1caseChart = {
-    series: [{
-      name: 'Уголовные дела ап. инстанции',
-      data: [15, 30, 17, 17, 13, 8, 14, 9, 9, 6, 13, 9]
-    }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    colors: [colors.theme['azure']],
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [colors.themeLighter['azure'], colors.theme['azure']],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
-      }
-    }
-  };
-  const mucaseChart = {
-    series: [{
-      name: 'Материалы в порядке уг. производства, всего',
-      data: [545, 3440, 2634, 1662, 1232, 1852, 1926, 1604, 2216, 1564, 1494, 1157]
-    }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    colors: [colors.theme['cyan']],
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [colors.themeLighter['cyan'], colors.theme['cyan']],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
-      }
-    }
-  };
-  const eosChart = {
-    series: [{
-      name: 'Обращения, без исковых',
-      data: [87, 230, 423, 624]
-    }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    colors: [colors.theme['primary']],
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [colors.themeLighter['primary'], colors.theme['primary']],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    xaxis: {
-      categories: [2018, 2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
-      }
-    }
-  };
-  const eosgcaseChart = {
-    series: [{
-      name: 'Исковые заявления',
-      data: [21, 43, 35, 128]
-    }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    colors: [colors.theme['green']],
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [colors.themeLighter['green'], colors.theme['green']],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    xaxis: {
-      categories: [2018, 2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
-      }
-    }
-  }; // Рефералы
-
-  const successLineChart = {
-    chart: {
-      height: 350,
-      type: 'line',
-      toolbar: {
-        show: true
-      }
-    },
-    grid: {
-      show: false
-    },
-    legend: {
-      show: false
-    },
-    dataLabels: {
-      enabled: false
-    },
-    colors: [colors.theme['success']],
-    stroke: {
-      width: 3,
-      curve: 'smooth'
-    },
-    series: [],
-    noData: {
-      text: 'Loading...'
-    },
-
-    /*
-        xaxis: {
-          categories: array.value.day
-        },*/
-    yaxis: {
-      show: false,
-      labels: {
-        show: false
-      },
-      axisBorder: {
-        show: false
-      }
-    }
-  };
-
-  switch (chartname) {
-    case 'safpeopleChart':
-      return safpeopleChart;
-
-    case 'postinboxChart':
-      return postinboxChart;
-
-    case 'postoutboxChart':
-      return postoutboxChart;
-
-    case 'gcaseChart':
-      return gcaseChart;
-
-    case 'g1caseChart':
-      return g1caseChart;
-
-    case 'admcaseChart':
-      return admcaseChart;
-
-    case 'adm1caseChart':
-      return adm1caseChart;
-
-    case 'ucaseChart':
-      return ucaseChart;
-
-    case 'u1caseChart':
-      return u1caseChart;
-
-    case 'mucaseChart':
-      return mucaseChart;
-
-    case 'eosChart':
-      return eosChart;
-
-    case 'eosgcaseChart':
-      return eosgcaseChart;
-
-    case 'successLineChart':
-      return successLineChart;
-
-    case 'inflationChart':
-      return inflationChart;
-
-    case 'gcaseOblChart':
-      return gcaseOblChart;
-
-    case 'ucaseOblChart':
-      return ucaseOblChart;
-
-    case 'smolOblpeopleChart':
-      return smolOblpeopleChart;
-
-    case 'smolOblnoworkChart':
-      return smolOblnoworkChart;
-
-    case 'admcaseOblChart':
-      return admcaseOblChart;
-
-    case 'smolOblworkpeopleChart':
-      return smolOblworkpeopleChart;
-
-    case 'emailoutboxChart':
-      return emailoutboxChart;
-
-    case 'emailinboxChart':
-      return emailinboxChart;
-  }
-};
-
-const apexChartInit = (chart, chartName) => {
-  let apexChart = new ApexCharts(chart, apexChartOptions(chartName));
-  apexChart.render();
-  apexChart.updateSeries(apexChartOptions(chartName).series);
-}; // Меню сайдбара
-
-
-const sidebarnavmenu = document.querySelector('.navigation-menu'); // Спиннер
-
-const spinnerloader = document.querySelector('.spinner-wrapper'); // Все элементы, для к-рых нужна прокрутка
-
-const overlayscrollbar = OverlayScrollbars(document.querySelectorAll(".overlayscrollbar"), {
-  //className            : "os-theme-light",
-  resize: "none",
-  sizeAutoCapable: true,
-  clipAlways: true,
-  normalizeRTL: true,
-  paddingAbsolute: false,
-  autoUpdate: null,
-  autoUpdateInterval: 33,
-  updateOnLoad: ["img"],
-  nativeScrollbarsOverlaid: {
-    showNativeScrollbars: false,
-    initialize: true
-  },
-  overflowBehavior: {
-    x: "scroll",
-    y: "scroll"
-  },
-  scrollbars: {
-    visibility: "auto",
-    autoHide: "never",
-    autoHideDelay: 800,
-    dragScrolling: true,
-    clickScrolling: false,
-    touchSupport: true,
-    snapHandle: false
-  },
-  textarea: {
-    dynWidth: false,
-    dynHeight: false,
-    inheritedAttrs: ["style", "class"]
-  },
-  callbacks: {
-    onInitialized: null,
-    onInitializationWithdrawn: null,
-    onDestroyed: null,
-    onScrollStart: null,
-    onScroll: null,
-    onScrollStop: null,
-    onOverflowChanged: null,
-    onOverflowAmountChanged: null,
-    onDirectionChanged: null,
-    onContentSizeChanged: null,
-    onHostSizeChanged: null,
-    onUpdated: null
-  }
-}); // ГЛОБАЛЬНЫЕ ФУНКЦИИ
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "selectedCheckboxes": function() { return /* binding */ selectedCheckboxes; },
+/* harmony export */   "showToast": function() { return /* binding */ showToast; },
+/* harmony export */   "showErrorToast": function() { return /* binding */ showErrorToast; },
+/* harmony export */   "showMiniToast": function() { return /* binding */ showMiniToast; },
+/* harmony export */   "getCookie": function() { return /* binding */ getCookie; },
+/* harmony export */   "cookieSudo": function() { return /* binding */ cookieSudo; },
+/* harmony export */   "cookieID": function() { return /* binding */ cookieID; },
+/* harmony export */   "ajax_send": function() { return /* binding */ ajax_send; }
+/* harmony export */ });
+// ГЛОБАЛЬНЫЕ ФУНКЦИИ
 // Выбранные чекбоксы в группе, возвращает массив
 // Принимает группу элементов - allInputs
-
 function selectedCheckboxes(allInputs, mode) {
   const filterInput = allInputs;
   const checkboxes = [];
@@ -2060,1530 +342,1099 @@ const ajax_send = (method, url, parameters, datatype, callback) => {
       showErrorToast(header, xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'));
     }
   };
-}; // Общие
-// При прокручивании вниз на 20px от верхнего края элемента с классом main-content, показывает кнопку Назад наверх
-// Кнопка Назад Наверх, класс .back-to-top
-
-
-const backtotopbutton = document.querySelector('.back-to-top'); // Прокручиваемое содержимое, класс .main-content, если его прокручивать, появляется кнопка Назад наверх
-
-const maincontent = document.querySelector('.main-content');
-
-const maincontentscroll = () => {
-  if (maincontent.scrollTop > 20) {
-    backtotopbutton.style.display = "flex";
-  } else {
-    backtotopbutton.style.display = "none";
-  }
-}; // Возвращает наверх при нажатии на кнопку .back-to-top
-
-
-const buttonscrolltotopHandler = () => {
-  maincontent.scrollTop = 0;
-}; // Переключает класс disabled у .page-body, сайдбар
-// Кнопка, переключающая сайдбар, класс .sidebar-toggle-button
-
-
-const sidebartogglbutton = document.querySelector('.sidebar-toggle-button'); // Тело страницы, класс .main-sidebar
-
-const sidebarwrapper = document.querySelector('.page-body');
-
-const buttonsidebartoggleHandler = evt => {
-  evt.preventDefault();
-  let formData = new FormData();
-  formData.append("module", "sidebar");
-
-  if (sidebarwrapper.dataset.sidebarWidth === "narrow") {
-    sidebarwrapper.dataset.sidebarWidth = "wide";
-    sidebartogglbutton.querySelector('i').classList.add('mdi-crosshairs-gps');
-    sidebartogglbutton.querySelector('i').classList.remove('mdi-crosshairs');
-    formData.append("sidebarWidth", "wide");
-  } else if (sidebarwrapper.dataset.sidebarWidth === "wide") {
-    sidebarwrapper.dataset.sidebarWidth = "narrow";
-    sidebartogglbutton.querySelector('i').classList.remove('mdi-crosshairs-gps');
-    sidebartogglbutton.querySelector('i').classList.add('mdi-crosshairs');
-    formData.append("sidebarWidth", "narrow");
-  }
-
-  ajax_send("POST", "pages/admin/ajax.php", formData, "json", result => result);
-}; // Разворачивает сайдбар, не отодвигая контент. Переключает класс expanded у сайдбара
-// Кнопка, переключающая сайдбар, класс .sidebar-expand-button
-
-
-const sidebarexpbutton = document.querySelector('.sidebar-expand-button'); // Сайдбар
-
-const mainsidebar = document.querySelector('.main-sidebar');
-
-const buttonsidebarexpHandler = () => {
-  if (mainsidebar.classList.contains('expanded')) {
-    mainsidebar.classList.remove('expanded');
-  } else {
-    mainsidebar.classList.add('expanded');
-  }
-}; // Сворачивает сайдбар, не отодвигая контент. Отключает класс expanded у сайдбара
-// Кнопка, сворачивающая сайдбар, класс .sidebar-close-button
-
-
-const sidebarclosebutton = document.querySelector('.sidebar-close-button');
-
-const buttonsidebarcloseHandler = () => {
-  mainsidebar.classList.remove('expanded');
 };
 
-const sidebarexpandHandler = () => {
-  mainsidebar.classList.add('expanded');
-}; // Переключатель светлого/темного режима
 
 
-const darkmodetogglbutton = document.querySelector('.tumbler__wrapper');
+/***/ }),
 
-const darkmodetoggleHandler = () => {
-  let formData = new FormData();
-  formData.append("module", "theme");
+/***/ "./src/assets/js/modules/apexchart.js":
+/*!********************************************!*\
+  !*** ./src/assets/js/modules/apexchart.js ***!
+  \********************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-  if (sidebarwrapper.dataset.themeName === "main-dark") {
-    sidebarwrapper.dataset.themeName = "main-light";
-    formData.append("theme", "main-light");
-  } else if (sidebarwrapper.dataset.themeName === "main-light") {
-    sidebarwrapper.dataset.themeName = "main-dark";
-    formData.append("theme", "main-dark");
-  }
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _const__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../const */ "./src/assets/js/const.js");
+// Apex Charts
 
-  ajax_send("POST", "pages/admin/ajax.php", formData, "json", result => result);
-  darkmodetogglbutton.classList.toggle('tumbler--night-mode');
-};
+const themeColors = [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.primary, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.warning, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.danger, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.success, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.info];
+const apexChartList = document.querySelectorAll('.apexchart');
 
-if (darkmodetogglbutton) {
-  darkmodetogglbutton.addEventListener('click', darkmodetoggleHandler);
-} // Добавляет класс open у .top-search
-// Кнопка вкл/выкл верхнего поиска, класс .top-search-button-toggle
-
-
-const searchbutton = document.querySelector('.top-search-button-toggle'); // Верхний поиск, класс .top-search
-
-const searchinput = document.querySelector('.top-search'); // Кнопка закрытия верхнего поиска, класс .top-search-close
-
-const searchclosebtn = document.querySelector('.top-search-close');
-
-const buttonsearchHandler = () => {
-  searchinput.classList.add('open');
-}; // Удаляет класс open у .top-search
-
-
-const buttonsearchcloseHandler = () => {
-  searchinput.classList.remove('open');
-}; // Переключает класс .active у ближайшего .menu-item нажатой ссылки меню сайдбара
-
-
-const menuitemClickHandler = evt => {
-  evt.target.closest('.menu-item').classList.toggle("active");
-}; // Ищет в форме селект с id profession, проверяет, если судья или председатель, то отображает принадлежность судье, если нет, то блокирует и сбрасывает значение
-// Селект Профессия
-
-
-const profselect = document.getElementById('profession'); // Селект Принадлежность
-
-const affselect = document.getElementById('affiliation');
-
-const profselectHandler = () => {
-  if (profselect.options[profselect.selectedIndex].value === '6' || profselect.options[profselect.selectedIndex].value === '7' || profselect.options[profselect.selectedIndex].value === '9') {
-    affselect.disabled = false;
-  } else {
-    affselect.disabled = true;
-    affselect.selectedIndex = 0;
-  }
-}; // Если не в штате, то блокирует и сбрасывает кабинет
-// Селект В штате
-
-
-const activeselect = document.getElementById('active'); // Селект Кабинет
-
-const roomselect = document.getElementById('room');
-
-const activeselectHandler = () => {
-  if (activeselect.options[activeselect.selectedIndex].value === '1') {
-    roomselect.disabled = false;
-  } else {
-    roomselect.disabled = true;
-    roomselect.selectedIndex = 0;
-  }
-}; // Переключает класс .active у ближайшего .list-group-item нажатой ссылки списка ссылок
-// Список групп ссылок
-
-
-const listgroupmenu = document.querySelector('.list-tab-group .list-group'); // Список ссылок
-
-const tablistgroupmenu = document.querySelector('.tab-content');
-
-if (listgroupmenu && tablistgroupmenu) {
-  const listgroup = listgroupmenu.querySelectorAll('.list-group-item');
-  const tablistgroup = tablistgroupmenu.querySelectorAll('.tab-list-group');
-
-  const listgroupitemClickHandler = evt => {
-    const listgroupitem = evt.target.closest('.list-group-item');
-
-    if (listgroupitem != null) {
-      for (let i = 0, len = listgroup.length; i < len; i++) {
-        listgroup[i].classList.remove("active");
+const apexChartOptions = chartname => {
+  const safpeopleChart = {
+    series: [{
+      name: 'Население г. Сафоново',
+      data: [43500, 46100, 45273, 44444, 43845, 43477, 43145, 42707, 42147, 41510, 41138, 40537]
+    }],
+    chart: {
+      height: 350,
+      type: 'area'
+    },
+    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.secondary],
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'smooth'
+    },
+    fill: {
+      type: 'gradient',
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.secondary, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.secondary],
+        opacityFrom: 0.7,
+        opacityTo: 0.55,
+        stops: [0, 80, 100]
       }
-
-      listgroupitem.classList.add("active");
-
-      for (let a = 0, len = tablistgroup.length; a < len; a++) {
-        tablistgroup[a].classList.remove("active");
-
-        if (listgroupitem.id + "-list" === tablistgroup[a].id) {
-          tablistgroup[a].classList.add("active");
+    },
+    xaxis: {
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
+    },
+    tooltip: {
+      x: {
+        show: false
+      }
+    }
+  };
+  const smolOblpeopleChart = {
+    series: [{
+      name: 'Население Смоленской области',
+      data: [993018, 982887, 980482, 975188, 967896, 964791, 958630, 953201, 949348, 942363, 934889, 921127]
+    }],
+    chart: {
+      height: 350,
+      type: 'area'
+    },
+    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.secondary],
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'smooth'
+    },
+    fill: {
+      type: 'gradient',
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.secondary, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.secondary],
+        opacityFrom: 0.7,
+        opacityTo: 0.55,
+        stops: [0, 80, 100]
+      }
+    },
+    xaxis: {
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
+    },
+    tooltip: {
+      x: {
+        show: false
+      }
+    }
+  };
+  const smolOblworkpeopleChart = {
+    series: [{
+      name: 'Трудоспособное население Смоленской области',
+      data: [633809, 596862, 627128, 625958, 593611, 615842, 607983, 586273, 598980, 587725, 587237]
+    }],
+    chart: {
+      height: 350,
+      type: 'area'
+    },
+    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.secondary],
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'smooth'
+    },
+    fill: {
+      type: 'gradient',
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.secondary, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.secondary],
+        opacityFrom: 0.7,
+        opacityTo: 0.55,
+        stops: [0, 80, 100]
+      }
+    },
+    xaxis: {
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
+    },
+    tooltip: {
+      x: {
+        show: false
+      }
+    }
+  };
+  const smolOblnoworkChart = {
+    series: [{
+      name: 'Количество безработных в Смоленской области, тыс. человек',
+      data: [40.8, 41.5, 30.9, 28.1, 26.9, 32.8, 31.4, 29.8, 26.2, 25.3, 25.3]
+    }],
+    chart: {
+      height: 350,
+      type: 'area'
+    },
+    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.secondary],
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'smooth'
+    },
+    fill: {
+      type: 'gradient',
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.secondary, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.secondary],
+        opacityFrom: 0.7,
+        opacityTo: 0.55,
+        stops: [0, 80, 100]
+      }
+    },
+    xaxis: {
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
+    },
+    tooltip: {
+      x: {
+        show: false
+      }
+    }
+  };
+  const inflationChart = {
+    /* https://уровень-инфляции.рф/%D1%82%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D1%8B-%D0%B8%D0%BD%D1%84%D0%BB%D1%8F%D1%86%D0%B8%D0%B8 */
+    series: [{
+      name: 'Уровень инфляции в России',
+      data: [8.78, 6.10, 6.58, 6.45, 11.36, 12.91, 5.38, 2.52, 4.27, 3.05, 4.91, 8.39]
+    }],
+    chart: {
+      height: 350,
+      type: 'area'
+    },
+    annotations: {
+      yaxis: [{
+        y: 4,
+        borderColor: '#00B795',
+        label: {
+          borderColor: '#00B795',
+          style: {
+            color: '#FFFFFF',
+            background: '#00B795'
+          },
+          text: 'Оптимальный уровень'
         }
-      }
-    }
-  }; // Устанавливает класс active первой из найденных ссылок и табов
-
-
-  if (listgroup[0] && tablistgroup[0]) {
-    listgroup[0].classList.add("active");
-    tablistgroup[0].classList.add("active");
-  } // Прослушивание нажатия нажатия на ссылки списка ссылок .list-group
-
-
-  listgroupmenu.addEventListener('click', evt => {
-    listgroupitemClickHandler(evt);
-  });
-} // Кнопка Назад. Класс .btn-back. Возвращает на страницу, с которой был переход
-
-
-const backbtn = document.querySelectorAll('.btn-back');
-
-if (backbtn) {
-  for (let a = 0; a < backbtn.length; a++) {
-    backbtn[a].addEventListener('click', function () {
-      window.history.back();
-    });
-  }
-} // Кнопка Печати страницы. Класс .btn-print
-
-
-const printbtns = document.querySelectorAll('.btn-print');
-
-if (printbtns) {
-  printbtns.forEach(function (printbtn) {
-    printbtn.addEventListener('click', () => {
-      window.print();
-    });
-  });
-} // Показать / скрыть пароль
-// Кнопка показать / скрыть пароль
-
-
-const showhidepass = document.querySelector('.passcode-switch'); // Поле ввода пароля
-
-const passinplist = document.querySelectorAll('.passinput');
-
-const showhidepassHandler = () => {
-  // Меняем тип поля ввода пароля с password на text
-  if (passinplist[0].type === "password") {
-    passinplist.forEach(passinp => passinp.type = "text");
-    showhidepass.classList.toggle('is-hidden');
-  } else {
-    passinplist.forEach(passinp => passinp.type = "password");
-    showhidepass.classList.toggle('is-hidden');
-  }
-}; // Tooltip и popover
-
-
-document.querySelectorAll('.bs-tooltip').forEach(function (tooltip) {
-  new bootstrap.Tooltip(tooltip, {
-    selector: '[data-bs-toggle="tooltip"]'
-  });
-});
-document.querySelectorAll('[data-bs-toggle="popover"]').forEach(function (popover) {
-  new bootstrap.Popover(popover);
-}); // Отключаем спиннер загрузки при загрузке содержимого
-
-const spinnerloaderHandler = () => {
-  spinnerloader.style.display = "none";
-}; // Получает имя файла текущей открытой страницы и ищет такое же в ссылках бокового меню, устанавливает класс active открытому пункту или субпункту и его родителю
-
-
-const sidebarnavmenuHandler = () => {
-  let filename = window.location.href.replace(/^.*[\\\/]/, '').replace('#', '');
-  let menulink = sidebarnavmenu.querySelectorAll('.menu-link');
-  let submenulink = sidebarnavmenu.querySelectorAll('.submenu-link');
-
-  for (let i = 0, len = menulink.length; i < len; i++) {
-    // Поменять в этом условии http://isp/, если будет другой домен
-    if (filename === "" && menulink[i].href.replace(/^.*[\\\/]/, '').replace('#', '') === "") {
-      filename = "/";
-      menulink[i].closest('.menu-item').classList.add("active");
-    } // Условие для локальной версии, где главная index.html
-
-
-    if (filename === "" && menulink[i].href.replace(/^.*[\\\/]/, '').replace('#', '') === "index.html") {
-      filename = "index.html";
-      menulink[i].closest('.menu-item').classList.add("active");
-    }
-
-    if (filename === menulink[i].href.replace(/^.*[\\\/]/, '').replace('#', '')) {
-      menulink[i].closest('.menu-item').classList.add("active");
-    }
-  }
-
-  for (let i = 0, len = submenulink.length; i < len; i++) {
-    if (filename === submenulink[i].href.replace(/^.*[\\\/]/, '').replace('#', '')) {
-      submenulink[i].closest('.submenu-item').classList.add("active");
-      submenulink[i].closest('.menu-item').classList.add("active");
-    }
-  } // Прослушивание нажатия нажатия на ссылки меню .navigation-menu
-
-
-  sidebarnavmenu.addEventListener('click', evt => {
-    menuitemClickHandler(evt);
-  });
-}; // Отключаем спиннер загрузки при загрузке содержимого
-
-
-const maincontentscrollHandler = () => {
-  const winScroll = maincontent.scrollTop;
-  const height = maincontent.scrollHeight - maincontent.clientHeight;
-  const scrolled = winScroll / height * 100;
-  const topprogress = document.querySelector('.topprogressbar');
-
-  if (topprogress) {
-    topprogress.style.width = scrolled + "%";
-  }
-}; // Календарь
-// Цвета для Fullcalendar
-// Цвета событий, названия менять в разметке, в js менять не надо
-
-
-const calendCat = [{
-  color: "primary",
-  name: "События"
-}, {
-  color: "success",
-  name: "Отпуск"
-}, {
-  color: "info",
-  name: "Дежурство"
-}, {
-  color: "warning",
-  name: "Важно"
-}, {
-  color: "danger",
-  name: "Праздники"
-}, {
-  color: "pink",
-  name: "Категория 1"
-}, {
-  color: "blue",
-  name: "Категория 2"
-}, {
-  color: "orange",
-  name: "Категория 3"
-}, {
-  color: "teal",
-  name: "Категория 4"
-}, {
-  color: "azure",
-  name: "Категория 5"
-}];
-
-function araycal() {
-  let array = new Map();
-
-  for (let i = 0; i < calendCat.length; i++) {
-    array.set(calendCat[i].color, calendCat[i].color);
-  }
-
-  return Object.fromEntries(array);
-} // Для использования в Fullcalendar
-
-
-const calendarsColor = araycal(); // Мини календарь на главной
-// Контейнер для календаря
-
-const minicalendar = document.querySelector('.today-calendar-widget');
-
-const minicalendarhandler = () => {
-  function fetchevents(info, successCallback) {
-    // Получение событий AJAX
-    let data = {
-      startParam: moment(info.start).tz('Europe/Moscow').format('YYYY-MM-DD'),
-      endParam: moment(info.end).tz('Europe/Moscow').format('YYYY-MM-DD'),
-      calendars: Object.keys(calendarsColor),
-      private: '0'
-    };
-    ajax_send("GET", "components/fullcalendar/events.php", data, "json", result => successCallback(result));
-  } // Показать popover
-
-
-  function showPopover(event) {
-    const classpopover = "popover-" + event.event.extendedProps.calendar.toLowerCase();
-    let tooltip = new bootstrap.Popover(event.el, {
-      template: '<div class="popover ' + classpopover + '" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>',
-      title: event.event.title,
-      content: event.event.extendedProps.description,
-      placement: 'top'
-    });
-    tooltip.show();
-  } // Скрыть popover
-
-
-  function hidePopover() {
-    let tooltips = document.querySelectorAll(".popover");
-    tooltips.forEach(function (tooltip) {
-      document.body.removeChild(tooltip);
-    });
-  }
-
-  let calendar = new FullCalendar.Calendar(minicalendar, {
-    locale: 'ru',
-    timeZone: settings.timezone,
-    initialView: 'dayGridMonth',
-    height: 300,
-    editable: false,
-    selectable: true,
-    businessHours: false,
-    dayMaxEvents: false,
-    //
-    eventClassNames: function ({
-      event: calendarEvent
-    }) {
-      const colorName = calendarsColor[calendarEvent._def.extendedProps.calendar];
-      return [// Фоновый цвет событий
-      'fc-event-' + colorName];
-    },
-    headerToolbar: {
-      right: 'prev,title,next',
-      left: 'today'
-    },
-    eventSources: [fetchevents],
-    eventMouseEnter: function (event) {
-      if (event.event.display !== "background") {
-        showPopover(event);
-      }
-    },
-    eventMouseLeave: function () {
-      hidePopover();
-    }
-  });
-  calendar.render();
-  setInterval(() => {
-    calendar.refetchEvents();
-  }, 1000);
-};
-/**
- * Календарь. Модуль
- */
-
-/**
- * Контейнер для календаря
- * @type {HTMLElement}
- */
-
-
-const calendarEl = document.getElementById('calendar');
-/**
- * Настройки для модуля календаря
- * @type {{addEventTitle: string, addEventFormSubmit: string, cancelBtn: string, addDelEventModal: string, closeAddEventModalCrossButton: string, daysForRepeatEvents: string[], eventLabel: string, addEventButton: string}}
- */
-
-const calendarModuleSettings = {
-  addEventButton: ".add-event-button",
-  addDelEventModal: ".add-del-event-modal",
-  addEventFormSubmit: ".add-update-event-submit",
-  addEventTitle: ".add-event-title",
-  closeAddEventModalCrossButton: ".btn-close",
-  cancelBtn: ".delete-discard-event-button",
-  daysForRepeatEvents: ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'],
-  deleteWarningMessage: ".delete-warning",
-  calEventFilter: ".calendar-events-filter",
-  filterInput: ".input-filter",
-  selectAll: ".select-all",
-  privateinp: "Private",
-  repeatparams: ".repeat-col",
-  timezone: 'Europe/Moscow',
-  datetimeformat: 'YYYY-MM-DD HH:mm',
-  bddatetimeformat: 'YYYY-MM-DD HH:mm',
-  datepickerformat: "Y-m-d H:i"
-};
-/**
- *
- * @param settings {Object} объект настроек и параметров
- */
-
-function calendmodulehandler(settings) {
-  /** Кнопка Добавить событие @type {HTMLButtonElement} */
-  const addEventButton = document.querySelector(settings.addEventButton);
-  /** Модал добавления/удаления события @type {HTMLElement} */
-
-  const addDelEventModal = document.querySelector(settings.addDelEventModal);
-  /** Кнопка Добавить/Сохранить событие в модале добавления/редактирования. Отправка формы @type {HTMLButtonElement} */
-
-  const addEventFormSubmit = document.querySelector(settings.addEventFormSubmit);
-  /** Заголовок в модале добавления/редактирования @type {HTMLElement} */
-
-  const addEventTitle = document.querySelector(settings.addEventTitle);
-  /** Кнопка Закрыть (крестик) модал добавления/редактирования @type {HTMLButtonElement} */
-
-  const closeAddEventModalCrossButton = addDelEventModal.querySelector(settings.closeAddEventModalCrossButton);
-  /** Кнопка Отмена/Удалить событие в модале добавления/редактирования @type {HTMLButtonElement} */
-
-  const cancelBtn = document.querySelector(settings.cancelBtn);
-  /** Предупреждение об удалении события */
-
-  const deleteWarningMessage = document.querySelector(settings.deleteWarningMessage);
-  /** Форма в модале добавления/редактирования @type {HTMLFormElement} */
-
-  const eventForm = document.forms.eventForm;
-  /** Инпут ввода названия события */
-
-  let eventTitle = eventForm.elements.eventTitle;
-  /** Инпут ввода даты начала события */
-
-  let startDate = eventForm.elements.dateStart;
-  /** Инпут ввода даты окончания события */
-
-  let endDate = eventForm.elements.dateEnd;
-  /** Переключатель Вижу только я (приватное событие) */
-
-  const privateSwitch = eventForm.elements.privateCheck;
-  /** Селект категории события */
-
-  const eventLabel = eventForm.elements.selectLabel;
-  /** Переключатель Весь день */
-
-  const allDaySwitch = eventForm.elements.allDaySwitch;
-  /** Чекбокс повторяющееся событие */
-
-  const repeatSwitch = eventForm.elements.repeatSwitch;
-  /** Описание события */
-
-  const calendarEditor = eventForm.elements.eventDescription;
-  /** Фильтр событий */
-
-  const calEventFilter = document.querySelector(settings.calEventFilter);
-  /** Чекбоксы в фильтре */
-
-  const filterInput = document.querySelectorAll(settings.filterInput);
-  /** Чекбокс Все в фильтре */
-
-  const selectAll = document.querySelector(settings.selectAll);
-  /** Чекбокс Только мои события */
-
-  const privateinp = document.getElementById(settings.privateinp);
-  /**  Колонки с параметрами повторения */
-
-  const repeatparams = document.querySelector(settings.repeatparams); // Переключатели повторения
-
-  const repparamSwitch = document.getElementById("dayrepopt"); // Секции с параметрами повторения по неделям, месяцам, годам
-
-  const weeklysection = document.getElementById("weekly-section");
-  const monthlysection = document.getElementById("monthly-section"); // Секция с интервалом
-
-  const intervalsection = document.getElementById("interval-section"); // Метка "день" в интервале
-
-  const daynumlabel1 = document.getElementById("daynum-label"); // Метка "Каждый" в интервале
-
-  const daynumlabel2 = document.getElementById("intervallabel1"); // поле ввода начала повторения
-
-  const startrepDate = document.getElementById("startrep-date"); // поле ввода окончания повторения
-
-  const endrepDate = document.getElementById("endrep-date"); // Вкладка Повторение на модале
-
-  const reppane = document.getElementById("nav-rep"); // Все чекбоксы дней недель
-
-  const wdayscheck = document.querySelectorAll('.wdays-check'); // Радио Закончить после даты
-
-  const repdate = document.getElementById("Radio5"); // Радио Закончить после повторений
-
-  const repcount = document.getElementById("Radio6"); // Радио Каждое число месяца
-
-  const evdmonth = document.getElementById("Radio1"); // Радио Последний день месяца
-
-  const lastdmonth = document.getElementById("month1"); // Радио Предоследний рабочий день месяца
-
-  const prelastdmonth = document.getElementById("month2"); // Радио Первый день месяца
-
-  const firstdmonth = document.getElementById("month3"); // Радио Первый рабочий день месяца
-
-  const firstworkdmonth = document.getElementById("month4"); // Радио Последний рабочий день месяца
-
-  const lastworkdmonth = document.getElementById("month5"); // Инпут Закончить после даты
-
-  const repdateinp = document.getElementById("endrep-date"); // Инпут Закончить после повторений
-
-  const repcountinp = document.getElementById("repcount"); // Интервал повторений
-
-  const daynum = document.getElementById("daynum"); // Поле ввода дня для ежемесячного
-
-  const dayofmonth = document.getElementById("dayofmonth"); // Событие для просмотра
-
-  let eventToUpdate;
-  /**
-   * Закрыть модел. Показывает темный оверлей
-   */
-
-  function hideModal() {
-    addDelEventModal.style.display = "none";
-    addDelEventModal.classList.remove('show');
-    const modalBackdrop = document.querySelector(".modal-backdrop");
-
-    if (modalBackdrop) {
-      document.body.removeChild(modalBackdrop);
-    }
-  }
-  /**
-   * Показать модал. Скрывает темный оверлей
-   */
-
-
-  function showModal(mode) {
-    /** Добавляем прослушиватель нажатия кнопки Закрыть */
-    closeAddEventModalCrossButton.addEventListener('click', closeAddEvModal);
-    /** Если включили повторение, то дата начала повторения берется из даты начала события */
-
-    repeatSwitch.addEventListener('click', () => repswitch(moment(startDate.value).format(settings.datetimeformat)));
-    /** Выбор повторения для дня */
-
-    repparamSwitch.addEventListener('change', () => repparamSwitchHandler(repparamSwitch.options[repparamSwitch.selectedIndex].value));
-    /** Если переключают на весь день, то меняется диапазон времени на весь день, и наоборот, на текущее время, не меняя введенной даты */
-
-    allDaySwitch.addEventListener('click', function () {
-      let start;
-      let end;
-
-      if (allDaySwitch.checked === true) {
-        start = moment(startDate.value).hour(0).minutes(0).format(settings.datetimeformat);
-        end = moment(endDate.value).hour(23).minutes(59).format(settings.datetimeformat);
-      } else {
-        start = moment(startDate.value).hour(moment().hour()).minutes(moment().minutes()).format(settings.datetimeformat);
-        end = moment(endDate.value).hour(moment().hour()).minutes(moment().minutes()).format(settings.datetimeformat);
-      }
-
-      startDatepicker.setDate(start, true);
-      endDatepicker.setDate(end, true);
-    });
-
-    function checkStartDate() {
-      startDate.value > endDate.value ? endDate.value = startDate.value : false;
-    }
-
-    function checkEndDate() {
-      startDate.value > endDate.value ? startDate.value = endDate.value : false;
-    }
-    /** Проверка дат начала и конца, при изменении даты, меняет неправильную */
-
-
-    startDate.addEventListener('change', checkStartDate);
-    endDate.addEventListener('change', checkEndDate);
-    /** Если в конце повторения включена дата, то блокируется ввоб кол-ва повторений и наоборот */
-
-    function repDateCheck() {
-      if (repdate.checked === true) {
-        repdateinp.nextSibling.disabled = false;
-        repdateinp.disabled = false;
-        repcount.checked = false;
-      } else {
-        repdateinp.nextSibling.disabled = true;
-        repdateinp.disabled = true;
-        repdateinp.value = "";
-        endRepeatDatepicker.setDate('', true);
-      }
-    }
-
-    function repCountCheck() {
-      if (repcount.checked === true) {
-        repcountinp.disabled = false;
-        repdate.checked = false;
-      } else {
-        repcountinp.disabled = true;
-        repcountinp.value = "";
-      }
-    }
-
-    repdate.addEventListener('click', repDateCheck);
-    repcount.addEventListener('click', repCountCheck);
-    /** Меняем названия кнопок и заголовка */
-
-    switch (mode) {
-      case 'add':
-        addEventFormSubmit.textContent = "Добавить";
-        cancelBtn.textContent = "Отмена";
-        addEventTitle.textContent = "Добавить событие";
-        addEventFormSubmit.addEventListener('click', addEvent);
-        cancelBtn.addEventListener('click', closeAddEvModal);
-        deleteWarningMessage.classList.add('d-none');
-        break;
-
-      case 'update':
-        addEventFormSubmit.textContent = "Обновить";
-        cancelBtn.textContent = "Удалить";
-        addEventTitle.textContent = "Редактировать событие";
-        cancelBtn.addEventListener('click', delEvent);
-        addEventFormSubmit.addEventListener('click', updateEvent);
-        break;
-    }
-
-    addDelEventModal.classList.add('show');
-    addDelEventModal.style.display = "block";
-    const modalBackdrop = document.createElement("div");
-    modalBackdrop.setAttribute('class', 'modal-backdrop fade show');
-    document.body.appendChild(modalBackdrop);
-    setInputEvtListeners(eventForm);
-  }
-  /**
-   * Отметить чекбоксы дней недели по массиву
-   * @param array массив дней
-   */
-
-
-  function checkweekdays(array) {
-    array.map((currElement, index) => {
-      wdayscheck[currElement].checked = true;
-    });
-  }
-  /**
-   * Сформировать строку дней недели по чекбоксам
-   * @returns {string} строка вида "TH, FR, SA, SU"
-   */
-
-
-  function getweekdaycheck() {
-    let array = [];
-    Array.from(wdayscheck).map((currElement, index) => {
-      if (currElement.checked === true) {
-        array.push(settings.daysForRepeatEvents[index]);
-      }
-    });
-    return array.join(", ");
-  }
-  /**
-   * Выбор повторения
-   * @param info
-   */
-
-
-  function repswitch(info) {
-    if (repeatSwitch.checked === true) {
-      if (info == null) {
-        const date = moment().tz(settings.timezone).format(settings.datetimeformat);
-        startrepDate.value = date;
-        endrepDate.value = moment(date).tz(settings.timezone).add(9, 'years').format(settings.datetimeformat);
-      } else {
-        const date = moment(info).tz(settings.timezone).format(settings.datetimeformat);
-        startrepDate.value = date;
-        endrepDate.value = moment(date).tz(settings.timezone).add(9, 'years').format(settings.datetimeformat);
-      }
-
-      repeatparams.style.display = "block";
-      repparamSwitch.required = true;
-    } else {
-      repeatparams.style.display = "none";
-      startrepDate.value = '';
-      endrepDate.value = '';
-      repparamSwitch.value = 'none';
-      repparamSwitch.required = false;
-    }
-    /*repparamSwitch.addEventListener('input', () => {
-      validateInput(eventForm, repparamSwitch);
-    });*/
-
-
-    setInputEvtListeners(eventForm);
-  }
-  /**
-   * Обновление события
-   */
-
-
-  const updateEvent = () => {
-    function updSucces(result, title) {
-      closeAddEvModal();
-
-      if (result === "null") {
-        showMiniToast('Событие ' + title + ' обновлено', "info");
-      }
-
-      calendar.refetchEvents();
-    }
-
-    let Event = new FormData();
-    Event.append("operation", "upd");
-    Event.append("id", eventToUpdate.id);
-    Event.append("title", $(addDelEventModal).find(eventTitle).val());
-    let title = $(addDelEventModal).find(eventTitle).val();
-    Event.append("start", $(addDelEventModal).find(startDate).val());
-    Event.append("end", $(addDelEventModal).find(endDate).val());
-    Event.append("calendar", $(eventLabel).val());
-    Event.append("private", $(privateSwitch).prop('checked') ? '1' : '0');
-    Event.append("description", $(calendarEditor).val());
-    Event.append("tzid", settings.timezone);
-    Event.append("allDay", $(allDaySwitch).prop('checked') ? '1' : '0'); // Параметры повторения. Если галочка включена
-
-    if ($(repeatSwitch).prop('checked')) {
-      if (Event.interval !== '') {
-        Event.append("interval", $(daynum).val());
-      } else {
-        Event.append("interval", '0');
-      }
-
-      if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'daily-section') {
-        // Ежедневно
-        Event.append("freq", 'DAILY');
-      } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'weekly-section') {
-        // Еженедельно
-        Event.append("freq", 'WEEKLY'); // Получаем отмеченные чекбоксы
-
-        if (getweekdaycheck() !== "" || null) {
-          Event.append("byweekday", getweekdaycheck());
-        } else {
-          Event.append("byweekday", '0');
+      }],
+      xaxis: [{
+        x: 2014,
+        x2: 2015,
+        fillColor: '#f6bc9a',
+        opacity: 0.4,
+        label: {
+          borderColor: '#f6bc9a',
+          style: {
+            color: '#fff',
+            background: '#ef630a'
+          },
+          offsetY: -10,
+          text: 'Валютный кризис'
         }
-      } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'monthly-section') {
-        // Ежемесячно
-        Event.append("freq", 'MONTHLY'); // Проверяем чекбоксы
-        // Последний день
-
-        if ($(lastdmonth).prop('checked')) {
-          Event.append("byweekday", 'MO, TU, WE, TH, FR, SA, SU');
-          Event.append("bysetpos", '-1');
-        } else // Предпоследний день
-          if ($(prelastdmonth).prop('checked')) {
-            Event.append("byweekday", 'MO, TU, WE, TH, FR, SA, SU');
-            Event.append("bysetpos", '-2');
-          } else // Первый день
-            if ($(firstdmonth).prop('checked')) {
-              Event.append("byweekday", 'MO, TU, WE, TH, FR, SA, SU');
-              Event.append("bysetpos", '1');
-            } else // Первый рабочий день
-              if ($(firstworkdmonth).prop('checked')) {
-                Event.append("byweekday", 'MO, TU, WE, TH, FR');
-                Event.append("bysetpos", '1');
-              } else // Последний рабочий день
-                if ($(lastworkdmonth).prop('checked')) {
-                  Event.append("byweekday", 'MO, TU, WE, TH, FR');
-                  Event.append("bysetpos", '-1');
-                }
-      } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'yearly-section') {
-        // Ежегодно
-        Event.append("freq", 'YEARLY');
-      } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'none') {
-        // Без повторения
-        Event.append("freq", '0');
-        Event.append("byweekday", '0');
-        Event.append("bysetpos", '0');
-      } // Начало повторения
-
-
-      Event.append("dtstart", moment($(startrepDate).val()).format(settings.datetimeformat)); // Диапазон повторения
-
-      if ($(repdate).prop('checked')) {
-        Event.append("until", moment($(endrepDate).val()).format(settings.datetimeformat));
-      } else {
-        Event.append("until", '0');
-      } // Кол-во повторений
-
-
-      if ($(repcount).prop('checked')) {
-        Event.append("count", $(repcountinp).val());
-      } else {
-        Event.append("count", '0');
-      } // Начало повторения
-
-
-      Event.append("dtstart", moment($(startrepDate).val()).format(settings.datetimeformat)); // Диапазон повторения
-
-      if ($(repdate).prop('checked')) {
-        Event.append("until", moment($(endrepDate).val()).format(settings.datetimeformat));
-      } // Кол-во повторений
-
-
-      if ($(repcount).prop('checked')) {
-        Event.append("count", $(repcountinp).val());
+      }, {
+        x: 2020,
+        label: {
+          borderColor: '#ef630a',
+          style: {
+            color: '#FFFFFF',
+            background: '#ef630a'
+          },
+          text: 'Рецессия COVID-19'
+        }
+      }]
+    },
+    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.primary],
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'smooth'
+    },
+    fill: {
+      type: 'gradient',
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.primary, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.primary],
+        opacityFrom: 0.7,
+        opacityTo: 0.55,
+        stops: [0, 80, 100]
       }
-    } else {
-      Event.append("interval", '0');
-    }
-
-    if (eventToUpdate.extendedProps.user_id === cookieID || JSON.stringify(eventToUpdate.extendedProps.user_id) === cookieID) {
-      ajax_send("POST", "components/fullcalendar/ajax.php", Event, "json", result => updSucces(result, title));
-    } else {
-      showMiniToast('Вы не имеете прав на правку события ' + title, "danger");
-    }
-  };
-  /** Удалить событие */
-
-
-  const delEvent = () => {
-    /**
-     * Скрыть модал. Сбросить инпуты. Показать всплывашку что удалено. Обновить события
-     * @param result результат отправки запроса на сервер
-     * @param title название удаляемого события
-     */
-    function delSucces(result, title) {
-      closeAddEvModal();
-
-      if (result === "null") {
-        showMiniToast('Событие ' + title + ' удалено', "danger");
+    },
+    xaxis: {
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
+    },
+    tooltip: {
+      x: {
+        show: false
       }
-
-      calendar.refetchEvents();
-    }
-
-    let Event = new FormData();
-    Event.append("operation", "del");
-    Event.append("id", eventToUpdate.id);
-    let title = eventToUpdate.title;
-
-    if (eventToUpdate.extendedProps.user_id === cookieID || JSON.stringify(eventToUpdate.extendedProps.user_id) === cookieID) {
-      ajax_send("POST", "components/fullcalendar/ajax.php", Event, "json", result => delSucces(result, title));
-    } else {
-      showMiniToast('Вы не имеете прав на удаление события ' + title, "danger");
     }
   };
-  /** Закрытие модала и сброс инпутов */
-
-
-  const closeAddEvModal = () => {
-    hideModal();
-    resetValues();
-    addEventFormSubmit.removeEventListener('click', updateEvent);
-    addEventFormSubmit.removeEventListener('click', addEvent);
-    cancelBtn.removeEventListener('click', delEvent);
-    cancelBtn.removeEventListener('click', closeAddEvModal);
-    deleteWarningMessage.classList.add('d-none');
-  };
-  /**
-   * Переключатель повторений
-   * @param mode значение repparamSwitch.options[repparamSwitch.selectedIndex].value
-   */
-
-
-  function repparamSwitchHandler(mode) {
-    switch (mode) {
-      case 'none':
-        intervalsection.style.display = "none";
-        weeklysection.style.display = "none";
-        monthlysection.style.display = "none";
-        evdmonth.checked = false;
-        break;
-
-      case 'daily-section':
-        intervalsection.style.display = "block";
-        weeklysection.style.display = "none";
-        monthlysection.style.display = "none";
-        evdmonth.checked = false;
-        daynumlabel2.textContent = 'Каждый';
-        daynumlabel1.textContent = 'день';
-        daynum.setAttribute('max', '31');
-        break;
-
-      case 'weekly-section':
-        intervalsection.style.display = "block";
-        weeklysection.style.display = "block";
-        monthlysection.style.display = "none";
-        /** Получаем текущий день недели, ставим галочку в параметрах */
-
-        /*if (!(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday)) {
-          checkweekdays([moment(startDate.value).weekday()]);
-        }*/
-
-        evdmonth.checked = false;
-        daynumlabel2.textContent = 'Каждую';
-        daynumlabel1.textContent = 'неделю';
-        daynum.setAttribute('max', '53');
-        break;
-
-      case 'monthly-section':
-        intervalsection.style.display = "block";
-        weeklysection.style.display = "none";
-        monthlysection.style.display = "block";
-        /** Переключаем на дефолтное радио */
-
-        evdmonth.checked = true;
-        dayofmonth.value = moment(startDate.value.date());
-        daynumlabel2.textContent = 'Каждый';
-        daynumlabel1.textContent = 'месяц';
-        daynum.setAttribute('max', '12');
-        break;
-
-      case 'yearly-section':
-        intervalsection.style.display = "block";
-        weeklysection.style.display = "none";
-        monthlysection.style.display = "none";
-        evdmonth.checked = false;
-        daynumlabel2.textContent = 'Каждый';
-        daynumlabel1.textContent = 'год';
-        daynum.setAttribute('max', '100');
-        break;
+  const postoutboxChart = {
+    series: [{
+      name: 'Исходящая почта',
+      data: [11610, 29513, 28845, 30240, 23662, 36230, 41202, 37862, 36211, 36859, 34827, 38381]
+    }],
+    chart: {
+      height: 350,
+      type: 'area'
+    },
+    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.primary],
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'smooth'
+    },
+    fill: {
+      type: 'gradient',
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.primary, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.primary],
+        opacityFrom: 0.7,
+        opacityTo: 0.55,
+        stops: [0, 80, 100]
+      }
+    },
+    xaxis: {
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
+    },
+    tooltip: {
+      x: {
+        show: false
+      }
     }
+  };
+  const emailoutboxChart = {
+    series: [{
+      name: 'Исходящая эл. почта',
+      data: [1810, 3170, 3959]
+    }],
+    chart: {
+      height: 350,
+      type: 'area'
+    },
+    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.primary],
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'smooth'
+    },
+    fill: {
+      type: 'gradient',
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.primary, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.primary],
+        opacityFrom: 0.7,
+        opacityTo: 0.55,
+        stops: [0, 80, 100]
+      }
+    },
+    xaxis: {
+      categories: [2019, 2020, 2021]
+    },
+    tooltip: {
+      x: {
+        show: false
+      }
+    }
+  };
+  const postinboxChart = {
+    series: [{
+      name: 'Входящая почта',
+      data: [4147, 9372, 12395, 12226, 11378, 11481, 11418, 12372, 11721, 11917, 12308, 15209]
+    }],
+    chart: {
+      height: 350,
+      type: 'area'
+    },
+    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.green],
+    fill: {
+      type: 'gradient',
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.green, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.green],
+        opacityFrom: 0.7,
+        opacityTo: 0.55,
+        stops: [0, 80, 100]
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'smooth'
+    },
+    xaxis: {
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
+    },
+    tooltip: {
+      x: {
+        show: false
+      }
+    }
+  };
+  const emailinboxChart = {
+    series: [{
+      name: 'Входящая эл. почта',
+      data: [6489, 8384, 10450]
+    }],
+    chart: {
+      height: 350,
+      type: 'area'
+    },
+    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.green],
+    fill: {
+      type: 'gradient',
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.green, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.green],
+        opacityFrom: 0.7,
+        opacityTo: 0.55,
+        stops: [0, 80, 100]
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'smooth'
+    },
+    xaxis: {
+      categories: [2019, 2020, 2021]
+    },
+    tooltip: {
+      x: {
+        show: false
+      }
+    }
+  };
+  const gcaseChart = {
+    series: [{
+      name: 'Гражданские дела',
+      data: [1777, 1935, 2108, 2892, 2784, 2593, 2454, 2145, 1785, 1388, 1587, 1893]
+    }],
+    chart: {
+      height: 350,
+      type: 'area'
+    },
+    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.red],
+    fill: {
+      type: 'gradient',
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.red, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.red],
+        opacityFrom: 0.7,
+        opacityTo: 0.55,
+        stops: [0, 80, 100]
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'smooth'
+    },
+    xaxis: {
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
+    },
+    tooltip: {
+      x: {
+        show: false
+      }
+    }
+  };
+  const gcaseOblChart = {
+    series: [{
+      name: 'Гражданские дела (область)',
+      data: [30095, 28470, 31392, 32393, 34753, 33232, 31409, 21203, 24391, 18543, 23220]
+    }],
+    chart: {
+      height: 350,
+      type: 'area'
+    },
+    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.red],
+    fill: {
+      type: 'gradient',
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.red, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.red],
+        opacityFrom: 0.7,
+        opacityTo: 0.55,
+        stops: [0, 80, 100]
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'smooth'
+    },
+    xaxis: {
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
+    },
+    tooltip: {
+      x: {
+        show: false
+      }
+    }
+  };
+  const g1caseChart = {
+    series: [{
+      name: 'Гражданские дела ап. инстанции',
+      data: [45, 62, 43, 60, 58, 57, 42, 35, 51, 68, 58, 49]
+    }],
+    chart: {
+      height: 350,
+      type: 'area'
+    },
+    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.orange],
+    fill: {
+      type: 'gradient',
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.orange, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.orange],
+        opacityFrom: 0.7,
+        opacityTo: 0.55,
+        stops: [0, 80, 100]
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'smooth'
+    },
+    xaxis: {
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
+    },
+    tooltip: {
+      x: {
+        show: false
+      }
+    }
+  };
+  const admcaseChart = {
+    series: [{
+      name: 'Дела об адм. правонарушениях',
+      data: [30, 25, 33, 1096, 1044, 844, 817, 882, 695, 467, 382, 1157]
+    }],
+    chart: {
+      height: 350,
+      type: 'area'
+    },
+    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.blue],
+    fill: {
+      type: 'gradient',
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.blue, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.blue],
+        opacityFrom: 0.7,
+        opacityTo: 0.55,
+        stops: [0, 80, 100]
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'smooth'
+    },
+    xaxis: {
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
+    },
+    tooltip: {
+      x: {
+        show: false
+      }
+    }
+  };
+  const admcaseOblChart = {
+    series: [{
+      name: 'Дела об адм. правонарушениях (область)',
+      data: [1487, 1334, 1315, 6150, 5856, 5316, 5080, 5352, 5232, 4805, 6768]
+    }],
+    chart: {
+      height: 350,
+      type: 'area'
+    },
+    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.blue],
+    fill: {
+      type: 'gradient',
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.blue, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.blue],
+        opacityFrom: 0.7,
+        opacityTo: 0.55,
+        stops: [0, 80, 100]
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'smooth'
+    },
+    xaxis: {
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
+    },
+    tooltip: {
+      x: {
+        show: false
+      }
+    }
+  };
+  const adm1caseChart = {
+    series: [{
+      name: 'Жалобы по адм. делам',
+      data: [0, 0, 0, 0, 166, 204, 205, 198, 145, 138, 123, 96]
+    }],
+    chart: {
+      height: 350,
+      type: 'area'
+    },
+    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.teal],
+    fill: {
+      type: 'gradient',
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.teal, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.teal],
+        opacityFrom: 0.7,
+        opacityTo: 0.55,
+        stops: [0, 80, 100]
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'smooth'
+    },
+    xaxis: {
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
+    },
+    tooltip: {
+      x: {
+        show: false
+      }
+    }
+  };
+  const ucaseChart = {
+    series: [{
+      name: 'Уголовные дела',
+      data: [275, 366, 364, 294, 360, 373, 254, 214, 282, 251, 240, 297]
+    }],
+    chart: {
+      height: 350,
+      type: 'area'
+    },
+    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.yellow],
+    fill: {
+      type: 'gradient',
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.yellow, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.yellow],
+        opacityFrom: 0.7,
+        opacityTo: 0.55,
+        stops: [0, 80, 100]
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'smooth'
+    },
+    xaxis: {
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
+    },
+    tooltip: {
+      x: {
+        show: false
+      }
+    }
+  };
+  const ucaseOblChart = {
+    series: [{
+      name: 'Уголовные дела (область)',
+      data: [4124, 4038, 3696, 3257, 3799, 3563, 3210, 2217, 3061, 3626, 3713]
+    }],
+    chart: {
+      height: 350,
+      type: 'area'
+    },
+    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.yellow],
+    fill: {
+      type: 'gradient',
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.yellow, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.yellow],
+        opacityFrom: 0.7,
+        opacityTo: 0.55,
+        stops: [0, 80, 100]
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'smooth'
+    },
+    xaxis: {
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
+    },
+    tooltip: {
+      x: {
+        show: false
+      }
+    }
+  };
+  const u1caseChart = {
+    series: [{
+      name: 'Уголовные дела ап. инстанции',
+      data: [15, 30, 17, 17, 13, 8, 14, 9, 9, 6, 13, 9]
+    }],
+    chart: {
+      height: 350,
+      type: 'area'
+    },
+    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.azure],
+    fill: {
+      type: 'gradient',
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.azure, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.azure],
+        opacityFrom: 0.7,
+        opacityTo: 0.55,
+        stops: [0, 80, 100]
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'smooth'
+    },
+    xaxis: {
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
+    },
+    tooltip: {
+      x: {
+        show: false
+      }
+    }
+  };
+  const mucaseChart = {
+    series: [{
+      name: 'Материалы в порядке уг. производства, всего',
+      data: [545, 3440, 2634, 1662, 1232, 1852, 1926, 1604, 2216, 1564, 1494, 1157]
+    }],
+    chart: {
+      height: 350,
+      type: 'area'
+    },
+    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.cyan],
+    fill: {
+      type: 'gradient',
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.cyan, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.cyan],
+        opacityFrom: 0.7,
+        opacityTo: 0.55,
+        stops: [0, 80, 100]
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'smooth'
+    },
+    xaxis: {
+      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
+    },
+    tooltip: {
+      x: {
+        show: false
+      }
+    }
+  };
+  const eosChart = {
+    series: [{
+      name: 'Обращения, без исковых',
+      data: [87, 230, 423, 624]
+    }],
+    chart: {
+      height: 350,
+      type: 'area'
+    },
+    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.primary],
+    fill: {
+      type: 'gradient',
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.primary, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.primary],
+        opacityFrom: 0.7,
+        opacityTo: 0.55,
+        stops: [0, 80, 100]
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'smooth'
+    },
+    xaxis: {
+      categories: [2018, 2019, 2020, 2021]
+    },
+    tooltip: {
+      x: {
+        show: false
+      }
+    }
+  };
+  const eosgcaseChart = {
+    series: [{
+      name: 'Исковые заявления',
+      data: [21, 43, 35, 128]
+    }],
+    chart: {
+      height: 350,
+      type: 'area'
+    },
+    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.green],
+    fill: {
+      type: 'gradient',
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.green, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.green],
+        opacityFrom: 0.7,
+        opacityTo: 0.55,
+        stops: [0, 80, 100]
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'smooth'
+    },
+    xaxis: {
+      categories: [2018, 2019, 2020, 2021]
+    },
+    tooltip: {
+      x: {
+        show: false
+      }
+    }
+  }; // Рефералы
+
+  const successLineChart = {
+    chart: {
+      height: 350,
+      type: 'line',
+      toolbar: {
+        show: true
+      }
+    },
+    grid: {
+      show: false
+    },
+    legend: {
+      show: false
+    },
+    dataLabels: {
+      enabled: false
+    },
+    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.success],
+    stroke: {
+      width: 3,
+      curve: 'smooth'
+    },
+    series: [],
+    noData: {
+      text: 'Loading...'
+    },
+
+    /*
+        xaxis: {
+          categories: array.value.day
+        },*/
+    yaxis: {
+      show: false,
+      labels: {
+        show: false
+      },
+      axisBorder: {
+        show: false
+      }
+    }
+  };
+
+  switch (chartname) {
+    case 'safpeopleChart':
+      return safpeopleChart;
+
+    case 'postinboxChart':
+      return postinboxChart;
+
+    case 'postoutboxChart':
+      return postoutboxChart;
+
+    case 'gcaseChart':
+      return gcaseChart;
+
+    case 'g1caseChart':
+      return g1caseChart;
+
+    case 'admcaseChart':
+      return admcaseChart;
+
+    case 'adm1caseChart':
+      return adm1caseChart;
+
+    case 'ucaseChart':
+      return ucaseChart;
+
+    case 'u1caseChart':
+      return u1caseChart;
+
+    case 'mucaseChart':
+      return mucaseChart;
+
+    case 'eosChart':
+      return eosChart;
+
+    case 'eosgcaseChart':
+      return eosgcaseChart;
+
+    case 'successLineChart':
+      return successLineChart;
+
+    case 'inflationChart':
+      return inflationChart;
+
+    case 'gcaseOblChart':
+      return gcaseOblChart;
+
+    case 'ucaseOblChart':
+      return ucaseOblChart;
+
+    case 'smolOblpeopleChart':
+      return smolOblpeopleChart;
+
+    case 'smolOblnoworkChart':
+      return smolOblnoworkChart;
+
+    case 'admcaseOblChart':
+      return admcaseOblChart;
+
+    case 'smolOblworkpeopleChart':
+      return smolOblworkpeopleChart;
+
+    case 'emailoutboxChart':
+      return emailoutboxChart;
+
+    case 'emailinboxChart':
+      return emailinboxChart;
   }
-  /**
-   * Получить сведения о событии
-   * @param info данные по событию из fullcalendar
-   */
+};
+
+const apexChartInit = (chart, chartName) => {
+  let apexChart = new ApexCharts(chart, apexChartOptions(chartName));
+  apexChart.render();
+  apexChart.updateSeries(apexChartOptions(chartName).series);
+};
+/* Статистика - Графики */
 
 
-  function getEventParams(info) {
-    let event = info.event;
-    /** Название события */
+const statCards = document.querySelectorAll('.stat-card');
+const statFilters = document.querySelectorAll('.stat-filters .input-filter'); // Ждем полной загрузки дерева
 
-    eventTitle.value = event.title;
-    /** Приватное событие */
-
-    privateSwitch.checked = !(event.extendedProps.private === 0 || event.extendedProps.private === "0");
-    /** Разные даты начала и конца события для создаваемых событий при нажатии на кнопку создания и на день */
-
-    const date = moment(info.date).format(settings.datetimeformat);
-    startDatepicker.setDate(date, true, settings.datetimeformat);
-    endDatepicker.setDate(date, true, settings.datetimeformat);
-    /**
-     * Чекбоксы повторения для месяца
-     * @param num
-     * @param array
-     */
-
-    function getCheckboxesForMonth(num, array) {
-      switch (num) {
-        case 'null':
-          evdmonth.checked = true;
-          dayofmonth.value = event._def.recurringDef.typeData.rruleSet._rrule[0].options.bymonthday[0];
-          break;
-
-        case '1':
-          break;
-
-        case '-1':
-          if (array === '[0,1,2,3,4]') {
-            lastworkdmonth.checked = true;
-          } else if (array === '[0,1,2,3,4]') {
-            firstworkdmonth.checked = true;
-          } else if (array === '[0,1,2,3,4,5,6]') {
-            firstdmonth.checked = true;
-          } else if (array === '[0,1,2,3,4,5,6]') {
-            lastdmonth.checked = true;
+document.addEventListener("DOMContentLoaded", () => {
+  /* Фильтры в стат графиках */
+  if (statCards && statFilters) {
+    statFilters.forEach(statFilter => {
+      statFilter.addEventListener('click', () => {
+        if (statFilter.checked) {
+          for (let i = 0; i < statCards.length; i++) {
+            if (statCards[i].classList.contains(statFilter.dataset.value)) {
+              statCards[i].classList.remove('d-none');
+              const chart = statCards[i].querySelector('.apexchart');
+              apexChartInit(chart, chart.dataset.chartName);
+            }
           }
-
-          break;
-      }
-    }
-    /**
-     * Получить повторения из события, открыть нужные вкладки
-     * @param num
-     */
-
-
-    function getRepeatsEvent(num) {
-      switch (num) {
-        case 3:
-          repparamSwitch.value = 'daily-section';
-          weeklysection.style.display = "none";
-          monthlysection.style.display = "none";
-          intervalsection.style.display = "block";
-          daynumlabel2.innerHTML = 'Каждый';
-          daynumlabel1.innerHTML = 'день';
-          daynum.setAttribute('max', '31');
-          break;
-
-        case 2:
-          repparamSwitch.value = 'weekly-section';
-          weeklysection.style.display = "block";
-          monthlysection.style.display = "none";
-          intervalsection.style.display = "block";
-          daynumlabel2.innerHTML = 'Каждую';
-          daynumlabel1.innerHTML = 'неделю';
-          daynum.setAttribute('max', '53');
-          break;
-
-        case 1:
-          repparamSwitch.value = 'monthly-section';
-          monthlysection.style.display = "block";
-          weeklysection.style.display = "none";
-          intervalsection.style.display = "block";
-          daynumlabel2.innerHTML = 'Каждый';
-          daynumlabel1.innerHTML = 'месяц';
-          daynum.setAttribute('max', '12');
-          /** Чекбоксы повторения для месяца */
-
-          getCheckboxesForMonth(event._def.recurringDef.typeData.rruleSet._rrule[0].options.bysetpos, JSON.stringify(event._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday));
-          break;
-
-        case 0:
-          repparamSwitch.value = 'yearly-section';
-          weeklysection.style.display = "none";
-          monthlysection.style.display = "none";
-          intervalsection.style.display = "block";
-          daynumlabel2.innerHTML = 'Каждый';
-          daynumlabel1.innerHTML = 'год';
-          daynum.setAttribute('max', '100');
-          break;
-
-        case null:
-          repparamSwitch.value = '';
-          break;
-      }
-    }
-    /** Повторять до даты */
-
-
-    if (event._def.recurringDef !== null) {
-      deleteWarningMessage.classList.remove('d-none');
-      getRepeatsEvent(event._def.recurringDef.typeData.rruleSet._rrule[0].options.freq);
-
-      if (event._def.recurringDef.typeData.rruleSet._rrule[0].options.freq === 2) {
-        /** Чекбоксы дней недель */
-        checkweekdays(event._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday);
-      }
-      /** Для еженедельного */
-
-
-      repeatSwitch.checked = true;
-      repeatparams.style.display = "block";
-      repparamSwitch.required = true;
-      startrepDate.value = moment(event._def.recurringDef.typeData.rruleSet._rrule[0].options.dtstart).utc().format(settings.datetimeformat);
-
-      if (event._def.recurringDef.typeData.rruleSet._rrule[0].options.until) {
-        endrepDate.value = moment(event._def.recurringDef.typeData.rruleSet._rrule[0].options.until).utc().format(settings.datetimeformat);
-        repdate.checked = true;
-        endrepDate.checked = false;
-      } else {
-        endrepDate.value = "";
-        repdate.checked = false;
-        endrepDate.checked = true;
-      }
-      /** Кол-во повторений */
-
-
-      if (event._def.recurringDef.typeData.rruleSet._rrule[0].options.count) {
-        repcountinp.value = event._def.recurringDef.typeData.rruleSet._rrule[0].options.count;
-        repcount.checked = true;
-      } else {
-        repcountinp.value = "";
-        repcount.checked = false;
-      }
-    } else {
-      repeatSwitch.checked = false;
-      deleteWarningMessage.classList.add('d-none');
-    }
-
-    startDatepicker.setDate(event.start, true, settings.datetimeformat);
-    event.allDay === true ? allDaySwitch.checked = true : allDaySwitch.checked = false;
-    event.end !== null ? endDatepicker.setDate(event.end, true, settings.datetimeformat) : endDatepicker.setDate(event.start, true, settings.datetimeformat);
-    $(addDelEventModal).find(eventLabel).val(event.extendedProps.calendar).trigger('change');
-    $(addDelEventModal).find(calendarEditor).val(event.extendedProps.description);
-  }
-  /**
-   * Нажатие на событие в календаре
-   * @param info нажатое событие
-   */
-
-
-  function eventClick(info) {
-    /** Запретить редактирование событий без id и фоновых */
-    if (info.event.id !== "" && info.event.display !== "background") {
-      eventToUpdate = info.event;
-      /** Проверить права пользователя и его ID, включаем возможность редактирования */
-
-      if (eventToUpdate.extendedProps.user_id === cookieID || JSON.stringify(eventToUpdate.extendedProps.user_id) === cookieID) {
-        /** Добавляем прослушку кликов по кнопкам Добавить и Обновить */
-        addEventFormSubmit.disabled = false;
-        cancelBtn.disabled = false;
-      } else {
-        addEventFormSubmit.disabled = true;
-        cancelBtn.disabled = true;
-      }
-
-      getEventParams(info);
-      showModal('update');
-    }
-  }
-  /**
-   * Селект для меток в модале
-   */
-
-
-  function renderCheckboxes() {
-    const parent = document.getElementById('calEventFilter');
-    parent.textContent = '';
-    const header = `<p class="group-title mb-2">Календарь:</p>`;
-    const selAll = `<div class="form-check d-flex align-items-center mb-3">
-                  <input class="form-check-input input-filter bg-dark select-all me-1" type="checkbox" id="select-all"
-                         name="select-all" checked>
-                  <label class="form-check-label" for="select-all">Все</label>
-                </div>`;
-    parent.insertAdjacentHTML('beforeend', header);
-    parent.insertAdjacentHTML('beforeend', selAll);
-
-    const createItem = ({
-      color,
-      name
-    }) => `<div class="form-check d-flex align-items-center mb-2">
-                  <input class="form-check-input input-filter bg-${color} me-1" type="checkbox" id="${color}" name="${color}"
-                         data-value="${color}" value="${color}" checked>
-                  <label class="form-check-label" for="${color}">${name}</label>
-                </div>`;
-
-    const ElementsString = calendCat.map(color => createItem(color)).join('');
-    parent.insertAdjacentHTML('beforeend', ElementsString);
-  }
-
-  renderCheckboxes();
-  /**
-   * Селект для меток в модале
-   * @param option
-   * @returns {string|*}
-   */
-
-  function renderBullets(option) {
-    if (!option.id) {
-      return option.text;
-    }
-
-    return "<span class='bullet bg-" + $(option.element).data('label') + " bullet-sm me-2 ms-2'> " + '</span>' + option.text;
-  }
-  /**
-   * Селект для меток в модале
-   */
-
-
-  function renderOptions() {
-    eventLabel.textContent = '';
-    const placeholderItem = `<option></option>`;
-    eventLabel.insertAdjacentHTML('beforeend', placeholderItem);
-
-    const createItem = ({
-      color,
-      name
-    }) => `<option data-label="${color}" value="${color}">${name}</option>`;
-
-    const ElementsString = calendCat.map(color => createItem(color)).join('');
-    eventLabel.insertAdjacentHTML('beforeend', ElementsString);
-  }
-
-  renderOptions();
-  $(eventLabel).wrap('<div class="position-relative"></div>').select2({
-    placeholder: 'Выберите значение',
-    dropdownParent: $(eventLabel).parent(),
-    templateResult: renderBullets,
-    templateSelection: renderBullets,
-    minimumResultsForSearch: -1,
-    escapeMarkup: function (es) {
-      return es;
-    }
-  });
-  /**
-   * Датапикер начало события
-   * @type {jQuery|Instance|Instance[]|*}
-   */
-
-  const startDatepicker = startDate.flatpickr({
-    locale: "ru",
-    enableTime: true,
-    altInput: true,
-    altFormat: "d.m.Y H:i",
-    dateFormat: settings.datepickerformat
-  });
-  /**
-   * Датапикер конец события
-   * @type {jQuery|Instance|Instance[]|*}
-   */
-
-  const endDatepicker = endDate.flatpickr({
-    locale: "ru",
-    enableTime: true,
-    altInput: true,
-    altFormat: "d.m.Y H:i",
-    dateFormat: settings.datepickerformat,
-    onReady: function (selectedDates, dateStr, instance) {}
-  });
-  /**
-   * Датапикер начало повторения
-   * @type {Instance}
-   */
-
-  const startRepeatDatepicker = startrepDate.flatpickr({
-    locale: "ru",
-    enableTime: true,
-    altInput: true,
-    altFormat: "d.m.Y H:i",
-    dateFormat: settings.datepickerformat
-  });
-  /**
-   * Датапикер конца повторения
-   * @type {Instance}
-   */
-
-  const endRepeatDatepicker = endrepDate.flatpickr({
-    locale: "ru",
-    enableTime: true,
-    altInput: true,
-    altFormat: "d.m.Y H:i",
-    dateFormat: settings.datepickerformat
-  });
-  /**
-   * Получение событий. Эта функция будет вызываться fullCalendar для получения и обновления событий.
-   * @param info
-   * @param successCallback ф-я коллбек для передачи
-   */
-
-  function fetchEvents(info, successCallback) {
-    const filterInput2 = document.querySelectorAll('.input-filter:not(.select-all)');
-    let data = {
-      /** С не фиксированной датой не работают повторяющиеся собыия */
-      startParam: moment(info.start).tz(settings.timezone).format('YYYY-MM-DD'),
-      endParam: moment(info.end).tz(settings.timezone).format('YYYY-MM-DD'),
-      calendars: selectedCheckboxes(filterInput2, 'selected'),
-      private: privateinp.checked === true ? 1 : 0
-    };
-    ajax_send("GET", "components/fullcalendar/events.php", data, "json", result => successCallback(result));
-  }
-  /**
-   * Показать popover
-   * @param event
-   */
-
-
-  function showPopover(event) {
-    const popoverClass = "popover-" + event.event.extendedProps.calendar.toLowerCase();
-    const tooltip = new bootstrap.Popover(event.el, {
-      template: '<div class="popover ' + popoverClass + '" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>',
-      title: event.event.title,
-      content: event.event.extendedProps.description,
-      placement: 'top'
-    });
-    tooltip.show();
-  }
-  /** Скрыть popover */
-
-
-  function hidePopover() {
-    let tooltips = document.querySelectorAll(".popover");
-    tooltips.forEach(function (tooltip) {
-      document.body.removeChild(tooltip);
-    });
-  }
-
-  const calendar = new FullCalendar.Calendar(calendarEl, {
-    themeSystem: 'standard',
-    locale: 'ru',
-    timeZone: settings.timezone,
-    initialView: 'dayGridMonth',
-    editable: true,
-    dragScroll: false,
-    eventResizableFromStart: false,
-    selectable: true,
-    selectMirror: true,
-    businessHours: false,
-    handleWindowResize: true,
-    nowIndicator: true,
-    dayMaxEvents: true,
-    // добавляет ссылку "еще", когда очень много событий
-    navLinks: true,
-    // можно нажимть на названия дней/недель для переключения между видами
-    eventClassNames: function ({
-      event: calendarEvent
-    }) {
-      const colorName = calendarsColor[calendarEvent._def.extendedProps.calendar];
-      return [// Фоновый цвет событий
-      'fc-event-' + colorName];
-    },
-    eventSources: [fetchEvents],
-    customButtons: {
-      addEvBtn: {
-        text: '+ Добавить событие',
-        click: function () {
-          neweventmodal(null);
+        } else {
+          for (let i = 0; i < statCards.length; i++) {
+            if (statCards[i].classList.contains(statFilter.dataset.value)) {
+              statCards[i].classList.add('d-none');
+            }
+          }
         }
-      }
-    },
-    headerToolbar: {
-      left: 'addEvBtn',
-      right: 'dayGridMonth,timeGridWeek,timeGridDay today prev,title,next'
-    },
-    eventMouseEnter: function (event) {
-      if (event.event.display !== "background") {
-        showPopover(event);
-      }
-    },
-    eventMouseLeave: hidePopover,
-    dateClick: function (info) {
-      neweventmodal(info);
-    },
-    eventClick: function (info) {
-      eventClick(info);
-    }
-  });
-  /** Рендеринг календаря */
-
-  calendar.render();
-  setInterval(() => {
-    calendar.refetchEvents();
-  }, 1000);
-
-  function neweventmodal(info) {
-    resetValues();
-    showModal('add');
-    /** Разные даты начала и конца события для создаваемых событий при нажатии на кнопку создания и на день */
-
-    let date;
-
-    if (info == null) {
-      date = "";
-    } else {
-      date = moment(info.date).format(settings.datetimeformat);
-    }
-
-    startDatepicker.setDate(date, true);
-    endDatepicker.setDate(date, true);
-  }
-  /** Добавление нового события */
-
-
-  function addEvent() {
-    function addSucces(result, title) {
-      closeAddEvModal();
-
-      if (result === "null") {
-        showMiniToast('Событие ' + title + ' добавлено', "success");
-      }
-
-      calendar.refetchEvents();
-    }
-
-    let Event = new FormData();
-    Event.append("operation", "add");
-    Event.append("title", eventTitle.value);
-    let title = eventTitle.value;
-    Event.append("start", moment(startDate.value).format(settings.datetimeformat));
-    Event.append("end", moment(endDate.value).format(settings.datetimeformat));
-    Event.append("calendar", eventLabel.value);
-    Event.append("description", calendarEditor.value);
-    Event.append("private", privateSwitch.checked === true ? '1' : '0');
-    Event.append("user_id", cookieID);
-    Event.append("tzid", settings.timezone);
-
-    if (allDaySwitch.checked === true) {
-      /** Если Весь день, то меняем переменную */
-      Event.append("allDay", "1");
-    }
-    /** Параметры повторения. Если галочка включена */
-
-
-    if (repeatSwitch.checked === true) {
-      Event.append("interval", daynum.value);
-
-      if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'daily-section') {
-        /** Ежедневно */
-        Event.append("freq", "DAILY");
-      } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'weekly-section') {
-        /** Еженедельно */
-        Event.append("freq", "WEEKLY");
-        /** Получаем отмеченные чекбоксы */
-
-        Event.append("byweekday", getweekdaycheck());
-      } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'monthly-section') {
-        /** Ежемесячно */
-        Event.append("freq", "MONTHLY");
-        /** Проверяем чекбоксы */
-
-        /** Последний день */
-
-        if (lastdmonth.checked === true) {
-          Event.append("byweekday", "MO, TU, WE, TH, FR, SA, SU");
-          Event.append("bysetpos", "-1");
-        } else
-          /** Первый день */
-          if (firstdmonth.checked === true) {
-            Event.append("byweekday", "MO, TU, WE, TH, FR, SA, SU");
-            Event.append("bysetpos", "1");
-          } else
-            /** Первый рабочий день */
-            if (firstworkdmonth.checked === true) {
-              Event.append("byweekday", "MO, TU, WE, TH, FR");
-              Event.append("bysetpos", "1");
-            } else
-              /** Последний рабочий день */
-              if (lastworkdmonth.checked === true) {
-                Event.append("byweekday", "MO, TU, WE, TH, FR");
-                Event.append("bysetpos", "-1");
-              }
-      } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'yearly-section') {
-        /** Ежегодно */
-        Event.append("freq", "YEARLY");
-      }
-      /** Начало повторения */
-
-
-      Event.append("dtstart", moment(startrepDate.value).format('YYYY-MM-DD HH:mm'));
-      /** Диапазон повторения */
-
-      if (repdate.checked === true) {
-        Event.append("until", moment(endrepDate.value).format('YYYY-MM-DD HH:mm'));
-      }
-      /** Кол-во повторений */
-
-
-      if (repcount.checked === true) {
-        Event.append("count", repcountinp.value);
-      }
-    }
-
-    ajax_send("POST", "components/fullcalendar/ajax.php", Event, "json", result => addSucces(result, title));
-  } // Сброс значений модала
-
-
-  function resetValues() {
-    eventForm.reset();
-    repeatparams.style.display = "none";
-    $(addDelEventModal).find(eventLabel).val('').trigger('change'); // Скрыть параметры повторения
-
-    intervalsection.style.display = "none";
-    weeklysection.style.display = "none";
-    monthlysection.style.display = "none";
-  }
-  /** Когда модал закрыт, сбросить значения */
-
-
-  addDelEventModal.addEventListener('hidden.bs.modal', resetValues); // Выбрать все и другие фильтры
-
-  if (document.querySelector(".select-all")) {
-    // Фильтр событий
-    const calEventFilter = document.querySelector(".calendar-events-filter"); // Чекбокс Все в фильтре
-
-    const selectAll = document.querySelector(".select-all");
-    $(selectAll).on('change', function () {
-      const $this = $(this);
-
-      if ($this.prop('checked')) {
-        $(calEventFilter).find('input').prop('checked', true);
-      } else {
-        $(calEventFilter).find('input').prop('checked', false);
-      }
-
-      calendar.refetchEvents();
-    });
-  }
-
-  if ($(filterInput)) {
-    const filterInput2 = document.querySelectorAll('.input-filter:not(.select-all)');
-    filterInput2.forEach(filterInput => {
-      filterInput.addEventListener('click', () => {
-        '.input-filter:checked'.length < $(calEventFilter).find('input').length ? $(selectAll).prop('checked', false) : $(selectAll).prop('checked', true);
-        calendar.refetchEvents();
       });
     });
-  } // Фильтр Только мои
+  }
 
-
-  if ($(privateinp)) {
-    $(privateinp).on('change', function () {
-      calendar.refetchEvents();
+  if (document.querySelector(".apexchart1")) {
+    let apexchartVisits = new ApexCharts(document.querySelector(".apexchart1"), apexChartOptions("successLineChart"));
+    apexchartVisits.render();
+    $.getJSON('api/visits/getVisits.php', function (response) {
+      apexchartVisits.updateSeries([{
+        name: 'Посещения',
+        data: response
+      }]);
     });
   }
-} // Datatables
+});
+
+/***/ }),
+
+/***/ "./src/assets/js/modules/certificatework.js":
+/*!**************************************************!*\
+  !*** ./src/assets/js/modules/certificatework.js ***!
+  \**************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _globalfunc__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../globalfunc */ "./src/assets/js/globalfunc.js");
+
+/** Справка по судьям */
+
+/** @type {HTMLButtonElement} Кнопка Сформировать */
+
+const certBtn = document.querySelector('.cert-get');
+/** Получить квартал и год из селекта */
+
+function certBtnHandler() {
+  let value = document.querySelector('.cert-select');
+  let year = $(value).find(':selected').parent().attr('label');
+  let data = {
+    quarter: value.value,
+    year: year
+  };
+  /** Вставить данные справки по судьям в таблицу */
+
+  function createTable(data) {
+    const createRowString = ({
+      col_3,
+      col_4,
+      col_5,
+      col_6,
+      col_7,
+      col_8,
+      col_9,
+      col_10,
+      col_11,
+      col_12,
+      col_13,
+      col_14,
+      col_15,
+      col_16,
+      col_17,
+      fullname,
+      row_num
+    }) => `<tr>
+<td>${row_num}</td>
+<td>${fullname}</td>
+<td>${col_3}</td>
+<td>${col_4}</td>
+<td>${col_5}</td>
+<td>${col_6}</td>
+<td>${col_7}</td>
+<td>${col_8}</td>
+<td>${col_9}</td>
+<td>${col_10}</td>
+<td>${col_11}</td>
+<td>${col_12}</td>
+<td>${col_13}</td>
+<td>${col_14}</td>
+<td>${col_15}</td>
+<td>${col_16}</td>
+<td>${col_17}</td>
+</tr>`;
+
+    document.querySelector('.cert-table').innerHTML = '';
+    const taskElementsString = data.data.map((col_3, col_4, col_5, col_6, col_7, col_8, col_9, col_10, col_11, col_12, col_13, col_14, col_15, col_16, col_17, fullname, row_num) => createRowString(col_3, col_4, col_5, col_6, col_7, col_8, col_9, col_10, col_11, col_12, col_13, col_14, col_15, col_16, col_17, fullname, row_num)).join('');
+    document.querySelector('.cert-table').insertAdjacentHTML('beforeend', taskElementsString);
+  }
+  /** Отправить запрос с параметрами и вставить в таблицу справки по судьям */
 
 
+  (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("GET", "api/certificatework/getCertificateWork.php", data, "json", response => {
+    createTable(response);
+  });
+}
+/** Прослушиватель нажатия кнопки Сформировать справки по судьям */
+
+
+if (certBtn) {
+  certBtn.addEventListener('click', function () {
+    certBtnHandler();
+  });
+}
+
+/***/ }),
+
+/***/ "./src/assets/js/modules/datatables.js":
+/*!*********************************************!*\
+  !*** ./src/assets/js/modules/datatables.js ***!
+  \*********************************************/
+/***/ (function() {
+
+// Datatables
 const datatablesHandler = () => {
   const colspan = $('td[colspan]').not('[colspan=1]');
   /* colspan.prop("colSpan")  получает кол-во colspan */
@@ -4124,9 +1975,20 @@ const datatablesHandler = () => {
       }
     }
   });
-}; // Содержимое страницы FAQ
+}; // Ждем полной загрузки дерева
 
 
+document.addEventListener("DOMContentLoaded", datatablesHandler);
+
+/***/ }),
+
+/***/ "./src/assets/js/modules/faq.js":
+/*!**************************************!*\
+  !*** ./src/assets/js/modules/faq.js ***!
+  \**************************************/
+/***/ (function() {
+
+// Содержимое страницы FAQ
 const faqcard = document.querySelector('.faq-categories-doc');
 const cont = document.querySelector('.faq-body'); // Индикатор загрузки для страницы FAQ
 
@@ -4223,6 +2085,1490 @@ if (faqaccordeon) {
       faqcategoryClickHandler(evt);
     });
   });
+}
+
+/***/ }),
+
+/***/ "./src/assets/js/modules/forms.js":
+/*!****************************************!*\
+  !*** ./src/assets/js/modules/forms.js ***!
+  \****************************************/
+/***/ (function() {
+
+// Ищет в форме селект с id profession, проверяет, если судья или председатель, то отображает принадлежность судье, если нет, то блокирует и сбрасывает значение
+// Селект Профессия
+const profselect = document.getElementById('profession'); // Селект Принадлежность
+
+const affselect = document.getElementById('affiliation');
+
+const profselectHandler = () => {
+  if (profselect.options[profselect.selectedIndex].value === '6' || profselect.options[profselect.selectedIndex].value === '7' || profselect.options[profselect.selectedIndex].value === '9') {
+    affselect.disabled = false;
+  } else {
+    affselect.disabled = true;
+    affselect.selectedIndex = 0;
+  }
+}; // Если не в штате, то блокирует и сбрасывает кабинет
+// Селект В штате
+
+
+const activeselect = document.getElementById('active'); // Селект Кабинет
+
+const roomselect = document.getElementById('room');
+
+const activeselectHandler = () => {
+  if (activeselect.options[activeselect.selectedIndex].value === '1') {
+    roomselect.disabled = false;
+  } else {
+    roomselect.disabled = true;
+    roomselect.selectedIndex = 0;
+  }
+}; // Ждем полной загрузки дерева
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Форма добавления сотрудника. Профессия и активность
+  if (profselect && affselect) {
+    profselectHandler();
+  }
+
+  if (activeselect && roomselect) {
+    activeselectHandler();
+  } // Принадлежность судье
+
+
+  if (profselect && affselect) {
+    profselect.addEventListener('change', profselectHandler);
+  } // В штате
+
+
+  if (activeselect && roomselect) {
+    activeselect.addEventListener('change', activeselectHandler);
+  }
+});
+
+/***/ }),
+
+/***/ "./src/assets/js/modules/fullcalendar.js":
+/*!***********************************************!*\
+  !*** ./src/assets/js/modules/fullcalendar.js ***!
+  \***********************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _globalfunc__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../globalfunc */ "./src/assets/js/globalfunc.js");
+// Календарь
+// Цвета для Fullcalendar
+// Цвета событий, названия менять в разметке, в js менять не надо
+
+
+
+
+const calendCat = [{
+  color: "primary",
+  name: "События"
+}, {
+  color: "success",
+  name: "Отпуск"
+}, {
+  color: "info",
+  name: "Дежурство"
+}, {
+  color: "warning",
+  name: "Важно"
+}, {
+  color: "danger",
+  name: "Праздники"
+}, {
+  color: "pink",
+  name: "Категория 1"
+}, {
+  color: "blue",
+  name: "Категория 2"
+}, {
+  color: "orange",
+  name: "Категория 3"
+}, {
+  color: "teal",
+  name: "Категория 4"
+}, {
+  color: "azure",
+  name: "Категория 5"
+}];
+
+function araycal() {
+  let array = new Map();
+
+  for (let i = 0; i < calendCat.length; i++) {
+    array.set(calendCat[i].color, calendCat[i].color);
+  }
+
+  return Object.fromEntries(array);
+} // Для использования в Fullcalendar
+
+
+const calendarsColor = araycal(); // Мини календарь на главной
+// Контейнер для календаря
+
+const minicalendar = document.querySelector('.today-calendar-widget');
+
+const minicalendarhandler = () => {
+  function fetchevents(info, successCallback) {
+    // Получение событий AJAX
+    let data = {
+      startParam: moment(info.start).tz('Europe/Moscow').format('YYYY-MM-DD'),
+      endParam: moment(info.end).tz('Europe/Moscow').format('YYYY-MM-DD'),
+      calendars: Object.keys(calendarsColor),
+      private: '0'
+    };
+    (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("GET", "components/fullcalendar/events.php", data, "json", result => successCallback(result));
+  } // Показать popover
+
+
+  function showPopover(event) {
+    const classpopover = "popover-" + event.event.extendedProps.calendar.toLowerCase();
+    let tooltip = new bootstrap.Popover(event.el, {
+      template: '<div class="popover ' + classpopover + '" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>',
+      title: event.event.title,
+      content: event.event.extendedProps.description,
+      placement: 'top'
+    });
+    tooltip.show();
+  } // Скрыть popover
+
+
+  function hidePopover() {
+    let tooltips = document.querySelectorAll(".popover");
+    tooltips.forEach(function (tooltip) {
+      document.body.removeChild(tooltip);
+    });
+  }
+
+  let calendar = new FullCalendar.Calendar(minicalendar, {
+    locale: 'ru',
+    timeZone: 'Europe/Moscow',
+    initialView: 'dayGridMonth',
+    height: 300,
+    editable: false,
+    selectable: true,
+    businessHours: false,
+    dayMaxEvents: false,
+    //
+    eventClassNames: function ({
+      event: calendarEvent
+    }) {
+      const colorName = calendarsColor[calendarEvent._def.extendedProps.calendar];
+      return [// Фоновый цвет событий
+      'fc-event-' + colorName];
+    },
+    headerToolbar: {
+      right: 'prev,title,next',
+      left: 'today'
+    },
+    eventSources: [fetchevents],
+    eventMouseEnter: function (event) {
+      if (event.event.display !== "background") {
+        showPopover(event);
+      }
+    },
+    eventMouseLeave: function () {
+      hidePopover();
+    }
+  });
+  calendar.render();
+  setInterval(() => {
+    calendar.refetchEvents();
+  }, 1000);
+};
+/**
+ * Календарь. Модуль
+ */
+
+/**
+ * Контейнер для календаря
+ * @type {HTMLElement}
+ */
+
+
+const calendarEl = document.getElementById('calendar');
+/**
+ * Настройки для модуля календаря
+ * @type {{addEventTitle: string, addEventFormSubmit: string, cancelBtn: string, addDelEventModal: string, closeAddEventModalCrossButton: string, daysForRepeatEvents: string[], eventLabel: string, addEventButton: string}}
+ */
+
+const calendarModuleSettings = {
+  addEventButton: ".add-event-button",
+  addDelEventModal: ".add-del-event-modal",
+  addEventFormSubmit: ".add-update-event-submit",
+  addEventTitle: ".add-event-title",
+  closeAddEventModalCrossButton: ".btn-close",
+  cancelBtn: ".delete-discard-event-button",
+  daysForRepeatEvents: ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'],
+  deleteWarningMessage: ".delete-warning",
+  calEventFilter: ".calendar-events-filter",
+  filterInput: ".input-filter",
+  selectAll: ".select-all",
+  privateinp: "Private",
+  repeatparams: ".repeat-col",
+  timezone: 'Europe/Moscow',
+  datetimeformat: 'YYYY-MM-DD HH:mm',
+  bddatetimeformat: 'YYYY-MM-DD HH:mm',
+  datepickerformat: "Y-m-d H:i"
+};
+/**
+ *
+ * @param settings {Object} объект настроек и параметров
+ */
+
+function calendmodulehandler(settings) {
+  /** Модал добавления/удаления события @type {HTMLElement} */
+  const addDelEventModal = document.querySelector(settings.addDelEventModal);
+  /** Кнопка Добавить/Сохранить событие в модале добавления/редактирования. Отправка формы @type {HTMLButtonElement} */
+
+  const addEventFormSubmit = document.querySelector(settings.addEventFormSubmit);
+  /** Заголовок в модале добавления/редактирования @type {HTMLElement} */
+
+  const addEventTitle = document.querySelector(settings.addEventTitle);
+  /** Кнопка Закрыть (крестик) модал добавления/редактирования @type {HTMLButtonElement} */
+
+  const closeAddEventModalCrossButton = addDelEventModal.querySelector(settings.closeAddEventModalCrossButton);
+  /** Кнопка Отмена/Удалить событие в модале добавления/редактирования @type {HTMLButtonElement} */
+
+  const cancelBtn = document.querySelector(settings.cancelBtn);
+  /** Предупреждение об удалении события */
+
+  const deleteWarningMessage = document.querySelector(settings.deleteWarningMessage);
+  /** Форма в модале добавления/редактирования @type {HTMLFormElement} */
+
+  const eventForm = document.forms.eventForm;
+  /** Инпут ввода названия события */
+
+  let eventTitle = eventForm.elements.eventTitle;
+  /** Инпут ввода даты начала события */
+
+  let startDate = eventForm.elements.dateStart;
+  /** Инпут ввода даты окончания события */
+
+  let endDate = eventForm.elements.dateEnd;
+  /** Переключатель Вижу только я (приватное событие) */
+
+  const privateSwitch = eventForm.elements.privateCheck;
+  /** Селект категории события */
+
+  const eventLabel = eventForm.elements.selectLabel;
+  /** Переключатель Весь день */
+
+  const allDaySwitch = eventForm.elements.allDaySwitch;
+  /** Чекбокс повторяющееся событие */
+
+  const repeatSwitch = eventForm.elements.repeatSwitch;
+  /** Описание события */
+
+  const calendarEditor = eventForm.elements.eventDescription;
+  /** Фильтр событий */
+
+  const calEventFilter = document.querySelector(settings.calEventFilter);
+  /** Чекбоксы в фильтре */
+
+  const filterInput = document.querySelectorAll(settings.filterInput);
+  /** Чекбокс Все в фильтре */
+
+  const selectAll = document.querySelector(settings.selectAll);
+  /** Чекбокс Только мои события */
+
+  const privateinp = document.getElementById(settings.privateinp);
+  /**  Колонки с параметрами повторения */
+
+  const repeatparams = document.querySelector(settings.repeatparams); // Переключатели повторения
+
+  const repparamSwitch = document.getElementById("dayrepopt"); // Секции с параметрами повторения по неделям, месяцам, годам
+
+  const weeklysection = document.getElementById("weekly-section");
+  const monthlysection = document.getElementById("monthly-section"); // Секция с интервалом
+
+  const intervalsection = document.getElementById("interval-section"); // Метка "день" в интервале
+
+  const daynumlabel1 = document.getElementById("daynum-label"); // Метка "Каждый" в интервале
+
+  const daynumlabel2 = document.getElementById("intervallabel1"); // поле ввода начала повторения
+
+  const startrepDate = document.getElementById("startrep-date"); // поле ввода окончания повторения
+
+  const endrepDate = document.getElementById("endrep-date"); // Все чекбоксы дней недель
+
+  const wdayscheck = document.querySelectorAll('.wdays-check'); // Радио Закончить после даты
+
+  const repdate = document.getElementById("Radio5"); // Радио Закончить после повторений
+
+  const repcount = document.getElementById("Radio6"); // Радио Каждое число месяца
+
+  const evdmonth = document.getElementById("Radio1"); // Радио Последний день месяца
+
+  const lastdmonth = document.getElementById("month1"); // Радио Предоследний рабочий день месяца
+
+  const prelastdmonth = document.getElementById("month2"); // Радио Первый день месяца
+
+  const firstdmonth = document.getElementById("month3"); // Радио Первый рабочий день месяца
+
+  const firstworkdmonth = document.getElementById("month4"); // Радио Последний рабочий день месяца
+
+  const lastworkdmonth = document.getElementById("month5"); // Инпут Закончить после даты
+
+  const repdateinp = document.getElementById("endrep-date"); // Инпут Закончить после повторений
+
+  const repcountinp = document.getElementById("repcount"); // Интервал повторений
+
+  const daynum = document.getElementById("daynum"); // Поле ввода дня для ежемесячного
+
+  const dayofmonth = document.getElementById("dayofmonth"); // Событие для просмотра
+
+  let eventToUpdate;
+  /**
+   * Закрыть модел. Показывает темный оверлей
+   */
+
+  function hideModal() {
+    addDelEventModal.style.display = "none";
+    addDelEventModal.classList.remove('show');
+    const modalBackdrop = document.querySelector(".modal-backdrop");
+
+    if (modalBackdrop) {
+      document.body.removeChild(modalBackdrop);
+    }
+  }
+  /**
+   * Показать модал. Скрывает темный оверлей
+   */
+
+
+  function showModal(mode) {
+    /** Добавляем прослушиватель нажатия кнопки Закрыть */
+    closeAddEventModalCrossButton.addEventListener('click', closeAddEvModal);
+    /** Если включили повторение, то дата начала повторения берется из даты начала события */
+
+    repeatSwitch.addEventListener('click', () => repswitch(moment(startDate.value).format(settings.datetimeformat)));
+    /** Выбор повторения для дня */
+
+    repparamSwitch.addEventListener('change', () => repparamSwitchHandler(repparamSwitch.options[repparamSwitch.selectedIndex].value));
+    /** Если переключают на весь день, то меняется диапазон времени на весь день, и наоборот, на текущее время, не меняя введенной даты */
+
+    allDaySwitch.addEventListener('click', function () {
+      let start;
+      let end;
+
+      if (allDaySwitch.checked === true) {
+        start = moment(startDate.value).hour(0).minutes(0).format(settings.datetimeformat);
+        end = moment(endDate.value).hour(23).minutes(59).format(settings.datetimeformat);
+      } else {
+        start = moment(startDate.value).hour(moment().hour()).minutes(moment().minutes()).format(settings.datetimeformat);
+        end = moment(endDate.value).hour(moment().hour()).minutes(moment().minutes()).format(settings.datetimeformat);
+      }
+
+      startDatepicker.setDate(start, true);
+      endDatepicker.setDate(end, true);
+    });
+
+    function checkStartDate() {
+      startDate.value > endDate.value ? endDate.value = startDate.value : false;
+    }
+
+    function checkEndDate() {
+      startDate.value > endDate.value ? startDate.value = endDate.value : false;
+    }
+    /** Проверка дат начала и конца, при изменении даты, меняет неправильную */
+
+
+    startDate.addEventListener('change', checkStartDate);
+    endDate.addEventListener('change', checkEndDate);
+    /** Если в конце повторения включена дата, то блокируется ввоб кол-ва повторений и наоборот */
+
+    function repDateCheck() {
+      if (repdate.checked === true) {
+        repdateinp.nextSibling.disabled = false;
+        repdateinp.disabled = false;
+        repcount.checked = false;
+      } else {
+        repdateinp.nextSibling.disabled = true;
+        repdateinp.disabled = true;
+        repdateinp.value = "";
+        endRepeatDatepicker.setDate('', true);
+      }
+    }
+
+    function repCountCheck() {
+      if (repcount.checked === true) {
+        repcountinp.disabled = false;
+        repdate.checked = false;
+      } else {
+        repcountinp.disabled = true;
+        repcountinp.value = "";
+      }
+    }
+
+    repdate.addEventListener('click', repDateCheck);
+    repcount.addEventListener('click', repCountCheck);
+    /** Меняем названия кнопок и заголовка */
+
+    switch (mode) {
+      case 'add':
+        addEventFormSubmit.textContent = "Добавить";
+        cancelBtn.textContent = "Отмена";
+        addEventTitle.textContent = "Добавить событие";
+        addEventFormSubmit.addEventListener('click', addEvent);
+        cancelBtn.addEventListener('click', closeAddEvModal);
+        deleteWarningMessage.classList.add('d-none');
+        break;
+
+      case 'update':
+        addEventFormSubmit.textContent = "Обновить";
+        cancelBtn.textContent = "Удалить";
+        addEventTitle.textContent = "Редактировать событие";
+        cancelBtn.addEventListener('click', delEvent);
+        addEventFormSubmit.addEventListener('click', updateEvent);
+        break;
+    }
+
+    addDelEventModal.classList.add('show');
+    addDelEventModal.style.display = "block";
+    const modalBackdrop = document.createElement("div");
+    modalBackdrop.setAttribute('class', 'modal-backdrop fade show');
+    document.body.appendChild(modalBackdrop);
+    setInputEvtListeners(eventForm);
+  }
+  /**
+   * Отметить чекбоксы дней недели по массиву
+   * @param array массив дней
+   */
+
+
+  function checkweekdays(array) {
+    array.map(currElement => {
+      wdayscheck[currElement].checked = true;
+    });
+  }
+  /**
+   * Сформировать строку дней недели по чекбоксам
+   * @returns {string} строка вида "TH, FR, SA, SU"
+   */
+
+
+  function getweekdaycheck() {
+    let array = [];
+    Array.from(wdayscheck).map((currElement, index) => {
+      if (currElement.checked === true) {
+        array.push(settings.daysForRepeatEvents[index]);
+      }
+    });
+    return array.join(", ");
+  }
+  /**
+   * Выбор повторения
+   * @param info
+   */
+
+
+  function repswitch(info) {
+    if (repeatSwitch.checked === true) {
+      if (info == null) {
+        const date = moment().tz(settings.timezone).format(settings.datetimeformat);
+        startrepDate.value = date;
+        endrepDate.value = moment(date).tz(settings.timezone).add(9, 'years').format(settings.datetimeformat);
+      } else {
+        const date = moment(info).tz(settings.timezone).format(settings.datetimeformat);
+        startrepDate.value = date;
+        endrepDate.value = moment(date).tz(settings.timezone).add(9, 'years').format(settings.datetimeformat);
+      }
+
+      repeatparams.style.display = "block";
+      repparamSwitch.required = true;
+    } else {
+      repeatparams.style.display = "none";
+      startrepDate.value = '';
+      endrepDate.value = '';
+      repparamSwitch.value = 'none';
+      repparamSwitch.required = false;
+    }
+    /*repparamSwitch.addEventListener('input', () => {
+      validateInput(eventForm, repparamSwitch);
+    });*/
+
+
+    setInputEvtListeners(eventForm);
+  }
+  /**
+   * Обновление события
+   */
+
+
+  const updateEvent = () => {
+    function updSucces(result, title) {
+      closeAddEvModal();
+
+      if (result === "null") {
+        (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.showMiniToast)('Событие ' + title + ' обновлено', "info");
+      }
+
+      calendar.refetchEvents();
+    }
+
+    let Event = new FormData();
+    Event.append("operation", "upd");
+    Event.append("id", eventToUpdate.id);
+    Event.append("title", $(addDelEventModal).find(eventTitle).val());
+    let title = $(addDelEventModal).find(eventTitle).val();
+    Event.append("start", $(addDelEventModal).find(startDate).val());
+    Event.append("end", $(addDelEventModal).find(endDate).val());
+    Event.append("calendar", $(eventLabel).val());
+    Event.append("private", $(privateSwitch).prop('checked') ? '1' : '0');
+    Event.append("description", $(calendarEditor).val());
+    Event.append("tzid", settings.timezone);
+    Event.append("allDay", $(allDaySwitch).prop('checked') ? '1' : '0'); // Параметры повторения. Если галочка включена
+
+    if ($(repeatSwitch).prop('checked')) {
+      if (Event.interval !== '') {
+        Event.append("interval", $(daynum).val());
+      } else {
+        Event.append("interval", '0');
+      }
+
+      if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'daily-section') {
+        // Ежедневно
+        Event.append("freq", 'DAILY');
+      } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'weekly-section') {
+        // Еженедельно
+        Event.append("freq", 'WEEKLY'); // Получаем отмеченные чекбоксы
+
+        if (getweekdaycheck() !== "" || null) {
+          Event.append("byweekday", getweekdaycheck());
+        } else {
+          Event.append("byweekday", '0');
+        }
+      } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'monthly-section') {
+        // Ежемесячно
+        Event.append("freq", 'MONTHLY'); // Проверяем чекбоксы
+        // Последний день
+
+        if ($(lastdmonth).prop('checked')) {
+          Event.append("byweekday", 'MO, TU, WE, TH, FR, SA, SU');
+          Event.append("bysetpos", '-1');
+        } else // Предпоследний день
+          if ($(prelastdmonth).prop('checked')) {
+            Event.append("byweekday", 'MO, TU, WE, TH, FR, SA, SU');
+            Event.append("bysetpos", '-2');
+          } else // Первый день
+            if ($(firstdmonth).prop('checked')) {
+              Event.append("byweekday", 'MO, TU, WE, TH, FR, SA, SU');
+              Event.append("bysetpos", '1');
+            } else // Первый рабочий день
+              if ($(firstworkdmonth).prop('checked')) {
+                Event.append("byweekday", 'MO, TU, WE, TH, FR');
+                Event.append("bysetpos", '1');
+              } else // Последний рабочий день
+                if ($(lastworkdmonth).prop('checked')) {
+                  Event.append("byweekday", 'MO, TU, WE, TH, FR');
+                  Event.append("bysetpos", '-1');
+                }
+      } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'yearly-section') {
+        // Ежегодно
+        Event.append("freq", 'YEARLY');
+      } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'none') {
+        // Без повторения
+        Event.append("freq", '0');
+        Event.append("byweekday", '0');
+        Event.append("bysetpos", '0');
+      } // Начало повторения
+
+
+      Event.append("dtstart", moment($(startrepDate).val()).format(settings.datetimeformat)); // Диапазон повторения
+
+      if ($(repdate).prop('checked')) {
+        Event.append("until", moment($(endrepDate).val()).format(settings.datetimeformat));
+      } else {
+        Event.append("until", '0');
+      } // Кол-во повторений
+
+
+      if ($(repcount).prop('checked')) {
+        Event.append("count", $(repcountinp).val());
+      } else {
+        Event.append("count", '0');
+      } // Начало повторения
+
+
+      Event.append("dtstart", moment($(startrepDate).val()).format(settings.datetimeformat)); // Диапазон повторения
+
+      if ($(repdate).prop('checked')) {
+        Event.append("until", moment($(endrepDate).val()).format(settings.datetimeformat));
+      } // Кол-во повторений
+
+
+      if ($(repcount).prop('checked')) {
+        Event.append("count", $(repcountinp).val());
+      }
+    } else {
+      Event.append("interval", '0');
+    }
+
+    if (eventToUpdate.extendedProps.user_id === _globalfunc__WEBPACK_IMPORTED_MODULE_0__.cookieID || JSON.stringify(eventToUpdate.extendedProps.user_id) === _globalfunc__WEBPACK_IMPORTED_MODULE_0__.cookieID) {
+      (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("POST", "components/fullcalendar/ajax.php", Event, "json", result => updSucces(result, title));
+    } else {
+      (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.showMiniToast)('Вы не имеете прав на правку события ' + title, "danger");
+    }
+  };
+  /** Удалить событие */
+
+
+  const delEvent = () => {
+    /**
+     * Скрыть модал. Сбросить инпуты. Показать всплывашку что удалено. Обновить события
+     * @param result результат отправки запроса на сервер
+     * @param title название удаляемого события
+     */
+    function delSucces(result, title) {
+      closeAddEvModal();
+
+      if (result === "null") {
+        (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.showMiniToast)('Событие ' + title + ' удалено', "danger");
+      }
+
+      calendar.refetchEvents();
+    }
+
+    let Event = new FormData();
+    Event.append("operation", "del");
+    Event.append("id", eventToUpdate.id);
+    let title = eventToUpdate.title;
+
+    if (eventToUpdate.extendedProps.user_id === _globalfunc__WEBPACK_IMPORTED_MODULE_0__.cookieID || JSON.stringify(eventToUpdate.extendedProps.user_id) === _globalfunc__WEBPACK_IMPORTED_MODULE_0__.cookieID) {
+      (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("POST", "components/fullcalendar/ajax.php", Event, "json", result => delSucces(result, title));
+    } else {
+      (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.showMiniToast)('Вы не имеете прав на удаление события ' + title, "danger");
+    }
+  };
+  /** Закрытие модала и сброс инпутов */
+
+
+  const closeAddEvModal = () => {
+    hideModal();
+    resetValues();
+    addEventFormSubmit.removeEventListener('click', updateEvent);
+    addEventFormSubmit.removeEventListener('click', addEvent);
+    cancelBtn.removeEventListener('click', delEvent);
+    cancelBtn.removeEventListener('click', closeAddEvModal);
+    deleteWarningMessage.classList.add('d-none');
+  };
+  /**
+   * Переключатель повторений
+   * @param mode значение repparamSwitch.options[repparamSwitch.selectedIndex].value
+   */
+
+
+  function repparamSwitchHandler(mode) {
+    switch (mode) {
+      case 'none':
+        intervalsection.style.display = "none";
+        weeklysection.style.display = "none";
+        monthlysection.style.display = "none";
+        evdmonth.checked = false;
+        break;
+
+      case 'daily-section':
+        intervalsection.style.display = "block";
+        weeklysection.style.display = "none";
+        monthlysection.style.display = "none";
+        evdmonth.checked = false;
+        daynumlabel2.textContent = 'Каждый';
+        daynumlabel1.textContent = 'день';
+        daynum.setAttribute('max', '31');
+        break;
+
+      case 'weekly-section':
+        intervalsection.style.display = "block";
+        weeklysection.style.display = "block";
+        monthlysection.style.display = "none";
+        /** Получаем текущий день недели, ставим галочку в параметрах */
+
+        /*if (!(eventToUpdate._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday)) {
+          checkweekdays([moment(startDate.value).weekday()]);
+        }*/
+
+        evdmonth.checked = false;
+        daynumlabel2.textContent = 'Каждую';
+        daynumlabel1.textContent = 'неделю';
+        daynum.setAttribute('max', '53');
+        break;
+
+      case 'monthly-section':
+        intervalsection.style.display = "block";
+        weeklysection.style.display = "none";
+        monthlysection.style.display = "block";
+        /** Переключаем на дефолтное радио */
+
+        evdmonth.checked = true;
+        dayofmonth.value = moment(startDate.value.date());
+        daynumlabel2.textContent = 'Каждый';
+        daynumlabel1.textContent = 'месяц';
+        daynum.setAttribute('max', '12');
+        break;
+
+      case 'yearly-section':
+        intervalsection.style.display = "block";
+        weeklysection.style.display = "none";
+        monthlysection.style.display = "none";
+        evdmonth.checked = false;
+        daynumlabel2.textContent = 'Каждый';
+        daynumlabel1.textContent = 'год';
+        daynum.setAttribute('max', '100');
+        break;
+    }
+  }
+  /**
+   * Получить сведения о событии
+   * @param info данные по событию из fullcalendar
+   */
+
+
+  function getEventParams(info) {
+    let event = info.event;
+    /** Название события */
+
+    eventTitle.value = event.title;
+    /** Приватное событие */
+
+    privateSwitch.checked = !(event.extendedProps.private === 0 || event.extendedProps.private === "0");
+    /** Разные даты начала и конца события для создаваемых событий при нажатии на кнопку создания и на день */
+
+    const date = moment(info.date).format(settings.datetimeformat);
+    startDatepicker.setDate(date, true, settings.datetimeformat);
+    endDatepicker.setDate(date, true, settings.datetimeformat);
+    /**
+     * Чекбоксы повторения для месяца
+     * @param num
+     * @param array
+     */
+
+    function getCheckboxesForMonth(num, array) {
+      switch (num) {
+        case 'null':
+          evdmonth.checked = true;
+          dayofmonth.value = event._def.recurringDef.typeData.rruleSet._rrule[0].options.bymonthday[0];
+          break;
+
+        case '1':
+          break;
+
+        case '-1':
+          if (array === '[0,1,2,3,4]') {
+            lastworkdmonth.checked = true;
+          } else if (array === '[0,1,2,3,4]') {
+            firstworkdmonth.checked = true;
+          } else if (array === '[0,1,2,3,4,5,6]') {
+            firstdmonth.checked = true;
+          } else if (array === '[0,1,2,3,4,5,6]') {
+            lastdmonth.checked = true;
+          }
+
+          break;
+      }
+    }
+    /**
+     * Получить повторения из события, открыть нужные вкладки
+     * @param num
+     */
+
+
+    function getRepeatsEvent(num) {
+      switch (num) {
+        case 3:
+          repparamSwitch.value = 'daily-section';
+          weeklysection.style.display = "none";
+          monthlysection.style.display = "none";
+          intervalsection.style.display = "block";
+          daynumlabel2.innerHTML = 'Каждый';
+          daynumlabel1.innerHTML = 'день';
+          daynum.setAttribute('max', '31');
+          break;
+
+        case 2:
+          repparamSwitch.value = 'weekly-section';
+          weeklysection.style.display = "block";
+          monthlysection.style.display = "none";
+          intervalsection.style.display = "block";
+          daynumlabel2.innerHTML = 'Каждую';
+          daynumlabel1.innerHTML = 'неделю';
+          daynum.setAttribute('max', '53');
+          break;
+
+        case 1:
+          repparamSwitch.value = 'monthly-section';
+          monthlysection.style.display = "block";
+          weeklysection.style.display = "none";
+          intervalsection.style.display = "block";
+          daynumlabel2.innerHTML = 'Каждый';
+          daynumlabel1.innerHTML = 'месяц';
+          daynum.setAttribute('max', '12');
+          /** Чекбоксы повторения для месяца */
+
+          getCheckboxesForMonth(event._def.recurringDef.typeData.rruleSet._rrule[0].options.bysetpos, JSON.stringify(event._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday));
+          break;
+
+        case 0:
+          repparamSwitch.value = 'yearly-section';
+          weeklysection.style.display = "none";
+          monthlysection.style.display = "none";
+          intervalsection.style.display = "block";
+          daynumlabel2.innerHTML = 'Каждый';
+          daynumlabel1.innerHTML = 'год';
+          daynum.setAttribute('max', '100');
+          break;
+
+        case null:
+          repparamSwitch.value = '';
+          break;
+      }
+    }
+    /** Повторять до даты */
+
+
+    if (event._def.recurringDef !== null) {
+      deleteWarningMessage.classList.remove('d-none');
+      getRepeatsEvent(event._def.recurringDef.typeData.rruleSet._rrule[0].options.freq);
+
+      if (event._def.recurringDef.typeData.rruleSet._rrule[0].options.freq === 2) {
+        /** Чекбоксы дней недель */
+        checkweekdays(event._def.recurringDef.typeData.rruleSet._rrule[0].options.byweekday);
+      }
+      /** Для еженедельного */
+
+
+      repeatSwitch.checked = true;
+      repeatparams.style.display = "block";
+      repparamSwitch.required = true;
+      startrepDate.value = moment(event._def.recurringDef.typeData.rruleSet._rrule[0].options.dtstart).utc().format(settings.datetimeformat);
+
+      if (event._def.recurringDef.typeData.rruleSet._rrule[0].options.until) {
+        endrepDate.value = moment(event._def.recurringDef.typeData.rruleSet._rrule[0].options.until).utc().format(settings.datetimeformat);
+        repdate.checked = true;
+        endrepDate.checked = false;
+      } else {
+        endrepDate.value = "";
+        repdate.checked = false;
+        endrepDate.checked = true;
+      }
+      /** Кол-во повторений */
+
+
+      if (event._def.recurringDef.typeData.rruleSet._rrule[0].options.count) {
+        repcountinp.value = event._def.recurringDef.typeData.rruleSet._rrule[0].options.count;
+        repcount.checked = true;
+      } else {
+        repcountinp.value = "";
+        repcount.checked = false;
+      }
+    } else {
+      repeatSwitch.checked = false;
+      deleteWarningMessage.classList.add('d-none');
+    }
+
+    startDatepicker.setDate(event.start, true, settings.datetimeformat);
+    event.allDay === true ? allDaySwitch.checked = true : allDaySwitch.checked = false;
+    event.end !== null ? endDatepicker.setDate(event.end, true, settings.datetimeformat) : endDatepicker.setDate(event.start, true, settings.datetimeformat);
+    $(addDelEventModal).find(eventLabel).val(event.extendedProps.calendar).trigger('change');
+    $(addDelEventModal).find(calendarEditor).val(event.extendedProps.description);
+  }
+  /**
+   * Нажатие на событие в календаре
+   * @param info нажатое событие
+   */
+
+
+  function eventClick(info) {
+    /** Запретить редактирование событий без id и фоновых */
+    if (info.event.id !== "" && info.event.display !== "background") {
+      eventToUpdate = info.event;
+      /** Проверить права пользователя и его ID, включаем возможность редактирования */
+
+      if (eventToUpdate.extendedProps.user_id === _globalfunc__WEBPACK_IMPORTED_MODULE_0__.cookieID || JSON.stringify(eventToUpdate.extendedProps.user_id) === _globalfunc__WEBPACK_IMPORTED_MODULE_0__.cookieID) {
+        /** Добавляем прослушку кликов по кнопкам Добавить и Обновить */
+        addEventFormSubmit.disabled = false;
+        cancelBtn.disabled = false;
+      } else {
+        addEventFormSubmit.disabled = true;
+        cancelBtn.disabled = true;
+      }
+
+      getEventParams(info);
+      showModal('update');
+    }
+  }
+  /**
+   * Селект для меток в модале
+   */
+
+
+  function renderCheckboxes() {
+    const parent = document.getElementById('calEventFilter');
+    parent.textContent = '';
+    const header = `<p class="group-title mb-2">Календарь:</p>`;
+    const selAll = `<div class="form-check d-flex align-items-center mb-3">
+                  <input class="form-check-input input-filter bg-dark select-all me-1" type="checkbox" id="select-all"
+                         name="select-all" checked>
+                  <label class="form-check-label" for="select-all">Все</label>
+                </div>`;
+    parent.insertAdjacentHTML('beforeend', header);
+    parent.insertAdjacentHTML('beforeend', selAll);
+
+    const createItem = ({
+      color,
+      name
+    }) => `<div class="form-check d-flex align-items-center mb-2">
+                  <input class="form-check-input input-filter bg-${color} me-1" type="checkbox" id="${color}" name="${color}"
+                         data-value="${color}" value="${color}" checked>
+                  <label class="form-check-label" for="${color}">${name}</label>
+                </div>`;
+
+    const ElementsString = calendCat.map(color => createItem(color)).join('');
+    parent.insertAdjacentHTML('beforeend', ElementsString);
+  }
+
+  renderCheckboxes();
+  /**
+   * Селект для меток в модале
+   * @param option
+   * @returns {string|*}
+   */
+
+  function renderBullets(option) {
+    if (!option.id) {
+      return option.text;
+    }
+
+    return "<span class='bullet bg-" + $(option.element).data('label') + " bullet-sm me-2 ms-2'> " + '</span>' + option.text;
+  }
+  /**
+   * Селект для меток в модале
+   */
+
+
+  function renderOptions() {
+    eventLabel.textContent = '';
+    const placeholderItem = `<option></option>`;
+    eventLabel.insertAdjacentHTML('beforeend', placeholderItem);
+
+    const createItem = ({
+      color,
+      name
+    }) => `<option data-label="${color}" value="${color}">${name}</option>`;
+
+    const ElementsString = calendCat.map(color => createItem(color)).join('');
+    eventLabel.insertAdjacentHTML('beforeend', ElementsString);
+  }
+
+  renderOptions();
+  $(eventLabel).wrap('<div class="position-relative"></div>').select2({
+    placeholder: 'Выберите значение',
+    dropdownParent: $(eventLabel).parent(),
+    templateResult: renderBullets,
+    templateSelection: renderBullets,
+    minimumResultsForSearch: -1,
+    escapeMarkup: function (es) {
+      return es;
+    }
+  });
+  /**
+   * Датапикер начало события
+   * @type {jQuery|Instance|Instance[]|*}
+   */
+
+  const startDatepicker = startDate.flatpickr({
+    locale: "ru",
+    enableTime: true,
+    altInput: true,
+    altFormat: "d.m.Y H:i",
+    dateFormat: settings.datepickerformat
+  });
+  /**
+   * Датапикер конец события
+   * @type {jQuery|Instance|Instance[]|*}
+   */
+
+  const endDatepicker = endDate.flatpickr({
+    locale: "ru",
+    enableTime: true,
+    altInput: true,
+    altFormat: "d.m.Y H:i",
+    dateFormat: settings.datepickerformat,
+    onReady: function (selectedDates, dateStr, instance) {}
+  });
+  /**
+   * Датапикер начало повторения
+   * @type {Instance}
+   */
+
+  const startRepeatDatepicker = startrepDate.flatpickr({
+    locale: "ru",
+    enableTime: true,
+    altInput: true,
+    altFormat: "d.m.Y H:i",
+    dateFormat: settings.datepickerformat
+  });
+  /**
+   * Датапикер конца повторения
+   * @type {Instance}
+   */
+
+  const endRepeatDatepicker = endrepDate.flatpickr({
+    locale: "ru",
+    enableTime: true,
+    altInput: true,
+    altFormat: "d.m.Y H:i",
+    dateFormat: settings.datepickerformat
+  });
+  /**
+   * Получение событий. Эта функция будет вызываться fullCalendar для получения и обновления событий.
+   * @param info
+   * @param successCallback ф-я коллбек для передачи
+   */
+
+  function fetchEvents(info, successCallback) {
+    const filterInput2 = document.querySelectorAll('.input-filter:not(.select-all)');
+    let data = {
+      /** С не фиксированной датой не работают повторяющиеся собыия */
+      startParam: moment(info.start).tz(settings.timezone).format('YYYY-MM-DD'),
+      endParam: moment(info.end).tz(settings.timezone).format('YYYY-MM-DD'),
+      calendars: (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.selectedCheckboxes)(filterInput2, 'selected'),
+      private: privateinp.checked === true ? 1 : 0
+    };
+    (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("GET", "components/fullcalendar/events.php", data, "json", result => successCallback(result));
+  }
+  /**
+   * Показать popover
+   * @param event
+   */
+
+
+  function showPopover(event) {
+    const popoverClass = "popover-" + event.event.extendedProps.calendar.toLowerCase();
+    const tooltip = new bootstrap.Popover(event.el, {
+      template: '<div class="popover ' + popoverClass + '" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>',
+      title: event.event.title,
+      content: event.event.extendedProps.description,
+      placement: 'top'
+    });
+    tooltip.show();
+  }
+  /** Скрыть popover */
+
+
+  function hidePopover() {
+    let tooltips = document.querySelectorAll(".popover");
+    tooltips.forEach(function (tooltip) {
+      document.body.removeChild(tooltip);
+    });
+  }
+
+  const calendar = new FullCalendar.Calendar(calendarEl, {
+    themeSystem: 'standard',
+    locale: 'ru',
+    timeZone: settings.timezone,
+    initialView: 'dayGridMonth',
+    editable: true,
+    dragScroll: false,
+    eventResizableFromStart: false,
+    selectable: true,
+    selectMirror: true,
+    businessHours: false,
+    handleWindowResize: true,
+    nowIndicator: true,
+    dayMaxEvents: true,
+    // добавляет ссылку "еще", когда очень много событий
+    navLinks: true,
+    // можно нажимть на названия дней/недель для переключения между видами
+    eventClassNames: function ({
+      event: calendarEvent
+    }) {
+      const colorName = calendarsColor[calendarEvent._def.extendedProps.calendar];
+      return [// Фоновый цвет событий
+      'fc-event-' + colorName];
+    },
+    eventSources: [fetchEvents],
+    customButtons: {
+      addEvBtn: {
+        text: '+ Добавить событие',
+        click: function () {
+          neweventmodal(null);
+        }
+      }
+    },
+    headerToolbar: {
+      left: 'addEvBtn',
+      right: 'dayGridMonth,timeGridWeek,timeGridDay today prev,title,next'
+    },
+    eventMouseEnter: function (event) {
+      if (event.event.display !== "background") {
+        showPopover(event);
+      }
+    },
+    eventMouseLeave: hidePopover,
+    dateClick: function (info) {
+      neweventmodal(info);
+    },
+    eventClick: function (info) {
+      eventClick(info);
+    }
+  });
+  /** Рендеринг календаря */
+
+  calendar.render();
+  setInterval(() => {
+    calendar.refetchEvents();
+  }, 1000);
+
+  function neweventmodal(info) {
+    resetValues();
+    showModal('add');
+    /** Разные даты начала и конца события для создаваемых событий при нажатии на кнопку создания и на день */
+
+    let date;
+
+    if (info == null) {
+      date = "";
+    } else {
+      date = moment(info.date).format(settings.datetimeformat);
+    }
+
+    startDatepicker.setDate(date, true);
+    endDatepicker.setDate(date, true);
+  }
+  /** Добавление нового события */
+
+
+  function addEvent() {
+    function addSucces(result, title) {
+      closeAddEvModal();
+
+      if (result === "null") {
+        (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.showMiniToast)('Событие ' + title + ' добавлено', "success");
+      }
+
+      calendar.refetchEvents();
+    }
+
+    let Event = new FormData();
+    Event.append("operation", "add");
+    Event.append("title", eventTitle.value);
+    let title = eventTitle.value;
+    Event.append("start", moment(startDate.value).format(settings.datetimeformat));
+    Event.append("end", moment(endDate.value).format(settings.datetimeformat));
+    Event.append("calendar", eventLabel.value);
+    Event.append("description", calendarEditor.value);
+    Event.append("private", privateSwitch.checked === true ? '1' : '0');
+    Event.append("user_id", _globalfunc__WEBPACK_IMPORTED_MODULE_0__.cookieID);
+    Event.append("tzid", settings.timezone);
+
+    if (allDaySwitch.checked === true) {
+      /** Если Весь день, то меняем переменную */
+      Event.append("allDay", "1");
+    }
+    /** Параметры повторения. Если галочка включена */
+
+
+    if (repeatSwitch.checked === true) {
+      Event.append("interval", daynum.value);
+
+      if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'daily-section') {
+        /** Ежедневно */
+        Event.append("freq", "DAILY");
+      } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'weekly-section') {
+        /** Еженедельно */
+        Event.append("freq", "WEEKLY");
+        /** Получаем отмеченные чекбоксы */
+
+        Event.append("byweekday", getweekdaycheck());
+      } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'monthly-section') {
+        /** Ежемесячно */
+        Event.append("freq", "MONTHLY");
+        /** Проверяем чекбоксы */
+
+        /** Последний день */
+
+        if (lastdmonth.checked === true) {
+          Event.append("byweekday", "MO, TU, WE, TH, FR, SA, SU");
+          Event.append("bysetpos", "-1");
+        } else
+          /** Первый день */
+          if (firstdmonth.checked === true) {
+            Event.append("byweekday", "MO, TU, WE, TH, FR, SA, SU");
+            Event.append("bysetpos", "1");
+          } else
+            /** Первый рабочий день */
+            if (firstworkdmonth.checked === true) {
+              Event.append("byweekday", "MO, TU, WE, TH, FR");
+              Event.append("bysetpos", "1");
+            } else
+              /** Последний рабочий день */
+              if (lastworkdmonth.checked === true) {
+                Event.append("byweekday", "MO, TU, WE, TH, FR");
+                Event.append("bysetpos", "-1");
+              }
+      } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'yearly-section') {
+        /** Ежегодно */
+        Event.append("freq", "YEARLY");
+      }
+      /** Начало повторения */
+
+
+      Event.append("dtstart", moment(startrepDate.value).format('YYYY-MM-DD HH:mm'));
+      /** Диапазон повторения */
+
+      if (repdate.checked === true) {
+        Event.append("until", moment(endrepDate.value).format('YYYY-MM-DD HH:mm'));
+      }
+      /** Кол-во повторений */
+
+
+      if (repcount.checked === true) {
+        Event.append("count", repcountinp.value);
+      }
+    }
+
+    (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("POST", "components/fullcalendar/ajax.php", Event, "json", result => addSucces(result, title));
+  } // Сброс значений модала
+
+
+  function resetValues() {
+    eventForm.reset();
+    repeatparams.style.display = "none";
+    $(addDelEventModal).find(eventLabel).val('').trigger('change'); // Скрыть параметры повторения
+
+    intervalsection.style.display = "none";
+    weeklysection.style.display = "none";
+    monthlysection.style.display = "none";
+  }
+  /** Когда модал закрыт, сбросить значения */
+
+
+  addDelEventModal.addEventListener('hidden.bs.modal', resetValues); // Выбрать все и другие фильтры
+
+  if (document.querySelector(".select-all")) {
+    // Фильтр событий
+    const calEventFilter = document.querySelector(".calendar-events-filter"); // Чекбокс Все в фильтре
+
+    const selectAll = document.querySelector(".select-all");
+    $(selectAll).on('change', function () {
+      const $this = $(this);
+
+      if ($this.prop('checked')) {
+        $(calEventFilter).find('input').prop('checked', true);
+      } else {
+        $(calEventFilter).find('input').prop('checked', false);
+      }
+
+      calendar.refetchEvents();
+    });
+  }
+
+  if ($(filterInput)) {
+    const filterInput2 = document.querySelectorAll('.input-filter:not(.select-all)');
+    filterInput2.forEach(filterInput => {
+      filterInput.addEventListener('click', () => {
+        '.input-filter:checked'.length < $(calEventFilter).find('input').length ? $(selectAll).prop('checked', false) : $(selectAll).prop('checked', true);
+        calendar.refetchEvents();
+      });
+    });
+  } // Фильтр Только мои
+
+
+  if ($(privateinp)) {
+    $(privateinp).on('change', function () {
+      calendar.refetchEvents();
+    });
+  }
+} // Ждем полной загрузки дерева
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Отрисовка модуля календаря
+  if (calendarEl) {
+    calendmodulehandler(calendarModuleSettings);
+  } // Отрисовка виджета календаря
+
+
+  if (minicalendar) {
+    minicalendarhandler();
+  }
+});
+
+/***/ }),
+
+/***/ "./src/assets/js/modules/overlayscrollbar.js":
+/*!***************************************************!*\
+  !*** ./src/assets/js/modules/overlayscrollbar.js ***!
+  \***************************************************/
+/***/ (function() {
+
+// Все элементы, для к-рых нужна прокрутка
+const overlayscrollbar = OverlayScrollbars(document.querySelectorAll(".overlayscrollbar"), {
+  //className            : "os-theme-light",
+  resize: "none",
+  sizeAutoCapable: true,
+  clipAlways: true,
+  normalizeRTL: true,
+  paddingAbsolute: false,
+  autoUpdate: null,
+  autoUpdateInterval: 33,
+  updateOnLoad: ["img"],
+  nativeScrollbarsOverlaid: {
+    showNativeScrollbars: false,
+    initialize: true
+  },
+  overflowBehavior: {
+    x: "scroll",
+    y: "scroll"
+  },
+  scrollbars: {
+    visibility: "auto",
+    autoHide: "never",
+    autoHideDelay: 800,
+    dragScrolling: true,
+    clickScrolling: false,
+    touchSupport: true,
+    snapHandle: false
+  },
+  textarea: {
+    dynWidth: false,
+    dynHeight: false,
+    inheritedAttrs: ["style", "class"]
+  },
+  callbacks: {
+    onInitialized: null,
+    onInitializationWithdrawn: null,
+    onDestroyed: null,
+    onScrollStart: null,
+    onScroll: null,
+    onScrollStop: null,
+    onOverflowChanged: null,
+    onOverflowAmountChanged: null,
+    onDirectionChanged: null,
+    onContentSizeChanged: null,
+    onHostSizeChanged: null,
+    onUpdated: null
+  }
+});
+
+/***/ }),
+
+/***/ "./src/assets/js/modules/phonebook.js":
+/*!********************************************!*\
+  !*** ./src/assets/js/modules/phonebook.js ***!
+  \********************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _globalfunc__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../globalfunc */ "./src/assets/js/globalfunc.js");
+
+ // Фильтр в телефонной книге
+//Фильтр в телефонном справочнике
+// Ищем группу фильтров с селектором button-group
+
+const filterGroup = document.querySelector('.phonebook-filter'); // Куда будет выводиться результат
+
+const result = document.getElementById('filter');
+
+const filterClickHandler = () => {
+  //Обнуление строк фильтров - выбранного и пустого
+  let filterItems = filterGroup.querySelectorAll('input[type=checkbox]');
+  let selected = (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.selectedCheckboxes)(filterItems, 'selected');
+
+  if (selected.length === 0) {
+    let data = {
+      filter: (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.selectedCheckboxes)(filterItems, 'all')
+    };
+    (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("GET", "components/phonebook/ajax.php", data, "text", response => {
+      result.innerHTML = "";
+      result.innerHTML = response;
+    });
+  } else {
+    let data = {
+      filter: selected
+    };
+    (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("GET", "components/phonebook/ajax.php", data, "text", response => {
+      result.innerHTML = "";
+      result.innerHTML = response;
+    });
+  }
+};
+/* Слушаем клик по каждому из фильтров телефонной книги */
+
+
+if (filterGroup && result) {
+  // Ищем в filter-group элементы фильтров checkbox
+  let filterItems = filterGroup.querySelectorAll('input[type=checkbox]');
+  filterItems.forEach(function (filter) {
+    filter.addEventListener('click', () => {
+      filterClickHandler();
+    });
+  });
+} // Ждем полной загрузки дерева
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Загрузка телефонной книги
+  if (filterGroup && result) {
+    filterClickHandler();
+  }
+});
+
+/***/ }),
+
+/***/ "./src/assets/js/modules/proxylist.js":
+/*!********************************************!*\
+  !*** ./src/assets/js/modules/proxylist.js ***!
+  \********************************************/
+/***/ (function() {
+
+// Переключает класс .active у ближайшего .list-group-item нажатой ссылки списка ссылок
+// Список групп ссылок
+const listgroupmenu = document.querySelector('.list-tab-group .list-group'); // Список ссылок
+
+const tablistgroupmenu = document.querySelector('.tab-content');
+
+if (listgroupmenu && tablistgroupmenu) {
+  const listgroup = listgroupmenu.querySelectorAll('.list-group-item');
+  const tablistgroup = tablistgroupmenu.querySelectorAll('.tab-list-group');
+
+  const listgroupitemClickHandler = evt => {
+    const listgroupitem = evt.target.closest('.list-group-item');
+
+    if (listgroupitem != null) {
+      for (let i = 0, len = listgroup.length; i < len; i++) {
+        listgroup[i].classList.remove("active");
+      }
+
+      listgroupitem.classList.add("active");
+
+      for (let a = 0, len = tablistgroup.length; a < len; a++) {
+        tablistgroup[a].classList.remove("active");
+
+        if (listgroupitem.id + "-list" === tablistgroup[a].id) {
+          tablistgroup[a].classList.add("active");
+        }
+      }
+    }
+  }; // Устанавливает класс active первой из найденных ссылок и табов
+
+
+  if (listgroup[0] && tablistgroup[0]) {
+    listgroup[0].classList.add("active");
+    tablistgroup[0].classList.add("active");
+  } // Прослушивание нажатия нажатия на ссылки списка ссылок .list-group
+
+
+  listgroupmenu.addEventListener('click', evt => {
+    listgroupitemClickHandler(evt);
+  });
 } // Мульти модал для каталога ссылок
 // Модалы для списка ссылок
 
@@ -4308,108 +3654,21 @@ if (multimodal && multimodalbtns) {
       multimodalhandler(evt);
     });
   });
-} // Фильтр в телефонной книге
-//Фильтр в телефонном справочнике
-// Ищем группу фильтров с селектором button-group
-
-
-const filterGroup = document.querySelector('.phonebook-filter'); // Куда будет выводиться результат
-
-const result = document.getElementById('filter'); //ajax_send("GET", "pages/admin/ajax.php", test, result => $.fn.zTree.init($("#workplace-tree"), settingWorktree, result));
-
-/*const filterClickHandler = () => {
-  //Обнуление строк фильтров - выбранного и пустого
-  let filterItems = filterGroup.querySelectorAll('input[type=checkbox]');
-
-  let filterstring = string;
-  let emptyfilter = string;
-  for (let i = 0, len = filterItems.length; i < len; i++) {
-    if (filterItems[i].checked === true) {
-      filterstring += '&filter[' + (filterItems[i].name) + ']=' + filterItems[i].value
-    } else {
-      //Если фильтр не включен. Составляет строку их всех имеющихся фильтров и их значений
-      emptyfilter += '&filter[' + (filterItems[i].name) + ']=' + filterItems[i].value;
-    }
-  }
-  if (filterstring === string) {
-    //Если ни один фильтр не выбран, то выведет emptyfilter
-    fetch(emptyfilter).then(
-      response => {
-        return response.text();
-      }
-    ).then(
-      text => {
-        result.innerHTML = text;
-      }
-    );
-  } else {
-    fetch(filterstring).then(
-      response => {
-        return response.text();
-      }
-    ).then(
-      text => {
-        result.innerHTML = text;
-      }
-    );
-  }
-};
-
-*/
-// Начальная строка без фильтров
-//const string = '/components/phonebook/ajax.php/?';
-
-/* Слушаем клик по каждому из фильтров телефонной книги */
-
-/*if (filterGroup && result) {
-  // Ищем в filter-group элементы фильтров checkbox
-  let filterItems = filterGroup.querySelectorAll('input[type=checkbox]');
-
-  filterItems.forEach(function (filter) {
-    filter.addEventListener('click', () => {
-      filterClickHandler();
-    });
-  });
 }
-*/
 
-const filterClickHandler = () => {
-  //Обнуление строк фильтров - выбранного и пустого
-  let filterItems = filterGroup.querySelectorAll('input[type=checkbox]');
-  let selected = selectedCheckboxes(filterItems, 'selected');
+/***/ }),
 
-  if (selected.length === 0) {
-    let data = {
-      filter: selectedCheckboxes(filterItems, 'all')
-    };
-    ajax_send("GET", "components/phonebook/ajax.php", data, "text", response => {
-      result.innerHTML = "";
-      result.innerHTML = response;
-    });
-  } else {
-    let data = {
-      filter: selected
-    };
-    ajax_send("GET", "components/phonebook/ajax.php", data, "text", response => {
-      result.innerHTML = "";
-      result.innerHTML = response;
-    });
-  }
-};
-/* Слушаем клик по каждому из фильтров телефонной книги */
+/***/ "./src/assets/js/modules/tasks.js":
+/*!****************************************!*\
+  !*** ./src/assets/js/modules/tasks.js ***!
+  \****************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-
-if (filterGroup && result) {
-  // Ищем в filter-group элементы фильтров checkbox
-  let filterItems = filterGroup.querySelectorAll('input[type=checkbox]');
-  filterItems.forEach(function (filter) {
-    filter.addEventListener('click', () => {
-      filterClickHandler();
-    });
-  });
-} // Tasks list
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _globalfunc__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../globalfunc */ "./src/assets/js/globalfunc.js");
+ // Tasks list
 // Tasks задачи. Контейнер
-
 
 const todowrapper = document.querySelector('.todo-wrapper'); // Поля: id, title, duedate (дата),
 
@@ -4696,7 +3955,7 @@ const tasksHandler = () => {
           $(todoTaskList).prepend('<li class="todo-item">' + '<div class="todo-title-wrapper">' + '<div class="todo-title-area">' + '<i class="mdi mdi-dots-vertical"></i>' + '<div class="title-wrapper">' + '<div class="custom-control custom-checkbox">' + '<input type="checkbox" class="custom-control-input" id="customCheck' + checkboxId + '" />' + '<label class="custom-control-label" for="customCheck' + checkboxId + '"></label>' + '</div>' + '<span class="todo-title">' + todoTitle + '</span>' + '</div>' + '</div>' + '<div class="todo-item-action">' + '<div class="badge-wrapper mr-1">' + todoBadge + '</div>' + '<small class="text-nowrap text-muted mr-1">' + todoDate + '</small>' + '</div>' + '</div>' + '</li>');
         }
 
-        showToast('Задача сохранена', 'Сохранено 💾', "Сейчас");
+        (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.showToast)('Задача сохранена', 'Сохранено 💾', "Сейчас");
         hideModal();
       }
     });
@@ -4708,7 +3967,7 @@ const tasksHandler = () => {
 
     if ($this.prop('checked')) {
       $this.closest('.todo-item').addClass('completed');
-      showToast('Задача завершена', 'Поздравляем 🎉', "Сейчас");
+      (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.showToast)('Задача завершена', 'Поздравляем 🎉', "Сейчас");
     } else {
       $this.closest('.todo-item').removeClass('completed');
     }
@@ -4747,7 +4006,7 @@ const tasksHandler = () => {
       if (isValid) {
         const $edit_title = newTaskForm.find('.new-todo-item-title').val();
         $(taskTitle).text($edit_title);
-        showToast('Задача сохранена', 'Сохранено 💾', "Сейчас");
+        (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.showToast)('Задача сохранена', 'Сохранено 💾', "Сейчас");
         hideModal();
       }
     });
@@ -4819,9 +4078,607 @@ const tasksHandler = () => {
   }
 
   tasksRender();
-}; // Погодный виджет
+}; // Ждем полной загрузки дерева
 
 
+document.addEventListener("DOMContentLoaded", () => {
+  // Задачи
+  if (todowrapper) {
+    tasksHandler();
+  }
+});
+
+/***/ }),
+
+/***/ "./src/assets/js/modules/tetris.js":
+/*!*****************************************!*\
+  !*** ./src/assets/js/modules/tetris.js ***!
+  \*****************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _const__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../const */ "./src/assets/js/const.js");
+
+/** Тетрис */
+
+const tetrwrapper = document.querySelector(".tetris-wrapper");
+
+const tetrgame = () => {
+  /** License CC0 1.0 Universal */
+
+  /** https://gist.github.com/straker/3c98304f8a6a9174efd8292800891ea1 */
+
+  /** https://tetris.fandom.com/wiki/Tetris_Guideline */
+
+  /** получаем доступ к основному холсту */
+  const canvas = document.getElementById('game');
+  const context = canvas.getContext('2d');
+  /** Кнопка начала игры */
+
+  const startbtn = document.querySelector('.tetr-start-game');
+  /** получаем доступ к холсту с игровой статистикой */
+
+  const canvasScore = document.getElementById('score');
+  const contextScore = canvasScore.getContext('2d');
+
+  const start = () => {
+    /** размер квадратика */
+    const grid = 32;
+    /** массив с последовательностями фигур, на старте — пустой */
+
+    const tetrominoSequence = [];
+    /** с помощью двумерного массива следим за тем, что находится в каждой клетке игрового поля */
+
+    /** размер поля — 10 на 20, и несколько строк ещё находится за видимой областью */
+
+    const playfield = [];
+    /** заполняем сразу массив пустыми ячейками */
+
+    for (let row = -2; row < 20; row++) {
+      playfield[row] = [];
+
+      for (let col = 0; col < 10; col++) {
+        playfield[row][col] = 0;
+      }
+    }
+    /** как рисовать каждую фигуру */
+
+    /** https://tetris.fandom.com/wiki/SRS */
+
+
+    const tetrominos = {
+      'I': [[0, 0, 0, 0], [1, 1, 1, 1], [0, 0, 0, 0], [0, 0, 0, 0]],
+      'J': [[1, 0, 0], [1, 1, 1], [0, 0, 0]],
+      'L': [[0, 0, 1], [1, 1, 1], [0, 0, 0]],
+      'O': [[1, 1], [1, 1]],
+      'S': [[0, 1, 1], [1, 1, 0], [0, 0, 0]],
+      'Z': [[1, 1, 0], [0, 1, 1], [0, 0, 0]],
+      'T': [[0, 1, 0], [1, 1, 1], [0, 0, 0]]
+    };
+    /** цвет каждой фигуры */
+
+    const colors = {
+      'I': _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.info,
+      'O': _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.warning,
+      'T': _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.primary,
+      'S': _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.success,
+      'Z': _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.danger,
+      'J': _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.blue,
+      'L': _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.orange
+    };
+    /** счётчик */
+
+    let count = 0;
+    /** текущая фигура в игре */
+
+    let tetromino = getNextTetromino();
+    /** следим за кадрами анимации, чтобы если что — остановить игру */
+
+    let rAF = null;
+    /** флаг конца игры, на старте — неактивный */
+
+    let gameOver = false;
+    /** количество набранных очков на старте */
+
+    let score = 0;
+    /** рекорд игры */
+
+    let record = 0;
+    /** текущий уровень сложности */
+
+    let level = 1;
+    /** имя игрока с наибольшим рейтингом */
+
+    let recordName = '';
+    /** берем имя игрока из разметки */
+
+    let name = document.querySelector(".user-name").innerHTML;
+    /** Узнаём размер хранилища */
+
+    const Storage_size = localStorage.length;
+    /** Если в хранилище уже что-то есть… */
+
+    if (Storage_size > 0) {
+      /** …то достаём оттуда значение рекорда и имя чемпиона */
+      record = localStorage.record;
+      recordName = localStorage.recordName;
+    }
+    /** Функция возвращает случайное число в заданном диапазоне */
+
+    /** https://stackoverflow.com/a/1527820/2124254 */
+
+
+    function getRandomInt(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    /** создаём последовательность фигур, которая появится в игре */
+
+    /** https://tetris.fandom.com/wiki/Random_Generator */
+
+
+    function generateSequence() {
+      /** тут — сами фигуры */
+      const sequence = ['I', 'J', 'L', 'O', 'S', 'T', 'Z'];
+
+      while (sequence.length) {
+        /** случайным образом находим любую из них */
+        const rand = getRandomInt(0, sequence.length - 1);
+        const name = sequence.splice(rand, 1)[0];
+        /** помещаем выбранную фигуру в игровой массив с последовательностями */
+
+        tetrominoSequence.push(name);
+      }
+    }
+    /** получаем следующую фигуру */
+
+
+    function getNextTetromino() {
+      /** если следующей нет — генерируем */
+      if (tetrominoSequence.length === 0) {
+        generateSequence();
+      }
+      /** берём первую фигуру из массива */
+
+
+      const name = tetrominoSequence.pop();
+      /** сразу создаём матрицу, с которой мы отрисуем фигуру */
+
+      const matrix = tetrominos[name];
+      /** I и O стартуют с середины, остальные — чуть левее */
+
+      const col = playfield[0].length / 2 - Math.ceil(matrix[0].length / 2);
+      /** I начинает с 21 строки (смещение -1), а все остальные — со строки 22 (смещение -2) */
+
+      const row = name === 'I' ? -1 : -2;
+      /** вот что возвращает функция */
+
+      return {
+        name: name,
+
+        /** название фигуры (L, O, и т. д.) */
+        matrix: matrix,
+
+        /** матрица с фигурой */
+        row: row,
+
+        /** текущая строка (фигуры стартуют за видимой областью холста) */
+        col: col
+        /** текущий столбец */
+
+      };
+    }
+    /** поворачиваем матрицу на 90 градусов */
+
+    /** https://codereview.stackexchange.com/a/186834 */
+
+
+    function rotate(matrix) {
+      const N = matrix.length - 1;
+      /** на входе матрица, и на выходе тоже отдаём матрицу */
+
+      return matrix.map((row, i) => row.map((val, j) => matrix[N - j][i]));
+    }
+    /** проверяем после появления или вращения, может ли матрица (фигура) быть в этом месте поля или она вылезет за его границы */
+
+
+    function isValidMove(matrix, cellRow, cellCol) {
+      /** проверяем все строки и столбцы */
+      for (let row = 0; row < matrix.length; row++) {
+        for (let col = 0; col < matrix[row].length; col++) {
+          if (matrix[row][col] && (
+          /** если выходит за границы поля… */
+          cellCol + col < 0 || cellCol + col >= playfield[0].length || cellRow + row >= playfield.length ||
+          /** …или пересекается с другими фигурами */
+          playfield[cellRow + row][cellCol + col])) {
+            /** то возвращаем, что нет, так не пойдёт */
+            return false;
+          }
+        }
+      }
+      /** а если мы дошли до этого момента и не закончили раньше — то всё в порядке */
+
+
+      return true;
+    }
+    /** когда фигура окончательна встала на своё место */
+
+
+    function placeTetromino() {
+      /** обрабатываем все строки и столбцы в игровом поле */
+      for (let row = 0; row < tetromino.matrix.length; row++) {
+        for (let col = 0; col < tetromino.matrix[row].length; col++) {
+          if (tetromino.matrix[row][col]) {
+            /** если край фигуры после установки вылезает за границы поля, то игра закончилась */
+            if (tetromino.row + row < 0) {
+              return showGameOver();
+            }
+            /** если всё в порядке, то записываем в массив игрового поля нашу фигуру */
+
+
+            playfield[tetromino.row + row][tetromino.col + col] = tetromino.name;
+          }
+        }
+      }
+      /** проверяем, чтобы заполненные ряды очистились снизу вверх */
+
+
+      for (let row = playfield.length - 1; row >= 0;) {
+        /** если ряд заполнен */
+        if (playfield[row].every(cell => !!cell)) {
+          score += 10;
+          /** считаем уровень */
+
+          level = Math.floor(score / 100) + 1;
+          /** если игрок побил прошлый рекорд */
+
+          if (score > record) {
+            /** ставим его очки как рекорд */
+            record = score;
+            /** заносим в хранилище значение рекорда */
+
+            localStorage.record = record;
+            /** меняем имя чемпиона */
+
+            recordName = name;
+            /** заносим в хранилище его имя */
+
+            localStorage.recordName = recordName;
+          }
+          /** очищаем его и опускаем всё вниз на одну клетку */
+
+
+          for (let r = row; r >= 0; r--) {
+            for (let c = 0; c < playfield[r].length; c++) {
+              playfield[r][c] = playfield[r - 1][c];
+            }
+          }
+        } else {
+          /** переходим к следующему ряду */
+          row--;
+        }
+      }
+      /** получаем следующую фигуру */
+
+
+      tetromino = getNextTetromino();
+    }
+    /** показываем надпись Game Over */
+
+
+    function showGameOver() {
+      /** прекращаем всю анимацию игры */
+      cancelAnimationFrame(rAF);
+      /** ставим флаг окончания */
+
+      gameOver = true;
+      /** рисуем чёрный прямоугольник посередине поля */
+
+      context.fillStyle = 'black';
+      context.globalAlpha = 0.75;
+      context.fillRect(0, canvas.height / 2 - 30, canvas.width, 60);
+      /** пишем надпись белым моноширинным шрифтом по центру */
+
+      context.globalAlpha = 1;
+      context.fillStyle = 'white';
+      context.font = '36px TT Norms Pro';
+      context.textAlign = 'center';
+      context.textBaseline = 'middle';
+      context.fillText('GAME OVER!', canvas.width / 2, canvas.height / 2);
+      startbtn.disabled = false;
+      startbtn.style.display = "block";
+    }
+
+    function showScore() {
+      contextScore.clearRect(0, 0, canvasScore.width, canvasScore.height);
+      contextScore.globalAlpha = 1;
+      contextScore.fillStyle = '#1F2B3A';
+      contextScore.font = '18px TT Norms Pro';
+      contextScore.fillText('Уровень: ' + level, 15, 20);
+      contextScore.fillText('Очков:   ' + score, 15, 50);
+      contextScore.fillText('Чемпион: ' + recordName, 160, 20);
+      contextScore.fillText('Рекорд:  ' + record, 160, 50);
+    }
+    /** главный цикл игры */
+
+
+    function loop() {
+      /** начинаем анимацию */
+      rAF = requestAnimationFrame(loop);
+      /** очищаем холст */
+
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      /** рисуем игровое поле с учётом заполненных фигур */
+
+      for (let row = 0; row < 20; row++) {
+        for (let col = 0; col < 10; col++) {
+          if (playfield[row][col]) {
+            const name = playfield[row][col];
+            context.fillStyle = colors[name];
+            /** рисуем всё на один пиксель меньше, чтобы получился эффект «в клетку» */
+
+            context.fillRect(col * grid, row * grid, grid - 1, grid - 1);
+          }
+        }
+      }
+      /** выводим статистику */
+
+
+      showScore();
+      /** рисуем текущую фигуру */
+
+      if (tetromino) {
+        /** фигура сдвигается вниз каждые 36 кадров минус значение текущего уровня. Чем больше уровень, тем быстрее падает. */
+        if (++count > 36 - level) {
+          tetromino.row++;
+          count = 0;
+          /** если движение закончилось — рисуем фигуру в поле и проверяем, можно ли удалить строки */
+
+          if (!isValidMove(tetromino.matrix, tetromino.row, tetromino.col)) {
+            tetromino.row--;
+            placeTetromino();
+          }
+        }
+        /** не забываем про цвет текущей фигуры */
+
+
+        context.fillStyle = colors[tetromino.name];
+        /** отрисовываем её */
+
+        for (let row = 0; row < tetromino.matrix.length; row++) {
+          for (let col = 0; col < tetromino.matrix[row].length; col++) {
+            if (tetromino.matrix[row][col]) {
+              /** и снова рисуем на один пиксель меньше */
+              context.fillRect((tetromino.col + col) * grid, (tetromino.row + row) * grid, grid - 1, grid - 1);
+            }
+          }
+        }
+      }
+    }
+    /** следим за нажатиями на клавиши */
+
+
+    document.addEventListener('keydown', function (e) {
+      /** если игра закончилась — сразу выходим */
+      if (gameOver) return;
+      /** стрелки влево и вправо */
+
+      if (e.which === 37 || e.which === 39) {
+        const col = e.which === 37
+        /** если влево, то уменьшаем индекс в столбце, если вправо — увеличиваем */
+        ? tetromino.col - 1 : tetromino.col + 1;
+        /** если так ходить можно, то запоминаем текущее положение */
+
+        if (isValidMove(tetromino.matrix, tetromino.row, col)) {
+          tetromino.col = col;
+        }
+      }
+      /** стрелка вверх — поворот */
+
+
+      if (e.which === 38) {
+        /** поворачиваем фигуру на 90 градусов */
+        const matrix = rotate(tetromino.matrix);
+        /** если так ходить можно — запоминаем */
+
+        if (isValidMove(matrix, tetromino.row, tetromino.col)) {
+          tetromino.matrix = matrix;
+        }
+      }
+      /** стрелка вниз — ускорить падение */
+
+
+      if (e.which === 40) {
+        /** смещаем фигуру на строку вниз */
+        const row = tetromino.row + 1;
+        /** если опускаться больше некуда — запоминаем новое положение */
+
+        if (!isValidMove(tetromino.matrix, row, tetromino.col)) {
+          tetromino.row = row - 1;
+          /** ставим на место и смотрим на заполненные ряды */
+
+          placeTetromino();
+          return;
+        }
+        /** запоминаем строку, куда стала фигура */
+
+
+        tetromino.row = row;
+      }
+    });
+
+    canvas.onblur = function () {
+      const me = this;
+      setTimeout(function () {
+        me.focus();
+      }, 500);
+    };
+
+    rAF = requestAnimationFrame(loop);
+  };
+  /** старт игры */
+
+
+  startbtn.addEventListener('click', () => {
+    start();
+    startbtn.style.display = "none";
+    startbtn.focus = false;
+    canvas.focus();
+  });
+}; // Ждем полной загрузки дерева
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  if (tetrwrapper) {
+    tetrgame();
+  }
+});
+
+/***/ }),
+
+/***/ "./src/assets/js/modules/validation.js":
+/*!*********************************************!*\
+  !*** ./src/assets/js/modules/validation.js ***!
+  \*********************************************/
+/***/ (function() {
+
+/** */
+
+/**
+ * Настройки валидации
+ * @param {string} formSelector - класс формы
+ * @param {string} inputSelector - класс инпута
+ * @param {string} submitButtonSelector - класс кнопки отправки формы
+ * @param {string} inactiveButtonClass - класс, к-рый делает кнопку отправки формы заблокированной
+ * @param {string} inputErrorClass - класс, подсвечивающий поле с ошибками
+ * @param {string} errorClass - класс, делающий ошибку видимой
+ */
+
+/** @type {Object} */
+const validationSettings = {
+  formSelector: '.form-validate',
+  inputSelector: '.form-control:not(div)',
+  submitButtonSelector: '.btn-submit',
+  inactiveButtonClass: 'disabled',
+  inputErrorClass: 'border-danger',
+  errorClass: 'd-flex'
+};
+/**
+ * Включение ошибки валидации инпута
+ * @param {HTMLInputElement} input - валидируемый инпут
+ * @param {HTMLFormElement} form - элемент формы
+ * @param {string} message - сообщение об ошибке
+ */
+
+function showInputError(input, form, message) {
+  /** @type {HTMLElement} */
+  const error = form.querySelector(`#${input.id}-error`);
+  /** @type {string} */
+
+  error.textContent = message;
+  input.classList.add(validationSettings.inputErrorClass);
+}
+/**
+ * Выключение ошибки валидации инпута
+ * @param {HTMLInputElement} input - валидируемый инпут
+ * @param {HTMLFormElement} form - элемент формы
+ */
+
+
+function hideInputError(input, form) {
+  /** @type {HTMLElement} */
+  const error = form.querySelector(`#${input.id}-error`);
+  /** @type {string} */
+
+  error.textContent = "";
+  input.classList.remove(validationSettings.inputErrorClass);
+}
+/**
+ * Валидация инпута
+ * @param {HTMLInputElement} input - валидируемый инпут
+ * @param {HTMLFormElement} form - элемент формы
+ */
+
+
+function validateInput(form, input) {
+  /** Если инпут не прошел валидацию (?) показывает ошибку, иначе (:) убирает ошибку */
+  !input.validity.valid ? showInputError(input, form, input.validationMessage) : hideInputError(input, form);
+}
+/**
+ * Переключатель состояния кнопки отправки формы
+ * @param {HTMLCollection} inputArray - коллекция валидируемых инпутов
+ * @param {HTMLButtonElement} submitButton - кнопка отправки формы
+ */
+
+
+function switchSubmitButton(inputArray, submitButton) {
+  if (Array.from(inputArray).filter(input => !input.validity.valid).length === 0) {
+    submitButton.disabled = false;
+    submitButton.classList.remove(validationSettings.inactiveButtonClass);
+  } else {
+    submitButton.disabled = true;
+    submitButton.classList.add(validationSettings.inactiveButtonClass);
+  }
+}
+/**
+ * Создание прослушивателей
+ * @param {Element} form - элемент формы, на которую вешаем прослушиватели
+ */
+
+
+function setInputEvtListeners(form) {
+  /** @type {HTMLCollection} */
+  const inputArray = form.querySelectorAll(validationSettings.inputSelector);
+  /** @type {HTMLButtonElement} */
+
+  const submitButton = form.querySelector(validationSettings.submitButtonSelector);
+  /** Валидация при открытии формы */
+
+  switchSubmitButton(inputArray, submitButton);
+  /** Вешаем прослушиватель input каждому инпуту */
+
+  Array.from(inputArray).forEach(input => {
+    input.addEventListener('input', () => {
+      /** Валидация инпута, включает/выключает ошибки */
+      validateInput(form, input);
+      /** Переключалка состояния кнопки отправки формы */
+
+      switchSubmitButton(inputArray, submitButton);
+    });
+  });
+}
+/**
+ * Функция включения валидации
+ */
+
+
+function enableValidation() {
+  /** @type {HTMLCollection} */
+  const formsArray = document.querySelectorAll(validationSettings.formSelector);
+  Array.from(formsArray).forEach(form => {
+    form.addEventListener('submit', evt => {
+      evt.preventDefault();
+    });
+    setInputEvtListeners(form);
+  });
+}
+/** ждем загрузки DOM */
+
+/*document.addEventListener('DOMContentLoaded', function () {
+  enableValidation();
+});*/
+
+/***/ }),
+
+/***/ "./src/assets/js/modules/weather.js":
+/*!******************************************!*\
+  !*** ./src/assets/js/modules/weather.js ***!
+  \******************************************/
+/***/ (function() {
+
+// Погодный виджет
 const weatherHandler = () => {
   // ID города искать в файле http://bulk.openweathermap.org/sample/current.city.list.json.gz
   const city = "Safonovo";
@@ -5148,8 +5005,35 @@ const weatherHandler = () => {
   let url = "https://api.openweathermap.org/data/2.5/weather?id=" + cityId + "&appid=" + apikey;
   xhr.open("GET", url);
   xhr.send(data);
-}; // Рабочие места. Древья
+}; // Ждем полной загрузки дерева
 
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Погода
+  if (document.querySelector('.weather-info')) {
+    weatherHandler(); // Обновление каждые 5 минут
+
+    setInterval(() => {
+      // Погода
+      if (document.querySelector('.weather-info')) {
+        weatherHandler();
+      }
+    }, 300000);
+  }
+});
+
+/***/ }),
+
+/***/ "./src/assets/js/modules/workplaces.js":
+/*!*********************************************!*\
+  !*** ./src/assets/js/modules/workplaces.js ***!
+  \*********************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _globalfunc__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../globalfunc */ "./src/assets/js/globalfunc.js");
+ // Рабочие места. Древья
 
 const workPlaceTree = document.getElementById('workplace-tree');
 const placeitemsTree = document.getElementById('placeitems-tree');
@@ -5567,7 +5451,7 @@ const zTreeHandler = () => {
   }];
 
   const workPlaceStructure = () => {
-    ajax_send("GET", "pages/admin/ajax.php", test, "json", result => {
+    (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("GET", "pages/admin/ajax.php", test, "json", result => {
       $.fn.zTree.init($("#workplace-tree"), settingWorktree, result);
     });
   };
@@ -5575,35 +5459,260 @@ const zTreeHandler = () => {
   workPlaceStructure(); //zTreeObj = $.fn.zTree.init($("#workplace-tree"), setting, workPlaceStructure);
 
   zTreeObj = $.fn.zTree.init($("#placeitems-tree"), settingPlaceitems, placeitemsStructure);
+}; // Ждем полной загрузки дерева
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  if (workPlaceTree) {
+    zTreeHandler();
+  }
+});
+
+/***/ }),
+
+/***/ "./src/assets/js/ui.js":
+/*!*****************************!*\
+  !*** ./src/assets/js/ui.js ***!
+  \*****************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _globalfunc__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./globalfunc */ "./src/assets/js/globalfunc.js");
+ // Меню сайдбара
+
+const sidebarnavmenu = document.querySelector('.navigation-menu'); // Спиннер
+
+const spinnerloader = document.querySelector('.spinner-wrapper'); // Общие
+// При прокручивании вниз на 20px от верхнего края элемента с классом main-content, показывает кнопку Назад наверх
+// Кнопка Назад Наверх, класс .back-to-top
+
+const backtotopbutton = document.querySelector('.back-to-top'); // Прокручиваемое содержимое, класс .main-content, если его прокручивать, появляется кнопка Назад наверх
+
+const maincontent = document.querySelector('.main-content');
+
+const maincontentscroll = () => {
+  if (maincontent.scrollTop > 20) {
+    backtotopbutton.style.display = "flex";
+  } else {
+    backtotopbutton.style.display = "none";
+  }
+}; // Возвращает наверх при нажатии на кнопку .back-to-top
+
+
+const buttonscrolltotopHandler = () => {
+  maincontent.scrollTop = 0;
+}; // Переключает класс disabled у .page-body, сайдбар
+// Кнопка, переключающая сайдбар, класс .sidebar-toggle-button
+
+
+const sidebartogglbutton = document.querySelector('.sidebar-toggle-button'); // Тело страницы, класс .main-sidebar
+
+const sidebarwrapper = document.querySelector('.page-body');
+
+const buttonsidebartoggleHandler = evt => {
+  evt.preventDefault();
+  let formData = new FormData();
+  formData.append("module", "sidebar");
+
+  if (sidebarwrapper.dataset.sidebarWidth === "narrow") {
+    sidebarwrapper.dataset.sidebarWidth = "wide";
+    sidebartogglbutton.querySelector('i').classList.add('mdi-crosshairs-gps');
+    sidebartogglbutton.querySelector('i').classList.remove('mdi-crosshairs');
+    formData.append("sidebarWidth", "wide");
+  } else if (sidebarwrapper.dataset.sidebarWidth === "wide") {
+    sidebarwrapper.dataset.sidebarWidth = "narrow";
+    sidebartogglbutton.querySelector('i').classList.remove('mdi-crosshairs-gps');
+    sidebartogglbutton.querySelector('i').classList.add('mdi-crosshairs');
+    formData.append("sidebarWidth", "narrow");
+  }
+
+  ajax_send("POST", "pages/admin/ajax.php", formData, "json", result => result);
+}; // Разворачивает сайдбар, не отодвигая контент. Переключает класс expanded у сайдбара
+// Кнопка, переключающая сайдбар, класс .sidebar-expand-button
+
+
+const sidebarexpbutton = document.querySelector('.sidebar-expand-button'); // Сайдбар
+
+const mainsidebar = document.querySelector('.main-sidebar');
+
+const buttonsidebarexpHandler = () => {
+  if (mainsidebar.classList.contains('expanded')) {
+    mainsidebar.classList.remove('expanded');
+  } else {
+    mainsidebar.classList.add('expanded');
+  }
+}; // Сворачивает сайдбар, не отодвигая контент. Отключает класс expanded у сайдбара
+// Кнопка, сворачивающая сайдбар, класс .sidebar-close-button
+
+
+const sidebarclosebutton = document.querySelector('.sidebar-close-button');
+
+const buttonsidebarcloseHandler = () => {
+  mainsidebar.classList.remove('expanded');
 };
-/* Статистика - Графики */
+
+const sidebarexpandHandler = () => {
+  mainsidebar.classList.add('expanded');
+}; // Переключатель светлого/темного режима
 
 
-const statCards = document.querySelectorAll('.stat-card');
-const statFilters = document.querySelectorAll('.stat-filters .input-filter'); // Определение функции, запускающейся при полной загрузке страницы
+const darkmodetogglbutton = document.querySelector('.tumbler__wrapper');
 
-const init = () => {
-  /* Фильтры в стат графиках */
-  if (statCards && statFilters) {
-    statFilters.forEach(statFilter => {
-      statFilter.addEventListener('click', () => {
-        if (statFilter.checked) {
-          for (let i = 0; i < statCards.length; i++) {
-            if (statCards[i].classList.contains(statFilter.dataset.value)) {
-              statCards[i].classList.remove('d-none');
-              const chart = statCards[i].querySelector('.apexchart');
-              apexChartInit(chart, chart.dataset.chartName);
-            }
-          }
-        } else {
-          for (let i = 0; i < statCards.length; i++) {
-            if (statCards[i].classList.contains(statFilter.dataset.value)) {
-              statCards[i].classList.add('d-none');
-            }
-          }
-        }
-      });
+const darkmodetoggleHandler = () => {
+  let formData = new FormData();
+  formData.append("module", "theme");
+
+  if (sidebarwrapper.dataset.themeName === "main-dark") {
+    sidebarwrapper.dataset.themeName = "main-light";
+    formData.append("theme", "main-light");
+  } else if (sidebarwrapper.dataset.themeName === "main-light") {
+    sidebarwrapper.dataset.themeName = "main-dark";
+    formData.append("theme", "main-dark");
+  }
+
+  ajax_send("POST", "pages/admin/ajax.php", formData, "json", result => result);
+  darkmodetogglbutton.classList.toggle('tumbler--night-mode');
+};
+
+if (darkmodetogglbutton) {
+  darkmodetogglbutton.addEventListener('click', darkmodetoggleHandler);
+} // Добавляет класс open у .top-search
+// Кнопка вкл/выкл верхнего поиска, класс .top-search-button-toggle
+
+
+const searchbutton = document.querySelector('.top-search-button-toggle'); // Верхний поиск, класс .top-search
+
+const searchinput = document.querySelector('.top-search'); // Кнопка закрытия верхнего поиска, класс .top-search-close
+
+const searchclosebtn = document.querySelector('.top-search-close');
+
+const buttonsearchHandler = () => {
+  searchinput.classList.add('open');
+}; // Удаляет класс open у .top-search
+
+
+const buttonsearchcloseHandler = () => {
+  searchinput.classList.remove('open');
+}; // Переключает класс .active у ближайшего .menu-item нажатой ссылки меню сайдбара
+
+
+const menuitemClickHandler = evt => {
+  evt.target.closest('.menu-item').classList.toggle("active");
+}; // Кнопка Назад. Класс .btn-back. Возвращает на страницу, с которой был переход
+
+
+const backbtn = document.querySelectorAll('.btn-back');
+
+if (backbtn) {
+  for (let a = 0; a < backbtn.length; a++) {
+    backbtn[a].addEventListener('click', function () {
+      window.history.back();
     });
+  }
+} // Кнопка Печати страницы. Класс .btn-print
+
+
+const printbtns = document.querySelectorAll('.btn-print');
+
+if (printbtns) {
+  printbtns.forEach(function (printbtn) {
+    printbtn.addEventListener('click', () => {
+      window.print();
+    });
+  });
+} // Показать / скрыть пароль
+// Кнопка показать / скрыть пароль
+
+
+const showhidepass = document.querySelector('.passcode-switch'); // Поле ввода пароля
+
+const passinplist = document.querySelectorAll('.passinput');
+
+const showhidepassHandler = () => {
+  // Меняем тип поля ввода пароля с password на text
+  if (passinplist[0].type === "password") {
+    passinplist.forEach(passinp => passinp.type = "text");
+    showhidepass.classList.toggle('is-hidden');
+  } else {
+    passinplist.forEach(passinp => passinp.type = "password");
+    showhidepass.classList.toggle('is-hidden');
+  }
+}; // Tooltip и popover
+
+
+document.querySelectorAll('.bs-tooltip').forEach(function (tooltip) {
+  new bootstrap.Tooltip(tooltip, {
+    selector: '[data-bs-toggle="tooltip"]'
+  });
+});
+document.querySelectorAll('[data-bs-toggle="popover"]').forEach(function (popover) {
+  new bootstrap.Popover(popover);
+}); // Отключаем спиннер загрузки при загрузке содержимого
+
+const spinnerloaderHandler = () => {
+  spinnerloader.style.display = "none";
+}; // Получает имя файла текущей открытой страницы и ищет такое же в ссылках бокового меню, устанавливает класс active открытому пункту или субпункту и его родителю
+
+
+const sidebarnavmenuHandler = () => {
+  let filename = window.location.href.replace(/^.*[\\\/]/, '').replace('#', '');
+  let menulink = sidebarnavmenu.querySelectorAll('.menu-link');
+  let submenulink = sidebarnavmenu.querySelectorAll('.submenu-link');
+
+  for (let i = 0, len = menulink.length; i < len; i++) {
+    // Поменять в этом условии http://isp/, если будет другой домен
+    if (filename === "" && menulink[i].href.replace(/^.*[\\\/]/, '').replace('#', '') === "") {
+      filename = "/";
+      menulink[i].closest('.menu-item').classList.add("active");
+    } // Условие для локальной версии, где главная index.html
+
+
+    if (filename === "" && menulink[i].href.replace(/^.*[\\\/]/, '').replace('#', '') === "index.html") {
+      filename = "index.html";
+      menulink[i].closest('.menu-item').classList.add("active");
+    }
+
+    if (filename === menulink[i].href.replace(/^.*[\\\/]/, '').replace('#', '')) {
+      menulink[i].closest('.menu-item').classList.add("active");
+    }
+  }
+
+  for (let i = 0, len = submenulink.length; i < len; i++) {
+    if (filename === submenulink[i].href.replace(/^.*[\\\/]/, '').replace('#', '')) {
+      submenulink[i].closest('.submenu-item').classList.add("active");
+      submenulink[i].closest('.menu-item').classList.add("active");
+    }
+  } // Прослушивание нажатия нажатия на ссылки меню .navigation-menu
+
+
+  sidebarnavmenu.addEventListener('click', evt => {
+    menuitemClickHandler(evt);
+  });
+}; // Подсказки
+
+
+const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  return new bootstrap.Tooltip(tooltipTriggerEl);
+}); // Отключаем спиннер загрузки при загрузке содержимого
+
+const maincontentscrollHandler = () => {
+  const winScroll = maincontent.scrollTop;
+  const height = maincontent.scrollHeight - maincontent.clientHeight;
+  const scrolled = winScroll / height * 100;
+  const topprogress = document.querySelector('.topprogressbar');
+
+  if (topprogress) {
+    topprogress.style.width = scrolled + "%";
+  }
+}; // Ждем полной загрузки дерева
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  //Отключаем спиннер
+  if (spinnerloader) {
+    spinnerloaderHandler();
   }
   /* Возвращает текущий день, месяц и день недели в элементы с классами today-group-day,
   *  today-group-month, today-group-dayw */
@@ -5613,24 +5722,7 @@ const init = () => {
     document.querySelector(".today-group-dayw").innerHTML = moment().tz('Europe/Moscow').format('dddd');
     document.querySelector(".today-group-day").innerHTML = moment().tz('Europe/Moscow').format('D');
     document.querySelector(".today-group-month").innerHTML = moment().tz('Europe/Moscow').format('MMMM');
-  } // Обновление каждые 5 минут
-
-
-  setInterval(() => {
-    // Погода
-    if (document.querySelector('.weather-info')) {
-      weatherHandler();
-    }
-    /* Возвращает текущий день, месяц и день недели в элементы с классами today-group-day,
-    *  today-group-month, today-group-dayw */
-
-
-    if (document.querySelector('.today-group')) {
-      document.querySelector(".today-group-dayw").innerHTML = moment().tz('Europe/Moscow').format('dddd');
-      document.querySelector(".today-group-day").innerHTML = moment().tz('Europe/Moscow').format('D');
-      document.querySelector(".today-group-month").innerHTML = moment().tz('Europe/Moscow').format('MMMM');
-    }
-  }, 300000);
+  }
 
   if (sidebarwrapper.dataset.sidebarWidth === "wide") {
     sidebartogglbutton.querySelector('i').classList.add('mdi-crosshairs-gps');
@@ -5686,59 +5778,9 @@ const init = () => {
   } // Прогресс бар над хедером
 
 
-  maincontent.addEventListener('scroll', maincontentscrollHandler); // Погода
+  maincontent.addEventListener('scroll', maincontentscrollHandler); // Всплывашка с временем отработки php
 
-  if (document.querySelector('.weather-info')) {
-    weatherHandler();
-  } // Форма добавления сотрудника. Профессия и активность
-
-
-  if (profselect && affselect) {
-    profselectHandler();
-  }
-
-  if (activeselect && roomselect) {
-    activeselectHandler();
-  } // Отрисовка модуля календаря
-
-
-  if (calendarEl) {
-    calendmodulehandler(calendarModuleSettings);
-  } // Отрисовка виджета календаря
-
-
-  if (minicalendar) {
-    minicalendarhandler();
-  } // Задачи
-
-
-  if (todowrapper) {
-    tasksHandler();
-  } // Показать/скрыть пароль
-
-
-  if (showhidepass && passinplist) {
-    showhidepass.addEventListener('click', showhidepassHandler);
-  } // Принадлежность судье
-
-
-  if (profselect && affselect) {
-    profselect.addEventListener('change', profselectHandler);
-  } // В штате
-
-
-  if (activeselect && roomselect) {
-    activeselect.addEventListener('change', activeselectHandler);
-  }
-
-  datatablesHandler(); // Подсказки
-
-  const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-  const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-    return new bootstrap.Tooltip(tooltipTriggerEl);
-  }); // Всплывашка с временем отработки php
-
-  if (cookieID === "1") {
+  if (_globalfunc__WEBPACK_IMPORTED_MODULE_0__.cookieID === "1") {
     const toastcontainer = document.querySelector('.toasts-container'); // Удаляем скрытые всплывашки
 
     const hiddentoasts = toastcontainer.querySelectorAll('.hide');
@@ -5751,50 +5793,144 @@ const init = () => {
 
     const toastscripttime = new bootstrap.Toast(document.querySelector('.toast-script-time'));
     toastscripttime.show();
-  } // Загрузка телефонной книги
+  } // Показать/скрыть пароль
 
 
-  if (filterGroup && result) {
-    filterClickHandler();
-  } // Инициализация графиков Apex JS
-
-  /*if (apexChartList) {
-    apexChartList.forEach((chart) => {
-      const chartName = chart.dataset.chartName;
-      apexChartInit(chart, chartName);
-    });
-  }*/
+  if (showhidepass && passinplist) {
+    showhidepass.addEventListener('click', showhidepassHandler);
+  } // Обновление каждые 5 минут
 
 
-  if (document.querySelector(".apexchart1")) {
-    let apexchartVisits = new ApexCharts(document.querySelector(".apexchart1"), apexChartOptions("successLineChart"));
-    apexchartVisits.render();
-    $.getJSON('api/visits/getVisits.php', function (response) {
-      apexchartVisits.updateSeries([{
-        name: 'Посещения',
-        data: response
-      }]);
-    });
-  }
+  setInterval(() => {
+    /* Возвращает текущий день, месяц и день недели в элементы с классами today-group-day,
+    *  today-group-month, today-group-dayw */
+    if (document.querySelector('.today-group')) {
+      document.querySelector(".today-group-dayw").innerHTML = moment().tz('Europe/Moscow').format('dddd');
+      document.querySelector(".today-group-day").innerHTML = moment().tz('Europe/Moscow').format('D');
+      document.querySelector(".today-group-month").innerHTML = moment().tz('Europe/Moscow').format('MMMM');
+    }
+  }, 300000);
+});
 
-  if (workPlaceTree) {
-    zTreeHandler();
-  }
+/***/ })
 
-  if (tetrwrapper) {
-    tetrgame();
-  }
-}; // Ждем полной загрузки дерева
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	!function() {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = function(module) {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				function() { return module['default']; } :
+/******/ 				function() { return module; };
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	!function() {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	!function() {
+/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	!function() {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = function(exports) {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+!function() {
+"use strict";
+/*!******************************!*\
+  !*** ./src/assets/js/app.js ***!
+  \******************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _globalfunc__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./globalfunc */ "./src/assets/js/globalfunc.js");
+/* harmony import */ var _ui__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ui */ "./src/assets/js/ui.js");
+/* harmony import */ var _modules_apexchart__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/apexchart */ "./src/assets/js/modules/apexchart.js");
+/* harmony import */ var _modules_certificatework__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/certificatework */ "./src/assets/js/modules/certificatework.js");
+/* harmony import */ var _modules_datatables__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/datatables */ "./src/assets/js/modules/datatables.js");
+/* harmony import */ var _modules_datatables__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_modules_datatables__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _modules_faq__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/faq */ "./src/assets/js/modules/faq.js");
+/* harmony import */ var _modules_faq__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_modules_faq__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _modules_forms__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/forms */ "./src/assets/js/modules/forms.js");
+/* harmony import */ var _modules_forms__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_modules_forms__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _modules_fullcalendar__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/fullcalendar */ "./src/assets/js/modules/fullcalendar.js");
+/* harmony import */ var _modules_overlayscrollbar__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/overlayscrollbar */ "./src/assets/js/modules/overlayscrollbar.js");
+/* harmony import */ var _modules_overlayscrollbar__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_modules_overlayscrollbar__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _modules_phonebook__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/phonebook */ "./src/assets/js/modules/phonebook.js");
+/* harmony import */ var _modules_proxylist__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/proxylist */ "./src/assets/js/modules/proxylist.js");
+/* harmony import */ var _modules_proxylist__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_modules_proxylist__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _modules_tasks__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/tasks */ "./src/assets/js/modules/tasks.js");
+/* harmony import */ var _modules_tetris__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./modules/tetris */ "./src/assets/js/modules/tetris.js");
+/* harmony import */ var _modules_validation__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./modules/validation */ "./src/assets/js/modules/validation.js");
+/* harmony import */ var _modules_validation__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_modules_validation__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var _modules_weather__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./modules/weather */ "./src/assets/js/modules/weather.js");
+/* harmony import */ var _modules_weather__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_modules_weather__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var _modules_workplaces__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./modules/workplaces */ "./src/assets/js/modules/workplaces.js");
 
 
-document.addEventListener("DOMContentLoaded", () => {
-  //Отключаем спиннер
-  if (spinnerloader) {
-    spinnerloaderHandler();
-  }
-}); // Будет запущено все, что внутри const init
 
-init();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }();
 /******/ })()
 ;
