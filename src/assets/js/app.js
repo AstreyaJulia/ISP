@@ -2153,7 +2153,7 @@ const minicalendarhandler = () => {
 
   let calendar = new FullCalendar.Calendar(minicalendar, {
     locale: 'ru',
-    timeZone: settings.timezone,
+    timeZone: 'Europe/Moscow',
     initialView: 'dayGridMonth',
     height: 300,
     editable: false,
