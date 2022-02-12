@@ -7,6 +7,8 @@ const sass = require('gulp-sass')(require('sass'));
 const del = require("del");
 const sync = require("browser-sync").create();
 const webpack = require('webpack-stream');
+const autoprefixer = require('gulp-autoprefixer');
+const autoprefixBrowsers = ['> 0.5%, last 2 versions, Firefox ESR, not dead'];
 
 /**
  * Стили
@@ -16,8 +18,8 @@ const styles = () => {
   return gulp.src("src/assets/css/main.scss")
     .pipe(plumber())
     .pipe(sourcemap.init())
-    .pipe(sass())
-    .pipe(sourcemap.write("."))
+    .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+    .pipe(sourcemap.write(".", {addComment: false}))
     .pipe(gulp.dest("assets/css"))
     .pipe(sync.stream());
 }
@@ -26,6 +28,28 @@ const styles = () => {
  * @type {function(): *}
  */
 exports.styles = styles;
+
+/**
+ * Автопрефиксер
+ * @returns {*}
+ */
+const autoPrefix = () => {
+  return gulp
+    .src(['assets/css/*.css', '!assets/css/*.min.css'], { cwd: "assets/css" })
+    .pipe(
+      autoprefixer({
+        browsers: autoprefixBrowsers,
+        cascade: false
+      })
+    )
+    .pipe(gulp.dest("assets/css"));
+}
+/**
+ * Экспорт задачи автопрефиксера
+ * @type {function(): *}
+ */
+exports.autoPrefix = autoPrefix;
+
 
 /**
  * JS-бандл
@@ -58,8 +82,10 @@ const images = () => {
 
 exports.images = images;
 
-// Copy
-
+/**
+ * Копирование файлов проекта из src папки
+ * @returns {*} пути к исходникам
+ */
 const copy = () => {
   return gulp.src([
       "src/assets/fonts/*.*",
@@ -74,16 +100,23 @@ const copy = () => {
 
 exports.copy = copy;
 
-// Clean
-
+/**
+ * Очистка папки assets перед копированием файлов
+ * @returns {Promise<string[]> | *}
+ */
 const clean = () => {
   return del("assets");
 }
 
-// Server
-
+/**
+ * Сервер разработки
+ * @param done
+ */
 const server = (done) => {
   sync.init({
+    /**
+     * Прокси для сервера
+     */
     proxy: "isp"
   });
   done();
@@ -91,39 +124,48 @@ const server = (done) => {
 
 exports.server = server;
 
-// Reload
-
+/**
+ * Перезагрузка
+ * @param done
+ */
 const reload = done => {
   sync.reload();
   done();
 }
 
-// Watcher
-
+/**
+ * Автообновление сервера при изменении файлов по этим путям
+ */
 const watcher = () => {
   gulp.watch("src/assets/css/**/*.scss", gulp.series("styles"));
   gulp.watch("src/*.html", gulp.series(reload));
   gulp.watch('src/assets/js/**/*.js', gulp.series(reload));
 }
 
-// Clean Modules before copy
-
+/**
+ * Очистка папки с модулями перед копированием модулей
+ * @returns {Promise<string[]> | *} удаление папки
+ */
 const cleanModules = () => {
   return del("src/assets/modules");
 }
 
 exports.cleanModules = cleanModules;
 
-// Clean MDI font before copy
-
+/**
+ * Удаление иконочного шрифта перед копированием
+ * @returns {Promise<string[]> | *}
+ */
 const cleanMDIFont = () => {
   return del("src/assets/fonts/materialdesignicons-webfont.woff2");
 }
 
 exports.cleanMDIFont = cleanMDIFont;
 
-// Copy modules from node_modules to src folder
-
+/**
+ * Копирование модулей из папки node_modules в папку src
+ * @returns {*}
+ */
 const copyModules = () => {
   return gulp.src([
       "node_modules/bootstrap/dist/js/bootstrap.bundle.js",
@@ -158,8 +200,10 @@ const copyModules = () => {
 
 exports.copyModules = copyModules;
 
-// Copy fonts from node_modules to src fonts folder
-
+/**
+ * Копирование шрифтов из папки
+ * @returns {*}
+ */
 const copyMDIFont = () => {
   return gulp.src([
       "node_modules/@mdi/font/fonts/materialdesignicons-webfont.woff2"
@@ -172,12 +216,14 @@ const copyMDIFont = () => {
 
 exports.copyMDIFont = copyMDIFont;
 
-//Build
-
+/**
+ * Билд
+ */
 const build = gulp.series(
   clean,
   gulp.parallel(
     styles,
+    autoPrefix,
     jsbundle,
     copy,
     images
@@ -186,6 +232,9 @@ const build = gulp.series(
 
 exports.build = build;
 
+/**
+ * Копирование модулей и шрифтов из node_modules
+ */
 const copyModulesFromNM = gulp.series(
   cleanModules,
   cleanMDIFont,
@@ -201,6 +250,7 @@ exports.default = gulp.series(
   clean,
   gulp.parallel(
     styles,
+    autoPrefix,
     jsbundle,
     copy,
     images

@@ -9,6 +9,7 @@ module.exports = {
     filename: 'app.js'
   },
   devtool: 'source-map',
+  mode: 'development',
   devServer: {
     hot: false
   },

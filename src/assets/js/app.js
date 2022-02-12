@@ -1,6 +1,6 @@
 'use strict';
 
-import {COLORS} from './const.js';
+import {COLORS} from './const';
 
 /** */
 
@@ -2863,6 +2863,7 @@ function calendmodulehandler(settings) {
       }
     } else {
       repeatSwitch.checked = false;
+      deleteWarningMessage.classList.add('d-none');
     }
 
     startDatepicker.setDate(event.start, true, settings.datetimeformat);
@@ -3126,15 +3127,15 @@ function calendmodulehandler(settings) {
     resetValues();
     showModal('add');
 
-    // Разные даты начала и конца события для создаваемых событий при нажатии на кнопку создания и на день
+    /** Разные даты начала и конца события для создаваемых событий при нажатии на кнопку создания и на день */
+    let date;
     if (info == null) {
-      $(startDate).val("");
-      $(endDate).val("");
+      date = "";
     } else {
-      const date = moment(info.date).format(settings.datetimeformat);
-      startDatepicker.setDate(date, true, settings.datetimeformat);
-      endDatepicker.setDate(date, true, settings.datetimeformat);
+      date = moment(info.date).format(settings.datetimeformat);
     }
+    startDatepicker.setDate(date, true);
+    endDatepicker.setDate(date, true);
   }
 
 
