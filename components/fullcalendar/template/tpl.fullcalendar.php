@@ -6,8 +6,7 @@
         <div class="modal-dialog sidebar-lg h-100">
           <div class="modal-content add-edit-event-content h-100 overflow-hidden">
             <div class="overlayscrollbar h-100">
-              <form class="event-form form-validate d-flex flex-column justify-content-between h-100" name="eventForm"
-                    novalidate>
+              <form class="event-form d-flex flex-column justify-content-between h-100 needs-validation" name="eventForm" novalidate>
                 <div>
                   <div class="modal-header">
                     <h5 class="add-event-title modal-title">Добавить событие</h5>
@@ -22,10 +21,10 @@
                               <div class="d-flex flex-column">
                                 <label for="eventTitle" class="">Название события:</label>
                                 <textarea type="text" placeholder="Введите название" rows="2"
-                                          class="form-control overlayscrollbar"
+                                          class="form-control"
                                           name="eventTitle" id="eventTitle" required minlength="2"
                                           maxlength="100"></textarea>
-                                <span class="input-error text-danger font-size-base" id="eventTitle-error"></span>
+                                <div class="invalid-feedback">Введите название события.</div>
                               </div>
                             </div>
                             <div class="form-group">
@@ -41,7 +40,7 @@
                                 <div class="cat-select position-relative" id="cat-select">
                                   <select class="select2 select-label form-control w-100" name="selectLabel"
                                           id="select-label" required></select>
-                                  <span class="input-error text-danger font-size-base" id="select-label-error"></span>
+                                  <div class="invalid-feedback">Выберите категорию.</div>
                                 </div>
                               </div>
 
@@ -53,7 +52,7 @@
                                   <input name="dateStart" placeholder="Дата начала"
                                          class="form-control flatpickr-input position-relative"
                                          type="text" required id="start-date">
-                                  <span class="input-error text-danger font-size-base" id="start-date-error"></span>
+                                  <div class="invalid-feedback">Введите дату начала.</div>
                                 </div>
                               </div>
                             </div>
@@ -63,7 +62,7 @@
                                   <label for="end-date" class="">Конец события:</label>
                                   <input name="dateEnd" placeholder="Дата окончания" type="text"
                                          class="form-control flatpickr-input position-relative" id="end-date" required>
-                                  <span class="input-error text-danger font-size-base" id="end-date-error"></span>
+                                  <div class="invalid-feedback">Введите дату окончания.</div>
                                 </div>
                               </div>
                             </div>
@@ -77,7 +76,7 @@
                               <label for="eventDescription" class="">Описание события:</label>
                               <div class="event-description">
                           <textarea placeholder="Введите описание" rows="3"
-                                    class="form-control overlayscrollbar" name="eventDescription"
+                                    class="form-control scroll-y" name="eventDescription"
                                     id="eventDescription"></textarea>
                               </div>
                             </div>
@@ -101,7 +100,6 @@
                                   <option value="monthly-section">Ежемесячно</option>
                                   <option value="yearly-section">Ежегодно</option>
                                 </select>
-                                <span class="input-error text-danger font-size-base" id="dayrepopt-error"></span>
                               </div>
                               <div id="interval-section" style="display: none">
                                 <div class="form-group d-flex align-items-center position-relative">
@@ -182,28 +180,24 @@
                                     <input id="startrep-date" placeholder="Дата начала"
                                            class="form-control flatpickr-input position-relative"
                                            type="text">
-                                    <span class="input-error text-danger font-size-base" id="startrep-date-error"></span>
                                   </div>
                                   <p class="mt-3">Конец повторения (если не выбрано - бесконечно):</p>
                                   <div class="form-check mt-3">
                                     <div class="form-group d-flex align-items-end position-relative">
                                       <input type="checkbox" name="radios" class="form-check-input me-2 flex-shrink-0"
                                              id="Radio5">
-                                      <label class="form-check-label flex-shrink-0  me-2" for="Radio5">Закончить после</label>
+                                      <label class="form-check-label flex-shrink-0 me-2" for="Radio5">Закончить после</label>
                                       <input id="endrep-date" placeholder="Дата окончания"
                                              class="form-control flatpickr-input position-relative"
                                              type="text" disabled>
-                                      <span class="input-error text-danger font-size-base" id="endrep-date-error"></span>
                                       <label for="endrep-date"></label>
                                     </div>
 
                                     <div class="form-group d-flex align-items-end position-relative">
-                                      <input type="checkbox" name="radios" class="form-check-input me-2" id="Radio6">
-                                      <label class="form-check-label me-2" for="Radio6">Закончить после</label>
+                                      <input type="checkbox" name="radios" class="form-check-input me-2 flex-shrink-0" id="Radio6">
+                                      <label class="form-check-label me-2 flex-shrink-0" for="Radio6">Закончить после</label>
                                       <input class="form-control me-2" type="number" id="repcount" style="width: 75px"
                                              value="1" disabled>
-                                      <span class="input-error text-danger font-size-base" id="repcount-error"></span>
-                                      <label for="repcount">повторений</label>
                                     </div>
                                   </div>
                                 </div>

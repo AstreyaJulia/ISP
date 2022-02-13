@@ -1568,8 +1568,6 @@ function minicalendarhandler(settings) {
       right: 'prev,title,next',
       left: 'today'
     },
-
-    /*eventSources: [getEvents],*/
     eventSources: [fetchEvents],
     eventMouseEnter: settings.eventMouseEnter,
     eventMouseLeave: function () {
@@ -1798,7 +1796,7 @@ function calendmodulehandler(settings) {
         addEventFormSubmit.textContent = "Добавить";
         cancelBtn.textContent = "Отмена";
         addEventTitle.textContent = "Добавить событие";
-        addEventFormSubmit.addEventListener('click', addEvent);
+        eventForm.addEventListener('submit', addEvent);
         cancelBtn.addEventListener('click', closeAddEvModal);
         deleteWarningMessage.classList.add('d-none');
         break;
@@ -1808,7 +1806,7 @@ function calendmodulehandler(settings) {
         cancelBtn.textContent = "Удалить";
         addEventTitle.textContent = "Редактировать событие";
         cancelBtn.addEventListener('click', delEvent);
-        addEventFormSubmit.addEventListener('click', updateEvent);
+        eventForm.addEventListener('submit', updateEvent);
         break;
     }
 
@@ -1817,7 +1815,8 @@ function calendmodulehandler(settings) {
     const modalBackdrop = document.createElement("div");
     modalBackdrop.setAttribute('class', 'modal-backdrop fade show');
     document.body.appendChild(modalBackdrop);
-    (0,_validation__WEBPACK_IMPORTED_MODULE_1__.setInputEvtListeners)(eventForm);
+    (0,_validation__WEBPACK_IMPORTED_MODULE_1__.setValidationListeners)(eventForm, addEventFormSubmit);
+    (0,_validation__WEBPACK_IMPORTED_MODULE_1__.validateForm)(eventForm, addEventFormSubmit);
   }
   /**
    * Отметить чекбоксы дней недели по массиву
@@ -1872,12 +1871,6 @@ function calendmodulehandler(settings) {
       repparamSwitch.value = 'none';
       repparamSwitch.required = false;
     }
-    /*repparamSwitch.addEventListener('input', () => {
-      validateInput(eventForm, repparamSwitch);
-    });*/
-
-
-    (0,_validation__WEBPACK_IMPORTED_MODULE_1__.setInputEvtListeners)(eventForm);
   }
   /** Собрать данные для отправки на сервер по добавляемому/удаляемому событию*/
 
@@ -1977,8 +1970,11 @@ function calendmodulehandler(settings) {
       calendar.refetchEvents();
     }
 
+    if ((0,_validation__WEBPACK_IMPORTED_MODULE_1__.validateForm)(eventForm, addEventFormSubmit) === true) {
+      (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("POST", "components/fullcalendar/ajax.php", getEventFormData("add"), "json", result => addSucces(result, title));
+    }
+
     let title = eventTitle.value;
-    (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("POST", "components/fullcalendar/ajax.php", getEventFormData("add"), "json", result => addSucces(result, title));
   }
   /**
    * Обновление события
@@ -1998,13 +1994,15 @@ function calendmodulehandler(settings) {
       calendar.refetchEvents();
     }
 
-    let title = eventTitle.value;
-
-    if (eventToUpdate.extendedProps.user_id === _globalfunc__WEBPACK_IMPORTED_MODULE_0__.cookieID || JSON.stringify(eventToUpdate.extendedProps.user_id) === _globalfunc__WEBPACK_IMPORTED_MODULE_0__.cookieID) {
-      (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("POST", "components/fullcalendar/ajax.php", getEventFormData("upd"), "json", result => updSucces(result, title));
-    } else {
-      (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.showMiniToast)('Вы не имеете прав на правку события ' + title, "danger");
+    if ((0,_validation__WEBPACK_IMPORTED_MODULE_1__.validateForm)(eventForm, addEventFormSubmit) === true) {
+      if (eventToUpdate.extendedProps.user_id === _globalfunc__WEBPACK_IMPORTED_MODULE_0__.cookieID || JSON.stringify(eventToUpdate.extendedProps.user_id) === _globalfunc__WEBPACK_IMPORTED_MODULE_0__.cookieID) {
+        (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("POST", "components/fullcalendar/ajax.php", getEventFormData("upd"), "json", result => updSucces(result, title));
+      } else {
+        (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.showMiniToast)('Вы не имеете прав на правку события ' + title, "danger");
+      }
     }
+
+    let title = eventTitle.value;
   };
   /** Удалить событие */
 
@@ -2041,11 +2039,12 @@ function calendmodulehandler(settings) {
   /** Закрытие модала и сброс инпутов */
 
 
-  const closeAddEvModal = () => {
+  const closeAddEvModal = evt => {
+    evt.preventDefault();
     hideModal();
     resetValues();
-    addEventFormSubmit.removeEventListener('click', updateEvent);
-    addEventFormSubmit.removeEventListener('click', addEvent);
+    eventForm.removeEventListener('submit', updateEvent);
+    eventForm.removeEventListener('submit', addEvent);
     cancelBtn.removeEventListener('click', delEvent);
     cancelBtn.removeEventListener('click', closeAddEvModal);
     deleteWarningMessage.classList.add('d-none');
@@ -3700,132 +3699,30 @@ document.addEventListener("DOMContentLoaded", () => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "enableValidation": function() { return /* binding */ enableValidation; },
-/* harmony export */   "setInputEvtListeners": function() { return /* binding */ setInputEvtListeners; },
-/* harmony export */   "switchSubmitButton": function() { return /* binding */ switchSubmitButton; },
-/* harmony export */   "validateInput": function() { return /* binding */ validateInput; },
-/* harmony export */   "hideInputError": function() { return /* binding */ hideInputError; },
-/* harmony export */   "showInputError": function() { return /* binding */ showInputError; },
-/* harmony export */   "validationSettings": function() { return /* binding */ validationSettings; }
+/* harmony export */   "validateForm": function() { return /* binding */ validateForm; },
+/* harmony export */   "setValidationListeners": function() { return /* binding */ setValidationListeners; }
 /* harmony export */ });
-/** */
+function validateForm(form, submit) {
+  form.classList.add('was-validated');
 
-/**
- * Настройки валидации
- * @param {string} formSelector - класс формы
- * @param {string} inputSelector - класс инпута
- * @param {string} submitButtonSelector - класс кнопки отправки формы
- * @param {string} inactiveButtonClass - класс, к-рый делает кнопку отправки формы заблокированной
- * @param {string} inputErrorClass - класс, подсвечивающий поле с ошибками
- * @param {string} errorClass - класс, делающий ошибку видимой
- */
-
-/** @type {Object} */
-const validationSettings = {
-  formSelector: '.form-validate',
-  inputSelector: 'textarea.form-control, select.form-control, input.form-control:not(.input)',
-  submitButtonSelector: '.btn-submit',
-  inactiveButtonClass: 'disabled',
-  inputErrorClass: 'border-danger',
-  errorClass: 'd-flex'
-};
-/**
- * Включение ошибки валидации инпута
- * @param {HTMLInputElement} input - валидируемый инпут
- * @param {HTMLFormElement} form - элемент формы
- * @param {string} message - сообщение об ошибке
- */
-
-function showInputError(input, form, message) {
-  /** @type {HTMLElement} */
-  const error = form.querySelector(`#${input.id}-error`);
-  /** @type {string} */
-
-  error.textContent = message;
-  input.classList.add(validationSettings.inputErrorClass);
-}
-/**
- * Выключение ошибки валидации инпута
- * @param {HTMLInputElement} input - валидируемый инпут
- * @param {HTMLFormElement} form - элемент формы
- */
-
-
-function hideInputError(input, form) {
-  /** @type {HTMLElement} */
-  const error = form.querySelector(`#${input.id}-error`);
-  /** @type {string} */
-
-  error.textContent = "";
-  input.classList.remove(validationSettings.inputErrorClass);
-}
-/**
- * Валидация инпута
- * @param {HTMLInputElement} input - валидируемый инпут
- * @param {HTMLFormElement} form - элемент формы
- */
-
-
-function validateInput(form, input) {
-  /** Если инпут не прошел валидацию (?) показывает ошибку, иначе (:) убирает ошибку */
-  !input.validity.valid ? showInputError(input, form, input.validationMessage) : hideInputError(input, form);
-}
-/**
- * Переключатель состояния кнопки отправки формы
- * @param {HTMLCollection} inputArray - коллекция валидируемых инпутов
- * @param {HTMLButtonElement} submitButton - кнопка отправки формы
- */
-
-
-function switchSubmitButton(inputArray, submitButton) {
-  if (Array.from(inputArray).filter(input => !input.validity.valid).length === 0) {
-    submitButton.disabled = false;
-    submitButton.classList.remove(validationSettings.inactiveButtonClass);
+  if (form.checkValidity() === false) {
+    form.classList.add('invalid');
+    submit.disabled = true;
+    return false;
   } else {
-    submitButton.disabled = true;
-    submitButton.classList.add(validationSettings.inactiveButtonClass);
+    submit.disabled = false;
+    return true;
   }
 }
-/**
- * Создание прослушивателей
- * @param {Element} form - элемент формы, на которую вешаем прослушиватели
- */
 
-
-function setInputEvtListeners(form) {
-  /** @type {HTMLCollection} */
-  const inputArray = form.querySelectorAll(validationSettings.inputSelector);
-  /** @type {HTMLButtonElement} */
-
-  const submitButton = form.querySelector(validationSettings.submitButtonSelector);
-  /** Валидация при открытии формы */
-
-  switchSubmitButton(inputArray, submitButton);
-  /** Вешаем прослушиватель input каждому инпуту */
-
-  Array.from(inputArray).forEach(input => {
-    input.addEventListener('input', () => {
-      /** Валидация инпута, включает/выключает ошибки */
-      validateInput(form, input);
-      /** Переключалка состояния кнопки отправки формы */
-
-      switchSubmitButton(inputArray, submitButton);
-    });
+function setValidationListeners(form, submit) {
+  const inputs = form.querySelectorAll('input:not(.input), textarea');
+  const selects = form.querySelectorAll('select');
+  selects.forEach(select => {
+    select.addEventListener('change', () => validateForm(form, submit));
   });
-}
-/**
- * Функция включения валидации
- */
-
-
-function enableValidation() {
-  /** @type {HTMLCollection} */
-  const formsArray = document.querySelectorAll(validationSettings.formSelector);
-  Array.from(formsArray).forEach(form => {
-    form.addEventListener('submit', evt => {
-      evt.preventDefault();
-    });
-    setInputEvtListeners(form);
+  inputs.forEach(input => {
+    input.addEventListener('input', () => validateForm(form, submit));
   });
 }
 
@@ -4145,44 +4042,6 @@ const weatherHandler = () => {
   }
 
   let url = "https://api.openweathermap.org/data/2.5/weather";
-  /*xhr.addEventListener("readystatechange", function () {
-    if (xhr.readyState === xhr.DONE) {
-      if (xhr.status === 200) {
-        let response = JSON.parse(xhr.response);
-        if (response.cod === 404) {
-          document.querySelector('.weather-info').innerHTML = "";
-        } else {
-          let weather = {
-            state: "",
-            icon: "",
-            temp_max: "",
-          };
-          let letter = "";
-          if ((moment().hour() >= 7 && moment().hour() <= 21)) {
-            letter = "day";
-          }
-          if ((moment().hour() <= 6 && moment().hour() >= 0) || (moment().hour() >= 22 && moment().hour() <= 23)) {
-            letter = "night";
-          }
-          weather.state = states[response.weather[0].id]["desc"];
-          weather.icon = states[response.weather[0].id][letter];
-          weather.temp_max = Math.round(response.main.temp_max - 273.15);
-           if (weather.temp_max > 0) {
-            weather.temp_max = "+" + weather.temp_max + '°';
-          } else {
-            weather.temp_max = weather.temp_max + '°';
-          }
-           const weatherInner =
-            `<a class="d-flex align-items-center justify-content-center" style="text-decoration: none;" data-bs-toggle="tooltip" data-bs-placement="bottom" title="` + weather.state + `" data-bs-original-title="` + weather.state + `">
-              <p class="m-0 p-0" style="font-size: 23px; color: #5552d9; font-weight: 700; line-height: normal;">` + weather.temp_max + `</p>
-              <i class="ms-2 d-flex align-items-center justify-content-center wi ` + weather.icon + `" style="width=35px; height: 35px;"></i>
-            </a>`;
-          document.querySelector('.weather-info').innerHTML = '';
-          document.querySelector('.weather-info').insertAdjacentHTML('beforeend', weatherInner);
-         }
-      }
-    }
-  });*/
 
   function setWeather(response) {
     weather.state = weatherSettings.states[response.weather[0].id]["desc"];
@@ -4510,7 +4369,7 @@ const zTreeHandler = () => {
               isParent: true,
             }
           ]
-         },
+          },
         {
           id: "01_03",
           name: "Подвал",

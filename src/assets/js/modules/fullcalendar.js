@@ -3,7 +3,7 @@ import {selectedCheckboxes} from "../globalfunc"
 import {cookieID} from "../globalfunc"
 import {ajax_send} from "../globalfunc"
 import {showMiniToast} from "../globalfunc"
-import {setInputEvtListeners, switchSubmitButton, validationSettings} from "./validation"
+import {validateForm, setValidationListeners} from "./validation"
 
 /**
  * Настройки для модуля календаря
@@ -162,7 +162,6 @@ function minicalendarhandler(settings) {
       right: 'prev,title,next',
       left: 'today',
     },
-    /*eventSources: [getEvents],*/
     eventSources: [fetchEvents],
     eventMouseEnter: settings.eventMouseEnter,
     eventMouseLeave: function () {
@@ -396,7 +395,7 @@ function calendmodulehandler(settings) {
         addEventFormSubmit.textContent = "Добавить";
         cancelBtn.textContent = "Отмена";
         addEventTitle.textContent = "Добавить событие";
-        addEventFormSubmit.addEventListener('click', addEvent);
+        eventForm.addEventListener('submit', addEvent);
         cancelBtn.addEventListener('click', closeAddEvModal);
         deleteWarningMessage.classList.add('d-none');
         break
@@ -405,7 +404,7 @@ function calendmodulehandler(settings) {
         cancelBtn.textContent = "Удалить";
         addEventTitle.textContent = "Редактировать событие";
         cancelBtn.addEventListener('click', delEvent);
-        addEventFormSubmit.addEventListener('click', updateEvent);
+        eventForm.addEventListener('submit', updateEvent);
         break
     }
 
@@ -414,7 +413,8 @@ function calendmodulehandler(settings) {
     const modalBackdrop = document.createElement("div");
     modalBackdrop.setAttribute('class', 'modal-backdrop fade show')
     document.body.appendChild(modalBackdrop);
-    setInputEvtListeners(eventForm);
+    setValidationListeners(eventForm, addEventFormSubmit);
+    validateForm(eventForm, addEventFormSubmit);
   }
 
   /**
@@ -465,10 +465,6 @@ function calendmodulehandler(settings) {
       repparamSwitch.value = 'none';
       repparamSwitch.required = false;
     }
-    /*repparamSwitch.addEventListener('input', () => {
-      validateInput(eventForm, repparamSwitch);
-    });*/
-    setInputEvtListeners(eventForm);
   }
 
   /** Собрать данные для отправки на сервер по добавляемому/удаляемому событию*/
@@ -553,9 +549,11 @@ function calendmodulehandler(settings) {
       calendar.refetchEvents();
     }
 
-    let title = eventTitle.value;
+    if (validateForm(eventForm, addEventFormSubmit) === true) {
+      ajax_send("POST", "components/fullcalendar/ajax.php", getEventFormData("add"), "json", result => addSucces(result, title));
+    }
 
-    ajax_send("POST", "components/fullcalendar/ajax.php", getEventFormData("add"), "json", result => addSucces(result, title));
+    let title = eventTitle.value;
   }
 
   /**
@@ -572,14 +570,15 @@ function calendmodulehandler(settings) {
       calendar.refetchEvents();
     }
 
-    let title = eventTitle.value;
-
-    if (eventToUpdate.extendedProps.user_id === cookieID || JSON.stringify(eventToUpdate.extendedProps.user_id) === cookieID) {
-      ajax_send("POST", "components/fullcalendar/ajax.php", getEventFormData("upd"), "json", result => updSucces(result, title));
-    } else {
-      showMiniToast('Вы не имеете прав на правку события ' + title, "danger");
+    if (validateForm(eventForm, addEventFormSubmit) === true) {
+      if (eventToUpdate.extendedProps.user_id === cookieID || JSON.stringify(eventToUpdate.extendedProps.user_id) === cookieID) {
+        ajax_send("POST", "components/fullcalendar/ajax.php", getEventFormData("upd"), "json", result => updSucces(result, title));
+      } else {
+        showMiniToast('Вы не имеете прав на правку события ' + title, "danger");
+      }
     }
 
+    let title = eventTitle.value;
   }
 
   /** Удалить событие */
@@ -613,11 +612,12 @@ function calendmodulehandler(settings) {
   }
 
   /** Закрытие модала и сброс инпутов */
-  const closeAddEvModal = () => {
+  const closeAddEvModal = (evt) => {
+    evt.preventDefault();
     hideModal();
     resetValues();
-    addEventFormSubmit.removeEventListener('click', updateEvent);
-    addEventFormSubmit.removeEventListener('click', addEvent);
+    eventForm.removeEventListener('submit', updateEvent);
+    eventForm.removeEventListener('submit', addEvent);
     cancelBtn.removeEventListener('click', delEvent);
     cancelBtn.removeEventListener('click', closeAddEvModal);
     deleteWarningMessage.classList.add('d-none');
