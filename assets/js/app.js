@@ -357,954 +357,206 @@ const ajax_send = (method, url, parameters, datatype, callback) => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _const__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../const */ "./src/assets/js/const.js");
-// Apex Charts
+/**
+ * Apex Charts
+ */
 
-const themeColors = [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.primary, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.warning, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.danger, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.success, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.info];
-const apexChartList = document.querySelectorAll('.apexchart');
 
-const apexChartOptions = chartname => {
-  const safpeopleChart = {
-    series: [{
-      name: 'Население г. Сафоново',
-      data: [43500, 46100, 45273, 44444, 43845, 43477, 43145, 42707, 42147, 41510, 41138, 40537]
-    }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.secondary],
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.secondary, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.secondary],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
-      }
-    },
-    xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
-      }
+function LineChartBasic(name, data, color, categories) {
+  this.series = [{
+    name: name,
+    data: data
+  }];
+  this.chart = {
+    height: 350,
+    type: 'area'
+  };
+  this.colors = [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme[color]];
+  this.dataLabels = {
+    enabled: false
+  };
+  this.stroke = {
+    curve: 'smooth'
+  };
+  this.fill = {
+    type: 'gradient',
+    gradient: {
+      inverseColors: false,
+      shade: 'light',
+      type: "vertical",
+      gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter[color], _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme[color]],
+      opacityFrom: 0.7,
+      opacityTo: 0.55,
+      stops: [0, 80, 100]
     }
   };
-  const smolOblpeopleChart = {
-    series: [{
-      name: 'Население Смоленской области',
-      data: [993018, 982887, 980482, 975188, 967896, 964791, 958630, 953201, 949348, 942363, 934889, 921127]
-    }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.secondary],
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.secondary, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.secondary],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
-      }
-    },
-    xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
-      }
+  this.xaxis = {
+    categories: categories
+  };
+  this.tooltip = {
+    x: {
+      show: false
     }
   };
-  const smolOblworkpeopleChart = {
-    series: [{
-      name: 'Трудоспособное население Смоленской области',
-      data: [633809, 596862, 627128, 625958, 593611, 615842, 607983, 586273, 598980, 587725, 587237]
-    }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.secondary],
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.secondary, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.secondary],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
-      }
-    },
-    xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
-      }
+}
+
+function LineChartWithMarkers(name, data, color, categories, annotations) {
+  this.series = [{
+    name: name,
+    data: data
+  }];
+  this.chart = {
+    height: 350,
+    type: 'area'
+  };
+  this.annotations = annotations;
+  this.colors = [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme[color]];
+  this.dataLabels = {
+    enabled: false
+  };
+  this.stroke = {
+    curve: 'smooth'
+  };
+  this.fill = {
+    type: 'gradient',
+    gradient: {
+      inverseColors: false,
+      shade: 'light',
+      type: "vertical",
+      gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter[color], _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme[color]],
+      opacityFrom: 0.7,
+      opacityTo: 0.55,
+      stops: [0, 80, 100]
     }
   };
-  const smolOblnoworkChart = {
-    series: [{
-      name: 'Количество безработных в Смоленской области, тыс. человек',
-      data: [40.8, 41.5, 30.9, 28.1, 26.9, 32.8, 31.4, 29.8, 26.2, 25.3, 25.3]
-    }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.secondary],
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.secondary, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.secondary],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
-      }
-    },
-    xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
-      }
+  this.xaxis = {
+    categories: categories
+  };
+  this.tooltip = {
+    x: {
+      show: false
     }
   };
-  const inflationChart = {
-    /* https://уровень-инфляции.рф/%D1%82%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D1%8B-%D0%B8%D0%BD%D1%84%D0%BB%D1%8F%D1%86%D0%B8%D0%B8 */
-    series: [{
-      name: 'Уровень инфляции в России',
-      data: [8.78, 6.10, 6.58, 6.45, 11.36, 12.91, 5.38, 2.52, 4.27, 3.05, 4.91, 8.39]
-    }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    annotations: {
-      yaxis: [{
-        y: 4,
+}
+
+function LineChartSimple(name, data, color) {
+  this.series = [{
+    name: name,
+    data: data
+  }];
+  this.chart = {
+    height: 350,
+    type: 'line',
+    toolbar: {
+      show: true
+    }
+  };
+  this.grid = {
+    show: false
+  };
+  this.legend = {
+    show: false
+  };
+  this.colors = [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme[color]];
+  this.dataLabels = {
+    enabled: false
+  };
+  this.stroke = {
+    width: 3,
+    curve: 'smooth'
+  };
+  this.noData = {
+    text: 'Загрузка...'
+  };
+}
+/**
+ *
+ * @param chartname
+ * @returns {{dataLabels: {enabled: boolean}, xaxis: {categories: number[]}, series: [{data: number[], name: string}], tooltip: {x: {show: boolean}}, fill: {gradient: {inverseColors: boolean, gradientToColors: (string)[], shade: string, stops: number[], type: string, opacityTo: number, opacityFrom: number}, type: string}, chart: {type: string, height: number}, stroke: {curve: string}, colors: string[]}|{dataLabels: {enabled: boolean}, xaxis: {categories: number[]}, series: [{data: number[], name: string}], tooltip: {x: {show: boolean}}, annotations: {xaxis: [{fillColor: string, x: number, x2: number, label: {borderColor: string, offsetY: number, style: {color: string, background: string}, text: string}, opacity: number},{x: number, label: {borderColor: string, style: {color: string, background: string}, text: string}}], yaxis: [{borderColor: string, y: number, label: {borderColor: string, style: {color: string, background: string}, text: string}}]}, fill: {gradient: {inverseColors: boolean, gradientToColors: (string)[], shade: string, stops: number[], type: string, opacityTo: number, opacityFrom: number}, type: string}, chart: {type: string, height: number}, stroke: {curve: string}, colors: string[]}|{dataLabels: {enabled: boolean}, xaxis: {categories: number[]}, series: [{data: number[], name: string}], tooltip: {x: {show: boolean}}, fill: {gradient: {inverseColors: boolean, gradientToColors: (*|string)[], shade: string, stops: number[], type: string, opacityTo: number, opacityFrom: number}, type: string}, chart: {type: string, height: number}, stroke: {curve: string}, colors: string[]}|{dataLabels: {enabled: boolean}, grid: {show: boolean}, legend: {show: boolean}, series: *[], noData: {text: string}, chart: {toolbar: {show: boolean}, type: string, height: number}, stroke: {curve: string, width: number}, yaxis: {show: boolean, axisBorder: {show: boolean}, labels: {show: boolean}}, colors: string[]}}
+ */
+
+
+const apexChartOptions = {
+  safpeopleChart: new LineChartBasic('Население г. Сафоново', [43500, 46100, 45273, 44444, 43845, 43477, 43145, 42707, 42147, 41510, 41138, 40537], 'secondary', [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]),
+  smolOblpeopleChart: new LineChartBasic('Население Смоленской области', [993018, 982887, 980482, 975188, 967896, 964791, 958630, 953201, 949348, 942363, 934889, 921127], 'secondary', [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]),
+  smolOblworkpeopleChart: new LineChartBasic('Трудоспособное население Смоленской области', [633809, 596862, 627128, 625958, 593611, 615842, 607983, 586273, 598980, 587725, 587237], 'secondary', [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]),
+  smolOblnoworkChart: new LineChartBasic('Количество безработных в Смоленской области, тыс. человек', [40.8, 41.5, 30.9, 28.1, 26.9, 32.8, 31.4, 29.8, 26.2, 25.3, 25.3], 'secondary', [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]),
+  postoutboxChart: new LineChartBasic('Исходящая почта', [11610, 29513, 28845, 30240, 23662, 36230, 41202, 37862, 36211, 36859, 34827, 38381], 'primary', [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]),
+  emailoutboxChart: new LineChartBasic('Исходящая эл. почта', [1810, 3170, 3959], 'primary', [2019, 2020, 2021]),
+  postinboxChart: new LineChartBasic('Входящая почта', [4147, 9372, 12395, 12226, 11378, 11481, 11418, 12372, 11721, 11917, 12308, 15209], 'green', [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]),
+  emailinboxChart: new LineChartBasic('Входящая эл. почта', [6489, 8384, 10450], 'green', [2019, 2020, 2021]),
+  gcaseChart: new LineChartBasic('Гражданские дела', [1777, 1935, 2108, 2892, 2784, 2593, 2454, 2145, 1785, 1388, 1587, 1893], 'red', [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]),
+  gcaseOblChart: new LineChartBasic('Гражданские дела (область)', [30095, 28470, 31392, 32393, 34753, 33232, 31409, 21203, 24391, 18543, 23220], 'red', [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]),
+  g1caseChart: new LineChartBasic('Гражданские дела ап. инстанции', [45, 62, 43, 60, 58, 57, 42, 35, 51, 68, 58, 49], 'orange', [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]),
+  admcaseChart: new LineChartBasic('Дела об адм. правонарушениях', [30, 25, 33, 1096, 1044, 844, 817, 882, 695, 467, 382, 1157], 'blue', [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]),
+  admcaseOblChart: new LineChartBasic('Дела об адм. правонарушениях (область)', [1487, 1334, 1315, 6150, 5856, 5316, 5080, 5352, 5232, 4805, 6768], 'blue', [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]),
+  adm1caseChart: new LineChartBasic('Жалобы по адм. делам', [0, 0, 0, 0, 166, 204, 205, 198, 145, 138, 123, 96], 'teal', [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]),
+  ucaseChart: new LineChartBasic('Уголовные дела', [275, 366, 364, 294, 360, 373, 254, 214, 282, 251, 240, 297], 'yellow', [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]),
+  ucaseOblChart: new LineChartBasic('Уголовные дела (область)', [4124, 4038, 3696, 3257, 3799, 3563, 3210, 2217, 3061, 3626, 3713], 'yellow', [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]),
+  u1caseChart: new LineChartBasic('Уголовные дела ап. инстанции', [15, 30, 17, 17, 13, 8, 14, 9, 9, 6, 13, 9], 'azure', [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]),
+  mucaseChart: new LineChartBasic('Материалы в порядке уг. производства, всего', [545, 3440, 2634, 1662, 1232, 1852, 1926, 1604, 2216, 1564, 1494, 1157], 'cyan', [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]),
+  eosChart: new LineChartBasic('Обращения, без исковых', [87, 230, 423, 624], 'primary', [2018, 2019, 2020, 2021]),
+  eosgcaseChart: new LineChartBasic('Исковые заявления', [21, 43, 35, 128], 'green', [2018, 2019, 2020, 2021]),
+  inflationChart: new LineChartWithMarkers(
+  /** https://уровень-инфляции.рф/%D1%82%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D1%8B-%D0%B8%D0%BD%D1%84%D0%BB%D1%8F%D1%86%D0%B8%D0%B8 */
+  'Уровень инфляции в России', [8.78, 6.10, 6.58, 6.45, 11.36, 12.91, 5.38, 2.52, 4.27, 3.05, 4.91, 8.39], 'primary', [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021], {
+    yaxis: [{
+      y: 4,
+      borderColor: '#00B795',
+      label: {
         borderColor: '#00B795',
-        label: {
-          borderColor: '#00B795',
-          style: {
-            color: '#FFFFFF',
-            background: '#00B795'
-          },
-          text: 'Оптимальный уровень'
-        }
-      }],
-      xaxis: [{
-        x: 2014,
-        x2: 2015,
-        fillColor: '#f6bc9a',
-        opacity: 0.4,
-        label: {
-          borderColor: '#f6bc9a',
-          style: {
-            color: '#fff',
-            background: '#ef630a'
-          },
-          offsetY: -10,
-          text: 'Валютный кризис'
-        }
-      }, {
-        x: 2020,
-        label: {
-          borderColor: '#ef630a',
-          style: {
-            color: '#FFFFFF',
-            background: '#ef630a'
-          },
-          text: 'Рецессия COVID-19'
-        }
-      }]
-    },
-    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.primary],
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.primary, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.primary],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
+        style: {
+          color: '#FFFFFF',
+          background: '#00B795'
+        },
+        text: 'Оптимальный уровень'
       }
-    },
-    xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
-      }
-    }
-  };
-  const postoutboxChart = {
-    series: [{
-      name: 'Исходящая почта',
-      data: [11610, 29513, 28845, 30240, 23662, 36230, 41202, 37862, 36211, 36859, 34827, 38381]
     }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.primary],
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.primary, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.primary],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
+    xaxis: [{
+      x: 2014,
+      x2: 2015,
+      fillColor: '#f6bc9a',
+      opacity: 0.4,
+      label: {
+        borderColor: '#f6bc9a',
+        style: {
+          color: '#fff',
+          background: '#ef630a'
+        },
+        offsetY: -10,
+        text: 'Валютный кризис'
       }
-    },
-    xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
+    }, {
+      x: 2020,
+      label: {
+        borderColor: '#ef630a',
+        style: {
+          color: '#FFFFFF',
+          background: '#ef630a'
+        },
+        text: 'Рецессия COVID-19'
       }
-    }
-  };
-  const emailoutboxChart = {
-    series: [{
-      name: 'Исходящая эл. почта',
-      data: [1810, 3170, 3959]
-    }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.primary],
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.primary, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.primary],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
-      }
-    },
-    xaxis: {
-      categories: [2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
-      }
-    }
-  };
-  const postinboxChart = {
-    series: [{
-      name: 'Входящая почта',
-      data: [4147, 9372, 12395, 12226, 11378, 11481, 11418, 12372, 11721, 11917, 12308, 15209]
-    }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.green],
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.green, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.green],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
-      }
-    }
-  };
-  const emailinboxChart = {
-    series: [{
-      name: 'Входящая эл. почта',
-      data: [6489, 8384, 10450]
-    }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.green],
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.green, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.green],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    xaxis: {
-      categories: [2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
-      }
-    }
-  };
-  const gcaseChart = {
-    series: [{
-      name: 'Гражданские дела',
-      data: [1777, 1935, 2108, 2892, 2784, 2593, 2454, 2145, 1785, 1388, 1587, 1893]
-    }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.red],
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.red, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.red],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
-      }
-    }
-  };
-  const gcaseOblChart = {
-    series: [{
-      name: 'Гражданские дела (область)',
-      data: [30095, 28470, 31392, 32393, 34753, 33232, 31409, 21203, 24391, 18543, 23220]
-    }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.red],
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.red, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.red],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
-      }
-    }
-  };
-  const g1caseChart = {
-    series: [{
-      name: 'Гражданские дела ап. инстанции',
-      data: [45, 62, 43, 60, 58, 57, 42, 35, 51, 68, 58, 49]
-    }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.orange],
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.orange, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.orange],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
-      }
-    }
-  };
-  const admcaseChart = {
-    series: [{
-      name: 'Дела об адм. правонарушениях',
-      data: [30, 25, 33, 1096, 1044, 844, 817, 882, 695, 467, 382, 1157]
-    }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.blue],
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.blue, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.blue],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
-      }
-    }
-  };
-  const admcaseOblChart = {
-    series: [{
-      name: 'Дела об адм. правонарушениях (область)',
-      data: [1487, 1334, 1315, 6150, 5856, 5316, 5080, 5352, 5232, 4805, 6768]
-    }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.blue],
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.blue, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.blue],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
-      }
-    }
-  };
-  const adm1caseChart = {
-    series: [{
-      name: 'Жалобы по адм. делам',
-      data: [0, 0, 0, 0, 166, 204, 205, 198, 145, 138, 123, 96]
-    }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.teal],
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.teal, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.teal],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
-      }
-    }
-  };
-  const ucaseChart = {
-    series: [{
-      name: 'Уголовные дела',
-      data: [275, 366, 364, 294, 360, 373, 254, 214, 282, 251, 240, 297]
-    }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.yellow],
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.yellow, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.yellow],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
-      }
-    }
-  };
-  const ucaseOblChart = {
-    series: [{
-      name: 'Уголовные дела (область)',
-      data: [4124, 4038, 3696, 3257, 3799, 3563, 3210, 2217, 3061, 3626, 3713]
-    }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.yellow],
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.yellow, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.yellow],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
-      }
-    }
-  };
-  const u1caseChart = {
-    series: [{
-      name: 'Уголовные дела ап. инстанции',
-      data: [15, 30, 17, 17, 13, 8, 14, 9, 9, 6, 13, 9]
-    }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.azure],
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.azure, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.azure],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
-      }
-    }
-  };
-  const mucaseChart = {
-    series: [{
-      name: 'Материалы в порядке уг. производства, всего',
-      data: [545, 3440, 2634, 1662, 1232, 1852, 1926, 1604, 2216, 1564, 1494, 1157]
-    }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.cyan],
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.cyan, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.cyan],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    xaxis: {
-      categories: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
-      }
-    }
-  };
-  const eosChart = {
-    series: [{
-      name: 'Обращения, без исковых',
-      data: [87, 230, 423, 624]
-    }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.primary],
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.primary, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.primary],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    xaxis: {
-      categories: [2018, 2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
-      }
-    }
-  };
-  const eosgcaseChart = {
-    series: [{
-      name: 'Исковые заявления',
-      data: [21, 43, 35, 128]
-    }],
-    chart: {
-      height: 350,
-      type: 'area'
-    },
-    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.green],
-    fill: {
-      type: 'gradient',
-      gradient: {
-        inverseColors: false,
-        shade: 'light',
-        type: "vertical",
-        gradientToColors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.themeLighter.green, _const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.green],
-        opacityFrom: 0.7,
-        opacityTo: 0.55,
-        stops: [0, 80, 100]
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    xaxis: {
-      categories: [2018, 2019, 2020, 2021]
-    },
-    tooltip: {
-      x: {
-        show: false
-      }
-    }
-  }; // Рефералы
+    }]
+  }),
 
-  const successLineChart = {
-    chart: {
-      height: 350,
-      type: 'line',
-      toolbar: {
-        show: true
-      }
-    },
-    grid: {
-      show: false
-    },
-    legend: {
-      show: false
-    },
-    dataLabels: {
-      enabled: false
-    },
-    colors: [_const__WEBPACK_IMPORTED_MODULE_0__.COLORS.theme.success],
-    stroke: {
-      width: 3,
-      curve: 'smooth'
-    },
-    series: [],
-    noData: {
-      text: 'Loading...'
-    },
-
-    /*
-        xaxis: {
-          categories: array.value.day
-        },*/
-    yaxis: {
-      show: false,
-      labels: {
-        show: false
-      },
-      axisBorder: {
-        show: false
-      }
-    }
-  };
-
-  switch (chartname) {
-    case 'safpeopleChart':
-      return safpeopleChart;
-
-    case 'postinboxChart':
-      return postinboxChart;
-
-    case 'postoutboxChart':
-      return postoutboxChart;
-
-    case 'gcaseChart':
-      return gcaseChart;
-
-    case 'g1caseChart':
-      return g1caseChart;
-
-    case 'admcaseChart':
-      return admcaseChart;
-
-    case 'adm1caseChart':
-      return adm1caseChart;
-
-    case 'ucaseChart':
-      return ucaseChart;
-
-    case 'u1caseChart':
-      return u1caseChart;
-
-    case 'mucaseChart':
-      return mucaseChart;
-
-    case 'eosChart':
-      return eosChart;
-
-    case 'eosgcaseChart':
-      return eosgcaseChart;
-
-    case 'successLineChart':
-      return successLineChart;
-
-    case 'inflationChart':
-      return inflationChart;
-
-    case 'gcaseOblChart':
-      return gcaseOblChart;
-
-    case 'ucaseOblChart':
-      return ucaseOblChart;
-
-    case 'smolOblpeopleChart':
-      return smolOblpeopleChart;
-
-    case 'smolOblnoworkChart':
-      return smolOblnoworkChart;
-
-    case 'admcaseOblChart':
-      return admcaseOblChart;
-
-    case 'smolOblworkpeopleChart':
-      return smolOblworkpeopleChart;
-
-    case 'emailoutboxChart':
-      return emailoutboxChart;
-
-    case 'emailinboxChart':
-      return emailinboxChart;
-  }
+  /** Рефералы */
+  successLineChart: new LineChartSimple('Посещения', [], 'success')
 };
 
 const apexChartInit = (chart, chartName) => {
-  let apexChart = new ApexCharts(chart, apexChartOptions(chartName));
+  const apexChart = new ApexCharts(chart, apexChartOptions[chartName]);
   apexChart.render();
-  apexChart.updateSeries(apexChartOptions(chartName).series);
+  apexChart.updateSeries(apexChartOptions[chartName].series);
 };
-/* Статистика - Графики */
+/** Статистика - Графики */
 
 
 const statCards = document.querySelectorAll('.stat-card');
-const statFilters = document.querySelectorAll('.stat-filters .input-filter'); // Ждем полной загрузки дерева
+const statFilters = document.querySelectorAll('.stat-filters .input-filter');
+/** Ждем полной загрузки дерева */
 
 document.addEventListener("DOMContentLoaded", () => {
-  /* Фильтры в стат графиках */
+  /** Фильтры в стат графиках */
   if (statCards && statFilters) {
     statFilters.forEach(statFilter => {
       statFilter.addEventListener('click', () => {
@@ -1328,14 +580,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   if (document.querySelector(".apexchart1")) {
-    let apexchartVisits = new ApexCharts(document.querySelector(".apexchart1"), apexChartOptions("successLineChart"));
+    let apexchartVisits = new ApexCharts(document.querySelector(".apexchart1"), apexChartOptions['successLineChart']);
     apexchartVisits.render();
-    $.getJSON('api/visits/getVisits.php', function (response) {
-      apexchartVisits.updateSeries([{
-        name: 'Посещения',
-        data: response
-      }]);
-    });
+    fetch('pages/admin/visits.php').then(r => r);
+    fetch('api/visits/getVisits.php').then(response => response.json()).then(res => apexchartVisits.updateSeries([{
+      data: res
+    }]));
   }
 });
 
@@ -2158,12 +1408,53 @@ document.addEventListener("DOMContentLoaded", () => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _globalfunc__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../globalfunc */ "./src/assets/js/globalfunc.js");
-// Календарь
-// Цвета для Fullcalendar
-// Цвета событий, названия менять в разметке, в js менять не надо
+/* harmony import */ var _validation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./validation */ "./src/assets/js/modules/validation.js");
+/** Календарь */
 
 
 
+
+
+/**
+ * Настройки для модуля календаря
+ * @type {{addEventTitle: string, datepickerformat: string, addEventFormSubmit: string, deleteWarningMessage: string, cancelBtn: string, privateinp: string, repeatparams: string, timezone: string, addDelEventModal: string, closeAddEventModalCrossButton: string, bddatetimeformat: string, eventMouseEnter: calendarModuleSettings.eventMouseEnter, filterInput: string, selectAll: string, eventClassNames: (function({event: *}): [string]), calEventFilter: string, daysForRepeatEvents: string[], datetimeformat: string, addEventButton: string}}
+ */
+
+const calendarModuleSettings = {
+  addEventButton: ".add-event-button",
+  addDelEventModal: ".add-del-event-modal",
+  addEventFormSubmit: ".add-update-event-submit",
+  addEventTitle: ".add-event-title",
+  closeAddEventModalCrossButton: ".btn-close",
+  cancelBtn: ".delete-discard-event-button",
+  daysForRepeatEvents: ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'],
+  deleteWarningMessage: ".delete-warning",
+  calEventFilter: ".calendar-events-filter",
+  filterInput: ".input-filter",
+  selectAll: ".select-all",
+  privateinp: "Private",
+  repeatparams: ".repeat-col",
+  timezone: 'Europe/Moscow',
+  datetimeformat: 'YYYY-MM-DD HH:mm',
+  bddatetimeformat: 'YYYY-MM-DD HH:mm',
+  datepickerformat: "Y-m-d H:i",
+  eventClassNames: function ({
+    event: calendarEvent
+  }) {
+    const colorName = calendarsColor[calendarEvent._def.extendedProps.calendar];
+    return [
+    /** Фоновый цвет событий */
+    'fc-event-' + colorName];
+  },
+  eventMouseEnter: function (event) {
+    if (event.event.display !== "background") {
+      showPopover(event);
+    }
+  }
+};
+/** Цвета для Fullcalendar */
+
+/** Цвета событий, названия менять в разметке, в js менять не надо */
 
 const calendCat = [{
   color: "primary",
@@ -2205,73 +1496,82 @@ function araycal() {
   }
 
   return Object.fromEntries(array);
-} // Для использования в Fullcalendar
+}
+/** Для использования в Fullcalendar */
 
 
-const calendarsColor = araycal(); // Мини календарь на главной
-// Контейнер для календаря
+const calendarsColor = araycal();
+/**
+ * Получение событий. Эта функция будет вызываться fullCalendar для получения и обновления событий.
+ * @param info
+ * @param successCallback ф-я коллбек для передачи
+ */
+
+function fetchEvents(info, successCallback) {
+  /** Чекбокс Только мои события */
+  const privateinp = document.getElementById(calendarModuleSettings.privateinp);
+  const filterInput2 = document.querySelectorAll('.input-filter:not(.select-all)');
+  const privCheck = privateinp ? privateinp.checked === true ? 1 : 0 : 0;
+  let data = {
+    /** С не фиксированной датой не работают повторяющиеся собыия */
+    startParam: moment(info.start).tz(calendarModuleSettings.timezone).format('YYYY-MM-DD'),
+    endParam: moment(info.end).tz(calendarModuleSettings.timezone).format('YYYY-MM-DD'),
+    calendars: filterInput2.length > 0 ? (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.selectedCheckboxes)(filterInput2, 'selected') : Object.keys(calendarsColor),
+    private: privCheck
+  };
+  (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("GET", "components/fullcalendar/events.php", data, "json", result => successCallback(result));
+}
+/**
+ * Показать popover
+ * @param event
+ */
+
+
+function showPopover(event) {
+  const popoverClass = "popover-" + event.event.extendedProps.calendar.toLowerCase();
+  const tooltip = new bootstrap.Popover(event.el, {
+    template: '<div class="popover ' + popoverClass + '" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>',
+    title: event.event.title,
+    content: event.event.extendedProps.description,
+    placement: 'top'
+  });
+  tooltip.show();
+}
+/** Скрыть popover */
+
+
+function hidePopover() {
+  let tooltips = document.querySelectorAll(".popover");
+  tooltips.forEach(function (tooltip) {
+    document.body.removeChild(tooltip);
+  });
+}
+/** Мини календарь на главной */
+
+/** Контейнер для календаря */
+
 
 const minicalendar = document.querySelector('.today-calendar-widget');
 
-const minicalendarhandler = () => {
-  function fetchevents(info, successCallback) {
-    // Получение событий AJAX
-    let data = {
-      startParam: moment(info.start).tz('Europe/Moscow').format('YYYY-MM-DD'),
-      endParam: moment(info.end).tz('Europe/Moscow').format('YYYY-MM-DD'),
-      calendars: Object.keys(calendarsColor),
-      private: '0'
-    };
-    (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("GET", "components/fullcalendar/events.php", data, "json", result => successCallback(result));
-  } // Показать popover
-
-
-  function showPopover(event) {
-    const classpopover = "popover-" + event.event.extendedProps.calendar.toLowerCase();
-    let tooltip = new bootstrap.Popover(event.el, {
-      template: '<div class="popover ' + classpopover + '" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>',
-      title: event.event.title,
-      content: event.event.extendedProps.description,
-      placement: 'top'
-    });
-    tooltip.show();
-  } // Скрыть popover
-
-
-  function hidePopover() {
-    let tooltips = document.querySelectorAll(".popover");
-    tooltips.forEach(function (tooltip) {
-      document.body.removeChild(tooltip);
-    });
-  }
-
+function minicalendarhandler(settings) {
   let calendar = new FullCalendar.Calendar(minicalendar, {
     locale: 'ru',
-    timeZone: 'Europe/Moscow',
+    timeZone: settings.timezone,
     initialView: 'dayGridMonth',
     height: 300,
     editable: false,
     selectable: true,
     businessHours: false,
     dayMaxEvents: false,
-    //
-    eventClassNames: function ({
-      event: calendarEvent
-    }) {
-      const colorName = calendarsColor[calendarEvent._def.extendedProps.calendar];
-      return [// Фоновый цвет событий
-      'fc-event-' + colorName];
-    },
+    eventClassNames: settings.eventClassNames,
     headerToolbar: {
       right: 'prev,title,next',
       left: 'today'
     },
-    eventSources: [fetchevents],
-    eventMouseEnter: function (event) {
-      if (event.event.display !== "background") {
-        showPopover(event);
-      }
-    },
+
+    /*eventSources: [getEvents],*/
+    eventSources: [fetchEvents],
+    eventMouseEnter: settings.eventMouseEnter,
     eventMouseLeave: function () {
       hidePopover();
     }
@@ -2280,7 +1580,7 @@ const minicalendarhandler = () => {
   setInterval(() => {
     calendar.refetchEvents();
   }, 1000);
-};
+}
 /**
  * Календарь. Модуль
  */
@@ -2292,53 +1592,25 @@ const minicalendarhandler = () => {
 
 
 const calendarEl = document.getElementById('calendar');
-/**
- * Настройки для модуля календаря
- * @type {{addEventTitle: string, addEventFormSubmit: string, cancelBtn: string, addDelEventModal: string, closeAddEventModalCrossButton: string, daysForRepeatEvents: string[], eventLabel: string, addEventButton: string}}
- */
-
-const calendarModuleSettings = {
-  addEventButton: ".add-event-button",
-  addDelEventModal: ".add-del-event-modal",
-  addEventFormSubmit: ".add-update-event-submit",
-  addEventTitle: ".add-event-title",
-  closeAddEventModalCrossButton: ".btn-close",
-  cancelBtn: ".delete-discard-event-button",
-  daysForRepeatEvents: ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'],
-  deleteWarningMessage: ".delete-warning",
-  calEventFilter: ".calendar-events-filter",
-  filterInput: ".input-filter",
-  selectAll: ".select-all",
-  privateinp: "Private",
-  repeatparams: ".repeat-col",
-  timezone: 'Europe/Moscow',
-  datetimeformat: 'YYYY-MM-DD HH:mm',
-  bddatetimeformat: 'YYYY-MM-DD HH:mm',
-  datepickerformat: "Y-m-d H:i"
-};
-/**
- *
- * @param settings {Object} объект настроек и параметров
- */
 
 function calendmodulehandler(settings) {
   /** Модал добавления/удаления события @type {HTMLElement} */
-  const addDelEventModal = document.querySelector(settings.addDelEventModal);
+  const addDelEventModal = document.querySelector(calendarModuleSettings.addDelEventModal);
   /** Кнопка Добавить/Сохранить событие в модале добавления/редактирования. Отправка формы @type {HTMLButtonElement} */
 
-  const addEventFormSubmit = document.querySelector(settings.addEventFormSubmit);
+  const addEventFormSubmit = document.querySelector(calendarModuleSettings.addEventFormSubmit);
   /** Заголовок в модале добавления/редактирования @type {HTMLElement} */
 
-  const addEventTitle = document.querySelector(settings.addEventTitle);
+  const addEventTitle = document.querySelector(calendarModuleSettings.addEventTitle);
   /** Кнопка Закрыть (крестик) модал добавления/редактирования @type {HTMLButtonElement} */
 
-  const closeAddEventModalCrossButton = addDelEventModal.querySelector(settings.closeAddEventModalCrossButton);
+  const closeAddEventModalCrossButton = addDelEventModal.querySelector(calendarModuleSettings.closeAddEventModalCrossButton);
   /** Кнопка Отмена/Удалить событие в модале добавления/редактирования @type {HTMLButtonElement} */
 
-  const cancelBtn = document.querySelector(settings.cancelBtn);
+  const cancelBtn = document.querySelector(calendarModuleSettings.cancelBtn);
   /** Предупреждение об удалении события */
 
-  const deleteWarningMessage = document.querySelector(settings.deleteWarningMessage);
+  const deleteWarningMessage = document.querySelector(calendarModuleSettings.deleteWarningMessage);
   /** Форма в модале добавления/редактирования @type {HTMLFormElement} */
 
   const eventForm = document.forms.eventForm;
@@ -2368,38 +1640,48 @@ function calendmodulehandler(settings) {
   const calendarEditor = eventForm.elements.eventDescription;
   /** Фильтр событий */
 
-  const calEventFilter = document.querySelector(settings.calEventFilter);
+  const calEventFilter = document.querySelector(calendarModuleSettings.calEventFilter);
   /** Чекбоксы в фильтре */
 
-  const filterInput = document.querySelectorAll(settings.filterInput);
+  const filterInput = document.querySelectorAll(calendarModuleSettings.filterInput);
   /** Чекбокс Все в фильтре */
 
-  const selectAll = document.querySelector(settings.selectAll);
+  const selectAll = document.querySelector(calendarModuleSettings.selectAll);
   /** Чекбокс Только мои события */
 
-  const privateinp = document.getElementById(settings.privateinp);
+  const privateinp = document.getElementById(calendarModuleSettings.privateinp);
   /**  Колонки с параметрами повторения */
 
-  const repeatparams = document.querySelector(settings.repeatparams); // Переключатели повторения
+  const repeatparams = document.querySelector(calendarModuleSettings.repeatparams);
+  /** Переключатели повторения */
 
-  const repparamSwitch = document.getElementById("dayrepopt"); // Секции с параметрами повторения по неделям, месяцам, годам
+  const repparamSwitch = document.getElementById("dayrepopt");
+  /** Секции с параметрами повторения по неделям, месяцам, годам*/
 
   const weeklysection = document.getElementById("weekly-section");
-  const monthlysection = document.getElementById("monthly-section"); // Секция с интервалом
+  const monthlysection = document.getElementById("monthly-section");
+  /** Секция с интервалом */
 
-  const intervalsection = document.getElementById("interval-section"); // Метка "день" в интервале
+  const intervalsection = document.getElementById("interval-section");
+  /** Метка "день" в интервале */
 
-  const daynumlabel1 = document.getElementById("daynum-label"); // Метка "Каждый" в интервале
+  const daynumlabel1 = document.getElementById("daynum-label");
+  /** Метка "Каждый" в интервале */
 
-  const daynumlabel2 = document.getElementById("intervallabel1"); // поле ввода начала повторения
+  const daynumlabel2 = document.getElementById("intervallabel1");
+  /** поле ввода начала повторения */
 
-  const startrepDate = document.getElementById("startrep-date"); // поле ввода окончания повторения
+  const startrepDate = document.getElementById("startrep-date");
+  /** поле ввода окончания повторения */
 
-  const endrepDate = document.getElementById("endrep-date"); // Все чекбоксы дней недель
+  const endrepDate = document.getElementById("endrep-date");
+  /** Все чекбоксы дней недель */
 
-  const wdayscheck = document.querySelectorAll('.wdays-check'); // Радио Закончить после даты
+  const wdayscheck = document.querySelectorAll('.wdays-check');
+  /** Радио Закончить после даты */
 
-  const repdate = document.getElementById("Radio5"); // Радио Закончить после повторений
+  const repdate = document.getElementById("Radio5");
+  /** Радио Закончить после повторений */
 
   const repcount = document.getElementById("Radio6"); // Радио Каждое число месяца
 
@@ -2421,7 +1703,8 @@ function calendmodulehandler(settings) {
 
   const daynum = document.getElementById("daynum"); // Поле ввода дня для ежемесячного
 
-  const dayofmonth = document.getElementById("dayofmonth"); // Событие для просмотра
+  const dayofmonth = document.getElementById("dayofmonth");
+  /** Событие для просмотра */
 
   let eventToUpdate;
   /**
@@ -2534,7 +1817,7 @@ function calendmodulehandler(settings) {
     const modalBackdrop = document.createElement("div");
     modalBackdrop.setAttribute('class', 'modal-backdrop fade show');
     document.body.appendChild(modalBackdrop);
-    setInputEvtListeners(eventForm);
+    (0,_validation__WEBPACK_IMPORTED_MODULE_1__.setInputEvtListeners)(eventForm);
   }
   /**
    * Отметить чекбоксы дней недели по массиву
@@ -2594,14 +1877,117 @@ function calendmodulehandler(settings) {
     });*/
 
 
-    setInputEvtListeners(eventForm);
+    (0,_validation__WEBPACK_IMPORTED_MODULE_1__.setInputEvtListeners)(eventForm);
+  }
+  /** Собрать данные для отправки на сервер по добавляемому/удаляемому событию*/
+
+
+  function getEventFormData(mode) {
+    let Event = new FormData();
+    mode === "upd" ? Event.append("id", eventToUpdate.id) : false;
+    Event.append("operation", mode);
+    Event.append("title", eventTitle.value);
+    Event.append("start", moment(startDate.value).format(settings.datetimeformat));
+    Event.append("end", moment(endDate.value).format(settings.datetimeformat));
+    Event.append("calendar", eventLabel.value);
+    Event.append("description", calendarEditor.value);
+    Event.append("private", privateSwitch.checked === true ? '1' : '0');
+    mode === "add" ? Event.append("user_id", _globalfunc__WEBPACK_IMPORTED_MODULE_0__.cookieID) : false; // только для создания
+
+    Event.append("tzid", settings.timezone);
+    Event.append("allDay", allDaySwitch.checked === true ? '1' : '0');
+    /** Параметры повторения. Если галочка включена */
+
+    if (repeatSwitch.checked === true) {
+      Event.append("interval", daynum.value);
+
+      if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'daily-section') {
+        /** Ежедневно */
+        Event.append("freq", "DAILY");
+      } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'weekly-section') {
+        /** Еженедельно */
+        Event.append("freq", "WEEKLY");
+        /** Получаем отмеченные чекбоксы */
+
+        Event.append("byweekday", getweekdaycheck());
+      } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'monthly-section') {
+        /** Ежемесячно */
+        Event.append("freq", "MONTHLY");
+        /** Проверяем чекбоксы */
+
+        /** Последний день */
+
+        if (lastdmonth.checked === true) {
+          Event.append("byweekday", "MO, TU, WE, TH, FR, SA, SU");
+          Event.append("bysetpos", "-1");
+        } else
+          /** Первый день */
+          if (firstdmonth.checked === true) {
+            Event.append("byweekday", "MO, TU, WE, TH, FR, SA, SU");
+            Event.append("bysetpos", "1");
+          } else
+            /** Первый рабочий день */
+            if (firstworkdmonth.checked === true) {
+              Event.append("byweekday", "MO, TU, WE, TH, FR");
+              Event.append("bysetpos", "1");
+            } else
+              /** Последний рабочий день */
+              if (lastworkdmonth.checked === true) {
+                Event.append("byweekday", "MO, TU, WE, TH, FR");
+                Event.append("bysetpos", "-1");
+              }
+      } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'yearly-section') {
+        /** Ежегодно */
+        Event.append("freq", "YEARLY");
+      }
+      /** Начало повторения */
+
+
+      Event.append("dtstart", moment(startrepDate.value).format('YYYY-MM-DD HH:mm'));
+      /** Диапазон повторения */
+
+      if (repdate.checked === true) {
+        Event.append("until", moment(endrepDate.value).format('YYYY-MM-DD HH:mm'));
+      }
+      /** Кол-во повторений */
+
+
+      if (repcount.checked === true) {
+        Event.append("count", repcountinp.value);
+      }
+    } else {
+      Event.append("interval", '0');
+    }
+
+    return Event;
+  }
+  /** Добавление нового события */
+
+
+  function addEvent(evt) {
+    evt.preventDefault();
+
+    function addSucces(result, title) {
+      closeAddEvModal();
+
+      if (result === "null") {
+        (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.showMiniToast)('Событие ' + title + ' добавлено', "success");
+      }
+
+      calendar.refetchEvents();
+    }
+
+    let title = eventTitle.value;
+    (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("POST", "components/fullcalendar/ajax.php", getEventFormData("add"), "json", result => addSucces(result, title));
   }
   /**
    * Обновление события
    */
 
 
-  const updateEvent = () => {
+  const updateEvent = evt => {
+    evt.preventDefault();
+
     function updSucces(result, title) {
       closeAddEvModal();
 
@@ -2612,106 +1998,10 @@ function calendmodulehandler(settings) {
       calendar.refetchEvents();
     }
 
-    let Event = new FormData();
-    Event.append("operation", "upd");
-    Event.append("id", eventToUpdate.id);
-    Event.append("title", $(addDelEventModal).find(eventTitle).val());
-    let title = $(addDelEventModal).find(eventTitle).val();
-    Event.append("start", $(addDelEventModal).find(startDate).val());
-    Event.append("end", $(addDelEventModal).find(endDate).val());
-    Event.append("calendar", $(eventLabel).val());
-    Event.append("private", $(privateSwitch).prop('checked') ? '1' : '0');
-    Event.append("description", $(calendarEditor).val());
-    Event.append("tzid", settings.timezone);
-    Event.append("allDay", $(allDaySwitch).prop('checked') ? '1' : '0'); // Параметры повторения. Если галочка включена
-
-    if ($(repeatSwitch).prop('checked')) {
-      if (Event.interval !== '') {
-        Event.append("interval", $(daynum).val());
-      } else {
-        Event.append("interval", '0');
-      }
-
-      if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'daily-section') {
-        // Ежедневно
-        Event.append("freq", 'DAILY');
-      } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'weekly-section') {
-        // Еженедельно
-        Event.append("freq", 'WEEKLY'); // Получаем отмеченные чекбоксы
-
-        if (getweekdaycheck() !== "" || null) {
-          Event.append("byweekday", getweekdaycheck());
-        } else {
-          Event.append("byweekday", '0');
-        }
-      } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'monthly-section') {
-        // Ежемесячно
-        Event.append("freq", 'MONTHLY'); // Проверяем чекбоксы
-        // Последний день
-
-        if ($(lastdmonth).prop('checked')) {
-          Event.append("byweekday", 'MO, TU, WE, TH, FR, SA, SU');
-          Event.append("bysetpos", '-1');
-        } else // Предпоследний день
-          if ($(prelastdmonth).prop('checked')) {
-            Event.append("byweekday", 'MO, TU, WE, TH, FR, SA, SU');
-            Event.append("bysetpos", '-2');
-          } else // Первый день
-            if ($(firstdmonth).prop('checked')) {
-              Event.append("byweekday", 'MO, TU, WE, TH, FR, SA, SU');
-              Event.append("bysetpos", '1');
-            } else // Первый рабочий день
-              if ($(firstworkdmonth).prop('checked')) {
-                Event.append("byweekday", 'MO, TU, WE, TH, FR');
-                Event.append("bysetpos", '1');
-              } else // Последний рабочий день
-                if ($(lastworkdmonth).prop('checked')) {
-                  Event.append("byweekday", 'MO, TU, WE, TH, FR');
-                  Event.append("bysetpos", '-1');
-                }
-      } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'yearly-section') {
-        // Ежегодно
-        Event.append("freq", 'YEARLY');
-      } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'none') {
-        // Без повторения
-        Event.append("freq", '0');
-        Event.append("byweekday", '0');
-        Event.append("bysetpos", '0');
-      } // Начало повторения
-
-
-      Event.append("dtstart", moment($(startrepDate).val()).format(settings.datetimeformat)); // Диапазон повторения
-
-      if ($(repdate).prop('checked')) {
-        Event.append("until", moment($(endrepDate).val()).format(settings.datetimeformat));
-      } else {
-        Event.append("until", '0');
-      } // Кол-во повторений
-
-
-      if ($(repcount).prop('checked')) {
-        Event.append("count", $(repcountinp).val());
-      } else {
-        Event.append("count", '0');
-      } // Начало повторения
-
-
-      Event.append("dtstart", moment($(startrepDate).val()).format(settings.datetimeformat)); // Диапазон повторения
-
-      if ($(repdate).prop('checked')) {
-        Event.append("until", moment($(endrepDate).val()).format(settings.datetimeformat));
-      } // Кол-во повторений
-
-
-      if ($(repcount).prop('checked')) {
-        Event.append("count", $(repcountinp).val());
-      }
-    } else {
-      Event.append("interval", '0');
-    }
+    let title = eventTitle.value;
 
     if (eventToUpdate.extendedProps.user_id === _globalfunc__WEBPACK_IMPORTED_MODULE_0__.cookieID || JSON.stringify(eventToUpdate.extendedProps.user_id) === _globalfunc__WEBPACK_IMPORTED_MODULE_0__.cookieID) {
-      (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("POST", "components/fullcalendar/ajax.php", Event, "json", result => updSucces(result, title));
+      (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("POST", "components/fullcalendar/ajax.php", getEventFormData("upd"), "json", result => updSucces(result, title));
     } else {
       (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.showMiniToast)('Вы не имеете прав на правку события ' + title, "danger");
     }
@@ -2719,12 +2009,14 @@ function calendmodulehandler(settings) {
   /** Удалить событие */
 
 
-  const delEvent = () => {
+  const delEvent = evt => {
+    evt.preventDefault();
     /**
      * Скрыть модал. Сбросить инпуты. Показать всплывашку что удалено. Обновить события
      * @param result результат отправки запроса на сервер
      * @param title название удаляемого события
      */
+
     function delSucces(result, title) {
       closeAddEvModal();
 
@@ -3125,49 +2417,6 @@ function calendmodulehandler(settings) {
     altFormat: "d.m.Y H:i",
     dateFormat: settings.datepickerformat
   });
-  /**
-   * Получение событий. Эта функция будет вызываться fullCalendar для получения и обновления событий.
-   * @param info
-   * @param successCallback ф-я коллбек для передачи
-   */
-
-  function fetchEvents(info, successCallback) {
-    const filterInput2 = document.querySelectorAll('.input-filter:not(.select-all)');
-    let data = {
-      /** С не фиксированной датой не работают повторяющиеся собыия */
-      startParam: moment(info.start).tz(settings.timezone).format('YYYY-MM-DD'),
-      endParam: moment(info.end).tz(settings.timezone).format('YYYY-MM-DD'),
-      calendars: (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.selectedCheckboxes)(filterInput2, 'selected'),
-      private: privateinp.checked === true ? 1 : 0
-    };
-    (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("GET", "components/fullcalendar/events.php", data, "json", result => successCallback(result));
-  }
-  /**
-   * Показать popover
-   * @param event
-   */
-
-
-  function showPopover(event) {
-    const popoverClass = "popover-" + event.event.extendedProps.calendar.toLowerCase();
-    const tooltip = new bootstrap.Popover(event.el, {
-      template: '<div class="popover ' + popoverClass + '" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>',
-      title: event.event.title,
-      content: event.event.extendedProps.description,
-      placement: 'top'
-    });
-    tooltip.show();
-  }
-  /** Скрыть popover */
-
-
-  function hidePopover() {
-    let tooltips = document.querySelectorAll(".popover");
-    tooltips.forEach(function (tooltip) {
-      document.body.removeChild(tooltip);
-    });
-  }
-
   const calendar = new FullCalendar.Calendar(calendarEl, {
     themeSystem: 'standard',
     locale: 'ru',
@@ -3182,16 +2431,12 @@ function calendmodulehandler(settings) {
     handleWindowResize: true,
     nowIndicator: true,
     dayMaxEvents: true,
-    // добавляет ссылку "еще", когда очень много событий
+
+    /** добавляет ссылку "еще", когда очень много событий */
     navLinks: true,
-    // можно нажимть на названия дней/недель для переключения между видами
-    eventClassNames: function ({
-      event: calendarEvent
-    }) {
-      const colorName = calendarsColor[calendarEvent._def.extendedProps.calendar];
-      return [// Фоновый цвет событий
-      'fc-event-' + colorName];
-    },
+
+    /** можно нажимть на названия дней/недель для переключения между видами */
+    eventClassNames: settings.eventClassNames,
     eventSources: [fetchEvents],
     customButtons: {
       addEvBtn: {
@@ -3205,11 +2450,7 @@ function calendmodulehandler(settings) {
       left: 'addEvBtn',
       right: 'dayGridMonth,timeGridWeek,timeGridDay today prev,title,next'
     },
-    eventMouseEnter: function (event) {
-      if (event.event.display !== "background") {
-        showPopover(event);
-      }
-    },
+    eventMouseEnter: settings.eventMouseEnter,
     eventMouseLeave: hidePopover,
     dateClick: function (info) {
       neweventmodal(info);
@@ -3240,107 +2481,17 @@ function calendmodulehandler(settings) {
 
     startDatepicker.setDate(date, true);
     endDatepicker.setDate(date, true);
+    startDate.value = date;
+    endDate.value = date;
   }
-  /** Добавление нового события */
-
-
-  function addEvent() {
-    function addSucces(result, title) {
-      closeAddEvModal();
-
-      if (result === "null") {
-        (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.showMiniToast)('Событие ' + title + ' добавлено', "success");
-      }
-
-      calendar.refetchEvents();
-    }
-
-    let Event = new FormData();
-    Event.append("operation", "add");
-    Event.append("title", eventTitle.value);
-    let title = eventTitle.value;
-    Event.append("start", moment(startDate.value).format(settings.datetimeformat));
-    Event.append("end", moment(endDate.value).format(settings.datetimeformat));
-    Event.append("calendar", eventLabel.value);
-    Event.append("description", calendarEditor.value);
-    Event.append("private", privateSwitch.checked === true ? '1' : '0');
-    Event.append("user_id", _globalfunc__WEBPACK_IMPORTED_MODULE_0__.cookieID);
-    Event.append("tzid", settings.timezone);
-
-    if (allDaySwitch.checked === true) {
-      /** Если Весь день, то меняем переменную */
-      Event.append("allDay", "1");
-    }
-    /** Параметры повторения. Если галочка включена */
-
-
-    if (repeatSwitch.checked === true) {
-      Event.append("interval", daynum.value);
-
-      if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'daily-section') {
-        /** Ежедневно */
-        Event.append("freq", "DAILY");
-      } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'weekly-section') {
-        /** Еженедельно */
-        Event.append("freq", "WEEKLY");
-        /** Получаем отмеченные чекбоксы */
-
-        Event.append("byweekday", getweekdaycheck());
-      } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'monthly-section') {
-        /** Ежемесячно */
-        Event.append("freq", "MONTHLY");
-        /** Проверяем чекбоксы */
-
-        /** Последний день */
-
-        if (lastdmonth.checked === true) {
-          Event.append("byweekday", "MO, TU, WE, TH, FR, SA, SU");
-          Event.append("bysetpos", "-1");
-        } else
-          /** Первый день */
-          if (firstdmonth.checked === true) {
-            Event.append("byweekday", "MO, TU, WE, TH, FR, SA, SU");
-            Event.append("bysetpos", "1");
-          } else
-            /** Первый рабочий день */
-            if (firstworkdmonth.checked === true) {
-              Event.append("byweekday", "MO, TU, WE, TH, FR");
-              Event.append("bysetpos", "1");
-            } else
-              /** Последний рабочий день */
-              if (lastworkdmonth.checked === true) {
-                Event.append("byweekday", "MO, TU, WE, TH, FR");
-                Event.append("bysetpos", "-1");
-              }
-      } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'yearly-section') {
-        /** Ежегодно */
-        Event.append("freq", "YEARLY");
-      }
-      /** Начало повторения */
-
-
-      Event.append("dtstart", moment(startrepDate.value).format('YYYY-MM-DD HH:mm'));
-      /** Диапазон повторения */
-
-      if (repdate.checked === true) {
-        Event.append("until", moment(endrepDate.value).format('YYYY-MM-DD HH:mm'));
-      }
-      /** Кол-во повторений */
-
-
-      if (repcount.checked === true) {
-        Event.append("count", repcountinp.value);
-      }
-    }
-
-    (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("POST", "components/fullcalendar/ajax.php", Event, "json", result => addSucces(result, title));
-  } // Сброс значений модала
+  /** Сброс значений модала */
 
 
   function resetValues() {
     eventForm.reset();
     repeatparams.style.display = "none";
-    $(addDelEventModal).find(eventLabel).val('').trigger('change'); // Скрыть параметры повторения
+    $(addDelEventModal).find(eventLabel).val('').trigger('change');
+    /** Скрыть параметры повторения */
 
     intervalsection.style.display = "none";
     weeklysection.style.display = "none";
@@ -3385,18 +2536,20 @@ function calendmodulehandler(settings) {
       calendar.refetchEvents();
     });
   }
-} // Ждем полной загрузки дерева
+}
+/** Ждем полной загрузки дерева */
 
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Отрисовка модуля календаря
+  /** Отрисовка модуля календаря */
   if (calendarEl) {
     calendmodulehandler(calendarModuleSettings);
-  } // Отрисовка виджета календаря
+  }
+  /** Отрисовка виджета календаря */
 
 
   if (minicalendar) {
-    minicalendarhandler();
+    minicalendarhandler(calendarModuleSettings);
   }
 });
 
@@ -4542,8 +3695,19 @@ document.addEventListener("DOMContentLoaded", () => {
 /*!*********************************************!*\
   !*** ./src/assets/js/modules/validation.js ***!
   \*********************************************/
-/***/ (function() {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "enableValidation": function() { return /* binding */ enableValidation; },
+/* harmony export */   "setInputEvtListeners": function() { return /* binding */ setInputEvtListeners; },
+/* harmony export */   "switchSubmitButton": function() { return /* binding */ switchSubmitButton; },
+/* harmony export */   "validateInput": function() { return /* binding */ validateInput; },
+/* harmony export */   "hideInputError": function() { return /* binding */ hideInputError; },
+/* harmony export */   "showInputError": function() { return /* binding */ showInputError; },
+/* harmony export */   "validationSettings": function() { return /* binding */ validationSettings; }
+/* harmony export */ });
 /** */
 
 /**
@@ -4559,7 +3723,7 @@ document.addEventListener("DOMContentLoaded", () => {
 /** @type {Object} */
 const validationSettings = {
   formSelector: '.form-validate',
-  inputSelector: '.form-control:not(div)',
+  inputSelector: 'textarea.form-control, select.form-control, input.form-control:not(.input)',
   submitButtonSelector: '.btn-submit',
   inactiveButtonClass: 'disabled',
   inputErrorClass: 'border-danger',
@@ -4664,11 +3828,8 @@ function enableValidation() {
     setInputEvtListeners(form);
   });
 }
-/** ждем загрузки DOM */
 
-/*document.addEventListener('DOMContentLoaded', function () {
-  enableValidation();
-});*/
+
 
 /***/ }),
 
@@ -4676,345 +3837,386 @@ function enableValidation() {
 /*!******************************************!*\
   !*** ./src/assets/js/modules/weather.js ***!
   \******************************************/
-/***/ (function() {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-// Погодный виджет
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _globalfunc__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../globalfunc */ "./src/assets/js/globalfunc.js");
+
+/** Погодный виджет */
+
 const weatherHandler = () => {
   // ID города искать в файле http://bulk.openweathermap.org/sample/current.city.list.json.gz
-  const city = "Safonovo";
-  const cityId = 499452;
-  const cityrus = "Сафоново";
-  const apikey = "0590d73840a4e5980796c90f4f20e0a4";
-  const data = null;
-  const xhr = new XMLHttpRequest();
-  const states = {
-    200: {
-      "desc": "гроза с небольшим дождем",
-      "day": "wi-day-thunderstorm",
-      "night": "wi-night-alt-thunderstorm"
-    },
-    201: {
-      "desc": "гроза с дождем",
-      "day": "wi-day-thunderstorm",
-      "night": "wi-night-alt-thunderstorm"
-    },
-    202: {
-      "desc": "гроза с сильным дождем",
-      "day": "wi-day-thunderstorm",
-      "night": "wi-night-alt-thunderstorm"
-    },
-    210: {
-      "desc": "небольшая гроза",
-      "day": "wi-day-lightning",
-      "night": "wi-night-alt-lightning"
-    },
-    212: {
-      "desc": "сильная гроза",
-      "day": "wi-day-lightning",
-      "night": "wi-night-alt-lightning"
-    },
-    221: {
-      "desc": "очень сильная гроза",
-      "day": "wi-day-lightning",
-      "night": "wi-night-alt-lightning"
-    },
-    230: {
-      "desc": "гроза с мелким дождем",
-      "day": "wi-day-thunderstorm",
-      "night": "wi-night-alt-thunderstorm"
-    },
-    231: {
-      "desc": "гроза с средним дождем",
-      "day": "wi-day-thunderstorm",
-      "night": "wi-night-alt-thunderstorm"
-    },
-    232: {
-      "desc": "гроза с сильным дождем",
-      "day": "wi-day-thunderstorm",
-      "night": "wi-night-alt-thunderstorm"
-    },
-    300: {
-      "desc": "слабая морось",
-      "day": "wi-day-hail",
-      "night": "wi-night-alt-hail"
-    },
-    301: {
-      "desc": "морось",
-      "day": "wi-day-hail",
-      "night": "wi-night-alt-hail"
-    },
-    302: {
-      "desc": "сильная морось",
-      "day": "wi-day-hail",
-      "night": "wi-night-alt-hail"
-    },
-    310: {
-      "desc": "слабый моросящий дождь",
-      "day": "wi-day-hail",
-      "night": "wi-night-alt-hail"
-    },
-    311: {
-      "desc": "моросящий дождь",
-      "day": "wi-day-hail",
-      "night": "wi-night-alt-hail"
-    },
-    312: {
-      "desc": "сильный моросящий дождь",
-      "day": "wi-day-hail",
-      "night": "wi-night-alt-hail"
-    },
-    313: {
-      "desc": "ливневый дождь и морось",
-      "day": "wi-day-hail",
-      "night": "wi-night-alt-hail"
-    },
-    314: {
-      "desc": "ливневый дождь и изморось",
-      "day": "wi-day-hail",
-      "night": "wi-night-alt-hail"
-    },
-    321: {
-      "desc": "ливень",
-      "day": "wi-day-rain",
-      "night": "wi-night-alt-rain"
-    },
-    500: {
-      "desc": "небольшой дождь",
-      "day": "wi-day-rain",
-      "night": "wi-night-alt-rain"
-    },
-    501: {
-      "desc": "умеренный дождь",
-      "day": "wi-day-rain",
-      "night": "wi-night-alt-rain"
-    },
-    502: {
-      "desc": "сильный дождь",
-      "day": "wi-day-rain",
-      "night": "wi-night-alt-rain"
-    },
-    503: {
-      "desc": "очень сильный дождь",
-      "day": "wi-day-rain",
-      "night": "wi-night-alt-rain"
-    },
-    504: {
-      "desc": "сильный дождь",
-      "day": "wi-day-rain",
-      "night": "wi-night-alt-rain"
-    },
-    511: {
-      "desc": "ледяной дождь",
-      "day": "wi-day-rain",
-      "night": "wi-night-alt-rain"
-    },
-    520: {
-      "desc": "слабый ливневый дождь",
-      "day": "wi-day-rain",
-      "night": "wi-night-alt-rain"
-    },
-    521: {
-      "desc": "ливень",
-      "day": "wi-day-rain",
-      "night": "wi-night-alt-rain"
-    },
-    522: {
-      "desc": "сильный ливневый дождь",
-      "day": "wi-day-rain",
-      "night": "wi-night-alt-rain"
-    },
-    531: {
-      "desc": "частично ливневый дождь",
-      "day": "wi-day-rain",
-      "night": "wi-night-alt-rain"
-    },
-    600: {
-      "desc": "легкий снег",
-      "day": "wi-day-snow",
-      "night": "wi-night-alt-snow"
-    },
-    601: {
-      "desc": "снег",
-      "day": "wi-day-snow",
-      "night": "wi-night-alt-snow"
-    },
-    602: {
-      "desc": "сильный снегопад",
-      "day": "wi-day-snow",
-      "night": "wi-night-alt-snow"
-    },
-    611: {
-      "desc": "мокрый снег",
-      "day": "wi-day-rain-mix",
-      "night": "wi-night-alt-rain-mix"
-    },
-    612: {
-      "desc": "слабый мокрый снег",
-      "day": "wi-day-rain-mix",
-      "night": "wi-night-alt-rain-mix"
-    },
-    613: {
-      "desc": "ливень с мокрым снегом",
-      "day": "wi-day-rain-mix",
-      "night": "wi-night-alt-rain-mix"
-    },
-    615: {
-      "desc": "небольшой дождь и снег",
-      "day": "wi-day-rain-mix",
-      "night": "wi-night-alt-rain-mix"
-    },
-    616: {
-      "desc": "дождь со снегом",
-      "day": "wi-day-rain-mix",
-      "night": "wi-night-alt-rain-mix"
-    },
-    620: {
-      "desc": "небольшой снегопад",
-      "day": "wi-day-snow",
-      "night": "wi-night-alt-snow"
-    },
-    621: {
-      "desc": "снегопад",
-      "day": "wi-day-snow",
-      "night": "wi-night-alt-snow"
-    },
-    622: {
-      "desc": "сильный снегопад",
-      "day": "wi-day-snow",
-      "night": "wi-night-alt-snow"
-    },
-    701: {
-      "desc": "туман",
-      "day": "wi-day-fog",
-      "night": "wi-night-fog"
-    },
-    711: {
-      "desc": "дым",
-      "day": "wi-smoke",
-      "night": "wi-smoke"
-    },
-    721: {
-      "desc": "дымка",
-      "day": "wi-smoke",
-      "night": "wi-smoke"
-    },
-    731: {
-      "desc": "песчано-пыльные вихри",
-      "day": "wi-sandstorm",
-      "night": "wi-sandstorm"
-    },
-    741: {
-      "desc": "туман",
-      "day": "wi-smog",
-      "night": "wi-smog"
-    },
-    751: {
-      "desc": "песок",
-      "day": "wi-sandstorm",
-      "night": "wi-sandstorm"
-    },
-    761: {
-      "desc": "пыль",
-      "day": "wi-dust",
-      "night": "wi-dust"
-    },
-    762: {
-      "desc": "вулканический пепел",
-      "day": "wi-volcano",
-      "night": "wi-volcano"
-    },
-    771: {
-      "desc": "шквал",
-      "day": "wi-strong-wind",
-      "night": "wi-strong-wind"
-    },
-    781: {
-      "desc": "смерч",
-      "day": "wi-tornado",
-      "night": "wi-tornado"
-    },
-    800: {
-      "desc": "безоблачно",
-      "day": "wi-day-sunny",
-      "night": "wi-night-clear"
-    },
-    801: {
-      "desc": "небольшая облачность: 11-25%",
-      "day": "wi-day-cloudy",
-      "night": "wi-night-alt-cloudy"
-    },
-    802: {
-      "desc": "средняя облачность: 25-50%",
-      "day": "wi-cloudy",
-      "night": "wi-cloudy"
-    },
-    803: {
-      "desc": "высокая облачность: 51-84%",
-      "day": "wi-cloudy",
-      "night": "wi-cloudy"
-    },
-    804: {
-      "desc": "очень высокая облачность: 85-100%",
-      "day": "wi-cloudy",
-      "night": "wi-cloudy"
+  const weatherSettings = {
+    city: "Safonovo",
+    cityId: 499452,
+    cityrus: "Сафоново",
+    apikey: "0590d73840a4e5980796c90f4f20e0a4",
+    states: {
+      200: {
+        "desc": "гроза с небольшим дождем",
+        "day": "wi-day-thunderstorm",
+        "night": "wi-night-alt-thunderstorm"
+      },
+      201: {
+        "desc": "гроза с дождем",
+        "day": "wi-day-thunderstorm",
+        "night": "wi-night-alt-thunderstorm"
+      },
+      202: {
+        "desc": "гроза с сильным дождем",
+        "day": "wi-day-thunderstorm",
+        "night": "wi-night-alt-thunderstorm"
+      },
+      210: {
+        "desc": "небольшая гроза",
+        "day": "wi-day-lightning",
+        "night": "wi-night-alt-lightning"
+      },
+      212: {
+        "desc": "сильная гроза",
+        "day": "wi-day-lightning",
+        "night": "wi-night-alt-lightning"
+      },
+      221: {
+        "desc": "очень сильная гроза",
+        "day": "wi-day-lightning",
+        "night": "wi-night-alt-lightning"
+      },
+      230: {
+        "desc": "гроза с мелким дождем",
+        "day": "wi-day-thunderstorm",
+        "night": "wi-night-alt-thunderstorm"
+      },
+      231: {
+        "desc": "гроза с средним дождем",
+        "day": "wi-day-thunderstorm",
+        "night": "wi-night-alt-thunderstorm"
+      },
+      232: {
+        "desc": "гроза с сильным дождем",
+        "day": "wi-day-thunderstorm",
+        "night": "wi-night-alt-thunderstorm"
+      },
+      300: {
+        "desc": "слабая морось",
+        "day": "wi-day-hail",
+        "night": "wi-night-alt-hail"
+      },
+      301: {
+        "desc": "морось",
+        "day": "wi-day-hail",
+        "night": "wi-night-alt-hail"
+      },
+      302: {
+        "desc": "сильная морось",
+        "day": "wi-day-hail",
+        "night": "wi-night-alt-hail"
+      },
+      310: {
+        "desc": "слабый моросящий дождь",
+        "day": "wi-day-hail",
+        "night": "wi-night-alt-hail"
+      },
+      311: {
+        "desc": "моросящий дождь",
+        "day": "wi-day-hail",
+        "night": "wi-night-alt-hail"
+      },
+      312: {
+        "desc": "сильный моросящий дождь",
+        "day": "wi-day-hail",
+        "night": "wi-night-alt-hail"
+      },
+      313: {
+        "desc": "ливневый дождь и морось",
+        "day": "wi-day-hail",
+        "night": "wi-night-alt-hail"
+      },
+      314: {
+        "desc": "ливневый дождь и изморось",
+        "day": "wi-day-hail",
+        "night": "wi-night-alt-hail"
+      },
+      321: {
+        "desc": "ливень",
+        "day": "wi-day-rain",
+        "night": "wi-night-alt-rain"
+      },
+      500: {
+        "desc": "небольшой дождь",
+        "day": "wi-day-rain",
+        "night": "wi-night-alt-rain"
+      },
+      501: {
+        "desc": "умеренный дождь",
+        "day": "wi-day-rain",
+        "night": "wi-night-alt-rain"
+      },
+      502: {
+        "desc": "сильный дождь",
+        "day": "wi-day-rain",
+        "night": "wi-night-alt-rain"
+      },
+      503: {
+        "desc": "очень сильный дождь",
+        "day": "wi-day-rain",
+        "night": "wi-night-alt-rain"
+      },
+      504: {
+        "desc": "сильный дождь",
+        "day": "wi-day-rain",
+        "night": "wi-night-alt-rain"
+      },
+      511: {
+        "desc": "ледяной дождь",
+        "day": "wi-day-rain",
+        "night": "wi-night-alt-rain"
+      },
+      520: {
+        "desc": "слабый ливневый дождь",
+        "day": "wi-day-rain",
+        "night": "wi-night-alt-rain"
+      },
+      521: {
+        "desc": "ливень",
+        "day": "wi-day-rain",
+        "night": "wi-night-alt-rain"
+      },
+      522: {
+        "desc": "сильный ливневый дождь",
+        "day": "wi-day-rain",
+        "night": "wi-night-alt-rain"
+      },
+      531: {
+        "desc": "частично ливневый дождь",
+        "day": "wi-day-rain",
+        "night": "wi-night-alt-rain"
+      },
+      600: {
+        "desc": "легкий снег",
+        "day": "wi-day-snow",
+        "night": "wi-night-alt-snow"
+      },
+      601: {
+        "desc": "снег",
+        "day": "wi-day-snow",
+        "night": "wi-night-alt-snow"
+      },
+      602: {
+        "desc": "сильный снегопад",
+        "day": "wi-day-snow",
+        "night": "wi-night-alt-snow"
+      },
+      611: {
+        "desc": "мокрый снег",
+        "day": "wi-day-rain-mix",
+        "night": "wi-night-alt-rain-mix"
+      },
+      612: {
+        "desc": "слабый мокрый снег",
+        "day": "wi-day-rain-mix",
+        "night": "wi-night-alt-rain-mix"
+      },
+      613: {
+        "desc": "ливень с мокрым снегом",
+        "day": "wi-day-rain-mix",
+        "night": "wi-night-alt-rain-mix"
+      },
+      615: {
+        "desc": "небольшой дождь и снег",
+        "day": "wi-day-rain-mix",
+        "night": "wi-night-alt-rain-mix"
+      },
+      616: {
+        "desc": "дождь со снегом",
+        "day": "wi-day-rain-mix",
+        "night": "wi-night-alt-rain-mix"
+      },
+      620: {
+        "desc": "небольшой снегопад",
+        "day": "wi-day-snow",
+        "night": "wi-night-alt-snow"
+      },
+      621: {
+        "desc": "снегопад",
+        "day": "wi-day-snow",
+        "night": "wi-night-alt-snow"
+      },
+      622: {
+        "desc": "сильный снегопад",
+        "day": "wi-day-snow",
+        "night": "wi-night-alt-snow"
+      },
+      701: {
+        "desc": "туман",
+        "day": "wi-day-fog",
+        "night": "wi-night-fog"
+      },
+      711: {
+        "desc": "дым",
+        "day": "wi-smoke",
+        "night": "wi-smoke"
+      },
+      721: {
+        "desc": "дымка",
+        "day": "wi-smoke",
+        "night": "wi-smoke"
+      },
+      731: {
+        "desc": "песчано-пыльные вихри",
+        "day": "wi-sandstorm",
+        "night": "wi-sandstorm"
+      },
+      741: {
+        "desc": "туман",
+        "day": "wi-smog",
+        "night": "wi-smog"
+      },
+      751: {
+        "desc": "песок",
+        "day": "wi-sandstorm",
+        "night": "wi-sandstorm"
+      },
+      761: {
+        "desc": "пыль",
+        "day": "wi-dust",
+        "night": "wi-dust"
+      },
+      762: {
+        "desc": "вулканический пепел",
+        "day": "wi-volcano",
+        "night": "wi-volcano"
+      },
+      771: {
+        "desc": "шквал",
+        "day": "wi-strong-wind",
+        "night": "wi-strong-wind"
+      },
+      781: {
+        "desc": "смерч",
+        "day": "wi-tornado",
+        "night": "wi-tornado"
+      },
+      800: {
+        "desc": "безоблачно",
+        "day": "wi-day-sunny",
+        "night": "wi-night-clear"
+      },
+      801: {
+        "desc": "небольшая облачность: 11-25%",
+        "day": "wi-day-cloudy",
+        "night": "wi-night-alt-cloudy"
+      },
+      802: {
+        "desc": "средняя облачность: 25-50%",
+        "day": "wi-cloudy",
+        "night": "wi-cloudy"
+      },
+      803: {
+        "desc": "высокая облачность: 51-84%",
+        "day": "wi-cloudy",
+        "night": "wi-cloudy"
+      },
+      804: {
+        "desc": "очень высокая облачность: 85-100%",
+        "day": "wi-cloudy",
+        "night": "wi-cloudy"
+      }
     }
   };
-  xhr.addEventListener("readystatechange", function () {
+  const data = {
+    id: weatherSettings.cityId,
+    appid: weatherSettings.apikey
+  };
+  let weather = {
+    state: "",
+    icon: "",
+    temp_max: ""
+  };
+  let letter = "";
+
+  if (moment().hour() >= 7 && moment().hour() <= 21) {
+    letter = "day";
+  }
+
+  if (moment().hour() <= 6 && moment().hour() >= 0 || moment().hour() >= 22 && moment().hour() <= 23) {
+    letter = "night";
+  }
+
+  let url = "https://api.openweathermap.org/data/2.5/weather";
+  /*xhr.addEventListener("readystatechange", function () {
     if (xhr.readyState === xhr.DONE) {
       if (xhr.status === 200) {
         let response = JSON.parse(xhr.response);
-
         if (response.cod === 404) {
           document.querySelector('.weather-info').innerHTML = "";
         } else {
           let weather = {
             state: "",
             icon: "",
-            temp_max: ""
+            temp_max: "",
           };
           let letter = "";
-
-          if (moment().hour() >= 7 && moment().hour() <= 21) {
+          if ((moment().hour() >= 7 && moment().hour() <= 21)) {
             letter = "day";
           }
-
-          if (moment().hour() <= 6 && moment().hour() >= 0 || moment().hour() >= 22 && moment().hour() <= 23) {
+          if ((moment().hour() <= 6 && moment().hour() >= 0) || (moment().hour() >= 22 && moment().hour() <= 23)) {
             letter = "night";
           }
-
           weather.state = states[response.weather[0].id]["desc"];
           weather.icon = states[response.weather[0].id][letter];
           weather.temp_max = Math.round(response.main.temp_max - 273.15);
-
-          if (weather.temp_max > 0) {
+           if (weather.temp_max > 0) {
             weather.temp_max = "+" + weather.temp_max + '°';
           } else {
             weather.temp_max = weather.temp_max + '°';
           }
-
-          const weatherInner = `<a class="d-flex align-items-center justify-content-center" style="text-decoration: none;" data-bs-toggle="tooltip" data-bs-placement="bottom" title="` + weather.state + `" data-bs-original-title="` + weather.state + `">
+           const weatherInner =
+            `<a class="d-flex align-items-center justify-content-center" style="text-decoration: none;" data-bs-toggle="tooltip" data-bs-placement="bottom" title="` + weather.state + `" data-bs-original-title="` + weather.state + `">
               <p class="m-0 p-0" style="font-size: 23px; color: #5552d9; font-weight: 700; line-height: normal;">` + weather.temp_max + `</p>
               <i class="ms-2 d-flex align-items-center justify-content-center wi ` + weather.icon + `" style="width=35px; height: 35px;"></i>
             </a>`;
           document.querySelector('.weather-info').innerHTML = '';
           document.querySelector('.weather-info').insertAdjacentHTML('beforeend', weatherInner);
-        }
+         }
       }
     }
+  });*/
+
+  function setWeather(response) {
+    weather.state = weatherSettings.states[response.weather[0].id]["desc"];
+    weather.icon = weatherSettings.states[response.weather[0].id][letter];
+    weather.temp_max = Math.round(response.main.temp_max - 273.15);
+
+    if (weather.temp_max > 0) {
+      weather.temp_max = "+" + weather.temp_max + '°';
+    } else {
+      weather.temp_max = weather.temp_max + '°';
+    }
+
+    const weatherInner = `<a class="d-flex align-items-center justify-content-center" style="text-decoration: none;" data-bs-toggle="tooltip" data-bs-placement="bottom" title="` + weather.state + `" data-bs-original-title="` + weather.state + `">
+              <p class="m-0 p-0" style="font-size: 23px; color: #5552d9; font-weight: 700; line-height: normal;">` + weather.temp_max + `</p>
+              <i class="ms-2 d-flex align-items-center justify-content-center wi ` + weather.icon + `" style="width=35px; height: 35px;"></i>
+            </a>`;
+    document.querySelector('.weather-info').textContent = '';
+    document.querySelector('.weather-info').insertAdjacentHTML('beforeend', weatherInner);
+  }
+
+  (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("GET", url, data, "json", result => {
+    setWeather(result);
   });
-  let url = "https://api.openweathermap.org/data/2.5/weather?id=" + cityId + "&appid=" + apikey;
-  xhr.open("GET", url);
-  xhr.send(data);
-}; // Ждем полной загрузки дерева
+};
+/** Ждем полной загрузки дерева */
 
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Погода
+  /** Погода */
   if (document.querySelector('.weather-info')) {
-    weatherHandler(); // Обновление каждые 5 минут
+    weatherHandler();
+    /** Обновление каждые 5 минут */
 
     setInterval(() => {
-      // Погода
       if (document.querySelector('.weather-info')) {
         weatherHandler();
       }
@@ -5479,6 +4681,7 @@ document.addEventListener("DOMContentLoaded", () => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _globalfunc__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./globalfunc */ "./src/assets/js/globalfunc.js");
+
  // Меню сайдбара
 
 const sidebarnavmenu = document.querySelector('.navigation-menu'); // Спиннер
@@ -5527,7 +4730,7 @@ const buttonsidebartoggleHandler = evt => {
     formData.append("sidebarWidth", "narrow");
   }
 
-  ajax_send("POST", "pages/admin/ajax.php", formData, "json", result => result);
+  (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("POST", "pages/admin/ajax.php", formData, "json", result => result);
 }; // Разворачивает сайдбар, не отодвигая контент. Переключает класс expanded у сайдбара
 // Кнопка, переключающая сайдбар, класс .sidebar-expand-button
 
@@ -5571,7 +4774,7 @@ const darkmodetoggleHandler = () => {
     formData.append("theme", "main-dark");
   }
 
-  ajax_send("POST", "pages/admin/ajax.php", formData, "json", result => result);
+  (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("POST", "pages/admin/ajax.php", formData, "json", result => result);
   darkmodetogglbutton.classList.toggle('tumbler--night-mode');
 };
 
@@ -5909,9 +5112,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_tasks__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/tasks */ "./src/assets/js/modules/tasks.js");
 /* harmony import */ var _modules_tetris__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./modules/tetris */ "./src/assets/js/modules/tetris.js");
 /* harmony import */ var _modules_validation__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./modules/validation */ "./src/assets/js/modules/validation.js");
-/* harmony import */ var _modules_validation__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_modules_validation__WEBPACK_IMPORTED_MODULE_13__);
 /* harmony import */ var _modules_weather__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./modules/weather */ "./src/assets/js/modules/weather.js");
-/* harmony import */ var _modules_weather__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_modules_weather__WEBPACK_IMPORTED_MODULE_14__);
 /* harmony import */ var _modules_workplaces__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./modules/workplaces */ "./src/assets/js/modules/workplaces.js");
 
 

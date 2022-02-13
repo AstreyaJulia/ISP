@@ -202,6 +202,7 @@
                                       <label class="form-check-label me-2" for="Radio6">Закончить после</label>
                                       <input class="form-control me-2" type="number" id="repcount" style="width: 75px"
                                              value="1" disabled>
+                                      <span class="input-error text-danger font-size-base" id="repcount-error"></span>
                                       <label for="repcount">повторений</label>
                                     </div>
                                   </div>
@@ -237,14 +238,14 @@
             <img src="assets/img/cosmonaut-laptop.svg" alt="" style="width: 60%; height: auto"
                  class="align-items-center">
           </div>
-          <div class="filter-group calendar-private-filter flex-column align-items-start p-3">
+          <div class="filter-group calendar-private-filter flex-column align-items-start p-3 ms-5">
             <p class="group-title mb-2">События:</p>
             <div class="form-check d-flex align-items-center mb-2">
               <input class="form-check-input bg-primary me-2" type="checkbox" id="Private" name="Private">
               <label class="form-check-label" for="Private">Только мои</label>
             </div>
           </div>
-          <div class="filter-group calendar-events-filter flex-column align-items-start p-3" id="calEventFilter">
+          <div class="filter-group calendar-events-filter flex-column align-items-start p-3 ms-5" id="calEventFilter">
           </div>
         </div>
         <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12 ps-0">

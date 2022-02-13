@@ -7,8 +7,6 @@ const sass = require('gulp-sass')(require('sass'));
 const del = require("del");
 const sync = require("browser-sync").create();
 const webpack = require('webpack-stream');
-const autoprefixer = require('gulp-autoprefixer');
-const autoprefixBrowsers = ['> 0.5%, last 2 versions, Firefox ESR, not dead'];
 
 /**
  * Стили
@@ -28,28 +26,6 @@ const styles = () => {
  * @type {function(): *}
  */
 exports.styles = styles;
-
-/**
- * Автопрефиксер
- * @returns {*}
- */
-const autoPrefix = () => {
-  return gulp
-    .src(['assets/css/*.css', '!assets/css/*.min.css'], { cwd: "assets/css" })
-    .pipe(
-      autoprefixer({
-        browsers: autoprefixBrowsers,
-        cascade: false
-      })
-    )
-    .pipe(gulp.dest("assets/css"));
-}
-/**
- * Экспорт задачи автопрефиксера
- * @type {function(): *}
- */
-exports.autoPrefix = autoPrefix;
-
 
 /**
  * JS-бандл
@@ -223,7 +199,6 @@ const build = gulp.series(
   clean,
   gulp.parallel(
     styles,
-    autoPrefix,
     jsbundle,
     copy,
     images
@@ -250,7 +225,6 @@ exports.default = gulp.series(
   clean,
   gulp.parallel(
     styles,
-    autoPrefix,
     jsbundle,
     copy,
     images

@@ -12,7 +12,7 @@
 /** @type {Object} */
 const validationSettings = {
   formSelector: '.form-validate',
-  inputSelector: '.form-control:not(div)',
+  inputSelector: 'textarea.form-control, select.form-control, input.form-control:not(.input)',
   submitButtonSelector: '.btn-submit',
   inactiveButtonClass: 'disabled',
   inputErrorClass: 'border-danger',
@@ -119,8 +119,4 @@ function enableValidation() {
   });
 }
 
-
-/** ждем загрузки DOM */
-/*document.addEventListener('DOMContentLoaded', function () {
-  enableValidation();
-});*/
+export {enableValidation, setInputEvtListeners, switchSubmitButton, validateInput, hideInputError, showInputError, validationSettings}

@@ -1,13 +1,48 @@
-// Календарь
-
-// Цвета для Fullcalendar
-// Цвета событий, названия менять в разметке, в js менять не надо
-
+/** Календарь */
 import {selectedCheckboxes} from "../globalfunc"
 import {cookieID} from "../globalfunc"
 import {ajax_send} from "../globalfunc"
 import {showMiniToast} from "../globalfunc"
+import {setInputEvtListeners, switchSubmitButton, validationSettings} from "./validation"
 
+/**
+ * Настройки для модуля календаря
+ * @type {{addEventTitle: string, datepickerformat: string, addEventFormSubmit: string, deleteWarningMessage: string, cancelBtn: string, privateinp: string, repeatparams: string, timezone: string, addDelEventModal: string, closeAddEventModalCrossButton: string, bddatetimeformat: string, eventMouseEnter: calendarModuleSettings.eventMouseEnter, filterInput: string, selectAll: string, eventClassNames: (function({event: *}): [string]), calEventFilter: string, daysForRepeatEvents: string[], datetimeformat: string, addEventButton: string}}
+ */
+const calendarModuleSettings = {
+  addEventButton: ".add-event-button",
+  addDelEventModal: ".add-del-event-modal",
+  addEventFormSubmit: ".add-update-event-submit",
+  addEventTitle: ".add-event-title",
+  closeAddEventModalCrossButton: ".btn-close",
+  cancelBtn: ".delete-discard-event-button",
+  daysForRepeatEvents: ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'],
+  deleteWarningMessage: ".delete-warning",
+  calEventFilter: ".calendar-events-filter",
+  filterInput: ".input-filter",
+  selectAll: ".select-all",
+  privateinp: "Private",
+  repeatparams: ".repeat-col",
+  timezone: 'Europe/Moscow',
+  datetimeformat: 'YYYY-MM-DD HH:mm',
+  bddatetimeformat: 'YYYY-MM-DD HH:mm',
+  datepickerformat: "Y-m-d H:i",
+  eventClassNames: function ({event: calendarEvent}) {
+    const colorName = calendarsColor[calendarEvent._def.extendedProps.calendar];
+    return [
+      /** Фоновый цвет событий */
+      'fc-event-' + colorName
+    ];
+  },
+  eventMouseEnter: function (event) {
+    if (event.event.display !== "background") {
+      showPopover(event);
+    }
+  }
+}
+
+/** Цвета для Fullcalendar */
+/** Цвета событий, названия менять в разметке, в js менять не надо */
 const calendCat = [
   {
     color: "primary",
@@ -59,76 +94,77 @@ function araycal() {
   return (Object.fromEntries(array))
 }
 
-// Для использования в Fullcalendar
+/** Для использования в Fullcalendar */
 const calendarsColor = araycal();
 
-// Мини календарь на главной
+/**
+ * Получение событий. Эта функция будет вызываться fullCalendar для получения и обновления событий.
+ * @param info
+ * @param successCallback ф-я коллбек для передачи
+ */
+function fetchEvents(info, successCallback) {
+  /** Чекбокс Только мои события */
+  const privateinp = document.getElementById(calendarModuleSettings.privateinp);
+  const filterInput2 = document.querySelectorAll('.input-filter:not(.select-all)');
+  const privCheck = privateinp ? (privateinp.checked === true ? 1 : 0) : 0;
+  let data = {
+    /** С не фиксированной датой не работают повторяющиеся собыия */
+    startParam: moment(info.start).tz(calendarModuleSettings.timezone).format('YYYY-MM-DD'),
+    endParam: moment(info.end).tz(calendarModuleSettings.timezone).format('YYYY-MM-DD'),
+    calendars: filterInput2.length > 0 ? (selectedCheckboxes(filterInput2, 'selected')) : (Object.keys(calendarsColor)),
+    private: privCheck
+  };
 
-// Контейнер для календаря
+  ajax_send("GET", "components/fullcalendar/events.php", data, "json", result => successCallback(result));
+}
+
+/**
+ * Показать popover
+ * @param event
+ */
+function showPopover(event) {
+  const popoverClass = "popover-" + event.event.extendedProps.calendar.toLowerCase();
+  const tooltip = new bootstrap.Popover(event.el, {
+    template: '<div class="popover ' + popoverClass + '" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>',
+    title: event.event.title,
+    content: event.event.extendedProps.description,
+    placement: 'top',
+  });
+  tooltip.show();
+}
+
+/** Скрыть popover */
+function hidePopover() {
+  let tooltips = document.querySelectorAll(".popover");
+  tooltips.forEach(function (tooltip) {
+    document.body.removeChild(tooltip);
+  });
+}
+
+/** Мини календарь на главной */
+
+/** Контейнер для календаря */
 const minicalendar = document.querySelector('.today-calendar-widget');
 
-const minicalendarhandler = () => {
-  function fetchevents(info, successCallback) {
-    // Получение событий AJAX
-
-    let data = {
-      startParam: moment(info.start).tz('Europe/Moscow').format('YYYY-MM-DD'),
-      endParam: moment(info.end).tz('Europe/Moscow').format('YYYY-MM-DD'),
-      calendars: Object.keys(calendarsColor),
-      private: '0',
-    };
-
-    ajax_send("GET", "components/fullcalendar/events.php", data, "json", result => successCallback(result));
-  }
-
-  // Показать popover
-  function showPopover(event) {
-    const classpopover = "popover-" + event.event.extendedProps.calendar.toLowerCase();
-    let tooltip = new bootstrap.Popover(event.el, {
-      template: '<div class="popover ' + classpopover + '" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>',
-      title: event.event.title,
-      content: event.event.extendedProps.description,
-      placement: 'top',
-    });
-    tooltip.show();
-  }
-
-  // Скрыть popover
-  function hidePopover() {
-    let tooltips = document.querySelectorAll(".popover");
-    tooltips.forEach(function (tooltip) {
-      document.body.removeChild(tooltip);
-    });
-  }
-
+function minicalendarhandler(settings) {
 
   let calendar = new FullCalendar.Calendar(minicalendar, {
     locale: 'ru',
-    timeZone: 'Europe/Moscow',
+    timeZone: settings.timezone,
     initialView: 'dayGridMonth',
     height: 300,
     editable: false,
     selectable: true,
     businessHours: false,
-    dayMaxEvents: false, //
-
-    eventClassNames: function ({event: calendarEvent}) {
-      const colorName = calendarsColor[calendarEvent._def.extendedProps.calendar];
-      return [
-        // Фоновый цвет событий
-        'fc-event-' + colorName
-      ];
-    },
+    dayMaxEvents: false,
+    eventClassNames: settings.eventClassNames,
     headerToolbar: {
       right: 'prev,title,next',
       left: 'today',
     },
-    eventSources: [fetchevents],
-    eventMouseEnter: function (event,) {
-      if (event.event.display !== "background") {
-        showPopover(event);
-      }
-    },
+    /*eventSources: [getEvents],*/
+    eventSources: [fetchEvents],
+    eventMouseEnter: settings.eventMouseEnter,
     eventMouseLeave: function () {
       hidePopover();
     },
@@ -149,53 +185,25 @@ const minicalendarhandler = () => {
  */
 const calendarEl = document.getElementById('calendar');
 
-/**
- * Настройки для модуля календаря
- * @type {{addEventTitle: string, addEventFormSubmit: string, cancelBtn: string, addDelEventModal: string, closeAddEventModalCrossButton: string, daysForRepeatEvents: string[], eventLabel: string, addEventButton: string}}
- */
-const calendarModuleSettings = {
-  addEventButton: ".add-event-button",
-  addDelEventModal: ".add-del-event-modal",
-  addEventFormSubmit: ".add-update-event-submit",
-  addEventTitle: ".add-event-title",
-  closeAddEventModalCrossButton: ".btn-close",
-  cancelBtn: ".delete-discard-event-button",
-  daysForRepeatEvents: ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'],
-  deleteWarningMessage: ".delete-warning",
-  calEventFilter: ".calendar-events-filter",
-  filterInput: ".input-filter",
-  selectAll: ".select-all",
-  privateinp: "Private",
-  repeatparams: ".repeat-col",
-  timezone: 'Europe/Moscow',
-  datetimeformat: 'YYYY-MM-DD HH:mm',
-  bddatetimeformat: 'YYYY-MM-DD HH:mm',
-  datepickerformat: "Y-m-d H:i"
-}
-
-/**
- *
- * @param settings {Object} объект настроек и параметров
- */
 function calendmodulehandler(settings) {
 
   /** Модал добавления/удаления события @type {HTMLElement} */
-  const addDelEventModal = document.querySelector(settings.addDelEventModal);
+  const addDelEventModal = document.querySelector(calendarModuleSettings.addDelEventModal);
 
   /** Кнопка Добавить/Сохранить событие в модале добавления/редактирования. Отправка формы @type {HTMLButtonElement} */
-  const addEventFormSubmit = document.querySelector(settings.addEventFormSubmit);
+  const addEventFormSubmit = document.querySelector(calendarModuleSettings.addEventFormSubmit);
 
   /** Заголовок в модале добавления/редактирования @type {HTMLElement} */
-  const addEventTitle = document.querySelector(settings.addEventTitle);
+  const addEventTitle = document.querySelector(calendarModuleSettings.addEventTitle);
 
   /** Кнопка Закрыть (крестик) модал добавления/редактирования @type {HTMLButtonElement} */
-  const closeAddEventModalCrossButton = addDelEventModal.querySelector(settings.closeAddEventModalCrossButton);
+  const closeAddEventModalCrossButton = addDelEventModal.querySelector(calendarModuleSettings.closeAddEventModalCrossButton);
 
   /** Кнопка Отмена/Удалить событие в модале добавления/редактирования @type {HTMLButtonElement} */
-  const cancelBtn = document.querySelector(settings.cancelBtn);
+  const cancelBtn = document.querySelector(calendarModuleSettings.cancelBtn);
 
   /** Предупреждение об удалении события */
-  const deleteWarningMessage = document.querySelector(settings.deleteWarningMessage);
+  const deleteWarningMessage = document.querySelector(calendarModuleSettings.deleteWarningMessage);
 
   /** Форма в модале добавления/редактирования @type {HTMLFormElement} */
   const eventForm = document.forms.eventForm;
@@ -225,69 +233,77 @@ function calendmodulehandler(settings) {
   const calendarEditor = eventForm.elements.eventDescription;
 
   /** Фильтр событий */
-  const calEventFilter = document.querySelector(settings.calEventFilter);
+  const calEventFilter = document.querySelector(calendarModuleSettings.calEventFilter);
 
   /** Чекбоксы в фильтре */
-  const filterInput = document.querySelectorAll(settings.filterInput);
+  const filterInput = document.querySelectorAll(calendarModuleSettings.filterInput);
 
   /** Чекбокс Все в фильтре */
-  const selectAll = document.querySelector(settings.selectAll);
+  const selectAll = document.querySelector(calendarModuleSettings.selectAll);
 
   /** Чекбокс Только мои события */
-  const privateinp = document.getElementById(settings.privateinp);
+  const privateinp = document.getElementById(calendarModuleSettings.privateinp);
 
   /**  Колонки с параметрами повторения */
-  const repeatparams = document.querySelector(settings.repeatparams);
+  const repeatparams = document.querySelector(calendarModuleSettings.repeatparams);
 
-  // Переключатели повторения
+  /** Переключатели повторения */
   const repparamSwitch = document.getElementById("dayrepopt");
-  // Секции с параметрами повторения по неделям, месяцам, годам
+
+  /** Секции с параметрами повторения по неделям, месяцам, годам*/
   const weeklysection = document.getElementById("weekly-section");
   const monthlysection = document.getElementById("monthly-section");
-  // Секция с интервалом
+
+  /** Секция с интервалом */
   const intervalsection = document.getElementById("interval-section");
-  // Метка "день" в интервале
+
+  /** Метка "день" в интервале */
   const daynumlabel1 = document.getElementById("daynum-label");
-  // Метка "Каждый" в интервале
+
+  /** Метка "Каждый" в интервале */
   const daynumlabel2 = document.getElementById("intervallabel1");
 
-  // поле ввода начала повторения
+  /** поле ввода начала повторения */
   const startrepDate = document.getElementById("startrep-date");
-  // поле ввода окончания повторения
+
+  /** поле ввода окончания повторения */
   const endrepDate = document.getElementById("endrep-date");
-  // Все чекбоксы дней недель
+
+  /** Все чекбоксы дней недель */
   const wdayscheck = document.querySelectorAll('.wdays-check');
-  // Радио Закончить после даты
+
+  /** Радио Закончить после даты */
   const repdate = document.getElementById("Radio5");
-  // Радио Закончить после повторений
+
+  /** Радио Закончить после повторений */
   const repcount = document.getElementById("Radio6");
 
-  // Радио Каждое число месяца
+// Радио Каждое число месяца
   const evdmonth = document.getElementById("Radio1");
-  // Радио Последний день месяца
+// Радио Последний день месяца
   const lastdmonth = document.getElementById("month1");
-  // Радио Предоследний рабочий день месяца
+// Радио Предоследний рабочий день месяца
   const prelastdmonth = document.getElementById("month2");
-  // Радио Первый день месяца
+// Радио Первый день месяца
   const firstdmonth = document.getElementById("month3");
-  // Радио Первый рабочий день месяца
+// Радио Первый рабочий день месяца
   const firstworkdmonth = document.getElementById("month4");
-  // Радио Последний рабочий день месяца
+// Радио Последний рабочий день месяца
   const lastworkdmonth = document.getElementById("month5");
 
 
-  // Инпут Закончить после даты
+// Инпут Закончить после даты
   const repdateinp = document.getElementById("endrep-date");
-  // Инпут Закончить после повторений
+// Инпут Закончить после повторений
   const repcountinp = document.getElementById("repcount");
-  // Интервал повторений
+// Интервал повторений
   const daynum = document.getElementById("daynum");
-  // Поле ввода дня для ежемесячного
+// Поле ввода дня для ежемесячного
   const dayofmonth = document.getElementById("dayofmonth");
 
-  // Событие для просмотра
-  let eventToUpdate;
 
+  /** Событие для просмотра */
+  let eventToUpdate;
 
   /**
    * Закрыть модел. Показывает темный оверлей
@@ -360,6 +376,7 @@ function calendmodulehandler(settings) {
         endRepeatDatepicker.setDate('', true)
       }
     }
+
     function repCountCheck() {
       if (repcount.checked === true) {
         repcountinp.disabled = false;
@@ -454,10 +471,99 @@ function calendmodulehandler(settings) {
     setInputEvtListeners(eventForm);
   }
 
+  /** Собрать данные для отправки на сервер по добавляемому/удаляемому событию*/
+  function getEventFormData(mode) {
+    let Event = new FormData();
+    mode === "upd" ? Event.append("id", eventToUpdate.id) : false ;
+    Event.append("operation", mode);
+    Event.append("title", eventTitle.value);
+    Event.append("start", moment(startDate.value).format(settings.datetimeformat));
+    Event.append("end", moment(endDate.value).format(settings.datetimeformat));
+    Event.append("calendar", eventLabel.value);
+    Event.append("description", calendarEditor.value);
+    Event.append("private", privateSwitch.checked === true ? '1' : '0');
+    mode === "add" ? Event.append("user_id", cookieID) : false ; // только для создания
+    Event.append("tzid", settings.timezone);
+    Event.append("allDay", allDaySwitch.checked === true ? '1' : '0');
+    /** Параметры повторения. Если галочка включена */
+    if (repeatSwitch.checked === true) {
+      Event.append("interval", daynum.value);
+      if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'daily-section') {
+        /** Ежедневно */
+        Event.append("freq", "DAILY");
+      } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'weekly-section') {
+        /** Еженедельно */
+        Event.append("freq", "WEEKLY");
+        /** Получаем отмеченные чекбоксы */
+        Event.append("byweekday", getweekdaycheck());
+      } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'monthly-section') {
+        /** Ежемесячно */
+        Event.append("freq", "MONTHLY");
+        /** Проверяем чекбоксы */
+        /** Последний день */
+        if (lastdmonth.checked === true) {
+          Event.append("byweekday", "MO, TU, WE, TH, FR, SA, SU");
+          Event.append("bysetpos", "-1");
+        } else
+          /** Первый день */
+        if (firstdmonth.checked === true) {
+          Event.append("byweekday", "MO, TU, WE, TH, FR, SA, SU");
+          Event.append("bysetpos", "1");
+        } else
+          /** Первый рабочий день */
+        if (firstworkdmonth.checked === true) {
+          Event.append("byweekday", "MO, TU, WE, TH, FR");
+          Event.append("bysetpos", "1");
+        } else
+          /** Последний рабочий день */
+        if (lastworkdmonth.checked === true) {
+          Event.append("byweekday", "MO, TU, WE, TH, FR");
+          Event.append("bysetpos", "-1");
+        }
+      } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'yearly-section') {
+        /** Ежегодно */
+        Event.append("freq", "YEARLY");
+      }
+
+      /** Начало повторения */
+      Event.append("dtstart", moment(startrepDate.value).format('YYYY-MM-DD HH:mm'));
+      /** Диапазон повторения */
+      if (repdate.checked === true) {
+        Event.append("until", moment(endrepDate.value).format('YYYY-MM-DD HH:mm'));
+      }
+      /** Кол-во повторений */
+      if (repcount.checked === true) {
+        Event.append("count", repcountinp.value);
+      }
+    } else {
+      Event.append("interval", '0');
+    }
+    return Event
+  }
+
+  /** Добавление нового события */
+  function addEvent(evt) {
+    evt.preventDefault();
+
+    function addSucces(result, title) {
+      closeAddEvModal();
+      if (result === "null") {
+        showMiniToast('Событие ' + title + ' добавлено', "success");
+      }
+      calendar.refetchEvents();
+    }
+
+    let title = eventTitle.value;
+
+    ajax_send("POST", "components/fullcalendar/ajax.php", getEventFormData("add"), "json", result => addSucces(result, title));
+  }
+
   /**
    * Обновление события
    */
-  const updateEvent = () => {
+  const updateEvent = (evt) => {
+    evt.preventDefault();
+
     function updSucces(result, title) {
       closeAddEvModal();
       if (result === "null") {
@@ -466,109 +572,10 @@ function calendmodulehandler(settings) {
       calendar.refetchEvents();
     }
 
-    let Event = new FormData();
-    Event.append("operation", "upd");
-    Event.append("id", eventToUpdate.id);
-    Event.append("title", $(addDelEventModal).find(eventTitle).val());
-    let title = $(addDelEventModal).find(eventTitle).val();
-    Event.append("start", $(addDelEventModal).find(startDate).val());
-    Event.append("end", $(addDelEventModal).find(endDate).val());
-    Event.append("calendar", $(eventLabel).val());
-    Event.append("private", $(privateSwitch).prop('checked') ? '1' : '0');
-    Event.append("description", $(calendarEditor).val());
-    Event.append("tzid", settings.timezone);
-    Event.append("allDay", $(allDaySwitch).prop('checked') ? '1' : '0');
-    // Параметры повторения. Если галочка включена
-    if ($(repeatSwitch).prop('checked')) {
-      if (Event.interval !== '') {
-        Event.append("interval", $(daynum).val());
-      } else {
-        Event.append("interval", '0');
-      }
-      if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'daily-section') {
-        // Ежедневно
-        Event.append("freq", 'DAILY');
-      } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'weekly-section') {
-        // Еженедельно
-        Event.append("freq", 'WEEKLY');
-        // Получаем отмеченные чекбоксы
-        if (getweekdaycheck() !== "" || null) {
-          Event.append("byweekday", getweekdaycheck());
-        } else {
-          Event.append("byweekday", '0');
-        }
-      } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'monthly-section') {
-        // Ежемесячно
-        Event.append("freq", 'MONTHLY');
-        // Проверяем чекбоксы
-        // Последний день
-        if ($(lastdmonth).prop('checked')) {
-          Event.append("byweekday", 'MO, TU, WE, TH, FR, SA, SU');
-          Event.append("bysetpos", '-1');
-        } else
-          // Предпоследний день
-        if ($(prelastdmonth).prop('checked')) {
-          Event.append("byweekday", 'MO, TU, WE, TH, FR, SA, SU');
-          Event.append("bysetpos", '-2');
-        } else
-          // Первый день
-        if ($(firstdmonth).prop('checked')) {
-          Event.append("byweekday", 'MO, TU, WE, TH, FR, SA, SU');
-          Event.append("bysetpos", '1');
-        } else
-          // Первый рабочий день
-        if ($(firstworkdmonth).prop('checked')) {
-          Event.append("byweekday", 'MO, TU, WE, TH, FR');
-          Event.append("bysetpos", '1');
-        } else
-          // Последний рабочий день
-        if ($(lastworkdmonth).prop('checked')) {
-          Event.append("byweekday", 'MO, TU, WE, TH, FR');
-          Event.append("bysetpos", '-1');
-        }
-      } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'yearly-section') {
-        // Ежегодно
-        Event.append("freq", 'YEARLY');
-      } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'none') {
-        // Без повторения
-        Event.append("freq", '0');
-        Event.append("byweekday", '0');
-        Event.append("bysetpos", '0');
-      }
-
-      // Начало повторения
-      Event.append("dtstart", moment($(startrepDate).val()).format(settings.datetimeformat));
-      // Диапазон повторения
-      if ($(repdate).prop('checked')) {
-        Event.append("until", moment($(endrepDate).val()).format(settings.datetimeformat));
-      } else {
-        Event.append("until", '0');
-      }
-      // Кол-во повторений
-      if ($(repcount).prop('checked')) {
-        Event.append("count", $(repcountinp).val());
-      } else {
-        Event.append("count", '0');
-      }
-
-      // Начало повторения
-      Event.append("dtstart", moment($(startrepDate).val()).format(settings.datetimeformat));
-
-      // Диапазон повторения
-      if ($(repdate).prop('checked')) {
-        Event.append("until", moment($(endrepDate).val()).format(settings.datetimeformat));
-      }
-      // Кол-во повторений
-      if ($(repcount).prop('checked')) {
-        Event.append("count", $(repcountinp).val());
-      }
-
-    } else {
-      Event.append("interval", '0');
-    }
+    let title = eventTitle.value;
 
     if (eventToUpdate.extendedProps.user_id === cookieID || JSON.stringify(eventToUpdate.extendedProps.user_id) === cookieID) {
-      ajax_send("POST", "components/fullcalendar/ajax.php", Event, "json", result => updSucces(result, title));
+      ajax_send("POST", "components/fullcalendar/ajax.php", getEventFormData("upd"), "json", result => updSucces(result, title));
     } else {
       showMiniToast('Вы не имеете прав на правку события ' + title, "danger");
     }
@@ -576,7 +583,8 @@ function calendmodulehandler(settings) {
   }
 
   /** Удалить событие */
-  const delEvent = () => {
+  const delEvent = (evt) => {
+    evt.preventDefault();
 
     /**
      * Скрыть модал. Сбросить инпуты. Показать всплывашку что удалено. Обновить события
@@ -897,14 +905,10 @@ function calendmodulehandler(settings) {
    */
   function renderOptions() {
     eventLabel.textContent = '';
-
     const placeholderItem = `<option></option>`;
-
     eventLabel.insertAdjacentHTML('beforeend', placeholderItem);
-
     const createItem = ({color, name}) =>
       `<option data-label="${color}" value="${color}">${name}</option>`;
-
     const ElementsString = calendCat.map((color) => createItem(color)).join('');
     eventLabel.insertAdjacentHTML('beforeend', ElementsString);
   }
@@ -972,47 +976,6 @@ function calendmodulehandler(settings) {
     dateFormat: settings.datepickerformat,
   });
 
-  /**
-   * Получение событий. Эта функция будет вызываться fullCalendar для получения и обновления событий.
-   * @param info
-   * @param successCallback ф-я коллбек для передачи
-   */
-  function fetchEvents(info, successCallback) {
-    const filterInput2 = document.querySelectorAll('.input-filter:not(.select-all)');
-    let data = {
-      /** С не фиксированной датой не работают повторяющиеся собыия */
-      startParam: moment(info.start).tz(settings.timezone).format('YYYY-MM-DD'),
-      endParam: moment(info.end).tz(settings.timezone).format('YYYY-MM-DD'),
-      calendars: selectedCheckboxes(filterInput2, 'selected'),
-      private: privateinp.checked === true ? 1 : 0
-    };
-
-    ajax_send("GET", "components/fullcalendar/events.php", data, "json", result => successCallback(result));
-  }
-
-  /**
-   * Показать popover
-   * @param event
-   */
-  function showPopover(event) {
-    const popoverClass = "popover-" + event.event.extendedProps.calendar.toLowerCase();
-    const tooltip = new bootstrap.Popover(event.el, {
-      template: '<div class="popover ' + popoverClass + '" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>',
-      title: event.event.title,
-      content: event.event.extendedProps.description,
-      placement: 'top',
-    });
-    tooltip.show();
-  }
-
-  /** Скрыть popover */
-  function hidePopover() {
-    let tooltips = document.querySelectorAll(".popover");
-    tooltips.forEach(function (tooltip) {
-      document.body.removeChild(tooltip);
-    });
-  }
-
   const calendar = new FullCalendar.Calendar(calendarEl, {
     themeSystem: 'standard',
     locale: 'ru',
@@ -1026,15 +989,9 @@ function calendmodulehandler(settings) {
     businessHours: false,
     handleWindowResize: true,
     nowIndicator: true,
-    dayMaxEvents: true, // добавляет ссылку "еще", когда очень много событий
-    navLinks: true, // можно нажимть на названия дней/недель для переключения между видами
-    eventClassNames: function ({event: calendarEvent}) {
-      const colorName = calendarsColor[calendarEvent._def.extendedProps.calendar];
-      return [
-        // Фоновый цвет событий
-        'fc-event-' + colorName
-      ];
-    },
+    dayMaxEvents: true, /** добавляет ссылку "еще", когда очень много событий */
+    navLinks: true, /** можно нажимть на названия дней/недель для переключения между видами */
+    eventClassNames: settings.eventClassNames,
     eventSources: [fetchEvents],
     customButtons: {
       addEvBtn: {
@@ -1048,11 +1005,7 @@ function calendmodulehandler(settings) {
       left: 'addEvBtn',
       right: 'dayGridMonth,timeGridWeek,timeGridDay today prev,title,next'
     },
-    eventMouseEnter: function (event,) {
-      if (event.event.display !== "background") {
-        showPopover(event);
-      }
-    },
+    eventMouseEnter: settings.eventMouseEnter,
     eventMouseLeave: hidePopover,
     dateClick: function (info) {
       neweventmodal(info);
@@ -1082,96 +1035,16 @@ function calendmodulehandler(settings) {
     }
     startDatepicker.setDate(date, true);
     endDatepicker.setDate(date, true);
+    startDate.value = date;
+    endDate.value = date;
   }
 
-
-  /** Добавление нового события */
-  function addEvent() {
-
-    function addSucces(result, title) {
-      closeAddEvModal();
-      if (result === "null") {
-        showMiniToast('Событие ' + title + ' добавлено', "success");
-      }
-      calendar.refetchEvents();
-    }
-
-    let Event = new FormData();
-    Event.append("operation", "add");
-    Event.append("title", eventTitle.value);
-    let title = eventTitle.value;
-    Event.append("start", moment(startDate.value).format(settings.datetimeformat));
-    Event.append("end", moment(endDate.value).format(settings.datetimeformat));
-    Event.append("calendar", eventLabel.value);
-    Event.append("description", calendarEditor.value);
-    Event.append("private", privateSwitch.checked === true ? '1' : '0');
-    Event.append("user_id", cookieID);
-    Event.append("tzid", settings.timezone);
-    if (allDaySwitch.checked === true) {
-      /** Если Весь день, то меняем переменную */
-      Event.append("allDay", "1");
-    }
-    /** Параметры повторения. Если галочка включена */
-    if (repeatSwitch.checked === true) {
-      Event.append("interval", daynum.value);
-      if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'daily-section') {
-        /** Ежедневно */
-        Event.append("freq", "DAILY");
-      } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'weekly-section') {
-        /** Еженедельно */
-        Event.append("freq", "WEEKLY");
-        /** Получаем отмеченные чекбоксы */
-        Event.append("byweekday", getweekdaycheck());
-      } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'monthly-section') {
-        /** Ежемесячно */
-        Event.append("freq", "MONTHLY");
-        /** Проверяем чекбоксы */
-        /** Последний день */
-        if (lastdmonth.checked === true) {
-          Event.append("byweekday", "MO, TU, WE, TH, FR, SA, SU");
-          Event.append("bysetpos", "-1");
-        } else
-          /** Первый день */
-        if (firstdmonth.checked === true) {
-          Event.append("byweekday", "MO, TU, WE, TH, FR, SA, SU");
-          Event.append("bysetpos", "1");
-        } else
-          /** Первый рабочий день */
-        if (firstworkdmonth.checked === true) {
-          Event.append("byweekday", "MO, TU, WE, TH, FR");
-          Event.append("bysetpos", "1");
-        } else
-          /** Последний рабочий день */
-        if (lastworkdmonth.checked === true) {
-          Event.append("byweekday", "MO, TU, WE, TH, FR");
-          Event.append("bysetpos", "-1");
-        }
-      } else if (repparamSwitch.options[repparamSwitch.selectedIndex].value === 'yearly-section') {
-        /** Ежегодно */
-        Event.append("freq", "YEARLY");
-      }
-
-      /** Начало повторения */
-      Event.append("dtstart", moment(startrepDate.value).format('YYYY-MM-DD HH:mm'));
-      /** Диапазон повторения */
-      if (repdate.checked === true) {
-        Event.append("until", moment(endrepDate.value).format('YYYY-MM-DD HH:mm'));
-      }
-      /** Кол-во повторений */
-      if (repcount.checked === true) {
-        Event.append("count", repcountinp.value);
-      }
-    }
-
-    ajax_send("POST", "components/fullcalendar/ajax.php", Event, "json", result => addSucces(result, title));
-  }
-
-  // Сброс значений модала
+  /** Сброс значений модала */
   function resetValues() {
     eventForm.reset();
     repeatparams.style.display = "none";
     $(addDelEventModal).find(eventLabel).val('').trigger('change');
-    // Скрыть параметры повторения
+    /** Скрыть параметры повторения */
     intervalsection.style.display = "none";
     weeklysection.style.display = "none";
     monthlysection.style.display = "none";
@@ -1219,16 +1092,15 @@ function calendmodulehandler(settings) {
 
 }
 
-// Ждем полной загрузки дерева
+/** Ждем полной загрузки дерева */
 document.addEventListener("DOMContentLoaded", () => {
-  // Отрисовка модуля календаря
+  /** Отрисовка модуля календаря */
   if (calendarEl) {
     calendmodulehandler(calendarModuleSettings);
   }
 
-  // Отрисовка виджета календаря
+  /** Отрисовка виджета календаря */
   if (minicalendar) {
-    minicalendarhandler();
+    minicalendarhandler(calendarModuleSettings);
   }
-
 });
