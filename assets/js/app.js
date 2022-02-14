@@ -1979,6 +1979,7 @@ function calendmodulehandler(settings) {
 
 
   const updateEvent = evt => {
+    let title = eventTitle.value;
     evt.preventDefault();
 
     function updSucces(result, title) {
@@ -1998,8 +1999,6 @@ function calendmodulehandler(settings) {
         (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.showMiniToast)('Вы не имеете прав на правку события ' + title, "danger");
       }
     }
-
-    let title = eventTitle.value;
   };
   /** Удалить событие */
 
@@ -3741,17 +3740,16 @@ function validateForm(form, submitButton) {
 
   if (Array.from(inputArray).filter(input => !input.validity.valid).length === 0) {
     submitButton.disabled = false;
-    return false;
+    return true;
   } else {
     submitButton.disabled = true;
-    return true;
+    return false;
   }
 }
 
 function setValidationListeners(form, submit) {
   const inputs = form.querySelectorAll('input:not(.input), textarea');
   const selects = form.querySelectorAll('select:not(.select2)');
-  const selects2 = form.querySelectorAll('select.select2');
   selects.forEach(select => {
     select.addEventListener('change', () => validateForm(form, submit));
     validateInput(form, select);

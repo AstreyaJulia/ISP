@@ -26,17 +26,16 @@ function validateForm(form, submitButton) {
   form.classList.add('was-validated');
   if (Array.from(inputArray).filter(input => !input.validity.valid).length === 0) {
     submitButton.disabled = false;
-    return false;
+    return true;
   } else {
     submitButton.disabled = true;
-    return true;
+    return false;
   }
 }
 
 function setValidationListeners(form, submit) {
   const inputs = form.querySelectorAll('input:not(.input), textarea');
   const selects = form.querySelectorAll('select:not(.select2)');
-  const selects2 = form.querySelectorAll('select.select2');
   selects.forEach((select) => {
     select.addEventListener('change', () => validateForm(form, submit));
     validateInput(form, select);

@@ -560,6 +560,8 @@ function calendmodulehandler(settings) {
    * Обновление события
    */
   const updateEvent = (evt) => {
+    let title = eventTitle.value;
+
     evt.preventDefault();
 
     function updSucces(result, title) {
@@ -578,7 +580,6 @@ function calendmodulehandler(settings) {
       }
     }
 
-    let title = eventTitle.value;
   }
 
   /** Удалить событие */
