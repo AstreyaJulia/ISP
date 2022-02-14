@@ -53,6 +53,7 @@
                                          class="form-control flatpickr-input position-relative"
                                          type="text" required id="start-date">
                                   <div class="invalid-feedback">Введите дату начала.</div>
+                                  <div class="text-secondary">Проверьте дату начала.</div>
                                 </div>
                               </div>
                             </div>
@@ -63,6 +64,7 @@
                                   <input name="dateEnd" placeholder="Дата окончания" type="text"
                                          class="form-control flatpickr-input position-relative" id="end-date" required>
                                   <div class="invalid-feedback">Введите дату окончания.</div>
+                                  <div class="text-secondary">Проверьте дату окончания.</div>
                                 </div>
                               </div>
                             </div>
@@ -232,14 +234,14 @@
             <img src="assets/img/cosmonaut-laptop.svg" alt="" style="width: 60%; height: auto"
                  class="align-items-center">
           </div>
-          <div class="filter-group calendar-private-filter flex-column align-items-start p-3 ms-5">
+          <div class="filter-group calendar-private-filter flex-column align-items-start p-3">
             <p class="group-title mb-2">События:</p>
             <div class="form-check d-flex align-items-center mb-2">
               <input class="form-check-input bg-primary me-2" type="checkbox" id="Private" name="Private">
               <label class="form-check-label" for="Private">Только мои</label>
             </div>
           </div>
-          <div class="filter-group calendar-events-filter flex-column align-items-start p-3 ms-5" id="calEventFilter">
+          <div class="filter-group calendar-events-filter flex-column align-items-start p-3" id="calEventFilter">
           </div>
         </div>
         <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12 ps-0">

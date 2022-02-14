@@ -99,9 +99,6 @@ function getCookie(name) {
   return null;
 }
 
-// Права супер-пользователя
-const cookieSudo = getCookie('aut[sudo]');
-
 // ID пользователя
 const cookieID = getCookie('aut[id]');
 
@@ -187,4 +184,4 @@ const ajax_send = (method, url, parameters, datatype, callback) => {
 
 }
 
-export {selectedCheckboxes, showToast, showErrorToast, showMiniToast, getCookie, cookieSudo, cookieID,ajax_send}
+export {selectedCheckboxes, showToast, showErrorToast, showMiniToast, getCookie, cookieID, ajax_send}

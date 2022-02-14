@@ -146,7 +146,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "showErrorToast": function() { return /* binding */ showErrorToast; },
 /* harmony export */   "showMiniToast": function() { return /* binding */ showMiniToast; },
 /* harmony export */   "getCookie": function() { return /* binding */ getCookie; },
-/* harmony export */   "cookieSudo": function() { return /* binding */ cookieSudo; },
 /* harmony export */   "cookieID": function() { return /* binding */ cookieID; },
 /* harmony export */   "ajax_send": function() { return /* binding */ ajax_send; }
 /* harmony export */ });
@@ -257,10 +256,8 @@ function getCookie(name) {
   }
 
   return null;
-} // Права супер-пользователя
+} // ID пользователя
 
-
-const cookieSudo = getCookie('aut[sudo]'); // ID пользователя
 
 const cookieID = getCookie('aut[id]'); // Ajax. Передача GET и POST запросов
 //method - POST или GET, url - адрес, parameters - параметры get запроса или отсылаемое тело POST, callback - в какую
@@ -1751,11 +1748,11 @@ function calendmodulehandler(settings) {
     });
 
     function checkStartDate() {
-      startDate.value > endDate.value ? endDate.value = startDate.value : false;
+      startDate.value > endDate.value ? endDatepicker.setDate(startDate.value, true) : false;
     }
 
     function checkEndDate() {
-      startDate.value > endDate.value ? startDate.value = endDate.value : false;
+      startDate.value > endDate.value ? startDatepicker.setDate(endDate.value, true) : false;
     }
     /** Проверка дат начала и конца, при изменении даты, меняет неправильную */
 
@@ -1961,7 +1958,7 @@ function calendmodulehandler(settings) {
     evt.preventDefault();
 
     function addSucces(result, title) {
-      closeAddEvModal();
+      closeAddEvModal(evt);
 
       if (result === "null") {
         (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.showMiniToast)('Событие ' + title + ' добавлено', "success");
@@ -1985,7 +1982,7 @@ function calendmodulehandler(settings) {
     evt.preventDefault();
 
     function updSucces(result, title) {
-      closeAddEvModal();
+      closeAddEvModal(evt);
 
       if (result === "null") {
         (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.showMiniToast)('Событие ' + title + ' обновлено', "info");
@@ -2016,7 +2013,7 @@ function calendmodulehandler(settings) {
      */
 
     function delSucces(result, title) {
-      closeAddEvModal();
+      closeAddEvModal(evt);
 
       if (result === "null") {
         (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.showMiniToast)('Событие ' + title + ' удалено', "danger");
@@ -2377,7 +2374,11 @@ function calendmodulehandler(settings) {
     enableTime: true,
     altInput: true,
     altFormat: "d.m.Y H:i",
-    dateFormat: settings.datepickerformat
+    defaultDate: "today",
+    dateFormat: settings.datepickerformat,
+    onReady: function (selectedDates, dateStr, instance) {
+      let startDateSelected = selectedDates;
+    }
   });
   /**
    * Датапикер конец события
@@ -2389,8 +2390,11 @@ function calendmodulehandler(settings) {
     enableTime: true,
     altInput: true,
     altFormat: "d.m.Y H:i",
+    defaultDate: "today",
     dateFormat: settings.datepickerformat,
-    onReady: function (selectedDates, dateStr, instance) {}
+    onReady: function (selectedDates, dateStr, instance) {
+      let startDateSelected = selectedDates;
+    }
   });
   /**
    * Датапикер начало повторения
@@ -2402,6 +2406,7 @@ function calendmodulehandler(settings) {
     enableTime: true,
     altInput: true,
     altFormat: "d.m.Y H:i",
+    defaultDate: "today",
     dateFormat: settings.datepickerformat
   });
   /**
@@ -2414,6 +2419,7 @@ function calendmodulehandler(settings) {
     enableTime: true,
     altInput: true,
     altFormat: "d.m.Y H:i",
+    defaultDate: "today",
     dateFormat: settings.datepickerformat
   });
   const calendar = new FullCalendar.Calendar(calendarEl, {
@@ -2464,12 +2470,9 @@ function calendmodulehandler(settings) {
   setInterval(() => {
     calendar.refetchEvents();
   }, 1000);
+  /** Разные даты начала и конца события для создаваемых событий при нажатии на кнопку создания и на день */
 
-  function neweventmodal(info) {
-    resetValues();
-    showModal('add');
-    /** Разные даты начала и конца события для создаваемых событий при нажатии на кнопку создания и на день */
-
+  function setEventDates(info) {
     let date;
 
     if (info == null) {
@@ -2478,10 +2481,19 @@ function calendmodulehandler(settings) {
       date = moment(info.date).format(settings.datetimeformat);
     }
 
-    startDatepicker.setDate(date, true);
-    endDatepicker.setDate(date, true);
+    startDatepicker.setDate(moment(date).hour(0).minutes(0).format(settings.datetimeformat), true);
+    endDatepicker.setDate(moment(date).hour(0).minutes(0).format(settings.datetimeformat), true);
     startDate.value = date;
     endDate.value = date;
+    /** */
+
+    $('[name=dateStart]').next('input').attr("name", "dateStart");
+    $('[name=dateEnd]').next('input').attr("name", "dateEnd");
+  }
+
+  function neweventmodal(info) {
+    setEventDates(info);
+    showModal('add');
   }
   /** Сброс значений модала */
 
