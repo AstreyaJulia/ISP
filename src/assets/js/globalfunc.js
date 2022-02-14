@@ -1,7 +1,12 @@
-// ГЛОБАЛЬНЫЕ ФУНКЦИИ
+/** ГЛОБАЛЬНЫЕ ФУНКЦИИ */
 
-// Выбранные чекбоксы в группе, возвращает массив
-// Принимает группу элементов - allInputs
+/**
+ * Выбранные чекбоксы в группе, возвращает массив
+ * @param allInputs - группа элементов
+ * @param mode
+ * @returns {*[]}
+ */
+// FIXME переделать на массив
 function selectedCheckboxes(allInputs, mode) {
   const filterInput = allInputs;
   const checkboxes = [];
@@ -22,11 +27,16 @@ function selectedCheckboxes(allInputs, mode) {
 
 }
 
-// Toast. Большие всплывашки с заголовком и временем
-// Всплывашка. Принимает заголовок header, текст text, время time в виде строки
+/**
+ * Toast. Большие всплывашки с заголовком и временем
+ * @param header заголовок
+ * @param text текст
+ * @param time time в виде строки
+ */
+// FIXME переделать всплывашки на ф-ю конструктор
 function showToast(header, text, time) {
   const toastcontainer = document.querySelector('.toasts-container');
-  // Удаляем скрытые всплывашки
+  /** Удаляем скрытые всплывашки */
   const hiddentoasts = toastcontainer.querySelectorAll('.hide');
   if (hiddentoasts) {
     hiddentoasts.forEach((hiddentoast) => {
@@ -43,11 +53,15 @@ function showToast(header, text, time) {
   toastList.forEach(toast => toast.show());
 }
 
-// Ошибки Toast. Большие всплывашки с заголовком и временем
-// Всплывашка. Принимает заголовок header, текст text, время time в виде строки
+/**
+ * Ошибки Toast. Большие всплывашки с заголовком и временем
+ * @param header заголовок
+ * @param text текст
+ * @param time time
+ */
 function showErrorToast(header, text, time) {
   const toastcontainer = document.querySelector('.toasts-container');
-  // Удаляем скрытые всплывашки
+  /** Удаляем скрытые всплывашки */
   const hiddentoasts = toastcontainer.querySelectorAll('.hide');
   if (hiddentoasts) {
     hiddentoasts.forEach((hiddentoast) => {
@@ -66,10 +80,14 @@ function showErrorToast(header, text, time) {
   toastList.forEach(toast => toast.show());
 }
 
-// Toast mini. Маленькие цветные всплывашки без заголовка и времени
+/**
+ * Toast mini. Маленькие цветные всплывашки без заголовка и времени
+ * @param text
+ * @param color
+ */
 function showMiniToast(text, color) {
   const toastcontainer = document.querySelector('.toasts-container');
-  // Удаляем скрытые всплывашки
+  /** Удаляем скрытые всплывашки */
   const hiddentoasts = toastcontainer.querySelectorAll('.hide');
   if (hiddentoasts) {
     hiddentoasts.forEach((hiddentoast) => {
@@ -87,7 +105,11 @@ function showMiniToast(text, color) {
   toastList.forEach(toast => toast.show());
 }
 
-// Получение Cookie
+/**
+ * Получение Cookie
+ * @param name
+ * @returns {string|null}
+ */
 function getCookie(name) {
   const nameEQ = name + "=";
   const ca = document.cookie.split(';');
@@ -99,18 +121,26 @@ function getCookie(name) {
   return null;
 }
 
-// ID пользователя
+/**
+ * ID пользователя
+ * @type {string|null}
+ */
 const cookieID = getCookie('aut[id]');
 
-// Ajax. Передача GET и POST запросов
-//method - POST или GET, url - адрес, parameters - параметры get запроса или отсылаемое тело POST, callback - в какую
-// функцию передать результат
+
+/**
+ * Ajax. Передача GET и POST запросов
+ * @param method - POST или GET
+ * @param url - адрес
+ * @param parameters - параметры get запроса или отсылаемое тело POST
+ * @param datatype
+ * @param callback - в какую функцию передать результат
+ */
+// FIXME переделать на fetch
 const ajax_send = (method, url, parameters, datatype, callback) => {
-  //Создаём новый XMLHttpRequest-объект
   let xhr = new XMLHttpRequest();
 
   switch (method) {
-    // Настраиваем его: GET или POST, URL
     case "GET":
       let queryString;
       if (parameters !== null) {
@@ -155,7 +185,6 @@ const ajax_send = (method, url, parameters, datatype, callback) => {
             result = JSON.parse(xhr.response);
             callback(result);
           } catch (e) {
-            //result = xhr.response;
             showErrorToast("Ошибка", xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
           }
         } else if (datatype === "text") {

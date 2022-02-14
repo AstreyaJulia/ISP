@@ -462,7 +462,7 @@ const zTreeHandler = () => {
 
 }
 
-// Ждем полной загрузки дерева
+/** Ждем полной загрузки дерева */
 document.addEventListener("DOMContentLoaded", () => {
   if (workPlaceTree) {
     zTreeHandler();

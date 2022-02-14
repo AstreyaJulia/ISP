@@ -1,22 +1,21 @@
 import {cookieID} from "./globalfunc"
 import {ajax_send} from "./globalfunc"
 
-// Меню сайдбара
+/** Меню сайдбара */
 const sidebarnavmenu = document.querySelector('.navigation-menu');
 
-// Спиннер
+/** Спиннер */
 const spinnerloader = document.querySelector('.spinner-wrapper');
 
-
-
-// Общие
-
-// При прокручивании вниз на 20px от верхнего края элемента с классом main-content, показывает кнопку Назад наверх
-// Кнопка Назад Наверх, класс .back-to-top
+/** Кнопка Назад Наверх, класс .back-to-top */
 const backtotopbutton = document.querySelector('.back-to-top');
-// Прокручиваемое содержимое, класс .main-content, если его прокручивать, появляется кнопка Назад наверх
+//
+/** Прокручиваемое содержимое, класс .main-content, если его прокручивать, появляется кнопка Назад наверх */
 const maincontent = document.querySelector('.main-content');
 
+/**
+ * При прокручивании вниз на 20px от верхнего края элемента с классом main-content, показывает кнопку Назад наверх
+ */
 const maincontentscroll = () => {
   if (maincontent.scrollTop > 20) {
     backtotopbutton.style.display = "flex";
@@ -24,17 +23,22 @@ const maincontentscroll = () => {
     backtotopbutton.style.display = "none";
   }
 };
-// Возвращает наверх при нажатии на кнопку .back-to-top
+
+/** Возвращает наверх при нажатии на кнопку .back-to-top */
 const buttonscrolltotopHandler = () => {
   maincontent.scrollTop = 0;
 };
 
-// Переключает класс disabled у .page-body, сайдбар
-// Кнопка, переключающая сайдбар, класс .sidebar-toggle-button
+/** Кнопка, переключающая сайдбар, класс .sidebar-toggle-button */
 const sidebartogglbutton = document.querySelector('.sidebar-toggle-button');
-// Тело страницы, класс .main-sidebar
+
+/** Тело страницы, класс .main-sidebar */
 const sidebarwrapper = document.querySelector('.page-body');
 
+/**
+ * Переключает класс disabled у .page-body, сайдбар
+ * @param evt
+ */
 const buttonsidebartoggleHandler = (evt) => {
   evt.preventDefault();
 

@@ -6,8 +6,8 @@ const certBtn = document.querySelector('.cert-get');
 
 /** Получить квартал и год из селекта */
 function certBtnHandler() {
-  let value = document.querySelector('.cert-select');
-  let year = $(value).find(':selected').parent().attr('label');
+  const value = document.querySelector('.cert-select');
+  const year = $(value).find(':selected').parent().attr('label');
   let data = {
     quarter: value.value,
     year: year,

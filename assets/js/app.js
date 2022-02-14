@@ -149,9 +149,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "cookieID": function() { return /* binding */ cookieID; },
 /* harmony export */   "ajax_send": function() { return /* binding */ ajax_send; }
 /* harmony export */ });
-// ГЛОБАЛЬНЫЕ ФУНКЦИИ
-// Выбранные чекбоксы в группе, возвращает массив
-// Принимает группу элементов - allInputs
+/** ГЛОБАЛЬНЫЕ ФУНКЦИИ */
+
+/**
+ * Выбранные чекбоксы в группе, возвращает массив
+ * @param allInputs - группа элементов
+ * @param mode
+ * @returns {*[]}
+ */
+// FIXME переделать на массив
 function selectedCheckboxes(allInputs, mode) {
   const filterInput = allInputs;
   const checkboxes = [];
@@ -173,12 +179,19 @@ function selectedCheckboxes(allInputs, mode) {
 
       return checkboxes;
   }
-} // Toast. Большие всплывашки с заголовком и временем
-// Всплывашка. Принимает заголовок header, текст text, время time в виде строки
+}
+/**
+ * Toast. Большие всплывашки с заголовком и временем
+ * @param header заголовок
+ * @param text текст
+ * @param time time в виде строки
+ */
+// FIXME переделать всплывашки на ф-ю конструктор
 
 
 function showToast(header, text, time) {
-  const toastcontainer = document.querySelector('.toasts-container'); // Удаляем скрытые всплывашки
+  const toastcontainer = document.querySelector('.toasts-container');
+  /** Удаляем скрытые всплывашки */
 
   const hiddentoasts = toastcontainer.querySelectorAll('.hide');
 
@@ -195,12 +208,18 @@ function showToast(header, text, time) {
     return new bootstrap.Toast(toastEl);
   });
   toastList.forEach(toast => toast.show());
-} // Ошибки Toast. Большие всплывашки с заголовком и временем
-// Всплывашка. Принимает заголовок header, текст text, время time в виде строки
+}
+/**
+ * Ошибки Toast. Большие всплывашки с заголовком и временем
+ * @param header заголовок
+ * @param text текст
+ * @param time time
+ */
 
 
 function showErrorToast(header, text, time) {
-  const toastcontainer = document.querySelector('.toasts-container'); // Удаляем скрытые всплывашки
+  const toastcontainer = document.querySelector('.toasts-container');
+  /** Удаляем скрытые всплывашки */
 
   const hiddentoasts = toastcontainer.querySelectorAll('.hide');
 
@@ -219,11 +238,17 @@ function showErrorToast(header, text, time) {
     });
   });
   toastList.forEach(toast => toast.show());
-} // Toast mini. Маленькие цветные всплывашки без заголовка и времени
+}
+/**
+ * Toast mini. Маленькие цветные всплывашки без заголовка и времени
+ * @param text
+ * @param color
+ */
 
 
 function showMiniToast(text, color) {
-  const toastcontainer = document.querySelector('.toasts-container'); // Удаляем скрытые всплывашки
+  const toastcontainer = document.querySelector('.toasts-container');
+  /** Удаляем скрытые всплывашки */
 
   const hiddentoasts = toastcontainer.querySelectorAll('.hide');
 
@@ -240,7 +265,12 @@ function showMiniToast(text, color) {
     return new bootstrap.Toast(toastEl);
   });
   toastList.forEach(toast => toast.show());
-} // Получение Cookie
+}
+/**
+ * Получение Cookie
+ * @param name
+ * @returns {string|null}
+ */
 
 
 function getCookie(name) {
@@ -256,19 +286,28 @@ function getCookie(name) {
   }
 
   return null;
-} // ID пользователя
+}
+/**
+ * ID пользователя
+ * @type {string|null}
+ */
 
 
-const cookieID = getCookie('aut[id]'); // Ajax. Передача GET и POST запросов
-//method - POST или GET, url - адрес, parameters - параметры get запроса или отсылаемое тело POST, callback - в какую
-// функцию передать результат
+const cookieID = getCookie('aut[id]');
+/**
+ * Ajax. Передача GET и POST запросов
+ * @param method - POST или GET
+ * @param url - адрес
+ * @param parameters - параметры get запроса или отсылаемое тело POST
+ * @param datatype
+ * @param callback - в какую функцию передать результат
+ */
+// FIXME переделать на fetch
 
 const ajax_send = (method, url, parameters, datatype, callback) => {
-  //Создаём новый XMLHttpRequest-объект
   let xhr = new XMLHttpRequest();
 
   switch (method) {
-    // Настраиваем его: GET или POST, URL
     case "GET":
       let queryString;
 
@@ -313,7 +352,6 @@ const ajax_send = (method, url, parameters, datatype, callback) => {
             result = JSON.parse(xhr.response);
             callback(result);
           } catch (e) {
-            //result = xhr.response;
             showErrorToast("Ошибка", xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'));
           }
         } else if (datatype === "text") {
@@ -606,8 +644,8 @@ const certBtn = document.querySelector('.cert-get');
 /** Получить квартал и год из селекта */
 
 function certBtnHandler() {
-  let value = document.querySelector('.cert-select');
-  let year = $(value).find(':selected').parent().attr('label');
+  const value = document.querySelector('.cert-select');
+  const year = $(value).find(':selected').parent().attr('label');
   let data = {
     quarter: value.value,
     year: year
@@ -681,12 +719,13 @@ if (certBtn) {
   \*********************************************/
 /***/ (function() {
 
-// Datatables
+/** Datatables */
 const datatablesHandler = () => {
   const colspan = $('td[colspan]').not('[colspan=1]');
-  /* colspan.prop("colSpan")  получает кол-во colspan */
+  /** colspan.prop("colSpan")  получает кол-во colspan */
 
-  colspan.after('<td style="display: none;"></td>'); // Для таблиц с сортировкой
+  colspan.after('<td style="display: none;"></td>');
+  /** Для таблиц с сортировкой */
 
   $('.dataTable.sort').DataTable({
     "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Все"]],
@@ -864,7 +903,8 @@ const datatablesHandler = () => {
         }
       }
     }
-  }); // Для таблиц без сортировки
+  });
+  /** Для таблиц без сортировки */
 
   $('.dataTable.nosort').DataTable({
     "ordering": false,
@@ -1222,7 +1262,8 @@ const datatablesHandler = () => {
       }
     }
   });
-}; // Ждем полной загрузки дерева
+};
+/** Ждем полной загрузки дерева */
 
 
 document.addEventListener("DOMContentLoaded", datatablesHandler);
@@ -1235,13 +1276,16 @@ document.addEventListener("DOMContentLoaded", datatablesHandler);
   \**************************************/
 /***/ (function() {
 
-// Содержимое страницы FAQ
+/** Содержимое страницы FAQ */
 const faqcard = document.querySelector('.faq-categories-doc');
-const cont = document.querySelector('.faq-body'); // Индикатор загрузки для страницы FAQ
+const cont = document.querySelector('.faq-body');
+/** Индикатор загрузки для страницы FAQ */
 
-const loading = document.querySelector('.loading-spinner-faq'); // Ссылки FAQ
+const loading = document.querySelector('.loading-spinner-faq');
+/** Ссылки FAQ */
 
-const faqlinks = document.querySelectorAll('.faq-category-subitem a'); // FAQ акордеон в группе
+const faqlinks = document.querySelectorAll('.faq-category-subitem a');
+/** FAQ акордеон в группе */
 
 const faqaccordeon = document.querySelector('.faq-categories-list');
 
@@ -1253,32 +1297,16 @@ const faqlinkClickHandler = evt => {
   }
 
   const datalink = link.dataset.link;
-  faqcard.style.display = 'block'; // Отображает тело карточки
+  /** Отображает тело карточки */
 
-  loading.style.display = 'inline-block'; // В странице FAQ, показывает индикатор загрузки, пока не прогрузится содержимое страницы
-  // создание ajax объекта
+  faqcard.style.display = 'block';
+  /** В странице FAQ, показывает индикатор загрузки, пока не прогрузится содержимое страницы */
 
-  /*
-  оригинал кода
-  const xmlHttp = () => {
-    // создание ajax объекта
-    try {
-      return new XMLHttpRequest()
-    } catch (e) {
-      try {
-        return new ActiveXObject('Msxml2.XMLHTTP')
-      } catch (e) {
-        try {
-          return new ActiveXObject('Microsoft.XMLHTTP')
-        } catch (e) {
-          return null;
-        }
-      }
-    }
-  }
-  */
+  loading.style.display = 'inline-block';
+  /** создание ajax объекта */
 
-  let Http = new XMLHttpRequest(); // Перебираем запросы HTTP,
+  let Http = new XMLHttpRequest();
+  /** Перебираем запросы HTTP */
 
   if (new XMLHttpRequest()) {
     Http = new XMLHttpRequest();
@@ -1291,30 +1319,29 @@ const faqlinkClickHandler = evt => {
   }
 
   if (Http) {
-    Http.open('GET', datalink, true); // инициируем загрузку страницы
+    Http.open('GET', datalink, true);
 
     Http.onreadystatechange = () => {
-      // назначаем асинхронный обработчик события
       if (Http.readyState === 4 && Http.status === 200) {
-        cont.innerHTML = ""; // Очищаем содержимое cont
-
-        cont.insertAdjacentHTML('beforeend', Http.responseText); // Вставляем текст ответа Http.responseText в cont перед концом
-
+        cont.innerHTML = "";
+        cont.insertAdjacentHTML('beforeend', Http.responseText);
         datatablesHandler();
       }
     };
 
     Http.send(null);
   } else {
-    document.location = datalink; // если ajax-объект не удается создать, просто перенаправляем на адрес
+    document.location = datalink;
   }
-}; // FAQ аккродеон в группе
+};
+/** FAQ аккродеон в группе */
 
 
 const faqcategoryClickHandler = evt => {
-  // Переключает класс родительского элемента события клик
+  /** Переключает класс родительского элемента события клик */
   evt.target.parentElement.classList.toggle("active");
-}; //FAQ
+};
+/** FAQ */
 
 
 if (faqcard && cont && loading && faqlinks) {
@@ -4407,7 +4434,7 @@ const zTreeHandler = () => {
               isParent: true,
             }
           ]
-          },
+         },
         {
           id: "01_03",
           name: "Подвал",
@@ -4558,7 +4585,8 @@ const zTreeHandler = () => {
   workPlaceStructure(); //zTreeObj = $.fn.zTree.init($("#workplace-tree"), setting, workPlaceStructure);
 
   zTreeObj = $.fn.zTree.init($("#placeitems-tree"), settingPlaceitems, placeitemsStructure);
-}; // Ждем полной загрузки дерева
+};
+/** Ждем полной загрузки дерева */
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -4579,17 +4607,23 @@ document.addEventListener("DOMContentLoaded", () => {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _globalfunc__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./globalfunc */ "./src/assets/js/globalfunc.js");
 
- // Меню сайдбара
 
-const sidebarnavmenu = document.querySelector('.navigation-menu'); // Спиннер
+/** Меню сайдбара */
 
-const spinnerloader = document.querySelector('.spinner-wrapper'); // Общие
-// При прокручивании вниз на 20px от верхнего края элемента с классом main-content, показывает кнопку Назад наверх
-// Кнопка Назад Наверх, класс .back-to-top
+const sidebarnavmenu = document.querySelector('.navigation-menu');
+/** Спиннер */
 
-const backtotopbutton = document.querySelector('.back-to-top'); // Прокручиваемое содержимое, класс .main-content, если его прокручивать, появляется кнопка Назад наверх
+const spinnerloader = document.querySelector('.spinner-wrapper');
+/** Кнопка Назад Наверх, класс .back-to-top */
+
+const backtotopbutton = document.querySelector('.back-to-top'); //
+
+/** Прокручиваемое содержимое, класс .main-content, если его прокручивать, появляется кнопка Назад наверх */
 
 const maincontent = document.querySelector('.main-content');
+/**
+ * При прокручивании вниз на 20px от верхнего края элемента с классом main-content, показывает кнопку Назад наверх
+ */
 
 const maincontentscroll = () => {
   if (maincontent.scrollTop > 20) {
@@ -4597,18 +4631,24 @@ const maincontentscroll = () => {
   } else {
     backtotopbutton.style.display = "none";
   }
-}; // Возвращает наверх при нажатии на кнопку .back-to-top
+};
+/** Возвращает наверх при нажатии на кнопку .back-to-top */
 
 
 const buttonscrolltotopHandler = () => {
   maincontent.scrollTop = 0;
-}; // Переключает класс disabled у .page-body, сайдбар
-// Кнопка, переключающая сайдбар, класс .sidebar-toggle-button
+};
+/** Кнопка, переключающая сайдбар, класс .sidebar-toggle-button */
 
 
-const sidebartogglbutton = document.querySelector('.sidebar-toggle-button'); // Тело страницы, класс .main-sidebar
+const sidebartogglbutton = document.querySelector('.sidebar-toggle-button');
+/** Тело страницы, класс .main-sidebar */
 
 const sidebarwrapper = document.querySelector('.page-body');
+/**
+ * Переключает класс disabled у .page-body, сайдбар
+ * @param evt
+ */
 
 const buttonsidebartoggleHandler = evt => {
   evt.preventDefault();

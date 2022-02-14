@@ -1,9 +1,9 @@
-// Datatables
+/** Datatables */
 const datatablesHandler = () => {
   const colspan = $('td[colspan]').not('[colspan=1]');
-  /* colspan.prop("colSpan")  получает кол-во colspan */
+  /** colspan.prop("colSpan")  получает кол-во colspan */
   colspan.after('<td style="display: none;"></td>');
-  // Для таблиц с сортировкой
+  /** Для таблиц с сортировкой */
   $('.dataTable.sort').DataTable({
     "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Все"]],
     "language": {
@@ -184,7 +184,7 @@ const datatablesHandler = () => {
       }
     }
   });
-  // Для таблиц без сортировки
+  /** Для таблиц без сортировки */
   $('.dataTable.nosort').DataTable({
     "ordering": false,
     "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Все"]],
@@ -547,8 +547,7 @@ const datatablesHandler = () => {
       }
     }
   });
-
 }
 
-// Ждем полной загрузки дерева
+/** Ждем полной загрузки дерева */
 document.addEventListener("DOMContentLoaded",datatablesHandler);

@@ -1,14 +1,13 @@
-// Содержимое страницы FAQ
+/** Содержимое страницы FAQ */
 const faqcard = document.querySelector('.faq-categories-doc');
 const cont = document.querySelector('.faq-body');
-// Индикатор загрузки для страницы FAQ
+/** Индикатор загрузки для страницы FAQ */
 const loading = document.querySelector('.loading-spinner-faq');
-// Ссылки FAQ
+/** Ссылки FAQ */
 const faqlinks = document.querySelectorAll('.faq-category-subitem a');
 
-// FAQ акордеон в группе
+/** FAQ акордеон в группе */
 const faqaccordeon = document.querySelector('.faq-categories-list');
-
 
 const faqlinkClickHandler = (evt) => {
   const link = evt.target.closest('a');
@@ -16,32 +15,13 @@ const faqlinkClickHandler = (evt) => {
     return;
   }
   const datalink = link.dataset.link;
-  faqcard.style.display = 'block';               // Отображает тело карточки
-  loading.style.display = 'inline-block';       // В странице FAQ, показывает индикатор загрузки, пока не прогрузится содержимое страницы
-  // создание ajax объекта
-
-  /*
-  оригинал кода
-  const xmlHttp = () => {
-    // создание ajax объекта
-    try {
-      return new XMLHttpRequest()
-    } catch (e) {
-      try {
-        return new ActiveXObject('Msxml2.XMLHTTP')
-      } catch (e) {
-        try {
-          return new ActiveXObject('Microsoft.XMLHTTP')
-        } catch (e) {
-          return null;
-        }
-      }
-    }
-  }
-  */
-
+  /** Отображает тело карточки */
+  faqcard.style.display = 'block';
+  /** В странице FAQ, показывает индикатор загрузки, пока не прогрузится содержимое страницы */
+  loading.style.display = 'inline-block';
+  /** создание ajax объекта */
   let Http = new XMLHttpRequest();
-  // Перебираем запросы HTTP,
+  /** Перебираем запросы HTTP */
   if (new XMLHttpRequest()) {
     Http = new XMLHttpRequest();
   } else if (new ActiveXObject('Msxml2.XMLHTTP')) {
@@ -52,27 +32,27 @@ const faqlinkClickHandler = (evt) => {
     } else return null;
   }
   if (Http) {
-    Http.open('GET', datalink, true);                             	// инициируем загрузку страницы
-    Http.onreadystatechange = () => {                                             // назначаем асинхронный обработчик события
+    Http.open('GET', datalink, true);
+    Http.onreadystatechange = () => {
       if (Http.readyState === 4 && Http.status === 200) {
-        cont.innerHTML = "";                                                      // Очищаем содержимое cont
-        cont.insertAdjacentHTML('beforeend', Http.responseText);           // Вставляем текст ответа Http.responseText в cont перед концом
+        cont.innerHTML = "";
+        cont.insertAdjacentHTML('beforeend', Http.responseText);
         datatablesHandler();
       }
     }
     Http.send(null);
   } else {
-    document.location = datalink;                                                 // если ajax-объект не удается создать, просто перенаправляем на адрес
+    document.location = datalink;
   }
 }
 
-// FAQ аккродеон в группе
+/** FAQ аккродеон в группе */
 const faqcategoryClickHandler = (evt) => {
-  // Переключает класс родительского элемента события клик
+  /** Переключает класс родительского элемента события клик */
   evt.target.parentElement.classList.toggle("active");
 }
 
-//FAQ
+/** FAQ */
 if (faqcard && cont && loading && faqlinks) {
   faqlinks.forEach((faqlink) => {
     faqlink.addEventListener('click', (evt) => {
