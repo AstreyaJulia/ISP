@@ -35,15 +35,17 @@
 
 	    //Удаляем запись
 	    public function delRecord($params) {
-	    	$params = array('id' => $params, 'id_group' => $params);
-
-	        $sql = "DELETE FROM `sdc_proxy_list`
-	        		WHERE `id` = :id or `id_group` = :id_group";
-	        if ($this->db->run($sql, $params)) {
-	        	return true;
-	        }
-	        return false;
-	    }
+	    	// запрещаем удалять группу blacklist
+	        if ($params == 6) {
+	        	return false;
+	        } else {
+	        	$params = array('id' => $params, 'id_group' => $params);
+		        $sql = "DELETE FROM `sdc_proxy_list`
+		        		WHERE `id` = :id or `id_group` = :id_group";
+		        }
+		        $this->db->run($sql, $params);
+		        return true;
+		    }
 
 	    //Редактируем  ссылку
 	    public function updateLink($params) {

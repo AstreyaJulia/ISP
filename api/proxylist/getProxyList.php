@@ -15,7 +15,7 @@
     $data = json_decode(file_get_contents("php://input"));
 
     // получаем JWT
-    $jwt = $data->jwt ?? "";
+    $jwt = $data->jwt ?? die();
 
     // если JWT не пуст
     if($jwt) {
