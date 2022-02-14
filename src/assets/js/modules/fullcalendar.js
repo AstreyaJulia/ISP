@@ -1030,25 +1030,24 @@ function calendmodulehandler(settings) {
     calendar.refetchEvents();
   }, 1000);
 
-  /** Разные даты начала и конца события для создаваемых событий при нажатии на кнопку создания и на день */
-  function setEventDates(info) {
+
+
+  function neweventmodal(info) {
+    /** Разные даты начала и конца события для создаваемых событий при нажатии на кнопку создания и на день */
     let date;
-    if (info == null) {
-      date = "";
+    if (!info) {
+      startDatepicker.setDate(moment().hour(0).minutes(0).format(settings.datetimeformat), true);
+      endDatepicker.setDate(moment().hour(0).minutes(0).format(settings.datetimeformat), true);
     } else {
       date = moment(info.date).format(settings.datetimeformat);
+      startDatepicker.setDate(moment(date).hour(0).minutes(0).format(settings.datetimeformat), true);
+      endDatepicker.setDate(moment(date).hour(0).minutes(0).format(settings.datetimeformat), true);
+      startDate.value = date;
+      endDate.value = date;
     }
-    startDatepicker.setDate(moment(date).hour(0).minutes(0).format(settings.datetimeformat), true);
-    endDatepicker.setDate(moment(date).hour(0).minutes(0).format(settings.datetimeformat), true);
-    startDate.value = date;
-    endDate.value = date;
     /** */
     $('[name=dateStart]').next('input').attr("name","dateStart");
     $('[name=dateEnd]').next('input').attr("name","dateEnd");
-  }
-
-  function neweventmodal(info) {
-    setEventDates(info);
     showModal('add');
   }
 

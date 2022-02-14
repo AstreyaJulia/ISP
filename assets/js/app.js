@@ -2470,29 +2470,26 @@ function calendmodulehandler(settings) {
   setInterval(() => {
     calendar.refetchEvents();
   }, 1000);
-  /** Разные даты начала и конца события для создаваемых событий при нажатии на кнопку создания и на день */
 
-  function setEventDates(info) {
+  function neweventmodal(info) {
+    /** Разные даты начала и конца события для создаваемых событий при нажатии на кнопку создания и на день */
     let date;
 
-    if (info == null) {
-      date = "";
+    if (!info) {
+      startDatepicker.setDate(moment().hour(0).minutes(0).format(settings.datetimeformat), true);
+      endDatepicker.setDate(moment().hour(0).minutes(0).format(settings.datetimeformat), true);
     } else {
       date = moment(info.date).format(settings.datetimeformat);
+      startDatepicker.setDate(moment(date).hour(0).minutes(0).format(settings.datetimeformat), true);
+      endDatepicker.setDate(moment(date).hour(0).minutes(0).format(settings.datetimeformat), true);
+      startDate.value = date;
+      endDate.value = date;
     }
-
-    startDatepicker.setDate(moment(date).hour(0).minutes(0).format(settings.datetimeformat), true);
-    endDatepicker.setDate(moment(date).hour(0).minutes(0).format(settings.datetimeformat), true);
-    startDate.value = date;
-    endDate.value = date;
     /** */
+
 
     $('[name=dateStart]').next('input').attr("name", "dateStart");
     $('[name=dateEnd]').next('input').attr("name", "dateEnd");
-  }
-
-  function neweventmodal(info) {
-    setEventDates(info);
     showModal('add');
   }
   /** Сброс значений модала */
@@ -3714,27 +3711,58 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "validateForm": function() { return /* binding */ validateForm; },
 /* harmony export */   "setValidationListeners": function() { return /* binding */ setValidationListeners; }
 /* harmony export */ });
-function validateForm(form, submit) {
+function showInputError(input) {
+  input.classList.add('is-invalid');
+  input.classList.remove('is-valid');
+
+  if (input.classList.contains('flatpickr-input')) {
+    input.nextSibling.classList.add('is-invalid');
+    input.nextSibling.classList.remove('is-valid');
+  }
+}
+
+function hideInputError(input) {
+  input.classList.add('is-valid');
+  input.classList.remove('is-invalid');
+
+  if (input.classList.contains('flatpickr-input')) {
+    input.nextSibling.classList.add('is-valid');
+    input.nextSibling.classList.remove('is-invalid');
+  }
+}
+
+function validateInput(form, input) {
+  !input.validity.valid ? showInputError(input) : hideInputError(input);
+}
+
+function validateForm(form, submitButton) {
+  const inputArray = form.querySelectorAll('input:not(.input), textarea, select');
   form.classList.add('was-validated');
 
-  if (form.checkValidity() === false) {
-    form.classList.add('invalid');
-    submit.disabled = true;
+  if (Array.from(inputArray).filter(input => !input.validity.valid).length === 0) {
+    submitButton.disabled = false;
     return false;
   } else {
-    submit.disabled = false;
+    submitButton.disabled = true;
     return true;
   }
 }
 
 function setValidationListeners(form, submit) {
   const inputs = form.querySelectorAll('input:not(.input), textarea');
-  const selects = form.querySelectorAll('select');
+  const selects = form.querySelectorAll('select:not(.select2)');
+  const selects2 = form.querySelectorAll('select.select2');
   selects.forEach(select => {
     select.addEventListener('change', () => validateForm(form, submit));
+    validateInput(form, select);
+  });
+  $('select.select2').on('select2:select', function (e) {
+    validateForm(form, submit);
+    validateInput(form, this);
   });
   inputs.forEach(input => {
     input.addEventListener('input', () => validateForm(form, submit));
+    validateInput(form, input);
   });
 }
 

@@ -6,7 +6,7 @@
         <div class="modal-dialog sidebar-lg h-100">
           <div class="modal-content add-edit-event-content h-100 overflow-hidden">
             <div class="overlayscrollbar h-100">
-              <form class="event-form d-flex flex-column justify-content-between h-100 needs-validation" name="eventForm" novalidate>
+              <form class="event-form d-flex flex-column justify-content-between h-100" name="eventForm" novalidate>
                 <div>
                   <div class="modal-header">
                     <h5 class="add-event-title modal-title">Добавить событие</h5>
@@ -24,7 +24,6 @@
                                           class="form-control"
                                           name="eventTitle" id="eventTitle" required minlength="2"
                                           maxlength="100"></textarea>
-                                <div class="invalid-feedback">Введите название события.</div>
                               </div>
                             </div>
                             <div class="form-group">
@@ -40,7 +39,6 @@
                                 <div class="cat-select position-relative" id="cat-select">
                                   <select class="select2 select-label form-control w-100" name="selectLabel"
                                           id="select-label" required></select>
-                                  <div class="invalid-feedback">Выберите категорию.</div>
                                 </div>
                               </div>
 
@@ -52,8 +50,6 @@
                                   <input name="dateStart" placeholder="Дата начала"
                                          class="form-control flatpickr-input position-relative"
                                          type="text" required id="start-date">
-                                  <div class="invalid-feedback">Введите дату начала.</div>
-                                  <div class="text-secondary">Проверьте дату начала.</div>
                                 </div>
                               </div>
                             </div>
@@ -63,8 +59,6 @@
                                   <label for="end-date" class="">Конец события:</label>
                                   <input name="dateEnd" placeholder="Дата окончания" type="text"
                                          class="form-control flatpickr-input position-relative" id="end-date" required>
-                                  <div class="invalid-feedback">Введите дату окончания.</div>
-                                  <div class="text-secondary">Проверьте дату окончания.</div>
                                 </div>
                               </div>
                             </div>
