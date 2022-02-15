@@ -2,7 +2,7 @@
 import {selectedCheckboxes} from "../globalfunc"
 import {cookieID} from "../globalfunc"
 import {ajax_send} from "../globalfunc"
-import {showMiniToast} from "../globalfunc"
+import {Toast} from "../globalfunc"
 import {validateForm, setValidationListeners} from "./validation"
 
 /**
@@ -544,7 +544,7 @@ function calendmodulehandler(settings) {
     function addSucces(result, title) {
       closeAddEvModal(evt);
       if (result === "null") {
-        showMiniToast('Событие ' + title + ' добавлено', "success");
+        new Toast("", 'Событие ' + title + ' добавлено', "", "miniToast", "success").show();
       }
       calendar.refetchEvents();
     }
@@ -567,7 +567,7 @@ function calendmodulehandler(settings) {
     function updSucces(result, title) {
       closeAddEvModal(evt);
       if (result === "null") {
-        showMiniToast('Событие ' + title + ' обновлено', "info");
+        new Toast("", 'Событие ' + title + ' обновлено', "", "miniToast", "info").show();
       }
       calendar.refetchEvents();
     }
@@ -576,7 +576,7 @@ function calendmodulehandler(settings) {
       if (eventToUpdate.extendedProps.user_id === cookieID || JSON.stringify(eventToUpdate.extendedProps.user_id) === cookieID) {
         ajax_send("POST", "components/fullcalendar/ajax.php", getEventFormData("upd"), "json", result => updSucces(result, title));
       } else {
-        showMiniToast('Вы не имеете прав на правку события ' + title, "danger");
+        new Toast("", 'Вы не имеете прав на правку события ' + title, "", "miniToast", "danger").show();
       }
     }
 
@@ -594,7 +594,7 @@ function calendmodulehandler(settings) {
     function delSucces(result, title) {
       closeAddEvModal(evt);
       if (result === "null") {
-        showMiniToast('Событие ' + title + ' удалено', "danger");
+        new Toast("", 'Событие ' + title + ' удалено', "", "miniToast", "danger").show();
       }
       calendar.refetchEvents();
     }
@@ -607,7 +607,7 @@ function calendmodulehandler(settings) {
     if (eventToUpdate.extendedProps.user_id === cookieID || JSON.stringify(eventToUpdate.extendedProps.user_id) === cookieID) {
       ajax_send("POST", "components/fullcalendar/ajax.php", Event, "json", result => delSucces(result, title));
     } else {
-      showMiniToast('Вы не имеете прав на удаление события ' + title, "danger");
+      new Toast("", 'Вы не имеете прав на удаление события ' + title, "", "miniToast", "danger").show();
     }
 
   }

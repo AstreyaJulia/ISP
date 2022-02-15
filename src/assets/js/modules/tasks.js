@@ -1,4 +1,4 @@
-import {showToast} from "../globalfunc"
+import {Toast} from "../globalfunc"
 
 // Tasks list
 // Tasks задачи. Контейнер
@@ -330,8 +330,8 @@ const tasksHandler = () => {
             '</li>'
           );
         }
-        showToast('Задача сохранена', 'Сохранено 💾', "Сейчас");
-        hideModal();
+        new Toast("Задача сохранена", 'Сохранено 💾', "Сейчас", "toast", "").show();
+          hideModal();
       }
     });
   }
@@ -341,7 +341,7 @@ const tasksHandler = () => {
     const $this = $(this).find('input');
     if ($this.prop('checked')) {
       $this.closest('.todo-item').addClass('completed');
-      showToast('Задача завершена', 'Поздравляем 🎉', "Сейчас");
+      new Toast("Задача завершена", 'Поздравляем 🎉', "Сейчас", "toast", "").show();
     } else {
       $this.closest('.todo-item').removeClass('completed');
     }
@@ -384,7 +384,7 @@ const tasksHandler = () => {
       if (isValid) {
         const $edit_title = newTaskForm.find('.new-todo-item-title').val();
         $(taskTitle).text($edit_title);
-        showToast('Задача сохранена', 'Сохранено 💾', "Сейчас");
+        new Toast("Задача сохранена", 'Сохранено 💾', "Сейчас", "toast", "").show();
         hideModal();
       }
     });

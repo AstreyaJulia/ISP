@@ -142,129 +142,107 @@ const COLORS = colors;
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "selectedCheckboxes": function() { return /* binding */ selectedCheckboxes; },
-/* harmony export */   "showToast": function() { return /* binding */ showToast; },
-/* harmony export */   "showErrorToast": function() { return /* binding */ showErrorToast; },
-/* harmony export */   "showMiniToast": function() { return /* binding */ showMiniToast; },
 /* harmony export */   "getCookie": function() { return /* binding */ getCookie; },
 /* harmony export */   "cookieID": function() { return /* binding */ cookieID; },
-/* harmony export */   "ajax_send": function() { return /* binding */ ajax_send; }
+/* harmony export */   "ajax_send": function() { return /* binding */ ajax_send; },
+/* harmony export */   "Toast": function() { return /* binding */ Toast; },
+/* harmony export */   "showBsToast": function() { return /* binding */ showBsToast; },
+/* harmony export */   "toastContainer": function() { return /* binding */ toastContainer; }
 /* harmony export */ });
 /** ГЛОБАЛЬНЫЕ ФУНКЦИИ */
-
+const toastContainer = document.querySelector('.toasts-container');
 /**
- * Выбранные чекбоксы в группе, возвращает массив
+ * Сформировать массив из значений чекбоксов в группе
  * @param allInputs - группа элементов
- * @param mode
- * @returns {*[]}
+ * @param mode - режим: "selected" - выбранные, "all" - все
+ * @returns {*[]} - массив из value чекбоксов
  */
-// FIXME переделать на массив
-function selectedCheckboxes(allInputs, mode) {
-  const filterInput = allInputs;
-  const checkboxes = [];
 
+function selectedCheckboxes(allInputs, mode) {
   switch (mode) {
     case "selected":
-      for (let j = 0; j < filterInput.length; j++) {
-        if (filterInput[j].checked) {
-          checkboxes.push(filterInput[j].value.toLowerCase());
-        }
-      }
-
-      return checkboxes;
+      return Array.from(allInputs).filter(input => input.checked).map(c => c.value.toLowerCase());
 
     case "all":
-      for (let j = 0; j < filterInput.length; j++) {
-        checkboxes.push(filterInput[j].value.toLowerCase());
-      }
-
-      return checkboxes;
+      return Array.from(allInputs).filter(input => input.checked).map(c => c.value.toLowerCase());
   }
 }
 /**
- * Toast. Большие всплывашки с заголовком и временем
- * @param header заголовок
- * @param text текст
- * @param time time в виде строки
+ * Добавить всплывашку в разметку, скрыть показанные всплывашки, показать всплывашку
+ * @param toast - HTML-разметка всплывашки для вставки в контейнер, если в разметке уже есть, то пустое
+ * @param container - контейнер для всплывашек
+ * @param toastClass - класс всплывашки, по которому ее будем выводить, в кавычках и с точкой
+ * @param toastParams - параметры для всплывашки
  */
-// FIXME переделать всплывашки на ф-ю конструктор
 
 
-function showToast(header, text, time) {
-  const toastcontainer = document.querySelector('.toasts-container');
+function showBsToast(toast, container, toastClass, toastParams) {
   /** Удаляем скрытые всплывашки */
+  const hiddenToasts = container.querySelectorAll('.hide');
 
-  const hiddentoasts = toastcontainer.querySelectorAll('.hide');
-
-  if (hiddentoasts) {
-    hiddentoasts.forEach(hiddentoast => {
-      toastcontainer.removeChild(hiddentoast);
+  if (hiddenToasts) {
+    hiddenToasts.forEach(hiddenToast => {
+      container.removeChild(hiddenToast);
     });
   }
 
-  const toastElement = '<div class="toast fade" role="alert" aria-live="assertive" aria-atomic="true"><div class="toast-header"><i class="mdi mdi-message-alert-outline"></i><strong class="me-auto">' + header + '</strong><small class="text-muted">' + time + '</small><button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть"></button></div><div class="toast-body">' + text + '</div></div>';
-  toastcontainer.insertAdjacentHTML('beforeend', toastElement);
-  const toastElList = [].slice.call(document.querySelectorAll('.toast'));
-  const toastList = toastElList.map(function (toastEl) {
-    return new bootstrap.Toast(toastEl);
+  container.insertAdjacentHTML('beforeend', toast);
+  const toastElList = [].slice.call(document.querySelectorAll('.toast' + toastClass));
+  toastElList.map(function (toastEl) {
+    return new bootstrap.Toast(toastEl, toastParams).show();
   });
-  toastList.forEach(toast => toast.show());
 }
 /**
- * Ошибки Toast. Большие всплывашки с заголовком и временем
- * @param header заголовок
- * @param text текст
- * @param time time
+ * Всплывашки
  */
 
 
-function showErrorToast(header, text, time) {
-  const toastcontainer = document.querySelector('.toasts-container');
-  /** Удаляем скрытые всплывашки */
+class Toast {
+  /**
+   * @param header - текст заголовка всплывашки
+   * @param text - текст
+   * @param time - время в виде строки
+   * @param type - тип: toast - обычные, errorToast - ошибки, не закрываются автоматически, miniToast - мини, цветные, без заголовка
+   * @param color - цвет
+   */
+  constructor(header, text, time, type, color) {
+    this.header = header;
+    this.text = text;
+    this.time = time;
+    this.color = color;
+    this.toastParam = {
+      autohide: true
+    };
 
-  const hiddentoasts = toastcontainer.querySelectorAll('.hide');
+    switch (type) {
+      case "toast":
+        this.class = "toast-info";
+        this.toastElement = '<div class="toast ' + this.class + ' fade" role="alert" aria-live="assertive" aria-atomic="true"><div class="toast-header"><i class="mdi mdi-message-alert-outline"></i><strong class="me-auto">' + this.header + '</strong><small class="text-muted">' + this.time + '</small><button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть"></button></div><div class="toast-body">' + this.text + '</div></div>';
+        break;
 
-  if (hiddentoasts) {
-    hiddentoasts.forEach(hiddentoast => {
-      toastcontainer.removeChild(hiddentoast);
-    });
+      case "errorToast":
+        this.class = "toast-error";
+        this.toastElement = '<div class="toast ' + this.class + ' fade" role="alert" aria-live="assertive" aria-atomic="true"><div class="toast-header"><i class="mdi mdi-alert text-danger"></i><strong class="me-auto text-danger">' + this.header + '</strong><small class="text-muted">' + this.time + '</small><button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть"></button></div><div class="toast-body">' + this.text + '</div></div>';
+        this.toastParam = {
+          autohide: false
+        };
+        break;
+
+      case "miniToast":
+        this.class = "toast-info";
+        this.toastElement = '<div class="toast ' + this.class + ' align-items-center bg-' + this.color + '-lighter" role="alert" aria-live="assertive" aria-atomic="true"><div class="d-flex"><div class="toast-body">' + this.text + '</div><button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Закрыть"></button></div></div>';
+        break;
+    }
+  }
+  /**
+   * Показывает всплывашки
+   */
+
+
+  show() {
+    showBsToast(this.toastElement, toastContainer, "." + this.class, this.toastParam);
   }
 
-  const toastElement = '<div class="toast fade" role="alert" aria-live="assertive" aria-atomic="true"><div class="toast-header"><i class="mdi mdi-alert text-danger"></i><strong class="me-auto text-danger">' + header + '</strong><small class="text-muted">' + time + '</small><button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть"></button></div><div class="toast-body">' + text + '</div></div>';
-  toastcontainer.insertAdjacentHTML('beforeend', toastElement);
-  const toastElList = [].slice.call(document.querySelectorAll('.toast'));
-  const toastList = toastElList.map(function (toastEl) {
-    return new bootstrap.Toast(toastEl, {
-      autohide: false
-    });
-  });
-  toastList.forEach(toast => toast.show());
-}
-/**
- * Toast mini. Маленькие цветные всплывашки без заголовка и времени
- * @param text
- * @param color
- */
-
-
-function showMiniToast(text, color) {
-  const toastcontainer = document.querySelector('.toasts-container');
-  /** Удаляем скрытые всплывашки */
-
-  const hiddentoasts = toastcontainer.querySelectorAll('.hide');
-
-  if (hiddentoasts) {
-    hiddentoasts.forEach(hiddentoast => {
-      toastcontainer.removeChild(hiddentoast);
-    });
-  }
-
-  const toastElement = '<div class="toast align-items-center bg-' + color + '-lighter" role="alert" aria-live="assertive" aria-atomic="true"><div class="d-flex"><div class="toast-body">' + text + '</div><button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Закрыть"></button></div></div>';
-  toastcontainer.insertAdjacentHTML('beforeend', toastElement);
-  const toastElList = [].slice.call(document.querySelectorAll('.toast'));
-  const toastList = toastElList.map(function (toastEl) {
-    return new bootstrap.Toast(toastEl);
-  });
-  toastList.forEach(toast => toast.show());
 }
 /**
  * Получение Cookie
@@ -352,7 +330,7 @@ const ajax_send = (method, url, parameters, datatype, callback) => {
             result = JSON.parse(xhr.response);
             callback(result);
           } catch (e) {
-            showErrorToast("Ошибка", xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'));
+            new Toast("Ошибка", xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'), "errorToast", "").show();
           }
         } else if (datatype === "text") {
           callback(xhr.responseText);
@@ -363,18 +341,18 @@ const ajax_send = (method, url, parameters, datatype, callback) => {
         if (!xhr.response) {
           callback('null');
         } else {
-          showErrorToast("Ошибка", xhr.response, moment().tz('Europe/Moscow').format('YYYY-MM-DD'));
+          new Toast("Ошибка", xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'), "errorToast", "").show();
         }
       }
     } else if (xhr.status === 0) {
       header = "Не подключено. Проверьте сеть";
-      showErrorToast(header, xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'));
+      new Toast(header, xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'), "errorToast", "").show();
     } else if (xhr.status === 404) {
       header = "404. Not Found. Запрашиваемая страница не найдена ";
-      showErrorToast(header, xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'));
+      new Toast(header, xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'), "errorToast", "").show();
     } else if (xhr.status === 500) {
       header = "Внутренняя ошибка сервера [500]";
-      showErrorToast(header, xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'));
+      new Toast(header, xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'), "errorToast", "").show();
     }
   };
 };
@@ -521,13 +499,13 @@ const apexChartOptions = {
   postinboxChart: new LineChartBasic('Входящая почта', [4147, 9372, 12395, 12226, 11378, 11481, 11418, 12372, 11721, 11917, 12308, 15209], 'green', [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]),
   emailinboxChart: new LineChartBasic('Входящая эл. почта', [6489, 8384, 10450], 'green', [2019, 2020, 2021]),
   gcaseChart: new LineChartBasic('Гражданские дела', [1777, 1935, 2108, 2892, 2784, 2593, 2454, 2145, 1785, 1388, 1587, 1893], 'red', [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]),
-  gcaseOblChart: new LineChartBasic('Гражданские дела (область)', [30095, 28470, 31392, 32393, 34753, 33232, 31409, 21203, 24391, 18543, 23220], 'red', [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]),
+  gcaseOblChart: new LineChartBasic('Гражданские дела (область)', [30095, 28470, 31392, 32393, 34753, 33232, 31409, 21203, 24391, 18543, 23220, 24205], 'red', [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]),
   g1caseChart: new LineChartBasic('Гражданские дела ап. инстанции', [45, 62, 43, 60, 58, 57, 42, 35, 51, 68, 58, 49], 'orange', [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]),
   admcaseChart: new LineChartBasic('Дела об адм. правонарушениях', [30, 25, 33, 1096, 1044, 844, 817, 882, 695, 467, 382, 1157], 'blue', [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]),
-  admcaseOblChart: new LineChartBasic('Дела об адм. правонарушениях (область)', [1487, 1334, 1315, 6150, 5856, 5316, 5080, 5352, 5232, 4805, 6768], 'blue', [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]),
+  admcaseOblChart: new LineChartBasic('Дела об адм. правонарушениях (область)', [1487, 1334, 1315, 6150, 5856, 5316, 5080, 5352, 5232, 4805, 6768, 12829], 'blue', [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]),
   adm1caseChart: new LineChartBasic('Жалобы по адм. делам', [0, 0, 0, 0, 166, 204, 205, 198, 145, 138, 123, 96], 'teal', [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]),
   ucaseChart: new LineChartBasic('Уголовные дела', [275, 366, 364, 294, 360, 373, 254, 214, 282, 251, 240, 297], 'yellow', [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]),
-  ucaseOblChart: new LineChartBasic('Уголовные дела (область)', [4124, 4038, 3696, 3257, 3799, 3563, 3210, 2217, 3061, 3626, 3713], 'yellow', [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]),
+  ucaseOblChart: new LineChartBasic('Уголовные дела (область)', [4124, 4038, 3696, 3257, 3799, 3563, 3210, 2217, 3061, 3626, 3713, 3636], 'yellow', [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]),
   u1caseChart: new LineChartBasic('Уголовные дела ап. инстанции', [15, 30, 17, 17, 13, 8, 14, 9, 9, 6, 13, 9], 'azure', [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]),
   mucaseChart: new LineChartBasic('Материалы в порядке уг. производства, всего', [545, 3440, 2634, 1662, 1232, 1852, 1926, 1604, 2216, 1564, 1494, 1157], 'cyan', [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]),
   eosChart: new LineChartBasic('Обращения, без исковых', [87, 230, 423, 624], 'primary', [2018, 2019, 2020, 2021]),
@@ -1988,7 +1966,7 @@ function calendmodulehandler(settings) {
       closeAddEvModal(evt);
 
       if (result === "null") {
-        (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.showMiniToast)('Событие ' + title + ' добавлено', "success");
+        new _globalfunc__WEBPACK_IMPORTED_MODULE_0__.Toast("", 'Событие ' + title + ' добавлено', "", "miniToast", "success").show();
       }
 
       calendar.refetchEvents();
@@ -2013,7 +1991,7 @@ function calendmodulehandler(settings) {
       closeAddEvModal(evt);
 
       if (result === "null") {
-        (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.showMiniToast)('Событие ' + title + ' обновлено', "info");
+        new _globalfunc__WEBPACK_IMPORTED_MODULE_0__.Toast("", 'Событие ' + title + ' обновлено', "", "miniToast", "info").show();
       }
 
       calendar.refetchEvents();
@@ -2023,7 +2001,7 @@ function calendmodulehandler(settings) {
       if (eventToUpdate.extendedProps.user_id === _globalfunc__WEBPACK_IMPORTED_MODULE_0__.cookieID || JSON.stringify(eventToUpdate.extendedProps.user_id) === _globalfunc__WEBPACK_IMPORTED_MODULE_0__.cookieID) {
         (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("POST", "components/fullcalendar/ajax.php", getEventFormData("upd"), "json", result => updSucces(result, title));
       } else {
-        (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.showMiniToast)('Вы не имеете прав на правку события ' + title, "danger");
+        new _globalfunc__WEBPACK_IMPORTED_MODULE_0__.Toast("", 'Вы не имеете прав на правку события ' + title, "", "miniToast", "danger").show();
       }
     }
   };
@@ -2042,7 +2020,7 @@ function calendmodulehandler(settings) {
       closeAddEvModal(evt);
 
       if (result === "null") {
-        (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.showMiniToast)('Событие ' + title + ' удалено', "danger");
+        new _globalfunc__WEBPACK_IMPORTED_MODULE_0__.Toast("", 'Событие ' + title + ' удалено', "", "miniToast", "danger").show();
       }
 
       calendar.refetchEvents();
@@ -2056,7 +2034,7 @@ function calendmodulehandler(settings) {
     if (eventToUpdate.extendedProps.user_id === _globalfunc__WEBPACK_IMPORTED_MODULE_0__.cookieID || JSON.stringify(eventToUpdate.extendedProps.user_id) === _globalfunc__WEBPACK_IMPORTED_MODULE_0__.cookieID) {
       (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("POST", "components/fullcalendar/ajax.php", Event, "json", result => delSucces(result, title));
     } else {
-      (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.showMiniToast)('Вы не имеете прав на удаление события ' + title, "danger");
+      new _globalfunc__WEBPACK_IMPORTED_MODULE_0__.Toast("", 'Вы не имеете прав на удаление события ' + title, "", "miniToast", "danger").show();
     }
   };
   /** Закрытие модала и сброс инпутов */
@@ -3142,7 +3120,7 @@ const tasksHandler = () => {
           $(todoTaskList).prepend('<li class="todo-item">' + '<div class="todo-title-wrapper">' + '<div class="todo-title-area">' + '<i class="mdi mdi-dots-vertical"></i>' + '<div class="title-wrapper">' + '<div class="custom-control custom-checkbox">' + '<input type="checkbox" class="custom-control-input" id="customCheck' + checkboxId + '" />' + '<label class="custom-control-label" for="customCheck' + checkboxId + '"></label>' + '</div>' + '<span class="todo-title">' + todoTitle + '</span>' + '</div>' + '</div>' + '<div class="todo-item-action">' + '<div class="badge-wrapper mr-1">' + todoBadge + '</div>' + '<small class="text-nowrap text-muted mr-1">' + todoDate + '</small>' + '</div>' + '</div>' + '</li>');
         }
 
-        (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.showToast)('Задача сохранена', 'Сохранено 💾', "Сейчас");
+        new _globalfunc__WEBPACK_IMPORTED_MODULE_0__.Toast("Задача сохранена", 'Сохранено 💾', "Сейчас", "toast", "").show();
         hideModal();
       }
     });
@@ -3154,7 +3132,7 @@ const tasksHandler = () => {
 
     if ($this.prop('checked')) {
       $this.closest('.todo-item').addClass('completed');
-      (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.showToast)('Задача завершена', 'Поздравляем 🎉', "Сейчас");
+      new _globalfunc__WEBPACK_IMPORTED_MODULE_0__.Toast("Задача завершена", 'Поздравляем 🎉', "Сейчас", "toast", "").show();
     } else {
       $this.closest('.todo-item').removeClass('completed');
     }
@@ -3193,7 +3171,7 @@ const tasksHandler = () => {
       if (isValid) {
         const $edit_title = newTaskForm.find('.new-todo-item-title').val();
         $(taskTitle).text($edit_title);
-        (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.showToast)('Задача сохранена', 'Сохранено 💾', "Сейчас");
+        new _globalfunc__WEBPACK_IMPORTED_MODULE_0__.Toast("Задача сохранена", 'Сохранено 💾', "Сейчас", "toast", "").show();
         hideModal();
       }
     });
@@ -3808,7 +3786,7 @@ __webpack_require__.r(__webpack_exports__);
 /** Погодный виджет */
 
 const weatherHandler = () => {
-  // ID города искать в файле http://bulk.openweathermap.org/sample/current.city.list.json.gz
+  /** ID города искать в файле http://bulk.openweathermap.org/sample/current.city.list.json.gz */
   const weatherSettings = {
     city: "Safonovo",
     cityId: 499452,
@@ -4434,7 +4412,7 @@ const zTreeHandler = () => {
               isParent: true,
             }
           ]
-         },
+          },
         {
           id: "01_03",
           name: "Подвал",
@@ -4668,13 +4646,15 @@ const buttonsidebartoggleHandler = evt => {
   }
 
   (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("POST", "pages/admin/ajax.php", formData, "json", result => result);
-}; // Разворачивает сайдбар, не отодвигая контент. Переключает класс expanded у сайдбара
-// Кнопка, переключающая сайдбар, класс .sidebar-expand-button
+};
+/** Кнопка, переключающая сайдбар, класс .sidebar-expand-button */
 
 
-const sidebarexpbutton = document.querySelector('.sidebar-expand-button'); // Сайдбар
+const sidebarexpbutton = document.querySelector('.sidebar-expand-button');
+/** Сайдбар*/
 
 const mainsidebar = document.querySelector('.main-sidebar');
+/** Разворачивает сайдбар, не отодвигая контент. Переключает класс expanded у сайдбара */
 
 const buttonsidebarexpHandler = () => {
   if (mainsidebar.classList.contains('expanded')) {
@@ -4682,11 +4662,12 @@ const buttonsidebarexpHandler = () => {
   } else {
     mainsidebar.classList.add('expanded');
   }
-}; // Сворачивает сайдбар, не отодвигая контент. Отключает класс expanded у сайдбара
-// Кнопка, сворачивающая сайдбар, класс .sidebar-close-button
+};
+/** Кнопка, сворачивающая сайдбар, класс .sidebar-close-button */
 
 
 const sidebarclosebutton = document.querySelector('.sidebar-close-button');
+/** Сворачивает сайдбар, не отодвигая контент. Отключает класс expanded у сайдбара */
 
 const buttonsidebarcloseHandler = () => {
   mainsidebar.classList.remove('expanded');
@@ -4694,7 +4675,8 @@ const buttonsidebarcloseHandler = () => {
 
 const sidebarexpandHandler = () => {
   mainsidebar.classList.add('expanded');
-}; // Переключатель светлого/темного режима
+};
+/** Переключатель светлого/темного режима */
 
 
 const darkmodetogglbutton = document.querySelector('.tumbler__wrapper');
@@ -4717,29 +4699,35 @@ const darkmodetoggleHandler = () => {
 
 if (darkmodetogglbutton) {
   darkmodetogglbutton.addEventListener('click', darkmodetoggleHandler);
-} // Добавляет класс open у .top-search
-// Кнопка вкл/выкл верхнего поиска, класс .top-search-button-toggle
+}
+/** Кнопка вкл/выкл верхнего поиска, класс .top-search-button-toggle */
 
 
-const searchbutton = document.querySelector('.top-search-button-toggle'); // Верхний поиск, класс .top-search
+const searchbutton = document.querySelector('.top-search-button-toggle');
+/** Верхний поиск, класс .top-search */
 
-const searchinput = document.querySelector('.top-search'); // Кнопка закрытия верхнего поиска, класс .top-search-close
+const searchinput = document.querySelector('.top-search');
+/** Кнопка закрытия верхнего поиска, класс .top-search-close */
 
 const searchclosebtn = document.querySelector('.top-search-close');
+/** Добавляет класс open у .top-search */
 
 const buttonsearchHandler = () => {
   searchinput.classList.add('open');
-}; // Удаляет класс open у .top-search
+};
+/** Удаляет класс open у .top-search */
 
 
 const buttonsearchcloseHandler = () => {
   searchinput.classList.remove('open');
-}; // Переключает класс .active у ближайшего .menu-item нажатой ссылки меню сайдбара
+};
+/** Переключает класс .active у ближайшего .menu-item нажатой ссылки меню сайдбара */
 
 
 const menuitemClickHandler = evt => {
   evt.target.closest('.menu-item').classList.toggle("active");
-}; // Кнопка Назад. Класс .btn-back. Возвращает на страницу, с которой был переход
+};
+/** Кнопка Назад. Класс .btn-back. Возвращает на страницу, с которой был переход */
 
 
 const backbtn = document.querySelectorAll('.btn-back');
@@ -4750,35 +4738,39 @@ if (backbtn) {
       window.history.back();
     });
   }
-} // Кнопка Печати страницы. Класс .btn-print
+}
+/** Кнопка Печати страницы. Класс .btn-print */
 
 
-const printbtns = document.querySelectorAll('.btn-print');
+const printButtons = document.querySelectorAll('.btn-print');
 
-if (printbtns) {
-  printbtns.forEach(function (printbtn) {
-    printbtn.addEventListener('click', () => {
+if (printButtons) {
+  printButtons.forEach(function (printButtons) {
+    printButtons.addEventListener('click', () => {
       window.print();
     });
   });
-} // Показать / скрыть пароль
-// Кнопка показать / скрыть пароль
+}
+/** Кнопка показать / скрыть пароль */
 
 
-const showhidepass = document.querySelector('.passcode-switch'); // Поле ввода пароля
+const showhidepass = document.querySelector('.passcode-switch');
+/** Поле ввода пароля */
 
 const passinplist = document.querySelectorAll('.passinput');
+/** Показать/скрыть пароль */
 
 const showhidepassHandler = () => {
-  // Меняем тип поля ввода пароля с password на text
+  /** Меняем тип поля ввода пароля с password на text*/
   if (passinplist[0].type === "password") {
-    passinplist.forEach(passinp => passinp.type = "text");
+    passinplist.forEach(passInput => passInput.type = "text");
     showhidepass.classList.toggle('is-hidden');
   } else {
-    passinplist.forEach(passinp => passinp.type = "password");
+    passinplist.forEach(passInput => passInput.type = "password");
     showhidepass.classList.toggle('is-hidden');
   }
-}; // Tooltip и popover
+};
+/** Tooltip и popover */
 
 
 document.querySelectorAll('.bs-tooltip').forEach(function (tooltip) {
@@ -4788,11 +4780,13 @@ document.querySelectorAll('.bs-tooltip').forEach(function (tooltip) {
 });
 document.querySelectorAll('[data-bs-toggle="popover"]').forEach(function (popover) {
   new bootstrap.Popover(popover);
-}); // Отключаем спиннер загрузки при загрузке содержимого
+});
+/** Отключаем спиннер загрузки при загрузке содержимого */
 
 const spinnerloaderHandler = () => {
   spinnerloader.style.display = "none";
-}; // Получает имя файла текущей открытой страницы и ищет такое же в ссылках бокового меню, устанавливает класс active открытому пункту или субпункту и его родителю
+};
+/** Получает имя файла текущей открытой страницы и ищет такое же в ссылках бокового меню, устанавливает класс active открытому пункту или субпункту и его родителю */
 
 
 const sidebarnavmenuHandler = () => {
@@ -4801,11 +4795,12 @@ const sidebarnavmenuHandler = () => {
   let submenulink = sidebarnavmenu.querySelectorAll('.submenu-link');
 
   for (let i = 0, len = menulink.length; i < len; i++) {
-    // Поменять в этом условии http://isp/, если будет другой домен
+    /** Поменять в этом условии http://isp/, если будет другой домен */
     if (filename === "" && menulink[i].href.replace(/^.*[\\\/]/, '').replace('#', '') === "") {
       filename = "/";
       menulink[i].closest('.menu-item').classList.add("active");
-    } // Условие для локальной версии, где главная index.html
+    }
+    /** Условие для локальной версии, где главная index.html */
 
 
     if (filename === "" && menulink[i].href.replace(/^.*[\\\/]/, '').replace('#', '') === "index.html") {
@@ -4823,19 +4818,22 @@ const sidebarnavmenuHandler = () => {
       submenulink[i].closest('.submenu-item').classList.add("active");
       submenulink[i].closest('.menu-item').classList.add("active");
     }
-  } // Прослушивание нажатия нажатия на ссылки меню .navigation-menu
+  }
+  /** Прослушивание нажатия нажатия на ссылки меню .navigation-menu */
 
 
   sidebarnavmenu.addEventListener('click', evt => {
     menuitemClickHandler(evt);
   });
-}; // Подсказки
+};
+/** Подсказки */
 
 
 const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+tooltipTriggerList.map(function (tooltipTriggerEl) {
   return new bootstrap.Tooltip(tooltipTriggerEl);
-}); // Отключаем спиннер загрузки при загрузке содержимого
+});
+/** Отключаем спиннер загрузки при загрузке содержимого */
 
 const maincontentscrollHandler = () => {
   const winScroll = maincontent.scrollTop;
@@ -4846,16 +4844,18 @@ const maincontentscrollHandler = () => {
   if (topprogress) {
     topprogress.style.width = scrolled + "%";
   }
-}; // Ждем полной загрузки дерева
+};
+/** Ждем полной загрузки дерева */
 
 
 document.addEventListener("DOMContentLoaded", () => {
-  //Отключаем спиннер
+  /** Отключаем спиннер */
   if (spinnerloader) {
     spinnerloaderHandler();
   }
-  /* Возвращает текущий день, месяц и день недели в элементы с классами today-group-day,
-  *  today-group-month, today-group-dayw */
+  /** Возвращает текущий день, месяц и день недели в элементы с классами today-group-day,
+   * today-group-month, today-group-dayw
+   * */
 
 
   if (document.querySelector('.today-group')) {
@@ -4870,31 +4870,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (sidebarwrapper.dataset.sidebarWidth === "narrow") {
     sidebartogglbutton.querySelector('i').classList.add('mdi-crosshairs');
-  } // Прослушивание прокручивания .main-content
+  }
+  /** Прослушивание прокручивания .main-content */
 
 
   if (backtotopbutton) {
-    maincontent.addEventListener('scroll', maincontentscroll); // Прослушивание нажатия кнопки .back-to-top
+    maincontent.addEventListener('scroll', maincontentscroll);
+    /** Прослушивание нажатия кнопки .back-to-top */
 
     backtotopbutton.addEventListener('click', buttonscrolltotopHandler);
-  } // Прослушивание нажатия кнопки .sidebar-toggle-button
+  }
+  /** Прослушивание нажатия кнопки .sidebar-toggle-button */
 
 
   if (sidebartogglbutton && sidebarwrapper) {
     sidebartogglbutton.addEventListener('click', evt => {
       buttonsidebartoggleHandler(evt);
     });
-  } // Прослушивание нажатия кнопки .sidebar-expand-button
+  }
+  /** Прослушивание нажатия кнопки .sidebar-expand-button */
 
 
   if (sidebarexpbutton) {
     sidebarexpbutton.addEventListener('click', buttonsidebarexpHandler);
-  } // Прослушивание нажатия кнопки .sidebar-close-button
+  }
+  /** Прослушивание нажатия кнопки .sidebar-close-button */
 
 
   if (sidebarclosebutton) {
     sidebarclosebutton.addEventListener('click', buttonsidebarcloseHandler);
-  } // Разворачивалка сайдбара. Только для ширины экрана 1080 или если установлена настройка
+  }
+  /** Разворачивалка сайдбара. Только для ширины экрана 1080 или если установлена настройка */
 
 
   if ($(window).width() > 1080 || sidebarwrapper.dataset.sidebarWidth === "narrow") {
@@ -4902,48 +4908,46 @@ document.addEventListener("DOMContentLoaded", () => {
       mainsidebar.addEventListener('mouseenter', sidebarexpandHandler);
       mainsidebar.addEventListener('mouseleave', buttonsidebarcloseHandler);
     }
-  } // Прослушивание нажатия кнопки .top-search-button-toggle
+  }
+  /** Прослушивание нажатия кнопки .top-search-button-toggle */
 
 
   if (searchbutton && searchinput && searchclosebtn) {
-    searchbutton.addEventListener('click', buttonsearchHandler); // Прослушивание нажатия кнопки .top-search-close
+    searchbutton.addEventListener('click', buttonsearchHandler);
+    /** Прослушивание нажатия кнопки .top-search-close */
 
     searchclosebtn.addEventListener('click', buttonsearchcloseHandler);
-  } // Получает имя файла текущей открытой страницы и ищет такое же в ссылках бокового меню,
-  // устанавливает класс active открытому пункту или субпункту и его родителю
+  }
+  /** Получает имя файла текущей открытой страницы и ищет такое же в ссылках бокового меню,
+   * устанавливает класс active открытому пункту или субпункту и его родителю
+   * */
 
 
   if (sidebarnavmenu) {
     sidebarnavmenuHandler();
-  } // Прогресс бар над хедером
+  }
+  /** Прогресс бар над хедером */
 
 
-  maincontent.addEventListener('scroll', maincontentscrollHandler); // Всплывашка с временем отработки php
+  maincontent.addEventListener('scroll', maincontentscrollHandler);
+  /** Всплывашка с временем отработки php */
 
   if (_globalfunc__WEBPACK_IMPORTED_MODULE_0__.cookieID === "1") {
-    const toastcontainer = document.querySelector('.toasts-container'); // Удаляем скрытые всплывашки
-
-    const hiddentoasts = toastcontainer.querySelectorAll('.hide');
-
-    if (hiddentoasts) {
-      hiddentoasts.forEach(hiddentoast => {
-        toastcontainer.removeChild(hiddentoast);
-      });
-    }
-
-    const toastscripttime = new bootstrap.Toast(document.querySelector('.toast-script-time'));
-    toastscripttime.show();
-  } // Показать/скрыть пароль
+    (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.showBsToast)("", _globalfunc__WEBPACK_IMPORTED_MODULE_0__.toastContainer, '.toast-script-time', "");
+  }
+  /** Показать/скрыть пароль */
 
 
   if (showhidepass && passinplist) {
     showhidepass.addEventListener('click', showhidepassHandler);
-  } // Обновление каждые 5 минут
+  }
+  /** Обновление каждые 5 минут */
 
 
   setInterval(() => {
-    /* Возвращает текущий день, месяц и день недели в элементы с классами today-group-day,
-    *  today-group-month, today-group-dayw */
+    /** Возвращает текущий день, месяц и день недели в элементы с классами today-group-day,
+     * today-group-month, today-group-dayw
+     * */
     if (document.querySelector('.today-group')) {
       document.querySelector(".today-group-dayw").innerHTML = moment().tz('Europe/Moscow').format('dddd');
       document.querySelector(".today-group-day").innerHTML = moment().tz('Europe/Moscow').format('D');

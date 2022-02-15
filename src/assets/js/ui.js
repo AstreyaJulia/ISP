@@ -1,5 +1,5 @@
 import {cookieID} from "./globalfunc"
-import {ajax_send} from "./globalfunc"
+import {ajax_send, showBsToast, toastContainer} from "./globalfunc"
 
 /** Меню сайдбара */
 const sidebarnavmenu = document.querySelector('.navigation-menu');
@@ -60,12 +60,13 @@ const buttonsidebartoggleHandler = (evt) => {
   ajax_send("POST", "pages/admin/ajax.php", formData, "json", result => result);
 };
 
-// Разворачивает сайдбар, не отодвигая контент. Переключает класс expanded у сайдбара
-// Кнопка, переключающая сайдбар, класс .sidebar-expand-button
+/** Кнопка, переключающая сайдбар, класс .sidebar-expand-button */
 const sidebarexpbutton = document.querySelector('.sidebar-expand-button');
-// Сайдбар
+
+/** Сайдбар*/
 const mainsidebar = document.querySelector('.main-sidebar');
 
+/** Разворачивает сайдбар, не отодвигая контент. Переключает класс expanded у сайдбара */
 const buttonsidebarexpHandler = () => {
   if (mainsidebar.classList.contains('expanded')) {
     mainsidebar.classList.remove('expanded');
@@ -74,10 +75,10 @@ const buttonsidebarexpHandler = () => {
   }
 };
 
-// Сворачивает сайдбар, не отодвигая контент. Отключает класс expanded у сайдбара
-// Кнопка, сворачивающая сайдбар, класс .sidebar-close-button
+/** Кнопка, сворачивающая сайдбар, класс .sidebar-close-button */
 const sidebarclosebutton = document.querySelector('.sidebar-close-button');
 
+/** Сворачивает сайдбар, не отодвигая контент. Отключает класс expanded у сайдбара */
 const buttonsidebarcloseHandler = () => {
   mainsidebar.classList.remove('expanded');
 };
@@ -86,7 +87,7 @@ const sidebarexpandHandler = () => {
   mainsidebar.classList.add('expanded');
 };
 
-// Переключатель светлого/темного режима
+/** Переключатель светлого/темного режима */
 const darkmodetogglbutton = document.querySelector('.tumbler__wrapper');
 
 const darkmodetoggleHandler = () => {
@@ -108,29 +109,31 @@ if (darkmodetogglbutton) {
   darkmodetogglbutton.addEventListener('click', darkmodetoggleHandler);
 }
 
-// Добавляет класс open у .top-search
-// Кнопка вкл/выкл верхнего поиска, класс .top-search-button-toggle
+/** Кнопка вкл/выкл верхнего поиска, класс .top-search-button-toggle */
 const searchbutton = document.querySelector('.top-search-button-toggle');
-// Верхний поиск, класс .top-search
+
+/** Верхний поиск, класс .top-search */
 const searchinput = document.querySelector('.top-search');
-// Кнопка закрытия верхнего поиска, класс .top-search-close
+
+/** Кнопка закрытия верхнего поиска, класс .top-search-close */
 const searchclosebtn = document.querySelector('.top-search-close');
 
+/** Добавляет класс open у .top-search */
 const buttonsearchHandler = () => {
   searchinput.classList.add('open');
 };
-// Удаляет класс open у .top-search
+
+/** Удаляет класс open у .top-search */
 const buttonsearchcloseHandler = () => {
   searchinput.classList.remove('open');
 };
 
-
-// Переключает класс .active у ближайшего .menu-item нажатой ссылки меню сайдбара
+/** Переключает класс .active у ближайшего .menu-item нажатой ссылки меню сайдбара */
 const menuitemClickHandler = (evt) => {
   evt.target.closest('.menu-item').classList.toggle("active");
 };
 
-// Кнопка Назад. Класс .btn-back. Возвращает на страницу, с которой был переход
+/** Кнопка Назад. Класс .btn-back. Возвращает на страницу, с которой был переход */
 const backbtn = document.querySelectorAll('.btn-back');
 if (backbtn) {
   for (let a = 0; a < backbtn.length; a++) {
@@ -140,34 +143,35 @@ if (backbtn) {
   }
 }
 
-// Кнопка Печати страницы. Класс .btn-print
-const printbtns = document.querySelectorAll('.btn-print');
-if (printbtns) {
-  printbtns.forEach(function (printbtn) {
-    printbtn.addEventListener('click', () => {
+/** Кнопка Печати страницы. Класс .btn-print */
+const printButtons = document.querySelectorAll('.btn-print');
+if (printButtons) {
+  printButtons.forEach(function (printButtons) {
+    printButtons.addEventListener('click', () => {
       window.print()
     });
   });
 }
 
-// Показать / скрыть пароль
-// Кнопка показать / скрыть пароль
+/** Кнопка показать / скрыть пароль */
 const showhidepass = document.querySelector('.passcode-switch');
-// Поле ввода пароля
+
+/** Поле ввода пароля */
 const passinplist = document.querySelectorAll('.passinput');
 
+/** Показать/скрыть пароль */
 const showhidepassHandler = () => {
-  // Меняем тип поля ввода пароля с password на text
+  /** Меняем тип поля ввода пароля с password на text*/
   if (passinplist[0].type === "password") {
-    passinplist.forEach(passinp => passinp.type = "text");
+    passinplist.forEach(passInput => passInput.type = "text");
     showhidepass.classList.toggle('is-hidden');
   } else {
-    passinplist.forEach(passinp => passinp.type = "password");
+    passinplist.forEach(passInput => passInput.type = "password");
     showhidepass.classList.toggle('is-hidden');
   }
 };
 
-// Tooltip и popover
+/** Tooltip и popover */
 document.querySelectorAll('.bs-tooltip')
   .forEach(function (tooltip) {
     new bootstrap.Tooltip(tooltip, {
@@ -180,23 +184,23 @@ document.querySelectorAll('[data-bs-toggle="popover"]')
     new bootstrap.Popover(popover)
   })
 
-// Отключаем спиннер загрузки при загрузке содержимого
+/** Отключаем спиннер загрузки при загрузке содержимого */
 const spinnerloaderHandler = () => {
   spinnerloader.style.display = "none";
 };
 
-// Получает имя файла текущей открытой страницы и ищет такое же в ссылках бокового меню, устанавливает класс active открытому пункту или субпункту и его родителю
+/** Получает имя файла текущей открытой страницы и ищет такое же в ссылках бокового меню, устанавливает класс active открытому пункту или субпункту и его родителю */
 const sidebarnavmenuHandler = () => {
   let filename = window.location.href.replace(/^.*[\\\/]/, '').replace('#', '');
   let menulink = sidebarnavmenu.querySelectorAll('.menu-link');
   let submenulink = sidebarnavmenu.querySelectorAll('.submenu-link');
   for (let i = 0, len = menulink.length; i < len; i++) {
-    // Поменять в этом условии http://isp/, если будет другой домен
+    /** Поменять в этом условии http://isp/, если будет другой домен */
     if (filename === "" && menulink[i].href.replace(/^.*[\\\/]/, '').replace('#', '') === "") {
       filename = "/";
       menulink[i].closest('.menu-item').classList.add("active");
     }
-    // Условие для локальной версии, где главная index.html
+    /** Условие для локальной версии, где главная index.html */
     if (filename === "" && menulink[i].href.replace(/^.*[\\\/]/, '').replace('#', '') === "index.html") {
       filename = "index.html";
       menulink[i].closest('.menu-item').classList.add("active");
@@ -211,19 +215,19 @@ const sidebarnavmenuHandler = () => {
       submenulink[i].closest('.menu-item').classList.add("active");
     }
   }
-  // Прослушивание нажатия нажатия на ссылки меню .navigation-menu
+  /** Прослушивание нажатия нажатия на ссылки меню .navigation-menu */
   sidebarnavmenu.addEventListener('click', (evt) => {
     menuitemClickHandler(evt);
   });
 };
 
-// Подсказки
+/** Подсказки */
 const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+tooltipTriggerList.map(function (tooltipTriggerEl) {
   return new bootstrap.Tooltip(tooltipTriggerEl)
 });
 
-// Отключаем спиннер загрузки при загрузке содержимого
+/** Отключаем спиннер загрузки при загрузке содержимого */
 const maincontentscrollHandler = () => {
   const winScroll = maincontent.scrollTop;
   const height = maincontent.scrollHeight - maincontent.clientHeight;
@@ -232,17 +236,18 @@ const maincontentscrollHandler = () => {
   if (topprogress) {
     topprogress.style.width = scrolled + "%";
   }
-
 };
 
-// Ждем полной загрузки дерева
+/** Ждем полной загрузки дерева */
 document.addEventListener("DOMContentLoaded", () => {
-  //Отключаем спиннер
+  /** Отключаем спиннер */
   if (spinnerloader) {
     spinnerloaderHandler();
   }
-  /* Возвращает текущий день, месяц и день недели в элементы с классами today-group-day,
-*  today-group-month, today-group-dayw */
+
+  /** Возвращает текущий день, месяц и день недели в элементы с классами today-group-day,
+   * today-group-month, today-group-dayw
+   * */
   if (document.querySelector('.today-group')) {
     document.querySelector(".today-group-dayw").innerHTML = moment().tz('Europe/Moscow').format('dddd');
     document.querySelector(".today-group-day").innerHTML = moment().tz('Europe/Moscow').format('D');
@@ -257,31 +262,32 @@ document.addEventListener("DOMContentLoaded", () => {
     sidebartogglbutton.querySelector('i').classList.add('mdi-crosshairs');
   }
 
-  // Прослушивание прокручивания .main-content
+  /** Прослушивание прокручивания .main-content */
   if (backtotopbutton) {
     maincontent.addEventListener('scroll', maincontentscroll);
-    // Прослушивание нажатия кнопки .back-to-top
+
+    /** Прослушивание нажатия кнопки .back-to-top */
     backtotopbutton.addEventListener('click', buttonscrolltotopHandler);
   }
 
-  // Прослушивание нажатия кнопки .sidebar-toggle-button
+  /** Прослушивание нажатия кнопки .sidebar-toggle-button */
   if (sidebartogglbutton && sidebarwrapper) {
     sidebartogglbutton.addEventListener('click', (evt) => {
       buttonsidebartoggleHandler(evt);
     });
   }
 
-  // Прослушивание нажатия кнопки .sidebar-expand-button
+  /** Прослушивание нажатия кнопки .sidebar-expand-button */
   if (sidebarexpbutton) {
     sidebarexpbutton.addEventListener('click', buttonsidebarexpHandler);
   }
 
-  // Прослушивание нажатия кнопки .sidebar-close-button
+  /** Прослушивание нажатия кнопки .sidebar-close-button */
   if (sidebarclosebutton) {
     sidebarclosebutton.addEventListener('click', buttonsidebarcloseHandler);
   }
 
-  // Разворачивалка сайдбара. Только для ширины экрана 1080 или если установлена настройка
+  /** Разворачивалка сайдбара. Только для ширины экрана 1080 или если установлена настройка */
   if (($(window).width() > 1080) || (sidebarwrapper.dataset.sidebarWidth === "narrow")) {
     if (mainsidebar) {
       mainsidebar.addEventListener('mouseenter', sidebarexpandHandler);
@@ -289,52 +295,42 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Прослушивание нажатия кнопки .top-search-button-toggle
+  /** Прослушивание нажатия кнопки .top-search-button-toggle */
   if (searchbutton && searchinput && searchclosebtn) {
     searchbutton.addEventListener('click', buttonsearchHandler);
-    // Прослушивание нажатия кнопки .top-search-close
+    /** Прослушивание нажатия кнопки .top-search-close */
     searchclosebtn.addEventListener('click', buttonsearchcloseHandler);
   }
 
-  // Получает имя файла текущей открытой страницы и ищет такое же в ссылках бокового меню,
-  // устанавливает класс active открытому пункту или субпункту и его родителю
+  /** Получает имя файла текущей открытой страницы и ищет такое же в ссылках бокового меню,
+   * устанавливает класс active открытому пункту или субпункту и его родителю
+   * */
   if (sidebarnavmenu) {
     sidebarnavmenuHandler();
   }
 
-  // Прогресс бар над хедером
+  /** Прогресс бар над хедером */
   maincontent.addEventListener('scroll', maincontentscrollHandler);
 
-  // Всплывашка с временем отработки php
+  /** Всплывашка с временем отработки php */
   if (cookieID === "1") {
-    const toastcontainer = document.querySelector('.toasts-container');
-    // Удаляем скрытые всплывашки
-    const hiddentoasts = toastcontainer.querySelectorAll('.hide');
-    if (hiddentoasts) {
-      hiddentoasts.forEach((hiddentoast) => {
-        toastcontainer.removeChild(hiddentoast);
-      });
-    }
-
-    const toastscripttime = new bootstrap.Toast(document.querySelector('.toast-script-time'));
-    toastscripttime.show();
-
+    showBsToast("", toastContainer, '.toast-script-time', "")
   }
 
-  // Показать/скрыть пароль
+  /** Показать/скрыть пароль */
   if (showhidepass && passinplist) {
     showhidepass.addEventListener('click', showhidepassHandler);
   }
 
-  // Обновление каждые 5 минут
+  /** Обновление каждые 5 минут */
   setInterval(() => {
-    /* Возвращает текущий день, месяц и день недели в элементы с классами today-group-day,
-*  today-group-month, today-group-dayw */
+    /** Возвращает текущий день, месяц и день недели в элементы с классами today-group-day,
+     * today-group-month, today-group-dayw
+     * */
     if (document.querySelector('.today-group')) {
       document.querySelector(".today-group-dayw").innerHTML = moment().tz('Europe/Moscow').format('dddd');
       document.querySelector(".today-group-day").innerHTML = moment().tz('Europe/Moscow').format('D');
       document.querySelector(".today-group-month").innerHTML = moment().tz('Europe/Moscow').format('MMMM');
-
     }
   }, 300000);
 

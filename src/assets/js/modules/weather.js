@@ -2,7 +2,7 @@ import {ajax_send} from "../globalfunc"
 
 /** Погодный виджет */
 const weatherHandler = () => {
-  // ID города искать в файле http://bulk.openweathermap.org/sample/current.city.list.json.gz
+  /** ID города искать в файле http://bulk.openweathermap.org/sample/current.city.list.json.gz */
 
   const weatherSettings = {
     city: "Safonovo",

@@ -1,108 +1,84 @@
 /** ГЛОБАЛЬНЫЕ ФУНКЦИИ */
 
+const toastContainer = document.querySelector('.toasts-container');
+
 /**
- * Выбранные чекбоксы в группе, возвращает массив
+ * Сформировать массив из значений чекбоксов в группе
  * @param allInputs - группа элементов
- * @param mode
- * @returns {*[]}
+ * @param mode - режим: "selected" - выбранные, "all" - все
+ * @returns {*[]} - массив из value чекбоксов
  */
-// FIXME переделать на массив
 function selectedCheckboxes(allInputs, mode) {
-  const filterInput = allInputs;
-  const checkboxes = [];
   switch (mode) {
     case "selected":
-      for (let j = 0; j < filterInput.length; j++) {
-        if (filterInput[j].checked) {
-          checkboxes.push(filterInput[j].value.toLowerCase());
-        }
-      }
-      return checkboxes;
+      return Array.from(allInputs).filter(input => input.checked).map(c => c.value.toLowerCase());
     case "all":
-      for (let j = 0; j < filterInput.length; j++) {
-        checkboxes.push(filterInput[j].value.toLowerCase());
-      }
-      return checkboxes;
+      return Array.from(allInputs).filter(input => input.checked).map(c => c.value.toLowerCase());
   }
-
 }
 
 /**
- * Toast. Большие всплывашки с заголовком и временем
- * @param header заголовок
- * @param text текст
- * @param time time в виде строки
+ * Добавить всплывашку в разметку, скрыть показанные всплывашки, показать всплывашку
+ * @param toast - HTML-разметка всплывашки для вставки в контейнер, если в разметке уже есть, то пустое
+ * @param container - контейнер для всплывашек
+ * @param toastClass - класс всплывашки, по которому ее будем выводить, в кавычках и с точкой
+ * @param toastParams - параметры для всплывашки
  */
-// FIXME переделать всплывашки на ф-ю конструктор
-function showToast(header, text, time) {
-  const toastcontainer = document.querySelector('.toasts-container');
+function showBsToast(toast, container, toastClass, toastParams) {
   /** Удаляем скрытые всплывашки */
-  const hiddentoasts = toastcontainer.querySelectorAll('.hide');
-  if (hiddentoasts) {
-    hiddentoasts.forEach((hiddentoast) => {
-      toastcontainer.removeChild(hiddentoast);
+  const hiddenToasts = container.querySelectorAll('.hide');
+  if (hiddenToasts) {
+    hiddenToasts.forEach((hiddenToast) => {
+      container.removeChild(hiddenToast);
     });
   }
-
-  const toastElement = '<div class="toast fade" role="alert" aria-live="assertive" aria-atomic="true"><div class="toast-header"><i class="mdi mdi-message-alert-outline"></i><strong class="me-auto">' + header + '</strong><small class="text-muted">' + time + '</small><button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть"></button></div><div class="toast-body">' + text + '</div></div>';
-  toastcontainer.insertAdjacentHTML('beforeend', toastElement);
-  const toastElList = [].slice.call(document.querySelectorAll('.toast'));
-  const toastList = toastElList.map(function (toastEl) {
-    return new bootstrap.Toast(toastEl)
+  container.insertAdjacentHTML('beforeend', toast);
+  const toastElList = [].slice.call(document.querySelectorAll('.toast' + toastClass));
+  toastElList.map(function (toastEl) {
+    return new bootstrap.Toast(toastEl, toastParams).show()
   });
-  toastList.forEach(toast => toast.show());
 }
 
 /**
- * Ошибки Toast. Большие всплывашки с заголовком и временем
- * @param header заголовок
- * @param text текст
- * @param time time
+ * Всплывашки
  */
-function showErrorToast(header, text, time) {
-  const toastcontainer = document.querySelector('.toasts-container');
-  /** Удаляем скрытые всплывашки */
-  const hiddentoasts = toastcontainer.querySelectorAll('.hide');
-  if (hiddentoasts) {
-    hiddentoasts.forEach((hiddentoast) => {
-      toastcontainer.removeChild(hiddentoast);
-    });
+class Toast {
+  /**
+   * @param header - текст заголовка всплывашки
+   * @param text - текст
+   * @param time - время в виде строки
+   * @param type - тип: toast - обычные, errorToast - ошибки, не закрываются автоматически, miniToast - мини, цветные, без заголовка
+   * @param color - цвет
+   */
+  constructor(header, text, time, type, color) {
+    this.header = header;
+    this.text = text;
+    this.time = time;
+    this.color = color;
+    this.toastParam = {autohide: true};
+    switch (type) {
+      case "toast":
+        this.class = "toast-info"
+        this.toastElement = '<div class="toast ' + this.class + ' fade" role="alert" aria-live="assertive" aria-atomic="true"><div class="toast-header"><i class="mdi mdi-message-alert-outline"></i><strong class="me-auto">' + this.header + '</strong><small class="text-muted">' + this.time + '</small><button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть"></button></div><div class="toast-body">' + this.text + '</div></div>';
+        break;
+      case "errorToast":
+        this.class = "toast-error"
+        this.toastElement = '<div class="toast ' + this.class + ' fade" role="alert" aria-live="assertive" aria-atomic="true"><div class="toast-header"><i class="mdi mdi-alert text-danger"></i><strong class="me-auto text-danger">' + this.header + '</strong><small class="text-muted">' + this.time + '</small><button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть"></button></div><div class="toast-body">' + this.text + '</div></div>';
+        this.toastParam = {autohide: false};
+        break;
+      case "miniToast":
+        this.class = "toast-info"
+        this.toastElement = '<div class="toast ' + this.class + ' align-items-center bg-' + this.color + '-lighter" role="alert" aria-live="assertive" aria-atomic="true"><div class="d-flex"><div class="toast-body">' + this.text + '</div><button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Закрыть"></button></div></div>';
+        break;
+    }
   }
 
-  const toastElement = '<div class="toast fade" role="alert" aria-live="assertive" aria-atomic="true"><div class="toast-header"><i class="mdi mdi-alert text-danger"></i><strong class="me-auto text-danger">' + header + '</strong><small class="text-muted">' + time + '</small><button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть"></button></div><div class="toast-body">' + text + '</div></div>';
-  toastcontainer.insertAdjacentHTML('beforeend', toastElement);
-  const toastElList = [].slice.call(document.querySelectorAll('.toast'));
-  const toastList = toastElList.map(function (toastEl) {
-    return new bootstrap.Toast(toastEl, {
-      autohide: false
-    })
-  });
-  toastList.forEach(toast => toast.show());
-}
-
-/**
- * Toast mini. Маленькие цветные всплывашки без заголовка и времени
- * @param text
- * @param color
- */
-function showMiniToast(text, color) {
-  const toastcontainer = document.querySelector('.toasts-container');
-  /** Удаляем скрытые всплывашки */
-  const hiddentoasts = toastcontainer.querySelectorAll('.hide');
-  if (hiddentoasts) {
-    hiddentoasts.forEach((hiddentoast) => {
-      toastcontainer.removeChild(hiddentoast);
-    });
+  /**
+   * Показывает всплывашки
+   */
+  show() {
+    showBsToast(this.toastElement, toastContainer, "." + this.class, this.toastParam)
   }
-
-  const toastElement = '<div class="toast align-items-center bg-' + color + '-lighter" role="alert" aria-live="assertive" aria-atomic="true"><div class="d-flex"><div class="toast-body">' + text + '</div><button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Закрыть"></button></div></div>';
-  toastcontainer.insertAdjacentHTML('beforeend', toastElement);
-
-  const toastElList = [].slice.call(document.querySelectorAll('.toast'));
-  const toastList = toastElList.map(function (toastEl) {
-    return new bootstrap.Toast(toastEl)
-  });
-  toastList.forEach(toast => toast.show());
 }
 
 /**
@@ -185,7 +161,7 @@ const ajax_send = (method, url, parameters, datatype, callback) => {
             result = JSON.parse(xhr.response);
             callback(result);
           } catch (e) {
-            showErrorToast("Ошибка", xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
+            new Toast("Ошибка", xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'), "errorToast", "").show();
           }
         } else if (datatype === "text") {
           callback(xhr.responseText);
@@ -195,22 +171,22 @@ const ajax_send = (method, url, parameters, datatype, callback) => {
         if (!xhr.response) {
           callback('null');
         } else {
-          showErrorToast("Ошибка", xhr.response, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
+          new Toast("Ошибка", xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'), "errorToast", "").show();
         }
       }
 
     } else if (xhr.status === 0) {
       header = "Не подключено. Проверьте сеть";
-      showErrorToast(header, xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
+      new Toast(header, xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'), "errorToast", "").show();
     } else if (xhr.status === 404) {
       header = "404. Not Found. Запрашиваемая страница не найдена ";
-      showErrorToast(header, xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
+      new Toast(header, xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'), "errorToast", "").show();
     } else if (xhr.status === 500) {
       header = "Внутренняя ошибка сервера [500]";
-      showErrorToast(header, xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'))
+      new Toast(header, xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'), "errorToast", "").show();
     }
   }
 
 }
 
-export {selectedCheckboxes, showToast, showErrorToast, showMiniToast, getCookie, cookieID, ajax_send}
+export {selectedCheckboxes, getCookie, cookieID, ajax_send, Toast, showBsToast, toastContainer}
