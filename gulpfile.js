@@ -32,7 +32,7 @@ exports.styles = styles;
  * @returns {*} точка входа JS-бандла
  */
 const jsbundle = () => {
-  return gulp.src("src/entry.js")
+  return gulp.src("src/assets/js/app.js")
     .pipe(webpack({config : require("./webpack.config.js"),
       externals: {
         jquery: 'jQuery'
@@ -65,8 +65,7 @@ exports.images = images;
 const copy = () => {
   return gulp.src([
       "src/assets/fonts/*.*",
-      "src/assets/modules/**/*.{js,map,css,json}",
-      /*"src/assets/js/app.js"*/
+      "src/assets/modules/**/*.{js,map,css,json}"
     ],
     {
       base: "src/assets/"

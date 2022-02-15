@@ -82,10 +82,10 @@ function LineChartSimple(name, data, color) {
     data: data
   }];
   this.chart = {
-    height: 350,
+    height: 150,
     type: 'line',
     toolbar: {
-      show: true
+      show: false
     }
   };
   this.grid = {
@@ -105,6 +105,24 @@ function LineChartSimple(name, data, color) {
   this.noData = {
     text: 'Загрузка...'
   };
+  this.yaxis = {
+    show: false,
+      labels: {
+      show: false
+    },
+    axisBorder: {
+      show: false
+    }
+  };
+  this.xaxis = {
+    show: false,
+      labels: {
+      show: false
+    },
+    axisBorder: {
+      show: false
+    }
+  }
 }
 
 

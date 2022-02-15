@@ -1,9 +1,10 @@
-// Переключает класс .active у ближайшего .list-group-item нажатой ссылки списка ссылок
-// Список групп ссылок
+/** Список групп ссылок */
 const listgroupmenu = document.querySelector('.list-tab-group .list-group');
-// Список ссылок
+//
+/** Список ссылок */
 const tablistgroupmenu = document.querySelector('.tab-content');
 
+/** Переключает класс .active у ближайшего .list-group-item нажатой ссылки списка ссылок */
 if (listgroupmenu && tablistgroupmenu) {
   const listgroup = listgroupmenu.querySelectorAll('.list-group-item');
   const tablistgroup = tablistgroupmenu.querySelectorAll('.tab-list-group');
@@ -23,20 +24,20 @@ if (listgroupmenu && tablistgroupmenu) {
       }
     }
   };
-  // Устанавливает класс active первой из найденных ссылок и табов
+  /** Устанавливает класс active первой из найденных ссылок и табов */
   if (listgroup[0] && tablistgroup[0]) {
     listgroup[0].classList.add("active");
     tablistgroup[0].classList.add("active");
   }
 
-  // Прослушивание нажатия нажатия на ссылки списка ссылок .list-group
+  /** Прослушивание нажатия нажатия на ссылки списка ссылок .list-group */
   listgroupmenu.addEventListener('click', (evt) => {
     listgroupitemClickHandler(evt);
   });
 }
 
-// Мульти модал для каталога ссылок
-// Модалы для списка ссылок
+/** Мульти модал для каталога ссылок */
+/** Модалы для списка ссылок */
 const multimodal = document.querySelector('.modal-multiaction');
 const multimodalbtns = document.querySelectorAll('.btnmodal-multiaction');
 
@@ -50,9 +51,7 @@ const multimodalhandler = (evt) => {
   const cancelBtn = multimodal.querySelector('.btn-discard');
   const span = multimodal.querySelector('.btn-close');
 
-  // Функции
-
-  // Скрыть модал
+  /** Скрыть модал */
   function hideModal() {
     multimodal.style.display = "none";
     multimodal.classList.remove('show');
@@ -62,7 +61,7 @@ const multimodalhandler = (evt) => {
     }
   }
 
-  // Показать модал
+  /** Показать модал */
   function showModal() {
     multimodal.classList.add('show');
     multimodal.style.display = "block";
@@ -71,13 +70,13 @@ const multimodalhandler = (evt) => {
     document.body.appendChild(btn);
   }
 
-  // Кнопка закрыть
+  /** Кнопка закрыть */
   $(span).on('click', function () {
     hideModal();
     delbtn.href = '';
   });
 
-  // Кнопка отмены
+  /** Кнопка отмены */
   $(cancelBtn).on('click', function () {
     hideModal();
     delbtn.href = '';
@@ -95,7 +94,7 @@ const multimodalhandler = (evt) => {
   }
 
   if (dataaction === "1") {
-    // 1 действие. Удалить группу
+    /** 1 действие. Удалить группу */
     header2.style.display = "none";
     text2.style.display = "none";
     header1.style.display = "block";
@@ -103,7 +102,7 @@ const multimodalhandler = (evt) => {
   }
 
   if (dataaction === "2") {
-    // 2 действие. Удалить группу
+    /** 2 действие. Удалить группу */
     header1.style.display = "none";
     text1.style.display = "none";
     header2.style.display = "block";

@@ -99,12 +99,10 @@
               class="mdi mdi-account-wrench-outline me-2"></i><span>Управление</span></a>
         </div>
       </div>
-      <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
-        <div class="card card mb-3 p-3">
-          <div class="widget-content">
-            <h6 class="surtitle">Посещения</h6>
+      <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-3 col-sm-3 col-12">
+        <div class="card card mb-3">
+            <h6 class="surtitle pt-3 ps-3 pe-3">Посещения</h6>
             <div class="apexchart1" data-chart-name="successLineChart"></div>
-          </div>
         </div>
       </div>
 

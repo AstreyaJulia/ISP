@@ -458,10 +458,10 @@ function LineChartSimple(name, data, color) {
     data: data
   }];
   this.chart = {
-    height: 350,
+    height: 150,
     type: 'line',
     toolbar: {
-      show: true
+      show: false
     }
   };
   this.grid = {
@@ -480,6 +480,24 @@ function LineChartSimple(name, data, color) {
   };
   this.noData = {
     text: 'Загрузка...'
+  };
+  this.yaxis = {
+    show: false,
+    labels: {
+      show: false
+    },
+    axisBorder: {
+      show: false
+    }
+  };
+  this.xaxis = {
+    show: false,
+    labels: {
+      show: false
+    },
+    axisBorder: {
+      show: false
+    }
   };
 }
 /**
@@ -1347,11 +1365,12 @@ if (faqaccordeon) {
   \****************************************/
 /***/ (function() {
 
-// Ищет в форме селект с id profession, проверяет, если судья или председатель, то отображает принадлежность судье, если нет, то блокирует и сбрасывает значение
-// Селект Профессия
-const profselect = document.getElementById('profession'); // Селект Принадлежность
+/** Селект Профессия */
+const profselect = document.getElementById('profession');
+/** Селект Принадлежность */
 
 const affselect = document.getElementById('affiliation');
+/** Ищет в форме селект с id profession, проверяет, если судья или председатель, то отображает принадлежность судье, если нет, то блокирует и сбрасывает значение */
 
 const profselectHandler = () => {
   if (profselect.options[profselect.selectedIndex].value === '6' || profselect.options[profselect.selectedIndex].value === '7' || profselect.options[profselect.selectedIndex].value === '9') {
@@ -1360,13 +1379,15 @@ const profselectHandler = () => {
     affselect.disabled = true;
     affselect.selectedIndex = 0;
   }
-}; // Если не в штате, то блокирует и сбрасывает кабинет
-// Селект В штате
+};
+/** Селект В штате */
 
 
-const activeselect = document.getElementById('active'); // Селект Кабинет
+const activeselect = document.getElementById('active');
+/** Селект Кабинет */
 
 const roomselect = document.getElementById('room');
+/** Если не в штате, то блокирует и сбрасывает кабинет */
 
 const activeselectHandler = () => {
   if (activeselect.options[activeselect.selectedIndex].value === '1') {
@@ -1375,28 +1396,20 @@ const activeselectHandler = () => {
     roomselect.disabled = true;
     roomselect.selectedIndex = 0;
   }
-}; // Ждем полной загрузки дерева
+};
+/** Ждем полной загрузки дерева */
 
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Форма добавления сотрудника. Профессия и активность
-  if (profselect && affselect) {
-    profselectHandler();
-  }
+  /** Форма добавления сотрудника. Профессия и активность*/
+  profselect && affselect ? profselectHandler() : false;
+  activeselect && roomselect ? activeselectHandler() : false;
+  /** Принадлежность судье */
 
-  if (activeselect && roomselect) {
-    activeselectHandler();
-  } // Принадлежность судье
+  profselect && affselect ? profselect.addEventListener('change', profselectHandler) : false;
+  /** В штате */
 
-
-  if (profselect && affselect) {
-    profselect.addEventListener('change', profselectHandler);
-  } // В штате
-
-
-  if (activeselect && roomselect) {
-    activeselect.addEventListener('change', activeselectHandler);
-  }
+  activeselect && roomselect ? activeselect.addEventListener('change', activeselectHandler) : false;
 });
 
 /***/ }),
@@ -2573,9 +2586,8 @@ document.addEventListener("DOMContentLoaded", () => {
   \***************************************************/
 /***/ (function() {
 
-// Все элементы, для к-рых нужна прокрутка
+/** Все элементы, для к-рых нужна прокрутка */
 const overlayscrollbar = OverlayScrollbars(document.querySelectorAll(".overlayscrollbar"), {
-  //className            : "os-theme-light",
   resize: "none",
   sizeAutoCapable: true,
   clipAlways: true,
@@ -2634,16 +2646,18 @@ const overlayscrollbar = OverlayScrollbars(document.querySelectorAll(".overlaysc
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _globalfunc__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../globalfunc */ "./src/assets/js/globalfunc.js");
 
- // Фильтр в телефонной книге
-//Фильтр в телефонном справочнике
-// Ищем группу фильтров с селектором button-group
 
-const filterGroup = document.querySelector('.phonebook-filter'); // Куда будет выводиться результат
+/** Ищем группу фильтров с селектором button-group */
+
+/** Фильтр в телефонном справочнике */
+
+const filterGroup = document.querySelector('.phonebook-filter');
+/** Куда будет выводиться результат */
 
 const result = document.getElementById('filter');
 
 const filterClickHandler = () => {
-  //Обнуление строк фильтров - выбранного и пустого
+  /** Обнуление строк фильтров - выбранного и пустого */
   let filterItems = filterGroup.querySelectorAll('input[type=checkbox]');
   let selected = (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.selectedCheckboxes)(filterItems, 'selected');
 
@@ -2665,22 +2679,23 @@ const filterClickHandler = () => {
     });
   }
 };
-/* Слушаем клик по каждому из фильтров телефонной книги */
+/** Слушаем клик по каждому из фильтров телефонной книги */
 
 
 if (filterGroup && result) {
-  // Ищем в filter-group элементы фильтров checkbox
+  /** Ищем в filter-group элементы фильтров checkbox */
   let filterItems = filterGroup.querySelectorAll('input[type=checkbox]');
   filterItems.forEach(function (filter) {
     filter.addEventListener('click', () => {
       filterClickHandler();
     });
   });
-} // Ждем полной загрузки дерева
+}
+/** Ждем полной загрузки дерева */
 
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Загрузка телефонной книги
+  /** Загрузка телефонной книги */
   if (filterGroup && result) {
     filterClickHandler();
   }
@@ -2694,11 +2709,13 @@ document.addEventListener("DOMContentLoaded", () => {
   \********************************************/
 /***/ (function() {
 
-// Переключает класс .active у ближайшего .list-group-item нажатой ссылки списка ссылок
-// Список групп ссылок
-const listgroupmenu = document.querySelector('.list-tab-group .list-group'); // Список ссылок
+/** Список групп ссылок */
+const listgroupmenu = document.querySelector('.list-tab-group .list-group'); //
+
+/** Список ссылок */
 
 const tablistgroupmenu = document.querySelector('.tab-content');
+/** Переключает класс .active у ближайшего .list-group-item нажатой ссылки списка ссылок */
 
 if (listgroupmenu && tablistgroupmenu) {
   const listgroup = listgroupmenu.querySelectorAll('.list-group-item');
@@ -2722,20 +2739,24 @@ if (listgroupmenu && tablistgroupmenu) {
         }
       }
     }
-  }; // Устанавливает класс active первой из найденных ссылок и табов
+  };
+  /** Устанавливает класс active первой из найденных ссылок и табов */
 
 
   if (listgroup[0] && tablistgroup[0]) {
     listgroup[0].classList.add("active");
     tablistgroup[0].classList.add("active");
-  } // Прослушивание нажатия нажатия на ссылки списка ссылок .list-group
+  }
+  /** Прослушивание нажатия нажатия на ссылки списка ссылок .list-group */
 
 
   listgroupmenu.addEventListener('click', evt => {
     listgroupitemClickHandler(evt);
   });
-} // Мульти модал для каталога ссылок
-// Модалы для списка ссылок
+}
+/** Мульти модал для каталога ссылок */
+
+/** Модалы для списка ссылок */
 
 
 const multimodal = document.querySelector('.modal-multiaction');
@@ -2749,8 +2770,8 @@ const multimodalhandler = evt => {
   const text1 = multimodal.querySelector('.text-1');
   const text2 = multimodal.querySelector('.text-2');
   const cancelBtn = multimodal.querySelector('.btn-discard');
-  const span = multimodal.querySelector('.btn-close'); // Функции
-  // Скрыть модал
+  const span = multimodal.querySelector('.btn-close');
+  /** Скрыть модал */
 
   function hideModal() {
     multimodal.style.display = "none";
@@ -2760,7 +2781,8 @@ const multimodalhandler = evt => {
     if (btn) {
       document.body.removeChild(btn);
     }
-  } // Показать модал
+  }
+  /** Показать модал */
 
 
   function showModal() {
@@ -2769,13 +2791,15 @@ const multimodalhandler = evt => {
     const btn = document.createElement("div");
     btn.setAttribute('class', 'modal-backdrop fade show');
     document.body.appendChild(btn);
-  } // Кнопка закрыть
+  }
+  /** Кнопка закрыть */
 
 
   $(span).on('click', function () {
     hideModal();
     delbtn.href = '';
-  }); // Кнопка отмены
+  });
+  /** Кнопка отмены */
 
   $(cancelBtn).on('click', function () {
     hideModal();
@@ -2794,7 +2818,7 @@ const multimodalhandler = evt => {
   }
 
   if (dataaction === "1") {
-    // 1 действие. Удалить группу
+    /** 1 действие. Удалить группу */
     header2.style.display = "none";
     text2.style.display = "none";
     header1.style.display = "block";
@@ -2802,7 +2826,7 @@ const multimodalhandler = evt => {
   }
 
   if (dataaction === "2") {
-    // 2 действие. Удалить группу
+    /** 2 действие. Удалить группу */
     header1.style.display = "none";
     text1.style.display = "none";
     header2.style.display = "block";
@@ -4137,7 +4161,8 @@ document.addEventListener("DOMContentLoaded", () => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _globalfunc__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../globalfunc */ "./src/assets/js/globalfunc.js");
- // Рабочие места. Древья
+
+/** Рабочие места. Древья */
 
 const workPlaceTree = document.getElementById('workplace-tree');
 const placeitemsTree = document.getElementById('placeitems-tree');
@@ -4146,7 +4171,8 @@ let zTreeObj;
 const zTreeHandler = () => {
   function myOnClick(event, treeId, treeNode) {
     alert(treeNode.id + ", " + treeNode.name);
-  } // zTree конфигурация, изучите API документацию (детали настройки)
+  }
+  /** zTree конфигурация, изучите API документацию (детали настройки) */
 
 
   const settingWorktree = {
@@ -4173,277 +4199,7 @@ const zTreeHandler = () => {
   };
   let test = {
     module: "workplaces"
-  }; // zTree data attributes, refer to the API documentation (treeNode data details)
-
-  /*const workPlaceStructure = [
-    {
-      id: "01_00",
-      name: "Сафоново",
-      open: true,
-      icon: "../../assets/img/icons/building.png",
-      children: [
-        {
-          id: "01_01",
-          name: "1 этаж",
-          icon: "../../assets/img/icons/floor.png",
-          children: [
-            {
-              id: "01_03",
-              name: "Каб. №8",
-              icon: "../../assets/img/icons/door.png",
-              isParent: true,
-              children: [
-                {
-                  id: "02_01",
-                  name: "Проход каб. 8",
-                  icon: "../../assets/img/icons/door.png",
-                  isParent: true,
-                  children: [
-                    {
-                      id: "02_01",
-                      name: "АРМ 1",
-                      icon: "../../assets/img/icons/desktop.png",
-                      isParent: false,
-                    },
-                    {
-                      id: "02_01",
-                      name: "АРМ 2",
-                      icon: "../../assets/img/icons/desktop.png",
-                      isParent: false,
-                    }
-                  ]
-                },
-                {
-                  id: "02_01",
-                  name: "АРМ 1",
-                  icon: "../../assets/img/icons/desktop.png",
-                  isParent: false,
-                },
-                {
-                  id: "02_01",
-                  name: "АРМ 1",
-                  icon: "../../assets/img/icons/desktop.png",
-                  isParent: false,
-                }
-              ]
-            },
-            {
-              id: "01_04",
-              name: "Каб. №9",
-              icon: "../../assets/img/icons/door.png",
-              isParent: true,
-            },
-            {
-              id: "01_05",
-              name: "Каб. №10",
-              icon: "../../assets/img/icons/door.png",
-              isParent: true,
-            },
-            {
-              id: "01_06",
-              name: "Каб. №11",
-              icon: "../../assets/img/icons/door.png",
-              isParent: true,
-            },
-            {
-              id: "01_07",
-              name: "Каб. №12",
-              icon: "../../assets/img/icons/door.png",
-              isParent: true,
-            },
-            {
-              id: "01_08",
-              name: "Каб. №13",
-              icon: "../../assets/img/icons/door.png",
-              isParent: true,
-            },
-            {
-              id: "01_09",
-              name: "Каб. №14",
-              icon: "../../assets/img/icons/door.png",
-              isParent: true,
-            },
-            {
-              id: "01_10",
-              name: "Каб. №15",
-              icon: "../../assets/img/icons/door.png",
-              isParent: true,
-            },
-            {
-              id: "01_11",
-              name: "Каб. №16",
-              icon: "../../assets/img/icons/door.png",
-              isParent: true,
-            },
-            {
-              id: "01_12",
-              name: "Зал с/з. №4",
-              icon: "../../assets/img/icons/balance.png",
-              isParent: true,
-              children: [
-                {
-                  id: "01_14",
-                  name: "Совещ. комн. зала № 4",
-                  icon: "../../assets/img/icons/door.png",
-                  isParent: true,
-                }
-              ]
-            },
-            {
-              id: "01_13",
-              name: "Зал с/з. №5",
-              icon: "../../assets/img/icons/balance.png",
-              isParent: true,
-              children: [
-                {
-                  id: "01_15",
-                  name: "Совещ. комн. зала № 5",
-                  icon: "../../assets/img/icons/door.png",
-                  isParent: true,
-                }
-              ]
-            },
-            {
-              id: "01_17",
-              name: "Серверная",
-              icon: "../../assets/img/icons/servers.png",
-              isParent: true,
-            },
-            {
-              id: "01_18",
-              name: "Коридор 1 этаж",
-              icon: "../../assets/img/icons/node.png",
-              isParent: true,
-            }
-          ]
-        },
-        {
-          id: "01_02",
-          name: "2 этаж",
-          icon: "../../assets/img/icons/floor.png",
-          isParent: true,
-          children: [
-            {
-              id: "02_03",
-              name: "Каб. №1",
-              icon: "../../assets/img/icons/door.png",
-              isParent: true,
-            },
-            {
-              id: "02_04",
-              name: "Каб. №2",
-              icon: "../../assets/img/icons/door.png",
-              isParent: true,
-            },
-            {
-              id: "02_05",
-              name: "Каб. №3",
-              icon: "../../assets/img/icons/door.png",
-              isParent: true,
-            },
-            {
-              id: "02_06",
-              name: "Каб. №4",
-              icon: "../../assets/img/icons/door.png",
-              isParent: true,
-            },
-            {
-              id: "02_07",
-              name: "Каб. №5",
-              icon: "../../assets/img/icons/door.png",
-              isParent: true,
-            },
-            {
-              id: "02_08",
-              name: "Каб. №6",
-              icon: "../../assets/img/icons/door.png",
-              isParent: true,
-            },
-            {
-              id: "02_09",
-              name: "Каб. №7",
-              icon: "../../assets/img/icons/door.png",
-              isParent: true,
-            },
-            {
-              id: "02_10",
-              name: "Зал с/з. №1",
-              icon: "../../assets/img/icons/balance.png",
-              isParent: true,
-            },
-            {
-              id: "02_11",
-              name: "Зал с/з. №2",
-              icon: "../../assets/img/icons/balance.png",
-              isParent: true,
-              children: [
-                {
-                  id: "02_15",
-                  name: "Совещ. комн. зала № 2",
-                  icon: "../../assets/img/icons/door.png",
-                  isParent: true,
-                }
-              ]
-            },
-            {
-              id: "02_12",
-              name: "Зал с/з. №3",
-              icon: "../../assets/img/icons/balance.png",
-              isParent: true,
-              children: [
-                {
-                  id: "02_15",
-                  name: "Совещ. комн. зала № 3",
-                  icon: "../../assets/img/icons/door.png",
-                  isParent: true,
-                }
-              ]
-            },
-            {
-              id: "02_18",
-              name: "Коридор 2 этаж",
-              icon: "../../assets/img/icons/node.png",
-              isParent: true,
-            },
-            {
-              id: "02_19",
-              name: "Лестничная площадка 2 этаж",
-              icon: "../../assets/img/icons/node.png",
-              isParent: true,
-            }
-          ]
-          },
-        {
-          id: "01_03",
-          name: "Подвал",
-          icon: "../../assets/img/icons/floor.png",
-          isParent: true,
-        }
-      ]
-    },
-    {
-      id: "02_00",
-      name: "Холм-Жирки",
-      open: true,
-      icon: "../../assets/img/icons/building-small.png",
-      isParent: true,
-      children: [
-        {
-          id: "02_01",
-          name: "1 этаж",
-          icon: "../../assets/img/icons/floor.png",
-          isParent: true,
-        },
-        {
-          id: "02_02",
-          name: "2 этаж",
-          icon: "../../assets/img/icons/floor.png",
-          isParent: true,
-        }
-      ]
-    }
-  ];*/
-
+  };
   const placeitemsStructure = [{
     id: "01",
     name: "Устройства",
@@ -4560,8 +4316,7 @@ const zTreeHandler = () => {
     });
   };
 
-  workPlaceStructure(); //zTreeObj = $.fn.zTree.init($("#workplace-tree"), setting, workPlaceStructure);
-
+  workPlaceStructure();
   zTreeObj = $.fn.zTree.init($("#placeitems-tree"), settingPlaceitems, placeitemsStructure);
 };
 /** Ждем полной загрузки дерева */
@@ -4588,60 +4343,50 @@ __webpack_require__.r(__webpack_exports__);
 
 /** Меню сайдбара */
 
-const sidebarnavmenu = document.querySelector('.navigation-menu');
+const sidebarNavigationMenu = document.querySelector('.navigation-menu');
 /** Спиннер */
 
-const spinnerloader = document.querySelector('.spinner-wrapper');
+const spinnerLoader = document.querySelector('.spinner-wrapper');
 /** Кнопка Назад Наверх, класс .back-to-top */
 
-const backtotopbutton = document.querySelector('.back-to-top'); //
+const backToTopButton = document.querySelector('.back-to-top'); //
 
 /** Прокручиваемое содержимое, класс .main-content, если его прокручивать, появляется кнопка Назад наверх */
 
-const maincontent = document.querySelector('.main-content');
+const mainContent = document.querySelector('.main-content');
 /**
  * При прокручивании вниз на 20px от верхнего края элемента с классом main-content, показывает кнопку Назад наверх
  */
 
-const maincontentscroll = () => {
-  if (maincontent.scrollTop > 20) {
-    backtotopbutton.style.display = "flex";
-  } else {
-    backtotopbutton.style.display = "none";
-  }
-};
-/** Возвращает наверх при нажатии на кнопку .back-to-top */
-
-
-const buttonscrolltotopHandler = () => {
-  maincontent.scrollTop = 0;
+const mainContentScroll = () => {
+  mainContent.scrollTop > 20 ? backToTopButton.classList.remove('d-none') : backToTopButton.classList.add('d-none');
 };
 /** Кнопка, переключающая сайдбар, класс .sidebar-toggle-button */
 
 
-const sidebartogglbutton = document.querySelector('.sidebar-toggle-button');
+const sidebarToggleButton = document.querySelector('.sidebar-toggle-button');
 /** Тело страницы, класс .main-sidebar */
 
-const sidebarwrapper = document.querySelector('.page-body');
+const sidebarWrapper = document.querySelector('.page-body');
 /**
  * Переключает класс disabled у .page-body, сайдбар
  * @param evt
  */
 
-const buttonsidebartoggleHandler = evt => {
+const buttonSidebarToggleHandler = evt => {
   evt.preventDefault();
   let formData = new FormData();
   formData.append("module", "sidebar");
 
-  if (sidebarwrapper.dataset.sidebarWidth === "narrow") {
-    sidebarwrapper.dataset.sidebarWidth = "wide";
-    sidebartogglbutton.querySelector('i').classList.add('mdi-crosshairs-gps');
-    sidebartogglbutton.querySelector('i').classList.remove('mdi-crosshairs');
+  if (sidebarWrapper.dataset.sidebarWidth === "narrow") {
+    sidebarWrapper.dataset.sidebarWidth = "wide";
+    sidebarToggleButton.querySelector('i').classList.add('mdi-crosshairs-gps');
+    sidebarToggleButton.querySelector('i').classList.remove('mdi-crosshairs');
     formData.append("sidebarWidth", "wide");
-  } else if (sidebarwrapper.dataset.sidebarWidth === "wide") {
-    sidebarwrapper.dataset.sidebarWidth = "narrow";
-    sidebartogglbutton.querySelector('i').classList.remove('mdi-crosshairs-gps');
-    sidebartogglbutton.querySelector('i').classList.add('mdi-crosshairs');
+  } else if (sidebarWrapper.dataset.sidebarWidth === "wide") {
+    sidebarWrapper.dataset.sidebarWidth = "narrow";
+    sidebarToggleButton.querySelector('i').classList.remove('mdi-crosshairs-gps');
+    sidebarToggleButton.querySelector('i').classList.add('mdi-crosshairs');
     formData.append("sidebarWidth", "narrow");
   }
 
@@ -4650,76 +4395,76 @@ const buttonsidebartoggleHandler = evt => {
 /** Кнопка, переключающая сайдбар, класс .sidebar-expand-button */
 
 
-const sidebarexpbutton = document.querySelector('.sidebar-expand-button');
+const sidebarExpandButton = document.querySelector('.sidebar-expand-button');
 /** Сайдбар*/
 
-const mainsidebar = document.querySelector('.main-sidebar');
+const mainSidebar = document.querySelector('.main-sidebar');
 /** Разворачивает сайдбар, не отодвигая контент. Переключает класс expanded у сайдбара */
 
-const buttonsidebarexpHandler = () => {
-  if (mainsidebar.classList.contains('expanded')) {
-    mainsidebar.classList.remove('expanded');
+const buttonSidebarExpandHandler = () => {
+  if (mainSidebar.classList.contains('expanded')) {
+    mainSidebar.classList.remove('expanded');
   } else {
-    mainsidebar.classList.add('expanded');
+    mainSidebar.classList.add('expanded');
   }
 };
 /** Кнопка, сворачивающая сайдбар, класс .sidebar-close-button */
 
 
-const sidebarclosebutton = document.querySelector('.sidebar-close-button');
+const sidebarCloseButton = document.querySelector('.sidebar-close-button');
 /** Сворачивает сайдбар, не отодвигая контент. Отключает класс expanded у сайдбара */
 
-const buttonsidebarcloseHandler = () => {
-  mainsidebar.classList.remove('expanded');
+const buttonSidebarCloseHandler = () => {
+  mainSidebar.classList.remove('expanded');
 };
 
-const sidebarexpandHandler = () => {
-  mainsidebar.classList.add('expanded');
+const sidebarExpandHandler = () => {
+  mainSidebar.classList.add('expanded');
 };
 /** Переключатель светлого/темного режима */
 
 
-const darkmodetogglbutton = document.querySelector('.tumbler__wrapper');
+const darkModeToggleButton = document.querySelector('.tumbler__wrapper');
 
-const darkmodetoggleHandler = () => {
+const darkModeToggleHandler = () => {
   let formData = new FormData();
   formData.append("module", "theme");
 
-  if (sidebarwrapper.dataset.themeName === "main-dark") {
-    sidebarwrapper.dataset.themeName = "main-light";
+  if (sidebarWrapper.dataset.themeName === "main-dark") {
+    sidebarWrapper.dataset.themeName = "main-light";
     formData.append("theme", "main-light");
-  } else if (sidebarwrapper.dataset.themeName === "main-light") {
-    sidebarwrapper.dataset.themeName = "main-dark";
+  } else if (sidebarWrapper.dataset.themeName === "main-light") {
+    sidebarWrapper.dataset.themeName = "main-dark";
     formData.append("theme", "main-dark");
   }
 
   (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("POST", "pages/admin/ajax.php", formData, "json", result => result);
-  darkmodetogglbutton.classList.toggle('tumbler--night-mode');
+  darkModeToggleButton.classList.toggle('tumbler--night-mode');
 };
 
-if (darkmodetogglbutton) {
-  darkmodetogglbutton.addEventListener('click', darkmodetoggleHandler);
+if (darkModeToggleButton) {
+  darkModeToggleButton.addEventListener('click', darkModeToggleHandler);
 }
 /** Кнопка вкл/выкл верхнего поиска, класс .top-search-button-toggle */
 
 
-const searchbutton = document.querySelector('.top-search-button-toggle');
+const searchButton = document.querySelector('.top-search-button-toggle');
 /** Верхний поиск, класс .top-search */
 
-const searchinput = document.querySelector('.top-search');
+const searchInput = document.querySelector('.top-search');
 /** Кнопка закрытия верхнего поиска, класс .top-search-close */
 
-const searchclosebtn = document.querySelector('.top-search-close');
+const searchCloseButton = document.querySelector('.top-search-close');
 /** Добавляет класс open у .top-search */
 
-const buttonsearchHandler = () => {
-  searchinput.classList.add('open');
+const buttonSearchHandler = () => {
+  searchInput.classList.add('open');
 };
 /** Удаляет класс open у .top-search */
 
 
-const buttonsearchcloseHandler = () => {
-  searchinput.classList.remove('open');
+const buttonSearchCloseHandler = () => {
+  searchInput.classList.remove('open');
 };
 /** Переключает класс .active у ближайшего .menu-item нажатой ссылки меню сайдбара */
 
@@ -4730,14 +4475,14 @@ const menuitemClickHandler = evt => {
 /** Кнопка Назад. Класс .btn-back. Возвращает на страницу, с которой был переход */
 
 
-const backbtn = document.querySelectorAll('.btn-back');
+const backButtons = document.querySelectorAll('.btn-back');
 
-if (backbtn) {
-  for (let a = 0; a < backbtn.length; a++) {
-    backbtn[a].addEventListener('click', function () {
+if (backButtons) {
+  backButtons.forEach(function (backButton) {
+    backButton.addEventListener('click', () => {
       window.history.back();
     });
-  }
+  });
 }
 /** Кнопка Печати страницы. Класс .btn-print */
 
@@ -4754,20 +4499,20 @@ if (printButtons) {
 /** Кнопка показать / скрыть пароль */
 
 
-const showhidepass = document.querySelector('.passcode-switch');
+const showHidePass = document.querySelector('.passcode-switch');
 /** Поле ввода пароля */
 
-const passinplist = document.querySelectorAll('.passinput');
+const passInputList = document.querySelectorAll('.passinput');
 /** Показать/скрыть пароль */
 
-const showhidepassHandler = () => {
+const showHidePassHandler = () => {
   /** Меняем тип поля ввода пароля с password на text*/
-  if (passinplist[0].type === "password") {
-    passinplist.forEach(passInput => passInput.type = "text");
-    showhidepass.classList.toggle('is-hidden');
+  if (passInputList[0].type === "password") {
+    passInputList.forEach(passInput => passInput.type = "text");
+    showHidePass.classList.toggle('is-hidden');
   } else {
-    passinplist.forEach(passInput => passInput.type = "password");
-    showhidepass.classList.toggle('is-hidden');
+    passInputList.forEach(passInput => passInput.type = "password");
+    showHidePass.classList.toggle('is-hidden');
   }
 };
 /** Tooltip и popover */
@@ -4783,153 +4528,144 @@ document.querySelectorAll('[data-bs-toggle="popover"]').forEach(function (popove
 });
 /** Отключаем спиннер загрузки при загрузке содержимого */
 
-const spinnerloaderHandler = () => {
-  spinnerloader.style.display = "none";
+const spinnerLoaderHandler = () => {
+  spinnerLoader.style.display = "none";
 };
 /** Получает имя файла текущей открытой страницы и ищет такое же в ссылках бокового меню, устанавливает класс active открытому пункту или субпункту и его родителю */
 
 
-const sidebarnavmenuHandler = () => {
+const sidebarNavigationMenuHandler = () => {
   let filename = window.location.href.replace(/^.*[\\\/]/, '').replace('#', '');
-  let menulink = sidebarnavmenu.querySelectorAll('.menu-link');
-  let submenulink = sidebarnavmenu.querySelectorAll('.submenu-link');
-
-  for (let i = 0, len = menulink.length; i < len; i++) {
+  let menuLinks = sidebarNavigationMenu.querySelectorAll('.menu-link');
+  let submenuLinks = sidebarNavigationMenu.querySelectorAll('.submenu-link');
+  Array.from(menuLinks).forEach(menuLink => {
     /** Поменять в этом условии http://isp/, если будет другой домен */
-    if (filename === "" && menulink[i].href.replace(/^.*[\\\/]/, '').replace('#', '') === "") {
+    if (filename === "" && menuLink.href.replace(/^.*[\\\/]/, '').replace('#', '') === "") {
       filename = "/";
-      menulink[i].closest('.menu-item').classList.add("active");
+      menuLink.closest('.menu-item').classList.add("active");
     }
     /** Условие для локальной версии, где главная index.html */
 
 
-    if (filename === "" && menulink[i].href.replace(/^.*[\\\/]/, '').replace('#', '') === "index.html") {
+    if (filename === "" && menuLink.href.replace(/^.*[\\\/]/, '').replace('#', '') === "index.html") {
       filename = "index.html";
-      menulink[i].closest('.menu-item').classList.add("active");
+      menuLink.closest('.menu-item').classList.add("active");
     }
 
-    if (filename === menulink[i].href.replace(/^.*[\\\/]/, '').replace('#', '')) {
-      menulink[i].closest('.menu-item').classList.add("active");
+    if (filename === menuLink.href.replace(/^.*[\\\/]/, '').replace('#', '')) {
+      menuLink.closest('.menu-item').classList.add("active");
     }
-  }
-
-  for (let i = 0, len = submenulink.length; i < len; i++) {
-    if (filename === submenulink[i].href.replace(/^.*[\\\/]/, '').replace('#', '')) {
-      submenulink[i].closest('.submenu-item').classList.add("active");
-      submenulink[i].closest('.menu-item').classList.add("active");
+  });
+  Array.from(submenuLinks).forEach(submenuLink => {
+    if (filename === submenuLink.href.replace(/^.*[\\\/]/, '').replace('#', '')) {
+      submenuLink.closest('.submenu-item').classList.add("active");
+      submenuLink.closest('.menu-item').classList.add("active");
     }
-  }
+  });
   /** Прослушивание нажатия нажатия на ссылки меню .navigation-menu */
 
-
-  sidebarnavmenu.addEventListener('click', evt => {
-    menuitemClickHandler(evt);
-  });
+  sidebarNavigationMenu.addEventListener('click', menuitemClickHandler);
 };
 /** Подсказки */
 
 
 const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-tooltipTriggerList.map(function (tooltipTriggerEl) {
-  return new bootstrap.Tooltip(tooltipTriggerEl);
-});
+tooltipTriggerList.map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
 /** Отключаем спиннер загрузки при загрузке содержимого */
 
-const maincontentscrollHandler = () => {
-  const winScroll = maincontent.scrollTop;
-  const height = maincontent.scrollHeight - maincontent.clientHeight;
-  const scrolled = winScroll / height * 100;
-  const topprogress = document.querySelector('.topprogressbar');
+const topProgressBar = document.querySelector('.topprogressbar');
 
-  if (topprogress) {
-    topprogress.style.width = scrolled + "%";
-  }
+const mainContentScrollHandler = () => {
+  topProgressBar ? topProgressBar.style.width = mainContent.scrollTop / (mainContent.scrollHeight - mainContent.clientHeight) * 100 + "%" : false;
 };
 /** Ждем полной загрузки дерева */
 
 
 document.addEventListener("DOMContentLoaded", () => {
   /** Отключаем спиннер */
-  if (spinnerloader) {
-    spinnerloaderHandler();
-  }
+  spinnerLoader ? spinnerLoaderHandler() : false;
   /** Возвращает текущий день, месяц и день недели в элементы с классами today-group-day,
    * today-group-month, today-group-dayw
    * */
 
-
-  if (document.querySelector('.today-group')) {
-    document.querySelector(".today-group-dayw").innerHTML = moment().tz('Europe/Moscow').format('dddd');
-    document.querySelector(".today-group-day").innerHTML = moment().tz('Europe/Moscow').format('D');
-    document.querySelector(".today-group-month").innerHTML = moment().tz('Europe/Moscow').format('MMMM');
+  function setTopHeaderDate() {
+    if (document.querySelector('.today-group')) {
+      document.querySelector(".today-group-dayw").textContent = moment().tz('Europe/Moscow').format('dddd');
+      document.querySelector(".today-group-day").textContent = moment().tz('Europe/Moscow').format('D');
+      document.querySelector(".today-group-month").textContent = moment().tz('Europe/Moscow').format('MMMM');
+    }
   }
 
-  if (sidebarwrapper.dataset.sidebarWidth === "wide") {
-    sidebartogglbutton.querySelector('i').classList.add('mdi-crosshairs-gps');
+  if (sidebarWrapper.dataset.sidebarWidth === "wide") {
+    sidebarToggleButton.querySelector('i').classList.add('mdi-crosshairs-gps');
   }
 
-  if (sidebarwrapper.dataset.sidebarWidth === "narrow") {
-    sidebartogglbutton.querySelector('i').classList.add('mdi-crosshairs');
+  if (sidebarWrapper.dataset.sidebarWidth === "narrow") {
+    sidebarToggleButton.querySelector('i').classList.add('mdi-crosshairs');
   }
   /** Прослушивание прокручивания .main-content */
 
 
-  if (backtotopbutton) {
-    maincontent.addEventListener('scroll', maincontentscroll);
+  if (backToTopButton) {
+    mainContent.addEventListener('scroll', mainContentScroll);
     /** Прослушивание нажатия кнопки .back-to-top */
 
-    backtotopbutton.addEventListener('click', buttonscrolltotopHandler);
+    /** Возвращает наверх при нажатии на кнопку .back-to-top */
+
+    backToTopButton.addEventListener('click', () => {
+      mainContent.scrollTop = 0;
+    });
   }
   /** Прослушивание нажатия кнопки .sidebar-toggle-button */
 
 
-  if (sidebartogglbutton && sidebarwrapper) {
-    sidebartogglbutton.addEventListener('click', evt => {
-      buttonsidebartoggleHandler(evt);
+  if (sidebarToggleButton && sidebarWrapper) {
+    sidebarToggleButton.addEventListener('click', evt => {
+      buttonSidebarToggleHandler(evt);
     });
   }
   /** Прослушивание нажатия кнопки .sidebar-expand-button */
 
 
-  if (sidebarexpbutton) {
-    sidebarexpbutton.addEventListener('click', buttonsidebarexpHandler);
+  if (sidebarExpandButton) {
+    sidebarExpandButton.addEventListener('click', buttonSidebarExpandHandler);
   }
   /** Прослушивание нажатия кнопки .sidebar-close-button */
 
 
-  if (sidebarclosebutton) {
-    sidebarclosebutton.addEventListener('click', buttonsidebarcloseHandler);
+  if (sidebarCloseButton) {
+    sidebarCloseButton.addEventListener('click', buttonSidebarCloseHandler);
   }
   /** Разворачивалка сайдбара. Только для ширины экрана 1080 или если установлена настройка */
 
 
-  if ($(window).width() > 1080 || sidebarwrapper.dataset.sidebarWidth === "narrow") {
-    if (mainsidebar) {
-      mainsidebar.addEventListener('mouseenter', sidebarexpandHandler);
-      mainsidebar.addEventListener('mouseleave', buttonsidebarcloseHandler);
+  if ($(window).width() > 1080 || sidebarWrapper.dataset.sidebarWidth === "narrow") {
+    if (mainSidebar) {
+      mainSidebar.addEventListener('mouseenter', sidebarExpandHandler);
+      mainSidebar.addEventListener('mouseleave', buttonSidebarCloseHandler);
     }
   }
   /** Прослушивание нажатия кнопки .top-search-button-toggle */
 
 
-  if (searchbutton && searchinput && searchclosebtn) {
-    searchbutton.addEventListener('click', buttonsearchHandler);
+  if (searchButton && searchInput && searchCloseButton) {
+    searchButton.addEventListener('click', buttonSearchHandler);
     /** Прослушивание нажатия кнопки .top-search-close */
 
-    searchclosebtn.addEventListener('click', buttonsearchcloseHandler);
+    searchCloseButton.addEventListener('click', buttonSearchCloseHandler);
   }
   /** Получает имя файла текущей открытой страницы и ищет такое же в ссылках бокового меню,
    * устанавливает класс active открытому пункту или субпункту и его родителю
    * */
 
 
-  if (sidebarnavmenu) {
-    sidebarnavmenuHandler();
+  if (sidebarNavigationMenu) {
+    sidebarNavigationMenuHandler();
   }
   /** Прогресс бар над хедером */
 
 
-  maincontent.addEventListener('scroll', maincontentscrollHandler);
+  mainContent.addEventListener('scroll', mainContentScrollHandler);
   /** Всплывашка с временем отработки php */
 
   if (_globalfunc__WEBPACK_IMPORTED_MODULE_0__.cookieID === "1") {
@@ -4938,22 +4674,14 @@ document.addEventListener("DOMContentLoaded", () => {
   /** Показать/скрыть пароль */
 
 
-  if (showhidepass && passinplist) {
-    showhidepass.addEventListener('click', showhidepassHandler);
+  if (showHidePass && passInputList) {
+    showHidePass.addEventListener('click', showHidePassHandler);
   }
-  /** Обновление каждые 5 минут */
+  /** Установить дату в топбаре. Обновление каждые 5 минут */
 
 
-  setInterval(() => {
-    /** Возвращает текущий день, месяц и день недели в элементы с классами today-group-day,
-     * today-group-month, today-group-dayw
-     * */
-    if (document.querySelector('.today-group')) {
-      document.querySelector(".today-group-dayw").innerHTML = moment().tz('Europe/Moscow').format('dddd');
-      document.querySelector(".today-group-day").innerHTML = moment().tz('Europe/Moscow').format('D');
-      document.querySelector(".today-group-month").innerHTML = moment().tz('Europe/Moscow').format('MMMM');
-    }
-  }, 300000);
+  setTopHeaderDate();
+  setInterval(() => setTopHeaderDate, 300000);
 });
 
 /***/ })

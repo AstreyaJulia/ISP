@@ -21,15 +21,16 @@ where date_format(dtime,'%m-%d')  like  date_format(current_date,'%m-%d')
 
 
 
-  // Кол-во посещений по дням, общее
-SELECT count(id) AS count,
-       DATE_ADD((CAST(dtime AS DATE)), INTERVAL 1 DAY ) AS day
+  // Кол-во посещений по дням, общее за последние 30 дней
+SELECT count(id) AS y,
+       (CAST(dtime AS DATE)) AS x
 FROM
     sdc_visits
+where dtime > date_sub(now(), interval 30 day )
 GROUP BY
-    DATE_ADD((CAST(dtime AS DATE)), INTERVAL 1 DAY )
+    x
 ORDER BY
-    day
+    x
 
 выдаст данные в формате json:
 [

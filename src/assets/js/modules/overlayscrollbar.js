@@ -1,6 +1,5 @@
-// Все элементы, для к-рых нужна прокрутка
+/** Все элементы, для к-рых нужна прокрутка */
 const overlayscrollbar = OverlayScrollbars(document.querySelectorAll(".overlayscrollbar"), {
-  //className            : "os-theme-light",
   resize: "none",
   sizeAutoCapable: true,
   clipAlways: true,

@@ -1,17 +1,15 @@
 import {selectedCheckboxes} from "../globalfunc"
 import {ajax_send} from "../globalfunc"
 
-// Фильтр в телефонной книге
-
-//Фильтр в телефонном справочнике
-// Ищем группу фильтров с селектором button-group
+/** Ищем группу фильтров с селектором button-group */
+/** Фильтр в телефонном справочнике */
 const filterGroup = document.querySelector('.phonebook-filter');
 
-// Куда будет выводиться результат
+/** Куда будет выводиться результат */
 const result = document.getElementById('filter');
 
 const filterClickHandler = () => {
-  //Обнуление строк фильтров - выбранного и пустого
+  /** Обнуление строк фильтров - выбранного и пустого */
   let filterItems = filterGroup.querySelectorAll('input[type=checkbox]');
 
   let selected = selectedCheckboxes(filterItems, 'selected');
@@ -37,9 +35,9 @@ const filterClickHandler = () => {
   }
 };
 
-/* Слушаем клик по каждому из фильтров телефонной книги */
+/** Слушаем клик по каждому из фильтров телефонной книги */
 if (filterGroup && result) {
-  // Ищем в filter-group элементы фильтров checkbox
+  /** Ищем в filter-group элементы фильтров checkbox */
   let filterItems = filterGroup.querySelectorAll('input[type=checkbox]');
 
   filterItems.forEach(function (filter) {
@@ -49,9 +47,9 @@ if (filterGroup && result) {
   });
 }
 
-// Ждем полной загрузки дерева
+/** Ждем полной загрузки дерева */
 document.addEventListener("DOMContentLoaded", () => {
-  // Загрузка телефонной книги
+  /** Загрузка телефонной книги */
   if (filterGroup && result) {
     filterClickHandler();
   }

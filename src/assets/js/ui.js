@@ -2,58 +2,47 @@ import {cookieID} from "./globalfunc"
 import {ajax_send, showBsToast, toastContainer} from "./globalfunc"
 
 /** Меню сайдбара */
-const sidebarnavmenu = document.querySelector('.navigation-menu');
+const sidebarNavigationMenu = document.querySelector('.navigation-menu');
 
 /** Спиннер */
-const spinnerloader = document.querySelector('.spinner-wrapper');
+const spinnerLoader = document.querySelector('.spinner-wrapper');
 
 /** Кнопка Назад Наверх, класс .back-to-top */
-const backtotopbutton = document.querySelector('.back-to-top');
+const backToTopButton = document.querySelector('.back-to-top');
 //
 /** Прокручиваемое содержимое, класс .main-content, если его прокручивать, появляется кнопка Назад наверх */
-const maincontent = document.querySelector('.main-content');
+const mainContent = document.querySelector('.main-content');
 
 /**
  * При прокручивании вниз на 20px от верхнего края элемента с классом main-content, показывает кнопку Назад наверх
  */
-const maincontentscroll = () => {
-  if (maincontent.scrollTop > 20) {
-    backtotopbutton.style.display = "flex";
-  } else {
-    backtotopbutton.style.display = "none";
-  }
-};
-
-/** Возвращает наверх при нажатии на кнопку .back-to-top */
-const buttonscrolltotopHandler = () => {
-  maincontent.scrollTop = 0;
-};
+const mainContentScroll = () => {mainContent.scrollTop > 20 ? backToTopButton.classList.remove('d-none') : backToTopButton.classList.add('d-none')};
 
 /** Кнопка, переключающая сайдбар, класс .sidebar-toggle-button */
-const sidebartogglbutton = document.querySelector('.sidebar-toggle-button');
+const sidebarToggleButton = document.querySelector('.sidebar-toggle-button');
 
 /** Тело страницы, класс .main-sidebar */
-const sidebarwrapper = document.querySelector('.page-body');
+const sidebarWrapper = document.querySelector('.page-body');
 
 /**
  * Переключает класс disabled у .page-body, сайдбар
  * @param evt
  */
-const buttonsidebartoggleHandler = (evt) => {
+const buttonSidebarToggleHandler = (evt) => {
   evt.preventDefault();
 
   let formData = new FormData();
   formData.append("module", "sidebar");
 
-  if (sidebarwrapper.dataset.sidebarWidth === "narrow") {
-    sidebarwrapper.dataset.sidebarWidth = "wide";
-    sidebartogglbutton.querySelector('i').classList.add('mdi-crosshairs-gps');
-    sidebartogglbutton.querySelector('i').classList.remove('mdi-crosshairs');
+  if (sidebarWrapper.dataset.sidebarWidth === "narrow") {
+    sidebarWrapper.dataset.sidebarWidth = "wide";
+    sidebarToggleButton.querySelector('i').classList.add('mdi-crosshairs-gps');
+    sidebarToggleButton.querySelector('i').classList.remove('mdi-crosshairs');
     formData.append("sidebarWidth", "wide");
-  } else if (sidebarwrapper.dataset.sidebarWidth === "wide") {
-    sidebarwrapper.dataset.sidebarWidth = "narrow";
-    sidebartogglbutton.querySelector('i').classList.remove('mdi-crosshairs-gps');
-    sidebartogglbutton.querySelector('i').classList.add('mdi-crosshairs');
+  } else if (sidebarWrapper.dataset.sidebarWidth === "wide") {
+    sidebarWrapper.dataset.sidebarWidth = "narrow";
+    sidebarToggleButton.querySelector('i').classList.remove('mdi-crosshairs-gps');
+    sidebarToggleButton.querySelector('i').classList.add('mdi-crosshairs');
     formData.append("sidebarWidth", "narrow");
   }
 
@@ -61,71 +50,71 @@ const buttonsidebartoggleHandler = (evt) => {
 };
 
 /** Кнопка, переключающая сайдбар, класс .sidebar-expand-button */
-const sidebarexpbutton = document.querySelector('.sidebar-expand-button');
+const sidebarExpandButton = document.querySelector('.sidebar-expand-button');
 
 /** Сайдбар*/
-const mainsidebar = document.querySelector('.main-sidebar');
+const mainSidebar = document.querySelector('.main-sidebar');
 
 /** Разворачивает сайдбар, не отодвигая контент. Переключает класс expanded у сайдбара */
-const buttonsidebarexpHandler = () => {
-  if (mainsidebar.classList.contains('expanded')) {
-    mainsidebar.classList.remove('expanded');
+const buttonSidebarExpandHandler = () => {
+  if (mainSidebar.classList.contains('expanded')) {
+    mainSidebar.classList.remove('expanded');
   } else {
-    mainsidebar.classList.add('expanded');
+    mainSidebar.classList.add('expanded');
   }
 };
 
 /** Кнопка, сворачивающая сайдбар, класс .sidebar-close-button */
-const sidebarclosebutton = document.querySelector('.sidebar-close-button');
+const sidebarCloseButton = document.querySelector('.sidebar-close-button');
 
 /** Сворачивает сайдбар, не отодвигая контент. Отключает класс expanded у сайдбара */
-const buttonsidebarcloseHandler = () => {
-  mainsidebar.classList.remove('expanded');
+const buttonSidebarCloseHandler = () => {
+  mainSidebar.classList.remove('expanded');
 };
 
-const sidebarexpandHandler = () => {
-  mainsidebar.classList.add('expanded');
+const sidebarExpandHandler = () => {
+  mainSidebar.classList.add('expanded');
 };
 
 /** Переключатель светлого/темного режима */
-const darkmodetogglbutton = document.querySelector('.tumbler__wrapper');
+const darkModeToggleButton = document.querySelector('.tumbler__wrapper');
 
-const darkmodetoggleHandler = () => {
+const darkModeToggleHandler = () => {
   let formData = new FormData();
   formData.append("module", "theme");
 
-  if (sidebarwrapper.dataset.themeName === "main-dark") {
-    sidebarwrapper.dataset.themeName = "main-light";
+  if (sidebarWrapper.dataset.themeName === "main-dark") {
+    sidebarWrapper.dataset.themeName = "main-light";
     formData.append("theme", "main-light");
-  } else if (sidebarwrapper.dataset.themeName === "main-light") {
-    sidebarwrapper.dataset.themeName = "main-dark";
+  } else if (sidebarWrapper.dataset.themeName === "main-light") {
+    sidebarWrapper.dataset.themeName = "main-dark";
     formData.append("theme", "main-dark");
   }
   ajax_send("POST", "pages/admin/ajax.php", formData, "json", result => result);
-  darkmodetogglbutton.classList.toggle('tumbler--night-mode');
+  darkModeToggleButton.classList.toggle('tumbler--night-mode');
 };
 
-if (darkmodetogglbutton) {
-  darkmodetogglbutton.addEventListener('click', darkmodetoggleHandler);
+if (darkModeToggleButton) {
+  darkModeToggleButton.addEventListener('click', darkModeToggleHandler);
 }
 
 /** Кнопка вкл/выкл верхнего поиска, класс .top-search-button-toggle */
-const searchbutton = document.querySelector('.top-search-button-toggle');
+const searchButton = document.querySelector('.top-search-button-toggle');
 
 /** Верхний поиск, класс .top-search */
-const searchinput = document.querySelector('.top-search');
+const searchInput = document.querySelector('.top-search');
 
 /** Кнопка закрытия верхнего поиска, класс .top-search-close */
-const searchclosebtn = document.querySelector('.top-search-close');
+const searchCloseButton = document.querySelector('.top-search-close');
 
 /** Добавляет класс open у .top-search */
-const buttonsearchHandler = () => {
-  searchinput.classList.add('open');
+const buttonSearchHandler = () => {
+  searchInput.classList.add('open');
 };
 
 /** Удаляет класс open у .top-search */
-const buttonsearchcloseHandler = () => {
-  searchinput.classList.remove('open');
+const buttonSearchCloseHandler = () => {
+  searchInput.classList.remove('open');
 };
 
 /** Переключает класс .active у ближайшего .menu-item нажатой ссылки меню сайдбара */
@@ -134,13 +123,13 @@ const menuitemClickHandler = (evt) => {
 };
 
 /** Кнопка Назад. Класс .btn-back. Возвращает на страницу, с которой был переход */
-const backbtn = document.querySelectorAll('.btn-back');
-if (backbtn) {
-  for (let a = 0; a < backbtn.length; a++) {
-    backbtn[a].addEventListener('click', function () {
+const backButtons = document.querySelectorAll('.btn-back');
+if (backButtons) {
+  backButtons.forEach(function (backButton) {
+    backButton.addEventListener('click', () => {
       window.history.back();
-    })
-  }
+    });
+  });
 }
 
 /** Кнопка Печати страницы. Класс .btn-print */
@@ -154,20 +143,20 @@ if (printButtons) {
 }
 
 /** Кнопка показать / скрыть пароль */
-const showhidepass = document.querySelector('.passcode-switch');
+const showHidePass = document.querySelector('.passcode-switch');
 
 /** Поле ввода пароля */
-const passinplist = document.querySelectorAll('.passinput');
+const passInputList = document.querySelectorAll('.passinput');
 
 /** Показать/скрыть пароль */
-const showhidepassHandler = () => {
+const showHidePassHandler = () => {
   /** Меняем тип поля ввода пароля с password на text*/
-  if (passinplist[0].type === "password") {
-    passinplist.forEach(passInput => passInput.type = "text");
-    showhidepass.classList.toggle('is-hidden');
+  if (passInputList[0].type === "password") {
+    passInputList.forEach(passInput => passInput.type = "text");
+    showHidePass.classList.toggle('is-hidden');
   } else {
-    passinplist.forEach(passInput => passInput.type = "password");
-    showhidepass.classList.toggle('is-hidden');
+    passInputList.forEach(passInput => passInput.type = "password");
+    showHidePass.classList.toggle('is-hidden');
   }
 };
 
@@ -185,132 +174,125 @@ document.querySelectorAll('[data-bs-toggle="popover"]')
   })
 
 /** Отключаем спиннер загрузки при загрузке содержимого */
-const spinnerloaderHandler = () => {
-  spinnerloader.style.display = "none";
+const spinnerLoaderHandler = () => {
+  spinnerLoader.style.display = "none";
 };
 
 /** Получает имя файла текущей открытой страницы и ищет такое же в ссылках бокового меню, устанавливает класс active открытому пункту или субпункту и его родителю */
-const sidebarnavmenuHandler = () => {
+const sidebarNavigationMenuHandler = () => {
   let filename = window.location.href.replace(/^.*[\\\/]/, '').replace('#', '');
-  let menulink = sidebarnavmenu.querySelectorAll('.menu-link');
-  let submenulink = sidebarnavmenu.querySelectorAll('.submenu-link');
-  for (let i = 0, len = menulink.length; i < len; i++) {
+  let menuLinks = sidebarNavigationMenu.querySelectorAll('.menu-link');
+  let submenuLinks = sidebarNavigationMenu.querySelectorAll('.submenu-link');
+
+  Array.from(menuLinks).forEach((menuLink) => {
     /** Поменять в этом условии http://isp/, если будет другой домен */
-    if (filename === "" && menulink[i].href.replace(/^.*[\\\/]/, '').replace('#', '') === "") {
+    if (filename === "" && menuLink.href.replace(/^.*[\\\/]/, '').replace('#', '') === "") {
       filename = "/";
-      menulink[i].closest('.menu-item').classList.add("active");
+      menuLink.closest('.menu-item').classList.add("active");
     }
     /** Условие для локальной версии, где главная index.html */
-    if (filename === "" && menulink[i].href.replace(/^.*[\\\/]/, '').replace('#', '') === "index.html") {
+    if (filename === "" && menuLink.href.replace(/^.*[\\\/]/, '').replace('#', '') === "index.html") {
       filename = "index.html";
-      menulink[i].closest('.menu-item').classList.add("active");
+      menuLink.closest('.menu-item').classList.add("active");
     }
-    if (filename === menulink[i].href.replace(/^.*[\\\/]/, '').replace('#', '')) {
-      menulink[i].closest('.menu-item').classList.add("active");
+    if (filename === menuLink.href.replace(/^.*[\\\/]/, '').replace('#', '')) {
+      menuLink.closest('.menu-item').classList.add("active");
     }
-  }
-  for (let i = 0, len = submenulink.length; i < len; i++) {
-    if (filename === submenulink[i].href.replace(/^.*[\\\/]/, '').replace('#', '')) {
-      submenulink[i].closest('.submenu-item').classList.add("active");
-      submenulink[i].closest('.menu-item').classList.add("active");
+  })
+
+  Array.from(submenuLinks).forEach((submenuLink) => {
+    if (filename === submenuLink.href.replace(/^.*[\\\/]/, '').replace('#', '')) {
+      submenuLink.closest('.submenu-item').classList.add("active");
+      submenuLink.closest('.menu-item').classList.add("active");
     }
-  }
+  })
+
   /** Прослушивание нажатия нажатия на ссылки меню .navigation-menu */
-  sidebarnavmenu.addEventListener('click', (evt) => {
-    menuitemClickHandler(evt);
-  });
+  sidebarNavigationMenu.addEventListener('click', menuitemClickHandler);
 };
 
 /** Подсказки */
 const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-tooltipTriggerList.map(function (tooltipTriggerEl) {
-  return new bootstrap.Tooltip(tooltipTriggerEl)
-});
+tooltipTriggerList.map((tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl));
 
 /** Отключаем спиннер загрузки при загрузке содержимого */
-const maincontentscrollHandler = () => {
-  const winScroll = maincontent.scrollTop;
-  const height = maincontent.scrollHeight - maincontent.clientHeight;
-  const scrolled = (winScroll / height) * 100;
-  const topprogress = document.querySelector('.topprogressbar');
-  if (topprogress) {
-    topprogress.style.width = scrolled + "%";
-  }
-};
+const topProgressBar = document.querySelector('.topprogressbar');
+const mainContentScrollHandler = () => {topProgressBar ? topProgressBar.style.width = ((mainContent.scrollTop / (mainContent.scrollHeight - mainContent.clientHeight)) * 100) + "%" : false};
 
 /** Ждем полной загрузки дерева */
 document.addEventListener("DOMContentLoaded", () => {
+
   /** Отключаем спиннер */
-  if (spinnerloader) {
-    spinnerloaderHandler();
-  }
+  spinnerLoader ? spinnerLoaderHandler() : false;
 
   /** Возвращает текущий день, месяц и день недели в элементы с классами today-group-day,
    * today-group-month, today-group-dayw
    * */
-  if (document.querySelector('.today-group')) {
-    document.querySelector(".today-group-dayw").innerHTML = moment().tz('Europe/Moscow').format('dddd');
-    document.querySelector(".today-group-day").innerHTML = moment().tz('Europe/Moscow').format('D');
-    document.querySelector(".today-group-month").innerHTML = moment().tz('Europe/Moscow').format('MMMM');
-
+  function setTopHeaderDate() {
+    if (document.querySelector('.today-group')) {
+      document.querySelector(".today-group-dayw").textContent = moment().tz('Europe/Moscow').format('dddd');
+      document.querySelector(".today-group-day").textContent = moment().tz('Europe/Moscow').format('D');
+      document.querySelector(".today-group-month").textContent = moment().tz('Europe/Moscow').format('MMMM');
+    }
   }
 
-  if (sidebarwrapper.dataset.sidebarWidth === "wide") {
-    sidebartogglbutton.querySelector('i').classList.add('mdi-crosshairs-gps');
+  if (sidebarWrapper.dataset.sidebarWidth === "wide") {
+    sidebarToggleButton.querySelector('i').classList.add('mdi-crosshairs-gps');
   }
-  if (sidebarwrapper.dataset.sidebarWidth === "narrow") {
-    sidebartogglbutton.querySelector('i').classList.add('mdi-crosshairs');
+  if (sidebarWrapper.dataset.sidebarWidth === "narrow") {
+    sidebarToggleButton.querySelector('i').classList.add('mdi-crosshairs');
   }
 
   /** Прослушивание прокручивания .main-content */
-  if (backtotopbutton) {
-    maincontent.addEventListener('scroll', maincontentscroll);
+  if (backToTopButton) {
+    mainContent.addEventListener('scroll', mainContentScroll);
 
     /** Прослушивание нажатия кнопки .back-to-top */
-    backtotopbutton.addEventListener('click', buttonscrolltotopHandler);
+    /** Возвращает наверх при нажатии на кнопку .back-to-top */
+    backToTopButton.addEventListener('click', () => {mainContent.scrollTop = 0});
   }
 
   /** Прослушивание нажатия кнопки .sidebar-toggle-button */
-  if (sidebartogglbutton && sidebarwrapper) {
-    sidebartogglbutton.addEventListener('click', (evt) => {
-      buttonsidebartoggleHandler(evt);
+  if (sidebarToggleButton && sidebarWrapper) {
+    sidebarToggleButton.addEventListener('click', (evt) => {
+      buttonSidebarToggleHandler(evt);
     });
   }
 
   /** Прослушивание нажатия кнопки .sidebar-expand-button */
-  if (sidebarexpbutton) {
-    sidebarexpbutton.addEventListener('click', buttonsidebarexpHandler);
+  if (sidebarExpandButton) {
+    sidebarExpandButton.addEventListener('click', buttonSidebarExpandHandler);
   }
 
   /** Прослушивание нажатия кнопки .sidebar-close-button */
-  if (sidebarclosebutton) {
-    sidebarclosebutton.addEventListener('click', buttonsidebarcloseHandler);
+  if (sidebarCloseButton) {
+    sidebarCloseButton.addEventListener('click', buttonSidebarCloseHandler);
   }
 
   /** Разворачивалка сайдбара. Только для ширины экрана 1080 или если установлена настройка */
-  if (($(window).width() > 1080) || (sidebarwrapper.dataset.sidebarWidth === "narrow")) {
-    if (mainsidebar) {
-      mainsidebar.addEventListener('mouseenter', sidebarexpandHandler);
-      mainsidebar.addEventListener('mouseleave', buttonsidebarcloseHandler);
+  if (($(window).width() > 1080) || (sidebarWrapper.dataset.sidebarWidth === "narrow")) {
+    if (mainSidebar) {
+      mainSidebar.addEventListener('mouseenter', sidebarExpandHandler);
+      mainSidebar.addEventListener('mouseleave', buttonSidebarCloseHandler);
     }
   }
 
   /** Прослушивание нажатия кнопки .top-search-button-toggle */
-  if (searchbutton && searchinput && searchclosebtn) {
-    searchbutton.addEventListener('click', buttonsearchHandler);
+  if (searchButton && searchInput && searchCloseButton) {
+    searchButton.addEventListener('click', buttonSearchHandler);
     /** Прослушивание нажатия кнопки .top-search-close */
-    searchclosebtn.addEventListener('click', buttonsearchcloseHandler);
+    searchCloseButton.addEventListener('click', buttonSearchCloseHandler);
   }
 
   /** Получает имя файла текущей открытой страницы и ищет такое же в ссылках бокового меню,
    * устанавливает класс active открытому пункту или субпункту и его родителю
    * */
-  if (sidebarnavmenu) {
-    sidebarnavmenuHandler();
+  if (sidebarNavigationMenu) {
+    sidebarNavigationMenuHandler();
   }
 
   /** Прогресс бар над хедером */
-  maincontent.addEventListener('scroll', maincontentscrollHandler);
+  mainContent.addEventListener('scroll', mainContentScrollHandler);
 
   /** Всплывашка с временем отработки php */
   if (cookieID === "1") {
@@ -318,20 +300,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /** Показать/скрыть пароль */
-  if (showhidepass && passinplist) {
-    showhidepass.addEventListener('click', showhidepassHandler);
+  if (showHidePass && passInputList) {
+    showHidePass.addEventListener('click', showHidePassHandler);
   }
 
-  /** Обновление каждые 5 минут */
-  setInterval(() => {
-    /** Возвращает текущий день, месяц и день недели в элементы с классами today-group-day,
-     * today-group-month, today-group-dayw
-     * */
-    if (document.querySelector('.today-group')) {
-      document.querySelector(".today-group-dayw").innerHTML = moment().tz('Europe/Moscow').format('dddd');
-      document.querySelector(".today-group-day").innerHTML = moment().tz('Europe/Moscow').format('D');
-      document.querySelector(".today-group-month").innerHTML = moment().tz('Europe/Moscow').format('MMMM');
-    }
-  }, 300000);
+  /** Установить дату в топбаре. Обновление каждые 5 минут */
+  setTopHeaderDate();
+  setInterval(() => setTopHeaderDate, 300000);
 
 });
