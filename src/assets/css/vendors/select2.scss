@@ -257,7 +257,10 @@
 }
 
 .select2-container--default .select2-selection--multiple .select2-selection__rendered li {
-  list-style: none
+  list-style: none;
+  display: flex;
+  align-items: center;
+  padding: 5px;
 }
 
 .select2-container--default .select2-selection--multiple .select2-selection__clear {
@@ -286,6 +289,8 @@
   display: inline-block;
   font-weight: bold;
   margin-right: 2px;
+  border: none;
+  background-color: transparent;
 }
 
 .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover {
@@ -421,7 +426,8 @@
 
 .select2-container--classic .select2-selection--single .select2-selection__rendered {
   color: #444;
-  line-height: 28px
+  line-height: 28px;
+  overflow-y: scroll;
 }
 
 .select2-container--classic .select2-selection--single .select2-selection__clear {
