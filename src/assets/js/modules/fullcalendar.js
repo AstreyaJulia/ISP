@@ -378,13 +378,11 @@ function calendmodulehandler(settings) {
    * Селект для пользователей в модале
    */
   function renderUserOptions() {
-    /*userSelect.textContent = '';*/
-    const placeholderItem = `<option></option>`;
-    userSelect.insertAdjacentHTML('beforeend', placeholderItem);
+    userSelect.textContent = '';
+    /*const placeholderItem = `<option>Выберите значение</option>`;*/
+    /*userSelect.insertAdjacentHTML('beforeend', placeholderItem);*/
     const createItem = ({id, text}) =>
       `<option value="${id}">${text}</option>`;
-    console.log(USER_GROUPS.map((group) => group.children.map((user) => user)).flat())
-
     const ElementsString = USER_GROUPS.map((group) => group.children.map((user) => createItem(user)).join(''))
     userSelect.insertAdjacentHTML('beforeend', ElementsString);
   }
@@ -401,25 +399,34 @@ function calendmodulehandler(settings) {
       return option.text;
     }
 
-    if (option && !option.selected) {
+    /*if (option && !option.selected) {*/
       let initials = option.text.split(" ").slice(1).map((n) => n[0]).join("").toUpperCase();
       return "<div class='d-flex align-items-center'><div class='user-avatar rounded-circle avatar-xxs bg-primary-20 m-0 me-1 d-flex align-items-center justify-content-center'><span class='font-small-4 fw-bold text-primary'>" + initials + "</span></div><span class='font-small-1'>" +
         option.text.split(" ").slice(0, 1) + " " + option.text.split(" ").slice(1).map((n) => n[0]).join(". ").toUpperCase() + "</span></div>";
-    }
+    /*}*/
   }
 
   $(userSelect).wrap('<div class="position-relative"></div>').select2({
+    allowClear: false,
     placeholder: 'Выберите значение',
     dropdownParent: $(userSelect).parent(),
     closeOnSelect: false,
     multiple: true,
-    data: USER_GROUPS,
+    tags: true,
+    tokenSeparators: [',', ' '],
     templateResult: renderAvatars,
     templateSelection: renderAvatars,
-    minimumResultsForSearch: -1,
-    escapeMarkup: function (es) {
-      return es;
+    minimumResultsForSearch: 1,
+    escapeMarkup: function (markup) {
+      return markup;
+    },
+    formatNoMatches: function(){
+      return "Не найдено";
     }
+  });
+
+  $(userSelect).click(function () {
+    $("ul.select2-choices li .select2-search-choice-close").click();
   });
 
 // https://select2.github.io/select2/index.html

@@ -38,7 +38,7 @@
                               <div class="d-flex flex-column">
                                 <label for="user-select" class="">Добавить пользователей:</label>
                                 <div class="user-select position-relative">
-                                  <select class="select2 select-user form-control w-100"  id="user-select" required name="userSelect" multiple="multiple"></select>
+                                  <select class="select2 select-user form-control w-100 tagging"  id="user-select" required name="userSelect" multiple="multiple"></select>
                                 </div>
                               </div>
                             </div>
