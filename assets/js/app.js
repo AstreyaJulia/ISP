@@ -1639,9 +1639,6 @@ function calendmodulehandler(settings) {
   /** Селект категории события */
 
   const eventLabel = eventForm.elements.selectLabel;
-  /** Селект пользователей */
-
-  const userSelect = eventForm.elements.userSelect;
   /** Переключатель Весь день */
 
   const allDaySwitch = eventForm.elements.allDaySwitch;
@@ -1696,246 +1693,37 @@ function calendmodulehandler(settings) {
   const repdate = document.getElementById("Radio5");
   /** Радио Закончить после повторений */
 
-  const repcount = document.getElementById("Radio6"); // Радио Каждое число месяца
+  const repcount = document.getElementById("Radio6");
+  /** Радио Каждое число месяца */
 
-  const evdmonth = document.getElementById("Radio1"); // Радио Последний день месяца
+  const evdmonth = document.getElementById("Radio1");
+  /** Радио Последний день месяца */
 
-  const lastdmonth = document.getElementById("month1"); // Радио Предоследний рабочий день месяца
+  const lastdmonth = document.getElementById("month1");
+  /** Радио Предоследний рабочий день месяца */
 
-  const prelastdmonth = document.getElementById("month2"); // Радио Первый день месяца
+  const prelastdmonth = document.getElementById("month2");
+  /** Радио Первый день месяца */
 
-  const firstdmonth = document.getElementById("month3"); // Радио Первый рабочий день месяца
+  const firstdmonth = document.getElementById("month3");
+  /** Радио Первый рабочий день месяца */
 
-  const firstworkdmonth = document.getElementById("month4"); // Радио Последний рабочий день месяца
+  const firstworkdmonth = document.getElementById("month4");
+  /** Радио Последний рабочий день месяца */
 
-  const lastworkdmonth = document.getElementById("month5"); // Инпут Закончить после даты
+  const lastworkdmonth = document.getElementById("month5");
+  /** Инпут Закончить после даты */
 
-  const repdateinp = document.getElementById("endrep-date"); // Инпут Закончить после повторений
+  const repdateinp = document.getElementById("endrep-date");
+  /** Инпут Закончить после повторений */
 
-  const repcountinp = document.getElementById("repcount"); // Интервал повторений
+  const repcountinp = document.getElementById("repcount");
+  /** Интервал повторений */
 
-  const daynum = document.getElementById("daynum"); // Поле ввода дня для ежемесячного
+  const daynum = document.getElementById("daynum");
+  /** Поле ввода дня для ежемесячного */
 
-  const dayofmonth = document.getElementById("dayofmonth"); //////////////////
-
-  const USER_GROUPS = [{
-    id: '',
-    text: 'Судьи',
-    children: [{
-      id: '3',
-      text: 'Соловьёв Вадим Геннадьевич'
-    }, {
-      id: '38',
-      text: 'Тарасова Майя Александровна'
-    }, {
-      id: '39',
-      text: 'Сабанцев Михаил Михайлович'
-    }, {
-      id: '40',
-      text: 'Мельничук Елена Владимировна'
-    }, {
-      id: '41',
-      text: 'Кривчук Вера Алексеевна'
-    }, {
-      id: '42',
-      text: 'Дроздов Сергей Алексеевич'
-    }, {
-      id: '43',
-      text: 'Асеев Максим Сергеевич'
-    }, {
-      id: '44',
-      text: 'Басурова Елена Евгеньевна'
-    }, {
-      id: '46',
-      text: 'Мильченко Евгения Александровна'
-    }, {
-      id: '49',
-      text: 'Павлова Ольга Олеговна'
-    }, {
-      id: '53',
-      text: 'Вайцещук Ирина Сергеевна'
-    }]
-  }, {
-    id: '',
-    text: 'Помощники',
-    children: [{
-      id: '5',
-      text: 'Алексеева Наталья Юрьевна'
-    }, {
-      id: '8',
-      text: 'Бирюкова Елена Владимировна'
-    }, {
-      id: '10',
-      text: 'Герасимова Наталья Владимировна'
-    }, {
-      id: '17',
-      text: 'Кривас Ирина Владимировна'
-    }, {
-      id: '21',
-      text: 'Миренкова Юлия Николаевна'
-    }, {
-      id: '23',
-      text: 'Новичкова Анна Сергеевна'
-    }, {
-      id: '28',
-      text: 'Ракчеева Ольга Викторовна'
-    }, {
-      id: '48',
-      text: 'Ковеченкова Юлия Николаевна'
-    }, {
-      id: '51',
-      text: 'Семенова Марина Николаевна'
-    }, {
-      id: '52',
-      text: 'Морозова Юлия Алексеевна'
-    }, {
-      id: '56',
-      text: 'Губарева Ольга Валентиновна'
-    }, {
-      id: '61',
-      text: 'Ермощенкова Ольга Васильевна'
-    }]
-  }, {
-    id: '',
-    text: 'Секретари судебного заседания',
-    children: [{
-      id: '6',
-      text: 'Ашурова Дина Михайловна'
-    }, {
-      id: '9',
-      text: 'Воропаева Татьяна Викторовна'
-    }, {
-      id: '11',
-      text: 'Горбачева Анна Викторовна'
-    }, {
-      id: '12',
-      text: 'Зуева Елена Вячеславовна'
-    }, {
-      id: '13',
-      text: 'Кайченкова Елена Анатольевна'
-    }, {
-      id: '25',
-      text: 'Полуэктова Светлана Анатольевна'
-    }, {
-      id: '27',
-      text: 'Пшеничникова Анастасия Вячеславовна'
-    }, {
-      id: '29',
-      text: 'Сальникова Екатерина Геннадьевна'
-    }, {
-      id: '31',
-      text: 'Тимофеева Ирина Ивановна'
-    }, {
-      id: '34',
-      text: 'Хоменкова Юлия Анатольевна'
-    }, {
-      id: '50',
-      text: 'Костенкова Наталья Александровна'
-    }]
-  }, {
-    id: '',
-    text: 'Канцелярия',
-    children: [{
-      id: '2',
-      text: 'Чернов Роман Александрович'
-    }, {
-      id: '7',
-      text: 'Березовская Наталья Васильевна'
-    }, {
-      id: '14',
-      text: 'Касьянова Светлана Викторовна'
-    }, {
-      id: '19',
-      text: 'Малючкова Евгения Николаевна'
-    }, {
-      id: '20',
-      text: 'Мешкова Виктория Олеговна'
-    }, {
-      id: '22',
-      text: 'Николаева Инга Игоревна'
-    }, {
-      id: '24',
-      text: 'Осипова Анна Валерьевна'
-    }, {
-      id: '26',
-      text: 'Прокофьева Марина Викторовна'
-    }, {
-      id: '32',
-      text: 'Умеренкова Елена Владимировна'
-    }, {
-      id: '36',
-      text: 'Богачёв Сергей Станиславович'
-    }, {
-      id: '18',
-      text: 'Латышева Юлия Александровна'
-    }, {
-      id: '57',
-      text: 'Степанец Виктория Сергеевна'
-    }]
-  }];
-  /**
-   * Селект для пользователей в модале
-   */
-
-  function renderUserOptions() {
-    userSelect.textContent = '';
-    /*const placeholderItem = `<option>Выберите значение</option>`;*/
-
-    /*userSelect.insertAdjacentHTML('beforeend', placeholderItem);*/
-
-    const createItem = ({
-      id,
-      text
-    }) => `<option value="${id}">${text}</option>`;
-
-    const ElementsString = USER_GROUPS.map(group => group.children.map(user => createItem(user)).join(''));
-    userSelect.insertAdjacentHTML('beforeend', ElementsString);
-  }
-
-  renderUserOptions();
-  /**
-   * Селект для меток в модале
-   * @param option
-   * @returns {string|*}
-   */
-
-  function renderAvatars(option) {
-    if (!option.id) {
-      return option.text;
-    }
-    /*if (option && !option.selected) {*/
-
-
-    let initials = option.text.split(" ").slice(1).map(n => n[0]).join("").toUpperCase();
-    return "<div class='d-flex align-items-center'><div class='user-avatar rounded-circle avatar-xxs bg-primary-20 m-0 me-1 d-flex align-items-center justify-content-center'><span class='font-small-4 fw-bold text-primary'>" + initials + "</span></div><span class='font-small-1'>" + option.text.split(" ").slice(0, 1) + " " + option.text.split(" ").slice(1).map(n => n[0]).join(". ").toUpperCase() + "</span></div>";
-    /*}*/
-  }
-
-  $(userSelect).wrap('<div class="position-relative"></div>').select2({
-    allowClear: false,
-    placeholder: 'Выберите значение',
-    dropdownParent: $(userSelect).parent(),
-    closeOnSelect: false,
-    multiple: true,
-    tags: true,
-    tokenSeparators: [',', ' '],
-    templateResult: renderAvatars,
-    templateSelection: renderAvatars,
-    minimumResultsForSearch: 1,
-    escapeMarkup: function (markup) {
-      return markup;
-    },
-    formatNoMatches: function () {
-      return "Не найдено";
-    }
-  });
-  $(userSelect).click(function () {
-    $("ul.select2-choices li .select2-search-choice-close").click();
-  });
-  $(".tagging").select2({
-    tags: true
-  }); // https://select2.github.io/select2/index.html
-
+  const dayofmonth = document.getElementById("dayofmonth");
   /** Событие для просмотра */
 
   let eventToUpdate;
