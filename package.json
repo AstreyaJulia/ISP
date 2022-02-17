@@ -13,8 +13,8 @@
   "author": "Chernov R.A, Latysheva Y.A.",
   "license": "ISC",
   "dependencies": {
-    "@babel/cli": "^7.17.0",
-    "@babel/core": "^7.17.2",
+    "@babel/cli": "^7.17.3",
+    "@babel/core": "^7.17.4",
     "@fullcalendar/core": "^5.10.1",
     "@fullcalendar/daygrid": "^5.10.1",
     "@fullcalendar/moment-timezone": "^5.10.1",
@@ -55,7 +55,7 @@
     "sass": "^1.49.7",
     "select2": "^4.1.0-rc.0",
     "select2-bootstrap-5-theme": "^1.2.0",
-    "stylelint": "^14.5.0"
+    "stylelint": "^14.5.1"
   },
   "browserslist": [
     "last 2 versions",
@@ -86,7 +86,7 @@
     "gulp-csscomb": "^3.1.0",
     "gulp-plumber": "^1.2.1",
     "stylelint-config-htmlacademy": "^0.1.12",
-    "webpack": "^5.68.0",
+    "webpack": "^5.69.1",
     "webpack-stream": "^7.0.0"
   }
 }
