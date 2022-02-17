@@ -40,7 +40,11 @@
       </div>
     </header>
     <div class="row">
-      <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
+      <div class="col-xxl-2 col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12">
+        <div class="card mb-3">
+          <h6 class="surtitle pt-3 ps-3 pe-3">Посещения</h6>
+          <div class="apexchart1" data-chart-name="successLineChart"></div>
+        </div>
         <div class="card mb-3 p-3">
           <div class="widget-content">
             <div class="d-flex align-items-center justify-content-between mb-2">
@@ -99,15 +103,8 @@
               class="mdi mdi-account-wrench-outline me-2"></i><span>Управление</span></a>
         </div>
       </div>
-      <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
-        <div class="card card mb-3 p-3">
-          <div class="widget-content">
-            <h6 class="surtitle">Посещения</h6>
-            <div class="apexchart1" data-chart-name="successLineChart"></div>
-          </div>
-        </div>
+      <div class="col-xxl-2 col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12">
       </div>
-
       <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
         <!-- Разработка и тестирование -->
         <div class="card mb-3 p-3">
@@ -123,7 +120,6 @@
           <a class="btn btn-primary btn-block text-decoration-none mb-3" href="?page=workplaces" target="_blank"><span>Рабочие места</span></a>
           <a class="btn btn-primary btn-block text-decoration-none mb-3" href="?page=certificatework" target="_blank"><span>Справка о работе судей</span></a>
         </div>
-
         <div class="card mb-3 p-3">
           <div class="widget-content">
             <div class="d-flex align-items-center justify-content-between mb-2">
@@ -142,7 +138,6 @@
           <a class="btn btn-primary btn-block text-decoration-none" href="?page=documentation" target="_blank"><span>Документация</span></a>
         </div>
       </div>
-
     </div>
   </div>
 </main>

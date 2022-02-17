@@ -2,8 +2,6 @@
 <script src="assets/modules/overlayscrollbars/js/OverlayScrollbars.js"></script>
 <script src="assets/modules/datatables.net/js/jquery.dataTables.js"></script>
 <script src="assets/modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
-<script src="assets/modules/jquery-validation/dist/jquery.validate.js"></script>
-<script src="assets/modules/jquery-validation/dist/localization/messages_ru.js"></script>
 <script src="assets/modules/flatpickr/dist/flatpickr.js"></script>
 <script src="assets/modules/flatpickr/dist/l10n/ru.js"></script>
 <script src="assets/modules/select2/dist/js/select2.full.js"></script>

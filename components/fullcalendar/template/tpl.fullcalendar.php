@@ -2,111 +2,86 @@
   <div class="p-3">
     <div class="calendar-wrapper">
       <!-- Модал добавления/редактирования события -->
-      <div id="addEventsModal" class="modal" aria-labelledby="addEventsModal" style="display: none;">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content add-edit-event-content">
-            <div class="modal-header">
-              <h5 class="add-event-title modal-title" style="display: none;">Добавить событие</h5>
-              <h5 class="edit-event-title modal-title" style="display: none;">Редактировать событие</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
-            </div>
-            <div class="modal-body">
-              <div class="add-edit-event-box">
-                <div class="add-edit-event-content">
-                  <form class="event-form">
-
-                    <nav>
-                      <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
-                        <button class="nav-link active" id="nav-main-tab" data-bs-toggle="tab" data-bs-target="#nav-main"
-                                type="button" role="tab" aria-controls="nav-main" aria-selected="true">Основное
-                        </button>
-                        <button class="nav-link" id="nav-rep-tab" data-bs-toggle="tab" data-bs-target="#nav-rep"
-                                type="button" role="tab" aria-controls="nav-rep" aria-selected="false">Повторение
-                        </button>
-                      </div>
-                    </nav>
-
-                    <div class="tab-content" id="nav-tabContent">
-                      <div class="tab-pane fade show active" id="nav-main" role="tabpanel" aria-labelledby="nav-main-tab">
-                        <div class="row">
-                          <div class="form-group">
-                            <label for="start-date" class="">Название события:</label>
-                            <div class="event-title">
-                              <input id="title" type="text" placeholder="Введите название" class="form-control"
-                                     name="task" required>
+      <div class="modal add-del-event-modal modal-slide-in" aria-labelledby="addEventsModal" style="display: none;">
+        <div class="modal-dialog sidebar-lg h-100">
+          <div class="modal-content add-edit-event-content h-100 overflow-hidden">
+            <div class="overlayscrollbar h-100">
+              <form class="event-form d-flex flex-column justify-content-between h-100" name="eventForm" novalidate>
+                <div>
+                  <div class="modal-header">
+                    <h5 class="add-event-title modal-title">Добавить событие</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="add-edit-event-box">
+                      <div class="add-edit-event-content">
+                        <fieldset>
+                          <div class="row mt-3">
+                            <div class="form-group">
+                              <div class="d-flex flex-column">
+                                <label for="eventTitle" class="">Название события:</label>
+                                <textarea type="text" placeholder="Введите название" rows="2"
+                                          class="form-control"
+                                          name="eventTitle" id="eventTitle" required minlength="2"
+                                          maxlength="100"></textarea>
+                              </div>
                             </div>
-                          </div>
-                          <div class="form-group">
-                            <div class="form-check form-switch">
-                              <input type="checkbox" class="form-check-input private-switch" id="customSwitch1">
-                              <label class="form-check-label" for="customSwitch1">Вижу только я (приватное событие)</label>
+                            <div class="form-group">
+                              <div class="form-check form-switch">
+                                <input type="checkbox" class="form-check-input" name="privateCheck" id="customSwitch1">
+                                <label class="form-check-label" for="customSwitch1">Вижу только я (приватное
+                                  событие)</label>
+                              </div>
                             </div>
-                          </div>
-                          <div class="form-group">
-                            <label for="select-label" class="">Категория события:</label>
-                            <div class="cat-select position-relative" id="cat-select">
-                              <select class="select2 select-label form-control w-100" id="select-label" name="select-label" required>
-                                <option data-label="primary" value="Primary" selected>События
-                                </option>
-                                <option data-label="danger" value="Danger">Праздники</option>
-                                <option data-label="warning" value="Warning">Важно</option>
-                                <option data-label="success" value="Success">Отпуск</option>
-                                <option data-label="info" value="Info">Дежурство</option>
-                              </select>
 
+                            <div class="form-group">
+                              <div class="d-flex flex-column">
+                                <label for="select-label" class="">Категория события:</label>
+                                <div class="cat-select position-relative" id="cat-select">
+                                  <select class="select2 select-label form-control w-100" name="selectLabel"
+                                          id="select-label" required></select>
+                                </div>
+                              </div>
                             </div>
-                          </div>
-                          <div class="col-md-6 col-sm-6 col-12">
-                            <div class="form-group start-date ">
-                              <label for="start-date" class="">Начало события:</label>
-                              <div>
-                                <input id="start-date" placeholder="Дата начала"
-                                       class="form-control flatpickr-input position-relative"
-                                       type="text" required>
+                            <div class="col-md-6 col-sm-6 col-12">
+                              <div class="form-group start-date ">
+                                <div class="d-flex flex-column">
+                                  <label for="start-date" class="">Начало события:</label>
+                                  <input name="dateStart" placeholder="Дата начала"
+                                         class="form-control flatpickr-input position-relative"
+                                         type="text" required id="start-date">
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-12">
+                              <div class="form-group end-date ">
+                                <div class="d-flex flex-column">
+                                  <label for="end-date" class="">Конец события:</label>
+                                  <input name="dateEnd" placeholder="Дата окончания" type="text"
+                                         class="form-control flatpickr-input position-relative" id="end-date" required>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <div class="form-check form-switch">
+                                <input type="checkbox" class="form-check-input" name="allDaySwitch" id="allDaySwitch">
+                                <label class="form-check-label" for="allDaySwitch">Весь день</label>
+                              </div>
+                            </div>
+                            <div class="col-md-12">
+                              <label for="eventDescription" class="">Описание события:</label>
+                              <div class="event-description">
+                          <textarea placeholder="Введите описание" rows="3"
+                                    class="form-control scroll-y" name="eventDescription"
+                                    id="eventDescription"></textarea>
                               </div>
                             </div>
                           </div>
-                          <div class="col-md-6 col-sm-6 col-12">
-                            <div class="form-group end-date ">
-                              <label for="end-date" class="">Конец события:</label>
-                              <div>
-                                <input id="end-date" placeholder="Дата окончания" type="text"
-                                       class="form-control flatpickr-input position-relative" required>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <div class="form-check form-switch">
-                              <input type="checkbox" class="form-check-input allDay-switch" id="customSwitch3">
-                              <label class="form-check-label" for="customSwitch3">Весь день</label>
-                            </div>
-
-                          </div>
-                          <div class="form-group">
-                            <label for="event-url">URL</label>
-                            <div class="input-group">
-                              <input type="url" class="form-control" id="event-url"
-                                     placeholder="Введите ссылку в формате http://google.com">
-                              <button type="button" class="btn btn-primary" id="urlopen"><i class="mdi mdi-web"></i>
-                              </button>
-                            </div>
-                          </div>
-                          <div class="col-md-12">
-                            <label for="start-date" class="">Описание события:</label>
-                            <div class="event-description">
-                          <textarea id="event-description-editor" placeholder="Введите описание" rows="3"
-                                    class="form-control" name="event-description-editor"></textarea>
-                            </div>
-                          </div>
-                          <p class="text-danger mt-3 mb-0 p-0 ms-3 me-3">Внимание. Удаляя повторяющееся событие, вы удаляете
-                            ВСЕ повторения.</p>
-                        </div>
-                      </div>
-                      <div class="tab-pane fade" id="nav-rep" role="tabpanel" aria-labelledby="nav-rep-tab">
+                        </fieldset>
                         <div class="row mt-3">
                           <div class="form-group">
                             <div class="form-check form-switch">
-                              <input type="checkbox" class="form-check-input repeat-switch" id="customSwitch2">
+                              <input type="checkbox" class="form-check-input" name="repeatSwitch" id="customSwitch2">
                               <label class="form-check-label" for="customSwitch2">Это событие повторяется</label>
                             </div>
                           </div>
@@ -130,7 +105,6 @@
                                   <label for="daynum" class="form-label mb-0" id="daynum-label">день</label>
                                 </div>
                               </div>
-
                               <div id="weekly-section" style="display: none">
 
                                 <div class="d-week-check d-flex">
@@ -166,7 +140,6 @@
                                 </div>
 
                               </div>
-
                               <div id="monthly-section" style="display: none">
                                 <div class="form-check mb-3">
                                   <div class="form-group d-flex align-items-end position-relative mb-0">
@@ -191,13 +164,13 @@
                                 </div>
                                 <div class="form-check mb-3">
                                   <input type="radio" name="radios" class="form-check-input me-2" id="month5">
-                                  <label class="form-check-label me-2" for="month5">Последний рабочий день месяца</label>
+                                  <label class="form-check-label me-2" for="month5">Последний рабочий день
+                                    месяца</label>
                                 </div>
                               </div>
-
                               <div id="repdiap">
                                 <p>Диапазон повторения:</p>
-                                <div class="form-group startrep-date ">
+                                <div class="form-group startrep-date">
                                   <label for="startrep-date" class="">Начало повторения:</label>
                                   <div>
                                     <input id="startrep-date" placeholder="Дата начала"
@@ -205,47 +178,44 @@
                                            type="text">
                                   </div>
                                   <p class="mt-3">Конец повторения (если не выбрано - бесконечно):</p>
-
                                   <div class="form-check mt-3">
                                     <div class="form-group d-flex align-items-end position-relative">
-                                      <input type="checkbox" name="radios" class="form-check-input me-2" id="Radio5">
-                                      <label class="form-check-label me-2" for="Radio5">Закончить после</label>
+                                      <input type="checkbox" name="radios" class="form-check-input me-2 flex-shrink-0"
+                                             id="Radio5">
+                                      <label class="form-check-label flex-shrink-0 me-2" for="Radio5">Закончить после</label>
                                       <input id="endrep-date" placeholder="Дата окончания"
                                              class="form-control flatpickr-input position-relative"
-                                             type="text" style="width: 200px" disabled>
+                                             type="text" disabled>
                                       <label for="endrep-date"></label>
                                     </div>
 
                                     <div class="form-group d-flex align-items-end position-relative">
-                                      <input type="checkbox" name="radios" class="form-check-input me-2" id="Radio6">
-                                      <label class="form-check-label me-2" for="Radio6">Закончить после</label>
+                                      <input type="checkbox" name="radios" class="form-check-input me-2 flex-shrink-0" id="Radio6">
+                                      <label class="form-check-label me-2 flex-shrink-0" for="Radio6">Закончить после</label>
                                       <input class="form-control me-2" type="number" id="repcount" style="width: 75px"
                                              value="1" disabled>
-                                      <label for="repcount">повторений</label>
                                     </div>
                                   </div>
                                 </div>
-                              </div
+                              </div>
                             </div>
                           </div>
                         </div>
+                        <p class="text-danger delete-warning mt-3">Внимание. Удаляя повторяющееся
+                          событие, вы удаляете
+                          ВСЕ повторения.</p>
                       </div>
                     </div>
-                  </form>
+                  </div>
                 </div>
-              </div>
-            </div>
-
-            <div class="modal-footer mt-3">
-              <button id="add-event-btn" class="btn btn-primary add-event-btn" style="display: none;">Добавить
-                событие
-              </button>
-              <button id="edit-event" class="btn btn-primary edit-event" style="display: none;">Сохранить</button>
-              <button id="discard" class="btn btn-outline-danger" style="display: none;">Отмена
-              </button>
-              <button id="delete" class="btn btn-outline-danger btn-delete-event"
-                      style="display: none;">Удалить
-              </button>
+                <div class="modal-footer">
+                  <button class="btn btn-primary add-update-event-submit btn-submit" type="submit">Добавить
+                    событие
+                  </button>
+                  <button class="btn btn-outline-danger delete-discard-event-button">Отмена
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -255,35 +225,26 @@
       <div class="row" style="flex-wrap: nowrap">
         <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 pe-0">
           <div class="d-flex align-items-center justify-content-center pt-5">
-            <img src="assets/img/cosmonaut-laptop.svg" alt="" style="width: 60%; height: auto" class="align-items-center">
+            <img src="assets/img/cosmonaut-laptop.svg" alt="" style="width: 60%; height: auto"
+                 class="align-items-center">
           </div>
-          <div class="p-3">
-            <button type="button" class="btn btn-primary ms-auto mt-1 mb-1 btn-block" id="myBtn"><i class="mdi mdi-plus me-2"></i>Событие
-            </button>
+          <div class="filter-group calendar-private-filter flex-column align-items-start p-3">
+            <p class="group-title mb-2">События:</p>
+            <div class="form-check d-flex align-items-center mb-2">
+              <input class="form-check-input bg-primary me-2" type="checkbox" id="Private" name="Private">
+              <label class="form-check-label" for="Private">Только мои</label>
+            </div>
           </div>
-          <div class="card-body">
-            <div class="filter-group calendar-private-filter flex-column align-items-start">
-              <p class="group-title mb-2">События:</p>
-              <div class="form-check d-flex align-items-center mb-2">
-                <input class="form-check-input bg-primary me-2" type="checkbox" id="Private" name="Private">
-                <label class="form-check-label" for="Private">Только мои</label>
-              </div>
-
-            </div>
-            <div class="filter-group calendar-events-filter flex-column align-items-start" id="calEventFilter">
-            </div>
+          <div class="filter-group calendar-events-filter flex-column align-items-start p-3" id="calEventFilter">
           </div>
         </div>
         <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12 ps-0">
           <div class="card-body">
             <div class="calendar-module">
               <div id="calendar" class="calendar"></div>
+            </div>
           </div>
         </div>
       </div>
-
     </div>
-
-
-  </div>
 </main>

@@ -347,6 +347,9 @@ $grey-shadow-3: 0 2px 4px -2px rgba($gray-900, 0.1);
 $grey-shadow-4: 0 16px 8px -4px rgba($gray-900, 0.05);
 $grey-shadow-5: 0 8px 24px -4px rgba($gray-900, 0.1);
 $grey-shadow-6: 1px 2px 6px 0 rgba($gray-900, 0.15);
+$ui-grey-ring-offset-shadow: 0 0 $gray-900;
+$ui-grey-ring-shadow: 0 0 $gray-900;
+$ui-grey-shadow: 0 1px 2px 0 rgb($gray-900, 0.05);
 
 $white-shadow-1: 0 8px 16px rgba($gray-100, 0.04);
 $white-shadow-2: 0 4px 8px -2px rgba($gray-100, 0.04);
@@ -354,6 +357,9 @@ $white-shadow-3: 0 2px 4px -2px rgba($gray-100, 0.08);
 $white-shadow-4: 0 16px 8px -4px rgba($gray-100, 0.03);
 $white-shadow-5: 0 8px 24px -4px rgba($gray-100, 0.08);
 $white-shadow-6: 1px 2px 6px 0 rgba($gray-100, 0.12);
+$ui-white-ring-offset-shadow: 0 0 $gray-100;
+$ui-white-ring-shadow: 0 0 $gray-100;
+$ui-white-shadow: 0 1px 2px 0 rgb($gray-100, 0.05);
 
 $shadows: (
   "grey-shadow-1": $grey-shadow-1,
@@ -606,12 +612,14 @@ $theme-map-light: (
 $theme-map-light: (
   '--ui-bg': $white,
   '--ui-bg-mid': $gray-100,
-  '--ui-border': $gray-300,
+  '--ui-border': $gray-400,
   '--ui-shadow': $grey-shadow-3,
   '--ui-shadow-elements': $grey-shadow-6,
-  '--ui-text': $gray-700,
-  '--ui-text-mid': $gray-500,
-  '--ui-text-bold': $gray-900,
+  '--ui-text-lighter': $gray-600,
+  '--ui-text-light': $gray-700,
+  '--ui-text': $gray-800,
+  '--ui-text-mid': $gray-900,
+  '--ui-text-bold': $black,
 );
 
 $theme-map-dark: (
@@ -620,9 +628,11 @@ $theme-map-dark: (
   '--ui-border': $gray-700,
   '--ui-shadow': $white-shadow-3,
   '--ui-shadow-elements': $white-shadow-6,
-  '--ui-text': $gray-300,
-  '--ui-text-mid': $gray-500,
-  '--ui-text-bold': $gray-100,
+  '--ui-text-lighter': $gray-600,
+  '--ui-text-light': $gray-500,
+  '--ui-text': $gray-400,
+  '--ui-text-mid': $gray-200,
+  '--ui-text-bold': $white,
 );
 
 // Цветовые схемы

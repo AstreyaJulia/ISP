@@ -1,25 +1,26 @@
 <?php
-	namespace Api\Objects;
-	use Core\Config\DB;
 
-	class Visits {
+namespace Api\Objects;
 
-		protected $db;
+use Core\Config\DB;
 
-	    public function __construct(DB $db) {
-	        $this->db = $db;
-	    }
+class Visits
+{
 
-	    public function visits() {
-	        $sql = "SELECT
-	        			count(id) AS y,
-					    date_format(DATE_ADD((CAST(dtime AS DATE)), INTERVAL 1 DAY),'%d-%m-%Y') AS x
-					FROM
-					    sdc_visits
-					GROUP BY
-					    x
-					ORDER BY
-					    dtime";
-	        return $this->db->run($sql)->fetchAll(\PDO::FETCH_CLASS);
-	    }
-	}
+  protected $db;
+
+  public function __construct(DB $db)
+  {
+    $this->db = $db;
+  }
+
+  public function visits()
+  {
+    $sql = "SELECT count(id) AS y,
+       (CAST(dtime AS DATE)) AS x
+FROM sdc_visits
+where dtime > date_sub(now(), interval 30 day )
+GROUP BY x ORDER BY x";
+    return $this->db->run($sql)->fetchAll(\PDO::FETCH_CLASS);
+  }
+}

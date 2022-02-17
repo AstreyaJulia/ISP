@@ -21,15 +21,16 @@ where date_format(dtime,'%m-%d')  like  date_format(current_date,'%m-%d')
 
 
 
-  // Кол-во посещений по дням, общее
-SELECT count(id) AS count,
-       DATE_ADD((CAST(dtime AS DATE)), INTERVAL 1 DAY ) AS day
+  // Кол-во посещений по дням, общее за последние 30 дней
+SELECT count(id) AS y,
+       (CAST(dtime AS DATE)) AS x
 FROM
     sdc_visits
+where dtime > date_sub(now(), interval 30 day )
 GROUP BY
-    DATE_ADD((CAST(dtime AS DATE)), INTERVAL 1 DAY )
+    x
 ORDER BY
-    day
+    x
 
 выдаст данные в формате json:
 [
@@ -669,6 +670,223 @@ WHERE A.COURT_I_LEVEL IN (70060000, 70060002)
 
 
 / * Список неопубликованных с фио */
+SELECT DISTINCT A.ID                 AS ID,
+                max(A.FULL_NUMBER)   AS FULL_NUMBER,
+                max(A1.NAME)         AS FIELD_FIO,
+                max(A.VERDICT_DATE)  AS VERDICT_DATE,
+                max(A.VALIDITY_DATE) AS VALIDITY_DATE,
+                TO_CHAR((max(A.VALIDITY_DATE + INTERVAL '30' DAY)),
+                'dd.mm.yyyy') AS DATE_UNTILL,
+    max ((CASE
+    when b.ID_DOCUM is null then 'Не загружен в БСР'
+    else 'Загружен в БСР, не опубликован' END)) AS STAT
+FROM U1_CASE@IBASEDATA.US.ORACLE.COM A
+    left join bsr.BSRP b
+on a.ID = b.ID_AGORA
+    left join bsr.RUB_DOCUM r on b.ID_DOCUM = r.ID_DOCUM
+    left join bsr.RUB_DOCUM_EXCEPTION e on r.RUBRIKAT = e.VNCODE
+    LEFT OUTER JOIN U1_DEFENDANT@IBASEDATA.US.ORACLE.COM A1 ON A.ID = A1.CASE_ID
+WHERE A.VERDICT_ID IN (50910000)
+  AND A.CASE_TYPE_ID IN (50780000)
+  AND (extract(YEAR FROM to_date(A.VERDICT_DATE)) = extract(YEAR FROM to_date(current_date))
+   OR
+    extract(YEAR FROM to_date(A.VERDICT_DATE)) = extract(YEAR FROM to_date(current_date)) - 1)
+  AND A.JUDGE_ID = :JUDGE
+  AND b.DATEPUBLIC is null
+  AND ((e.PRICH is null)
+  AND (b.P_ANNOT is null))
+group by A.ID
+
+UNION ALL
+
+SELECT DISTINCT A.ID                AS ID,
+                max(A.FULL_NUMBER)  AS FULL_NUMBER,
+                max(A1.NAME)        AS FIELD_FIO,
+                max(A.VERDICT_DATE) AS VERDICT_DATE,
+                max(A.VERDICT_DATE) AS VALIDITY_DATE,
+                TO_CHAR((max(A.VERDICT_DATE + INTERVAL '30' DAY)),
+                'dd.mm.yyyy') AS DATE_UNTILL,
+    max ((CASE
+    when b.ID_DOCUM is null then 'Не загружен в БСР'
+    else 'Загружен в БСР, не опубликован' END)) AS STAT
+FROM U1_CASE@IBASEDATA.US.ORACLE.COM A
+    left join bsr.BSRP b
+on a.ID = b.ID_AGORA
+    left join bsr.RUB_DOCUM r on b.ID_DOCUM = r.ID_DOCUM
+    left join bsr.RUB_DOCUM_EXCEPTION e on r.RUBRIKAT = e.VNCODE
+    LEFT OUTER JOIN U1_DEFENDANT@IBASEDATA.US.ORACLE.COM A1 ON A.ID = A1.CASE_ID
+
+WHERE ((A.VERDICT_ID IN (50910100
+    , 50910003
+    , 50910002
+    , 50910004))
+   OR (A.VERDICT_ID IN (50910001)
+  AND A.VERDICT_ID2 IN
+    (50900007
+    , 51240002
+    , 50900001
+    , 51240025
+    , 50900000
+    , 51240001
+    , 51240000
+    , 51240015
+    , 51240022
+    , 51240019
+    , 51240017
+    , 50900018
+    , 51240006
+    , 51240009
+    , 51240003)))
+  AND (A.CASE_TYPE_ID IN (50780000)
+  AND (extract(YEAR FROM to_date(A.VERDICT_DATE)) = extract(YEAR FROM to_date(current_date))
+   OR
+    extract(YEAR FROM to_date(A.VERDICT_DATE)) = extract(YEAR FROM to_date(current_date)) - 1)
+  AND A.JUDGE_ID = :JUDGE)
+  AND b.DATEPUBLIC is null
+  AND ((e.PRICH is null)
+  AND (b.P_ANNOT is null))
+group by A.ID
+
+UNION ALL
+
+/* Уг дела АП. инст. */
+SELECT DISTINCT A.ID                AS ID,
+                max(A.FULL_NUMBER)  AS FULL_NUMBER,
+                max(A1.NAME)        AS FIELD_FIO,
+                max(A.VERDICT_DATE) AS VERDICT_DATE,
+                max(A.VERDICT_DATE) AS VALIDITY_DATE,
+                TO_CHAR((max(A.VERDICT_DATE + INTERVAL '30' DAY)),
+                'dd.mm.yyyy') AS DATE_UNTILL,
+    max ((CASE
+    when b.ID_DOCUM is null then 'Не загружен в БСР'
+    else 'Загружен в БСР, не опубликован' END)) AS STAT
+FROM U1_case@IBASEDATA.US.ORACLE.COM A
+    left join bsr.BSRP b
+on a.ID = b.ID_AGORA
+    left join bsr.RUB_DOCUM r on b.ID_DOCUM = r.ID_DOCUM
+    left join bsr.RUB_DOCUM_EXCEPTION e on r.RUBRIKAT = e.VNCODE
+    LEFT OUTER JOIN U1_DEFENDANT@IBASEDATA.US.ORACLE.COM A1 ON A.ID = A1.CASE_ID
+where A.CASE_TYPE_ID = 50780001
+  AND A.VERDICT_ID IN (50910100)
+  and (extract(YEAR FROM to_date(A.VERDICT_DATE)) = extract(YEAR FROM to_date(current_date))
+   OR
+    extract(YEAR FROM to_date(A.VERDICT_DATE)) = extract(YEAR FROM to_date(current_date)) - 1)
+  AND A.JUDGE_ID = :JUDGE
+  AND b.DATEPUBLIC is null
+  AND ((e.PRICH is null)
+  AND (b.P_ANNOT is null))
+group by A.ID
+
+UNION ALL
+
+SELECT DISTINCT A.ID               AS ID,
+                max(A.FULL_NUMBER) AS FULL_NUMBER,
+                max(A1.NAME)       as FIELD_FIO,
+                max(A.RESULT_DATE) AS VERDICT_DATE,
+                max(A.RESULT_DATE) AS VALIDITY_DATE,
+                TO_CHAR((max(A.RESULT_DATE + INTERVAL '30' DAY)),
+                'dd.mm.yyyy') AS DATE_UNTILL,
+    max ((CASE
+    when b.ID_DOCUM is null then 'Не загружен в БСР'
+    else 'Загружен в БСР, не опубликован' END)) AS STAT
+FROM G1_CASE@IBASEDATA.US.ORACLE.COM A
+    left join bsr.BSRP b
+on a.ID = b.ID_AGORA
+    left join bsr.RUB_DOCUM r on b.ID_DOCUM = r.ID_DOCUM
+    left join bsr.RUB_DOCUM_EXCEPTION e on r.RUBRIKAT = e.VNCODE
+    LEFT OUTER JOIN G1_PARTS@IBASEDATA.US.ORACLE.COM A1 ON A.ID = A1.CASE_ID
+WHERE (A.CASE_TYPE_ID IN (50520001
+    , 50520003
+    , 50520002
+    , 50520052)
+  AND
+    A.RESULT_ID IN (50640004
+    , 50640000
+    , 50640001
+    , 50640112
+    , 50640002
+    , 50640007
+    , 50640003)
+  AND
+    A.DECISION_ID IN (50580000)
+   OR
+    A.CASE_TYPE_ID = 50520004
+  AND
+    A.RESULT_ID IN
+    (50640001
+    , 50640200
+    , 50640110
+    , 50640109
+    , 50640100
+    , 50640104
+    , 50640106
+    , 50640103
+    , 50640114
+    , 50640111
+    , 50640107
+    , 50640105))
+  AND (extract(YEAR FROM to_date(A.RESULT_DATE)) = extract(YEAR FROM to_date(current_date))
+   OR
+    extract(YEAR FROM to_date(A.RESULT_DATE)) = extract(YEAR FROM to_date(current_date)) - 1)
+  AND A.JUDGE_ID = :JUDGE
+  AND b.DATEPUBLIC is null
+  AND ((e.PRICH is null)
+  AND (b.P_ANNOT is null))
+group by A.ID
+
+UNION ALL
+
+SELECT A.ID               AS ID,
+       max(A.CASE_NUMBER) AS FULL_NUMBER,
+       max(A2.NAME)       AS FIELD_FIO,
+       max(A.DECREE_DATE) AS VERDICT_DATE,
+       max(A.DECREE_DATE) AS VALIDITY_DATE,
+       TO_CHAR((max(A.DECREE_DATE + INTERVAL '30' DAY)),
+       'dd.mm.yyyy') AS DATE_UNTILL,
+    max ((CASE when b.ID_DOCUM is null then 'Не загружен в БСР' else 'Загружен в БСР, не опубликован' END)) AS STAT
+FROM ADM_CASE@IBASEDATA.US.ORACLE.COM A
+    left join bsr.BSRP b
+on a.ID = b.ID_AGORA
+    left join bsr.RUB_DOCUM r on b.ID_DOCUM = r.ID_DOCUM
+    left join bsr.RUB_DOCUM_EXCEPTION e on r.RUBRIKAT = e.VNCODE
+    LEFT OUTER JOIN ADM_PARTS@IBASEDATA.US.ORACLE.COM A2 ON A.ID = A2.CASE_ID
+WHERE (extract(YEAR FROM to_date(A.DECREE_DATE)) = extract(YEAR FROM to_date(current_date))
+   OR
+    extract(YEAR FROM to_date(A.DECREE_DATE)) = extract(YEAR FROM to_date(current_date)) - 1)
+  AND A.JUDGE_ID = :JUDGE
+  AND b.DATEPUBLIC is null
+  AND ((e.PRICH is null)
+  AND (b.P_ANNOT is null))
+  AND b.PRPUB <> 1
+group by A.ID
+
+UNION ALL
+
+SELECT A.ID                  AS ID,
+       max(A.CASE_NUMBER)    AS FULL_NUMBER,
+       max(A.DEFENDANT_NAME) AS FIELD_FIO,
+       max(A.DECREE_DATE)    AS VERDICT_DATE,
+       max(A.DECREE_DATE)    AS VALIDITY_DATE,
+       TO_CHAR((max(A.DECREE_DATE + INTERVAL '30' DAY)),
+       'dd.mm.yyyy') AS DATE_UNTILL,
+    max ((CASE when b.ID_DOCUM is null then 'Не загружен в БСР' else 'Загружен в БСР, не опубликован' END)) AS STAT
+FROM ADM1_CASE@IBASEDATA.US.ORACLE.COM A
+    left join bsr.BSRP b
+on a.ID = b.ID_AGORA
+    left join bsr.RUB_DOCUM r on b.ID_DOCUM = r.ID_DOCUM
+    left join bsr.RUB_DOCUM_EXCEPTION e on r.RUBRIKAT = e.VNCODE
+WHERE A.COURT_I_LEVEL IN (70060000
+    , 70060002)
+  AND (extract(YEAR FROM to_date(A.DECREE_DATE)) = extract(YEAR FROM to_date(current_date))
+   OR
+    extract(YEAR FROM to_date(A.DECREE_DATE)) = extract(YEAR FROM to_date(current_date)) - 1)
+  AND A.JUDGE_ID = :JUDGE
+  AND b.DATEPUBLIC is null
+  AND ((e.PRICH is null)
+  AND (b.P_ANNOT is null))
+group by A.ID
+
+/** Старый запрос, не использовать
 
 /* Список неопубликованных */
 /* Уг дела - Приговоры */

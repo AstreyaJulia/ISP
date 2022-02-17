@@ -46,7 +46,7 @@
             <p class="group-title p-0">Фильтр:</p>
             <?php foreach ($phonebookClass->getGroup() as $key => $value): ?>
               <div class="form-check me-2">
-                <input class="form-check-input" type="checkbox" id="<?= $value->id ?>" name="<?= $value->id ?>"
+                <input class="form-check-input" checked type="checkbox" id="<?= $value->id ?>" name="<?= $value->id ?>"
                        value="<?= $value->id ?>">
                 <label class="form-check-label" for="<?= $value->id ?>"><?=  $value->groupName ?></label>
               </div>

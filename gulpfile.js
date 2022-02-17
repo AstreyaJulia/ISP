@@ -8,24 +8,31 @@ const del = require("del");
 const sync = require("browser-sync").create();
 const webpack = require('webpack-stream');
 
-// Styles
-
+/**
+ * Стили
+ * @returns {*} scss-файл в css
+ */
 const styles = () => {
   return gulp.src("src/assets/css/main.scss")
     .pipe(plumber())
     .pipe(sourcemap.init())
-    .pipe(sass())
-    .pipe(sourcemap.write("."))
+    .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+    .pipe(sourcemap.write(".", {addComment: false}))
     .pipe(gulp.dest("assets/css"))
     .pipe(sync.stream());
 }
-
+/**
+ * Экспорт задачи стилей
+ * @type {function(): *}
+ */
 exports.styles = styles;
 
-// JS
-
+/**
+ * JS-бандл
+ * @returns {*} точка входа JS-бандла
+ */
 const jsbundle = () => {
-  return gulp.src("src/entry.js")
+  return gulp.src("src/assets/js/app.js")
     .pipe(webpack({config : require("./webpack.config.js"),
       externals: {
         jquery: 'jQuery'
@@ -33,12 +40,17 @@ const jsbundle = () => {
     }))
     .pipe(gulp.dest("assets/js/"));
 }
-
+/**
+ * Экспорт задачи JS-бандла
+ * @type {function(): *}
+ */
 exports.jsbundle = jsbundle;
 
 
-// Images
-
+/**
+ * Изображения
+ * @returns {*}
+ */
 const images = () => {
   return gulp.src("src/assets/img/**/*")
     .pipe(gulp.dest("assets/img"))
@@ -46,13 +58,14 @@ const images = () => {
 
 exports.images = images;
 
-// Copy
-
+/**
+ * Копирование файлов проекта из src папки
+ * @returns {*} пути к исходникам
+ */
 const copy = () => {
   return gulp.src([
       "src/assets/fonts/*.*",
-      "src/assets/modules/**/*.{js,map,css,json}",
-      "src/assets/js/app.js"
+      "src/assets/modules/**/*.{js,map,css,json}"
     ],
     {
       base: "src/assets/"
@@ -62,16 +75,23 @@ const copy = () => {
 
 exports.copy = copy;
 
-// Clean
-
+/**
+ * Очистка папки assets перед копированием файлов
+ * @returns {Promise<string[]> | *}
+ */
 const clean = () => {
   return del("assets");
 }
 
-// Server
-
+/**
+ * Сервер разработки
+ * @param done
+ */
 const server = (done) => {
   sync.init({
+    /**
+     * Прокси для сервера
+     */
     proxy: "isp"
   });
   done();
@@ -79,39 +99,48 @@ const server = (done) => {
 
 exports.server = server;
 
-// Reload
-
+/**
+ * Перезагрузка
+ * @param done
+ */
 const reload = done => {
   sync.reload();
   done();
 }
 
-// Watcher
-
+/**
+ * Автообновление сервера при изменении файлов по этим путям
+ */
 const watcher = () => {
   gulp.watch("src/assets/css/**/*.scss", gulp.series("styles"));
   gulp.watch("src/*.html", gulp.series(reload));
   gulp.watch('src/assets/js/**/*.js', gulp.series(reload));
 }
 
-// Clean Modules before copy
-
+/**
+ * Очистка папки с модулями перед копированием модулей
+ * @returns {Promise<string[]> | *} удаление папки
+ */
 const cleanModules = () => {
   return del("src/assets/modules");
 }
 
 exports.cleanModules = cleanModules;
 
-// Clean MDI font before copy
-
+/**
+ * Удаление иконочного шрифта перед копированием
+ * @returns {Promise<string[]> | *}
+ */
 const cleanMDIFont = () => {
   return del("src/assets/fonts/materialdesignicons-webfont.woff2");
 }
 
 exports.cleanMDIFont = cleanMDIFont;
 
-// Copy modules from node_modules to src folder
-
+/**
+ * Копирование модулей из папки node_modules в папку src
+ * @returns {*}
+ */
 const copyModules = () => {
   return gulp.src([
       "node_modules/bootstrap/dist/js/bootstrap.bundle.js",
@@ -146,8 +175,10 @@ const copyModules = () => {
 
 exports.copyModules = copyModules;
 
-// Copy fonts from node_modules to src fonts folder
-
+/**
+ * Копирование шрифтов из папки
+ * @returns {*}
+ */
 const copyMDIFont = () => {
   return gulp.src([
       "node_modules/@mdi/font/fonts/materialdesignicons-webfont.woff2"
@@ -160,12 +191,14 @@ const copyMDIFont = () => {
 
 exports.copyMDIFont = copyMDIFont;
 
-//Build
-
+/**
+ * Билд
+ */
 const build = gulp.series(
   clean,
   gulp.parallel(
     styles,
+    jsbundle,
     copy,
     images
   ),
@@ -173,6 +206,9 @@ const build = gulp.series(
 
 exports.build = build;
 
+/**
+ * Копирование модулей и шрифтов из node_modules
+ */
 const copyModulesFromNM = gulp.series(
   cleanModules,
   cleanMDIFont,
@@ -188,6 +224,7 @@ exports.default = gulp.series(
   clean,
   gulp.parallel(
     styles,
+    jsbundle,
     copy,
     images
   ),
