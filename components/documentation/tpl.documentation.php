@@ -102,10 +102,10 @@
           <p class="overline-title">Переменные PHP</p>
           <div class="row p-2 flex-wrap">
             <p class="h6">Зарезервированные переменные</p>
-            <p><code>$link</code> = "подключение к базе данных";</p>
+            <p><code>$link</code> = подключение к базе данных;</p>
             <p class="h6">Обязательные переменные</p>
-            <p><code>$title</code> = "Название страницы";</p>
-            <p><code>$content</code> = "В переменную выводится HTML-код работы PHP-скрипта. Будет обернут в
+            <p><code>$title</code> = Название страницы;</p>
+            <p><code>$content</code> = В переменную выводится HTML-код работы PHP-скрипта. Будет обернут в
               <span><<span>main </span></span>class="main-content">;</p>
             <p class="h6">Каркас страницы</p>
             <p>Каркас страницы состоит из файла <code>layout.php</code> к которому подключаются файы из папки elements:</p>
@@ -267,7 +267,114 @@
                     возраст.</h6>
                   <p class="timeline-text">16 августа 2021 года</p>
                 </li>
-
+                <li class="timeline-items timeline-icon-primary active">
+                  <h6 class="timeline-title">Оптимизация даты в заголовке. События в календраре без ID (дни рождения) нельзя редактировать.</h6>
+                  <p class="timeline-text">17 августа 2021 года</p>
+                </li>
+                <li class="timeline-items timeline-icon-primary active">
+                  <h6 class="timeline-title">Макет повторяющихся событий в календаре.</h6>
+                  <p class="timeline-text">18 августа 2021 года</p>
+                </li>
+                <li class="timeline-items timeline-icon-primary active">
+                  <h6 class="timeline-title">PHP: сброс пароля для входа.</h6>
+                  <p class="timeline-text">19 августа 2021 года</p>
+                </li>
+                <li class="timeline-items timeline-icon-primary active">
+                  <h6 class="timeline-title">Завершена разработка повторения событий.</h6>
+                  <p class="timeline-text">26 августа 2021 года</p>
+                </li>
+                <li class="timeline-items timeline-icon-primary active">
+                  <h6 class="timeline-title">PHP: добавление, обновление и удаление событий в базу.</h6>
+                  <p class="timeline-text">30 августа 2021 года</p>
+                </li>
+                <li class="timeline-items timeline-icon-primary active">
+                  <h6 class="timeline-title">PHP: добавлены выходные и праздничные дни в календарь.</h6>
+                  <p class="timeline-text">6 сентября 2021 года</p>
+                </li>
+                <li class="timeline-items timeline-icon-primary active">
+                  <h6 class="timeline-title">PHP: старт разработки рабочих мест пользователей.</h6>
+                  <p class="timeline-text">8 сентября 2021 года</p>
+                </li>
+                <li class="timeline-items timeline-icon-primary active">
+                  <h6 class="timeline-title">Кпока показать/скрыть пароль в форме входа.</h6>
+                  <p class="timeline-text">10 сентября 2021 года</p>
+                </li>
+                <li class="timeline-items timeline-icon-primary active">
+                  <h6 class="timeline-title">Закончен мини-календарь на главной.</h6>
+                  <p class="timeline-text">14 сентября 2021 года</p>
+                </li>
+                <li class="timeline-items timeline-icon-primary active">
+                  <h6 class="timeline-title">PHP: статистика посещения сайта.</h6>
+                  <p class="timeline-text">22 сентября 2021 года</p>
+                </li>
+                <li class="timeline-items timeline-icon-primary active">
+                  <h6 class="timeline-title">Добавлена кнопка "Назад" в заголовке страницы.</h6>
+                  <p class="timeline-text">11 октября 2021 года</p>
+                </li>
+                <li class="timeline-items timeline-icon-primary active">
+                  <h6 class="timeline-title">Погодный виджет openweather.</h6>
+                  <p class="timeline-text">17 октября 2021 года</p>
+                </li>
+                <li class="timeline-items timeline-icon-primary active">
+                  <h6 class="timeline-title">Добавлена темная тема.</h6>
+                  <p class="timeline-text">30 октября 2021 года</p>
+                </li>
+                <li class="timeline-items timeline-icon-primary active">
+                  <h6 class="timeline-title">Добавлена админка для сайта.</h6>
+                  <p class="timeline-text">31 октября 2021 года</p>
+                </li>
+                <li class="timeline-items timeline-icon-primary active">
+                  <h6 class="timeline-title">PHP: рабочие места.</h6>
+                  <p class="timeline-text">12 ноября 2021 года</p>
+                </li>
+                <li class="timeline-items timeline-icon-primary active">
+                  <h6 class="timeline-title">Раздел статистики (графики). Черновик.</h6>
+                  <p class="timeline-text">3 декабря 2021 года</p>
+                </li>
+                <li class="timeline-items timeline-icon-primary active">
+                  <h6 class="timeline-title">Добавлен тетрис (готовый, чужой код).</h6>
+                  <p class="timeline-text">5 декабря 2021 года</p>
+                </li>
+                <li class="timeline-items timeline-icon-primary active">
+                  <h6 class="timeline-title">PHP: категории дел и материалов из базы СДП.</h6>
+                  <p class="timeline-text">13 декабря 2021 года</p>
+                </li>
+                <li class="timeline-items timeline-icon-primary active">
+                  <h6 class="timeline-title">PHP: боковое меню формируется из базы.</h6>
+                  <p class="timeline-text">19 декабря 2021 года</p>
+                </li>
+                <li class="timeline-items timeline-icon-primary active">
+                  <h6 class="timeline-title">PHP: добавлена справка о работе судей.</h6>
+                  <p class="timeline-text">21 декабря 2021 года</p>
+                </li>
+                <li class="timeline-items timeline-icon-primary active">
+                  <h6 class="timeline-title">Виджет дней рождения на главной.</h6>
+                  <p class="timeline-text">22 декабря 2021 года</p>
+                </li>
+                <li class="timeline-items timeline-icon-primary active">
+                  <h6 class="timeline-title">PHP: список неопубликованных в БСР дел.</h6>
+                  <p class="timeline-text">19 января 2022 года</p>
+                </li>
+                <li class="timeline-items timeline-icon-primary active">
+                  <h6 class="timeline-title">PHP: авторизация по токену.</h6>
+                  <p class="timeline-text">20 января 2022 года</p>
+                </li>
+                <li class="timeline-items timeline-icon-primary active">
+                  <h6 class="timeline-title">GIT: мёрж ветки разработки в main.</h6>
+                  <p class="timeline-text">21 января 2022 года</p>
+                </li>
+                <li class="timeline-items timeline-icon-primary active">
+                  <h6 class="timeline-title">Анимация виджета приветствия пользователя.</h6>
+                  <p class="timeline-text">22 января 2022 года</p>
+                </li>
+                <li class="timeline-items timeline-icon-primary active">
+                  <h6 class="timeline-title">Рефакторинг JS: модули.</h6>
+                  <p class="timeline-text">7 февраля 2022 года</p>
+                </li>
+                <li class="timeline-items timeline-icon-primary active">
+                  <h6 class="timeline-title">Рефакторинг JS: сборка через Webpack.</h6>
+                  <p class="timeline-text">12 февраля 2022 года</p>
+                </li>
               </ul>
             </div>
           </div>
