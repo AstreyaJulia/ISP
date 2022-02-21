@@ -713,8 +713,13 @@ if (certBtn) {
 /*!*********************************************!*\
   !*** ./src/assets/js/modules/datatables.js ***!
   \*********************************************/
-/***/ (function() {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "datatablesHandler": function() { return /* binding */ datatablesHandler; }
+/* harmony export */ });
 /** Datatables */
 const datatablesHandler = () => {
   const colspan = $('td[colspan]').not('[colspan=1]');
@@ -1264,15 +1269,21 @@ const datatablesHandler = () => {
 
 document.addEventListener("DOMContentLoaded", datatablesHandler);
 
+
 /***/ }),
 
 /***/ "./src/assets/js/modules/faq.js":
 /*!**************************************!*\
   !*** ./src/assets/js/modules/faq.js ***!
   \**************************************/
-/***/ (function() {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _datatables__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./datatables */ "./src/assets/js/modules/datatables.js");
 
 /** Содержимое страницы FAQ */
+
 const faqcard = document.querySelector('.faq-categories-doc');
 const cont = document.querySelector('.faq-body');
 /** Индикатор загрузки для страницы FAQ */
@@ -1321,7 +1332,7 @@ const faqlinkClickHandler = evt => {
       if (Http.readyState === 4 && Http.status === 200) {
         cont.innerHTML = "";
         cont.insertAdjacentHTML('beforeend', Http.responseText);
-        datatablesHandler();
+        (0,_datatables__WEBPACK_IMPORTED_MODULE_0__.datatablesHandler)();
       }
     };
 
@@ -4774,9 +4785,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_apexchart__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/apexchart */ "./src/assets/js/modules/apexchart.js");
 /* harmony import */ var _modules_certificatework__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/certificatework */ "./src/assets/js/modules/certificatework.js");
 /* harmony import */ var _modules_datatables__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/datatables */ "./src/assets/js/modules/datatables.js");
-/* harmony import */ var _modules_datatables__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_modules_datatables__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _modules_faq__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/faq */ "./src/assets/js/modules/faq.js");
-/* harmony import */ var _modules_faq__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_modules_faq__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _modules_forms__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/forms */ "./src/assets/js/modules/forms.js");
 /* harmony import */ var _modules_forms__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_modules_forms__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var _modules_fullcalendar__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/fullcalendar */ "./src/assets/js/modules/fullcalendar.js");

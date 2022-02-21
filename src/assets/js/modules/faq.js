@@ -1,3 +1,4 @@
+import {datatablesHandler} from "./datatables"
 /** Содержимое страницы FAQ */
 const faqcard = document.querySelector('.faq-categories-doc');
 const cont = document.querySelector('.faq-body');

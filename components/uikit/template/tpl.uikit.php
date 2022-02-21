@@ -34,93 +34,91 @@
             цвет.
           </p>
           <div class="row p-2 flex-wrap">
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-secondary p-5 rounded-3 grey-shadow-5"></p>
                 <p>secondary</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-primary  p-5 rounded-3 grey-shadow-5"></p>
                 <p>primary</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-success  p-5 rounded-3 grey-shadow-5"></p>
                 <p>success</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-info  p-5 rounded-3 grey-shadow-5"></p>
                 <p>info</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-warning  p-5 rounded-3 grey-shadow-5"></p>
                 <p>warning</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-danger  p-5 rounded-3 grey-shadow-5"></p>
                 <p>danger</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-dark p-5 rounded-3 grey-shadow-5"></p>
                 <p>dark</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-blue  p-5 rounded-3 grey-shadow-5"></p>
                 <p>blue</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-teal  p-5 rounded-3 grey-shadow-5"></p>
                 <p>teal</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-azure p-5 rounded-3 grey-shadow-5"></p>
                 <p>azure</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-orange p-5 rounded-3 grey-shadow-5"></p>
                 <p>orange</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-pink p-5 rounded-3 grey-shadow-5"></p>
                 <p>pink</p>
               </div>
             </div>
-
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-indigo p-5 rounded-3 grey-shadow-5"></p>
                 <p>indigo</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-light p-5 rounded-3 grey-shadow-5"></p>
                 <p>light</p>
               </div>
             </div>
           </div>
-
         </div>
       </div>
       <div class="card mb-3">
@@ -130,80 +128,79 @@
             Используйте класс <code>.bg-*-light</code> для элемента.
           </p>
           <div class="row p-2 flex-wrap">
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-secondary-light p-5 rounded-3 grey-shadow-5"></p>
                 <p>secondary-light</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-primary-light  p-5 rounded-3 grey-shadow-5"></p>
                 <p>primary-light</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-success-light  p-5 rounded-3 grey-shadow-5"></p>
                 <p>success-light</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-info-light  p-5 rounded-3 grey-shadow-5"></p>
                 <p>info-light</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-warning-light  p-5 rounded-3 grey-shadow-5"></p>
                 <p>warning-light</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-danger-light  p-5 rounded-3 grey-shadow-5"></p>
                 <p>danger-light</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-dark-light p-5 rounded-3 grey-shadow-5"></p>
                 <p>dark-light</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-blue-light  p-5 rounded-3 grey-shadow-5"></p>
                 <p>blue-light</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-teal-light  p-5 rounded-3 grey-shadow-5"></p>
                 <p>teal-light</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-azure-light p-5 rounded-3 grey-shadow-5"></p>
                 <p>azure-light</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-orange-light p-5 rounded-3 grey-shadow-5"></p>
                 <p>orange-light</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-pink-light p-5 rounded-3 grey-shadow-5"></p>
                 <p>pink-light</p>
               </div>
             </div>
-
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-indigo-light p-5 rounded-3 grey-shadow-5"></p>
                 <p>indigo-light</p>
@@ -219,80 +216,79 @@
             Используйте класс <code>.bg-*-lighter</code> для элемента.
           </p>
           <div class="row p-2 flex-wrap">
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-secondary-lighter p-5 rounded-3 grey-shadow-5"></p>
                 <p>secondary-lighter</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-primary-lighter  p-5 rounded-3 grey-shadow-5"></p>
                 <p>primary-lighter</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-success-lighter  p-5 rounded-3 grey-shadow-5"></p>
                 <p>success-lighter</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-info-lighter  p-5 rounded-3 grey-shadow-5"></p>
                 <p>info-lighter</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-warning-lighter  p-5 rounded-3 grey-shadow-5"></p>
                 <p>warning-lighter</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-danger-lighter  p-5 rounded-3 grey-shadow-5"></p>
                 <p>danger-lighter</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-dark-lighter p-5 rounded-3 grey-shadow-5"></p>
                 <p>dark-lighter</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-blue-lighter  p-5 rounded-3 grey-shadow-5"></p>
                 <p>blue-lighter</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-teal-lighter  p-5 rounded-3 grey-shadow-5"></p>
                 <p>teal-lighter</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-azure-lighter p-5 rounded-3 grey-shadow-5"></p>
                 <p>azure-lighter</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-orange-lighter p-5 rounded-3 grey-shadow-5"></p>
                 <p>orange-lighter</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-pink-lighter p-5 rounded-3 grey-shadow-5"></p>
                 <p>pink-lighter</p>
               </div>
             </div>
-
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-indigo-lighter p-5 rounded-3 grey-shadow-5"></p>
                 <p>indigo-lighter</p>
@@ -308,74 +304,74 @@
             Используйте класс <code>.bg-*-dark</code> для элемента.
           </p>
           <div class="row p-2 flex-wrap">
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-secondary-dark p-5 rounded-3 grey-shadow-5"></p>
                 <p>secondary-dark</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-primary-dark  p-5 rounded-3 grey-shadow-5"></p>
                 <p>primary-dark</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-success-dark  p-5 rounded-3 grey-shadow-5"></p>
                 <p>success-dark</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-info-dark  p-5 rounded-3 grey-shadow-5"></p>
                 <p>info-dark</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-warning-dark p-5 rounded-3 grey-shadow-5"></p>
                 <p>warning-dark</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-danger-dark  p-5 rounded-3 grey-shadow-5"></p>
                 <p>danger-dark</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-blue-dark  p-5 rounded-3 grey-shadow-5"></p>
                 <p>blue-dark</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-teal-dark  p-5 rounded-3 grey-shadow-5"></p>
                 <p>teal-dark</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-azure-dark p-5 rounded-3 grey-shadow-5"></p>
                 <p>azure-dark</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-orange-dark p-5 rounded-3 grey-shadow-5"></p>
                 <p>orange-dark</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-pink-dark p-5 rounded-3 grey-shadow-5"></p>
                 <p>pink-dark</p>
               </div>
             </div>
 
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-indigo-dark p-5 rounded-3 grey-shadow-5"></p>
                 <p>indigo-dark</p>
@@ -392,73 +388,73 @@
             Используйте класс <code>.bg-*-darker</code> для элемента.
           </p>
           <div class="row p-2 flex-wrap">
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-secondary-darker p-5 rounded-3 grey-shadow-5"></p>
                 <p>secondary-darker</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-primary-darker  p-5 rounded-3 grey-shadow-5"></p>
                 <p>primary-darker</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-success-darker  p-5 rounded-3 grey-shadow-5"></p>
                 <p>success-darker</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-info-darker  p-5 rounded-3 grey-shadow-5"></p>
                 <p>info-darker</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-warning-darker p-5 rounded-3 grey-shadow-5"></p>
                 <p>warning-darker</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-danger-darker  p-5 rounded-3 grey-shadow-5"></p>
                 <p>danger-darker</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-blue-darker  p-5 rounded-3 grey-shadow-5"></p>
                 <p>blue-darker</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-teal-darker  p-5 rounded-3 grey-shadow-5"></p>
                 <p>teal-darker</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-azure-darker p-5 rounded-3 grey-shadow-5"></p>
                 <p>azure-darker</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-orange-darker p-5 rounded-3 grey-shadow-5"></p>
                 <p>orange-darker</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-pink-darker p-5 rounded-3 grey-shadow-5"></p>
                 <p>pink-darker</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-indigo-darker p-5 rounded-3 grey-shadow-5"></p>
                 <p>indigo-darker</p>
@@ -475,86 +471,86 @@
             Используйте класс <code>.bg-gradient-*</code> для элемента, чтобы задать ему градиентный фон.
           </p>
           <div class="row p-2 flex-wrap">
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-gradient-secondary p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-secondary</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-gradient-primary  p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-primary</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-gradient-success  p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-success</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-gradient-info  p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-info</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-gradient-warning  p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-warning</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-gradient-danger  p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-danger</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-gradient-dark p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-dark</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-gradient-blue  p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-blue</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-gradient-teal  p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-teal</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-gradient-azure p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-azure</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-gradient-orange p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-orange</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-gradient-pink p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-pink</p>
               </div>
             </div>
 
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-gradient-indigo p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-indigo</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-gradient-light p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-light</p>
@@ -568,305 +564,305 @@
         <div class="card-body">
           <p class="overline-title">Градиенты</p>
           <div class="row p-2 flex-wrap">
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-gradient-purple-blue p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-purple-blue</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-gradient-purple-cyan p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-purple-cyan</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-gradient-purple-teal p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-purple-teal</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-gradient-purple-azure p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-purple-azure</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-gradient-purple-indigo p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-purple-indigo</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-gradient-purple-pink p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-purple-pink</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-gradient-purple-red p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-purple-red</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-gradient-azure-blue p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-azure-blue</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-gradient-azure-cyan p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-azure-cyan</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-gradient-azure-green p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-azure-green</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-gradient-azure-indigo p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-azure-indigo</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-gradient-azure-pink p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-azure-pink</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-gradient-azure-purple p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-azure-purple</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-gradient-azure-teal p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-azure-teal</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-gradient-blue-azure p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-blue-azure</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 bg-gradient-blue-cyan p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-blue-cyan</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-blue-green p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-blue-green</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-blue-indigo p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-blue-indigo</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-blue-pink p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-blue-pink</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-blue-purple p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-blue-purple</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-blue-teal p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-blue-teal</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-cyan-azure p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-cyan-azure</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-cyan-blue p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-cyan-blue</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-cyan-green p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-cyan-green</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-cyan-indigo p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-cyan-indigo</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-cyan-pink p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-cyan-pink</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-cyan-purple p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-cyan-purple</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-cyan-teal p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-cyan-teal</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-green-azure p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-green-azure</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-green-blue p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-green-blue</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-green-cyan p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-green-cyan</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-green-teal p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-green-teal</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-green-yellow p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-green-yellow</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-indigo-azure p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-indigo-azure</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-indigo-blue p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-indigo-blue</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-indigo-cyan p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-indigo-cyan</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-indigo-green p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-indigo-green</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-indigo-pink p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-indigo-pink</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-indigo-purple p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-indigo-purple</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-indigo-red p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-indigo-red</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-indigo-teal p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-indigo-teal</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-orange-pink p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-orange-pink</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-orange-red p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-orange-red</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-orange-yellow p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-orange-yellow</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-pink-azure p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-pink-azure</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-pink-blue p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-pink-blue</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-pink-cyan p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-pink-cyan</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-pink-indigo p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-pink-indigo</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-pink-orange p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-pink-orange</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-pink-purple p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-pink-purple</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-pink-red p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-pink-red</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-pink-yellow p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-pink-yellow</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-red-azure p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-red-azure</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-red-blue p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-red-blue</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-red-indigo p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-red-indigo</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-red-orange p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-red-orange</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-red-pink p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-red-pink</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-red-purple p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-red-purple</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-red-yellow p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-red-yellow</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-teal-azure p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-teal-azure</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-teal-blue p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-teal-blue</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-teal-cyan p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-teal-cyan</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-teal-green p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-teal-green</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-teal-indigo p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-teal-indigo</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-teal-purple p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-teal-purple</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-yellow-green p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-yellow-green</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-yellow-orange p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-yellow-orange</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-yellow-pink p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-yellow-pink</p></div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column"><p class="p-2 bg-gradient-yellow-red p-5 rounded-3 grey-shadow-5"></p>
                 <p>gradient-yellow-red</p></div>
             </div>
@@ -883,38 +879,38 @@
             ему падающую тень.
           </p>
           <div class="row p-3 flex-wrap">
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 grey-shadow-1 p-5 rounded-3 grey-shadow-5"></p>
                 <p>grey-shadow-1</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 grey-shadow-2 p-5 rounded-3 grey-shadow-5"></p>
                 <p>grey-shadow-2</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 grey-shadow-3 p-5 rounded-3 grey-shadow-5"></p>
                 <p>grey-shadow-3</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 grey-shadow-4 p-5 rounded-3 grey-shadow-5"></p>
                 <p>grey-shadow-4</p>
               </div>
 
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 grey-shadow-5 p-5 rounded-3 grey-shadow-5"></p>
                 <p>grey-shadow-5</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 grey-shadow-6 p-5 rounded-3 grey-shadow-5"></p>
                 <p>grey-shadow-6</p>
@@ -922,82 +918,90 @@
             </div>
           </div>
           <div class="row flex-wrap bg-dark p-3">
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 white-shadow-1 p-5 rounded-3 grey-shadow-5"></p>
-                <p>white-shadow-1</p>
+                <p class="text-white">white-shadow-1</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 white-shadow-2 p-5 rounded-3 grey-shadow-5"></p>
-                <p>white-shadow-2</p>
+                <p class="text-white">white-shadow-2</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 white-shadow-3 p-5 rounded-3 grey-shadow-5"></p>
-                <p>white-shadow-3</p>
+                <p class="text-white">white-shadow-3</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 white-shadow-4 p-5 rounded-3 grey-shadow-5"></p>
-                <p>white-shadow-4</p>
+                <p class="text-white">white-shadow-4</p>
               </div>
 
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 white-shadow-5 p-5 rounded-3 grey-shadow-5"></p>
-                <p>white-shadow-5</p>
+                <p class="text-white">white-shadow-5</p>
               </div>
             </div>
-            <div class="col-12 col-xxl-2">
+            <div class="col-12 col-xl-2 col-md-3 col-xxl-2">
               <div class="d-flex flex-column">
                 <p class="p-2 white-shadow-6 p-5 rounded-3 grey-shadow-5"></p>
-                <p>white-shadow-6</p>
+                <p class="text-white">white-shadow-6</p>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="card mb-3">
-        <div class="card-body">
-          <p class="overline-title">Цвет текста</p>
-          <p class="mb-3">
-            Используйте классы <code>.text-*</code> для текста, чтобы задать ему цвет.
-          </p>
-          <p class="text-secondary">Текст цвета secondary</p>
-          <p class="text-primary">Текст цвета primary</p>
-          <p class="text-success">Текст цвета success</p>
-          <p class="text-info">Текст цвета info</p>
-          <p class="text-warning">Текст цвета warning</p>
-          <p class="text-danger">Текст цвета danger</p>
-          <p class="text-gray-dark">Текст цвета gray-dark</p>
-          <p class="text-blue">Текст цвета blue</p>
-          <p class="text-teal">Текст цвета teal</p>
-          <p class="text-azure">Текст цвета azure</p>
-          <p class="text-orange">Текст цвета orange</p>
-          <p class="text-pink">Текст цвета pink</p>
-          <p class="text-dark">Текст цвета dark</p>
-          <p class="text-indigo">Текст цвета indigo</p>
-          <p class="text-light bg-dark">Текст цвета light</p>
-          <p class="text-white bg-dark">Текст цвета white</p>
+      <div class="row">
+        <div class="col-12 col-md-6 col-xl-6 col-xxl-6">
+          <div class="card mb-3">
+            <div class="card-body">
+              <p class="overline-title">Цвет текста</p>
+              <p class="mb-3">
+                Используйте классы <code>.text-*</code> для текста, чтобы задать ему цвет.
+              </p>
+              <p class="text-secondary">Текст цвета secondary</p>
+              <p class="text-primary">Текст цвета primary</p>
+              <p class="text-success">Текст цвета success</p>
+              <p class="text-info">Текст цвета info</p>
+              <p class="text-warning">Текст цвета warning</p>
+              <p class="text-danger">Текст цвета danger</p>
+              <p class="text-gray-dark">Текст цвета gray-dark</p>
+              <p class="text-blue">Текст цвета blue</p>
+              <p class="text-teal">Текст цвета teal</p>
+              <p class="text-azure">Текст цвета azure</p>
+              <p class="text-orange">Текст цвета orange</p>
+              <p class="text-pink">Текст цвета pink</p>
+              <p class="text-dark">Текст цвета dark</p>
+              <p class="text-indigo">Текст цвета indigo</p>
+              <p class="text-light bg-dark">Текст цвета light</p>
+              <p class="text-white bg-dark">Текст цвета white</p>
+            </div>
+          </div>
+
         </div>
-      </div>
-      <div class="card mb-3">
-        <div class="card-body">
-          <p class="overline-title">Градиент текста</p>
-          <p class="mb-3">
-            Используйте класс <code>text-gradient</code> с классами <code>.bg-gradient-*</code> для текста, чтобы задать ему цвет.
-          </p>
-          <p><span class="text-gradient bg-gradient-purple-red">Текст цвета bg-gradient-purple-red</span></p>
-          <p><span class="text-gradient bg-gradient-orange-pink">Текст цвета bg-gradient-orange-pink</span></p>
-          <p><span class="text-gradient bg-gradient-green-yellow">Текст цвета bg-gradient-green-yellow</span></p>
-          <p><span class="text-gradient bg-gradient-indigo-red">Текст цвета bg-gradient-indigo-red</span></p>
-          <p><span class="text-gradient bg-gradient-red-purple">Текст цвета bg-gradient-red-purple</span></p>
-          <p><span class="text-gradient bg-gradient-teal-blue">Текст цвета bg-gradient-teal-blue</span></p>
+        <div class="col-12 col-md-6 col-xl-6 col-xxl-6">
+          <div class="card mb-3">
+            <div class="card-body">
+              <p class="overline-title">Градиент текста</p>
+              <p class="mb-3">
+                Используйте класс <code>text-gradient</code> с классами <code>.bg-gradient-*</code> для текста, чтобы задать ему цвет.
+              </p>
+              <p><span class="text-gradient bg-gradient-purple-red">Текст цвета bg-gradient-purple-red</span></p>
+              <p><span class="text-gradient bg-gradient-orange-pink">Текст цвета bg-gradient-orange-pink</span></p>
+              <p><span class="text-gradient bg-gradient-green-yellow">Текст цвета bg-gradient-green-yellow</span></p>
+              <p><span class="text-gradient bg-gradient-indigo-red">Текст цвета bg-gradient-indigo-red</span></p>
+              <p><span class="text-gradient bg-gradient-red-purple">Текст цвета bg-gradient-red-purple</span></p>
+              <p><span class="text-gradient bg-gradient-teal-blue">Текст цвета bg-gradient-teal-blue</span></p>
+            </div>
+          </div>
+
         </div>
       </div>
       <div class="card mb-3">
@@ -1115,50 +1119,6 @@
           <button class="btn btn-primary btn-block mb-4 me-2">Button</button>
           <input type="submit" class="btn btn-info btn-block mb-4 me-2 text-white" value="Input">
           <a class="btn btn-success btn-block mb-4 me-2 text-white" role="button">Link</a>
-        </div>
-      </div>
-      <div class="card mb-3">
-        <div class="card-body">
-          <p class="overline-title">Кнопки-блоки скругленные</p>
-          <p class="mb-3">
-            Добавьте <code>btn-block btn-rounded</code> чтобы создать скругленную кнопку-блок:
-          </p>
-          <button class="btn btn-primary btn-rounded btn-block mb-4 me-2">Button</button>
-          <input type="submit" class="btn btn-info btn-rounded btn-block mb-4 me-2 text-white" value="Input">
-          <a class="btn btn-success btn-rounded btn-block mb-4 me-2 text-white" role="button">Link</a>
-        </div>
-      </div>
-      <div class="card mb-3">
-        <div class="card-body">
-          <p class="overline-title">Кнопки-блоки с обводкой</p>
-          <p class="mb-3">
-            Добавьте <code>btn-block btn-outline-*</code> чтобы создать кнопку-блок с обводкой:
-          </p>
-          <button class="btn btn-outline-primary btn-block mb-4 me-2">Button</button>
-          <input type="submit" class="btn btn-outline-info btn-block mb-4 me-2" value="Input">
-          <a class="btn btn-outline-success btn-block mb-4 me-2" role="button">Link</a>
-        </div>
-      </div>
-      <div class="card mb-3">
-        <div class="card-body">
-          <p class="overline-title">Кнопки-блоки скругленные с обводкой</p>
-          <p class="mb-3">
-            Добавьте <code>btn-block btn-rounded btn-outline-*</code> чтобы создать скругленную кнопку-блок с обводкой:
-          </p>
-          <button class="btn btn-outline-primary btn-rounded btn-block mb-4 me-2">Button</button>
-          <input type="submit" class="btn btn-outline-info btn-rounded btn-block mb-4 me-2" value="Input">
-          <a class="btn btn-outline-success btn-rounded btn-block mb-4 me-2" role="button">Link</a>
-        </div>
-      </div>
-      <div class="card mb-3">
-        <div class="card-body">
-          <p class="overline-title">Большие кнопки-блоки</p>
-          <p class="mb-3">
-            Добавьте <code>btn-block btn-lg</code> чтобы создать большую кнопку-блок:
-          </p>
-          <button class="btn btn-primary btn-lg btn-block mb-4 me-2">Button</button>
-          <input type="submit" class="btn btn-info btn-lg btn-block mb-4 me-2 text-white" value="Input">
-          <a class="btn btn-success btn-lg btn-block mb-4 me-2 text-white" role="button">Link</a>
         </div>
       </div>
       <div class="card mb-3">

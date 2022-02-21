@@ -551,3 +551,5 @@ const datatablesHandler = () => {
 
 /** Ждем полной загрузки дерева */
 document.addEventListener("DOMContentLoaded",datatablesHandler);
+
+export {datatablesHandler}
