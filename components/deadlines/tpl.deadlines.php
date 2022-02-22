@@ -48,7 +48,7 @@
             <th>Номер дела</th>
             <th>Стороны</th>
             <th>Категория</th>
-            <th>Дата рассмотрения</th>
+            <th>Информация</th>
           </tr>
           </thead>
           <tbody>
@@ -57,7 +57,7 @@
               <td><?= $value->CASE_NUMBER ?></td>
               <td><?= $value->PARTS_FIO ?></td>
               <td><?= $value->CAT ?></td>
-              <td><?= date("d.m.Y", strtotime($value->DATE_RASSM)) ?>
+              <td><?= $value->INFO ?>
             </tr>
           <?php endforeach ?>
           </tbody>
