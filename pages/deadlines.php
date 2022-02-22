@@ -1,5 +1,5 @@
 <?php
-$title = "Публикация судебных актов";
+$title = "Нарушение сроков рассмотрения";
 
 // параметры $_GET запроса
 $queryParams = [
@@ -7,7 +7,7 @@ $queryParams = [
 ];
 
 // URL страницы, которую открываем
-$url = 'http://192.168.0.254:8079/api_GAS/publication-acts.php?'. http_build_query($queryParams);
+$url = 'http://192.168.0.254:8079/api_GAS/deadlines.php?'. http_build_query($queryParams);
 
 $ch = curl_init($url);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -22,15 +22,14 @@ if (!empty($response)) {
 } else {
     $row = array();
     $value = new class {
-        public $FULL_NUMBER = false;
-        public $VERDICT_DATE = false;
-        public $VALIDITY_DATE = false;
-        public $DATE_UNTILL = false;
-        public $STAT = false;
+        public $CASE_NUMBER = false;
+        public $PARTS_FIO = false;
+        public $CAT = false;
+        public $DATE_RASSM = false;
     };
 }
 
 ob_start();
-    include "components/sudact/tpl.sudact.php";
+    include "components/deadlines/tpl.deadlines.php";
     $content = ob_get_contents();
 ob_end_clean();

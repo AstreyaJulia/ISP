@@ -46,20 +46,18 @@
           <thead>
           <tr>
             <th>Номер дела</th>
+            <th>Стороны</th>
+            <th>Категория</th>
             <th>Дата рассмотрения</th>
-            <th>Дата вступления в законную силу</th>
-            <th>Опубликовать до *</th>
-            <th>Статус</th>
           </tr>
           </thead>
           <tbody>
           <?php foreach ($row as $key => $value): ?>
             <tr>
-              <td><?= $value->FULL_NUMBER ?></td>
-              <td><?= date("d.m.Y", strtotime($value->VERDICT_DATE)) ?></td>
-              <td><?= $value->VALIDITY_DATE ? date("d.m.Y", strtotime($value->VALIDITY_DATE)) : "" ?></td>
-              <td><?= $value->DATE_UNTILL ?></td>
-              <td><?= $value->STAT ?></td>
+              <td><?= $value->CASE_NUMBER ?></td>
+              <td><?= $value->PARTS_FIO ?></td>
+              <td><?= $value->CAT ?></td>
+              <td><?= date("d.m.Y", strtotime($value->DATE_RASSM)) ?>
             </tr>
           <?php endforeach ?>
           </tbody>

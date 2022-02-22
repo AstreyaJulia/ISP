@@ -9,7 +9,7 @@ $queryParams = [
     'idJudge' => $userAtributes->data->idGAS ?? "",
 ];
 
-// URL страницы, которую открываем
+// URL страницы, не опубликованных актов
 $url = 'http://192.168.0.254:8079/api_GAS/publication-acts.php?'. http_build_query($queryParams);
 
 $ch = curl_init($url);
@@ -29,6 +29,26 @@ if ($response) {
     $message = "";
     // сообщим об ошибке в $url
     $notPub = "Недоступен ГАС";
+}
+
+// URL страницы, с нарушениями сроковрассмотрения
+$url = 'http://192.168.0.254:8079/api_GAS/deadlines.php?'. http_build_query($queryParams);
+
+$ch = curl_init($url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//ожидания при попытке подключения секунд (0 - бесконечно)
+curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
+
+$deadlines = curl_exec($ch);
+curl_close($ch);
+
+if ($deadlines) {
+    $rowDeadlines = json_decode($deadlines);
+    $messageDeadlines = "Нарушено сроков";
+    // количество неопубликованых актов
+    $deadlines = is_array($rowDeadlines) ? count($rowDeadlines):  0;
+} else {
+    $messageDeadlines = "";
 }
 // подключаем шаблон
 ob_start();

@@ -54,6 +54,22 @@
                 </div>
               </a>
             <?php endif ?>
+            
+            <?php if ($deadlines): ?>
+              <a class="card bg-danger-lighter mb-3" href="?page=deadlines">
+                <div class="card-body">
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon small bg-gradient-danger text-white grey-shadow-2 me-3">
+                      <i class="mdi mdi-lightbulb-on-outline"></i>
+                    </div>
+                    <div class="d-flex flex-grow-1 flex-shrink-1 flex-column">
+                      <p class="text-secondary text-uppercase fw-bold font-small-1 mb-0"><?= $messageDeadlines ?></p>
+                    </div>
+                    <h4 class="mb-0 text-danger"><?= $deadlines ?></h4>
+                  </div>
+                </div>
+              </a>
+            <?php endif ?>
 
             <!-- <div id="carouselNews" class="carousel slide card mb-3" data-bs-ride="carousel"></div> -->
 
