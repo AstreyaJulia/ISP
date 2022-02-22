@@ -10,7 +10,7 @@ $queryParams = [
 ];
 
 // URL страницы, не опубликованных актов
-$url = 'http://192.168.0.254:8079/api_GAS/publication-acts.php?'. http_build_query($queryParams);
+/*$url = 'http://192.168.0.254:8079/api_GAS/publication-acts.php?'. http_build_query($queryParams);
 
 $ch = curl_init($url);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -18,10 +18,12 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
 
 $response = curl_exec($ch);
-curl_close($ch);
+curl_close($ch);*/
 
+$response = $autorizationClass::sendGET($queryParams, 'http://192.168.0.254:8079/api_GAS/publication-acts.php?');
+var_dump($response);
 if ($response) {
-    $row = json_decode($response);
+    $row = $response;
     $message = "Актов не опубликовано";
     // количество неопубликованых актов
     $notPub = is_array($row) ? count($row):  0;
@@ -30,6 +32,14 @@ if ($response) {
     // сообщим об ошибке в $url
     $notPub = "Недоступен ГАС";
 }
+
+
+
+
+
+
+
+
 
 // URL страницы, с нарушениями сроковрассмотрения
 $url = 'http://192.168.0.254:8079/api_GAS/deadlines.php?'. http_build_query($queryParams);

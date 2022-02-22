@@ -28,6 +28,7 @@
 		    );
 		    $result = curl_exec($curl);
 		    curl_close($curl);
+		    // если результат false не применять json_decode
 		    $message = json_decode($result);
 		    return $message;
 	    }
