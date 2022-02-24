@@ -6,19 +6,10 @@ $queryParams = [
     'idJudge' => $userAtributes->data->idGAS ?? "",
 ];
 
-// URL страницы, которую открываем
-$url = 'http://192.168.0.254:8079/api_GAS/deadlines.php?'. http_build_query($queryParams);
-
-$ch = curl_init($url);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-//ожидание при попытке подключения, секунд (0 - бесконечно)
-curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
-
-$response = curl_exec($ch);
-curl_close($ch);
+$response = $autorizationClass::sendGET($queryParams, 'http://192.168.0.254:8079/api_GAS/deadlines.php?');
 
 if (!empty($response)) {
-    $row = json_decode($response) ?? array();
+    $row = $response ?? array();
 } else {
     $row = array();
     $value = new class {
