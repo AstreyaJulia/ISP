@@ -8,14 +8,10 @@
 
     $proxyListClass = new \Api\Objects\ProxyList($db);
 
+    $jwt = $_GET['jwt'] ?? die();
+
     // Файлы jwt
     require_once $_SERVER['DOCUMENT_ROOT'] . "/api/config/jwt.php";
-
-    // получаем значение веб-токена JSON
-    $data = json_decode(file_get_contents("php://input"));
-
-    // получаем JWT
-    $jwt = $data->jwt ?? die();
 
     // если JWT не пуст
     if($jwt) {
