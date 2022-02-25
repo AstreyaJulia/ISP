@@ -22,6 +22,6 @@ if (!empty($response)) {
 }
 
 ob_start();
-    include "components/suspended/tpl.suspended.php";
+    include "components/not-reviewed/tpl.not-reviewed.php";
     $content = ob_get_contents();
 ob_end_clean();
