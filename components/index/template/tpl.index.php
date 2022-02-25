@@ -70,7 +70,7 @@
                 </div>
               </a>
             <?php endif ?>
-
+            <?php if ($userAtributes->data->idGAS): ?>
             <div class="accordion border-0 my-3" id="accordionExample">
               <div class="accordion-item">
                 <div class="accordion-button collapsed bg-warning-20" title="Развернуть" role="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -93,7 +93,7 @@
                 </div>
               </div>
             </div>
-
+          <?php endif ?>
 
             <!-- <div id="carouselNews" class="carousel slide card mb-3" data-bs-ride="carousel"></div> -->
 
