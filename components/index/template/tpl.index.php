@@ -54,7 +54,7 @@
                 </div>
               </a>
             <?php endif ?>
-            
+
             <?php if ($deadlines): ?>
               <a class="card bg-danger-lighter mb-3" href="?page=deadlines">
                 <div class="card-body">
@@ -71,20 +71,34 @@
               </a>
             <?php endif ?>
 
+            <div class="accordion border-0 my-3" id="accordionExample">
+              <div class="accordion-item">
+                <div class="accordion-button collapsed bg-warning-20" title="Развернуть" role="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  <h6 class="accordion-header surtitle text-secondary font-small-1">Не рассмотренные дела (сроки)</h6>
+                </div>
+                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    <ul class="list-unstyled">
+                      <li class="mb-3"><span class="bullet bg-warning bullet-sm me-2 ms-2"></span><a class="text-dark p-1" href="?page=suspended">
+                          Приостановленные
+                        </a></li>
+                      <li class="mb-3"><span class="bullet bg-warning bullet-sm me-2 ms-2"></span><a class="text-dark p-1" href="?page=motionless">
+                          Без движения
+                        </a></li>
+                      <li class="mb-3"><span class="bullet bg-warning bullet-sm me-2 ms-2"></span><a class="text-dark p-1" href="?page=not-reviewed">
+                          Не окончено
+                        </a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
             <!-- <div id="carouselNews" class="carousel slide card mb-3" data-bs-ride="carousel"></div> -->
 
           </div>
-          <div class="col-xxl-8 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-            <a class="list-group-toolbutton btnmodal-multiaction" href="?page=suspended">
-              Не рассмотренные дела приостановленные
-            </a><br/>
-            <a class="list-group-toolbutton btnmodal-multiaction" href="?page=motionless">
-              Не рассмотренные дела без движения
-            </a><br/>
-            <a class="list-group-toolbutton btnmodal-multiaction" href="?page=not-reviewed">
-              Не рассмотренные дела
-            </a>
-          </div>
+
 
         </div>
       </div>
