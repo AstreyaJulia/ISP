@@ -25,22 +25,40 @@
       </div>
     </header>
     <div class="row boxed-content">
+
       <div class="card">
+        <div class="accordion my-3" id="accordionExample">
+          <div class="accordion-item">
+              <div class="accordion-button collapsed bg-danger-20" title="Развернуть" role="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <h6 class="accordion-header surtitle text-danger font-small-1">Внимание</h6>
+              </div>
+            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <p><strong>* Дата, указанная в графе</strong> <code>"Опубликовать до"</code> вычисляется <strong>автоматически</strong>, для приговоров - дата вступления в законную силу + 30 дней, для актов - дата рассмотрения + 30 дней.</p>
+                <p>Уголовные дела, находящиеся на <strong>обжаловании</strong>, в списке тоже отображаются, их публикуют после вступления в законную силу после возвращения из суда ап. инстанции (без изменения, измененные).</p>
+                <p><strong>Отмененные</strong> приговоры по уголовным делам запрещаются к публикации с указанием причины <code>"Отменено вышестоящей инстанцией"</code></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <table class="table-responsive table dataTable sort">
           <thead>
           <tr>
             <th>Номер дела</th>
             <th>Стороны</th>
-            <th>Категория</th>
+            <th>Дата</th>
+            <th>Дата</th>
             <th>Информация</th>
           </tr>
           </thead>
           <tbody>
           <?php foreach ($row as $key => $value): ?>
             <tr>
-              <td><?= $value->CASE_NUMBER ?></td>
-              <td><?= $value->PARTS_FIO ?></td>
-              <td><?= $value->CAT ?></td>
+              <td><?= $value->CASE_NUM ?></td>
+              <td><?= $value->PARTS_NAMES ?></td>
+              <td><?= $value->STOP_DATE ?></td>
+              <td><?= $value->CONTROL_DATE ?>
               <td><?= $value->INFO ?>
             </tr>
           <?php endforeach ?>

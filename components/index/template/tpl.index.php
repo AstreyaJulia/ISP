@@ -75,6 +75,15 @@
 
           </div>
           <div class="col-xxl-8 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+            <a class="list-group-toolbutton btnmodal-multiaction" href="?page=suspended">
+              Не рассмотренные дела приостановленные
+            </a><br/>
+            <a class="list-group-toolbutton btnmodal-multiaction" href="?page=motionless">
+              Не рассмотренные дела без движения
+            </a><br/>
+            <a class="list-group-toolbutton btnmodal-multiaction" href="?page=not-reviewed">
+              Не рассмотренные дела
+            </a>
           </div>
 
         </div>
