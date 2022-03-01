@@ -1,5 +1,5 @@
 <?php
-$start = microtime(true);
+
 spl_autoload_register(function($class) {
     // вырезаем имя класса
     $lastNsPos = strrpos($class, '\\');
@@ -14,7 +14,6 @@ spl_autoload_register(function($class) {
     if (in_array($className,["BeforeValidException", "ExpiredException", "SignatureInvalidException", "JWT"])) {
         require_once mb_strtolower($home.'api'.DIRECTORY_SEPARATOR.'v1'.DIRECTORY_SEPARATOR.'libs'.DIRECTORY_SEPARATOR.$namespace).$className.'.php';
     } else {
-
         require_once mb_strtolower($home.'api/v1/objects/').$className.'.php';
     }
 

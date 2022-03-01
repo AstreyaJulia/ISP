@@ -1,4 +1,5 @@
 <?php
+$start = microtime(true);
 error_reporting(E_ALL);
 ini_set("display_errors", "on");
 // Подключаем библиотеки и хелперы
@@ -10,8 +11,6 @@ include_once 'config/jwt.php';
 $helpers = new Api\Objects\Helpers($db);
 $data = $helpers->getRequestData();
 $router = $data['router'];
-
-var_dump($data);
 // Проверяем роутер на валидность
 if ($helpers->isValidRouter($router)) {
 
@@ -19,7 +18,7 @@ if ($helpers->isValidRouter($router)) {
     include_once "routers/$router.php";
 
     // Запускаем главную функцию
-    route($data);
+    route($data, $db, $helpers);
 
 } else {
     // Выбрасываем ошибку

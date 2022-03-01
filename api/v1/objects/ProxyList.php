@@ -1,13 +1,11 @@
 <?php
     namespace Api\Objects;
-    use Core\Config\DB;
-    use Firebase\JWT\JWT;
 
     class ProxyList {
 
-        private $sudo;
+
+        // подключение к БД
         protected $db;
-        private $classJWT;
 
         // свойства объекта
         protected $id;
@@ -17,11 +15,10 @@
         protected $name_href;
         protected $proxy_href;
 
-
         public function __construct(DB $db) {
-            $this->db = $db;
-            $this->classJWT = new JWT;
-        }
+                    $this->db = $db;
+                }
+
 
         //Удаляем запись
         public function delRecord($params) {

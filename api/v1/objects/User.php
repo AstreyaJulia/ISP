@@ -1,6 +1,5 @@
 <?php
     namespace Api\Objects;
-    use Core\Config\DB;
     use Firebase\JWT\JWT;
 
     class User {

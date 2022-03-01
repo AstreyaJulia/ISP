@@ -1,11 +1,23 @@
 <?php
 
+
+
 // Роутинг, основная функция
-function route($data) {
+function route($data, $db, $helpers) {
 
     // GET /brands
-    if ($data['method'] === 'GET' && count($data['urlData']) === 1) {
-        echo json_encode(getBrands());
+    if ($data['method'] === 'GssET' && count($data['urlData']) === 1) {
+        $proxyListClass = new Api\Objects\ProxyList($db);
+        $proxylist["data"]["father"] = $proxyListClass->multipleFather();
+        $proxylist["data"]["children"] = $proxyListClass->multipleChildren();
+        // установим код ответа - 200 OK
+        http_response_code(200);
+
+        //время выполнения скрипта
+        $proxylist["time"] = (microtime(true) - $start);
+
+        // вывод в json-формате
+        echo json_encode($proxylist, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
         exit;
     }
 
@@ -34,9 +46,8 @@ function route($data) {
         exit;
     }
 
-
     // Если ни один роутер не отработал
-    \Helpers\throwHttpError('invalid_parameters', 'invalid parameters');
+    $helpers->throwHttpError('invalid_parameters', 'invalid parameters');
 
 }
 
