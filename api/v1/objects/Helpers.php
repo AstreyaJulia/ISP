@@ -76,4 +76,15 @@
             ));
         }
 
+        // Проверяем существует ли запись
+        public function isExistsById($table, $id) {
+            
+            $sql = "SELECT COUNT(id) FROM $table WHERE id = ?";
+            $row = $this->db->run($sql,[$id])->fetchColumn();
+
+            return $row === 1;
+        }
+
+
+
     }

@@ -1,11 +1,7 @@
 <?php
     namespace Api\Objects;
 
-    class ProxyList  {
-
-
-        // подключение к БД
-        protected $db;
+    class ProxyList extends User {
 
         // свойства объекта
         protected $id;
@@ -15,11 +11,7 @@
         protected $name_href;
         protected $proxy_href;
 
-        public function __construct(DB $db) {
-                    $this->db = $db;
-                }
-
-
+/*
         //Удаляем запись
         public function delRecord($params) {
             // запрещаем удалять группу blacklist
@@ -95,7 +87,7 @@
                     WHERE id_group = 0
                     ORDER BY menuindex + 0 ASC";
             return $this->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
-        }
+        }*/
 
         //Получаем одну запись
         public function getReadOne($id) {

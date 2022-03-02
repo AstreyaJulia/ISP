@@ -10,17 +10,16 @@
         private $classJWT;
 
         // свойства объекта
-        protected $id;
-        public $idGAS;
-        public $username;
-        public $password;
-        public $passrep;
-        public $fullname;
-        public $active;
-        public $sudo;
-        public $sidebar;
-        public $theme;
-        public $membership;
+        private $id;
+        private $idGAS;
+        private $username;
+        private $password;
+        private $fullname;
+        private $active;
+        protected $sudo;
+        private $sidebar;
+        private $theme;
+        private $membership;
 
 
         public function __construct(DB $db) {
@@ -30,31 +29,12 @@
 
         public function secureJWT ($jwt, $key) {
             $decoded = $this->classJWT::decode($jwt, $key, array('HS256'));
-            $this->sudo = $decoded->data->sudo;
-            return $decoded;
-        }
-
-        // Проверка, существует ли логин в нашей базе данных
-        function loginExists() {
-            $sql = "SELECT
-                        id
-                    FROM sdc_users
-                    WHERE `username` = ? AND `active` = 1";
-
-            // получаем количество строк
-            $num = $this->db->run($sql,[$this->username])->rowCount();
-
-            /*
-            если логин существует,
-            присвоим значения свойствам объекта
+            $this->id = (int)$decoded->data->id;
+            $this->sudo = (int)$decoded->data->sudo;
+            /* Необходимо добавить новый ключь в jwt
+            $this->membership = $decoded->data->membership;
             */
-            if($num>0) {
-                $this->assignValues();
-                // вернём 'true', потому что в базе данных существует логин
-                return true;
-            }
-            // вернём 'false', если логина не существует в базе данных или он заблокирован
-            return false;
+            return $decoded;
         }
 
         // Присваиваем значения свойствам объекта
@@ -74,65 +54,20 @@
                         LEFT JOIN sdc_user_attributes AS UserAttributes ON UserAttributes.internalKey=sdc_users.id
                         LEFT JOIN sdc_vocation ON sdc_vocation.id = UserAttributes.profession
                         LEFT JOIN sdc_user_attributes AS AffiliationJudge ON UserAttributes.affiliation = AffiliationJudge.id
-                        WHERE sdc_users.username = ? AND sdc_users.active = 1";
+                        WHERE sdc_users.id = :id AND sdc_users.sudo = :sudo AND sdc_users.active = 1";
             // получаем значения
-            $row = $this->db->run($sqlUser,[$this->username])->fetch(\PDO::FETCH_LAZY);
-     
-            // присвоим значения свойствам объекта
-            $this->id = $row['id'];
-            $this->idGAS = $row['idGAS'];
-            //$this->username = $row['username'];
-            $this->fullname = $row['fullname'];
-            $this->password = $row['password'];
-            $this->active = $row['active'];
-            $this->sudo = $row['sudo'];
-            $this->sidebar = $row['sidebar'];
-            $this->theme = $row['theme'];
-            $this->membership = $row['membership'];
+            $row = $this->db->run($sqlUser,['id' => $this->id, 'sudo' => $this->sudo])->fetch(\PDO::FETCH_LAZY);
+            if ($row) {
+                // присвоим значения свойствам объекта
+                $this->idGAS = $row['idGAS'];
+                $this->username = $row['username'];
+                $this->fullname = $row['fullname'];
+                $this->password = $row['password'];
+                $this->sidebar = $row['sidebar'];
+                $this->theme = $row['theme'];
+                $this->membership = $row['membership'];
+            }
+            return $row;
         } 
 
-        // Проверяем пароли
-        public function passwordMatched() {
-            if (!empty($this->password) and !empty($this->passrep) and ($this->password == $this->passrep)) {
-                // вернём 'true', потому что пароли существуют и совпали
-                return true;
-            } else {
-                // вернём 'false'
-                return false;
-            }
-        }
-
-        // Проверяем пользователя не закончившего регистрацию
-        public function loginActiveExists() {
-            $sql = "SELECT
-                      sdc_users.username
-                    FROM sdc_users
-                    WHERE `username` = ? AND password = '' AND `active` = 1";
-            // получаем количество строк
-            $num = $this->db->run($sql,[$this->username])->rowCount();
-
-            // Проверяем существование логина
-            if ($num>0) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-
-        // Запишем пароль пользователя
-        public function setUserPassword() {
-            $params = [
-                "username" => $this->username,
-                "password" => password_hash($this->password, PASSWORD_DEFAULT)
-            ];
-            $sql = "UPDATE
-                        sdc_users
-                    SET `password`=:password
-                    WHERE `username` = :username";
-            return $this->db->run($sql, $params);
-        }
-
-
     }
-
-    
