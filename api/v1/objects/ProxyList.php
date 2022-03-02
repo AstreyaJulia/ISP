@@ -1,7 +1,7 @@
 <?php
     namespace Api\Objects;
 
-    class ProxyList {
+    class ProxyList  {
 
 
         // подключение к БД

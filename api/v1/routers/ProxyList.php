@@ -3,21 +3,43 @@
 
 
 // Роутинг, основная функция
-function route($data, $db, $helpers) {
+function route($data, $db, $helpers, $key) {
 
     // GET /brands
-    if ($data['method'] === 'GssET' && count($data['urlData']) === 1) {
+    if ($data['method'] === 'GET' && count($data['urlData']) === 1) {
+        $tokenJWT = [
+            "jwt" => $_GET['jwt'] ?? ""
+        ];
         $proxyListClass = new Api\Objects\ProxyList($db);
-        $proxylist["data"]["father"] = $proxyListClass->multipleFather();
-        $proxylist["data"]["children"] = $proxyListClass->multipleChildren();
-        // установим код ответа - 200 OK
-        http_response_code(200);
+        // если декодирование выполнено успешно, показать данные пользователю
+        try {
+            // декодирование jwt
+            //$proxyListClass->secureJWT($tokenJWT, $key);
 
-        //время выполнения скрипта
-        $proxylist["time"] = (microtime(true) - $start);
+            $proxylist["data"]["father"] = $proxyListClass->multipleFather();
+            $proxylist["data"]["children"] = $proxyListClass->multipleChildren();
+            // установим код ответа - 200 OK
+            http_response_code(200);
 
-        // вывод в json-формате
-        echo json_encode($proxylist, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+            //время выполнения скрипта
+            $proxylist["time"] = (microtime(true) - $start);
+
+            // вывод в json-формате
+            echo json_encode($proxylist, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+        }
+
+        // если декодирование не удалось, это означает, что JWT является недействительным
+        catch (Exception $e){
+
+            // код ответа
+            http_response_code(401);
+        
+            // сообщить пользователю отказано в доступе и показать сообщение об ошибке
+            echo json_encode(array(
+                "message" => "Доступ закрыт.",
+                "error" => $e->getMessage()
+            ));
+        }
         exit;
     }
 

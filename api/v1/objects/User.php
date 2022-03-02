@@ -6,9 +6,11 @@
      
         // подключение к БД
         protected $db;
+        // jwt
+        private $classJWT;
 
         // свойства объекта
-        public $id;
+        protected $id;
         public $idGAS;
         public $username;
         public $password;
@@ -23,6 +25,7 @@
 
         public function __construct(DB $db) {
             $this->db = $db;
+            $this->classJWT = new JWT;
         }
 
         public function secureJWT ($jwt, $key) {

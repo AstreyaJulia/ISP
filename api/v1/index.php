@@ -18,7 +18,7 @@ if ($helpers->isValidRouter($router)) {
     include_once "routers/$router.php";
 
     // Запускаем главную функцию
-    route($data, $db, $helpers);
+    route($data, $db, $helpers, $key);
 
 } else {
     // Выбрасываем ошибку
