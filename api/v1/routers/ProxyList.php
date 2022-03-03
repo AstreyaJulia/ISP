@@ -3,11 +3,10 @@
 // Роутинг, основная функция
 function route($data, $db, $helpers, $key) {
 
-    // GET /brands
+    // GET
     if ($data['method'] === 'GET') {
          // необходимые HTTP-заголовки
-        header("Access-Control-Allow-Origin: *");
-        header("Content-Type: application/json; charset=UTF-8");
+        $helpers::headlinesGET();
   
         $jwt = $_GET['jwt'] ?? "";
         $proxyListClass = new Api\Objects\ProxyList($db);
@@ -21,47 +20,27 @@ function route($data, $db, $helpers, $key) {
             }
 
             switch (count($data['urlData'])) {
+                // GET /ProxyList
                 case 1: {
-                    $proxylist["data"]["father"] = $proxyListClass->multipleFather();
-                    $proxylist["data"]["children"] = $proxyListClass->multipleChildren();
-                    // установим код ответа - 200 OK
-                    http_response_code(200);
-                    // вывод в json-формате
-                    echo json_encode($proxylist, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+                    // если запрос без параметров выдаём полный список
+                    ProxyList($proxyListClass);
                     break;
                 }
+                // GET /ProxyList/5
                 case 2: {
-
-                    $id = (int)$data['urlData'][1];
-                    if (!$helpers->isExistsById("sdc_proxy_list", $id)) {
-                        $helpers->throwHttpError('not_exists', 'записи не существует');
-                        exit;
-                    }
-                    $proxylist["data"] = $proxyListClass->getReadOne($id);
-                    // установим код ответа - 200 OK
-                    http_response_code(200);
-                    // вывод в json-формате
-                    echo json_encode($proxylist, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+                    // если запрос с параметрами отдаём запрашиваемую запись
+                    ProxyListOne($proxyListClass, $helpers, $data['urlData'][1]);
                     break;
                 }
                 default:
-                    // Выбрасываем ошибку
+                    // если переданы лишние параметры выбрасываем ошибку
                     $helpers->throwHttpError('invalid_router', 'router not found');
                     break;
             }
         }
-
         // если декодирование не удалось, это означает, что JWT является недействительным
         catch (Exception $e){
-
-            // код ответа
-            http_response_code(401);
-        
-            // сообщить пользователю отказано в доступе и показать сообщение об ошибке
-            echo json_encode(array(
-                "message" => "Доступ закрыт.",
-                "error" => $e->getMessage()
-            ));
+            $helpers::isAccessDenied($e);
         }
         exit;
     }
@@ -94,4 +73,35 @@ function route($data, $db, $helpers, $key) {
     // Если ни один роутер не отработал
     $helpers->throwHttpError('invalid_parameters', 'invalid parameters');
 
+}
+
+// Формитруем список Категории + Ссылки
+function ProxyList($proxyListClass) {
+    $proxylist["data"]["father"] = $proxyListClass->multipleFather();
+    $proxylist["data"]["children"] = $proxyListClass->multipleChildren();
+    // установим код ответа - 200 OK
+    http_response_code(200);
+    // вывод в json-формате
+    echo json_encode($proxylist, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+}
+
+// Формитруем одну запись
+function ProxyListOne($proxyListClass, $helpers, $id) {
+    //$id = (int)$data['urlData'][1];
+    // проверяем существует ли запись
+    if (!$helpers->isExistsById("sdc_proxy_list", $id)) {
+        $helpers->throwHttpError('not_exists', 'записи не существует');
+        exit;
+    }
+
+    $proxylist["link"] = $proxyListClass->getReadOne($id);
+/*
+    Список категорий + выбранная категория с атрибутом selected
+    $proxylist["data"]["category"] = ???
+
+*/
+    // установим код ответа - 200 OK
+    http_response_code(200);
+    // вывод в json-формате
+    echo json_encode($proxylist, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 }

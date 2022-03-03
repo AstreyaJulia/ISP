@@ -1,14 +1,7 @@
 <?php
     namespace Api\Objects;
 
-    class Helpers {
-
-
-        protected $db;
-
-        public function __construct(DB $db) {
-            $this->db = $db;
-        }
+    class Helpers extends User {
 
         // Получение данных из тела запроса
         public function getFormData($method) {
@@ -83,6 +76,24 @@
             $row = $this->db->run($sql,[$id])->fetchColumn();
 
             return $row === 1;
+        }
+
+        // Заголовки для GET-запросов
+        public static function headlinesGET() {
+            header("Access-Control-Allow-Origin: *");
+            header("Content-Type: application/json; charset=UTF-8");
+        }
+
+        // Ошибка если ключ jwt не прошел проверку
+        public static function isAccessDenied($e) {
+            // код ответа
+            http_response_code(401);
+        
+            // сообщить пользователю отказано в доступе и показать сообщение об ошибке
+            echo json_encode(array(
+                "message" => "Доступ закрыт.",
+                "error" => $e->getMessage()
+            )); 
         }
 
 
