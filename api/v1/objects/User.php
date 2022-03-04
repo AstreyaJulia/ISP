@@ -27,6 +27,10 @@
             $this->classJWT = new JWT;
         }
 
+        public function getSudo() {
+            return $this->sudo;
+        }
+
         public function secureJWT ($jwt, $key) {
             $decoded = $this->classJWT::decode($jwt, $key, array('HS256'));
             $this->id = (int)$decoded->data->id;

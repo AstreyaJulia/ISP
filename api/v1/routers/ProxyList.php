@@ -88,6 +88,10 @@ function ProxyList($proxyListClass) {
 // Формитруем одну запись
 function ProxyListOne($proxyListClass, $helpers, $id) {
     //$id = (int)$data['urlData'][1];
+    // проверяем права пользователя
+    if (!$proxyListClass->getSudo() === 1) {
+        throw new Exception("Недостаточно прав");
+    }
     // проверяем существует ли запись
     if (!$helpers->isExistsById("sdc_proxy_list", $id)) {
         $helpers->throwHttpError('not_exists', 'записи не существует');
