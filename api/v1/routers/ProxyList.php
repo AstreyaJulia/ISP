@@ -94,12 +94,38 @@ function ProxyListOne($proxyListClass, $helpers, $id) {
         exit;
     }
 
-    $proxylist["link"] = $proxyListClass->getReadOne($id);
-/*
-    Список категорий + выбранная категория с атрибутом selected
-    $proxylist["data"]["category"] = ???
+    // если запрос отдаёт группу
+    if ($proxyListClass->getReadOne($id)[0]["parent_id"] === 0 ) {
+        foreach ($proxyListClass->getReadOne($id) as $key => $value) {
+            $proxylist["data"]["group"][] = [
+                "id" => $value["id"],
+                "menuindex" => $value["menuindex"],
+                "name_href" => $value["name_href"],
+                "proxy_href" => $value["proxy_href"]
+            ];
+        }
+    } else { // в противном случае получаем ссылку
+        $proxylist["data"]["link"] = $proxyListClass->getReadOne($id);
+        /* 
+            список категорий + 
+            для категории которой принадлежит ссылка ставим атрибут selected
+        */
+        foreach ($proxyListClass->multipleFather() as $key => $value) {
+            if ($proxylist["data"]["link"][0]["parent_id"]== $value["id"]) {
+                $proxylist["data"]["category"][] = [
+                    "id" => $value["id"],
+                    "selected" => "selected",
+                    "name_href" => $value["name_href"]
+                ];
+            } else {
+                $proxylist["data"]["category"][] = [
+                    "id" => $value["id"],
+                    "name_href" => $value["name_href"]
+                ];
+            }
+        }
+    }
 
-*/
     // установим код ответа - 200 OK
     http_response_code(200);
     // вывод в json-формате
