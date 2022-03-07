@@ -13,7 +13,7 @@ function selectedCheckboxes(allInputs, mode) {
     case "selected":
       return Array.from(allInputs).filter(input => input.checked).map(c => c.value.toLowerCase());
     case "all":
-      return Array.from(allInputs).filter(input => input.checked).map(c => c.value.toLowerCase());
+      return Array.from(allInputs).map(c => c.value.toLowerCase());
   }
 }
 
