@@ -2678,13 +2678,11 @@ const filterClickHandler = () => {
   /** Обнуление строк фильтров - выбранного и пустого */
   let filterItems = filterGroup.querySelectorAll('input[type=checkbox]');
   let selected = (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.selectedCheckboxes)(filterItems, 'selected');
-  console.log(selected);
 
   if (selected.length === 0) {
     let data = {
       filter: (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.selectedCheckboxes)(filterItems, 'all')
     };
-    console.log(data);
     (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("GET", "components/phonebook/ajax.php", data, "text", response => {
       result.innerHTML = "";
       result.innerHTML = response;
