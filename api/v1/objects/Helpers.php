@@ -84,6 +84,15 @@
             header("Content-Type: application/json; charset=UTF-8");
         }
 
+        // Заголовки для POST-запросов
+        public static function headlinesPOST() {
+            header("Access-Control-Allow-Origin: *");
+            header("Content-Type: application/json; charset=UTF-8");
+            header("Access-Control-Allow-Methods: POST");
+            header("Access-Control-Max-Age: 3600");
+            header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+        }
+
         // Ошибка если ключ jwt не прошел проверку
         public static function isAccessDenied($e) {
             // код ответа
@@ -93,7 +102,7 @@
             echo json_encode(array(
                 "message" => "Доступ закрыт.",
                 "error" => $e->getMessage()
-            )); 
+            ), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT); 
         }
 
 

@@ -39,19 +39,6 @@
             return false;
         }
 
-        //Добавляем ссылку
-        public function insertLink($params) {
-            $sql = "INSERT INTO `sdc_proxy_list` 
-                        (`menuindex`, `id_group`, `href`, `name_href`, `proxy_href`) 
-                    VALUES 
-                        (:menuindex, :id_group, :href, :name_href, :proxy_href)";
-            // выполняем запрос
-            if ($this->db->run($sql, $params)) {
-                return true;
-            }
-            return false;
-        }
-
         //Редактируем  группу
         public function updateGroup($params) {
             $sql = "UPDATE
@@ -89,8 +76,22 @@
             return $this->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
         }*/
 
+        //Добавляем ссылку
+        public function insertLink($params) {
+            $sql = "INSERT INTO `sdc_proxy_list` 
+                        (`menuindex`, `id_group`, `href`, `name_href`, `proxy_href`) 
+                    VALUES 
+                        (:menuindex, :id_group, :href, :name_href, :proxy_href)";
+            // выполняем запрос, получаем номер вставленной записи
+            $lastID = $this->db->run($sql, $params)->lastInsertId;
+            if ($lastID) {
+                return $this->readOne($lastID);
+            }
+            return false;
+        }
+
         //Получаем одну запись
-        public function getReadOne($id) {
+        public function readOne($id) {
             $sql = "SELECT
                         id,
                         id_group AS parent_id,
@@ -104,7 +105,7 @@
         }
 
         //Получаем все записи
-        public function getProxyList() {
+        public function proxyList() {
             $where = $this->sudo == 1 ? "" : "WHERE id != 6 AND id_group != 6";
             $sql = "SELECT
                         id,
@@ -120,7 +121,7 @@
         // Собираем список с ссылками
         public function multipleChildren($parent_id = 0) {
             $children = [];
-            foreach ($this->getProxyList() as $key => $value) {
+            foreach ($this->proxyList() as $key => $value) {
                 if  ($parent_id != $value["parent_id"]) {
                     $children[$value["parent_id"]][] = $value;
                 }
@@ -131,7 +132,7 @@
         // Собираем список с группами
         public function multipleFather($parent_id = 0) {
             $father = [];
-            foreach ($this->getProxyList() as $key => $value) {
+            foreach ($this->proxyList() as $key => $value) {
                 if  ($parent_id == $value["parent_id"]) {
                     unset ($value["href"]);
                     $father[] = $value;

@@ -3,12 +3,13 @@
 // Роутинг, основная функция
 function route($data, $db, $helpers, $key) {
 
+    $jwt = $data["formData"]["jwt"] ?? "";
+
     // GET
     if ($data['method'] === 'GET') {
          // необходимые HTTP-заголовки
         $helpers::headlinesGET();
-  
-        $jwt = $_GET['jwt'] ?? "";
+
         $proxyListClass = new Api\Objects\ProxyList($db);
         // если декодирование выполнено успешно, показать данные пользователю
         try {
@@ -45,11 +46,27 @@ function route($data, $db, $helpers, $key) {
         exit;
     }
 
-    // POST /brands
-    if ($data['method'] === 'POST' && count($data['urlData']) === 1 && isset($data['formData']['title'])) {
-        $title = $data['formData']['title'];
+    // POST /ProxyList
+    if ($data['method'] === 'POST' && count($data['urlData']) === 1 ) {
+        // необходимые HTTP-заголовки
+        $helpers::headlinesPOST();
 
-        echo json_encode(addBrand($title));
+        $proxyListClass = new Api\Objects\ProxyList($db);
+        // если декодирование выполнено успешно, показать данные пользователю
+        try {
+            // декодирование jwt
+            $proxyListClass->secureJWT($jwt, $key);
+            // сверяем jwt с базой данных 
+            if (!$proxyListClass->assignValues()) {
+                throw new Exception("Ключ не прошёл проверку");
+            }
+
+            echo json_encode("Я метод POST", JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+        }
+        // если декодирование не удалось, это означает, что JWT является недействительным
+        catch (Exception $e){
+            $helpers::isAccessDenied($e);
+        }
         exit;
     }
 
@@ -87,7 +104,7 @@ function ProxyList($proxyListClass) {
 
 // Формитруем одну запись
 function ProxyListOne($proxyListClass, $helpers, $id) {
-    //$id = (int)$data['urlData'][1];
+
     // проверяем права пользователя
     if (!$proxyListClass->getSudo() === 1) {
         throw new Exception("Недостаточно прав");
@@ -99,8 +116,8 @@ function ProxyListOne($proxyListClass, $helpers, $id) {
     }
 
     // если запрос отдаёт группу
-    if ($proxyListClass->getReadOne($id)[0]["parent_id"] === 0 ) {
-        foreach ($proxyListClass->getReadOne($id) as $key => $value) {
+    if ($proxyListClass->readOne($id)[0]["parent_id"] === 0 ) {
+        foreach ($proxyListClass->readOne($id) as $key => $value) {
             $proxylist["data"]["group"][] = [
                 "id" => $value["id"],
                 "menuindex" => $value["menuindex"],
@@ -109,7 +126,7 @@ function ProxyListOne($proxyListClass, $helpers, $id) {
             ];
         }
     } else { // в противном случае получаем ссылку
-        $proxylist["data"]["link"] = $proxyListClass->getReadOne($id);
+        $proxylist["data"]["link"] = $proxyListClass->readOne($id);
         /* 
             список категорий + 
             для категории которой принадлежит ссылка ставим атрибут selected
