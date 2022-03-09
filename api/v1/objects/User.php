@@ -16,7 +16,7 @@
         private $password;
         private $fullname;
         private $active;
-        protected $sudo;
+        private $sudo;
         private $sidebar;
         private $theme;
         private $membership;

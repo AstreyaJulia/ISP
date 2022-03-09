@@ -1,7 +1,9 @@
 <?php
     namespace Api\Objects;
 
-    class ProxyList extends User {
+    class ProxyList {
+        // подключение к БД
+        protected $db;
 
         // свойства объекта
         protected $id;
@@ -10,6 +12,10 @@
         protected $href;
         protected $name_href;
         protected $proxy_href;
+
+        public function __construct(DB $db) {
+            $this->db = $db;
+        }
 
 /*
         //Удаляем запись
@@ -78,14 +84,28 @@
 
         //Добавляем ссылку
         public function insertLink($params) {
-            $sql = "INSERT INTO `sdc_proxy_list` 
-                        (`menuindex`, `id_group`, `href`, `name_href`, `proxy_href`) 
-                    VALUES 
-                        (:menuindex, :id_group, :href, :name_href, :proxy_href)";
+            if (isset($params["name_href"]) and isset($params["href"]) and isset($params["id_group"])) {
+                $sql = "INSERT INTO `sdc_proxy_list` 
+                            (`menuindex`, `id_group`, `href`, `name_href`, `proxy_href`) 
+                        VALUES 
+                            (:menuindex, :id_group, :href, :name_href, :proxy_href)";
+            }
+
+            else if (isset($params["name_href"])){
+                $sql = "INSERT INTO `sdc_proxy_list` 
+                            (`menuindex`, `name_href`, `proxy_href`) 
+                        VALUES 
+                            (:menuindex, :name_href, :proxy_href)";
+            }
+
             // выполняем запрос, получаем номер вставленной записи
-            $lastID = $this->db->run($sql, $params)->lastInsertId;
-            if ($lastID) {
-                return $this->readOne($lastID);
+            $this->db->run($sql, $params);
+
+            //получаем id вставленной записи. Если запрос не выполнен вернёт 0. Используется после запроса INSERT
+            $LAST_ID = $this->db->pdo->lastInsertId();
+
+            if ($LAST_ID) {
+                return $this->readOne($LAST_ID);
             }
             return false;
         }
@@ -105,8 +125,8 @@
         }
 
         //Получаем все записи
-        public function proxyList() {
-            $where = $this->sudo == 1 ? "" : "WHERE id != 6 AND id_group != 6";
+        public function proxyList($sudo) {
+            $where = $sudo == 1 ? "" : "WHERE id != 6 AND id_group != 6";
             $sql = "SELECT
                         id,
                         id_group AS parent_id,
@@ -119,9 +139,9 @@
         }
 
         // Собираем список с ссылками
-        public function multipleChildren($parent_id = 0) {
+        public function multipleChildren($sudo, $parent_id = 0) {
             $children = [];
-            foreach ($this->proxyList() as $key => $value) {
+            foreach ($this->proxyList($sudo) as $key => $value) {
                 if  ($parent_id != $value["parent_id"]) {
                     $children[$value["parent_id"]][] = $value;
                 }
@@ -130,9 +150,9 @@
         }
 
         // Собираем список с группами
-        public function multipleFather($parent_id = 0) {
+        public function multipleFather($sudo, $parent_id = 0) {
             $father = [];
-            foreach ($this->proxyList() as $key => $value) {
+            foreach ($this->proxyList($sudo) as $key => $value) {
                 if  ($parent_id == $value["parent_id"]) {
                     unset ($value["href"]);
                     $father[] = $value;

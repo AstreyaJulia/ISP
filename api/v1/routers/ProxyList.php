@@ -2,47 +2,31 @@
 
 // Роутинг, основная функция
 function route($data, $db, $helpers, $key) {
-
-    $jwt = $data["formData"]["jwt"] ?? "";
-
+    $proxyListClass = new Api\Objects\ProxyList($db);
     // GET
     if ($data['method'] === 'GET') {
          // необходимые HTTP-заголовки
         $helpers::headlinesGET();
 
-        $proxyListClass = new Api\Objects\ProxyList($db);
-        // если декодирование выполнено успешно, показать данные пользователю
-        try {
-            // декодирование jwt
-            $proxyListClass->secureJWT($jwt, $key);
-            // сверяем jwt с базой данных 
-            if (!$proxyListClass->assignValues()) {
-                throw new Exception("Ключ не прошёл проверку");
+        switch (count($data['urlData'])) {
+            // GET /ProxyList
+            case 1: {
+                // если запрос без параметров выдаём полный список
+                fnProxyList($proxyListClass, $helpers->getSudo());
+                break;
             }
+            // GET /ProxyList/5
+            case 2: {
+                // если запрос с параметрами отдаём запрашиваемую запись
+                ProxyListOne($proxyListClass, $helpers, $data['urlData'][1]);
+                break;
+            }
+            default:
+                // если переданы лишние параметры выбрасываем ошибку
+                $helpers->throwHttpError('invalid_router', 'router not found');
+                break;
+        }
 
-            switch (count($data['urlData'])) {
-                // GET /ProxyList
-                case 1: {
-                    // если запрос без параметров выдаём полный список
-                    ProxyList($proxyListClass);
-                    break;
-                }
-                // GET /ProxyList/5
-                case 2: {
-                    // если запрос с параметрами отдаём запрашиваемую запись
-                    ProxyListOne($proxyListClass, $helpers, $data['urlData'][1]);
-                    break;
-                }
-                default:
-                    // если переданы лишние параметры выбрасываем ошибку
-                    $helpers->throwHttpError('invalid_router', 'router not found');
-                    break;
-            }
-        }
-        // если декодирование не удалось, это означает, что JWT является недействительным
-        catch (Exception $e){
-            $helpers::isAccessDenied($e);
-        }
         exit;
     }
 
@@ -50,22 +34,18 @@ function route($data, $db, $helpers, $key) {
     if ($data['method'] === 'POST' && count($data['urlData']) === 1 ) {
         // необходимые HTTP-заголовки
         $helpers::headlinesPOST();
-
-        $proxyListClass = new Api\Objects\ProxyList($db);
-        // если декодирование выполнено успешно, показать данные пользователю
         try {
-            // декодирование jwt
-            $proxyListClass->secureJWT($jwt, $key);
-            // сверяем jwt с базой данных 
-            if (!$proxyListClass->assignValues()) {
-                throw new Exception("Ключ не прошёл проверку");
+            // проверяем права пользователя
+            if (!$helpers->getSudo() === 1) {
+                throw new Exception("Недостаточно прав");
             }
 
-            echo json_encode("Я метод POST", JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-        }
-        // если декодирование не удалось, это означает, что JWT является недействительным
-        catch (Exception $e){
+            $result = $proxyListClass->insertLink($data['formData']);
+
+            echo json_encode($result, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+        } catch (Exception $e){
             $helpers::isAccessDenied($e);
+            exit;
         }
         exit;
     }
@@ -93,9 +73,9 @@ function route($data, $db, $helpers, $key) {
 }
 
 // Формитруем список Категории + Ссылки
-function ProxyList($proxyListClass) {
-    $proxylist["data"]["father"] = $proxyListClass->multipleFather();
-    $proxylist["data"]["children"] = $proxyListClass->multipleChildren();
+function fnProxyList($proxyListClass, $sudo) {
+    $proxylist["data"]["father"] = $proxyListClass->multipleFather($sudo);
+    $proxylist["data"]["children"] = $proxyListClass->multipleChildren($sudo);
     // установим код ответа - 200 OK
     http_response_code(200);
     // вывод в json-формате
@@ -106,7 +86,7 @@ function ProxyList($proxyListClass) {
 function ProxyListOne($proxyListClass, $helpers, $id) {
 
     // проверяем права пользователя
-    if (!$proxyListClass->getSudo() === 1) {
+    if (!$helpers->getSudo() === 1) {
         throw new Exception("Недостаточно прав");
     }
     // проверяем существует ли запись
@@ -131,7 +111,7 @@ function ProxyListOne($proxyListClass, $helpers, $id) {
             список категорий + 
             для категории которой принадлежит ссылка ставим атрибут selected
         */
-        foreach ($proxyListClass->multipleFather() as $key => $value) {
+        foreach ($proxyListClass->multipleFather($helpers->getSudo()) as $key => $value) {
             if ($proxylist["data"]["link"][0]["parent_id"]== $value["id"]) {
                 $proxylist["data"]["category"][] = [
                     "id" => $value["id"],
