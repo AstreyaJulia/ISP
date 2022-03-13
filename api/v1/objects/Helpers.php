@@ -15,14 +15,7 @@
             } else {
                 // PUT, PATCH или DELETE
                 $data = array();
-                $exploded = explode('&', file_get_contents('php://input'));
-
-                foreach($exploded as $pair) {
-                    $item = explode('=', $pair);
-                    if (count($item) == 2) {
-                        $data[urldecode($item[0])] = urldecode($item[1]);
-                    }
-                }
+                $data = json_decode(file_get_contents('php://input'), JSON_OBJECT_AS_ARRAY);
             }
 
             // Удаляем параметр q
@@ -66,7 +59,7 @@
             echo json_encode(array(
                 'code' => $code,
                 'message' => $message
-            ));
+            ), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
         }
 
         // Проверяем существует ли запись

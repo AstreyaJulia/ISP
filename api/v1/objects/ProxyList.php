@@ -18,20 +18,6 @@
         }
 
 /*
-        //Удаляем запись
-        public function delRecord($params) {
-            // запрещаем удалять группу blacklist
-            if ($params == 6) {
-                return false;
-            } else {
-                $params = array('id' => $params, 'id_group' => $params);
-                $sql = "DELETE FROM `sdc_proxy_list`
-                        WHERE `id` = :id or `id_group` = :id_group";
-                }
-                $this->db->run($sql, $params);
-                return true;
-            }
-
         //Редактируем  ссылку
         public function updateLink($params) {
             $sql = "UPDATE
@@ -82,8 +68,28 @@
             return $this->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
         }*/
 
+        //Удаляем запись
+        public function delRecord($params) {
+            // запрещаем удалять группу blacklist
+            if ($params == 6) {
+                return array(
+                            "code" => "warning",
+                            "message" => "Нельзя удалять эту группу"
+                        );
+            } else {
+                $params = array('id' => $params, 'id_group' => $params);
+                $sql = "DELETE FROM `sdc_proxy_list`
+                        WHERE `id` = :id or `id_group` = :id_group";
+                }
+                $this->db->run($sql, $params);
+                return array(
+                    'id' => $params
+                );
+        }
+
         //Добавляем ссылку
         public function insertLink($params) {
+            $sql = "";
             if (isset($params["name_href"]) and isset($params["href"]) and isset($params["id_group"])) {
                 $sql = "INSERT INTO `sdc_proxy_list` 
                             (`menuindex`, `id_group`, `href`, `name_href`, `proxy_href`) 
@@ -102,12 +108,11 @@
             $this->db->run($sql, $params);
 
             //получаем id вставленной записи. Если запрос не выполнен вернёт 0. Используется после запроса INSERT
-            $LAST_ID = $this->db->pdo->lastInsertId();
+            $last_id = $this->db->pdo->lastInsertId();
 
-            if ($LAST_ID) {
-                return $this->readOne($LAST_ID);
+            if ($last_id) {
+                return $this->readOne($last_id);
             }
-            return false;
         }
 
         //Получаем одну запись

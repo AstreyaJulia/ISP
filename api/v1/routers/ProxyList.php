@@ -5,7 +5,7 @@ function route($data, $db, $helpers, $key) {
     $proxyListClass = new Api\Objects\ProxyList($db);
     // GET
     if ($data['method'] === 'GET') {
-         // необходимые HTTP-заголовки
+        // необходимые HTTP-заголовки
         $helpers::headlinesGET();
 
         switch (count($data['urlData'])) {
@@ -59,11 +59,13 @@ function route($data, $db, $helpers, $key) {
         exit;
     }
 
-    // DELETE /brands/5
+    // DELETE /ProxyList/5
     if ($data['method'] === 'DELETE' && count($data['urlData']) === 2) {
+        // необходимые HTTP-заголовки
+        $helpers::headlinesGET();
         $id = (int)$data['urlData'][1];
 
-        echo json_encode(deleteBrand($id));
+        delRecord($proxyListClass, $helpers, $id);
         exit;
     }
 
@@ -131,4 +133,16 @@ function ProxyListOne($proxyListClass, $helpers, $id) {
     http_response_code(200);
     // вывод в json-формате
     echo json_encode($proxylist, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+}
+
+function delRecord($proxyListClass, $helpers, $id) {
+    // проверяем существует ли запись
+    if (!$helpers->isExistsById("sdc_proxy_list", $id)) {
+        $helpers->throwHttpError('not_exists', 'записи не существует');
+        exit;
+    }
+    // установим код ответа - 200 OK
+    http_response_code(200);
+    // вывод в json-формате
+    echo json_encode($proxyListClass->delRecord($id), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 }
