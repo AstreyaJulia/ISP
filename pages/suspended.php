@@ -6,7 +6,7 @@ $queryParams = [
     'idJudge' => $userAtributes->data->idGAS ?? "",
 ];
 
-$response = $autorizationClass::sendGET($queryParams, 'http://192.168.0.254:8079/api_GAS/suspended.php?');
+$response = $autorizationClass::sendGET($queryParams, $api_gas.'suspended.php?');
 
 if (!empty($response)) {
     $row = $response ?? array();

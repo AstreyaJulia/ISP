@@ -10,30 +10,48 @@ $queryParams = [
 ];
 
 // Публикации БСР
-$response = $autorizationClass::sendGET($queryParams, 'http://192.168.0.254:8079/api_GAS/publication-acts.php?');
+$response = $autorizationClass::sendGET($queryParams, $api_gas.'publication-acts.php?');
 
-if ($response) {
+if($response) {
+
     $row = $response;
     $message = "Актов не опубликовано";
-    // количество неопубликованых актов
+        // количество неопубликованых актов
     $notPub = is_array($row) ? count($row):  0;
-} else {
-    $message = "";
-    // сообщим об ошибке в $url
-    $notPub = "Недоступен ГАС";
-}
 
-// Нарушение сроков
-$deadlines = $autorizationClass::sendGET($queryParams, 'http://192.168.0.254:8079/api_GAS/deadlines.php?');
-
-if ($deadlines) {
-    $rowDeadlines = $deadlines;
+    // Нарушение сроков
     $messageDeadlines = "Нарушено сроков";
     // количество неопубликованых актов
-    $deadlines = is_array($rowDeadlines) ? count($rowDeadlines):  0;
+    $deadlines = is_array($autorizationClass::sendGET($queryParams, $api_gas.'deadlines.php?')) ? count($autorizationClass::sendGET($queryParams, $api_gas.'deadlines.php?')):  0;
+
+    // Не рассмотренные дела приостановленные
+    $suspended = $autorizationClass::sendGET($queryParams, $api_gas.'suspended.php?');
+    $suspendedCount = is_array($suspended) ? count($suspended) : "";
+
+    // Не рассмотренные дела без движения
+    $motionless = $autorizationClass::sendGET($queryParams, $api_gas.'motionless.php?');
+    $motionlessCount = is_array($motionless) ? count($motionless) : "";
+
+    // Не рассмотренные дела
+    $motionlessNotReviewed = $autorizationClass::sendGET($queryParams, $api_gas.'not-reviewed.php?');
+    $motionlessNotReviewedCount = is_array($motionlessNotReviewed) ? count($motionlessNotReviewed) : "";
+
 } else {
+    // выводим ошибку если ГАС недоступен
+    $message = "";
+        // сообщим об ошибке в $url
+    $notPub = "Недоступен ГАС";
+
+    // выводим ошибку если ГАС недоступен
     $messageDeadlines = "";
+    $deadlines = "";
+
+    $suspendedCount = "";
+    $motionlessCount  = "";
+    $motionlessNotReviewedCount  = "";
+
 }
+
 // подключаем шаблон
 ob_start();
     include "components/index/template/tpl.index.php";
