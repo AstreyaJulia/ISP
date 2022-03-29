@@ -19,7 +19,7 @@
     try {
         // декодирование jwt
         $helpers->secureJWT($jwt, $key);
-        // сверяем jwt с базой данных 
+        // сверяем jwt с базой данных
         if (!$helpers->assignValues()) {
             throw new Exception("Ключ не прошёл проверку");
         }
@@ -37,7 +37,7 @@
         include_once "routers/$router.php";
 
         // Запускаем главную функцию
-        route($data, $db, $helpers, $key);
+        route($data, $db, $helpers);
 
     } else {
         // Выбрасываем ошибку

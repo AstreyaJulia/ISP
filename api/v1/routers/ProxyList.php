@@ -1,7 +1,7 @@
 <?php
 
 // Роутинг, основная функция
-function route($data, $db, $helpers, $key) {
+function route($data, $db, $helpers) {
     $proxyListClass = new Api\Objects\ProxyList($db);
     // GET
     if ($data['method'] === 'GET') {
@@ -51,11 +51,23 @@ function route($data, $db, $helpers, $key) {
     }
 
     // PUT /brands/5
-    if ($data['method'] === 'PUT' && count($data['urlData']) === 2 && isset($data['formData']['title'])) {
-        $id = (int)$data['urlData'][1];
-        $title = $data['formData']['title'];
+    if ($data['method'] === 'PUT' && count($data['urlData']) === 2) {
+      try {
+        // проверяем права пользователя
+        if (!$helpers->getSudo() === 1) {
+            throw new Exception("Недостаточно прав");
+        }
 
-        echo json_encode(updateBrand($id, $title));
+        $id = (int)$data['urlData'][1];
+        $result = "Я метод PUT";
+
+        echo json_encode($result." | ".$id, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    } catch (Exception $e){
+        $helpers::isAccessDenied($e);
+        exit;
+    }
+
+
         exit;
     }
 
@@ -109,8 +121,8 @@ function ProxyListOne($proxyListClass, $helpers, $id) {
         }
     } else { // в противном случае получаем ссылку
         $proxylist["data"]["link"] = $proxyListClass->readOne($id);
-        /* 
-            список категорий + 
+        /*
+            список категорий +
             для категории которой принадлежит ссылка ставим атрибут selected
         */
         foreach ($proxyListClass->multipleFather($helpers->getSudo()) as $key => $value) {
