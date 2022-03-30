@@ -50,7 +50,7 @@ function route($data, $db, $helpers) {
         exit;
     }
 
-    // PUT /brands/5
+    // PUT /ProxyList/6
     if ($data['method'] === 'PUT' && count($data['urlData']) === 2) {
       try {
         // проверяем права пользователя

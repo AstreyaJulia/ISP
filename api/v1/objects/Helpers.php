@@ -1,15 +1,44 @@
 <?php
-    namespace Api\Objects;
+  namespace Api\Objects;
 
-    class Helpers extends User {
+  class Helpers extends User {
+
+    /**
+     * Метод запроса для доступа к странице
+     *
+     * @var string
+     */
+    private $method;
+
+    /**
+     * Тело переданного POST, PUT запроса
+     *
+     * @var array
+     */
+    private $formData;
+
+    /**
+     * Тело запроса
+     *
+     * @var array
+     */
+    private $urlData;
+
+    /**
+     * Роутер для подключения
+     *
+     * @var string
+     */
+    private $router;
+
 
         // Получение данных из тела запроса
-        public function getFormData($method) {
+        public function getFormData() {
 
             // GET или POST: данные возвращаем как есть
-            if ($method === 'GET') {
+            if ($this->method === 'GET') {
                 $data = $_GET;
-            } else if ($method === 'POST') {
+            } else if ($this->method === 'POST') {
                 $data = $_POST;
 
             } else {
@@ -27,7 +56,8 @@
         // Получаем все данные о запросе
         public function getRequestData() {
             // Определяем метод запроса
-            $method = $_SERVER['REQUEST_METHOD'];
+            $this->method = $_SERVER['REQUEST_METHOD'];
+
             // Разбираем url
             $url = (isset($_GET['q'])) ? $_GET['q'] : '';
             $url = trim($url, '/');
@@ -35,13 +65,15 @@
 
             // Убираем из api-запросов префикс admin/api/v1
             //$urlData = array_slice($urls, 3);
-            $urlData = $urls;
+            $this->urlData = $urls;
+            $this->router = $this->urlData[0];
+            $this->formData = $this->getFormData();
 
             return array(
-                'method' => $method,
-                'formData' => $this->getFormData($method),
-                'urlData' => $urlData,
-                'router' => $urlData[0]
+                'method' => $this->method,
+                'formData' => $this->formData,
+                'urlData' => $this->urlData,
+                'router' => $this->router
             );
 
         }
@@ -64,7 +96,7 @@
 
         // Проверяем существует ли запись
         public function isExistsById($table, $id) {
-            
+
             $sql = "SELECT COUNT(id) FROM $table WHERE id = ?";
             $row = $this->db->run($sql,[$id])->fetchColumn();
 
@@ -90,12 +122,12 @@
         public static function isAccessDenied($e) {
             // код ответа
             http_response_code(401);
-        
+
             // сообщить пользователю отказано в доступе и показать сообщение об ошибке
             echo json_encode(array(
                 "message" => "Доступ закрыт.",
                 "error" => $e->getMessage()
-            ), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT); 
+            ), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
         }
 
 
