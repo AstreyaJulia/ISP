@@ -11,14 +11,10 @@
     $data = $helpers->getRequestData();
     $router = $data['router'];
 
-    // Проверяем ключ jwt
-    $jwt = $data["formData"]["jwt"] ?? "";
-    unset($data["formData"]["jwt"]);
-
     // если декодирование выполнено успешно, продолжаем выполнять скрипт
     try {
         // декодирование jwt
-        $helpers->secureJWT($jwt, $key);
+        $helpers->secureJWT($helpers->getJWT(), $key);
         // сверяем jwt с базой данных
         if (!$helpers->assignValues()) {
             throw new Exception("Ключ не прошёл проверку");
