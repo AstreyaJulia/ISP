@@ -19,10 +19,6 @@ spl_autoload_register(function($class) {
 
 });
 
-// показывать сообщения об ошибках
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-
 // установить часовой пояс по умолчанию
 date_default_timezone_set('Europe/Moscow');
 

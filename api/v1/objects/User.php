@@ -3,7 +3,7 @@
     use Firebase\JWT\JWT;
 
     class User {
-     
+
         // подключение к БД
         protected $db;
         // jwt
@@ -15,7 +15,6 @@
         private $username;
         private $password;
         private $fullname;
-        private $active;
         private $sudo;
         private $sidebar;
         private $theme;
@@ -72,6 +71,6 @@
                 $this->membership = $row['membership'];
             }
             return $row;
-        } 
+        }
 
     }

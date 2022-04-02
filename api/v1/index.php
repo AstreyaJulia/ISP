@@ -8,8 +8,8 @@
     $helpers = new Api\Objects\Helpers($db);
 
     // Получаем данные из запроса
-    $data = $helpers->getRequestData();
-    $router = $data['router'];
+    $helpers->getRequestData();
+    $router = $helpers->getRouter();
 
     // если декодирование выполнено успешно, продолжаем выполнять скрипт
     try {
@@ -33,7 +33,7 @@
         include_once "routers/$router.php";
 
         // Запускаем главную функцию
-        route($data, $db, $helpers);
+        route($db, $helpers);
 
     } else {
         // Выбрасываем ошибку

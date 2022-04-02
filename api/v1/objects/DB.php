@@ -55,7 +55,7 @@ class DB
           $stmt->execute($row);
         }
         return $this->pdo->commit();
-    } catch (Exception $e){
+    } catch (\PDOException $e){
         $this->pdo->rollback();
         throw $e;
     }
