@@ -9,7 +9,6 @@
 
     // Получаем данные из запроса
     $helpers->getRequestData();
-    $router = $helpers->getRouter();
 
     // если декодирование выполнено успешно, продолжаем выполнять скрипт
     try {
@@ -27,10 +26,10 @@
     }
 
     // Проверяем роутер на валидность
-    if ($helpers->isValidRouter($router)) {
+    if ($helpers->isValidRouter($helpers->getRouter())) {
 
         // Подключаем файл-роутер
-        include_once "routers/$router.php";
+        include_once "routers/$helpers->getRouter().php";
 
         // Запускаем главную функцию
         route($db, $helpers);

@@ -46,9 +46,9 @@
 
         //Добавляем группу
         public function insertGroup($params) {
-            $sql = "INSERT INTO `sdc_proxy_list` 
-                        (`menuindex`, `name_href`, `proxy_href`) 
-                    VALUES 
+            $sql = "INSERT INTO `sdc_proxy_list`
+                        (`menuindex`, `name_href`, `proxy_href`)
+                    VALUES
                         (:menuindex, :name_href, :proxy_href)";
             // выполняем запрос
             if ($this->db->run($sql, $params)) {
@@ -56,7 +56,7 @@
             }
             return false;
         }
-        
+
         //Получаем записи категорий
         public function getСategory() {
             $sql = "SELECT
@@ -91,16 +91,16 @@
         public function insertLink($params) {
             $sql = "";
             if (isset($params["name_href"]) and isset($params["href"]) and isset($params["id_group"])) {
-                $sql = "INSERT INTO `sdc_proxy_list` 
-                            (`menuindex`, `id_group`, `href`, `name_href`, `proxy_href`) 
-                        VALUES 
+                $sql = "INSERT INTO `sdc_proxy_list`
+                            (`menuindex`, `id_group`, `href`, `name_href`, `proxy_href`)
+                        VALUES
                             (:menuindex, :id_group, :href, :name_href, :proxy_href)";
             }
 
             else if (isset($params["name_href"])){
-                $sql = "INSERT INTO `sdc_proxy_list` 
-                            (`menuindex`, `name_href`, `proxy_href`) 
-                        VALUES 
+                $sql = "INSERT INTO `sdc_proxy_list`
+                            (`menuindex`, `name_href`, `proxy_href`)
+                        VALUES
                             (:menuindex, :name_href, :proxy_href)";
             }
 
@@ -143,7 +143,14 @@
             return $this->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
         }
 
-        // Собираем список с ссылками
+        /**
+         * Формирует список ссылкок
+         *
+         * @param int $sudo
+         * @param int $parent_id
+         *
+         * @return array
+         */
         public function multipleChildren($sudo, $parent_id = 0) {
             $children = [];
             foreach ($this->proxyList($sudo) as $key => $value) {
@@ -154,7 +161,14 @@
             return $children;
         }
 
-        // Собираем список с группами
+        /**
+         * Формирует список групп
+         *
+         * @param int $sudo
+         * @param int $parent_id
+         *
+         * @return array
+         */
         public function multipleFather($sudo, $parent_id = 0) {
             $father = [];
             foreach ($this->proxyList($sudo) as $key => $value) {
@@ -164,5 +178,18 @@
                 }
             }
             return $father;
+        }
+
+        /**
+         * Отдаетс сформированный список ProxyList
+         *
+         * @param $sudo
+         *
+         * @return array
+         */
+        public function getProxyList($sudo) {
+          $output["father"] = $this->multipleFather($sudo);
+          $output["children"] = $this->multipleChildren($sudo);
+          return $output;
         }
     }

@@ -2,33 +2,36 @@
 
 // Роутинг, основная функция
 function route($db, $helpers) {
-    $proxyListClass = new Api\Objects\ProxyList($db);
-    // GET
-    if ($helpers->getMethod() === 'GET') {
-        // необходимые HTTP-заголовки
-        $helpers::headlinesGET();
+  $proxyListClass = new Api\Objects\ProxyList($db);
+  // GET
+  if ($helpers->getMethod() === 'GET') {
+    // необходимые HTTP-заголовки
+    $helpers::headlinesGET();
 
-        switch (count($helpers->getUrlData())) {
-            // GET /ProxyList
-            case 1: {
-                // если запрос без параметров выдаём полный список
-                fnProxyList($proxyListClass, $helpers->getSudo());
-                break;
-            }
-            // GET /ProxyList/5
-            case 2: {
-                // если запрос с параметрами отдаём запрашиваемую запись
-                ProxyListOne($proxyListClass, $helpers);
-                break;
-            }
-            default:
-                // если переданы лишние параметры выбрасываем ошибку
-                $helpers->throwHttpError('invalid_router', 'router not found');
-                break;
-        }
-
-        exit;
+    switch (count($helpers->getUrlData())) {
+      // GET /ProxyList
+      case 1: {
+        // если запрос без параметров выдаём полный список
+        $proxylist["data"] = $proxyListClass->getProxyList($helpers->getSudo());
+        // установим код ответа - 200 OK
+        http_response_code(200);
+        // вывод в json-формате
+        echo $helpers->getJsonEncode($proxylist);
+        break;
+      }
+      // GET /ProxyList/5
+      case 2: {
+        // если запрос с параметрами отдаём запрашиваемую запись
+        ProxyListOne($proxyListClass, $helpers);
+        break;
+      }
+      default:
+        // если переданы лишние параметры выбрасываем ошибку
+        $helpers->throwHttpError('invalid_router', 'router not found');
+        break;
     }
+    exit;
+  }
 
     // POST /ProxyList
     if ($helpers->getMethod() === 'POST' && count($helpers->getUrlData()) === 1 ) {
@@ -83,23 +86,17 @@ function route($db, $helpers) {
 
 }
 
-// Формитруем список Категории + Ссылки
-function fnProxyList($proxyListClass, $sudo) {
-    $proxylist["data"]["father"] = $proxyListClass->multipleFather($sudo);
-    $proxylist["data"]["children"] = $proxyListClass->multipleChildren($sudo);
-    // установим код ответа - 200 OK
-    http_response_code(200);
-    // вывод в json-формате
-    echo json_encode($proxylist, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-}
-
 // Формитруем одну запись
 function ProxyListOne($proxyListClass, $helpers) {
   $id = $helpers->getUrlData()[1];
   // проверяем права пользователя
-  if (!$helpers->getSudo() === 1) {
-    throw new Exception("Недостаточно прав");
-  }
+  try {
+    $helpers->validateSudo();
+  } catch (Exception $e){
+      $helpers::isAccessDenied($e);
+      exit;
+    }
+
   // проверяем существует ли запись
   if (!$helpers->isExistsById("sdc_proxy_list", $id)) {
     $helpers->throwHttpError('not_exists', 'записи не существует');
