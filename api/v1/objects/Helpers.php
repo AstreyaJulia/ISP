@@ -8,9 +8,9 @@
      * Не кодирует многобайтовые символы Unicode (по умолчанию они кодируются как \uXXXX)
      * Использует пробельные символы в возвращаемых данных для их форматирования.
      *
-     *@var array|string|bool|int
+     * @var array|string|bool|int
      *
-     *@return string
+     * @return string
      */
     public function getJsonEncode($data) {
       return json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
@@ -70,17 +70,22 @@
       header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
     }
 
-        // Ошибка если ключ jwt не прошел проверку
-        public static function isAccessDenied($e) {
-            // код ответа
-            http_response_code(401);
-
-            // сообщить пользователю отказано в доступе и показать сообщение об ошибке
-            echo json_encode(array(
-                "message" => "Доступ закрыт.",
-                "error" => $e->getMessage()
-            ), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-        }
+    /**
+     * Проверяет ключ jwt.
+     * Если ключ jwt не прошел проверку отдаем заголовок 401
+     * и исключение из библиотеки Firebase\JWT
+     * 
+     * @return string
+     */ 
+    public static function isAccessDenied($e) {
+        // код ответа
+        http_response_code(401);
+        // сообщить пользователю отказано в доступе и показать сообщение об ошибке
+        echo json_encode(array(
+            "message" => "Доступ закрыт.",
+            "error" => $e->getMessage()
+        ), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    }
 
 
 
