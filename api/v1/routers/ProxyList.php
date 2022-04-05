@@ -45,7 +45,7 @@ function route($db, $helpers) {
 
             $result = $proxyListClass->insertLink($helpers->getFormData());
 
-            echo json_encode($result, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+            echo $helpers->getJsonEncode($result);
         } catch (Exception $e){
             $helpers::isAccessDenied($e);
             exit;
@@ -138,7 +138,7 @@ function ProxyListOne($proxyListClass, $helpers) {
     // установим код ответа - 200 OK
     http_response_code(200);
     // вывод в json-формате
-    echo json_encode($proxylist, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    echo $helpers->getJsonEncode($proxylist);
 }
 
 function delRecord($proxyListClass, $helpers) {
@@ -151,5 +151,5 @@ function delRecord($proxyListClass, $helpers) {
   // установим код ответа - 200 OK
   http_response_code(200);
   // вывод в json-формате
-  echo json_encode($proxyListClass->delRecord($id), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+  echo $helpers->getJsonEncode($proxyListClass->delRecord($id));
 }
