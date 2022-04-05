@@ -26,10 +26,28 @@
     </header>
     <div class="row boxed-content">
       <div class="card">
+      <?php if ($_GET["page"] == "deadlines-all"): ?>
+        <div class="card-header">
+          <div class="row">
+            <div class="col-6">
+              <label for="period">Период</label>
+              <div class="input-group mb-3">
+                <select class="form-control cert-select" id="period" name="period">
+                  <?php foreach ($optgroup as $key => $value): ?>
+                    <option value="<?= $value->idGAS ?>"><?= $value->fullname ?></option>
+                  <?php endforeach ?>
+                </select>
+                <button class="btn btn-primary cert-get">Сформировать</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      <?php endif ?>
         <table class="table-responsive table dataTable sort">
           <thead>
           <tr>
             <th>Номер дела</th>
+            <?= $_GET["page"] == "deadlines-all" ? "<th>Судья</th>": "" ?>
             <th>Стороны</th>
             <th>Категория</th>
             <th>Информация</th>
@@ -39,9 +57,10 @@
           <?php foreach ($row as $key => $value): ?>
             <tr>
               <td><?= $value->CASE_NUMBER ?></td>
+              <?= $_GET["page"] = "deadlines-all" ? "<td>$value->JUDGE_NAME</td>": "" ?>
               <td><?= $value->PARTS_FIO ?></td>
               <td><?= $value->CAT ?></td>
-              <td><?= $value->INFO ?>
+              <td><?= $value->INFO ?></td>
             </tr>
           <?php endforeach ?>
           </tbody>
