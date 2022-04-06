@@ -39,6 +39,7 @@
                 "sudo" => $userAtributes->sudo,
                 "sidebar" => $userAtributes->sidebar == 0 ? "narrow": "wide",
                 "theme" => $userAtributes->theme == 0 ? "main-dark": "main-light",
+                "profession" => $userAtributes->profession,
                 "membership" => $userAtributes->membership
             ];
             $output["time"] = (microtime(true) - $start);

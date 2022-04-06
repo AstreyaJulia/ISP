@@ -18,7 +18,15 @@
         public $sudo;
         public $sidebar;
         public $theme;
+
+        /**
+         * Группа к которой принадлежит пользователь 
+         **/
         public $membership;
+        /**
+         * Должность которую занимает пользователь 
+         **/
+        public $profession;
 
 
         public function __construct(DB $db) {
@@ -60,6 +68,7 @@
                             sdc_users.sudo,
                             sdc_users.sidebar,
                             sdc_users.theme,
+                            UserAttributes.profession,
                             sdc_vocation.parent_id AS membership
                         FROM sdc_users
                         LEFT JOIN sdc_user_attributes AS UserAttributes ON UserAttributes.internalKey=sdc_users.id
@@ -79,6 +88,7 @@
             $this->sudo = $row['sudo'];
             $this->sidebar = $row['sidebar'];
             $this->theme = $row['theme'];
+            $this->profession = $row['profession'];
             $this->membership = $row['membership'];
         } 
 

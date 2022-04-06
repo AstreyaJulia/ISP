@@ -8,6 +8,9 @@
     $sidebarClass = new \Api\Objects\Sidebar($db);
 
     $sidebarClass->sudo = $_GET['sudo'];
+    $sidebarClass->profession = $_GET['profession'] ?? 0;
+    $sidebarClass->membership = $_GET['membership'] ?? 0;
+
 
     $sidebar["data"] = sidebarTree($sidebarClass->getSidebar());
 

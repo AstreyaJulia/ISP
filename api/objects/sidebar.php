@@ -4,6 +4,8 @@
 	class Sidebar {
 
 		public $sudo;
+		public $profession;
+		public $membership;
 
 		protected $db;
 
@@ -23,7 +25,8 @@
 			       			FROM
 			       				`sdc_site_content`
 			       			WHERE
-			       				`id` NOT IN (10,11) AND `parent` NOT IN (10,11)";
+			       				`id` NOT IN (10,11) AND `parent` NOT IN (10,11) AND
+			       				`job_access` in(0,$this->profession) and `group_access` in(0,$this->membership)";
 			}
 	        return $this->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
 	    }
