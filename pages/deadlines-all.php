@@ -18,7 +18,7 @@ $queryParams = [
     'idJudge' => rtrim($idGAS, ","),
 ];
 
-$response = $autorizationClass::sendGET($queryParams, 'http://192.168.0.254:8079/api_GAS/deadlines-all.php?');
+$response = $autorizationClass::sendGET($queryParams, 'http://192.168.0.254:8079/api_GAS/deadlines.php?');
 
 if (!empty($response)) {
     $row = $response ?? array();
