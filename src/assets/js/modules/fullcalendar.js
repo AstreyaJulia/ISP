@@ -168,7 +168,7 @@ function minicalendarhandler(settings) {
   calendar.render();
   setInterval(() => {
     calendar.refetchEvents();
-  }, 1000);
+  }, 5000);
 }
 
 /**
@@ -1032,7 +1032,7 @@ function calendmodulehandler(settings) {
 
   setInterval(() => {
     calendar.refetchEvents();
-  }, 1000);
+  }, 5000);
 
 
   function neweventmodal(info) {

@@ -9166,7 +9166,7 @@ var totext_ToText = /** @class */ (function () {
         }
         this.text = [gettext('every')];
         // @ts-ignore
-        this[src.FREQUENCIES[this.options.freq]]();
+        this[src_rrule.FREQUENCIES[this.options.freq]]();
         if (this.options.until) {
             this.add(gettext('until'));
             var until = this.options.until;
@@ -9531,7 +9531,7 @@ function parseText(text, language) {
             throw new Error('Unexpected end');
         switch (ttr.symbol) {
             case 'day(s)':
-                options.freq = src.DAILY;
+                options.freq = src_rrule.DAILY;
                 if (ttr.nextSymbol()) {
                     AT();
                     F();
@@ -9540,47 +9540,47 @@ function parseText(text, language) {
             // FIXME Note: every 2 weekdays != every two weeks on weekdays.
             // DAILY on weekdays is not a valid rule
             case 'weekday(s)':
-                options.freq = src.WEEKLY;
+                options.freq = src_rrule.WEEKLY;
                 options.byweekday = [
-                    src.MO,
-                    src.TU,
-                    src.WE,
-                    src.TH,
-                    src.FR
+                    src_rrule.MO,
+                    src_rrule.TU,
+                    src_rrule.WE,
+                    src_rrule.TH,
+                    src_rrule.FR
                 ];
                 ttr.nextSymbol();
                 F();
                 break;
             case 'week(s)':
-                options.freq = src.WEEKLY;
+                options.freq = src_rrule.WEEKLY;
                 if (ttr.nextSymbol()) {
                     ON();
                     F();
                 }
                 break;
             case 'hour(s)':
-                options.freq = src.HOURLY;
+                options.freq = src_rrule.HOURLY;
                 if (ttr.nextSymbol()) {
                     ON();
                     F();
                 }
                 break;
             case 'minute(s)':
-                options.freq = src.MINUTELY;
+                options.freq = src_rrule.MINUTELY;
                 if (ttr.nextSymbol()) {
                     ON();
                     F();
                 }
                 break;
             case 'month(s)':
-                options.freq = src.MONTHLY;
+                options.freq = src_rrule.MONTHLY;
                 if (ttr.nextSymbol()) {
                     ON();
                     F();
                 }
                 break;
             case 'year(s)':
-                options.freq = src.YEARLY;
+                options.freq = src_rrule.YEARLY;
                 if (ttr.nextSymbol()) {
                     ON();
                     F();
@@ -9593,9 +9593,9 @@ function parseText(text, language) {
             case 'friday':
             case 'saturday':
             case 'sunday':
-                options.freq = src.WEEKLY;
+                options.freq = src_rrule.WEEKLY;
                 var key = ttr.symbol.substr(0, 2).toUpperCase();
-                options.byweekday = [src[key]];
+                options.byweekday = [src_rrule[key]];
                 if (!ttr.nextSymbol())
                     return;
                 // TODO check for duplicates
@@ -9607,7 +9607,7 @@ function parseText(text, language) {
                         throw new Error('Unexpected symbol ' + ttr.symbol + ', expected weekday');
                     }
                     // @ts-ignore
-                    options.byweekday.push(src[wkd]);
+                    options.byweekday.push(src_rrule[wkd]);
                     ttr.nextSymbol();
                 }
                 MDAYs();
@@ -9625,7 +9625,7 @@ function parseText(text, language) {
             case 'october':
             case 'november':
             case 'december':
-                options.freq = src.YEARLY;
+                options.freq = src_rrule.YEARLY;
                 options.bymonth = [decodeM()];
                 if (!ttr.nextSymbol())
                     return;
@@ -9664,7 +9664,7 @@ function parseText(text, language) {
                     if (!options.byweekday)
                         options.byweekday = [];
                     // @ts-ignore
-                    options.byweekday.push(src[wkd].nth(nth));
+                    options.byweekday.push(src_rrule[wkd].nth(nth));
                 }
                 else {
                     if (!options.bymonthday)
@@ -9680,17 +9680,17 @@ function parseText(text, language) {
                 if (!options.byweekday)
                     options.byweekday = [];
                 // @ts-ignore
-                options.byweekday.push(src[wkd]);
+                options.byweekday.push(src_rrule[wkd]);
             }
             else if (ttr.symbol === 'weekday(s)') {
                 ttr.nextSymbol();
                 if (!options.byweekday) {
                     options.byweekday = [
-                        src.MO,
-                        src.TU,
-                        src.WE,
-                        src.TH,
-                        src.FR
+                        src_rrule.MO,
+                        src_rrule.TU,
+                        src_rrule.WE,
+                        src_rrule.TH,
+                        src_rrule.FR
                     ];
                 }
             }
@@ -9952,7 +9952,7 @@ function freqIsDailyOrGreater(freq) {
  */
 var fromText = function (text, language) {
     if (language === void 0) { language = i18n; }
-    return new src(parseText(text, language) || undefined);
+    return new src_rrule(parseText(text, language) || undefined);
 };
 var common = [
     'count',
@@ -10629,6 +10629,19 @@ function buildDtstart(dtstart, tzid) {
 
 
 
+function argsMatch(left, right) {
+    if (Array.isArray(left)) {
+        if (!Array.isArray(right))
+            return false;
+        if (left.length !== right.length)
+            return false;
+        return left.every(function (date, i) { return date.getTime() === right[i].getTime(); });
+    }
+    if (left instanceof Date) {
+        return right instanceof Date && left.getTime() === right.getTime();
+    }
+    return left === right;
+}
 var cache_Cache = /** @class */ (function () {
     function Cache() {
         this.all = false;
@@ -10669,7 +10682,7 @@ var cache_Cache = /** @class */ (function () {
         var findCacheDiff = function (item) {
             for (var i = 0; i < argsKeys.length; i++) {
                 var key = argsKeys[i];
-                if (String(args[key]) !== String(item[key])) {
+                if (!argsMatch(args[key], item[key])) {
                     return true;
                 }
             }
