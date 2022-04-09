@@ -72,6 +72,10 @@
      */
     public function getRequestData() {
 
+      // Получаем ключ jwt из заголовка
+      $jwt = getallheaders()["Authorization"] ?? "";
+      $this->jwt = substr($jwt, 7) ;
+
       // Разбираем url
       $url = (isset($_GET['q'])) ? $_GET['q'] : '';
       $url = trim($url, '/');
@@ -81,8 +85,6 @@
       //$urlData = array_slice($urls, 3);
 
       $formData = $this->receiveFormData();
-      $this->jwt = $formData["jwt"] ?? "" ;
-      unset($formData["jwt"]);
       $this->method = $_SERVER['REQUEST_METHOD'];
       $this->urlData = $urls;
       $this->router = $this->urlData[0];

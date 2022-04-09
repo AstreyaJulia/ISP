@@ -74,17 +74,18 @@
      * Проверяет ключ jwt.
      * Если ключ jwt не прошел проверку отдаем заголовок 401
      * и исключение из библиотеки Firebase\JWT
-     * 
+     *
      * @return string
-     */ 
+     */
     public static function isAccessDenied($e) {
-        // код ответа
-        http_response_code(401);
-        // сообщить пользователю отказано в доступе и показать сообщение об ошибке
-        echo json_encode(array(
-            "message" => "Доступ закрыт.",
-            "error" => $e->getMessage()
-        ), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+      header("Content-Type: application/json; charset=UTF-8");
+      // код ответа
+      http_response_code(401);
+      // сообщить пользователю отказано в доступе и показать сообщение об ошибке
+      echo json_encode(array(
+        "message" => "Доступ закрыт.",
+        "error" => $e->getMessage()
+      ), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
     }
 
 
