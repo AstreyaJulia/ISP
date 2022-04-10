@@ -30,7 +30,8 @@
         // Проверка роутера на валидность
         public function isValidRouter($router) {
             return in_array($router, array(
-                'ProxyList'
+                'ProxyList',
+                'sidebar'
             ));
         }
 

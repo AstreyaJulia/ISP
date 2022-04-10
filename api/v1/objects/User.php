@@ -1,34 +1,58 @@
 <?php
-    namespace Api\Objects;
-    use Firebase\JWT\JWT;
+  namespace Api\Objects;
+  use Firebase\JWT\JWT;
 
-    class User {
+  class User {
 
-        // подключение к БД
-        protected $db;
-        // jwt
-        private $classJWT;
+    // подключение к БД
+    protected $db;
+    // jwt
+    private $classJWT;
 
-        // свойства объекта
-        private $id;
-        private $idGAS;
-        private $username;
-        private $password;
-        private $fullname;
-        private $sudo;
-        private $sidebar;
-        private $theme;
-        private $membership;
+    // свойства объекта
+    private $id;
+    private $idGAS;
+    private $username;
+    private $password;
+    private $fullname;
+    private $sudo;
+    private $sidebar;
+    private $theme;
+    private $profession;
+    private $membership;
 
 
-        public function __construct(DB $db) {
-            $this->db = $db;
-            $this->classJWT = new JWT;
-        }
+    public function __construct(DB $db) {
+        $this->db = $db;
+        $this->classJWT = new JWT;
+    }
 
-        public function getSudo() {
-            return $this->sudo;
-        }
+    /**
+     * get элемент для sudo
+     *
+     * @return int
+     */
+    public function getSudo() {
+        return $this->sudo;
+    }
+
+    /**
+     * get элемент для profession
+     *
+     * @return int
+     */
+    public function getProfession() {
+        return $this->profession;
+    }
+
+    /**
+     * get элемент для membership
+     *
+     * @return int
+     */
+    public function getMembership() {
+        return $this->membership;
+    }
 
         public function secureJWT ($jwt, $key) {
             $decoded = $this->classJWT::decode($jwt, $key, array('HS256'));
@@ -52,6 +76,7 @@
                             sdc_users.sudo,
                             sdc_users.sidebar,
                             sdc_users.theme,
+                            UserAttributes.profession,
                             sdc_vocation.parent_id AS membership
                         FROM sdc_users
                         LEFT JOIN sdc_user_attributes AS UserAttributes ON UserAttributes.internalKey=sdc_users.id
@@ -68,6 +93,7 @@
                 $this->password = $row['password'];
                 $this->sidebar = $row['sidebar'];
                 $this->theme = $row['theme'];
+                $this->profession = $row['profession'];
                 $this->membership = $row['membership'];
             }
             return $row;
