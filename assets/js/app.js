@@ -141,11 +141,11 @@ const COLORS = colors;
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "selectedCheckboxes": function() { return /* binding */ selectedCheckboxes; },
-/* harmony export */   "getCookie": function() { return /* binding */ getCookie; },
-/* harmony export */   "cookieID": function() { return /* binding */ cookieID; },
-/* harmony export */   "ajax_send": function() { return /* binding */ ajax_send; },
 /* harmony export */   "Toast": function() { return /* binding */ Toast; },
+/* harmony export */   "ajax_send": function() { return /* binding */ ajax_send; },
+/* harmony export */   "cookieID": function() { return /* binding */ cookieID; },
+/* harmony export */   "getCookie": function() { return /* binding */ getCookie; },
+/* harmony export */   "selectedCheckboxes": function() { return /* binding */ selectedCheckboxes; },
 /* harmony export */   "showBsToast": function() { return /* binding */ showBsToast; },
 /* harmony export */   "toastContainer": function() { return /* binding */ toastContainer; }
 /* harmony export */ });
@@ -1600,7 +1600,7 @@ function minicalendarhandler(settings) {
   calendar.render();
   setInterval(() => {
     calendar.refetchEvents();
-  }, 1000);
+  }, 5000);
 }
 /**
  * Календарь. Модуль
@@ -2504,7 +2504,7 @@ function calendmodulehandler(settings) {
   calendar.render();
   setInterval(() => {
     calendar.refetchEvents();
-  }, 1000);
+  }, 5000);
 
   function neweventmodal(info) {
     /** Разные даты начала и конца события для создаваемых событий при нажатии на кнопку создания и на день */
@@ -3754,8 +3754,8 @@ document.addEventListener("DOMContentLoaded", () => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "validateForm": function() { return /* binding */ validateForm; },
-/* harmony export */   "setValidationListeners": function() { return /* binding */ setValidationListeners; }
+/* harmony export */   "setValidationListeners": function() { return /* binding */ setValidationListeners; },
+/* harmony export */   "validateForm": function() { return /* binding */ validateForm; }
 /* harmony export */ });
 function showInputError(input) {
   input.classList.add('is-invalid');
