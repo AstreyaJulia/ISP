@@ -1,6 +1,11 @@
 <?php
   $title = "Нарушение сроков рассмотрения";
-  $pageReferer = isset(explode("?", $_SERVER["HTTP_REFERER"])[1]) ? explode("?", $_SERVER["HTTP_REFERER"])[1] : "";
+  $pageReferer =  "";
+
+  if (isset($_SERVER["HTTP_REFERER"])) {
+    $pageRefererArray = explode("?", $_SERVER["HTTP_REFERER"]);
+    $pageReferer = $pageRefererArray[1] ?? "";
+  }
 
   if ($pageReferer == "page=grade") {
     $sql = "SELECT
@@ -29,7 +34,7 @@
 
 $response = $autorizationClass::sendGET($queryParams, 'http://192.168.0.254:8079/api_GAS/deadlines.php?');
 
-if (!empty($response)) {
+if (is_array($response)) {
     $row = $response ?? array();
 } else {
     $row = array();

@@ -29,6 +29,7 @@
         <table class="table-responsive table dataTable sort">
           <thead>
           <tr>
+            <th></th>
             <th>Номер дела</th>
             <?= $pageReferer == "page=grade" ? "<th>Судья</th>": "" ?>
             <th>Стороны</th>
@@ -39,6 +40,7 @@
           <tbody>
           <?php foreach ($row as $key => $value): ?>
             <tr>
+              <td><?= $value->LATER ?></td>
               <td><?= $value->CASE_NUMBER ?></td>
               <?= $pageReferer == "page=grade" ? "<td>$value->JUDGE_NAME</td>": "" ?>
               <td><?= $value->PARTS_FIO ?></td>

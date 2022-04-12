@@ -38,8 +38,7 @@
             </div>
           </div>
           <!-- Кнопки -->
-          <a class="btn btn-primary btn-block text-decoration-none mb-3" href="?page=deadlines"><span>Гражданские дела</span></a>
-          <a class="btn btn-primary btn-block text-decoration-none mb-3" href="?page=deadlines"><span>Уголовные дела</span></a>
+          <a class="btn btn-primary btn-block text-decoration-none mb-3" href="?page=deadlines"><span>Общий список</span></a>
         </div>
         <div class="card mb-3 p-3">
           <div class="widget-content">
