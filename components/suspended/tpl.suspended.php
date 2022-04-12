@@ -30,16 +30,18 @@
           <thead>
           <tr>
             <th>Номер дела</th>
+            <?= $pageReferer == "page=grade" ? "<th>Судья</th>": "" ?>
             <th>Стороны</th>
-            <th>Дата приостановления</th>
-            <th>Причина</th>
-            <th>Информация</th>
+            <th>Дата последнего события</th>
+            <th>Наименование последнего события</th>
+            <th>Информация по срокам рассмотрения дела</th>
           </tr>
           </thead>
           <tbody>
           <?php foreach ($row as $key => $value): ?>
             <tr>
               <td><?= $value->CASE_NUM ?></td>
+              <?= $pageReferer == "page=grade" ? "<td>$value->JUDGE</td>": "" ?>
               <td><?= $value->PARTS_NAMES ?></td>
               <td><?= $value->STOP_DATE ?></td>
               <td><?= $value->REASON ?>

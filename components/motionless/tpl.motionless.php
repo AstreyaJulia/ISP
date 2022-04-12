@@ -32,20 +32,20 @@
           <thead>
           <tr>
             <th>Номер дела</th>
+            <?= $pageReferer == "page=grade" ? "<th>Судья</th>": "" ?>
             <th>Стороны</th>
             <th>Дата</th>
             <th>Предост. исправл.</th>
-            <th>Информация</th>
           </tr>
           </thead>
           <tbody>
           <?php foreach ($row as $key => $value): ?>
             <tr>
               <td><?= $value->CASE_NUM ?></td>
+              <?= $pageReferer == "page=grade" ? "<td>$value->JUDGE</td>": "" ?>
               <td><?= $value->PARTS_NAMES ?></td>
               <td><?= $value->STOP_DATE ?></td>
               <td><?= $value->CONTROL_DATE ?>
-              <td><?= $value->INFO ?>
             </tr>
           <?php endforeach ?>
           </tbody>

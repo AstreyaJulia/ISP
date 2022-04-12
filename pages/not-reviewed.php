@@ -1,10 +1,36 @@
 <?php
 $title = "Не рассмотренные дела";
+$pageReferer =  "";
 
-// параметры $_GET запроса
-$queryParams = [
-    'idJudge' => $userAtributes->data->idGAS ?? "",
-];
+  if (isset($_SERVER["HTTP_REFERER"])) {
+    $pageRefererArray = explode("?", $_SERVER["HTTP_REFERER"]);
+    $pageReferer = $pageRefererArray[1] ?? "";
+  }
+
+  if ($pageReferer == "page=grade") {
+    $sql = "SELECT
+            UserAttributes.idGAS,
+              UserAttributes.fullname
+            FROM `sdc_users` AS Users
+            LEFT JOIN `sdc_user_attributes` AS UserAttributes on Users.id = UserAttributes.internalKey
+            WHERE UserAttributes.profession in(1,2,3) AND Users.active = 1";
+
+    $optgroup = $db->run($sql)->fetchAll(\PDO::FETCH_CLASS);
+    $idGAS = "";
+    for ($i=0; $i < count($optgroup); $i++) {
+      $idGAS .= $optgroup[$i]->idGAS .",";
+    }
+
+    // параметры $_GET запроса
+    $queryParams = [
+        'idJudge' => rtrim($idGAS, ","),
+    ];
+  } else {
+    // параметры $_GET запроса
+    $queryParams = [
+      'idJudge' => $userAtributes->data->idGAS ?? "",
+    ];
+  }
 
 $response = $autorizationClass::sendGET($queryParams, $api_gas.'not-reviewed.php?');
 

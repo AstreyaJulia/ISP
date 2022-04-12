@@ -58,9 +58,9 @@
             </div>
           </div>
           <!-- Кнопки -->
-          <a class="btn btn-primary btn-block text-decoration-none mb-3" href="?page=certificatework"><span>Приостановленные</span></a>
-          <a class="btn btn-primary btn-block text-decoration-none mb-3" href="?page=certificatework"><span>Без движения</span></a>
-          <a class="btn btn-primary btn-block text-decoration-none mb-3" href="?page=certificatework"><span>Не окончено</span></a>
+          <a class="btn btn-primary btn-block text-decoration-none mb-3" href="?page=suspended"><span>Приостановленные</span></a>
+          <a class="btn btn-primary btn-block text-decoration-none mb-3" href="?page=motionless"><span>Без движения</span></a>
+          <a class="btn btn-primary btn-block text-decoration-none mb-3" href="?page=not-reviewed"><span>Не окончено</span></a>
         </div>
         <div class="card mb-3 p-3">
           <div class="widget-content">
