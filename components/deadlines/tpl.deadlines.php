@@ -30,7 +30,7 @@
           <thead>
           <tr>
             <th>Номер дела</th>
-            <?= $_GET["page"] == "deadlines-all" ? "<th>Судья</th>": "" ?>
+            <?= $pageReferer == "page=grade" ? "<th>Судья</th>": "" ?>
             <th>Стороны</th>
             <th>Категория</th>
             <th>Информация</th>
@@ -40,7 +40,7 @@
           <?php foreach ($row as $key => $value): ?>
             <tr>
               <td><?= $value->CASE_NUMBER ?></td>
-              <?= $_GET["page"] = "deadlines-all" ? "<td>$value->JUDGE_NAME</td>": "" ?>
+              <?= $pageReferer == "page=grade" ? "<td>$value->JUDGE_NAME</td>": "" ?>
               <td><?= $value->PARTS_FIO ?></td>
               <td><?= $value->CAT ?></td>
               <td><?= $value->INFO ?></td>

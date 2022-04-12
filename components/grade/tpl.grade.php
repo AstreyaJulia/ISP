@@ -38,31 +38,30 @@
             </div>
           </div>
           <!-- Кнопки -->
-          <a class="btn btn-primary btn-block text-decoration-none mb-3" href="?page=deadlines-all""><span>Гражданские дела</span></a>
+          <a class="btn btn-primary btn-block text-decoration-none mb-3" href="?page=deadlines"><span>Гражданские дела</span></a>
+          <a class="btn btn-primary btn-block text-decoration-none mb-3" href="?page=deadlines"><span>Уголовные дела</span></a>
         </div>
         <div class="card mb-3 p-3">
           <div class="widget-content">
             <div class="d-flex align-items-center justify-content-between mb-2">
-              <h6 class="surtitle">Колонка для чего-то</h6>
+              <h6 class="surtitle">Актов не опублековано</h6>
             </div>
           </div>
           <!-- Кнопки -->
-          <a class="btn btn-primary btn-block text-decoration-none" href="#" ><span>Кнопка никуда не ведущая</span></a>
+          <a class="btn btn-primary btn-block text-decoration-none" href="#" ><span>Общий список</span></a>
         </div>
       </div>
       <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
         <div class="card mb-3 p-3">
           <div class="widget-content">
             <div class="d-flex align-items-center justify-content-between mb-2">
-              <h6 class="surtitle">Группа элементов для чего-то</h6>
+              <h6 class="surtitle">Не рассмотренные дела (сроки)</h6>
             </div>
           </div>
           <!-- Кнопки -->
-          <a class="btn btn-primary btn-block text-decoration-none mb-3" href="?page=certificatework""><span>Справка о работе судей</span></a>
-          <a class="btn btn-primary btn-block text-decoration-none mb-3" href="#"><span>Тестовая страница</span></a>
-          <a class="btn btn-primary btn-block text-decoration-none mb-3" href="#"><span>Задачи</span></a>
-          <a class="btn btn-primary btn-block text-decoration-none mb-3" href="#"><span>Тетрис</span></a>
-          <a class="btn btn-primary btn-block text-decoration-none mb-3" href="#"><span>Рабочие места</span></a>
+          <a class="btn btn-primary btn-block text-decoration-none mb-3" href="?page=certificatework"><span>Приостановленные</span></a>
+          <a class="btn btn-primary btn-block text-decoration-none mb-3" href="?page=certificatework"><span>Без движения</span></a>
+          <a class="btn btn-primary btn-block text-decoration-none mb-3" href="?page=certificatework"><span>Не окончено</span></a>
         </div>
         <div class="card mb-3 p-3">
           <div class="widget-content">
@@ -71,6 +70,8 @@
             </div>
           </div>
           <!-- Кнопки -->
+          <a class="btn btn-primary btn-block text-decoration-none mb-3" href="?page=certificatework"><span>Справка о работе судей</span></a>
+          <a class="btn btn-primary btn-block text-decoration-none mb-3" href="#"><span>Рабочие места</span></a>
           <a class="btn btn-primary btn-block text-decoration-none" href="#"><span>UI-Kit</span></a>
         </div>
       </div>
