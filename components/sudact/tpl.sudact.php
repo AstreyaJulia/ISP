@@ -46,6 +46,7 @@
           <thead>
           <tr>
             <th>Номер дела</th>
+            <?= $pageReferer == "page=grade" ? "<th>Судья</th>": "" ?>
             <th>Дата рассмотрения</th>
             <th>Дата вступления в законную силу</th>
             <th>Опубликовать до *</th>
@@ -56,6 +57,7 @@
           <?php foreach ($row as $key => $value): ?>
             <tr>
               <td><?= $value->FULL_NUMBER ?></td>
+              <?= $pageReferer == "page=grade" ? "<td>$value->JUDGE</td>": "" ?>
               <td><?= date("d.m.Y", strtotime($value->VERDICT_DATE)) ?></td>
               <td><?= $value->VALIDITY_DATE ? date("d.m.Y", strtotime($value->VALIDITY_DATE)) : "" ?></td>
               <td><?= $value->DATE_UNTILL ?></td>

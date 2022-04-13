@@ -47,7 +47,7 @@
             </div>
           </div>
           <!-- Кнопки -->
-          <a class="btn btn-primary btn-block text-decoration-none" href="#" ><span>Общий список</span></a>
+          <a class="btn btn-primary btn-block text-decoration-none" href="?page=sudact" ><span>Общий список</span></a>
         </div>
       </div>
       <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
@@ -61,27 +61,6 @@
           <a class="btn btn-primary btn-block text-decoration-none mb-3" href="?page=suspended"><span>Приостановленные</span></a>
           <a class="btn btn-primary btn-block text-decoration-none mb-3" href="?page=motionless"><span>Без движения</span></a>
           <a class="btn btn-primary btn-block text-decoration-none mb-3" href="?page=not-reviewed"><span>Не окончено</span></a>
-        </div>
-        <div class="card mb-3 p-3">
-          <div class="widget-content">
-            <div class="d-flex align-items-center justify-content-between mb-2">
-              <h6 class="surtitle">Дизайн и UI-kit</h6>
-            </div>
-          </div>
-          <!-- Кнопки -->
-          <a class="btn btn-primary btn-block text-decoration-none mb-3" href="?page=certificatework"><span>Справка о работе судей</span></a>
-          <a class="btn btn-primary btn-block text-decoration-none mb-3" href="#"><span>Рабочие места</span></a>
-          <a class="btn btn-primary btn-block text-decoration-none" href="#"><span>UI-Kit</span></a>
-        </div>
-      </div>
-      <div class="col-xxl-2 col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12">
-        <div class="card mb-3 p-3">
-          <div class="widget-content">
-            <div class="d-flex align-items-center justify-content-between mb-2">
-              <h6 class="surtitle">Документация</h6>
-            </div>
-          </div>
-          <a class="btn btn-primary btn-block text-decoration-none" href="?page=documentation"><span>Документация</span></a>
         </div>
       </div>
     </div>
