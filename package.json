@@ -31,7 +31,7 @@
     "csscomb": "^4.3.0",
     "datatables.net-bs5": "^1.11.5",
     "del": "^6.0.0",
-    "flatpickr": "^4.6.11",
+    "flatpickr": "^4.6.13",
     "fullcalendar": "^5.11.0",
     "glob": "^7.2.0",
     "gulp-autoprefixer": "^8.0.0",

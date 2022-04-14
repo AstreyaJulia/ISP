@@ -1,8 +1,20 @@
 <!-- Верхний топбар -->
 <!-- Окно поиска-->
 <div class="search-input top-search navbar-search">
-  <input class="input" type="text" placeholder="Поиск..." id="top-search">
-  <label for="top-search" style="display: none;">Поиск</label>
+  <form class="d-flex w-100 justify-content-between top-search-form">
+    <input class="input" type="text" placeholder="Поиск..." id="top-search" required>
+    <label for="top-search" style="display: none;">Поиск</label>
+    <div class="input-group me-3 w-25">
+        <select class="form-control" id="topSearchSelect">
+          <option value="users">Сотрудники</option>
+          <option value="cases">Дела</option>
+          <option value="inbox">Входящая почта</option>
+          <option value="outbox">Исходящая почта</option>
+          <option value="bsr">БСР</option>
+        </select>
+      <button class="btn btn-primary topSearchSubmit" type="button">Поиск</button>
+    </div>
+  </form>
   <div class="search-close">
     <a href="#" class="top-search-close">
       <i class="mdi mdi-close-box"></i>
@@ -24,15 +36,14 @@
     </div>
     <div class="right-header">
         <ul class="nav align-items-center">
-          <!--
-          <li class="d-none d-sm-block topbar-divider"></li> -->
+          <li class="d-none d-sm-block topbar-divider"></li>
           <!-- Кнопка открытия поиска -->
-          <!-- <li class="nav-item ms-2 me-2">
+          <li class="nav-item ms-2 me-2">
             <a class="nav-link waves-effect waves-light top-search-button-toggle" data-bs-toggle="tooltip"
                data-bs-placement="top" title="Открыть окно поиска">
               <i class="mdi mdi-magnify"></i>
             </a>
-          </li> -->
+          </li>
           <li class="d-none d-sm-block topbar-divider"></li>
           <li
             class="today-group d-sm-flex d-md-flex d-lg-flex d-xl-flex d-xxl-flex d-none align-items-center justify-content-center ms-3">

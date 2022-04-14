@@ -2865,6 +2865,53 @@ if (multimodal && multimodalbtns) {
 
 /***/ }),
 
+/***/ "./src/assets/js/modules/search.js":
+/*!*****************************************!*\
+  !*** ./src/assets/js/modules/search.js ***!
+  \*****************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _globalfunc__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../globalfunc */ "./src/assets/js/globalfunc.js");
+
+/** Поиск.
+ * http://isp/API-URL/search.php?type=users&query=56456
+ * search: тип поиска users - Сотрудники, cases - Дела, inbox - Входящая почта,
+ * outbox - Исходящая почта, bsr - БСР
+ * */
+
+/** Форма поиска */
+
+const topSearchForm = document.querySelector('.top-search-form');
+/** Инпут ввода строки поиска */
+
+const topSearchInput = document.querySelector('#top-search');
+/** Селект выбора поиска */
+
+const topSearchSelect = document.querySelector('#topSearchSelect');
+/** Кнопка отправки формы поиска */
+
+const topSearchSubmit = document.querySelector('.topSearchSubmit');
+
+const submitHandler = () => {
+  let data = {
+    type: topSearchSelect.value,
+    query: topSearchInput.value
+  };
+  (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("GET", "components/fullcalendar/events.php", data, "json", result => console.log(result));
+};
+/** Ждем полной загрузки дерева */
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  if (topSearchForm) {
+    topSearchSubmit.addEventListener('click', submitHandler);
+  }
+});
+
+/***/ }),
+
 /***/ "./src/assets/js/modules/tasks.js":
 /*!****************************************!*\
   !*** ./src/assets/js/modules/tasks.js ***!
@@ -4799,6 +4846,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_validation__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./modules/validation */ "./src/assets/js/modules/validation.js");
 /* harmony import */ var _modules_weather__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./modules/weather */ "./src/assets/js/modules/weather.js");
 /* harmony import */ var _modules_workplaces__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./modules/workplaces */ "./src/assets/js/modules/workplaces.js");
+/* harmony import */ var _modules_search__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./modules/search */ "./src/assets/js/modules/search.js");
+
 
 
 
