@@ -2,18 +2,19 @@
   // необходимые HTTP-заголовки
   header("Access-Control-Allow-Origin: *");
   header("Content-Type: application/json; charset=UTF-8");
+  header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
   // Файл с настройками
   require_once $_SERVER['DOCUMENT_ROOT'] . "/api/config/core.php";
 
   $searchClass = new \Api\Objects\Search($db);
-
-
-  $data = json_decode(file_get_contents("php://input"));
+  
+  $jwt = getallheaders()["Authorization"] ?? "";
 
   // получаем JWT
-  $jwt = $data->jwt ?? die();
-  $search = !empty($data->searchUsers) ? "$data->searchUsers": "нет записей";
+  $jwt = substr($jwt, 7) ?? die();
+
+  $search = !empty($_GET["searchUsers"]) ? $_GET["searchUsers"]: "нет записей";
 
   // Файлы jwt
   require_once $_SERVER['DOCUMENT_ROOT'] . "/api/config/jwt.php";
