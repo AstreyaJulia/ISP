@@ -2901,7 +2901,7 @@ const searchPlaceholders = {
   cases: 'Поиск дел и материалов по Ф.И.О. стороны / лицу / номеру дела',
   inbox: 'Поиск по входящей корреспонденции по входящему номеру / Ф.И.О. / содержанию',
   outbox: 'Поиск исходящей корреспондеции по исходящему номеру / Ф.И.О. / содержанию',
-  users: 'Поиск по сотрудникам по Ф.И.О. / телефонному номеру',
+  users: 'Поиск сотрудников по Ф.И.О. / телефонному номеру',
   bsr: 'Поиск текстов судебных актов по номеру дела / материала'
 };
 
@@ -4562,27 +4562,6 @@ const darkModeToggleHandler = () => {
 if (darkModeToggleButton) {
   darkModeToggleButton.addEventListener('click', darkModeToggleHandler);
 }
-/** Кнопка вкл/выкл верхнего поиска, класс .top-search-button-toggle */
-
-
-const searchButton = document.querySelector('.top-search-button-toggle');
-/** Верхний поиск, класс .top-search */
-
-const searchInput = document.querySelector('.top-search');
-/** Кнопка закрытия верхнего поиска, класс .top-search-close */
-
-const searchCloseButton = document.querySelector('.top-search-close');
-/** Добавляет класс open у .top-search */
-
-const buttonSearchHandler = () => {
-  searchInput.classList.add('open');
-};
-/** Удаляет класс open у .top-search */
-
-
-const buttonSearchCloseHandler = () => {
-  searchInput.classList.remove('open');
-};
 /** Переключает класс .active у ближайшего .menu-item нажатой ссылки меню сайдбара */
 
 
@@ -4761,15 +4740,6 @@ document.addEventListener("DOMContentLoaded", () => {
       mainSidebar.addEventListener('mouseenter', sidebarExpandHandler);
       mainSidebar.addEventListener('mouseleave', buttonSidebarCloseHandler);
     }
-  }
-  /** Прослушивание нажатия кнопки .top-search-button-toggle */
-
-
-  if (searchButton && searchInput && searchCloseButton) {
-    searchButton.addEventListener('click', buttonSearchHandler);
-    /** Прослушивание нажатия кнопки .top-search-close */
-
-    searchCloseButton.addEventListener('click', buttonSearchCloseHandler);
   }
   /** Получает имя файла текущей открытой страницы и ищет такое же в ссылках бокового меню,
    * устанавливает класс active открытому пункту или субпункту и его родителю

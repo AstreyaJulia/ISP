@@ -98,25 +98,6 @@ if (darkModeToggleButton) {
   darkModeToggleButton.addEventListener('click', darkModeToggleHandler);
 }
 
-/** Кнопка вкл/выкл верхнего поиска, класс .top-search-button-toggle */
-const searchButton = document.querySelector('.top-search-button-toggle');
-
-/** Верхний поиск, класс .top-search */
-const searchInput = document.querySelector('.top-search');
-
-/** Кнопка закрытия верхнего поиска, класс .top-search-close */
-const searchCloseButton = document.querySelector('.top-search-close');
-
-/** Добавляет класс open у .top-search */
-const buttonSearchHandler = () => {
-  searchInput.classList.add('open');
-};
-
-/** Удаляет класс open у .top-search */
-const buttonSearchCloseHandler = () => {
-  searchInput.classList.remove('open');
-};
-
 /** Переключает класс .active у ближайшего .menu-item нажатой ссылки меню сайдбара */
 const menuitemClickHandler = (evt) => {
   evt.target.closest('.menu-item').classList.toggle("active");
@@ -275,13 +256,6 @@ document.addEventListener("DOMContentLoaded", () => {
       mainSidebar.addEventListener('mouseenter', sidebarExpandHandler);
       mainSidebar.addEventListener('mouseleave', buttonSidebarCloseHandler);
     }
-  }
-
-  /** Прослушивание нажатия кнопки .top-search-button-toggle */
-  if (searchButton && searchInput && searchCloseButton) {
-    searchButton.addEventListener('click', buttonSearchHandler);
-    /** Прослушивание нажатия кнопки .top-search-close */
-    searchCloseButton.addEventListener('click', buttonSearchCloseHandler);
   }
 
   /** Получает имя файла текущей открытой страницы и ищет такое же в ссылках бокового меню,
