@@ -333,7 +333,7 @@ const ajax_send = (method, url, parameters, datatype, callback) => {
             result = JSON.parse(xhr.response);
             callback(result);
           } catch (e) {
-            new Toast("Ошибка", xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'), "errorToast", "").show();
+            new Toast("Ошибка", 'Ошибка обработки данных: ' + e + 'Полученные данные: ' + xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'), "errorToast", "").show();
           }
         } else if (datatype === "text") {
           callback(xhr.responseText);
@@ -2896,12 +2896,37 @@ const topSearchSelect = document.querySelector('#topSearchSelect');
 /** Кнопка отправки формы поиска */
 
 const topSearchSubmit = document.querySelector('.topSearchSubmit');
+const searchResults = document.querySelector('.search-results');
 const searchPlaceholders = {
   cases: 'Поиск дел и материалов по Ф.И.О. стороны / лицу / номеру дела',
   inbox: 'Поиск по входящей корреспонденции по входящему номеру / Ф.И.О. / содержанию',
   outbox: 'Поиск исходящей корреспондеции по исходящему номеру / Ф.И.О. / содержанию',
   users: 'Поиск по сотрудникам по Ф.И.О. / телефонному номеру',
   bsr: 'Поиск текстов судебных актов по номеру дела / материала'
+};
+
+const createSearchItem = ({
+  fullname,
+  room,
+  phone_worck
+}) => `<div class="d-flex p-2">
+<div class="me-2">${fullname}</div>
+<div class="me-2 text-secondary">(${room})</div>
+<div class="text-primary">тел. ${phone_worck}</div>
+</div>`;
+
+const makeUsersSearch = array => {
+  if (array.length > 0) {
+    searchResults.classList.remove('d-none');
+    searchResults.classList.add('d-flex');
+    searchResults.textContent = '';
+    const searchElementsString = array.map(image => createSearchItem(image)).join('');
+    searchResults.insertAdjacentHTML('beforeend', searchElementsString);
+  } else {
+    searchResults.classList.remove('d-flex');
+    searchResults.classList.add('d-none');
+    searchResults.textContent = '';
+  }
 };
 
 const submitHandler = () => {
@@ -2916,12 +2941,14 @@ const fastSearchHandler = () => {
   let data = {
     "searchUsers": topSearchInput.value
   };
-  (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("GET", `api/search/users.php`, data, "json", result => console.log(result));
+  (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("GET", `api/search/users.php`, data, "json", result => makeUsersSearch(result.data));
 };
 
 const selectHandler = () => {
+  searchResults.classList.add('d-none');
+  searchResults.textContent = '';
   topSearchInput.placeholder = searchPlaceholders[topSearchSelect.value];
-  topSearchSelect.value === 'users' ? topSearchInput.addEventListener('input', fastSearchHandler) : topSearchInput.removeEventListener('change', fastSearchHandler);
+  topSearchSelect.value === 'users' ? topSearchInput.addEventListener('input', fastSearchHandler) : topSearchInput.removeEventListener('input', fastSearchHandler);
 };
 /** Ждем полной загрузки дерева */
 

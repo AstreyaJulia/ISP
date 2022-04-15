@@ -165,7 +165,7 @@ const ajax_send = (method, url, parameters, datatype, callback) => {
             result = JSON.parse(xhr.response);
             callback(result);
           } catch (e) {
-            new Toast("Ошибка", xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'), "errorToast", "").show();
+            new Toast("Ошибка", 'Ошибка обработки данных: ' + e + 'Полученные данные: ' + xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'), "errorToast", "").show();
           }
         } else if (datatype === "text") {
           callback(xhr.responseText);

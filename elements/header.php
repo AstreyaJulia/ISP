@@ -1,24 +1,7 @@
 <!-- Верхний топбар -->
 <!-- Окно поиска-->
-<div class="search-input top-search navbar-search">
-  <form class="d-flex w-100 justify-content-between top-search-form">
-    <input class="input" type="text" placeholder="Поиск..." id="top-search" required>
-    <label for="top-search" style="display: none;">Поиск</label>
-    <div class="input-group me-3 w-25">
-        <select class="form-control" id="topSearchSelect">
-          <option value="users">Сотрудники</option>
-          <option value="cases">Дела</option>
-          <option value="inbox">Входящая почта</option>
-          <option value="outbox">Исходящая почта</option>
-          <option value="bsr">БСР</option>
-        </select>
-      <button class="btn btn-primary topSearchSubmit" type="button">Поиск</button>
-    </div>
-  </form>
-  <div class="search-close">
-    <a href="#" class="top-search-close">
-      <i class="mdi mdi-close-box"></i>
-    </a></div>
+
+<div class="position-absolute d-none flex-column p-3 search-results w-50 bg-white grey-shadow-3" style="top: 69px; left: 22%; z-index: 45">
 </div>
 
 <header class="main-header position-absolute py-2">
@@ -32,18 +15,28 @@
       </li>
     </ul>
 
-    <div class="left-header d-flex align-items-center justify-content-center">
+    <div class="left-header d-flex align-items-center flex-grow-1">
+      <div class="row flex-grow-1 justify-content-center">
+        <div class="col-8">
+          <form class="d-flex w-100 justify-content-between top-search-form ms-3">
+            <div class="input-group me-3 d-flex align-items-center justify-content-end">
+              <input class="input form-control" type="text" placeholder="Поиск..." id="top-search" required>
+              <label for="top-search" style="display: none;">Поиск</label>
+              <select class="form-control" style="max-width: 200px" id="topSearchSelect">
+                <option value="users">Сотрудники</option>
+                <option value="cases">Дела</option>
+                <option value="inbox">Входящая почта</option>
+                <option value="outbox">Исходящая почта</option>
+                <option value="bsr">БСР</option>
+              </select>
+              <button class="btn btn-outline-primary topSearchSubmit" type="button">Искать</button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
     <div class="right-header">
         <ul class="nav align-items-center">
-          <li class="d-none d-sm-block topbar-divider"></li>
-          <!-- Кнопка открытия поиска -->
-          <li class="nav-item ms-2 me-2">
-            <a class="nav-link waves-effect waves-light top-search-button-toggle" data-bs-toggle="tooltip"
-               data-bs-placement="top" title="Открыть окно поиска">
-              <i class="mdi mdi-magnify"></i>
-            </a>
-          </li>
           <li class="d-none d-sm-block topbar-divider"></li>
           <li
             class="today-group d-sm-flex d-md-flex d-lg-flex d-xl-flex d-xxl-flex d-none align-items-center justify-content-center ms-3">
