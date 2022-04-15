@@ -103,6 +103,8 @@ function getCookie(name) {
  */
 const cookieID = getCookie('aut[id]');
 
+const jwtKey = getCookie('aut[jwt]');
+
 
 /**
  * Ajax. Передача GET и POST запросов
@@ -130,13 +132,15 @@ const ajax_send = (method, url, parameters, datatype, callback) => {
         queryString = null;
       }
       xhr.open(method, url + "?" + queryString, true);
-      xhr.setRequestHeader('Accept', 'application/json, text/plain, */*');
+      xhr.setRequestHeader('Accept', 'application/json');
+      xhr.setRequestHeader('Authorization', `Bearer ${jwtKey}`);
       xhr.send(null);
       break;
 
     case "POST":
       xhr.open(method, url, true);
-      xhr.setRequestHeader('Accept', 'application/json, text/plain, */*');
+      xhr.setRequestHeader('Accept', 'application/json');
+      xhr.setRequestHeader('Authorization', `Bearer ${jwtKey}`);
       xhr.send(parameters);
       break;
   }

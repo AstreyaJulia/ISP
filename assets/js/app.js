@@ -272,6 +272,7 @@ function getCookie(name) {
 
 
 const cookieID = getCookie('aut[id]');
+const jwtKey = getCookie('aut[jwt]');
 /**
  * Ajax. Передача GET и POST запросов
  * @param method - POST или GET
@@ -300,13 +301,15 @@ const ajax_send = (method, url, parameters, datatype, callback) => {
       }
 
       xhr.open(method, url + "?" + queryString, true);
-      xhr.setRequestHeader('Accept', 'application/json, text/plain, */*');
+      xhr.setRequestHeader('Accept', 'application/json');
+      xhr.setRequestHeader('Authorization', `Bearer ${jwtKey}`);
       xhr.send(null);
       break;
 
     case "POST":
       xhr.open(method, url, true);
-      xhr.setRequestHeader('Accept', 'application/json, text/plain, */*');
+      xhr.setRequestHeader('Accept', 'application/json');
+      xhr.setRequestHeader('Authorization', `Bearer ${jwtKey}`);
       xhr.send(parameters);
       break;
   }
@@ -2893,20 +2896,42 @@ const topSearchSelect = document.querySelector('#topSearchSelect');
 /** Кнопка отправки формы поиска */
 
 const topSearchSubmit = document.querySelector('.topSearchSubmit');
+const searchPlaceholders = {
+  cases: 'Поиск дел и материалов по Ф.И.О. стороны / лицу / номеру дела',
+  inbox: 'Поиск по входящей корреспонденции по входящему номеру / Ф.И.О. / содержанию',
+  outbox: 'Поиск исходящей корреспондеции по исходящему номеру / Ф.И.О. / содержанию',
+  users: 'Поиск по сотрудникам по Ф.И.О. / телефонному номеру',
+  bsr: 'Поиск текстов судебных актов по номеру дела / материала'
+};
 
 const submitHandler = () => {
   let data = {
-    type: topSearchSelect.value,
     query: topSearchInput.value
   };
-  (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("GET", "components/fullcalendar/events.php", data, "json", result => console.log(result));
+  (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("GET", `api/search/${topSearchSelect.value}.php`, data, "json", result => console.log(result));
+  topSearchForm.reset();
+};
+
+const fastSearchHandler = () => {
+  let data = {
+    "searchUsers": topSearchInput.value
+  };
+  (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("GET", `api/search/users.php`, data, "json", result => console.log(result));
+};
+
+const selectHandler = () => {
+  topSearchInput.placeholder = searchPlaceholders[topSearchSelect.value];
+  topSearchSelect.value === 'users' ? topSearchInput.addEventListener('input', fastSearchHandler) : topSearchInput.removeEventListener('change', fastSearchHandler);
 };
 /** Ждем полной загрузки дерева */
 
 
 document.addEventListener("DOMContentLoaded", () => {
+  selectHandler();
+
   if (topSearchForm) {
     topSearchSubmit.addEventListener('click', submitHandler);
+    topSearchSelect.addEventListener('change', selectHandler);
   }
 });
 

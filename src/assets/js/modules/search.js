@@ -15,19 +15,43 @@ const topSearchSelect = document.querySelector('#topSearchSelect');
 /** Кнопка отправки формы поиска */
 const topSearchSubmit = document.querySelector('.topSearchSubmit');
 
+const searchPlaceholders = {
+  cases: 'Поиск дел и материалов по Ф.И.О. стороны / лицу / номеру дела',
+  inbox: 'Поиск по входящей корреспонденции по входящему номеру / Ф.И.О. / содержанию',
+  outbox: 'Поиск исходящей корреспондеции по исходящему номеру / Ф.И.О. / содержанию',
+  users: 'Поиск по сотрудникам по Ф.И.О. / телефонному номеру',
+  bsr: 'Поиск текстов судебных актов по номеру дела / материала'
+}
+
 const submitHandler = () => {
   let data = {
-    type: topSearchSelect.value,
     query: topSearchInput.value
   };
-  ajax_send("GET", "components/fullcalendar/events.php", data, "json", result => console.log(result))
+  ajax_send("GET", `api/search/${topSearchSelect.value}.php`, data, "json", result => console.log(result));
+  topSearchForm.reset();
+}
+
+const fastSearchHandler = () => {
+  let data = {
+    "searchUsers": topSearchInput.value
+  };
+  ajax_send("GET", `api/search/users.php`, data, "json", result => console.log(result));
+}
+
+const selectHandler = () => {
+  topSearchInput.placeholder = searchPlaceholders[topSearchSelect.value];
+  topSearchSelect.value === 'users'
+    ? topSearchInput.addEventListener('input', fastSearchHandler)
+    : topSearchInput.removeEventListener('change', fastSearchHandler)
 }
 
 /** Ждем полной загрузки дерева */
 document.addEventListener("DOMContentLoaded", () => {
+  selectHandler();
 
-  if(topSearchForm) {
+  if (topSearchForm) {
     topSearchSubmit.addEventListener('click', submitHandler);
+    topSearchSelect.addEventListener('change', selectHandler);
   }
 
 });
