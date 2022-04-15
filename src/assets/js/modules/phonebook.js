@@ -21,7 +21,7 @@ const filterClickHandler = () => {
     ajax_send("GET", "components/phonebook/ajax.php", data, "text", response => {
       result.innerHTML = "";
       result.innerHTML = response
-    });
+    }, true);
 
   } else {
     let data = {
@@ -31,7 +31,7 @@ const filterClickHandler = () => {
     ajax_send("GET", "components/phonebook/ajax.php", data, "text", response => {
       result.innerHTML = "";
       result.innerHTML = response
-    });
+    }, true);
   }
 };
 

@@ -113,9 +113,10 @@ const jwtKey = getCookie('aut[jwt]');
  * @param parameters - параметры get запроса или отсылаемое тело POST
  * @param datatype
  * @param callback - в какую функцию передать результат
+ * @param auth - bool авторизация да / нет
  */
 // FIXME переделать на fetch
-const ajax_send = (method, url, parameters, datatype, callback) => {
+const ajax_send = (method, url, parameters, datatype, callback, auth) => {
   let xhr = new XMLHttpRequest();
 
   switch (method) {
@@ -133,14 +134,18 @@ const ajax_send = (method, url, parameters, datatype, callback) => {
       }
       xhr.open(method, url + "?" + queryString, true);
       xhr.setRequestHeader('Accept', 'application/json');
-      xhr.setRequestHeader('Authorization', `Bearer ${jwtKey}`);
+      auth === true
+        ? xhr.setRequestHeader('Authorization', `Bearer ${jwtKey}`)
+        : null;
       xhr.send(null);
       break;
 
     case "POST":
       xhr.open(method, url, true);
       xhr.setRequestHeader('Accept', 'application/json');
-      xhr.setRequestHeader('Authorization', `Bearer ${jwtKey}`);
+      auth = true
+        ? xhr.setRequestHeader('Authorization', `Bearer ${jwtKey}`)
+        : null;
       xhr.send(parameters);
       break;
   }

@@ -180,7 +180,7 @@ const zTreeHandler = () => {
   const workPlaceStructure = () => {
     ajax_send("GET", "pages/admin/ajax.php", test, "json", result => {
       $.fn.zTree.init($("#workplace-tree"), settingWorktree, result);
-    });
+    }, true);
   }
 
   workPlaceStructure();

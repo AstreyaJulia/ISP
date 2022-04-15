@@ -112,7 +112,7 @@ const weatherHandler = () => {
 
   ajax_send("GET", url, data, "json", result => {
     setWeather(result);
-  })
+  }, false)
 }
 
 /** Ждем полной загрузки дерева */

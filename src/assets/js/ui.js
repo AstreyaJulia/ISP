@@ -46,7 +46,7 @@ const buttonSidebarToggleHandler = (evt) => {
     formData.append("sidebarWidth", "narrow");
   }
 
-  ajax_send("POST", "pages/admin/ajax.php", formData, "json", result => result);
+  ajax_send("POST", "pages/admin/ajax.php", formData, "json", result => result, true);
 };
 
 /** Кнопка, переключающая сайдбар, класс .sidebar-expand-button */
@@ -90,7 +90,7 @@ const darkModeToggleHandler = () => {
     sidebarWrapper.dataset.themeName = "main-dark";
     formData.append("theme", "main-dark");
   }
-  ajax_send("POST", "pages/admin/ajax.php", formData, "json", result => result);
+  ajax_send("POST", "pages/admin/ajax.php", formData, "json", result => result, true);
   darkModeToggleButton.classList.toggle('tumbler--night-mode');
 };
 

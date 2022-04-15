@@ -112,7 +112,7 @@ function fetchEvents(info, successCallback) {
     private: privCheck
   };
 
-  ajax_send("GET", "components/fullcalendar/events.php", data, "json", result => successCallback(result));
+  ajax_send("GET", "components/fullcalendar/events.php", data, "json", result => successCallback(result), true);
 }
 
 /**
@@ -553,7 +553,7 @@ function calendmodulehandler(settings) {
     }
 
     if (validateForm(eventForm, addEventFormSubmit) === true) {
-      ajax_send("POST", "components/fullcalendar/ajax.php", getEventFormData("add"), "json", result => addSucces(result, title));
+      ajax_send("POST", "components/fullcalendar/ajax.php", getEventFormData("add"), "json", result => addSucces(result, title), true);
     }
 
     let title = eventTitle.value;
@@ -577,7 +577,7 @@ function calendmodulehandler(settings) {
 
     if (validateForm(eventForm, addEventFormSubmit) === true) {
       if (eventToUpdate.extendedProps.user_id === cookieID || JSON.stringify(eventToUpdate.extendedProps.user_id) === cookieID) {
-        ajax_send("POST", "components/fullcalendar/ajax.php", getEventFormData("upd"), "json", result => updSucces(result, title));
+        ajax_send("POST", "components/fullcalendar/ajax.php", getEventFormData("upd"), "json", result => updSucces(result, title), true);
       } else {
         new Toast("", 'Вы не имеете прав на правку события ' + title, "", "miniToast", "danger").show();
       }
@@ -608,7 +608,7 @@ function calendmodulehandler(settings) {
     let title = eventToUpdate.title;
 
     if (eventToUpdate.extendedProps.user_id === cookieID || JSON.stringify(eventToUpdate.extendedProps.user_id) === cookieID) {
-      ajax_send("POST", "components/fullcalendar/ajax.php", Event, "json", result => delSucces(result, title));
+      ajax_send("POST", "components/fullcalendar/ajax.php", Event, "json", result => delSucces(result, title), true);
     } else {
       new Toast("", 'Вы не имеете прав на удаление события ' + title, "", "miniToast", "danger").show();
     }

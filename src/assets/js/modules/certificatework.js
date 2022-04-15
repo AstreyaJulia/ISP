@@ -61,7 +61,7 @@ function certBtnHandler() {
   /** Отправить запрос с параметрами и вставить в таблицу справки по судьям */
   ajax_send("GET", "api/certificatework/getCertificateWork.php", data, "json", response => {
     createTable(response);
-  });
+  }, true);
 
 }
 

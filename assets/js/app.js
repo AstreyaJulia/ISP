@@ -280,10 +280,11 @@ const jwtKey = getCookie('aut[jwt]');
  * @param parameters - параметры get запроса или отсылаемое тело POST
  * @param datatype
  * @param callback - в какую функцию передать результат
+ * @param auth - bool авторизация да / нет
  */
 // FIXME переделать на fetch
 
-const ajax_send = (method, url, parameters, datatype, callback) => {
+const ajax_send = (method, url, parameters, datatype, callback, auth) => {
   let xhr = new XMLHttpRequest();
 
   switch (method) {
@@ -302,14 +303,14 @@ const ajax_send = (method, url, parameters, datatype, callback) => {
 
       xhr.open(method, url + "?" + queryString, true);
       xhr.setRequestHeader('Accept', 'application/json');
-      xhr.setRequestHeader('Authorization', `Bearer ${jwtKey}`);
+      auth === true ? xhr.setRequestHeader('Authorization', `Bearer ${jwtKey}`) : null;
       xhr.send(null);
       break;
 
     case "POST":
       xhr.open(method, url, true);
       xhr.setRequestHeader('Accept', 'application/json');
-      xhr.setRequestHeader('Authorization', `Bearer ${jwtKey}`);
+      auth =  true ? xhr.setRequestHeader('Authorization', `Bearer ${jwtKey}`) : 0;
       xhr.send(parameters);
       break;
   }
@@ -699,7 +700,7 @@ function certBtnHandler() {
 
   (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("GET", "api/certificatework/getCertificateWork.php", data, "json", response => {
     createTable(response);
-  });
+  }, true);
 }
 /** Прослушиватель нажатия кнопки Сформировать справки по судьям */
 
@@ -1545,7 +1546,7 @@ function fetchEvents(info, successCallback) {
     calendars: filterInput2.length > 0 ? (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.selectedCheckboxes)(filterInput2, 'selected') : Object.keys(calendarsColor),
     private: privCheck
   };
-  (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("GET", "components/fullcalendar/events.php", data, "json", result => successCallback(result));
+  (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("GET", "components/fullcalendar/events.php", data, "json", result => successCallback(result), true);
 }
 /**
  * Показать popover
@@ -2007,7 +2008,7 @@ function calendmodulehandler(settings) {
     }
 
     if ((0,_validation__WEBPACK_IMPORTED_MODULE_1__.validateForm)(eventForm, addEventFormSubmit) === true) {
-      (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("POST", "components/fullcalendar/ajax.php", getEventFormData("add"), "json", result => addSucces(result, title));
+      (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("POST", "components/fullcalendar/ajax.php", getEventFormData("add"), "json", result => addSucces(result, title), true);
     }
 
     let title = eventTitle.value;
@@ -2033,7 +2034,7 @@ function calendmodulehandler(settings) {
 
     if ((0,_validation__WEBPACK_IMPORTED_MODULE_1__.validateForm)(eventForm, addEventFormSubmit) === true) {
       if (eventToUpdate.extendedProps.user_id === _globalfunc__WEBPACK_IMPORTED_MODULE_0__.cookieID || JSON.stringify(eventToUpdate.extendedProps.user_id) === _globalfunc__WEBPACK_IMPORTED_MODULE_0__.cookieID) {
-        (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("POST", "components/fullcalendar/ajax.php", getEventFormData("upd"), "json", result => updSucces(result, title));
+        (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("POST", "components/fullcalendar/ajax.php", getEventFormData("upd"), "json", result => updSucces(result, title), true);
       } else {
         new _globalfunc__WEBPACK_IMPORTED_MODULE_0__.Toast("", 'Вы не имеете прав на правку события ' + title, "", "miniToast", "danger").show();
       }
@@ -2066,7 +2067,7 @@ function calendmodulehandler(settings) {
     let title = eventToUpdate.title;
 
     if (eventToUpdate.extendedProps.user_id === _globalfunc__WEBPACK_IMPORTED_MODULE_0__.cookieID || JSON.stringify(eventToUpdate.extendedProps.user_id) === _globalfunc__WEBPACK_IMPORTED_MODULE_0__.cookieID) {
-      (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("POST", "components/fullcalendar/ajax.php", Event, "json", result => delSucces(result, title));
+      (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("POST", "components/fullcalendar/ajax.php", Event, "json", result => delSucces(result, title), true);
     } else {
       new _globalfunc__WEBPACK_IMPORTED_MODULE_0__.Toast("", 'Вы не имеете прав на удаление события ' + title, "", "miniToast", "danger").show();
     }
@@ -2689,7 +2690,7 @@ const filterClickHandler = () => {
     (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("GET", "components/phonebook/ajax.php", data, "text", response => {
       result.innerHTML = "";
       result.innerHTML = response;
-    });
+    }, true);
   } else {
     let data = {
       filter: selected
@@ -2697,7 +2698,7 @@ const filterClickHandler = () => {
     (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("GET", "components/phonebook/ajax.php", data, "text", response => {
       result.innerHTML = "";
       result.innerHTML = response;
-    });
+    }, true);
   }
 };
 /** Слушаем клик по каждому из фильтров телефонной книги */
@@ -2933,7 +2934,7 @@ const submitHandler = () => {
   let data = {
     query: topSearchInput.value
   };
-  (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("GET", `api/search/${topSearchSelect.value}.php`, data, "json", result => console.log(result));
+  (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("GET", `api/search/${topSearchSelect.value}.php`, data, "json", result => console.log(result), true);
   topSearchForm.reset();
 };
 
@@ -2941,7 +2942,7 @@ const fastSearchHandler = () => {
   let data = {
     "searchUsers": topSearchInput.value
   };
-  (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("GET", `api/search/users.php`, data, "json", result => makeUsersSearch(result.data));
+  (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("GET", `api/search/users.php`, data, "json", result => makeUsersSearch(result.data), true);
 };
 
 const selectHandler = () => {
@@ -4248,7 +4249,7 @@ const weatherHandler = () => {
 
   (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("GET", url, data, "json", result => {
     setWeather(result);
-  });
+  }, false);
 };
 /** Ждем полной загрузки дерева */
 
@@ -4430,7 +4431,7 @@ const zTreeHandler = () => {
   const workPlaceStructure = () => {
     (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("GET", "pages/admin/ajax.php", test, "json", result => {
       $.fn.zTree.init($("#workplace-tree"), settingWorktree, result);
-    });
+    }, true);
   };
 
   workPlaceStructure();
@@ -4507,7 +4508,7 @@ const buttonSidebarToggleHandler = evt => {
     formData.append("sidebarWidth", "narrow");
   }
 
-  (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("POST", "pages/admin/ajax.php", formData, "json", result => result);
+  (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("POST", "pages/admin/ajax.php", formData, "json", result => result, true);
 };
 /** Кнопка, переключающая сайдбар, класс .sidebar-expand-button */
 
@@ -4555,7 +4556,7 @@ const darkModeToggleHandler = () => {
     formData.append("theme", "main-dark");
   }
 
-  (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("POST", "pages/admin/ajax.php", formData, "json", result => result);
+  (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("POST", "pages/admin/ajax.php", formData, "json", result => result, true);
   darkModeToggleButton.classList.toggle('tumbler--night-mode');
 };
 

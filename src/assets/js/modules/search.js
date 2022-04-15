@@ -50,7 +50,7 @@ const submitHandler = () => {
   let data = {
     query: topSearchInput.value
   };
-  ajax_send("GET", `api/search/${topSearchSelect.value}.php`, data, "json", result => console.log(result));
+  ajax_send("GET", `api/search/${topSearchSelect.value}.php`, data, "json", result => console.log(result), true);
   topSearchForm.reset();
 }
 
@@ -58,7 +58,7 @@ const fastSearchHandler = () => {
   let data = {
     "searchUsers": topSearchInput.value
   };
-  ajax_send("GET", `api/search/users.php`, data, "json", result => makeUsersSearch(result.data));
+  ajax_send("GET", `api/search/users.php`, data, "json", result => makeUsersSearch(result.data), true);
 }
 
 const selectHandler = () => {
