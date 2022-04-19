@@ -3041,7 +3041,7 @@ const searchParams = {
     placeholder: "Поиск по входящей корреспонденции по входящему номеру / Ф.И.О. / содержанию",
     getParam: "query",
     getParamsAdd: {
-      startDate: moment().format('YYYY-MM-DD'),
+      startDate: moment().subtract(31, 'days').format('YYYY-MM-DD'),
       endDate: moment().format('YYYY-MM-DD')
     },
     render: createInboxSearchItem
