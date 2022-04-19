@@ -43,7 +43,7 @@ const createInboxSearchItem = ({DELO_CORRESP_NUM, INSERT_DATE, CORRESP_MSG_ANNOT
 <div class="d-flex p-2">
   <div class="me-2">${DELO_CORRESP_NUM}</div>
   <div class="me-2">(${INSERT_DATE})</div>
-  <div class="me-2" title=${CORRESP_MSG_ANNOTATION} style="text-overflow: ellipsis; max-width: 200px">${CORRESP_MSG_ANNOTATION}</div>
+  <div class="me-2" title=${CORRESP_MSG_ANNOTATION.toString()} style='text-overflow: ellipsis; overflow: hidden;  max-width: 200px'>${CORRESP_MSG_ANNOTATION}</div>
   <div class="me-2">${SENDER_NAME}</div>
   <div class="me-2">${CORRESP_FIO}</div>
 </div>
