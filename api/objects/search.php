@@ -36,5 +36,23 @@
       return $this->db->run($sql, ["%$param%", "%$param%"])->fetchAll(\PDO::FETCH_CLASS);
     }
 
+    // Отправка данных методом $_GET
+    public static function sendGET($params, $host_api) {
+      // URL страницы, которую открываем
+    $url = $host_api. http_build_query($params);
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    //ожидание при попытке подключения, секунд (0 - бесконечно)
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
+    $result = curl_exec($ch);
+    curl_close($ch);
+    if ($result) {
+      $message = (is_array(json_decode($result)) or is_object(json_decode($result))) ? json_decode($result):  "true";
+    } else {
+        $message = $result;
+    }
+    return $message;
+    }
+
 
 	}
