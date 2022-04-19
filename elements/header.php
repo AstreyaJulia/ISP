@@ -24,12 +24,11 @@
               <label for="top-search" style="display: none;">Поиск</label>
               <select class="form-control" style="max-width: 200px" id="topSearchSelect">
                 <option value="users">Сотрудники</option>
-                <option value="cases">Дела</option>
                 <option value="inbox">Входящая почта</option>
-                <option value="outbox">Исходящая почта</option>
-                <option value="bsr">БСР</option>
               </select>
+              <!--
               <button class="btn btn-outline-primary topSearchSubmit" type="button">Искать</button>
+              -->
             </div>
           </form>
         </div>
