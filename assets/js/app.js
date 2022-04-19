@@ -2916,22 +2916,28 @@ const createUsersSearchItem = ({
 </div>
 `;
 /** Рендер поиска входящих писем
- * @param fullname - имя
- * @param room - кабинет
- * @param phone_worck - номер телефона
- * @returns {string} - элемент результата
+ * @param DELO_CORRESP_NUM
+ * @param INSERT_DATE
+ * @param CORRESP_MSG_ANNOTATION
+ * @param SENDER_NAME
+ * @param CORRESP_FIO
+ * @returns {string}
  */
 
 
 const createInboxSearchItem = ({
-  fullname,
-  room,
-  phone_worck
+  DELO_CORRESP_NUM,
+  INSERT_DATE,
+  CORRESP_MSG_ANNOTATION,
+  SENDER_NAME,
+  CORRESP_FIO
 }) => `
 <div class="d-flex p-2">
-  <div class="me-2">${fullname}</div>
-  <div class="me-2 text-secondary">(${room})</div>
-  <div class="text-primary">тел. ${phone_worck}</div>
+  <div class="me-2">${DELO_CORRESP_NUM}</div>
+  <div class="me-2">(${INSERT_DATE})</div>
+  <div class="me-2" title=${CORRESP_MSG_ANNOTATION} style="text-overflow: ellipsis; max-width: 200px">${CORRESP_MSG_ANNOTATION}</div>
+  <div class="me-2">${SENDER_NAME}</div>
+  <div class="me-2">${CORRESP_FIO}</div>
 </div>
 `;
 /** Рендер поиска БСР
