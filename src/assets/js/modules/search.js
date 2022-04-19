@@ -13,6 +13,8 @@ const topSearchInput = document.querySelector('#top-search');
 /** Селект выбора поиска */
 const topSearchSelect = document.querySelector('#topSearchSelect');
 /** Выпадающее поле с результатами быстрого поиска */
+const searchResultsWindow = document.querySelector('.search-results-window');
+/** Таблица с результатами быстрого поиска */
 const searchResults = document.querySelector('.search-results');
 
 /** Рендер поиска сотрудников
@@ -23,11 +25,11 @@ const searchResults = document.querySelector('.search-results');
  */
 const createUsersSearchItem = ({fullname, room, phone_worck}) =>
   `
-<div class="d-flex p-2">
-  <div class="me-2">${fullname}</div>
-  <div class="me-2 text-secondary">(${room})</div>
-  <div class="text-primary">тел. ${phone_worck}</div>
-</div>
+<tr>
+  <td><span class="me-2">🌟</span>${fullname}</td>
+  <td class="text-secondary"><span class="me-2">🏛️</span>(${room})</td>
+  <td class="text-primary"><span class="me-2">📞</span>${phone_worck}</td>
+</tr>
 `;
 
 /** Рендер поиска входящих писем
@@ -40,13 +42,17 @@ const createUsersSearchItem = ({fullname, room, phone_worck}) =>
  */
 const createInboxSearchItem = ({DELO_CORRESP_NUM, INSERT_DATE, CORRESP_MSG_ANNOTATION, SENDER_NAME, CORRESP_FIO}) =>
   `
-<div class="d-flex p-2">
-  <div class="me-2">${DELO_CORRESP_NUM}</div>
-  <div class="me-2">(${INSERT_DATE})</div>
-  <div class="me-2" title=${CORRESP_MSG_ANNOTATION.toString()} style='text-overflow: ellipsis; overflow: hidden;  max-width: 200px'>${CORRESP_MSG_ANNOTATION}</div>
-  <div class="me-2">${SENDER_NAME}</div>
-  <div class="me-2">${CORRESP_FIO}</div>
-</div>
+<tr>
+  <td>
+    <span>${DELO_CORRESP_NUM}</span>
+    <span>${INSERT_DATE}</span>
+  </td>
+  <td>
+    <span title="${CORRESP_MSG_ANNOTATION}" style="text-overflow: ellipsis; overflow: hidden;  max-width: 200px">${CORRESP_MSG_ANNOTATION}</span>
+  </td>
+  <td>${SENDER_NAME}</td>
+  <td>${CORRESP_FIO}</td>
+</tr>
 `;
 
 /** Рендер поиска БСР
@@ -60,7 +66,7 @@ const createBsrSearchItem = ({fullname, room, phone_worck}) =>
 <div class="d-flex p-2">
   <div class="me-2">${fullname}</div>
   <div class="me-2 text-secondary">(${room})</div>
-  <div class="text-primary">тел. ${phone_worck}</div>
+  <div class="text-primary">📞 ${phone_worck}</div>
 </div>
 `;
 
@@ -135,7 +141,7 @@ const searchParams = {
     placeholder: "Поиск по входящей корреспонденции по входящему номеру / Ф.И.О. / содержанию",
     getParam: "query",
     getParamsAdd: {
-      startDate: moment().subtract(31, 'days').format('YYYY-MM-DD'),
+      startDate: moment().subtract(80, 'days').format('YYYY-MM-DD'),
       endDate: moment().format('YYYY-MM-DD')
     },
     render: createInboxSearchItem
@@ -149,14 +155,14 @@ const searchParams = {
  */
 const makeSearchItems = (array, render) => {
   if (array.length > 0) {
-    searchResults.classList.remove('d-none');
-    searchResults.classList.add('d-flex');
+    searchResultsWindow.classList.remove('d-none');
+    searchResultsWindow.classList.add('d-flex');
     searchResults.textContent = '';
     const searchElementsString = array.map((image) => render(image)).join('');
     searchResults.insertAdjacentHTML('beforeend', searchElementsString);
   } else {
-    searchResults.classList.remove('d-flex');
-    searchResults.classList.add('d-none');
+    searchResultsWindow.classList.remove('d-flex');
+    searchResultsWindow.classList.add('d-none');
     searchResults.textContent = '';
   }
 }
@@ -180,8 +186,8 @@ const fastSearchHandler = () => {
 
     ajax_send("GET", `api/search/${topSearchSelect.value}.php`, queryObj, "json", result => makeSearchItems(result.data, searchParams[topSearchSelect.value].render), true);
   } else {
-    searchResults.classList.remove('d-flex');
-    searchResults.classList.add('d-none');
+    searchResultsWindow.classList.remove('d-flex');
+    searchResultsWindow.classList.add('d-none');
     searchResults.textContent = '';
   }
 }
@@ -189,7 +195,7 @@ const fastSearchHandler = () => {
 /** Хэндлер очистки результатов поиска при переключении типа поиска
  * и плейсхолдера поиска */
 const selectHandler = () => {
-  searchResults.classList.add('d-none');
+  searchResultsWindow.classList.add('d-none');
   searchResults.textContent = '';
   topSearchInput.value = '';
   topSearchInput.placeholder = searchParams[topSearchSelect.value].placeholder;
