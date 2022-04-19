@@ -2420,6 +2420,27 @@ form .select2.error + .select2-container--default .select2-selection--multiple {
   }
 }
 
+@media (max-width: 1300px) {
+  .search-results-window {
+    left: 22%;
+    width: 50%;
+  }
+}
+
+@media (max-width: 1079px) {
+  .search-results-window {
+    left: 0;
+    width: 100%;
+  }
+}
+
+.search-results-window {
+  top: #{$header-height};
+  left: calc(var(--sidebar-width) + var(--sidebar-width));
+  z-index: 45;
+  width: calc(100% - #{var(--sidebar-width)} - #{var(--sidebar-width)} - #{var(--sidebar-width)});
+}
+
 @keyframes star {
   0% {
     -webkit-transform: scale(1) rotate(0deg);

@@ -2899,7 +2899,10 @@ const topSearchSelect = document.querySelector('#topSearchSelect');
 const searchResultsWindow = document.querySelector('.search-results-window');
 /** Таблица с результатами быстрого поиска */
 
-const searchResults = document.querySelector('.search-results');
+const searchResults = searchResultsWindow.querySelector('.table');
+/** Футер с ссылками в таблице с результатами быстрого поиска */
+
+const searchResultsFooter = searchResultsWindow.querySelector('.search-results-footer');
 /** Рендер поиска сотрудников
  * @param fullname - имя
  * @param room - кабинет
@@ -2910,12 +2913,13 @@ const searchResults = document.querySelector('.search-results');
 const createUsersSearchItem = ({
   fullname,
   room,
-  phone_worck
+  phone_worck,
+  profession
 }) => `
 <tr>
-  <td><span class="me-2">🌟</span>${fullname}</td>
-  <td class="text-secondary"><span class="me-2">🏛️</span>(${room})</td>
-  <td class="text-primary"><span class="me-2">📞</span>${phone_worck}</td>
+  <td title="${profession}"><i class="mdi mdi-star me-2"></i>${fullname}</td>
+  <td class="text-secondary"><i class="mdi mdi-office-building-marker-outline me-2"></i>${room}</td>
+  <td class="text-primary"><i class="mdi mdi-phone-classic me-2"></i>${phone_worck}</td>
 </tr>
 `;
 /** Рендер поиска входящих писем

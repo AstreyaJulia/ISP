@@ -1,8 +1,9 @@
 <!-- Верхний топбар -->
 <!-- Окно поиска-->
 
-<div class="position-absolute d-none flex-column p-3 w-50 bg-white grey-shadow-3 search-results-window" style="top: 69px; left: 22%; z-index: 45">
-  <table class="search-results"></table>
+<div class="position-absolute d-none flex-column p-3 bg-white grey-shadow-3 search-results-window">
+  <table class="table overlayscrollbar"></table>
+  <div class="search-results-footer"></div>
 </div>
 
 <header class="main-header position-absolute py-2">
