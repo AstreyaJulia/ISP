@@ -2899,16 +2899,35 @@ const topSearchSelect = document.querySelector('#topSearchSelect');
 const searchResultsWindow = document.querySelector('.search-results-window');
 /** Таблица с результатами быстрого поиска */
 
-const searchResults = searchResultsWindow.querySelector('.table');
+const searchResults = searchResultsWindow.querySelector('.search-results-container');
 /** Футер с ссылками в таблице с результатами быстрого поиска */
 
 const searchResultsFooter = searchResultsWindow.querySelector('.search-results-footer');
+/** Счетчик найденного */
+
+const searchResultsCounter = searchResultsWindow.querySelector('.search-results-counter');
+/** Кнопка закрытия результатов */
+
+const searchResultsCloseButton = searchResultsWindow.querySelector('.btn-close');
+/** Таймеры для устранения дребежжания */
+
+let typingTimer; //идентификатор таймера
+
+let doneTypingInterval = 100; //время в мс (5 сек)
+
+function closeSearchResults() {
+  searchResultsWindow.classList.remove('d-flex');
+  searchResultsWindow.classList.add('d-none');
+  searchResults.textContent = '';
+}
 /** Рендер поиска сотрудников
  * @param fullname - имя
  * @param room - кабинет
  * @param phone_worck - номер телефона
+ * @param profession
  * @returns {string} - элемент результата
  */
+
 
 const createUsersSearchItem = ({
   fullname,
@@ -2916,11 +2935,21 @@ const createUsersSearchItem = ({
   phone_worck,
   profession
 }) => `
-<tr>
-  <td title="${profession}"><i class="mdi mdi-star me-2"></i>${fullname}</td>
-  <td class="text-secondary"><i class="mdi mdi-office-building-marker-outline me-2"></i>${room}</td>
-  <td class="text-primary"><i class="mdi mdi-phone-classic me-2"></i>${phone_worck}</td>
-</tr>
+<div class="d-flex align-items-center py-3 border-bottom border-light">
+<div class="user-avatar rounded-circle avatar-sm bg-primary-20 m-0 me-3 d-flex align-items-center justify-content-center">
+<span class="font-size-base fw-bold text-primary">
+${fullname.split(" ").slice(1).map(n => n[0]).join("").toUpperCase()}
+</span>
+</div>
+<div class="d-flex flex-column me-5" style="min-width: 320px">
+<span class="font-size-base">${fullname}</span>
+<span class="font-size-base text-secondary">${profession}</span>
+</div>
+<div class="d-flex flex-column">
+<span class="font-size-base"><i class="mdi mdi-phone-classic me-2"></i>${phone_worck}</span>
+<span class="font-size-base text-secondary"><i class="mdi mdi-office-building-marker-outline me-2"></i>${room}</span>
+</div>
+</div>
 `;
 /** Рендер поиска входящих писем
  * @param DELO_CORRESP_NUM
@@ -2939,17 +2968,24 @@ const createInboxSearchItem = ({
   SENDER_NAME,
   CORRESP_FIO
 }) => `
-<tr>
-  <td>
-    <span>${DELO_CORRESP_NUM}</span>
-    <span>${INSERT_DATE}</span>
-  </td>
-  <td>
-    <span title="${CORRESP_MSG_ANNOTATION}" style="text-overflow: ellipsis; overflow: hidden;  max-width: 200px">${CORRESP_MSG_ANNOTATION}</span>
-  </td>
-  <td>${SENDER_NAME}</td>
-  <td>${CORRESP_FIO}</td>
-</tr>
+<div class="d-flex align-items-center py-3 border-bottom border-light">
+<div class="user-avatar rounded-circle avatar-xs bg-danger-20 m-0 me-3 d-flex align-items-center justify-content-center">
+<span class="font-size-base fw-bold text-danger">
+<i class="mdi mdi-email-receive-outline"></i>
+</span>
+</div>
+<div class="d-flex flex-column me-3" style="min-width: 100px">
+<span class="search-results-counter badge-pill bg-primary-20 text-primary font-small-2"><span>№:</span> ${DELO_CORRESP_NUM}</span>
+<span class="font-small-2 ms-3"><span>От:</span> ${INSERT_DATE}</span>
+</div>
+<div class="d-flex flex-column me-3 flex-wrap" style="min-width: 400px; max-width: 400px;">
+<span class="me-3 font-small-1" title="${CORRESP_MSG_ANNOTATION}">${CORRESP_MSG_ANNOTATION}</span>
+</div>
+<div class="d-flex flex-column me-3" style="min-width: 100px">
+<span class="font-small-1">От: ${SENDER_NAME}</span>
+<span class="font-small-1">Кому: ${CORRESP_FIO}</span>
+</div>
+</div>
 `;
 /** Рендер поиска БСР
  * @param fullname - имя
@@ -2979,14 +3015,29 @@ const createBsrSearchItem = ({
 
 
 const createOutboxSearchItem = ({
-  fullname,
-  room,
-  phone_worck
+  DELO_CORRESP_NUM,
+  INSERT_DATE,
+  CORRESP_MSG_ANNOTATION,
+  SENDER_NAME,
+  CORRESP_FIO
 }) => `
-<div class="d-flex p-2">
-  <div class="me-2">${fullname}</div>
-  <div class="me-2 text-secondary">(${room})</div>
-  <div class="text-primary">тел. ${phone_worck}</div>
+<div class="d-flex align-items-center py-3 border-bottom border-light">
+<div class="user-avatar rounded-circle avatar-xs bg-danger-20 m-0 me-3 d-flex align-items-center justify-content-center">
+<span class="font-size-base fw-bold text-danger">
+<i class="mdi mdi-email-receive-outline"></i>
+</span>
+</div>
+<div class="d-flex flex-column me-3" style="min-width: 100px">
+<span class="search-results-counter badge-pill bg-primary-20 text-primary font-small-2"><span>№:</span> ${DELO_CORRESP_NUM}</span>
+<span class="font-small-2 ms-3"><span>От:</span> ${INSERT_DATE}</span>
+</div>
+<div class="d-flex flex-column me-3 flex-wrap" style="min-width: 400px; max-width: 400px;">
+<span class="me-3 font-small-1" title="${CORRESP_MSG_ANNOTATION}">${CORRESP_MSG_ANNOTATION}</span>
+</div>
+<div class="d-flex flex-column me-3" style="min-width: 100px">
+<span class="font-small-1">От: ${SENDER_NAME}</span>
+<span class="font-small-1">Кому: ${CORRESP_FIO}</span>
+</div>
 </div>
 `;
 /** Рендер поиска дел
@@ -3049,6 +3100,15 @@ const searchParams = {
     render: createUsersSearchItem
   },
   inbox: {
+    placeholder: "Поиск исходящей корреспондеции по исходящему номеру / Ф.И.О. / содержанию",
+    getParam: "query",
+    getParamsAdd: {
+      startDate: moment().subtract(80, 'days').format('YYYY-MM-DD'),
+      endDate: moment().format('YYYY-MM-DD')
+    },
+    render: createOutboxSearchItem
+  },
+  outbox: {
     placeholder: "Поиск по входящей корреспонденции по входящему номеру / Ф.И.О. / содержанию",
     getParam: "query",
     getParamsAdd: {
@@ -3065,6 +3125,8 @@ const searchParams = {
  */
 
 const makeSearchItems = (array, render) => {
+  searchResultsCounter.textContent = array.length;
+
   if (array.length > 0) {
     searchResultsWindow.classList.remove('d-none');
     searchResultsWindow.classList.add('d-flex');
@@ -3072,9 +3134,7 @@ const makeSearchItems = (array, render) => {
     const searchElementsString = array.map(image => render(image)).join('');
     searchResults.insertAdjacentHTML('beforeend', searchElementsString);
   } else {
-    searchResultsWindow.classList.remove('d-flex');
-    searchResultsWindow.classList.add('d-none');
-    searchResults.textContent = '';
+    closeSearchResults();
   }
 };
 /** Хендлер быстрого поиска */
@@ -3111,9 +3171,17 @@ const selectHandler = () => {
 
 document.addEventListener("DOMContentLoaded", () => {
   if (topSearchForm) {
-    topSearchInput.placeholder = searchParams[topSearchSelect.value].placeholder;
-    topSearchInput.addEventListener('input', fastSearchHandler);
+    topSearchInput.placeholder = searchParams[topSearchSelect.value].placeholder; //topSearchInput.addEventListener('input', fastSearchHandler);
+
+    topSearchInput.addEventListener('keyup', () => {
+      clearTimeout(typingTimer);
+
+      if (topSearchInput.value) {
+        typingTimer = setTimeout(fastSearchHandler, doneTypingInterval);
+      }
+    });
     topSearchSelect.addEventListener('change', selectHandler);
+    searchResultsCloseButton.addEventListener('click', closeSearchResults);
   }
 });
 

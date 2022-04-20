@@ -1,9 +1,20 @@
 <!-- Верхний топбар -->
 <!-- Окно поиска-->
 
-<div class="position-absolute d-none flex-column p-3 bg-white grey-shadow-3 search-results-window">
-  <table class="table overlayscrollbar"></table>
-  <div class="search-results-footer"></div>
+<div class="position-absolute d-none card h-50 search-results-window grey-shadow-3 overflow-hidden">
+  <div class="card-header">
+    <div class="d-flex justify-content-between align-items-center">
+      <p class="m-0">Найдено:<span class="search-results-counter badge-pill ms-2 bg-dark text-white"></span></p>
+      <button type="button" class="btn-close" aria-label="Закрыть"></button>
+    </div>
+
+  </div>
+  <div class="card-body pt-0 overlayscrollbar os-host-flexbox">
+    <div class="search-results-container d-flex flex-column overflow-hidden">
+
+    </div>
+  </div>
+  <div class="card-footer d-none search-results-footer"></div>
 </div>
 
 <header class="main-header position-absolute py-2">
@@ -27,10 +38,8 @@
               <select class="form-control" style="max-width: 200px" id="topSearchSelect">
                 <option value="users">Сотрудники</option>
                 <option value="inbox">Входящая почта</option>
+                <option value="outbox">Исходящая почта</option>
               </select>
-              <!--
-              <button class="btn btn-outline-primary topSearchSubmit" type="button">Искать</button>
-              -->
             </div>
           </form>
         </div>
