@@ -43,7 +43,7 @@
         <div class="card mb-3 p-3">
           <div class="widget-content">
             <div class="d-flex align-items-center justify-content-between mb-2">
-              <h6 class="surtitle">Актов не опублековано</h6>
+              <h6 class="surtitle">Актов не опубликовано</h6>
             </div>
           </div>
           <!-- Кнопки -->

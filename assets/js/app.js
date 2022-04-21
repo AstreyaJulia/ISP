@@ -286,6 +286,12 @@ const jwtKey = getCookie('aut[jwt]');
 
 const ajax_send = (method, url, parameters, datatype, callback, auth) => {
   let xhr = new XMLHttpRequest();
+  const httpStatus = {
+    0: "Не подключено. Проверьте сеть",
+    404: "[404] Запрашиваемая страница не найдена",
+    500: "[500] Внутренняя ошибка сервера",
+    504: "[504] Тайм-аут соединения с сервером"
+  };
 
   switch (method) {
     case "GET":
@@ -320,8 +326,6 @@ const ajax_send = (method, url, parameters, datatype, callback, auth) => {
       return;
     }
 
-    let header = '';
-
     if (xhr.status === 200) {
       let result;
 
@@ -348,15 +352,8 @@ const ajax_send = (method, url, parameters, datatype, callback, auth) => {
           new Toast("Ошибка", xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'), "errorToast", "").show();
         }
       }
-    } else if (xhr.status === 0) {
-      header = "Не подключено. Проверьте сеть";
-      new Toast(header, xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'), "errorToast", "").show();
-    } else if (xhr.status === 404) {
-      header = "404. Not Found. Запрашиваемая страница не найдена ";
-      new Toast(header, xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'), "errorToast", "").show();
-    } else if (xhr.status === 500) {
-      header = "Внутренняя ошибка сервера [500]";
-      new Toast(header, xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'), "errorToast", "").show();
+    } else if (xhr.status === 0 || xhr.status === 404 || xhr.status === 500 || xhr.status === 504) {
+      new Toast(httpStatus[xhr.status], xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'), "errorToast", "").show();
     }
   };
 };
@@ -2906,6 +2903,9 @@ const searchResultsFooter = searchResultsWindow.querySelector('.search-results-f
 /** Счетчик найденного */
 
 const searchResultsCounter = searchResultsWindow.querySelector('.search-results-counter');
+/** Контейнер для параметров запроса */
+
+const searchResultsGetParams = searchResultsWindow.querySelector('.search-results-get-params');
 /** Кнопка закрытия результатов */
 
 const searchResultsCloseButton = searchResultsWindow.querySelector('.btn-close');
@@ -2913,19 +2913,49 @@ const searchResultsCloseButton = searchResultsWindow.querySelector('.btn-close')
 
 let typingTimer; //идентификатор таймера
 
-let doneTypingInterval = 100; //время в мс (5 сек)
+let doneTypingInterval = 300; //время в мс (5 сек)
+
+/** Закрыть окно поиска */
 
 function closeSearchResults() {
   searchResultsWindow.classList.remove('d-flex');
   searchResultsWindow.classList.add('d-none');
   searchResults.textContent = '';
 }
+/** Открыть окно поиска, вставить результаты
+ * @param results - отрендеренные результаты
+ */
+
+
+function openSearchResults(results) {
+  searchResults.textContent = '';
+  searchResults.insertAdjacentHTML('beforeend', results);
+  searchResultsWindow.classList.remove('d-none');
+  searchResultsWindow.classList.add('d-flex');
+}
+/** Подсветка выделенного текста
+ * @param text - строка, в которой нужно подсветить строку поиска
+ * @param highlight - строка поиска
+ * @returns {string} - текст с выделеной тегом <mark> строкой поиска
+ */
+
+
+function textHighlight(text, highlight) {
+  const index = text.toUpperCase().indexOf(highlight.toUpperCase());
+
+  if (index >= 0) {
+    return `${text.substring(0, index)}<mark>${text.substring(index, index + highlight.length)}</mark>${text.substring(index + highlight.length)}`;
+  } else {
+    return `${text}`;
+  }
+}
 /** Рендер поиска сотрудников
- * @param fullname - имя
- * @param room - кабинет
- * @param phone_worck - номер телефона
+ * @param fullname
+ * @param room
+ * @param phone_worck
  * @param profession
- * @returns {string} - элемент результата
+ * @param highlight
+ * @returns {string}
  */
 
 
@@ -2934,7 +2964,7 @@ const createUsersSearchItem = ({
   room,
   phone_worck,
   profession
-}) => `
+}, highlight) => `
 <div class="d-flex align-items-center py-3 border-bottom border-light">
 <div class="user-avatar rounded-circle avatar-sm bg-primary-20 m-0 me-3 d-flex align-items-center justify-content-center">
 <span class="font-size-base fw-bold text-primary">
@@ -2942,11 +2972,11 @@ ${fullname.split(" ").slice(1).map(n => n[0]).join("").toUpperCase()}
 </span>
 </div>
 <div class="d-flex flex-column me-5" style="min-width: 320px">
-<span class="font-size-base">${fullname}</span>
+<span class="font-size-base">${textHighlight(fullname, highlight)}</span>
 <span class="font-size-base text-secondary">${profession}</span>
 </div>
 <div class="d-flex flex-column">
-<span class="font-size-base"><i class="mdi mdi-phone-classic me-2"></i>${phone_worck}</span>
+<span class="font-size-base"><i class="mdi mdi-phone-classic me-2"></i>${textHighlight(phone_worck, highlight)}</span>
 <span class="font-size-base text-secondary"><i class="mdi mdi-office-building-marker-outline me-2"></i>${room}</span>
 </div>
 </div>
@@ -2957,6 +2987,8 @@ ${fullname.split(" ").slice(1).map(n => n[0]).join("").toUpperCase()}
  * @param CORRESP_MSG_ANNOTATION
  * @param SENDER_NAME
  * @param CORRESP_FIO
+ * @param MESSAGE_TYPE
+ * @param highlight
  * @returns {string}
  */
 
@@ -2966,98 +2998,78 @@ const createInboxSearchItem = ({
   INSERT_DATE,
   CORRESP_MSG_ANNOTATION,
   SENDER_NAME,
-  CORRESP_FIO
-}) => `
+  CORRESP_FIO,
+  MESSAGE_TYPE
+}, highlight) => `
 <div class="d-flex align-items-center py-3 border-bottom border-light">
 <div class="user-avatar rounded-circle avatar-xs bg-danger-20 m-0 me-3 d-flex align-items-center justify-content-center">
-<span class="font-size-base fw-bold text-danger">
-<i class="mdi mdi-email-receive-outline"></i>
+<span class="font-size-base fw-bold text-danger" title=${MESSAGE_TYPE !== "" ? MESSAGE_TYPE : "Входящая"}>
+<i class="mdi ${MESSAGE_TYPE === "Разноска" ? 'mdi-briefcase-outline' : MESSAGE_TYPE === "Электронная почта" ? "mdi-email-outline" : MESSAGE_TYPE === "Обращения" ? "mdi-file-document-multiple-outline" : "mdi-email-mark-as-unread"}"></i>
 </span>
 </div>
 <div class="d-flex flex-column me-3" style="min-width: 100px">
-<span class="search-results-counter badge-pill bg-primary-20 text-primary font-small-2"><span>№:</span> ${DELO_CORRESP_NUM}</span>
+<span class="search-results-counter badge-pill bg-primary-20 text-primary font-small-2"><span>№:</span> ${textHighlight(DELO_CORRESP_NUM, highlight)}</span>
 <span class="font-small-2 ms-3"><span>От:</span> ${INSERT_DATE}</span>
 </div>
 <div class="d-flex flex-column me-3 flex-wrap" style="min-width: 400px; max-width: 400px;">
-<span class="me-3 font-small-1" title="${CORRESP_MSG_ANNOTATION}">${CORRESP_MSG_ANNOTATION}</span>
+<span class="me-3 font-small-1" title="${CORRESP_MSG_ANNOTATION}">${textHighlight(CORRESP_MSG_ANNOTATION, highlight)}</span>
 </div>
 <div class="d-flex flex-column me-3" style="min-width: 100px">
-<span class="font-small-1">От: ${SENDER_NAME}</span>
+<span class="font-small-1">От: ${textHighlight(SENDER_NAME, highlight)}</span>
 <span class="font-small-1">Кому: ${CORRESP_FIO}</span>
 </div>
 </div>
 `;
 /** Рендер поиска БСР
- * @param fullname - имя
- * @param room - кабинет
- * @param phone_worck - номер телефона
- * @returns {string} - элемент результата
  */
 
 
-const createBsrSearchItem = ({
-  fullname,
-  room,
-  phone_worck
-}) => `
-<div class="d-flex p-2">
-  <div class="me-2">${fullname}</div>
-  <div class="me-2 text-secondary">(${room})</div>
-  <div class="text-primary">📞 ${phone_worck}</div>
-</div>
+const createBsrSearchItem = ({}, highlight) => `
 `;
 /** Рендер поиска исходящих писем
- * @param fullname - имя
- * @param room - кабинет
- * @param phone_worck - номер телефона
- * @returns {string} - элемент результата
+ * @param DELO_SEND_NUM
+ * @param INSERT_DATE
+ * @param SEND_MSG_ANNOTATION
+ * @param SENDER_FIO
+ * @param SEND_TO
+ * @param MESSAGE_TYPE
+ * @param highlight
+ * @returns {string}
  */
 
 
 const createOutboxSearchItem = ({
-  DELO_CORRESP_NUM,
+  DELO_SEND_NUM,
   INSERT_DATE,
-  CORRESP_MSG_ANNOTATION,
-  SENDER_NAME,
-  CORRESP_FIO
-}) => `
+  SEND_MSG_ANNOTATION,
+  SENDER_FIO,
+  SEND_TO,
+  MESSAGE_TYPE
+}, highlight) => `
 <div class="d-flex align-items-center py-3 border-bottom border-light">
-<div class="user-avatar rounded-circle avatar-xs bg-danger-20 m-0 me-3 d-flex align-items-center justify-content-center">
-<span class="font-size-base fw-bold text-danger">
-<i class="mdi mdi-email-receive-outline"></i>
+<div class="user-avatar rounded-circle avatar-xs bg-success m-0 me-3 d-flex align-items-center justify-content-center">
+<span class="font-size-base fw-bold text-success" title=${MESSAGE_TYPE !== "" ? MESSAGE_TYPE : "Исходящая"}>
+<i class="mdi ${MESSAGE_TYPE === "Разноска" ? 'mdi-briefcase-outline' : MESSAGE_TYPE === "Электронная почта" ? "mdi-email-outline" : MESSAGE_TYPE === "Обращения" ? "mdi-file-document-multiple-outline" : "mdi-email-mark-as-unread"}"></i>
 </span>
 </div>
 <div class="d-flex flex-column me-3" style="min-width: 100px">
-<span class="search-results-counter badge-pill bg-primary-20 text-primary font-small-2"><span>№:</span> ${DELO_CORRESP_NUM}</span>
+<span class="search-results-counter badge-pill bg-primary-20 text-primary font-small-2"><span>№:</span> ${DELO_SEND_NUM}</span>
 <span class="font-small-2 ms-3"><span>От:</span> ${INSERT_DATE}</span>
 </div>
 <div class="d-flex flex-column me-3 flex-wrap" style="min-width: 400px; max-width: 400px;">
-<span class="me-3 font-small-1" title="${CORRESP_MSG_ANNOTATION}">${CORRESP_MSG_ANNOTATION}</span>
+<span class="me-3 font-small-1" title="${SEND_MSG_ANNOTATION}">${SEND_MSG_ANNOTATION}</span>
 </div>
 <div class="d-flex flex-column me-3" style="min-width: 100px">
-<span class="font-small-1">От: ${SENDER_NAME}</span>
-<span class="font-small-1">Кому: ${CORRESP_FIO}</span>
+<span class="font-small-1">От: ${SENDER_FIO}</span>
+<span class="font-small-1">Кому: ${SEND_TO}</span>
 </div>
 </div>
 `;
 /** Рендер поиска дел
- * @param fullname - имя
- * @param room - кабинет
- * @param phone_worck - номер телефона
- * @returns {string} - элемент результата
  */
 
 
-const createCaseSearchItem = ({
-  fullname,
-  room,
-  phone_worck
-}) => `
-<div class="d-flex p-2">
-  <div class="me-2">${fullname}</div>
-  <div class="me-2 text-secondary">(${room})</div>
-  <div class="text-primary">тел. ${phone_worck}</div>
-</div>
+const createCaseSearchItem = ({}, highlight) => `
 `;
 /** Настройки поиска */
 
@@ -3100,15 +3112,6 @@ const searchParams = {
     render: createUsersSearchItem
   },
   inbox: {
-    placeholder: "Поиск исходящей корреспондеции по исходящему номеру / Ф.И.О. / содержанию",
-    getParam: "query",
-    getParamsAdd: {
-      startDate: moment().subtract(80, 'days').format('YYYY-MM-DD'),
-      endDate: moment().format('YYYY-MM-DD')
-    },
-    render: createOutboxSearchItem
-  },
-  outbox: {
     placeholder: "Поиск по входящей корреспонденции по входящему номеру / Ф.И.О. / содержанию",
     getParam: "query",
     getParamsAdd: {
@@ -3116,26 +3119,33 @@ const searchParams = {
       endDate: moment().format('YYYY-MM-DD')
     },
     render: createInboxSearchItem
+  },
+  outbox: {
+    placeholder: "Поиск исходящей корреспондеции по исходящему номеру / Ф.И.О. / содержанию",
+    getParam: "query",
+    getParamsAdd: {
+      startDate: moment().subtract(80, 'days').format('YYYY-MM-DD'),
+      endDate: moment().format('YYYY-MM-DD')
+    },
+    render: createOutboxSearchItem
   }
 };
 /** Показывает / скрывает окно быстрого поиска,
  * отрисовывает элементы поиска
  * @param array - массив данных для отрисовки результатов
  * @param render - коллбэк-шаблон элемента поиска
+ * @param highlight
+ * @param getParams
  */
 
-const makeSearchItems = (array, render) => {
-  searchResultsCounter.textContent = array.length;
-
-  if (array.length > 0) {
-    searchResultsWindow.classList.remove('d-none');
-    searchResultsWindow.classList.add('d-flex');
-    searchResults.textContent = '';
-    const searchElementsString = array.map(image => render(image)).join('');
-    searchResults.insertAdjacentHTML('beforeend', searchElementsString);
-  } else {
-    closeSearchResults();
-  }
+const makeSearchItems = (array, render, highlight, getParams) => {
+  let counter;
+  let result;
+  array.length > 0 ? counter = array.length : counter = "0";
+  array.length > 0 ? result = array.map(result => render(result, highlight)).join('') : result = '<span class="font-size-base text-secondary py-3">Ничего не найдено. Попробуйте изменить поисковой запрос.</span>';
+  searchResultsGetParams.textContent = getParams;
+  searchResultsCounter.textContent = counter;
+  openSearchResults(result);
 };
 /** Хендлер быстрого поиска */
 
@@ -3148,12 +3158,11 @@ const fastSearchHandler = () => {
     let data = {
       [query.getParam]: topSearchInput.value
     };
-    query.getParamsAdd ? queryObj = Object.assign(queryObj, data, query.getParamsAdd) : queryObj = Object.assign(queryObj, data);
-    (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("GET", `api/search/${topSearchSelect.value}.php`, queryObj, "json", result => makeSearchItems(result.data, searchParams[topSearchSelect.value].render), true);
+    query.getParamsAdd ? queryObj = Object.assign(queryObj, data, query.getParamsAdd) : queryObj = Object.assign(queryObj, data); // FIXME передать сюда GET параметры
+
+    (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("GET", `api/search/${topSearchSelect.value}.php`, queryObj, "json", result => makeSearchItems(result.data, searchParams[topSearchSelect.value].render, topSearchInput.value, ''), true);
   } else {
-    searchResultsWindow.classList.remove('d-flex');
-    searchResultsWindow.classList.add('d-none');
-    searchResults.textContent = '';
+    closeSearchResults();
   }
 };
 /** Хэндлер очистки результатов поиска при переключении типа поиска

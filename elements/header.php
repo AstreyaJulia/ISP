@@ -4,7 +4,10 @@
 <div class="position-absolute d-none card h-50 search-results-window grey-shadow-3 overflow-hidden">
   <div class="card-header">
     <div class="d-flex justify-content-between align-items-center">
-      <p class="m-0">Найдено:<span class="search-results-counter badge-pill ms-2 bg-dark text-white"></span></p>
+      <div class="d-flex align-items-center">
+        <p class="m-0">Найдено:<span class="search-results-counter badge-pill ms-2 bg-dark text-white"></span></p>
+        <p class="m-0 search-results-get-params"></p>
+      </div>
       <button type="button" class="btn-close" aria-label="Закрыть"></button>
     </div>
 
