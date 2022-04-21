@@ -31,7 +31,8 @@
         public function isValidRouter($router) {
             return in_array($router, array(
                 'ProxyList',
-                'sidebar'
+                'sidebar',
+                'search'
             ));
         }
 
