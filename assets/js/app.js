@@ -2903,6 +2903,9 @@ const searchResultsFooter = searchResultsWindow.querySelector('.search-results-f
 /** Счетчик найденного */
 
 const searchResultsCounter = searchResultsWindow.querySelector('.search-results-counter');
+/** Контейнер для параметров запроса */
+
+const searchResultsGetParams = searchResultsWindow.querySelector('.search-results-get-params');
 /** Кнопка закрытия результатов */
 
 const searchResultsCloseButton = searchResultsWindow.querySelector('.btn-close');
@@ -2919,7 +2922,9 @@ function closeSearchResults() {
   searchResultsWindow.classList.add('d-none');
   searchResults.textContent = '';
 }
-/** Открыть окно поиска */
+/** Открыть окно поиска, вставить результаты
+ * @param results - отрендеренные результаты
+ */
 
 
 function openSearchResults(results) {
@@ -2928,6 +2933,12 @@ function openSearchResults(results) {
   searchResultsWindow.classList.remove('d-none');
   searchResultsWindow.classList.add('d-flex');
 }
+/** Подсветка выделенного текста
+ * @param text - строка, в которой нужно подсветить строку поиска
+ * @param highlight - строка поиска
+ * @returns {string} - текст с выделеной тегом <mark> строкой поиска
+ */
+
 
 function textHighlight(text, highlight) {
   const index = text.toUpperCase().indexOf(highlight.toUpperCase());
@@ -2939,12 +2950,12 @@ function textHighlight(text, highlight) {
   }
 }
 /** Рендер поиска сотрудников
- * @param fullname - имя
- * @param room - кабинет
- * @param phone_worck - номер телефона
+ * @param fullname
+ * @param room
+ * @param phone_worck
  * @param profession
  * @param highlight
- * @returns {string} - элемент результата
+ * @returns {string}
  */
 
 
@@ -3010,78 +3021,55 @@ const createInboxSearchItem = ({
 </div>
 `;
 /** Рендер поиска БСР
- * @param fullname - имя
- * @param room - кабинет
- * @param phone_worck - номер телефона
- * @returns {string} - элемент результата
  */
 
 
-const createBsrSearchItem = ({
-  fullname,
-  room,
-  phone_worck
-}, highlight) => `
-<div class="d-flex p-2">
-  <div class="me-2">${fullname}</div>
-  <div class="me-2 text-secondary">(${room})</div>
-  <div class="text-primary">📞 ${phone_worck}</div>
-</div>
+const createBsrSearchItem = ({}, highlight) => `
 `;
 /** Рендер поиска исходящих писем
- * @param DELO_CORRESP_NUM
+ * @param DELO_SEND_NUM
  * @param INSERT_DATE
- * @param CORRESP_MSG_ANNOTATION
- * @param SENDER_NAME
- * @param CORRESP_FIO
+ * @param SEND_MSG_ANNOTATION
+ * @param SENDER_FIO
+ * @param SEND_TO
+ * @param MESSAGE_TYPE
+ * @param highlight
  * @returns {string}
  */
 
 
 const createOutboxSearchItem = ({
-  DELO_CORRESP_NUM,
+  DELO_SEND_NUM,
   INSERT_DATE,
-  CORRESP_MSG_ANNOTATION,
-  SENDER_NAME,
-  CORRESP_FIO
+  SEND_MSG_ANNOTATION,
+  SENDER_FIO,
+  SEND_TO,
+  MESSAGE_TYPE
 }, highlight) => `
 <div class="d-flex align-items-center py-3 border-bottom border-light">
 <div class="user-avatar rounded-circle avatar-xs bg-success m-0 me-3 d-flex align-items-center justify-content-center">
-<span class="font-size-base fw-bold text-success">
-<i class="mdi mdi-email-send-outline"></i>
+<span class="font-size-base fw-bold text-success" title=${MESSAGE_TYPE !== "" ? MESSAGE_TYPE : "Исходящая"}>
+<i class="mdi ${MESSAGE_TYPE === "Разноска" ? 'mdi-briefcase-outline' : MESSAGE_TYPE === "Электронная почта" ? "mdi-email-outline" : MESSAGE_TYPE === "Обращения" ? "mdi-file-document-multiple-outline" : "mdi-email-mark-as-unread"}"></i>
 </span>
 </div>
 <div class="d-flex flex-column me-3" style="min-width: 100px">
-<span class="search-results-counter badge-pill bg-primary-20 text-primary font-small-2"><span>№:</span> ${DELO_CORRESP_NUM}</span>
+<span class="search-results-counter badge-pill bg-primary-20 text-primary font-small-2"><span>№:</span> ${DELO_SEND_NUM}</span>
 <span class="font-small-2 ms-3"><span>От:</span> ${INSERT_DATE}</span>
 </div>
 <div class="d-flex flex-column me-3 flex-wrap" style="min-width: 400px; max-width: 400px;">
-<span class="me-3 font-small-1" title="${CORRESP_MSG_ANNOTATION}">${CORRESP_MSG_ANNOTATION}</span>
+<span class="me-3 font-small-1" title="${SEND_MSG_ANNOTATION}">${SEND_MSG_ANNOTATION}</span>
 </div>
 <div class="d-flex flex-column me-3" style="min-width: 100px">
-<span class="font-small-1">От: ${SENDER_NAME}</span>
-<span class="font-small-1">Кому: ${CORRESP_FIO}</span>
+<span class="font-small-1">От: ${SENDER_FIO}</span>
+<span class="font-small-1">Кому: ${SEND_TO}</span>
 </div>
 </div>
 `;
 /** Рендер поиска дел
- * @param fullname - имя
- * @param room - кабинет
- * @param phone_worck - номер телефона
- * @returns {string} - элемент результата
  */
 
 
-const createCaseSearchItem = ({
-  fullname,
-  room,
-  phone_worck
-}, highlight) => `
-<div class="d-flex p-2">
-  <div class="me-2">${fullname}</div>
-  <div class="me-2 text-secondary">(${room})</div>
-  <div class="text-primary">тел. ${phone_worck}</div>
-</div>
+const createCaseSearchItem = ({}, highlight) => `
 `;
 /** Настройки поиска */
 
@@ -3147,13 +3135,15 @@ const searchParams = {
  * @param array - массив данных для отрисовки результатов
  * @param render - коллбэк-шаблон элемента поиска
  * @param highlight
+ * @param getParams
  */
 
-const makeSearchItems = (array, render, highlight) => {
+const makeSearchItems = (array, render, highlight, getParams) => {
   let counter;
   let result;
   array.length > 0 ? counter = array.length : counter = "0";
   array.length > 0 ? result = array.map(result => render(result, highlight)).join('') : result = '<span class="font-size-base text-secondary py-3">Ничего не найдено. Попробуйте изменить поисковой запрос.</span>';
+  searchResultsGetParams.textContent = getParams;
   searchResultsCounter.textContent = counter;
   openSearchResults(result);
 };
@@ -3168,8 +3158,9 @@ const fastSearchHandler = () => {
     let data = {
       [query.getParam]: topSearchInput.value
     };
-    query.getParamsAdd ? queryObj = Object.assign(queryObj, data, query.getParamsAdd) : queryObj = Object.assign(queryObj, data);
-    (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("GET", `api/search/${topSearchSelect.value}.php`, queryObj, "json", result => makeSearchItems(result.data, searchParams[topSearchSelect.value].render, topSearchInput.value), true);
+    query.getParamsAdd ? queryObj = Object.assign(queryObj, data, query.getParamsAdd) : queryObj = Object.assign(queryObj, data); // FIXME передать сюда GET параметры
+
+    (0,_globalfunc__WEBPACK_IMPORTED_MODULE_0__.ajax_send)("GET", `api/search/${topSearchSelect.value}.php`, queryObj, "json", result => makeSearchItems(result.data, searchParams[topSearchSelect.value].render, topSearchInput.value, ''), true);
   } else {
     closeSearchResults();
   }
