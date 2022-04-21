@@ -15,20 +15,8 @@
   $jwt = substr($jwt, 7);
 
   $queryString = $_GET['query'] ?? "";
-  try {
-    $startDate = new DateTime($_GET["startDate"]);
-    $endDate = new DateTime($_GET["endDate"]);
-    $interval = $startDate->diff($endDate);
-    if ($interval->format('%m') > 2 or $startDate > $endDate) {
-      throw new Exception("Большой диапазон");
-    }
-  } catch (Exception $e) {
-    echo json_encode(array(
-          "message" => "Ошибка в дате",
-          "error" => $e->getMessage()
-      ), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-  }
-
+  $startDate = new DateTime($_GET["startDate"]);
+  $endDate = new DateTime($_GET["endDate"]);
 
 $params = [
   "startDate" => $startDate->format('Y-m-d'),
@@ -47,9 +35,13 @@ $params = [
       // декодирование jwt
       $searchClass->secureJWT($jwt, $key);
 
-      $searchInbox["data"] = $searchClass::sendGET($params, "http://192.168.2.253:8079/api_GAS/search/inbox.php?");
-      // установим код ответа - 200 OK
-      http_response_code(200);
+      $queryInbox = $searchClass::sendGET($params, "http://192.168.2.253:8079/api_GAS/search/inbox.php?");
+      // получим код ответа
+      if (http_response_code() === 200){
+        $searchInbox["data"] = $queryInbox;
+      } else {
+        $searchInbox = $queryInbox;
+      }
 
       // вывод в json-формате
       echo json_encode($searchInbox, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);

@@ -44,12 +44,17 @@
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     //ожидание при попытке подключения, секунд (0 - бесконечно)
     curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
+
     $result = curl_exec($ch);
+    $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
+    $message = json_decode($result);
     if ($result) {
-      $message = (is_array(json_decode($result)) or is_object(json_decode($result))) ? json_decode($result):  "true";
+      http_response_code($httpcode);
+      $message;
     } else {
-        $message = $result;
+      http_response_code(504);
+      $message;
     }
     return $message;
     }
