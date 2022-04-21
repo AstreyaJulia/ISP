@@ -119,6 +119,13 @@ const jwtKey = getCookie('aut[jwt]');
 const ajax_send = (method, url, parameters, datatype, callback, auth) => {
   let xhr = new XMLHttpRequest();
 
+  const httpStatus = {
+    0: "Не подключено. Проверьте сеть",
+    404: "[404] Запрашиваемая страница не найдена",
+    500: "[500] Внутренняя ошибка сервера",
+    504: "[504] Тайм-аут соединения с сервером"
+  }
+
   switch (method) {
     case "GET":
       let queryString;
@@ -155,8 +162,6 @@ const ajax_send = (method, url, parameters, datatype, callback, auth) => {
       return;
     }
 
-    let header = '';
-
     if (xhr.status === 200) {
       let result;
 
@@ -184,15 +189,8 @@ const ajax_send = (method, url, parameters, datatype, callback, auth) => {
         }
       }
 
-    } else if (xhr.status === 0) {
-      header = "Не подключено. Проверьте сеть";
-      new Toast(header, xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'), "errorToast", "").show();
-    } else if (xhr.status === 404) {
-      header = "404. Not Found. Запрашиваемая страница не найдена ";
-      new Toast(header, xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'), "errorToast", "").show();
-    } else if (xhr.status === 500) {
-      header = "Внутренняя ошибка сервера [500]";
-      new Toast(header, xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'), "errorToast", "").show();
+    } else if (xhr.status === 0 || xhr.status === 404 || xhr.status === 500 || xhr.status === 504) {
+      new Toast(httpStatus[xhr.status], xhr.responseText, moment().tz('Europe/Moscow').format('YYYY-MM-DD'), "errorToast", "").show();
     }
   }
 
