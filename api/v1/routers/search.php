@@ -5,8 +5,6 @@ function route($db, $helpers) {
   $searchClass = new Api\Objects\Search($db);
   // GET
   if ($helpers->getMethod() === 'GET') {
-    // необходимые HTTP-заголовки
-    $helpers::headlinesGET();
 
     if (count($helpers->getUrlData()) == 3 and strlen($helpers->getUrlData()[2]) > 2 ) {
       switch ($helpers->getUrlData()[1]) {
@@ -18,7 +16,7 @@ function route($db, $helpers) {
           if (!empty($searchUsers["data"])) {
             $searchUsers;
           } else {
-            $searchUsers["response"] = ["404" => "По вашему запросу ничего не найдено"];
+            $searchUsers["error"] = ["message" => "По вашему запросу ничего не найдено", "info" => "Not Found"];
           }
 
           echo $helpers->getJsonEncode($searchUsers);

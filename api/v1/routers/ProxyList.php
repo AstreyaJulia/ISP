@@ -6,7 +6,6 @@ function route($db, $helpers) {
   // GET
   if ($helpers->getMethod() === 'GET') {
     // необходимые HTTP-заголовки
-    $helpers::headlinesGET();
 
     switch (count($helpers->getUrlData())) {
       // GET /ProxyList
@@ -74,9 +73,6 @@ function route($db, $helpers) {
 
     // DELETE /ProxyList/5
     if ($helpers->getMethod() === 'DELETE' && count($helpers->getUrlData()) === 2) {
-      // необходимые HTTP-заголовки
-      $helpers::headlinesGET();
-
       delRecord($proxyListClass, $helpers);
       exit;
     }

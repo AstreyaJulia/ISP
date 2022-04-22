@@ -37,12 +37,12 @@
         }
 
         // Выводим 400 ошибку http-запроса
-        public function throwHttpError($code, $message) {
+        public function throwHttpError($info, $message) {
             header('HTTP/1.0 400 Bad Request');
-            echo json_encode(array(
-                'code' => $code,
-                'message' => $message
-            ), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+            echo json_encode(array("error" => array(
+                'message' => $message,
+                'info' => $info
+            )), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
         }
 
         // Проверяем существует ли запись
@@ -66,7 +66,6 @@
      * Необходимые заголовки для POST-запросов
     */
     public static function headlinesPOST() {
-      self::headlinesGET();
       header("Access-Control-Allow-Methods: POST");
       header("Access-Control-Max-Age: 3600");
       header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -84,10 +83,10 @@
       // код ответа
       http_response_code(401);
       // сообщить пользователю отказано в доступе и показать сообщение об ошибке
-      echo json_encode(array(
+      echo json_encode(array("error" => array(
         "message" => "Доступ закрыт.",
-        "error" => $e->getMessage()
-      ), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+        "info" => $e->getMessage()
+      )), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
     }
 
 

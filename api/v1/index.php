@@ -6,6 +6,8 @@
     include_once 'config/core.php';
     include_once 'config/jwt.php';
     $helpers = new Api\Objects\Helpers($db);
+    // необходимые HTTP-заголовки
+    $helpers::headlinesGET();
 
     // Получаем данные из запроса
     $helpers->getRequestData();

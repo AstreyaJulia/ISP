@@ -5,8 +5,6 @@ function route($db, $helpers) {
   $sidebarClass = new Api\Objects\Sidebar($db);
   // GET
   if ($helpers->getMethod() === 'GET') {
-    // необходимые HTTP-заголовки
-    $helpers::headlinesGET();
 
     switch (count($helpers->getUrlData())) {
       // GET /ProxyList
