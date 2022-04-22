@@ -3191,12 +3191,16 @@ const selectHandler = () => {
 document.addEventListener("DOMContentLoaded", () => {
   if (topSearchForm) {
     topSearchInput.placeholder = searchParams[topSearchSelect.value].placeholder;
-    topSearchInput.addEventListener('keyup', () => {
-      clearTimeout(typingTimer);
-
-      if (topSearchInput.value) {
+    let action = true;
+    topSearchInput.addEventListener('keydown', function (evt) {
+      if (action === true) {
+        action = false;
+        clearTimeout(typingTimer);
         typingTimer = setTimeout(fastSearchHandler, doneTypingInterval);
       }
+    });
+    topSearchInput.addEventListener('keyup', function (evt) {
+      action = true;
     });
     topSearchSelect.addEventListener('change', selectHandler);
     searchResultsCloseButton.addEventListener('click', closeSearchResults);
