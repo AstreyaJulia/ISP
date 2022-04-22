@@ -34,7 +34,7 @@
     <div class="left-header d-flex align-items-center flex-grow-1">
       <div class="row flex-grow-1 justify-content-center">
         <div class="col-12 col-xxl-8">
-          <form class="d-flex w-100 justify-content-between top-search-form px-3">
+          <form class="d-flex w-100 justify-content-between top-search-form px-3" autocomplete="off">
             <div class="input-group me-3 d-flex align-items-center justify-content-end">
               <input class="input form-control" type="text" placeholder="Поиск..." id="top-search" required>
               <label for="top-search" style="display: none;">Поиск</label>
