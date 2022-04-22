@@ -17,7 +17,7 @@ const searchResultsWindow = document.querySelector('.search-results-window');
 /** Таблица с результатами быстрого поиска */
 const searchResults = searchResultsWindow.querySelector('.search-results-container');
 /** Футер с ссылками в таблице с результатами быстрого поиска */
-const searchResultsFooter = searchResultsWindow.querySelector('.search-results-footer');
+//const searchResultsFooter = searchResultsWindow.querySelector('.search-results-footer');
 /** Счетчик найденного */
 const searchResultsCounter = searchResultsWindow.querySelector('.search-results-counter');
 /** Контейнер для параметров запроса */
@@ -70,8 +70,8 @@ function textHighlight(text, highlight) {
 const createUsersSearchItem = ({fullname, room, phone_worck, profession}, highlight) =>
   `
 <div class="d-flex align-items-center py-3 border-bottom border-light">
-<div class="user-avatar rounded-circle avatar-sm bg-primary-20 m-0 me-3 d-flex align-items-center justify-content-center">
-<span class="font-size-base fw-bold text-primary">
+<div class="flex-shrink-0 user-avatar rounded-circle avatar-sm bg-primary-20 m-0 me-3 d-flex align-items-center justify-content-center">
+<span class="flex-shrink-0 font-size-base fw-bold text-primary">
 ${fullname.split(" ").slice(1).map((n) => n[0]).join("").toUpperCase()}
 </span>
 </div>
@@ -98,9 +98,9 @@ ${fullname.split(" ").slice(1).map((n) => n[0]).join("").toUpperCase()}
  */
 const createInboxSearchItem = ({DELO_CORRESP_NUM, INSERT_DATE, CORRESP_MSG_ANNOTATION, SENDER_NAME, CORRESP_FIO, MESSAGE_TYPE}, highlight) =>
   `
-<div class="d-flex align-items-center py-3 border-bottom border-light">
-<div class="user-avatar rounded-circle avatar-xs bg-danger-20 m-0 me-3 d-flex align-items-center justify-content-center">
-<span class="font-size-base fw-bold text-danger" title=${MESSAGE_TYPE !== "" ? MESSAGE_TYPE : "Входящая"}>
+<div class="d-flex py-3 border-bottom border-light">
+<div class="flex-shrink-0 user-avatar rounded-circle avatar-xs bg-danger-20 m-0 me-3 d-flex align-items-center justify-content-center">
+<span class="flex-shrink-0 font-size-base fw-bold text-danger" title=${MESSAGE_TYPE !== "" ? MESSAGE_TYPE : "Входящая"}>
 <i class="mdi ${MESSAGE_TYPE === "Разноска" ? 'mdi-briefcase-outline' : MESSAGE_TYPE === "Электронная почта" ? "mdi-email-outline" : MESSAGE_TYPE === "Обращения" ? "mdi-file-document-multiple-outline" : "mdi-email-mark-as-unread"}"></i>
 </span>
 </div>
@@ -120,9 +120,9 @@ const createInboxSearchItem = ({DELO_CORRESP_NUM, INSERT_DATE, CORRESP_MSG_ANNOT
 
 /** Рендер поиска БСР
  */
-const createBsrSearchItem = ({}, highlight) =>
+/*const createBsrSearchItem = ({}, highlight) =>
   `
-`;
+`;*/
 
 /** Рендер поиска исходящих писем
  * @param DELO_SEND_NUM
@@ -136,31 +136,31 @@ const createBsrSearchItem = ({}, highlight) =>
  */
 const createOutboxSearchItem = ({DELO_SEND_NUM, INSERT_DATE, SEND_MSG_ANNOTATION, SENDER_FIO, SEND_TO, MESSAGE_TYPE}, highlight) =>
   `
-<div class="d-flex align-items-center py-3 border-bottom border-light">
-<div class="user-avatar rounded-circle avatar-xs bg-success m-0 me-3 d-flex align-items-center justify-content-center">
-<span class="font-size-base fw-bold text-success" title=${MESSAGE_TYPE !== "" ? MESSAGE_TYPE : "Исходящая"}>
+<div class="d-flex py-3 border-bottom border-light">
+<div class="flex-shrink-0 user-avatar rounded-circle avatar-xs bg-success-20 m-0 me-3 d-flex align-items-center justify-content-center">
+<span class="flex-shrink-0 font-size-base fw-bold text-success" title=${MESSAGE_TYPE !== "" ? MESSAGE_TYPE : "Исходящая"}>
 <i class="mdi ${MESSAGE_TYPE === "Разноска" ? 'mdi-briefcase-outline' : MESSAGE_TYPE === "Электронная почта" ? "mdi-email-outline" : MESSAGE_TYPE === "Обращения" ? "mdi-file-document-multiple-outline" : "mdi-email-mark-as-unread"}"></i>
 </span>
 </div>
 <div class="d-flex flex-column me-3" style="min-width: 100px">
-<span class="search-results-counter badge-pill bg-primary-20 text-primary font-small-2"><span>№:</span> ${DELO_SEND_NUM}</span>
+<span class="search-results-counter badge-pill bg-primary-20 text-primary font-small-2"><span>№:</span> ${textHighlight(DELO_SEND_NUM, highlight)}</span>
 <span class="font-small-2 ms-3"><span>От:</span> ${INSERT_DATE}</span>
 </div>
 <div class="d-flex flex-column me-3 flex-wrap" style="min-width: 400px; max-width: 400px;">
-<span class="me-3 font-small-1" title="${SEND_MSG_ANNOTATION}">${SEND_MSG_ANNOTATION}</span>
+<span class="me-3 font-small-1" title="${SEND_MSG_ANNOTATION}">${textHighlight(SEND_MSG_ANNOTATION, highlight)}</span>
 </div>
 <div class="d-flex flex-column me-3" style="min-width: 100px">
 <span class="font-small-1">От: ${SENDER_FIO}</span>
-<span class="font-small-1">Кому: ${SEND_TO}</span>
+<span class="font-small-1">Кому: ${textHighlight(SEND_TO, highlight)}</span>
 </div>
 </div>
 `;
 
 /** Рендер поиска дел
  */
-const createCaseSearchItem = ({}, highlight) =>
+/*const createCaseSearchItem = ({}, highlight) =>
   `
-`;
+`;*/
 
 /** Настройки поиска */
 /*const searchParams = {
@@ -200,20 +200,28 @@ const searchParams = {
     render: createUsersSearchItem
   },
   inbox: {
-    placeholder: "Поиск по входящей корреспонденции по входящему номеру / Ф.И.О. / содержанию",
+    placeholder: "Поиск по входящей корреспонденции по номеру / Ф.И.О. / содержанию",
     getParam: "query",
     getParamsAdd: {
       startDate: moment().subtract(80, 'days').format('YYYY-MM-DD'),
       endDate: moment().format('YYYY-MM-DD')
     },
+    getParamsNames: {
+      startDate: "Поступило с: ",
+      endDate: "по: "
+    },
     render: createInboxSearchItem
   },
   outbox: {
-    placeholder: "Поиск исходящей корреспондеции по исходящему номеру / Ф.И.О. / содержанию",
+    placeholder: "Поиск исходящей корреспондеции по номеру / Ф.И.О. / содержанию",
     getParam: "query",
     getParamsAdd: {
       startDate: moment().subtract(80, 'days').format('YYYY-MM-DD'),
       endDate: moment().format('YYYY-MM-DD')
+    },
+    getParamsNames: {
+      startDate: "Направлено с: ",
+      endDate: "по: "
     },
     render: createOutboxSearchItem
   }
@@ -224,9 +232,10 @@ const searchParams = {
  * @param array - массив данных для отрисовки результатов
  * @param render - коллбэк-шаблон элемента поиска
  * @param highlight
- * @param getParams
+ * @param getParamsAdd
+ * @param getParamsNames
  */
-const makeSearchItems = (array, render, highlight, getParams) => {
+const makeSearchItems = (array, render, highlight, getParamsAdd, getParamsNames) => {
   let counter;
   let result;
   array.length > 0
@@ -235,7 +244,7 @@ const makeSearchItems = (array, render, highlight, getParams) => {
   array.length > 0
     ? result = array.map((result) => render(result, highlight)).join('')
     : result = '<span class="font-size-base text-secondary py-3">Ничего не найдено. Попробуйте изменить поисковой запрос.</span>'
-  searchResultsGetParams.textContent = getParams;
+  searchResultsGetParams.textContent = Object.keys(getParamsNames).map(key => getParamsNames[key] + moment(getParamsAdd[key]).format('DD MMMM YYYY')).join(" ");
   searchResultsCounter.textContent = counter;
   openSearchResults(result);
 }
@@ -251,8 +260,7 @@ const fastSearchHandler = () => {
     query.getParamsAdd
       ? queryObj = Object.assign(queryObj, data, query.getParamsAdd)
       : queryObj = Object.assign(queryObj, data)
-    // FIXME передать сюда GET параметры
-    ajax_send("GET", `api/search/${topSearchSelect.value}.php`, queryObj, "json", result => makeSearchItems(result.data, searchParams[topSearchSelect.value].render, topSearchInput.value, ''), true);
+    ajax_send("GET", `api/search/${topSearchSelect.value}.php`, queryObj, "json", result => makeSearchItems(result.data, searchParams[topSearchSelect.value].render, topSearchInput.value, searchParams[topSearchSelect.value].getParamsAdd ? searchParams[topSearchSelect.value].getParamsAdd : "", searchParams[topSearchSelect.value].getParamsNames ? searchParams[topSearchSelect.value].getParamsNames : ""), true);
   } else {
     closeSearchResults();
   }
@@ -272,7 +280,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (topSearchForm) {
     topSearchInput.placeholder = searchParams[topSearchSelect.value].placeholder;
-    //topSearchInput.addEventListener('input', fastSearchHandler);
     topSearchInput.addEventListener('keyup', () => {
       clearTimeout(typingTimer);
       if (topSearchInput.value) {

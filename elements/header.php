@@ -6,7 +6,7 @@
     <div class="d-flex justify-content-between align-items-center">
       <div class="d-flex align-items-center">
         <p class="m-0">Найдено:<span class="search-results-counter badge-pill ms-2 bg-dark text-white"></span></p>
-        <p class="m-0 search-results-get-params"></p>
+        <p class="m-0 search-results-get-params ms-3 text-secondary"></p>
       </div>
       <button type="button" class="btn-close" aria-label="Закрыть"></button>
     </div>
