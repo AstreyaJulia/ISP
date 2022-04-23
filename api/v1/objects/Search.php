@@ -4,9 +4,11 @@
 	class Search {
 
 		protected $db;
+		protected $helpers;
 
-    public function __construct(DB $db) {
+    public function __construct(DB $db, helpers $helpers) {
       $this->db = $db;
+      $this->helpers = $helpers;
     }
 
     public function secureJWT ($jwt, $key) {
@@ -23,7 +25,7 @@
      * @return object
      *
      */
-    public function searchUsers($param) {
+    private function searchUsers($param) {
       $sql = "SELECT
                     Users.id,
                     UserAttributes.fullname,
@@ -37,6 +39,30 @@
                       LEFT JOIN `sdc_vocation` AS Vocation ON Vocation.id=UserAttributes.profession
               WHERE Users.active = 1 and UserAttributes.profession != '' AND (UserAttributes.fullname LIKE ? or ChildUserType.phone_worck LIKE ?)";
       return $this->db->run($sql, ["%$param%", "%$param%"])->fetchAll(\PDO::FETCH_CLASS);
+    }
+
+    /**
+     * Отдаём результаты поиска
+     * 
+     *
+     * @return string строка в формате json
+     *
+     */
+    public function routUsers(){
+      if (count($this->helpers->getUrlData()) == 3 and strlen($this->helpers->getUrlData()[2]) > 2 ) {
+        http_response_code(200);
+        $searchUsers["data"] = $this->searchUsers($this->helpers->getUrlData()[2]);
+        
+        if (empty($searchUsers["data"])) {
+          $searchUsers["error"] = ["message" => "По вашему запросу ничего не найдено", "info" => "Not Found"];
+        }
+
+        return $this->helpers->getJsonEncode($searchUsers);
+
+      } else {
+        $this->helpers->throwHttpError('invalid_router', 'router not found');
+      }
+      
     }
 
     /**
