@@ -23,7 +23,7 @@
     }
     // если декодирование не удалось, это означает, что JWT является недействительным
     catch (Exception $e){
-        $helpers::isAccessDenied($e);
+        $helpers::isErrorInfo(401, "Доступ закрыт.", $e);
         exit;
     }
 
@@ -38,5 +38,5 @@
 
     } else {
         // Выбрасываем ошибку
-        $helpers->throwHttpError('invalid_router', 'router not found');
+        $helpers::isErrorInfo(400, "invalid_router", "router not found");
     }

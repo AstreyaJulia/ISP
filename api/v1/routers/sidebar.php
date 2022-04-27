@@ -7,7 +7,7 @@ function route($db, $helpers) {
   if ($helpers->getMethod() === 'GET') {
 
     switch (count($helpers->getUrlData())) {
-      // GET /ProxyList
+      // GET /sidebar
       case 1: {
         // если запрос без параметров выдаём полный список
 
@@ -25,7 +25,7 @@ function route($db, $helpers) {
       }
       default:
         // если переданы лишние параметры выбрасываем ошибку
-        $helpers->throwHttpError('invalid_router', 'router not found');
+        $helpers::isErrorInfo(400, "invalid_router", "router not found");
         break;
     }
     exit;
@@ -33,7 +33,7 @@ function route($db, $helpers) {
 
 
     // Если ни один роутер не отработал
-    $helpers->throwHttpError('invalid_parameters', 'invalid parameters');
+    $helpers::isErrorInfo(400, "invalid_router", "router not found");
 
 }
 

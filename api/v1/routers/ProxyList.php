@@ -15,7 +15,7 @@ function route($db, $helpers) {
         // установим код ответа - 200 OK
         http_response_code(200);
         // вывод в json-формате
-        echo $helpers->getJsonEncode($proxylist);
+        $helpers->getJsonEncode($proxylist);
         break;
       }
       // GET /ProxyList/5
@@ -26,7 +26,7 @@ function route($db, $helpers) {
       }
       default:
         // если переданы лишние параметры выбрасываем ошибку
-        $helpers->throwHttpError('invalid_router', 'router not found');
+        $helpers::isErrorInfo(400, "invalid_router", "router not found");
         break;
     }
     exit;
@@ -44,9 +44,9 @@ function route($db, $helpers) {
 
             $result = $proxyListClass->insertLink($helpers->getFormData());
 
-            echo $helpers->getJsonEncode($result);
+            $helpers->getJsonEncode($result);
         } catch (Exception $e){
-            $helpers::isAccessDenied($e);
+            $helpers::isErrorInfo(401, "Доступ закрыт.", $e);
             exit;
         }
         exit;
@@ -65,7 +65,7 @@ function route($db, $helpers) {
 
         echo json_encode($result." | ".$id, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
       } catch (Exception $e){
-          $helpers::isAccessDenied($e);
+          $helpers::isErrorInfo(401, "Доступ закрыт.", $e);
           exit;
         }
         exit;
@@ -78,7 +78,7 @@ function route($db, $helpers) {
     }
 
     // Если ни один роутер не отработал
-    $helpers->throwHttpError('invalid_parameters', 'invalid parameters');
+    $helpers::isErrorInfo(400, "invalid_parameters", "invalid parameters");
 
 }
 
@@ -89,14 +89,14 @@ function ProxyListOne($proxyListClass, $helpers) {
   try {
     $helpers->validateSudo();
   } catch (Exception $e){
-      $helpers::isAccessDenied($e);
+      $helpers::isErrorInfo(401, "Доступ закрыт.", $e);
       exit;
     }
 
   // проверяем существует ли запись
   if (!$helpers->isExistsById("sdc_proxy_list", $id)) {
-    $helpers->throwHttpError('not_exists', 'записи не существует');
-     exit;
+    $helpers::isErrorInfo(400, "not_exists", "записи не существует");
+    exit;
   }
 
   // если запрос отдаёт группу
@@ -134,14 +134,14 @@ function ProxyListOne($proxyListClass, $helpers) {
     // установим код ответа - 200 OK
     http_response_code(200);
     // вывод в json-формате
-    echo $helpers->getJsonEncode($proxylist);
+    $helpers->getJsonEncode($proxylist);
 }
 
 function delRecord($proxyListClass, $helpers) {
   $id = (int)$helpers->getUrlData()[1];
   // проверяем существует ли запись
   if (!$helpers->isExistsById("sdc_proxy_list", $id)) {
-    $helpers->throwHttpError('not_exists', 'записи не существует');
+    $helpers::isErrorInfo(400, "not_exists", "записи не существует");
     exit;
   }
   // установим код ответа - 200 OK

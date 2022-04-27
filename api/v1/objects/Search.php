@@ -57,10 +57,10 @@
           $searchUsers["error"] = ["message" => "По вашему запросу ничего не найдено", "info" => "Not Found"];
         }
 
-        return $this->helpers->getJsonEncode($searchUsers);
+        $this->helpers->getJsonEncode($searchUsers);
 
       } else {
-        $this->helpers->throwHttpError('invalid_router', 'router not found');
+        $this->helpers::isErrorInfo(400, "invalid_router", "router not found");
       }
       
     }

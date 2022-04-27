@@ -12,8 +12,8 @@
      *
      * @return string
      */
-    public function getJsonEncode($data) {
-      return json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    public static function getJsonEncode($data) {
+      echo json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
     }
 
     /**
@@ -34,15 +34,6 @@
                 'sidebar',
                 'search'
             ));
-        }
-
-        // Выводим 400 ошибку http-запроса
-        public function throwHttpError($info, $message) {
-            header('HTTP/1.0 400 Bad Request');
-            echo json_encode(array("error" => array(
-                'message' => $message,
-                'info' => $info
-            )), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
         }
 
         // Проверяем существует ли запись
@@ -72,23 +63,29 @@
     }
 
     /**
-     * Проверяет ключ jwt.
+     * Сообщение об ошибке.
+     * 
+     * @param int $responseCode
+     * @param string $mecage
+     * @param object|string $e - сообщение от исключения
+     * 
      * Если ключ jwt не прошел проверку отдаем заголовок 401
      * и исключение из библиотеки Firebase\JWT
      *
      * @return string
      */
-    public static function isAccessDenied($e) {
-      header("Content-Type: application/json; charset=UTF-8");
-      // код ответа
-      http_response_code(401);
-      // сообщить пользователю отказано в доступе и показать сообщение об ошибке
-      echo json_encode(array("error" => array(
-        "message" => "Доступ закрыт.",
-        "info" => $e->getMessage()
-      )), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    public static function isErrorInfo($responseCode, $mesage, $e) {
+      
+      $info = array(
+        "data" =>[],
+        "error" => array(
+          "message" => $mesage,
+          "info" => is_string($e) ? $e : $e->getMessage()
+        ));
+
+      http_response_code($responseCode);
+
+      self::getJsonEncode($info);
     }
 
-
-
-    }
+  }

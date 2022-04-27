@@ -22,7 +22,7 @@ function route($db, $helpers) {
         }
         default:
           // если переданы лишние параметры выбрасываем ошибку
-          $helpers->throwHttpError('invalid_router', 'router not found');
+          $helpers::isErrorInfo(400, "invalid_router", "router not found");
           break;
       }
   }
