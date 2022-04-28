@@ -9,11 +9,11 @@ function route($db, $helpers) {
       switch ($helpers->getUrlData()[1]) {
         // GET /search/users
         case "users": {
-            echo $searchClass->routUsers();
-            break;
+          echo $searchClass->routUsers();
+          break;
         }
         case "inbox": {
-          echo "Ищем входящую почту";
+          $searchClass->routInbox("http://192.168.2.253:8079/api_GAS/search/inbox.php?");
           break;
         }
         case "outbox": {

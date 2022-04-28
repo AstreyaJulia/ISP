@@ -66,6 +66,63 @@
     }
 
     /**
+     * Поиск входящей почты
+     * 
+     *
+     * @return string строка в формате json
+     *
+     */
+    public function routInbox($api_gas){
+      if (count($this->helpers->getUrlData()) == 5 ) {
+        try {
+
+          http_response_code(200);
+
+          $searchInbox["data"] = self::sendGET($this->paramsSearch(), $api_gas);
+
+          return $this->helpers->getJsonEncode($searchInbox);
+
+        } catch (\Exception $e) {
+
+          $this->helpers::isErrorInfo(501, "Ошибка в переданных параметрах", $e);
+        }
+
+      }
+    }
+
+    /**
+     * Проверяем строку поиска
+     * 
+     * @return array
+     * 
+     */
+
+    private function paramsSearch() {
+      $queryString = $this->helpers->getUrlData()[2];
+      if (mb_strlen($queryString) < 3) {
+        throw new \Exception("Значение для поиска должно быть больше 3-х символов");
+      } 
+      
+      $startDate = new \DateTime($this->helpers->getUrlData()[3]);
+      $endDate = new \DateTime($this->helpers->getUrlData()[4]);
+      $interval = (int)$startDate->diff($endDate)->format("%R%m");
+
+      if ($interval < 0) {
+        throw new \Exception("Начальная дата не может быть больше конечной");
+      }
+
+      if ($interval > 2) {
+        throw new \Exception("Допустимый диапазон поиска 3 месяца");
+      }
+
+      return array(
+          "startDate" => $startDate->format('Y-m-d'),
+          "endDate" => $endDate->format('Y-m-d'),
+          "query" => $queryString
+      );
+    }
+
+    /**
      * Отправка данных методом GET
      *
      * @param array $params
