@@ -66,13 +66,13 @@
     }
 
     /**
-     * Поиск входящей почты
+     * Поиск почтовой корреспонденции
      * 
      *
      * @return string строка в формате json
      *
      */
-    public function routInbox($api_gas){
+    public function correspondence($api_gas){
       if (count($this->helpers->getUrlData()) == 5 ) {
         try {
 
