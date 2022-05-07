@@ -32,7 +32,8 @@
             return in_array($router, array(
                 'ProxyList',
                 'sidebar',
-                'search'
+                'search',
+                'authorization'
             ));
         }
 
@@ -46,7 +47,7 @@
         }
 
     /**
-     * Необходимые заголовки для GET-запросов
+     * Необходимые заголовки
     */
     public static function headlinesGET() {
       header("Access-Control-Allow-Origin: *");
@@ -86,6 +87,7 @@
       http_response_code($responseCode);
 
       self::getJsonEncode($info);
+      exit;
     }
 
   }
