@@ -3,10 +3,20 @@
 
 	class Sidebar extends Helpers {
 
-    public $sudo;
-    public $profession;
-    public $membership;
+    protected $db;
+    protected $helpers;
 
+    private $sudo;
+    private $profession;
+    private $membership;
+
+    public function __construct(DB $db, helpers $helpers) {
+      $this->db = $db;
+      $this->helpers = $helpers;
+      $this->sudo = $helpers->getSudo();
+      $this->profession = $helpers->getProfession();
+      $this->membership = $helpers->getMembership();
+    }
 
     //Получаем меню сайдбара
     public function getSidebar() {
@@ -26,4 +36,19 @@
         return $this->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    //Получаем меню сайдбара
+    public function readOne() {
+      try {
+        if ($this->sudo === 1){
+          $id = (int)$this->helpers->getUrlData()[1];
+          $sql = "SELECT * FROM sdc_site_content WHERE id = ?";
+          return $this->db->run($sql, [$id])->fetchAll(\PDO::FETCH_ASSOC);
+        } else {
+          throw new \Exception("Недостаточно прав");
+        }
+      } catch (\Exception $e) {
+        $this->helpers::isErrorInfo(200, "Доступ закрыт.", $e);
+      }
+      
+    }
 	}

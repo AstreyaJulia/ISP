@@ -2,7 +2,7 @@
 
 // Роутинг, основная функция
 function route($db, $helpers) {
-  $sidebarClass = new Api\Objects\Sidebar($db);
+  $sidebarClass = new Api\Objects\Sidebar($db, $helpers);
   // GET
   if ($helpers->getMethod() === 'GET') {
 
@@ -11,16 +11,18 @@ function route($db, $helpers) {
       case 1: {
         // если запрос без параметров выдаём полный список
 
-        $sidebarClass->sudo = $helpers->getSudo();
-        $sidebarClass->profession = $helpers->getProfession();
-        $sidebarClass->membership = $helpers->getMembership();
-
         $sidebar["data"] = sidebarTree($sidebarClass->getSidebar());
 
         // установим код ответа - 200 OK
         http_response_code(200);
 
-        echo $helpers->getJsonEncode($sidebar);
+        $helpers->getJsonEncode($sidebar);
+        break;
+      }
+      // GET /sidebar/1
+      case 2: {
+        $sidebar["data"] = $sidebarClass->readOne();
+        $helpers->getJsonEncode($sidebar);
         break;
       }
       default:
