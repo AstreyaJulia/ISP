@@ -10,7 +10,7 @@
 
   $helpers->getRequestData();
 
-  if ($helpers->getRouter() != "authorization") {
+  if (!in_array($helpers->getRouter(), array("authorization", "registration"))) {
     include_once 'config/jwt.php';
     // если декодирование выполнено успешно, продолжаем выполнять скрипт
     try {

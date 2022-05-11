@@ -33,7 +33,8 @@
                 'ProxyList',
                 'sidebar',
                 'search',
-                'authorization'
+                'authorization',
+                'registration'
             ));
         }
 

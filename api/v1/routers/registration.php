@@ -3,12 +3,11 @@
 // Роутинг, основная функция
 function route($db, $helpers) {
   include_once 'config/jwt.php';
-  $authorizationClass = new Api\Objects\Authorization($db, $helpers);
+  $registrationClass = new Api\Objects\Registration($db, $helpers);
   // POST
     switch ($helpers->getMethod()) {
-      // GET /authorization
       case "POST": {
-        $authorizationClass->routAuthorization();
+        $registrationClass->routRegistration();
         $token = array(
           "iss" => $iss,
           "aud" => $aud,
@@ -20,9 +19,9 @@ function route($db, $helpers) {
             "membership" => $helpers->getMembership()
           )
         );
- 
+
         http_response_code(200);
- 
+
         $jwt["data"] = ["jwt" => \Firebase\JWT\JWT::encode($token, $key)];
         $helpers->getJsonEncode($jwt);
         break;
