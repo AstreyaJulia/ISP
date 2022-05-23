@@ -22,7 +22,7 @@
     public function getSidebar() {
       switch ($this->sudo) {
         case 1:
-          $sql = "SELECT * FROM sdc_site_content";
+          $sql = "SELECT * FROM sdc_site_content WHERE class_key != 'Route'";
           break;
         default:
           $sql = "SELECT
