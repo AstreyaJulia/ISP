@@ -18,7 +18,11 @@
       $this->membership = $helpers->getMembership();
     }
 
-    //Получаем меню сайдбара
+    /**
+     * Получаем меню сайдбара
+     * 
+     * @return array
+     */
     public function getSidebar() {
       switch ($this->sudo) {
         case 1:
@@ -31,7 +35,8 @@
                     `sdc_site_content`
                   WHERE
                     `id` NOT IN (10,11) AND `parent` NOT IN (10,11) AND
-                    `job_access` in(0,$this->profession) and `group_access` in(0,$this->membership)";
+                    (FIND_IN_SET(0, job_access) OR FIND_IN_SET($this->profession, job_access)) AND
+                    (FIND_IN_SET(0, group_access) OR FIND_IN_SET($this->membership, group_access)) AND class_key != 'Route'";
       }
         return $this->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
     }
