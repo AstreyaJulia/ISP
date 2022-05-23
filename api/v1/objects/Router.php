@@ -74,7 +74,7 @@
     public function getRequestData() {
 
       // Получаем ключ jwt из заголовка
-      $jwt = getallheaders()["Authorization"] ?? "";
+      $jwt = getallheaders()["authorization"] ?? getallheaders()["Authorization"] ?? "";
       $this->jwt = substr($jwt, 7) ;
 
       // Разбираем url
