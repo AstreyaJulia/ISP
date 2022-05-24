@@ -11,6 +11,17 @@ function route($db, $helpers) {
       case 1: {
         // если запрос без параметров выдаём полный список
 
+        $sidebar["user"] = array(
+          "id" => $helpers->getId(),
+          "idGAS" => $helpers->getIdGAS(),
+          "username" => $helpers->getUsername(),
+          "sudo" => $helpers->getSudo(),
+          "sidebar" => $helpers->getSidebar(),
+          "theme" => $helpers->getTheme(),
+          "profession" => $helpers->getProfession(),
+          "membership" => $helpers->getMembership()
+        );
+
         $sidebar["data"] = sidebarTree($sidebarClass->getSidebar());
 
         // установим код ответа - 200 OK

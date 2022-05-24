@@ -37,6 +37,15 @@
     }
 
     /**
+     * get элемент для idGAS
+     *
+     * @return int
+     */
+    public function getIdGAS() {
+      return $this->idGAS;
+    }
+
+    /**
      * get элемент для username
      *
      * @return int
@@ -55,12 +64,21 @@
     }
 
     /**
-     * get элемент для idGAS
+     * get элемент для sidebar
      *
      * @return int
      */
-    public function getIdGAS() {
-      return $this->idGAS;
+    public function getSidebar() {
+      return $this->sidebar;
+    }
+
+    /**
+     * get элемент для theme
+     *
+     * @return int
+     */
+    public function getTheme() {
+      return $this->theme;
     }
 
     /**
