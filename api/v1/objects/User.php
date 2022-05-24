@@ -55,6 +55,15 @@
     }
 
     /**
+     * get элемент для idGAS
+     *
+     * @return int
+     */
+    public function getIdGAS() {
+      return $this->idGAS;
+    }
+
+    /**
      * get элемент для profession
      *
      * @return int

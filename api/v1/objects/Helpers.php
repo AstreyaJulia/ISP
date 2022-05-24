@@ -35,7 +35,8 @@
                 'search',
                 'authorization',
                 'registration',
-                'home'
+                'home',
+                'publication-acts'
             ));
         }
 
@@ -90,6 +91,37 @@
 
       self::getJsonEncode($info);
       exit;
+    }
+
+    /**
+     * Отправка данных методом $_GET
+     * 
+     * @param array $params массив с параметрами key => value
+     * @param string $host_api адрес на который отправляем запрос
+     * 
+     * @return array
+     * 
+     */
+    public static function sendGET($params, $host_api) {
+      // собираем адрес и параметры запроса
+      $url = $host_api. http_build_query($params);
+      $ch = curl_init($url);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+      //ожидание при попытке подключения, секунд (0 - бесконечно)
+      curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
+
+      $result = curl_exec($ch);
+      $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+      curl_close($ch);
+      $message = json_decode($result);
+      if ($result) {
+        http_response_code($httpcode);
+        $message;
+      } else {
+        http_response_code(504);
+        $message;
+      }
+      return $message;
     }
 
   }
