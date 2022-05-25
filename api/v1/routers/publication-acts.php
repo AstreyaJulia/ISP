@@ -1,5 +1,5 @@
 <?php
-
+$helpers->validateIdGAS();
 // Роутинг, основная функция
 function route($db, $helpers) {
 

@@ -27,6 +27,21 @@
       }
     }
 
+    /**
+     * Проверка наличия idGAS
+     *
+     * @return Exception
+     */
+    public function validateIdGAS() {
+      try {
+        if (!$this->getIdGAS()) {
+          throw new \Exception("Недостаточно прав для просмотра данного ресурса");
+        } 
+      } catch (\Exception $e) {
+        self::isErrorInfo(200, "Доступ закрыт.", $e);
+      }
+    }
+
         // Проверка роутера на валидность
         public function isValidRouter($router) {
             return in_array($router, array(
