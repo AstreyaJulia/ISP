@@ -114,11 +114,10 @@
       $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
       curl_close($ch);
       $message = json_decode($result);
-      if ($result) {
-        http_response_code($httpcode);
-        $message;
+      if (in_array($httpcode, [0, 504])) {
+        $message = self::isErrorInfo(200, "ГАС недоступен", "Обратитесь к администратору");
       } else {
-        http_response_code(504);
+        http_response_code($httpcode);
         $message;
       }
       return $message;
