@@ -7,7 +7,7 @@ function route($db, $helpers) {
   if ($helpers->getMethod() === 'GET') {
     
     switch (count($helpers->getUrlData())) {
-      // GET /ProxyList/id
+
       case 1: {
         $output["data"] = $helpers::sendGET(["idJudge" => $helpers->getIdGAS()], 'http://192.168.2.253:8079/api_GAS/'.$helpers->getRouter().'?');
 
