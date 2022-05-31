@@ -9,7 +9,8 @@ function route($db, $helpers) {
     switch (count($helpers->getUrlData())) {
       // GET /ProxyList/id
       case 1: {
-        $output["data"] = $helpers::sendGET(["idJudge" => $helpers->getIdGAS()], 'http://192.168.2.253:8079/api_GAS/'.$helpers->getRouter().'?');
+        var_dump($helpers->getRouter());
+        $output["data"] = $helpers::sendGET(["idJudge" => $helpers->getIdGAS()], 'http://192.168.2.253:8079/api_GAS/'.$helpers->getRouter().'.php?');
 
         // вывод в json-формате
         $helpers->getJsonEncode($output);
