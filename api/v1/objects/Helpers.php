@@ -51,7 +51,10 @@
                 'authorization',
                 'registration',
                 'home',
-                'publication-acts'
+                'publication-acts',
+                'deadlines',
+                'motionless',
+                'not-reviewed'
             ));
         }
 
