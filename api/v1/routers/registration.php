@@ -22,7 +22,12 @@ function route($db, $helpers) {
 
         http_response_code(200);
 
-        $jwt["data"] = ["jwt" => \Firebase\JWT\JWT::encode($token, $key)];
+        $jwt["data"] = [
+          "jwt" => \Firebase\JWT\JWT::encode($token, $key),
+          "id" => $helpers->getId(),
+          "sudo" => $helpers->getSudo(),
+          "username" => $helpers->getUsername(),
+          "fullname" => $helpers->getFullname()];
         $helpers->getJsonEncode($jwt);
         break;
       }

@@ -55,6 +55,15 @@
     }
 
     /**
+     * get элемент для fullname
+     *
+     * @return int
+     */
+    public function getFullname() {
+      return $this->fullname;
+    }
+
+    /**
      * get элемент для sudo
      *
      * @return int
