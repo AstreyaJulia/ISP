@@ -45,16 +45,17 @@
         // Проверка роутера на валидность
         public function isValidRouter($router) {
             return in_array($router, array(
-                'ProxyList',
-                'sidebar',
-                'search',
-                'authorization',
-                'registration',
-                'home',
-                'publication-acts',
-                'deadlines',
-                'motionless',
-                'not-reviewed'
+              'users',
+              'ProxyList',
+              'sidebar',
+              'search',
+              'authorization',
+              'registration',
+              'home',
+              'publication-acts',
+              'deadlines',
+              'motionless',
+              'not-reviewed'
             ));
         }
 
