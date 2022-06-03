@@ -26,7 +26,9 @@ function route($db, $helpers) {
               "id" => $helpers->getId(),
               "sudo" => $helpers->getSudo(),
               "username" => $helpers->getUsername(),
-              "fullname" => $helpers->getFullname()];
+              "fullname" => $helpers->getFullname(),
+              "sidebar" => $helpers->getSidebar(),
+              "theme" => $helpers->getTheme()];
             $helpers->getJsonEncode($userLoginData);
             break;
           }
