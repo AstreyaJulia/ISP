@@ -1,0 +1,462 @@
+.fc .fc-bg-event.fc-event-indigo {
+  @apply bg-indigo-500/40 border-0;
+}
+
+.fc .fc-bg-event.fc-event-green {
+  @apply bg-green-500/40 border-0;
+}
+
+.fc .fc-bg-event.fc-event-cyan {
+  @apply bg-cyan-500/40 border-0;
+}
+
+.fc .fc-bg-event.fc-event-yellow {
+  @apply bg-yellow-500/40 border-0;
+}
+
+.fc .fc-bg-event.fc-event-red {
+  @apply bg-red-500/40 border-0;
+}
+
+.fc .fc-bg-event.fc-event-pink {
+  @apply bg-pink-500/40 border-0;
+}
+
+.fc .fc-bg-event.fc-event-blue {
+  @apply bg-blue-500/40 border-0;
+}
+
+.fc .fc-bg-event.fc-event-orange {
+  @apply bg-orange-500/40 border-0;
+}
+
+.fc .fc-bg-event.fc-event-orange {
+  @apply bg-orange-500/40 border-0;
+}
+
+.fc .fc-bg-event.fc-event-sky {
+  @apply bg-sky-500/40 border-0;
+}
+
+/** calendar Widget */
+.today-calendar .fc .fc-daygrid-day-number {
+ @apply z-50;
+}
+
+/** Фон событий */
+.today-calendar .fc-daygrid-block-event.fc-event-indigo {
+  @apply border-indigo-500 hover:border-indigo-600;
+}
+
+.today-calendar .fc-daygrid-block-event.fc-event-green {
+  @apply border-green-500 hover:border-green-600;
+}
+
+.today-calendar .fc-daygrid-block-event.fc-event-cyan {
+  @apply border-cyan-500 hover:border-cyan-600;
+}
+
+.today-calendar .fc-daygrid-block-event.fc-event-yellow {
+  @apply border-yellow-500 hover:border-yellow-600;
+}
+
+.today-calendar .fc-daygrid-block-event.fc-event-red {
+  @apply border-red-500 hover:border-red-600;
+}
+
+.today-calendar .fc-daygrid-block-event.fc-event-pink {
+  @apply border-pink-500 hover:border-pink-600;
+}
+
+.today-calendar .fc-daygrid-block-event.fc-event-blue {
+  @apply border-blue-500 hover:border-blue-600;
+}
+
+.today-calendar .fc-daygrid-block-event.fc-event-orange {
+  @apply border-orange-500 hover:border-orange-600;
+}
+
+.today-calendar .fc-daygrid-block-event.fc-event-teal {
+  @apply border-teal-500 hover:border-teal-600;
+}
+
+.today-calendar .fc-daygrid-block-event.fc-event-sky {
+  @apply border-sky-500 hover:border-sky-600;
+}
+
+.today-calendar .fc-daygrid-dot-event.fc-event-indigo .fc-daygrid-event-dot {
+  @apply border-indigo-500 hover:border-indigo-600;
+}
+
+.today-calendar .fc-daygrid-dot-event.fc-event-green .fc-daygrid-event-dot {
+  @apply border-green-500 hover:border-green-600;
+}
+
+.today-calendar .fc-daygrid-dot-event.fc-event-cyan .fc-daygrid-event-dot {
+  @apply border-cyan-500 hover:border-cyan-600;
+}
+
+.today-calendar .fc-daygrid-dot-event.fc-event-yellow .fc-daygrid-event-dot {
+  @apply border-yellow-500 hover:border-yellow-600;
+}
+
+.today-calendar .fc-daygrid-dot-event.fc-event-red .fc-daygrid-event-dot {
+  @apply border-red-500 hover:border-red-600;
+}
+
+.today-calendar .fc-daygrid-dot-event.fc-event-pink .fc-daygrid-event-dot {
+  @apply border-pink-500 hover:border-pink-600;
+}
+
+.today-calendar .fc-daygrid-dot-event.fc-event-blue .fc-daygrid-event-dot {
+  @apply border-blue-500 hover:border-blue-600;
+}
+
+.today-calendar .fc-daygrid-dot-event.fc-event-orange .fc-daygrid-event-dot {
+  @apply border-orange-500 hover:border-orange-600;
+}
+
+.today-calendar .fc-daygrid-dot-event.fc-event-teal .fc-daygrid-event-dot {
+  @apply border-teal-500 hover:border-teal-600;
+}
+
+.today-calendar .fc-daygrid-dot-event.fc-event-sky .fc-daygrid-event-dot {
+  @apply border-sky-500 hover:border-sky-600;
+}
+
+.today-calendar .fc-today-button.fc-button.fc-button-primary {
+  @apply inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white dark:bg-gray-900 dark:border-gray-600 hover:bg-gray-50 dark:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 active:outline-none active:bg-gray-300 active:text-gray-500 active:ring-2 active:ring-indigo-500 active:border-gray-300;
+}
+
+.today-calendar .fc-header-toolbar.fc-toolbar.fc-toolbar-ltr {
+  @apply flex items-center;
+}
+
+.today-calendar .fc-toolbar-chunk div {
+  @apply flex items-center;
+}
+
+.today-calendar .fc-toolbar-chunk div .fc-toolbar-title {
+  @apply w-36 flex justify-center text-sm leading-6 font-medium text-gray-900 dark:text-white uppercase font-bold;
+}
+
+.today-calendar .fc-toolbar-chunk div .fc-next-button.fc-button.fc-button-primary {
+  @apply bg-white dark:bg-gray-900 p-0 border-none rounded-full text-gray-400 dark:text-gray-500 dark:hover:text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500;
+}
+
+.today-calendar .fc-toolbar-chunk div .fc-prev-button.fc-button.fc-button-primary {
+  @apply bg-white dark:bg-gray-900 p-0 border-none rounded-full text-gray-400 dark:text-gray-500 dark:hover:text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500;
+}
+
+.today-calendar .fc-header-toolbar.fc-toolbar.fc-toolbar-ltr {
+  @apply mb-3;
+}
+
+.today-calendar .fc-scrollgrid.fc-scrollgrid-liquid {
+  @apply border-none;
+}
+
+.today-calendar .fc-scrollgrid.fc-scrollgrid-liquid th {
+  @apply border-none text-gray-500 dark:text-gray-400 font-semibold text-sm uppercase;
+}
+
+.today-calendar .fc-scrollgrid.fc-scrollgrid-liquid .fc-scroller {
+  overflow-y: hidden !important;
+  display: flex;
+  justify-content: center;
+}
+
+.today-calendar .fc-scrollgrid.fc-scrollgrid-liquid td {
+  @apply border-none text-gray-600 dark:text-gray-300 font-medium text-sm uppercase;
+}
+
+.today-calendar .fc-event-time {
+  @apply hidden;
+}
+
+.today-calendar .fc-event-title {
+  @apply hidden;
+}
+
+.today-calendar .fc .fc-daygrid-day.fc-day .fc-daygrid-day-frame.fc-scrollgrid-sync-inner {
+  height: 32px !important;
+}
+
+.today-calendar .fc .fc-daygrid-day-frame {
+  @apply flex items-center justify-center;
+}
+
+.today-calendar .fc .fc-daygrid-event-dot {
+  @apply m-0 border-indigo-600;
+  border-width: 3px;
+}
+
+.today-calendar .fc-h-event {
+  @apply rounded-full m-0;
+  border-width: 3px;
+}
+
+.today-calendar .fc-h-event .fc-event-title.fc-sticky {
+  @apply hidden;
+}
+
+.today-calendar .fc-daygrid-event.fc-daygrid-dot-event.fc-event.fc-event-draggable.fc-event-resizable.fc-event-start.fc-event-end.fc-event-today {
+  @apply -ml-1 pt-0;
+}
+
+.today-calendar .fc .fc-daygrid-day-number {
+  @apply mt-1;
+}
+
+.today-calendar .fc .fc-daygrid-day .fc-daygrid-day-number {
+  @apply text-gray-600 dark:text-gray-400;
+}
+
+.today-calendar .fc .fc-daygrid-day.fc-day-today .fc-daygrid-day-number {
+  @apply text-gray-900 dark:text-gray-50;
+}
+
+.today-calendar .fc .fc-daygrid-day.fc-day-today {
+  @apply bg-gray-200 dark:bg-gray-700;
+}
+
+.today-calendar .fc .fc-daygrid-day-events {
+  @apply flex items-center justify-center flex-col;
+}
+
+.today-calendar .fc .fc-daygrid-day-bottom {
+  @apply hidden;
+}
+
+.today-calendar .fc .fc-daygrid-day-number {
+  @apply px-1.5;
+}
+
+/** Календарь модуль */
+
+/** Фон событий */
+.calendar-module .fc-event-indigo {
+  @apply bg-indigo-500/30 border border-indigo-500 hover:bg-indigo-600/30 hover:border-indigo-600;
+}
+
+.calendar-module .fc-event-green {
+  @apply bg-green-500/30 border border-green-500 hover:bg-green-600/30 hover:border-green-600;
+}
+
+.calendar-module .fc-event-cyan {
+  @apply bg-cyan-500/30 border border-cyan-500 hover:bg-cyan-600/30 hover:border-cyan-600;
+}
+
+.calendar-module .fc-event-yellow {
+  @apply bg-yellow-500/30 border border-yellow-500 hover:bg-yellow-600/30 hover:border-yellow-600;
+}
+
+.calendar-module .fc-event-red {
+  @apply bg-red-500/30 border border-red-500 hover:bg-red-600/30 hover:border-red-600;
+}
+
+.calendar-module .fc-event-pink {
+  @apply bg-pink-500/30 border border-pink-500 hover:bg-pink-600/30 hover:border-pink-600;
+}
+
+.calendar-module .fc-event-blue {
+  @apply bg-blue-500/30 border border-blue-500 hover:bg-blue-600/30 hover:border-blue-600;
+}
+
+.calendar-module .fc-event-orange {
+  @apply bg-orange-500/30 border border-orange-500 hover:bg-orange-600/30 hover:border-orange-600;
+}
+
+.calendar-module .fc-event-teal {
+  @apply bg-teal-500/30 border border-teal-500 hover:bg-teal-600/30 hover:border-teal-600;
+}
+
+.calendar-module .fc-event-sky {
+  @apply bg-sky-500/30 border border-sky-500 hover:bg-sky-600/30 hover:border-sky-600;
+}
+
+/** Текст событий */
+.calendar-module .fc-event-indigo .fc-event-title {
+  @apply text-indigo-900 dark:text-indigo-200 ml-1;
+}
+
+.calendar-module .fc-event-green .fc-event-title {
+  @apply text-green-900 dark:text-green-200 ml-1;
+}
+
+.calendar-module .fc-event-cyan .fc-event-title {
+  @apply text-cyan-900 dark:text-cyan-200 ml-1;
+}
+
+.calendar-module .fc-event-yellow .fc-event-title {
+  @apply text-yellow-900 dark:text-yellow-200 ml-1;
+}
+
+.calendar-module .fc-event-red .fc-event-title {
+  @apply text-red-900 dark:text-red-200 ml-1;
+}
+
+.calendar-module .fc-event-pink .fc-event-title {
+  @apply text-pink-900 dark:text-pink-200 ml-1;
+}
+
+.calendar-module .fc-event-blue .fc-event-title {
+  @apply text-blue-900 dark:text-blue-200 ml-1;
+}
+
+.calendar-module .fc-event-orange .fc-event-title {
+  @apply text-orange-900 dark:text-orange-200 ml-1;
+}
+
+.calendar-module .fc-event-teal .fc-event-title {
+  @apply text-teal-900 dark:text-teal-200 ml-1;
+}
+
+.calendar-module .fc-event-sky .fc-event-title {
+  @apply text-sky-900 dark:text-sky-200 ml-1;
+}
+
+/** Точки на событиях */
+.calendar-module .fc-daygrid-event-dot {
+  @apply hidden;
+}
+
+/** Цвет фона сегодняшнего дня */
+.calendar-module .fc .fc-daygrid-day .fc-daygrid-day-number {
+  @apply text-gray-600 dark:text-gray-400;
+}
+
+.calendar-module .fc .fc-daygrid-day.fc-day-today .fc-daygrid-day-number {
+  @apply text-gray-900 dark:text-gray-50;
+}
+
+.calendar-module .fc .fc-daygrid-day.fc-day-today {
+  @apply bg-gray-200 dark:bg-gray-700;
+}
+
+.calendar-module .fc-daygrid-day-number {
+  @apply text-gray-800 dark:text-gray-200 text-sm;
+}
+
+.calendar-module .fc-daygrid-dot-event .fc-event-title {
+  @apply font-medium text-sm;
+}
+
+.calendar-module .fc-h-event .fc-event-title {
+  @apply font-medium text-sm;
+}
+
+.calendar-module .fc-event-time,
+.calendar-module .fc-daygrid-block-event .fc-event-time {
+  @apply text-gray-800 font-bold text-sm ml-1;
+}
+
+.calendar-module .fc-event-indigo .fc-event-time {
+  @apply text-indigo-800 dark:text-indigo-200;
+}
+
+.calendar-module .fc-event-green .fc-event-time {
+  @apply text-green-800 dark:text-green-200;
+}
+
+.calendar-module .fc-event-cyan .fc-event-time {
+  @apply text-cyan-800 dark:text-cyan-200;
+}
+
+.calendar-module .fc-event-yellow .fc-event-time {
+  @apply text-yellow-800 dark:text-yellow-200;
+}
+
+.calendar-module .fc-event-red .fc-event-time {
+  @apply text-red-800 dark:text-red-200;
+}
+
+.calendar-module .fc-event-pink .fc-event-time {
+  @apply text-pink-800 dark:text-pink-200;
+}
+
+.calendar-module .fc-event-blue .fc-event-time {
+  @apply text-blue-800 dark:text-blue-200;
+}
+
+.calendar-module .fc-event-orange .fc-event-time {
+  @apply text-orange-800 dark:text-orange-200;
+}
+
+.calendar-module .fc-event-teal .fc-event-time {
+  @apply text-teal-800 dark:text-teal-200;
+}
+
+.calendar-module .fc-event-sky .fc-event-time {
+  @apply text-sky-800 dark:text-sky-200;
+}
+
+.calendar-module .fc-daygrid-dot-event {
+  padding: 1px 0;
+  align-items: center;
+  font-weight: normal;
+}
+
+.calendar-module .fc .fc-toolbar-title {
+  @apply text-center font-bold text-base xl:w-48 xl:text-xl md:text-lg uppercase text-gray-700 dark:text-gray-300;
+}
+
+.calendar-module .fc-theme-standard td, .fc-theme-standard th {
+  @apply border-gray-300 dark:border-gray-600 border-l;
+}
+
+.calendar-module .fc-theme-standard .fc-scrollgrid {
+  @apply border-gray-300 dark:border-gray-600;
+}
+
+.calendar-module .fc-today-button.fc-button.fc-button-primary {
+  @apply inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white dark:bg-gray-900 dark:border-gray-600 hover:bg-gray-50 dark:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 active:outline-none active:bg-gray-300 active:text-gray-500 active:ring-2 active:ring-indigo-500 active:border-gray-300;
+}
+
+.calendar-module .fc-toolbar-chunk div .fc-next-button.fc-button.fc-button-primary {
+  @apply bg-white dark:bg-gray-900 p-1 ml-4 border-none rounded-full text-gray-400 dark:text-gray-500 dark:hover:text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500;
+}
+
+.calendar-module .fc-toolbar-chunk div .fc-prev-button.fc-button.fc-button-primary {
+  @apply bg-white dark:bg-gray-900 p-1 mr-4 border-none rounded-full text-gray-400 dark:text-gray-500 dark:hover:text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500;
+}
+
+.calendar-module .fc-direction-ltr .fc-button-group > .fc-button {
+  @apply inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium text-gray-700 bg-white dark:bg-gray-900 dark:border-gray-600 hover:bg-gray-50 dark:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 active:outline-none active:bg-gray-300 active:text-gray-500 active:ring-2 active:ring-indigo-500 active:border-gray-300;
+}
+
+.calendar-module .fc-direction-ltr .fc-button-group > .fc-button:not(:last-child) {
+  @apply rounded-r-none;
+}
+
+.calendar-module .fc-button-group {
+  @apply relative z-0 inline-flex rounded-md;
+}
+
+.calendar-module .fc .fc-button-primary:not(:disabled):active, .calendar-module .fc .fc-button-primary:not(:disabled).fc-button-active {
+  @apply bg-gray-200 dark:bg-gray-700 border-gray-300 dark:border-gray-700 text-gray-800 dark:text-gray-400;
+}
+
+.calendar-module .fc-toolbar-chunk div {
+  @apply flex items-center;
+}
+
+.calendar-module .fc-toolbar-chunk {
+  @apply flex items-center;
+}
+
+.calendar-module .fc-theme-standard th {
+  @apply border-t-0 border-r-0 border-l-0;
+}
+
+.calendar-module .fc-theme-standard .fc-scrollgrid {
+  @apply border-t-0 border-l-0;
+}
+
+.calendar-module .fc .fc-col-header-cell-cushion {
+  @apply font-medium uppercase text-gray-800 dark:text-gray-200 text-sm;
+}
+
+.calendar-module .fc .fc-bg-event .fc-event-title {
+  @apply not-italic text-sm;
+}
