@@ -38,22 +38,22 @@ const Login = () => {
                         }
                         dispatch(handleLogin(data))
                         navigate("/home")
-                        toast(t => (
-                            <Toast t={t} message="Вы успешно вошли в систему." type="success"/>
-                        ), {className: toastStyles});
+                        toast(t =>
+                                <Toast t={t} message="Вы успешно вошли в систему." type="success"/>
+                            , {className: toastStyles});
                     } else {
                         let message = "";
                         if (res.error) {
                             message = res.error.message;
                         }
-                        toast(t => (
-                            <Toast t={t} message={message || "Ошибка входа в систему."} type="error"/>
-                        ), {className: toastStyles});
+                        toast(t =>
+                                <Toast t={t} message={message || "Ошибка входа в систему."} type="error"/>
+                            , {className: toastStyles});
                     }
                 })
-                .catch(err => toast(t => (
+                .catch(err => toast(t =>
                         <Toast t={t} message={err} type="error"/>
-                    ), {className: toastStyles})
+                    , {className: toastStyles})
                 )
         } else {
             for (const key in userData) {

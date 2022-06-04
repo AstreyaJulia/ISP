@@ -186,8 +186,10 @@ const NavBar = (props) => {
                                 <div className="px-4 py-3">
                                     <p className="text-sm text-gray-700 dark:text-gray-400">Выполнен вход</p>
                                     {user.username
-                                        ? <p className="text-sm font-medium text-gray-900 dark:text-gray-50 truncate">{user.username}</p>
-                                        : <Skeleton className="bg-gray-500/30 after:bg-gradient-to-r from-gray-400/10 via-gray-500/10 to-gray-400/10"/>
+                                        ?
+                                        <p className="text-sm font-medium text-gray-900 dark:text-gray-50 truncate">{user.username}</p>
+                                        : <Skeleton
+                                            className="bg-gray-500/30 after:bg-gradient-to-r from-gray-400/10 via-gray-500/10 to-gray-400/10"/>
                                     }
 
                                 </div>
@@ -208,7 +210,8 @@ const NavBar = (props) => {
                                                 to="/auth"
                                                 onClick={() => {
                                                     dispatch(handleLogout())
-                                                    toast(t => (<Toast t={t} message="Вы вышли из системы." type="success"/>), {className: toastStyles})
+                                                    toast(t => <Toast t={t} message="Вы вышли из системы."
+                                                                      type="success"/>, {className: toastStyles})
                                                 }}
                                                 className={classNames(active ? "bg-gray-100 dark:bg-gray-700" : "", "block px-4 py-2 text-sm text-gray-700 dark:text-gray-400")}
                                             >

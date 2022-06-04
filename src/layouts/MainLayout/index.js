@@ -57,26 +57,30 @@ const MainLayout = (props) => {
         /* Получаем данные вошедшего пользователя */
         /* TODO этот кусок можно использовать в других местах, где нужна проверка токена */
         dispatch(fetchUserData())
+            .then(res => {
+                if (res.payload.id) {
+                    /* Для серверной навигации - боковое меню */
+                    fetch.get("/sidebar", "")
+                        .then(response => {
+                            if (response.data || response.data !== []) {
+                                setMenuData(makeArrayFromObj(response.data))
+                            }
+                        })
+                        .catch(err =>
+                            toast(t => <Toast t={t} message={err} type="error"/>, {className: toastStyles})
+                        )
+                }
+            })
             .catch(err => {
+                /* Показываем всплывашку с ошибкой */
+                //toast(t => <Toast t={t} message={err} type="error"/>, {className: toastStyles})
                 /** Если получили ошибку 401 - токен невалиден, выкидваем на страницу входа */
                 if (err === "Request failed with status code 401") {
                     dispatch(handleLogout());
                     navigate("/auth")
                 }
-                /* Показываем всплывашку с ошибкой */
-                toast(t => (<Toast t={t} message={err} type="error"/>), {className: toastStyles})
             });
-        /* Для серверной навигации - боковое меню */
-        fetch.get("/sidebar", "")
-            .then(response => {
-                if (response.data || response.data !== []) {
-                    setMenuData(makeArrayFromObj(response.data))
-                }
-            })
-            .catch(err => {
-                /* Показываем всплывашку с ошибкой */
-                toast(t => (<Toast t={t} message={err} type="error"/>), {className: toastStyles})
-            })
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch]);
 
