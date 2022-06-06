@@ -44,33 +44,13 @@
 
     /**
      * 
-     * Гетер для пользователя
-     * 
-     * @return array
-     * 
-     */
-    private function getUser() {
-      $sql = "SELECT
-                id,
-                username,
-                password,
-                active,
-                sudo
-              FROM sdc_users
-              WHERE username = ?";
-
-      return $this->db->run($sql,[$this->login])->fetchAll(\PDO::FETCH_CLASS);
-    }
-
-    /**
-     * 
      * Проверяем логин пользователя
      * Если логин проверку не проходит выбрасываем Exception
      * 
      */
     public function verifyLogin() {
       try {
-        if (count($this->getUser()) === 0) {
+        if (count($this->helpers->getUser($this->login)) === 0) {
           throw new \Exception("Введите действующий логин");
         }
       } catch (\Exception $e) {
@@ -78,7 +58,7 @@
       }
 
       try {
-        if (count($this->getUser()) === 1 and $this->getUser()["0"]->active === 0) {
+        if (count($this->helpers->getUser($this->login)) === 1 and $this->helpers->getUser($this->login)["0"]->active === 0) {
           throw new \Exception("Обратитесь к системному администратору");
         }
       } catch (\Exception $e) {
@@ -95,12 +75,13 @@
      */
     public function verifyPassword() {
       try {
-        if (count($this->getUser()) === 1 and password_verify($this->password, $this->getUser()["0"]->password)) {
-          $this->helpers->setId($this->getUser()["0"]->id);
-          $this->helpers->setSudo($this->getUser()["0"]->sudo);
+        if (count($this->helpers->getUser($this->login)) === 1 and password_verify($this->password, $this->helpers->getUser($this->login)["0"]->password)) {
+          $this->helpers->setId($this->helpers->getUser($this->login)["0"]->id);
+          $this->helpers->setSudo($this->helpers->getUser($this->login)["0"]->sudo);
+          $this->helpers->setMembership($this->helpers->getUser($this->login)["0"]->membership);
 
           $this->helpers->assignValues();
-          
+
         } else {
           throw new \Exception("Не верный пароль");
         }

@@ -126,11 +126,20 @@
       $this->sudo = (int)$sudo;
     }
 
+    /**
+     * set элемент для membership
+     *
+     * @return int
+     */
+    public function setMembership($membership) {
+      $this->membership = (int)$membership;
+    }
+
         public function secureJWT ($jwt, $key) {
             $decoded = $this->classJWT::decode($jwt, $key, array('HS256'));
             $this->id = (int)$decoded->data->id;
             $this->sudo = (int)$decoded->data->sudo;
-            $this->membership = $decoded->data->membership;
+            $this->membership = (int)$decoded->data->membership;
             return $decoded;
         }
 
@@ -156,9 +165,9 @@
                   LEFT JOIN sdc_user_attributes AS UserAttributes ON UserAttributes.internalKey=sdc_users.id
                   LEFT JOIN sdc_vocation ON sdc_vocation.id = UserAttributes.profession
                   LEFT JOIN sdc_user_attributes AS AffiliationJudge ON UserAttributes.affiliation = AffiliationJudge.id
-                  WHERE sdc_users.id = :id AND sdc_users.sudo = :sudo AND sdc_users.active = 1";
+                  WHERE sdc_users.id = :id AND sdc_users.sudo = :sudo AND (sdc_vocation.parent_id = :membership or ISNULL(sdc_vocation.parent_id)) AND sdc_users.active = 1";
       // получаем значения
-      $row = $this->db->run($sqlUser,['id' => $this->id, 'sudo' => $this->sudo])->fetch(\PDO::FETCH_LAZY);
+      $row = $this->db->run($sqlUser,['id' => $this->id, 'sudo' => $this->sudo, 'membership' => $this->membership])->fetch(\PDO::FETCH_LAZY);
       if ($row) {
         // присвоим значения свойствам объекта
         $this->idGAS = $row['idGAS'];
@@ -168,9 +177,32 @@
         $this->sidebar = $row['sidebar'];
         $this->theme = $row['theme'];
         $this->profession = $row['profession'];
-        $this->membership = $row['membership'];
       }
       return $row;
+    }
+
+    /**
+     * 
+     * Гетер для пользователя
+     * 
+     * @return array
+     * 
+     */
+    public function getUser($login) {
+      $sql = "SELECT
+                sdc_users.id,
+                sdc_users.username,
+                sdc_users.password,
+                sdc_users.active,
+                sdc_users.sudo,
+                sdc_vocation.parent_id AS membership
+              FROM sdc_users
+              LEFT JOIN sdc_user_attributes AS UserAttributes ON UserAttributes.internalKey=sdc_users.id
+              LEFT JOIN sdc_vocation ON sdc_vocation.id = UserAttributes.profession
+              LEFT JOIN sdc_user_attributes AS AffiliationJudge ON UserAttributes.affiliation = AffiliationJudge.id
+              WHERE sdc_users.username = ?";
+
+      return $this->db->run($sql,[$login])->fetchAll(\PDO::FETCH_CLASS);
     }
 
     /**
