@@ -206,6 +206,26 @@
     }
 
     /**
+     * 
+     * Дни рождения пользователей
+     * на текущую дату
+     * 
+     * @return object
+     * 
+     */
+    public function getBirthday() {
+      $sql = "SELECT
+                sdc_user_attributes.fullname,
+                (YEAR(CURRENT_DATE()) - YEAR(sdc_user_attributes.dob)) AS age
+              FROM sdc_users
+              LEFT JOIN sdc_user_attributes ON sdc_user_attributes.internalKey=sdc_users.id
+              WHERE sdc_users.active = 1 AND sdc_user_attributes.profession != '' AND
+                    DAY(CURRENT_DATE()) = DAY(sdc_user_attributes.dob) AND
+                    MONTH(CURRENT_DATE()) = MONTH(sdc_user_attributes.dob)";
+      return $this->db->run($sql)->fetchAll(\PDO::FETCH_CLASS);
+    }
+
+    /**
      *
      * Запишем пароль пользователя
      * 

@@ -33,15 +33,16 @@ function route($db, $helpers) {
             break;
           }
           case "birthday": {
-            $helpers->getJsonEncode(array("data" => array("info" => "дни рождения в разработке")));
+            $output["data"] = !empty($helpers->getBirthday()) ? $helpers->getBirthday() : $helpers::isErrorInfo(200, "Нет данных", "Сегодня дней рождений нет");
+            $helpers->getJsonEncode($output);
             break;
           }
           case "asistant": {
-            $helpers->getJsonEncode(array("data" => array("info" => "Список помощников в разработке")));
+            $helpers::isErrorInfo(200, "Нету", "Список помощников в разработке");
             break;
           }
           case "secretary": {
-            $helpers->getJsonEncode(array("data" => array("info" => "Список секретарей с.з. в разработке")));
+            $helpers::isErrorInfo(200, "Нету", "Список секретарей с.з. в разработке");
             break;
           }
           default:
