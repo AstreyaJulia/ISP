@@ -13,18 +13,21 @@ const TodayBirthdays = ({birthdays}) => {
                         <li key={birthday.user.fullname} className="pt-3">
                             <div className="flex items-center space-x-4">
                                 <div className="flex-shrink-0">
-                                    <Avatar size="10" avatar={birthday.user.avatar} name={birthday.user.fullname} color={birthday.user.color}/>
+                                    <Avatar size="10" avatar={birthday.user.avatar} name={birthday.user.fullname}
+                                            color={birthday.user.color}/>
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <a href="#" className="focus:outline-none">
-                                        <span className="absolute inset-0" aria-hidden="true"/>
-                                        <p className="text-sm font-medium text-gray-900">
-                                            {getInitials(birthday.user.fullname)}
-                                        </p>
-                                        <p className="text-sm text-gray-500 truncate">
-                                            {birthday.age} {`${getAmount(birthday.age, {single: "год", multi: "года", count: "лет"})}`}
-                                        </p>
-                                    </a>
+                                    <span className="absolute inset-0" aria-hidden="true"/>
+                                    <p className="text-sm font-medium text-gray-900">
+                                        {getInitials(birthday.user.fullname)}
+                                    </p>
+                                    <p className="text-sm text-gray-500 truncate">
+                                        {birthday.age} {`${getAmount(birthday.age, {
+                                        single: "год",
+                                        multi: "года",
+                                        count: "лет"
+                                    })}`}
+                                    </p>
                                 </div>
                             </div>
                         </li>

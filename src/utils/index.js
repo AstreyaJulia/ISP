@@ -76,11 +76,13 @@ export const getAmount = (col, {single: single, multi: multi, count: count}) => 
         col = col.toString().slice(-1)
         col = parseInt(col);
     }
-    if (col === 1) {
+    if (col === 0) {
+        return count
+    } else if (col === 1) {
         return single
     } else if (col > 1 && col <=4) {
         return multi
-    } else if (col >= 5 && col <= 20 || col === 0) {
+    } else if (col >= 5 && col <= 20) {
         return count
     }
 }

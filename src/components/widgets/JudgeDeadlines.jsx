@@ -15,7 +15,7 @@ export const JudgeDeadlines = () => {
     return (
         <div>
             <h2 className="text-gray-500 text-xs font-medium uppercase tracking-wide">Дела в производстве</h2>
-            <ul role="list" className="mt-3 grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-2">
+            <ul className="mt-3 grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-2">
                 {projects.map((project) => (
                     <li key={project.name} className="col-span-1 flex shadow-sm rounded-md">
                         <div
