@@ -2,6 +2,7 @@
     "name": "isp-ui-kit-react",
     "version": "0.1.0",
     "private": true,
+    "proxy": "http://isp",
     "dependencies": {
         "@fullcalendar/core": "^5.11.0",
         "@fullcalendar/daygrid": "^5.11.0",

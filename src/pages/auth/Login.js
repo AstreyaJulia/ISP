@@ -42,13 +42,12 @@ const Login = () => {
                                 <Toast t={t} message="Вы успешно вошли в систему." type="success"/>
                             , {className: toastStyles});
                     } else {
-                        let message = "";
                         if (res.error) {
-                            message = res.error.message;
+                            const {message, info} = res.error;
+                            toast(t =>
+                                    <Toast t={t} message={[message, info].join(". ") || "Ошибка входа в систему."} type="error"/>
+                                , {className: toastStyles});
                         }
-                        toast(t =>
-                                <Toast t={t} message={message || "Ошибка входа в систему."} type="error"/>
-                            , {className: toastStyles});
                     }
                 })
                 .catch(err => toast(t =>
@@ -87,7 +86,7 @@ const Login = () => {
                     <div className="mx-auto w-full max-w-sm lg:w-96">
                         <div>
                             <h2 className="mt-6 text-3xl font-extrabold text-gray-900 dark:text-gray-50">Добро
-                                пожаловать! 👋</h2>
+                                пожаловать!</h2>
                         </div>
 
                         <div className="mt-8">

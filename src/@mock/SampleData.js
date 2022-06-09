@@ -188,7 +188,7 @@ export const messages = [{
     message: "Hey John, I am looking for the best admin template. Could you please help me to find it out?"
 }]
 
-export const birthdaysToday = [{user: users[5], age: "36"}, {user: users[3], age: "24"}]
+export const birthdaysToday = [{user: users[5], age: "36"}, {user: users[1], age: "32"}, {user: users[3], age: "21"}]
 
 export const events = [{
     id: "1",

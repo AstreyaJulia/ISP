@@ -8,6 +8,7 @@ import TodayBirthdays from "../components/widgets/TodayBirthdays";
 //import PrimaryButton from "../components/elements/PrimaryButton";
 import ContentLayoutColWithSecondaryCol from "../layouts/ContentLayouts/ContentLayoutColWithSecondaryCol";
 import {useSelector} from "react-redux";
+import {JudgeDeadlines} from "../components/widgets/JudgeDeadlines";
 
 /*let instance = null;
 
@@ -258,6 +259,8 @@ const Home = () => {
         <ContentLayoutColWithSecondaryCol title="Главная" boxed={true}>
             <ContentLayoutColWithSecondaryCol.MainCol>
                 <div>
+                    <JudgeDeadlines/>
+
                     {/*<WeatherWidget apiKey={config.OPEN_WEATHER_API_KEY}
                                                cityID={config.OPEN_WEATHER_CITY_ID}/>
                 cityID={config.OPEN_WEATHER_CITY_ID}/>*/}
@@ -276,7 +279,6 @@ const Home = () => {
                              className="mb-4"/>
                 <CalendarWidget/>
                 <TodayBirthdays birthdays={birthdaysToday}/>
-
             </ContentLayoutColWithSecondaryCol.SecondaryCol>
         </ContentLayoutColWithSecondaryCol>
     );

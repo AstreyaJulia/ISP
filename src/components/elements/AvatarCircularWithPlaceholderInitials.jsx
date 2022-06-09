@@ -7,10 +7,11 @@ import {getInitialsOnly} from "../../utils";
  * @param size - размер аватара
  * @param color - цвет аватара
  * @param classname - доп. класс/ы
+ * @param icon
  * @returns {JSX.Element}
  * @constructor
  */
-export const AvatarCircularWithPlaceholderInitials = ({size, color, classname, name}) => {
+export const AvatarCircularWithPlaceholderInitials = ({size, color, classname, name, icon}) => {
 
     /** Размеры аватаров
      * @type {{"12": {nameFont: string, size: string}, "14": {nameFont: string, size: string}, "6": {nameFont: string, size: string}, "8": {nameFont: string, size: string}, "10": {nameFont: string, size: string}}}
@@ -82,9 +83,10 @@ export const AvatarCircularWithPlaceholderInitials = ({size, color, classname, n
                 ["inline-flex items-center justify-center rounded-full", AvatarGroupSize[size].size, AvatarColor[color || "indigo"].bg, classname || ""].join(" ")}
         >
         <span
-            className={["font-medium leading-none", AvatarGroupSize[size].nameFont, AvatarColor[color || "indigo"].text].join(" ")}
+            className={["font-medium leading-none d-flex items-center justify-center", AvatarGroupSize[size].nameFont, AvatarColor[color || "indigo"].text].join(" ")}
         >
-            {getInitialsOnly(name)}
+            {name && getInitialsOnly(name)}
+            {icon && icon}
         </span>
       </span>
     </>);
