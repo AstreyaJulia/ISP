@@ -2,51 +2,82 @@ import React from 'react';
 import classnames from "classnames";
 import {Link} from 'react-router-dom'
 import {getAmount} from "../../utils";
+import {BadgeCheckIcon, ClockIcon, UsersIcon,} from '@heroicons/react/outline'
 
-export const JudgeDeadlines = () => {
+const actions = [
+    {
+        title: 'Дел с нарушением срока',
+        href: '#',
+        icon: ClockIcon,
+        col: 1,
+        iconForeground: 'text-red-700 dark:text-red-200',
+        iconBackground: 'bg-red-500/30',
+    },
+    {
+        title: 'Не отмечен результат события',
+        href: '#',
+        icon: BadgeCheckIcon,
+        col: 1,
+        iconForeground: 'text-indigo-700 dark:text-indigo-200',
+        iconBackground: 'bg-indigo-500/30',
+    },
+    {
+        title: 'Не сдано в канцелярию',
+        href: '#',
+        icon: UsersIcon,
+        col: 1,
+        iconForeground: 'text-blue-700 dark:text-blue-200',
+        iconBackground: 'bg-blue-500/30',
+    },
+]
 
-    const projects = [
-        { name: 'Не рассмотрено', icon: 'mdi-file-sync-outline', href: '#', col: 4, bgColor: 'bg-pink-600' },
-        { name: 'Приостановлено', icon: 'mdi-clock-remove-outline', href: '#', col: 12, bgColor: 'bg-purple-600' },
-        { name: 'Без движения', icon: 'mdi-file-link-outline', href: '#', col: 16, bgColor: 'bg-yellow-500' },
-        { name: 'Всего в производстве', icon: 'mdi-file-multiple-outline', href: '#', col: 8, bgColor: 'bg-green-500' },
-    ]
+export const JudgeDeadlines = ({className}) => {
+
 
     return (
-        <div>
-            <h2 className="text-gray-500 text-xs font-medium uppercase tracking-wide">Дела в производстве</h2>
-            <ul className="mt-3 grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-2">
-                {projects.map((project) => (
-                    <li key={project.name} className="col-span-1 flex shadow-sm rounded-md">
-                        <div
-                            className={classnames(
-                                project.bgColor,
-                                'flex-shrink-0 flex items-center justify-center w-16 text-white text-sm font-medium rounded-l-md'
-                            )}
-                        >
-                            <i className={classnames('mdi text-3xl d-flex align-items-center justify-content-center', project.icon)}/>
-                        </div>
-                        <Link to={project.href} className="text-gray-900 font-medium hover:text-gray-600 w-full">
+        <div className={className || ""}>
+            <h2 className="text-gray-500 dark:text-gray-400 text-xs font-medium uppercase tracking-wide">Внимание!</h2>
+            <div
+                className="mt-3 rounded-lg bg-gray-200 dark:bg-gray-700 overflow-hidden shadow divide-y divide-gray-200 dark:divide-gray-700 sm:divide-y-0 sm:grid sm:grid-cols-2 sm:gap-px">
+                {actions.map((action, actionIdx) => (
+                    <div
+                        key={action.title}
+                        className={classnames(
+                            actionIdx === 0 ? 'rounded-tl-lg rounded-tr-lg sm:rounded-tr-none' : '',
+                            actionIdx === 1 ? 'sm:rounded-tr-lg' : '',
+                            actionIdx === actions.length - 2 ? 'sm:rounded-bl-lg' : '',
+                            actionIdx === actions.length - 1 ? 'rounded-bl-lg rounded-br-lg sm:rounded-bl-none' : '',
+                            'relative group bg-white dark:bg-gray-900 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500'
+                        )}
+                    >
+                        <Link to={action.href} className="w-full h-full p-4 focus:outline-none flex">
 
-                        <div className="flex-1 flex items-center justify-between border-t border-r border-b border-gray-200 bg-white rounded-r-md truncate">
-                            <div className="flex-1 px-4 py-2 text-sm truncate">
-                                    {project.name}
-                                <p className="text-gray-500">{project.col} {`${getAmount(project.col, {single: "дело", multi: "дела", count: "дел"})}`}</p>
+                            <div className="flex items-center">
+            <span
+                className={classnames(
+                    action.iconBackground,
+                    action.iconForeground,
+                    'rounded-lg inline-flex p-3 ring-4 ring-white dark:ring-gray-900'
+                )}
+            >
+              <action.icon className="h-6 w-6" aria-hidden="true"/>
+            </span>
+                                {/* Extend touch target to entire panel */}
+                                <div className="flex-1 px-4 py-2 text-sm truncate">
+                                    {action.title}
+                                    <p className="text-gray-500">{action.col} {`${getAmount(action.col, {
+                                        single: "дело",
+                                        multi: "дела",
+                                        count: "дел"
+                                    })}`}</p>
+                                </div>
+
                             </div>
-                            <div className="flex-shrink-0 pr-2">
-                                <button
-                                    type="button"
-                                    className="w-8 h-8 bg-white inline-flex items-center justify-center text-gray-400 rounded-full bg-transparent hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                >
-                                    <span className="sr-only">Open options</span>
-                                </button>
-                            </div>
-                        </div>
                         </Link>
 
-                    </li>
+                    </div>
                 ))}
-            </ul>
+            </div>
         </div>
     );
 };

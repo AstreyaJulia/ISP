@@ -18,7 +18,7 @@ const TodayBirthdays = ({birthdays}) => {
                                 </div>
                                 <div className="flex-1 min-w-0">
                                     <span className="absolute inset-0" aria-hidden="true"/>
-                                    <p className="text-sm font-medium text-gray-900">
+                                    <p className="text-sm font-medium text-gray-900 dark:text-white">
                                         {getInitials(birthday.user.fullname)}
                                     </p>
                                     <p className="text-sm text-gray-500 truncate">

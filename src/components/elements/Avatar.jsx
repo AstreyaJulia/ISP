@@ -18,7 +18,7 @@ Avatar.propTypes = {
     name: PropTypes.string.isRequired,
     avatar: PropTypes.string,
     /**  Цвет аватара */
-    color: PropTypes.oneOf(["red", "orange", "yellow", "green", "cyan", "blue", "indigo", "pink"]).isRequired,
+    color: PropTypes.oneOf(["red", "orange", "yellow", "green", "cyan", "blue", "indigo", "pink"]),
     /** Размер аватара */
     size: PropTypes.oneOf(["6", "8", "10", "12", "14"]).isRequired,
     /** Доп. класс для аватара */

@@ -108,7 +108,7 @@ export const users = [{
     sudo: "0",
     username: "Vasechkina_MI",
     fullname: "Васечкина Мария Ивановна",
-    color: "rose",
+    color: "red",
     gender: "female",
     profession: "Секретарь суда",
     judge: "",

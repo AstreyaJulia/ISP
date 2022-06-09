@@ -9,6 +9,7 @@ import TodayBirthdays from "../components/widgets/TodayBirthdays";
 import ContentLayoutColWithSecondaryCol from "../layouts/ContentLayouts/ContentLayoutColWithSecondaryCol";
 import {useSelector} from "react-redux";
 import {JudgeDeadlines} from "../components/widgets/JudgeDeadlines";
+import JudgeCases from "../components/widgets/JudgeCases";
 
 /*let instance = null;
 
@@ -260,6 +261,7 @@ const Home = () => {
             <ContentLayoutColWithSecondaryCol.MainCol>
                 <div>
                     <JudgeDeadlines/>
+                    <JudgeCases className="mt-4"/>
 
                     {/*<WeatherWidget apiKey={config.OPEN_WEATHER_API_KEY}
                                                cityID={config.OPEN_WEATHER_CITY_ID}/>
