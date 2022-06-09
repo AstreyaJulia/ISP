@@ -14,7 +14,7 @@ const JudgeCases = ({className}) => {
     return (<div className={className || ""}>
         <h2 className="text-gray-500 dark:text-gray-400 text-xs font-medium uppercase tracking-wide">Дела в
             производстве</h2>
-        <div className="mt-3 grid grid-cols-1 gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-2">
+        <div className="mt-3 grid grid-cols-1 gap-3 sm:gap-4 sm:grid-cols-2 xl:grid-cols-2">
             {projects.map((project) => (
                 <CardWithLeftIcon key={project.name} icon={project.icon} color={project.color} href={project.href}
                                   title={project.name} subtitle={`${project.col} ${getAmount(project.col, {

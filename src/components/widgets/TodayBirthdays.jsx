@@ -8,9 +8,9 @@ const TodayBirthdays = ({birthdays}) => {
         <div className="widget bg-white dark:bg-gray-900 overflow-hidden shadow rounded-lg mb-3 p-5">
             <CardHeader title="Дни рождения сегодня" className=""/>
             <div className="flow-root mt-4">
-                <ul>
+                <ul className="grid col-span-1 gap-4 mt-1">
                     {birthdays.map((birthday) => (
-                        <li key={birthday.user.fullname} className="pt-3">
+                        <li key={birthday.user.fullname}>
                             <div className="flex items-center space-x-4">
                                 <div className="flex-shrink-0">
                                     <Avatar size="10" avatar={birthday.user.avatar} name={birthday.user.fullname}

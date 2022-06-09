@@ -39,16 +39,16 @@ const CardWithLeftIcon = ({color, icon, href, title, subtitle}) => {
         },
     }
 
-    return (<div className="col-span-1 flex shadow-sm rounded-md">
+    return (<div className="relative col-span-1 flex shadow-sm rounded-md">
             <div
                 className={classnames(colors[color].bg, 'flex-shrink-0 flex items-center justify-center w-16 text-gray-100 dark:text-gray-800 text-sm font-medium rounded-l-md')}
             >
                 <i className={classnames('mdi text-2xl d-flex align-items-center justify-content-center', colors[color].text, icon)}/>
             </div>
-            <Link to={href} className="text-gray-900 dark:text-gray-50 hover:text-gray-600 w-full">
+            <Link to={href} className="min-w-0 text-gray-900 dark:text-gray-50 hover:text-gray-600 w-full">
                 <div
-                    className="flex-1 flex items-center justify-between border-t border-r border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 rounded-r-md truncate">
-                    <div className="flex-1 px-4 py-2 text-sm truncate">
+                    className="flex items-center justify-between border-t border-r border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 rounded-r-md">
+                    <div className="min-w-0 flex flex-col px-4 py-2 text-sm">
                         <span className="truncate">{title}</span>
                         <p className="text-gray-500 truncate">{subtitle}</p>
                     </div>

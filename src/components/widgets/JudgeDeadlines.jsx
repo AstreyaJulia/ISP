@@ -47,14 +47,13 @@ export const JudgeDeadlines = ({className}) => {
                             'relative group bg-white dark:bg-gray-900 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500'
                         )}
                     >
-                        <Link to={action.href} className="w-full h-full p-4 focus:outline-none flex">
-
-                            <div className="flex items-center">
-                                <Avatar size="14" color={action.color} icon={<i className={['text-2xl mdi', action.icon].join(' ')} />} shape="roundedLG" />
+                        <Link to={action.href} className="w-full focus:outline-none min-w-0">
+                            <div className="flex items-center p-4">
+                                <Avatar size="14" color={action.color} icon={<i className={['text-2xl mdi', action.icon].join(' ')} />} shape="roundedLG" classname="flex-shrink-0" />
                                 {/* Extend touch target to entire panel */}
-                                <div className="flex-1 px-4 py-2 text-sm truncate">
-                                    {action.title}
-                                    <p className="text-gray-500">{action.col} {`${getAmount(action.col, {
+                                <div className="min-w-0 flex flex-col px-4 py-2 text-sm">
+                                    <span className="truncate">{action.title}</span>
+                                    <p className="text-gray-500 truncate">{action.col} {`${getAmount(action.col, {
                                         single: "дело",
                                         multi: "дела",
                                         count: "дел"
@@ -63,7 +62,6 @@ export const JudgeDeadlines = ({className}) => {
 
                             </div>
                         </Link>
-
                     </div>
                 ))}
             </div>

@@ -88,7 +88,7 @@ export const AvatarCircularWithPlaceholderInitials = ({size, color, classname, n
     return (<>
         <span
             className={
-                ["inline-flex items-center justify-center", AvatarShape[shape], AvatarGroupSize[size].size, AvatarColor[color || "indigo"].bg, classname || ""].join(" ")}
+                ["flex-shrink-0 inline-flex items-center justify-center", AvatarShape[shape], AvatarGroupSize[size].size, AvatarColor[color || "indigo"].bg, classname || ""].join(" ")}
         >
         <span
             className={["font-medium leading-none d-flex items-center justify-center", AvatarGroupSize[size].nameFont, AvatarColor[color || "indigo"].text].join(" ")}

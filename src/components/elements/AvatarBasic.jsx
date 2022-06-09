@@ -30,7 +30,7 @@ export const AvatarBasic = ({size, classname, name, avatar, shape}) => {
 
     return (<>
         <img
-            className={["inline-block", AvatarShape[shape], AvatarGroupSize[size], classname].join(" ")}
+            className={["flex-shrink-0 flex inline-block", AvatarShape[shape], AvatarGroupSize[size], classname].join(" ")}
             src={avatar}
             alt={name}
         />

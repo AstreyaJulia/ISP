@@ -35,7 +35,7 @@ const MainCol = (props) => {
         <>
             <section
                 aria-labelledby="primary-heading"
-                className="min-w-0 flex-1 h-full flex flex-col overflow-y-auto lg:order-first p-4"
+                className="min-w-0 flex-1 h-full flex flex-col overflow-y-auto  overflow-x-hidden lg:order-first p-4"
             >
                 {props.children}
             </section>
@@ -52,7 +52,7 @@ const SecondaryCol = (props) => {
     return (
         <>
             <aside className="hidden lg:block lg:flex-shrink-0 lg:order-last p-4">
-                <div className="h-full relative flex flex-col w-96 overflow-y-auto">
+                <div className="h-full relative flex flex-col w-80 overflow-y-auto">
                     {props.children}
                 </div>
             </aside>
