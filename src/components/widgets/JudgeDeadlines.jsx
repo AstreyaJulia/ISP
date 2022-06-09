@@ -2,32 +2,29 @@ import React from 'react';
 import classnames from "classnames";
 import {Link} from 'react-router-dom'
 import {getAmount} from "../../utils";
-import {BadgeCheckIcon, ClockIcon, UsersIcon,} from '@heroicons/react/outline'
+import {Avatar} from "../elements/Avatar";
 
 const actions = [
     {
         title: 'Дел с нарушением срока',
         href: '#',
-        icon: ClockIcon,
+        icon: "mdi-clock-outline",
         col: 1,
-        iconForeground: 'text-red-700 dark:text-red-200',
-        iconBackground: 'bg-red-500/30',
+        color: 'red'
     },
     {
         title: 'Не отмечен результат события',
         href: '#',
-        icon: BadgeCheckIcon,
+        icon: "mdi-check-circle-outline",
         col: 1,
-        iconForeground: 'text-indigo-700 dark:text-indigo-200',
-        iconBackground: 'bg-indigo-500/30',
+        color: 'indigo'
     },
     {
         title: 'Не сдано в канцелярию',
         href: '#',
-        icon: UsersIcon,
+        icon: "mdi-flag-remove-outline",
         col: 1,
-        iconForeground: 'text-blue-700 dark:text-blue-200',
-        iconBackground: 'bg-blue-500/30',
+        color: 'blue'
     },
 ]
 
@@ -53,15 +50,7 @@ export const JudgeDeadlines = ({className}) => {
                         <Link to={action.href} className="w-full h-full p-4 focus:outline-none flex">
 
                             <div className="flex items-center">
-            <span
-                className={classnames(
-                    action.iconBackground,
-                    action.iconForeground,
-                    'rounded-lg inline-flex p-3 ring-4 ring-white dark:ring-gray-900'
-                )}
-            >
-              <action.icon className="h-6 w-6" aria-hidden="true"/>
-            </span>
+                                <Avatar size="14" color={action.color} icon={<i className={['text-2xl mdi', action.icon].join(' ')} />} shape="roundedLG" />
                                 {/* Extend touch target to entire panel */}
                                 <div className="flex-1 px-4 py-2 text-sm truncate">
                                     {action.title}

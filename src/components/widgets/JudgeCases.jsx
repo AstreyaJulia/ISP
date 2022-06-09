@@ -1,45 +1,28 @@
 import React from "react";
-import classnames from "classnames";
-import {Link} from "react-router-dom";
 import {getAmount} from "../../utils";
+import CardWithLeftIcon from "../elements/CardWithLeftIcon";
 
 const JudgeCases = ({className}) => {
-    const projects = [
-        { name: 'Не рассмотрено', icon: 'mdi-file-sync-outline', href: '#', col: 4, bgColor: 'bg-pink-600' },
-        { name: 'Приостановлено', icon: 'mdi-clock-remove-outline', href: '#', col: 12, bgColor: 'bg-purple-600' },
-        { name: 'Без движения', icon: 'mdi-file-link-outline', href: '#', col: 16, bgColor: 'bg-yellow-500' },
-        { name: 'Всего в производстве', icon: 'mdi-file-multiple-outline', href: '#', col: 8, bgColor: 'bg-green-500' },
-    ]
+    const projects = [{
+        name: 'Не рассмотрено', icon: 'mdi-file-sync-outline', href: '#', col: 4, color: 'pink'
+    }, {
+        name: 'Приостановлено', icon: 'mdi-clock-remove-outline', href: '#', col: 12, color: 'indigo'
+    }, {
+        name: 'Без движения', icon: 'mdi-file-link-outline', href: '#', col: 16, color: 'yellow'
+    }, {name: 'Всего в производстве', icon: 'mdi-file-multiple-outline', href: '#', col: 8, color: 'green'},]
 
-    return (
-        <div className={className || ""}>
-            <h2 className="text-gray-500 dark:text-gray-400 text-xs font-medium uppercase tracking-wide">Дела в производстве</h2>
-            <ul className="mt-3 grid grid-cols-1 gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-2">
-                {projects.map((project) => (
-                    <li key={project.name} className="col-span-1 flex shadow-sm rounded-md">
-                        <div
-                            className={classnames(
-                                project.bgColor,
-                                'flex-shrink-0 flex items-center justify-center w-16 text-gray-100 dark:text-gray-800 text-sm font-medium rounded-l-md'
-                            )}
-                        >
-                            <i className={classnames('mdi text-3xl d-flex align-items-center justify-content-center', project.icon)}/>
-                        </div>
-                        <Link to={project.href} className="text-gray-900 dark:text-gray-50 hover:text-gray-600 w-full">
-
-                            <div className="flex-1 flex items-center justify-between border-t border-r border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 rounded-r-md truncate">
-                                <div className="flex-1 px-4 py-2 text-sm truncate">
-                                    {project.name}
-                                    <p className="text-gray-500">{project.col} {`${getAmount(project.col, {single: "дело", multi: "дела", count: "дел"})}`}</p>
-                                </div>
-                            </div>
-                        </Link>
-
-                    </li>
-                ))}
-            </ul>
+    return (<div className={className || ""}>
+        <h2 className="text-gray-500 dark:text-gray-400 text-xs font-medium uppercase tracking-wide">Дела в
+            производстве</h2>
+        <div className="mt-3 grid grid-cols-1 gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-2">
+            {projects.map((project) => (
+                <CardWithLeftIcon key={project.name} icon={project.icon} color={project.color} href={project.href}
+                                  title={project.name} subtitle={`${project.col} ${getAmount(project.col, {
+                    single: "дело", multi: "дела", count: "дел"
+                })}`} />
+            ))}
         </div>
-    );
+    </div>);
 };
 
 export default JudgeCases;

@@ -3,13 +3,13 @@ import PropTypes from "prop-types";
 import {AvatarBasic} from "./AvatarBasic";
 import {AvatarCircularWithPlaceholderInitials} from "./AvatarCircularWithPlaceholderInitials";
 
-export const Avatar = ({size, classname, name, avatar, color, icon}) => {
+export const Avatar = ({size, classname, name, avatar, color, icon, shape}) => {
 
     return (
         avatar ?
-            <AvatarBasic size={size} name={name} avatar={avatar} className={classname || ""}/> :
+            <AvatarBasic size={size} name={name} avatar={avatar} className={classname || ""} shape={shape}/> :
             <AvatarCircularWithPlaceholderInitials name={name} size={size} color={color || "indigo"}
-                                                   className={classname || ""} icon={icon}/>
+                                                   className={classname || ""} icon={icon} shape={shape}/>
     );
 };
 
@@ -19,6 +19,8 @@ Avatar.propTypes = {
     avatar: PropTypes.string,
     /**  Цвет аватара */
     color: PropTypes.oneOf(["red", "orange", "yellow", "green", "cyan", "blue", "indigo", "pink"]),
+    /**  Форма аватара */
+    shape: PropTypes.oneOf(["square", "roundedMD", "roundedLG", "circle"]).isRequired,
     /** Размер аватара */
     size: PropTypes.oneOf(["6", "8", "10", "12", "14"]).isRequired,
     /** Доп. класс для аватара */
@@ -29,5 +31,6 @@ Avatar.propTypes = {
 Avatar.defaultProps = {
     size: "10",
     name: "Name",
+    shape: "circle",
     classname: ""
 };

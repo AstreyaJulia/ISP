@@ -99,7 +99,7 @@ const AddEventSidebar = props => {
         return (
             <components.Option {...props}>
                 <div className="flex flex-wrap items-center">
-                    <Avatar size="6" avatar={data.avatar} name={data.name} color={data.color}/>
+                    <Avatar size="6" avatar={data.avatar} name={data.name} color={data.color} shape="circle"/>
                     <span
                         className="ml-3">{data.label.split(" ").slice(0, 1)} {data.label.split(" ").slice(1).map((n) => n[0]).join(". ").toUpperCase()}</span>
                 </div>

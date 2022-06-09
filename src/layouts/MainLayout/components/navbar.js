@@ -152,7 +152,7 @@ const NavBar = (props) => {
                             <Menu.Button
                                 className="user-dropdown max-w-xs bg-white dark:bg-gray-900 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 lg:p-1 lg:rounded-md lg:hover:bg-gray-50 dark:lg:hover:bg-gray-800">
                                 {user.fullname
-                                    ? <Avatar size="10" name={user.fullname} avatar={user.avatar}/>
+                                    ? <Avatar size="10" name={user.fullname} avatar={user.avatar} shape="circle"/>
                                     : <Skeleton
                                         className="bg-gray-500/30 after:bg-gradient-to-r from-gray-400/10 via-gray-500/10 to-gray-400/10"/>}
                                 <span

@@ -14,10 +14,9 @@ const TodayBirthdays = ({birthdays}) => {
                             <div className="flex items-center space-x-4">
                                 <div className="flex-shrink-0">
                                     <Avatar size="10" avatar={birthday.user.avatar} name={birthday.user.fullname}
-                                            color={birthday.user.color}/>
+                                            color={birthday.user.color} shape="circle"/>
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <span className="absolute inset-0" aria-hidden="true"/>
                                     <p className="text-sm text-gray-900 dark:text-white">
                                         {getInitials(birthday.user.fullname)}
                                     </p>

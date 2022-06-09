@@ -8,10 +8,11 @@ import {getInitialsOnly} from "../../utils";
  * @param color - цвет аватара
  * @param classname - доп. класс/ы
  * @param icon
+ * @param shape
  * @returns {JSX.Element}
  * @constructor
  */
-export const AvatarCircularWithPlaceholderInitials = ({size, color, classname, name, icon}) => {
+export const AvatarCircularWithPlaceholderInitials = ({size, color, classname, name, icon, shape}) => {
 
     /** Размеры аватаров
      * @type {{"12": {nameFont: string, size: string}, "14": {nameFont: string, size: string}, "6": {nameFont: string, size: string}, "8": {nameFont: string, size: string}, "10": {nameFont: string, size: string}}}
@@ -77,10 +78,17 @@ export const AvatarCircularWithPlaceholderInitials = ({size, color, classname, n
         },
     }
 
+    const AvatarShape = {
+        square: "rounded-none",
+        roundedMD: "rounded-md",
+        roundedLG: "rounded-lg",
+        circle: "rounded-full"
+    }
+
     return (<>
         <span
             className={
-                ["inline-flex items-center justify-center rounded-full", AvatarGroupSize[size].size, AvatarColor[color || "indigo"].bg, classname || ""].join(" ")}
+                ["inline-flex items-center justify-center", AvatarShape[shape], AvatarGroupSize[size].size, AvatarColor[color || "indigo"].bg, classname || ""].join(" ")}
         >
         <span
             className={["font-medium leading-none d-flex items-center justify-center", AvatarGroupSize[size].nameFont, AvatarColor[color || "indigo"].text].join(" ")}
@@ -98,6 +106,8 @@ AvatarCircularWithPlaceholderInitials.propTypes = {
     name: PropTypes.string.isRequired,
     /**  Размер аватара */
     size: PropTypes.oneOf(["6", "8", "10", "12", "14"]).isRequired,
+    /**  Форма аватара */
+    shape: PropTypes.oneOf(["square", "roundedMD", "roundedLG", "circle"]).isRequired,
     /**  Цвет аватара */
     color: PropTypes.oneOf(["red", "orange", "yellow", "green", "cyan", "blue", "indigo", "pink"]).isRequired,
     /** Доп. класс/ы для аватара */
@@ -108,6 +118,7 @@ AvatarCircularWithPlaceholderInitials.propTypes = {
 AvatarCircularWithPlaceholderInitials.defaultProps = {
     size: "10",
     color: "red",
+    shape: "circle",
     name: "Иванов Иван Иванович",
     className: ""
 };

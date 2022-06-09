@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Outlet, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {handleMenuCollapsed} from "../../store/layout";
+import {handleMenuCollapsed, handleSkin} from "../../store/layout";
 import ScrollToTop from "./components/scrolltop";
 import classNames from "classnames";
 import Sidebar from "./components/menu";
@@ -59,6 +59,20 @@ const MainLayout = (props) => {
         dispatch(fetchUserData())
             .then(res => {
                 if (res.payload.id) {
+                    let skin;
+                    let sidebar;
+                    if (JSON.stringify(res.payload.theme) === "0") {
+                        skin = "light"
+                    } else if (JSON.stringify(res.payload.theme) === "1") {
+                        skin = "dark"
+                    }
+                    if (JSON.stringify(res.payload.sidebar) === "0") {
+                        sidebar = false
+                    } else if (JSON.stringify(res.payload.sidebar) === "1") {
+                        sidebar = true
+                    }
+                    dispatch(handleSkin(skin))
+                    dispatch(handleMenuCollapsed(sidebar))
                     /* Для серверной навигации - боковое меню */
                     fetch.get("/sidebar", "")
                         .then(response => {

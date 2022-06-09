@@ -21,8 +21,12 @@ export const authSlice = createSlice({
         },
         handleLogout: state => {
             state["jwt"] = null;
-            /** Удалить токен из localStorage */
+            state.menuCollapsed = null;
+            state.skin = null;
+            /** Удалить токен и настройки из localStorage */
             localStorage.removeItem("jwt");
+            localStorage.removeItem("menuCollapsed");
+            localStorage.removeItem("skin");
         }
     }
 })
