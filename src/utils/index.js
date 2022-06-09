@@ -71,6 +71,7 @@ export const getObjectValuesByKey = (object, key) => {
  * @param count - числительное для чисел 0 и от 5 до 20 включительно
  * например: {single: "год", multi: "года", count: "лет"}
  */
+    // eslint-disable-next-line
 export const getAmount = (col, {single: single, multi: multi, count: count}) => {
     while (col > 20) {
         col = col.toString().slice(-1)
