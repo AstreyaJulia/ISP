@@ -54,6 +54,8 @@ jobs:
           
           mkdir BUILD
           cp -r api BUILD/api
+          cp -r .gitignore BUILD/.gitignore
+          cp -r conection_empty.php BUILD/conection_empty.php
           mv build/* BUILD/
 
       # Synchronize & push BUILD directory to deployment branch
