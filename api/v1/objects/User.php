@@ -242,4 +242,21 @@
       return $this->db->run($sql, $params);
     }
 
+    /**
+     *
+     * Запишем настройки интерфейса
+     * пользователя
+     * 
+     * @param string  $param
+     * @param int     $value
+     *
+     */
+    public function setUserSettings($param, $value) {
+        $sql = "UPDATE
+                    sdc_users
+                SET $param = ?
+                WHERE `id` = $this->id";
+        return $this->db->run($sql, [$value]);
+    }
+
   }

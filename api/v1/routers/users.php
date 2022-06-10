@@ -59,4 +59,33 @@ function route($db, $helpers) {
     }
     exit;
   }
+
+  // POST /user
+  if ($helpers->getMethod() === 'POST' && $helpers->getUrlData()["0"] === "users") {
+    // необходимые HTTP-заголовки
+    $helpers::headlinesPOST();
+
+    switch ($helpers->getUrlData()[1]) {
+      case 'login-data': {
+        if (in_array($helpers->getUrlData()[2], ["sidebar", "theme"])) {
+          try {
+            $helpers->setUserSettings($helpers->getUrlData()[2], (int)$helpers->getFormData()[$helpers->getUrlData()[2]]);
+          } catch (\PDOException $e){
+            $helpers::isErrorInfo(200, "Што-то пошло не так", $e);
+          }
+        } else {
+          $helpers::isErrorInfo(400, "invalid_router", "router not found");
+        }
+        break;
+      }
+      default:
+        // если переданы лишние параметры выбрасываем ошибку
+        $helpers::isErrorInfo(400, "invalid_router", "router not found");
+        break;
+    }
+    
+    exit;
+  }
+
+  $helpers::isErrorInfo(400, "invalid_router", "router not found");
 }
