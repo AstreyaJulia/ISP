@@ -65,11 +65,14 @@ function route($db, $helpers) {
     // необходимые HTTP-заголовки
     $helpers::headlinesPOST();
 
-    switch ($helpers->getUrlData()[1]) {
+    switch ($helpers->getUrlData()[1] ?? false) {
       case 'login-data': {
-        if (in_array($helpers->getUrlData()[2], ["sidebar", "theme"])) {
+
+        $param = $helpers->getFormData() ? implode(array_keys($helpers->getFormData())) : false;
+
+        if (in_array($param, ["sidebar", "theme"])) {
           try {
-            $helpers->setUserSettings($helpers->getUrlData()[2], (int)$helpers->getFormData()[$helpers->getUrlData()[2]]);
+            $helpers->setUserSettings($param, (int)$helpers->getFormData()[$param]);
           } catch (\PDOException $e){
             $helpers::isErrorInfo(200, "Што-то пошло не так", $e);
           }
