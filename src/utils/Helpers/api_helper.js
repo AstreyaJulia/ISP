@@ -39,7 +39,11 @@ axios.interceptors.response.use(
  * @param token - токен
  */
 const setAuthorization = (token) => {
-    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
+    if (token) {
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
+    } else {
+        delete axios.defaults.headers.common["Authorization"];
+    }
 };
 
 /** API-клиент */

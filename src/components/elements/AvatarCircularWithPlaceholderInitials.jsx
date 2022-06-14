@@ -38,6 +38,14 @@ export const AvatarCircularWithPlaceholderInitials = ({size, color, classname, n
             nameFont: "text-2xl",
             size: "h-14 w-14",
         },
+        16: {
+            nameFont: "text-3xl",
+            size: "h-16 w-16",
+        },
+        20: {
+            nameFont: "text-4xl",
+            size: "h-20 w-20",
+        },
     }
 
     /** Цвета аватаров
@@ -105,7 +113,7 @@ AvatarCircularWithPlaceholderInitials.propTypes = {
     /**  Данные */
     name: PropTypes.string.isRequired,
     /**  Размер аватара */
-    size: PropTypes.oneOf(["6", "8", "10", "12", "14"]).isRequired,
+    size: PropTypes.oneOf(["6", "8", "10", "12", "14", "16", "20"]).isRequired,
     /**  Форма аватара */
     shape: PropTypes.oneOf(["square", "roundedMD", "roundedLG", "circle"]).isRequired,
     /**  Цвет аватара */

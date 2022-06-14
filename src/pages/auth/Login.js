@@ -8,7 +8,7 @@ import {Controller, useForm} from "react-hook-form";
 import {handleLogin} from "../../store/authentication";
 import {Helmet} from "react-helmet";
 import config from "../../config";
-import {fetch} from "../../utils/Helpers/api_helper";
+import {fetch, setAuthorization} from "../../utils/Helpers/api_helper";
 import toast from "react-hot-toast";
 import Toast, {toastStyles} from "../../components/ui/Toast";
 
@@ -30,6 +30,7 @@ const Login = () => {
 
     const onSubmit = userData => {
         if (Object.values(userData).every(field => field.length > 0)) {
+            setAuthorization(null);
             fetch.create("/authorization", userData)
                 .then(res => {
                     if (res.data && res.data.jwt) {

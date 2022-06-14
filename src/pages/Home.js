@@ -1,8 +1,7 @@
 import React from "react";
-import UserWelcome from "../components/widgets/UserWelcome";
+//import UserWelcome from "../components/widgets/UserWelcome";
 import CalendarWidget from "../components/widgets/CalendarWidget";
-//import WeatherWidget from "../components/widgets/WeatherWidget";
-import {birthdaysToday, users} from "../@mock/SampleData"
+import {birthdaysToday, users, userStats} from "../@mock/SampleData"
 import TodayBirthdays from "../components/widgets/TodayBirthdays";
 //import {ShepherdTour, ShepherdTourContext} from "react-shepherd";
 //import PrimaryButton from "../components/elements/PrimaryButton";
@@ -10,7 +9,7 @@ import ContentLayoutColWithSecondaryCol from "../layouts/ContentLayouts/ContentL
 import {useSelector} from "react-redux";
 import {JudgeDeadlines} from "../components/widgets/JudgeDeadlines";
 import JudgeCases from "../components/widgets/JudgeCases";
-
+import DashboardWelcome from "../components/elements/DashboardWelcome";
 /*let instance = null;
 
 const backBtnClass = "px-4 py-2 text-sm bg-indigo-600 border border-transparent rounded-md shadow-sm inline-flex justify-center font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500",
@@ -260,12 +259,10 @@ const Home = () => {
         <ContentLayoutColWithSecondaryCol title="Главная" boxed={true}>
             <ContentLayoutColWithSecondaryCol.MainCol>
                 <div>
+                    <DashboardWelcome className="mb-4" userData={users[5]} />
                     <JudgeDeadlines/>
                     <JudgeCases className="mt-4"/>
 
-                    {/*<WeatherWidget apiKey={config.OPEN_WEATHER_API_KEY}
-                                               cityID={config.OPEN_WEATHER_CITY_ID}/>
-                cityID={config.OPEN_WEATHER_CITY_ID}/>*/}
                     {/*<ShepherdTour
                         steps={steps}
                         tourOptions={{
@@ -277,8 +274,6 @@ const Home = () => {
                 </div>
             </ContentLayoutColWithSecondaryCol.MainCol>
             <ContentLayoutColWithSecondaryCol.SecondaryCol>
-                <UserWelcome birthDayDate={users[0].birthday} userName={loginData.fullname}
-                             className="mb-4"/>
                 <CalendarWidget/>
                 <TodayBirthdays birthdays={birthdaysToday}/>
             </ContentLayoutColWithSecondaryCol.SecondaryCol>

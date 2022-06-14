@@ -14,6 +14,8 @@ import {handleLogout} from '../../../store/authentication';
 import Skeleton from "react-loading-skeleton";
 import toast from "react-hot-toast";
 import Toast, {toastStyles} from "../../../components/ui/Toast";
+import WeatherWidget from "./WeatherWidget";
+import config from "../../../config";
 
 const NavBar = (props) => {
 
@@ -145,6 +147,7 @@ const NavBar = (props) => {
 
                     {/** Сообщения */}
                     <MessageDropdown/>
+                    <WeatherWidget apiKey={config.OPEN_WEATHER_API_KEY} lat={config.CITY_LAT} lon={config.CITY_LON} />
 
                     {/** Меню пользователя */}
                     <Menu as="div" className="ml-4 relative">

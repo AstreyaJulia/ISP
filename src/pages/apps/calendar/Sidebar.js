@@ -46,7 +46,7 @@ const SidebarLeft = props => {
                     checked={store.selectedCalendars.length === filters.length}
                     label="Все"
                     className="select-all mb-3">
-                    <Dot className="mr-2" color="gray" size="4" />
+                    <Dot className="mr-2" color="gray" size="4" shape="roundedMD" fill="bordered" />
                 </Checkbox>
                 <div className="calendar-events-filter">
                     {filters.length &&
@@ -64,7 +64,7 @@ const SidebarLeft = props => {
                                     label={filter.label}
                                     className={
                                         [filter.className, "mb-3"].join(" ")}>
-                                    <Dot className="mr-2" color={filter.color} size="4" />
+                                    <Dot className="mr-2" color={filter.color} size="4" shape="roundedMD" fill="bordered"/>
                                 </Checkbox>
                             )
                         })}

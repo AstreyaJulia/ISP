@@ -7,9 +7,9 @@ export const Avatar = ({size, classname, name, avatar, color, icon, shape}) => {
 
     return (
         avatar ?
-            <AvatarBasic size={size} name={name} avatar={avatar} className={classname || ""} shape={shape}/> :
+            <AvatarBasic size={size} name={name} avatar={avatar} classname={classname || ""} shape={shape}/> :
             <AvatarCircularWithPlaceholderInitials name={name} size={size} color={color || "indigo"}
-                                                   className={classname || ""} icon={icon} shape={shape}/>
+                                                   classname={classname || ""} icon={icon} shape={shape}/>
     );
 };
 
@@ -22,7 +22,7 @@ Avatar.propTypes = {
     /**  Форма аватара */
     shape: PropTypes.oneOf(["square", "roundedMD", "roundedLG", "circle"]).isRequired,
     /** Размер аватара */
-    size: PropTypes.oneOf(["6", "8", "10", "12", "14"]).isRequired,
+    size: PropTypes.oneOf(["6", "8", "10", "12", "14", "16", "20"]).isRequired,
     /** Доп. класс для аватара */
     classname: PropTypes.string
 };

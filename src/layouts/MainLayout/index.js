@@ -21,10 +21,6 @@ import Toast, {toastStyles} from "../../components/ui/Toast";
  */
 const MainLayout = (props) => {
 
-    if (localStorage.getItem("jwt")) {
-        setAuthorization(localStorage.getItem("jwt").replace(/['"]+/g, '').toString())
-    }
-
     /** Пропсы */
     const {children} = props;
 
@@ -40,6 +36,7 @@ const MainLayout = (props) => {
     const layoutStore = useSelector((state) => state.layout);
 
     const userdataStore = useSelector((state) => state.userData);
+    const jwtdataStore = useSelector((state) => state["jwt"]);
     const loginData = userdataStore.userData;
 
     /** Состояние меню - узкое/широкое*/
@@ -56,6 +53,9 @@ const MainLayout = (props) => {
 
         /* Получаем данные вошедшего пользователя */
         /* TODO этот кусок можно использовать в других местах, где нужна проверка токена */
+        if (localStorage.getItem("jwt") || jwtdataStore) {
+            setAuthorization(localStorage.getItem("jwt").replace(/['"]+/g, '').toString() || jwtdataStore.replace(/['"]+/g, '').toString())
+        }
         dispatch(fetchUserData())
             .then(res => {
                 if (res.payload.id) {
@@ -74,6 +74,9 @@ const MainLayout = (props) => {
                     dispatch(handleSkin(skin))
                     dispatch(handleMenuCollapsed(sidebar))
                     /* Для серверной навигации - боковое меню */
+                    if (localStorage.getItem("jwt")) {
+                        setAuthorization(localStorage.getItem("jwt").replace(/['"]+/g, '').toString())
+                    }
                     fetch.get("/sidebar", "")
                         .then(response => {
                             if (response.data || response.data !== []) {

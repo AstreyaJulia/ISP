@@ -82,7 +82,7 @@ const AddEventSidebar = props => {
         return (
             <components.Option {...props}>
                 <div className="flex flex-wrap items-center">
-                    <Dot className="mr-3" color={data.value} size="3"/>
+                    <Dot className="mr-3" color={data.value} size="3" shape="roundedMD" fill="bordered"/>
                     <span>{data.label}</span>
                 </div>
             </components.Option>

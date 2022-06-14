@@ -181,6 +181,12 @@ export const users = [{
 }
 ]
 
+export const userStats = [
+    {label: 'Осталось дней отпуска', value: 12},
+    {label: 'Дней болезни', value: 4},
+    {label: 'Дежурная неделя', value: ""},
+]
+
 export const messages = [{
     id: "1",
     user: users[5],

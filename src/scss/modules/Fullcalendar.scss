@@ -43,6 +43,14 @@
  @apply z-50;
 }
 
+.today-calendar .fc .fc-daygrid-body-unbalanced .fc-daygrid-day-events {
+  position: revert;
+}
+
+.today-calendar .fc .fc-daygrid-event {
+  margin-top: 3px;
+}
+
 /** Фон событий */
 .today-calendar .fc-daygrid-block-event.fc-event-indigo {
   @apply border-indigo-500 hover:border-indigo-600;

@@ -2,11 +2,13 @@ import React, {Fragment, useState} from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import {Dialog, Transition} from "@headlessui/react";
 import {XIcon} from "@heroicons/react/outline";
-import logo from "../../../../assets/images/logo/isp-logo.svg";
+import logo from "../../../../assets/images/logo/gerbwoframe.svg";
 import classNames from "classnames";
 import {Circle, Disc} from "react-feather";
 import config from "../../../../config";
 import NavMenuItems from "./NavMenuItems";
+import {Avatar} from "../../../../components/elements/Avatar";
+import {getAmount, getInitials} from "../../../../utils";
 
 const Sidebar = (props) => {
     const {
@@ -103,11 +105,16 @@ const Sidebar = (props) => {
                                 </div>
                             </Transition.Child>
                             <div className="flex-shrink-0 flex items-center px-4">
-                                <img
-                                    className="h-8 w-auto"
-                                    src={logo}
-                                    alt={config.APP_NAME}
-                                />
+                                <div className="flex items-center space-x-3">
+                                    <div className="flex-shrink-0">
+                                        <Avatar size="10" avatar={logo} shape="roundedMD" classname="border-2 border-gray-200 dark:border-gray-700" name={config.COURT_NAME}/>
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                        <p className="text-xs text-gray-700 dark:text-gray-200 flex-wrap font-medium">
+                                            {config.COURT_NAME}
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                             <nav
                                 className="mt-5 flex-shrink-0 h-full divide-y bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 overflow-y-auto"
@@ -117,7 +124,7 @@ const Sidebar = (props) => {
                                     className="main-menu-content"
                                     options={{wheelPropagation: false}}
                                 >
-                                    <div className="px-2 space-y-1">
+                                    <div className="px-4 space-y-1">
                                         <NavMenuItems
                                             items={menuData}
                                             menuData={menuData}
@@ -146,20 +153,30 @@ const Sidebar = (props) => {
                     "sidebar-menu relative hidden lg:flex lg:flex-col lg:fixed lg:inset-y-0"
                 )}
             >
-                <div className="absolute top-0 right-0 mr-4 pt-4">
-                    <MenuToggler/>
-                </div>
+
 
                 <div
                     className="flex flex-col flex-grow shadow bg-white dark:bg-gray-900 pt-5 pb-4 overflow-y-auto border-r border-gray-200 dark:border-gray-600">
                     <div
                         className={classNames(
-                            "flex items-center content-center flex-shrink-0 px-4 h-8"
+                            "flex items-center content-center flex-shrink-0 px-4 h-10 mb-3"
                         )}
                     >
                         {!menuCollapsed ? (
-                            <img className="h-8 w-auto" src={logo} alt={config.APP_NAME}/>
+                                <div className="flex items-center space-x-3">
+                                    <div className="flex-shrink-0">
+                                        <Avatar size="10" avatar={logo} shape="roundedMD" classname="border-2 border-gray-200 dark:border-gray-700" name={config.COURT_NAME}/>
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                        <p className="text-xs text-gray-700 dark:text-gray-200 flex-wrap font-medium">
+                                            {config.COURT_NAME}
+                                        </p>
+                                    </div>
+                                </div>
                         ) : null}
+                        <div className="ml-2">
+                            <MenuToggler/>
+                        </div>
                     </div>
                     <nav
                         className="mt-5 flex-1 flex flex-col overflow-y-auto"
@@ -171,7 +188,7 @@ const Sidebar = (props) => {
                         >
                             <div
                                 className={classNames(
-                                    "px-2 space-y-1",
+                                    "px-4 space-y-1",
                                     menuCollapsed ? "justify-center" : ""
                                 )}
                             >
