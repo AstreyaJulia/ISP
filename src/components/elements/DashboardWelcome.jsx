@@ -11,7 +11,9 @@ const DashboardWelcome = ({className, userData, userStats}) => {
                 <div className="sm:flex sm:items-center sm:justify-between">
                     <div className="sm:flex sm:space-x-5">
                         <div className="flex-shrink-0">
-                            <Avatar name={userData.fullname} avatar={userData.avatar} color={userData.color} shape="circle" size="20" classname="mx-auto"/>
+                            <div className="mx-auto flex">
+                                <Avatar name={userData.fullname} avatar={userData.avatar} color={userData.color} shape="circle" size="20" classname="mx-auto"/>
+                            </div>
                         </div>
                         <div className="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">
                             <p className="text-sm font-medium text-gray-600 dark:text-gray-400">С возвращением,</p>
@@ -22,9 +24,9 @@ const DashboardWelcome = ({className, userData, userStats}) => {
                     <div className="mt-5 flex justify-center sm:mt-0">
                         <a
                             href="#"
-                            className="flex justify-center items-center px-4 py-2 border border-gray-300 dark:border-gray-700 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white dark:bg-gray-900 dark:text-gray-200 hover:bg-gray-50"
+                            className="flex justify-center items-center px-4 py-2 border border-gray-300 dark:border-gray-700 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white dark:bg-gray-900 dark:text-gray-200 hover:bg-gray-50 flex-wrap"
                         >
-                            Мой профиль
+                            <span className="text-center">Мой профиль</span>
                         </a>
                     </div>
                 </div>
