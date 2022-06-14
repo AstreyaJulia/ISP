@@ -131,6 +131,7 @@ const MainLayout = (props) => {
                     user={loginData}
                     menuCollapsed={menuCollapsed}
                     setMenuVisibility={setMenuVisibility}
+                    setMenuCollapsed={setMenuCollapsed}
                 />
 
                 {/* Основное содержимое */}

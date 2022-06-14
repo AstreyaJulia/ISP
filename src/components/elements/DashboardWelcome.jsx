@@ -17,7 +17,7 @@ const DashboardWelcome = ({className, userData, userStats}) => {
                         </div>
                         <div className="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">
                             <p className="text-sm font-medium text-gray-600 dark:text-gray-400">С возвращением,</p>
-                            <p className="text-xl font-bold text-gray-900 dark:text-gray-200 sm:text-2xl">{userData.fullname}</p>
+                            <p className="text-xl font-bold text-gray-700 dark:text-gray-300 sm:text-2xl">{userData.fullname}</p>
                             <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{userData.profession}</p>
                         </div>
                     </div>

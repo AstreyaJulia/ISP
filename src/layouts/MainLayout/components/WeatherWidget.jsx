@@ -6,37 +6,25 @@ import "moment/locale/ru";
 import Skeleton from "react-loading-skeleton";
 import {fetch, setAuthorization} from "../../../utils/Helpers/api_helper";
 import {Menu, Transition} from "@headlessui/react";
+import {makeArrayFromObj} from "../../../utils";
 
 const WeatherWidget = ({apiKey, lat, lon, className}) => {
 
     /** Адрес Open Weather
      * @type {string}
      */
-    const OPEN_WEATHER_API = "https://api.openweathermap.org/data/2.5/weather";
+    const OPEN_WEATHER_API_CURRENT = "https://api.openweathermap.org/data/2.5/weather";
+    const OPEN_WEATHER_API_FORECAST = "https://api.openweathermap.org/data/2.5/forecast";
 
-    /** Стейты погоды и даты */
-    const [date, setDate] = useState({});
+    /** Стейты погоды */
     const [weather, setWeather] = useState({});
-
-    /** Текущая дата
-     * @type {{dayOfWeek: string, day: string}}
-     */
-    const currentDate = {
-        day: "", dayOfWeek: ""
-    };
-
+    const [forecast, setForecast] = useState([]);
     /** Текущая погода
      * @type {{bg: string, city: string, icon: string, description: string, humidity: string, temp_max: string, wind: string}}
      */
     const currentWeather = {
         description: "", icon: "", temp_max: "", bg: "", wind: "", humidity: "", city: ""
     };
-
-    function getDate() {
-        currentDate.dayOfWeek = moment().locale("ru").format("dddd");
-        currentDate.day = moment().locale("ru").format("DD.MM.YYYY");
-        setDate(currentDate);
-    }
 
     const weatherStates = {
         200: {"desc": "гроза с небольшим дождем", "icon": "wi-day-thunderstorm"},
@@ -99,43 +87,70 @@ const WeatherWidget = ({apiKey, lat, lon, className}) => {
         lat: lat, lon: lon, appid: apiKey, units: "metric", lang: "ru"
     };
 
-    setAuthorization(null);
-
-    const url = new URL(OPEN_WEATHER_API), params = getParams;
-    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
-
     const getWeather = () => {
-        fetch.get(OPEN_WEATHER_API, getParams)
+        setAuthorization(null);
+
+        Promise.all([fetch.get(OPEN_WEATHER_API_CURRENT, getParams), fetch.get(OPEN_WEATHER_API_FORECAST, getParams)])
             .then((response) => {
-                const {description} = response.weather[0];
-                const {temp_max, humidity} = response.main;
-                const {speed} = response.wind;
+                const current = response[0];
+                const {description} = current.weather[0];
+                const {temp_max, humidity} = current.main;
+                const {speed} = current.wind;
                 currentWeather.description = description;
-                currentWeather.icon = weatherStates[response.weather[0].id].icon;
+                currentWeather.icon = weatherStates[current.weather[0].id].icon;
                 currentWeather.temp_max = Math.round(temp_max).toString();
                 currentWeather.temp_max > 0 ? currentWeather.temp_max = "+" + currentWeather.temp_max + "°" : currentWeather.temp_max = currentWeather.temp_max + "°";
                 currentWeather.wind = Math.round(speed).toString();
                 currentWeather.humidity = Math.round(humidity).toString();
-                currentWeather.city = response.name;
-                currentWeather.bg = weatherStates[response.weather[0].id].bg;
+                currentWeather.city = current.name;
+                currentWeather.bg = weatherStates[current.weather[0].id].bg;
                 setWeather(currentWeather);
+                const fcast = response[1].list.slice(0, 12);
+                setForecast(makeArrayFromObj(fcast));
             })
             .catch((err) => console.log(err));
     }
 
+    const forecastItem = (item) => {
+        const weather = item.weather[0];
+        const main = item.main;
+        return (
+                <div className="p-4 flex flex-col justify-between flex-shrink-0" key={item.dt}>
+                    {main.temp_max ?
+                        <>
+                            <div className="flex justify-between items-center">
+                                <div className="flex flex-col">
+                                    <p className="text-xs text-gray-500 dark:text-gray-400">{moment(item.dt_txt).calendar()}</p>
+                                    <p className="text-sm text-gray-500 dark:text-gray-400">{moment(item.dt_txt).format("Do MMM")}</p>
+                                    <div className="flex items-center">
+                                        <p
+                                            className="text-base font-bold leading-7 text-gray-700 dark:text-gray-200 sm:leading-9 relative z-10 mr-4">{Math.round(main.temp_max) > 0 ? "+" + Math.round(main.temp_max) + "°" : Math.round(main.temp_max) + "°"}
+                                            <span className="font-medium">C</span>
+                                        </p>
+                                        <i
+                                            className={classnames("d-flex align-items-center text-xl justify-content-center text-gray-500 wi ", weatherStates[weather.id].icon)} title={weather.description}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                        </> : <Skeleton count="2"
+                                        className="bg-gray-500/30 after:bg-gradient-to-r from-gray-400/10 via-gray-500/10 to-gray-400/10"/>}
+                </div>
+        )
+    }
+
     useEffect(() => {
         getWeather();
-        getDate();
         setInterval(() => {
             getWeather();
-            getDate();
         }, 300000);
         // eslint-disable-next-line
     }, []);
 
     return (<Menu as="div"
                   className="relative inline-block text-left ml-4 border-l border-r px-2 border-gray-200 dark:border-gray-700">
-        <div>
+        <div className={className}>
             <Menu.Button
                 className="messages-dropdown-button bg-white dark:bg-gray-900 p-1 rounded-full text-gray-400 dark:text-gray-500 dark:hover:text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 flex items-center">
                 <i
@@ -155,40 +170,41 @@ const WeatherWidget = ({apiKey, lat, lon, className}) => {
             leaveTo="transform opacity-0 scale-95"
         >
             <Menu.Items
-                className="dark:border dark:border-gray-700 origin-top-right absolute right-0 mt-2 w-60 rounded-md shadow-lg py-1 bg-white dark:bg-gray-900 ring-1 ring-black ring-opacity-5 focus:outline-none divide-y divide-gray-100 dark:divide-gray-800">
+                className="dark:border dark:border-gray-700 origin-top-right absolute right-0 mt-2 w-72 rounded-md shadow-lg py-1 bg-white dark:bg-gray-900 ring-1 ring-black ring-opacity-5 focus:outline-none divide-y divide-gray-100 dark:divide-gray-800">
                 <Menu.Item>
-                    {({active}) => (
-                        <div className="p-3 flex flex-col justify-between">
-                            {weather.temp_max ?
-                                <>
-                                    <div className="flex justify-between items-center">
-                                        <div className="flex flex-col">
-                                            <p className="text-sm text-gray-500 dark:text-gray-400">Сейчас</p>
-                                            <p
-                                                className="text-2xl font-bold leading-7 text-gray-700 dark:text-gray-200 sm:leading-9 relative z-10 mr-4">{weather.temp_max}
-                                                <span className="font-medium">C</span>
-                                            </p>
-                                            <div className="flex items-center text-sm text-gray-700 dark:text-gray-200 relative z-10 mt-1">
-                                                <Droplet size={16}/><span className="ml-2 mr-3"
-                                                                          title="Влажность">{weather.humidity}%</span>
-                                                <Wind size={16}/><span className="ml-2"
-                                                                       title="Скорость ветра">{weather.wind} м/с</span>
-                                            </div>
+                    <div className="p-4 flex flex-col justify-between flex-shrink-0">
+                        {weather.temp_max ?
+                            <>
+                                <div className="flex justify-between items-center">
+                                    <div className="flex flex-col">
+                                        <p className="text-sm text-gray-500 dark:text-gray-400">Сейчас</p>
+                                        <p
+                                            className="text-2xl font-bold leading-7 text-gray-700 dark:text-gray-200 sm:leading-9 relative z-10 mr-4">{weather.temp_max}
+                                            <span className="font-medium">C</span>
+                                        </p>
+                                        <div className="flex items-center text-sm text-gray-700 dark:text-gray-200 relative z-10 mt-1">
+                                            <Droplet size={16}/><span className="ml-2 mr-3 flex-shrink-0"
+                                                                      title="Влажность">{weather.humidity}%</span>
+                                            <Wind size={16}/><span className="ml-2 flex-shrink-0"
+                                                                   title="Скорость ветра">{weather.wind} м/с</span>
                                         </div>
-
-                                        <div className="flex flex-col justify-center items-center">
-                                            <i
-                                                className={classnames("ms-2 d-flex align-items-center text-5xl justify-content-center text-gray-500 wi ", weather.icon)}
-                                            />
-                                            <p className="text-xs text-gray-500 dark:text-gray-400">{weather.description}</p>
-                                        </div>
-
                                     </div>
+
+                                    <div className="flex flex-col justify-center items-center">
+                                        <i
+                                            className={classnames("ms-2 d-flex align-items-center text-5xl justify-content-center text-gray-500 wi ", weather.icon)}
+                                        />
+                                        <p className="text-xs text-gray-500 dark:text-gray-400 text-center">{weather.description}</p>
+                                    </div>
+
+                                </div>
 
                             </> : <Skeleton count="2"
                                             className="bg-gray-500/30 after:bg-gradient-to-r from-gray-400/10 via-gray-500/10 to-gray-400/10"/>}
-                        </div>)}
+                    </div>
                 </Menu.Item>
+                <div className="grid grid-cols-2">
+                {forecast && forecast.map((weather) => forecastItem(weather))}</div>
             </Menu.Items>
         </Transition>
     </Menu>);

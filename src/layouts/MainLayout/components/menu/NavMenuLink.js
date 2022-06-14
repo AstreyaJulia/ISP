@@ -50,7 +50,7 @@ const NavMenuLink = ({item, menuCollapsed}) => {
                 <i className={classNames(
                     menuCollapsed
                         ? ""
-                        : "mr-4",
+                        : "mr-3",
                     "flex-shrink-0 flex items-center text-2xl mdi relative text-gray-500",
                     item.icon)
                 }
@@ -72,7 +72,7 @@ const NavMenuLink = ({item, menuCollapsed}) => {
                 </i>
                 {/** Название элемента меню, если меню узкое, не отрисовывается */}
                 {!menuCollapsed
-                    ? <span className="text-gray-900 dark:text-gray-200 font-medium">{item.pagetitle}</span>
+                    ? <span className="text-gray-800 dark:text-gray-300 text-sm">{item.pagetitle}</span>
                     : ""}
                 {/** Отрисовка бейджа для меню */}
 

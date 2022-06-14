@@ -1,5 +1,6 @@
 import {MoreHorizontal} from "react-feather";
 import React from "react";
+import classnames from "classnames";
 
 /** Заголовок группы меню сайдбара
  * @param item - элемент заголовка
@@ -8,7 +9,9 @@ import React from "react";
  * @constructor */
 const NavMenuSectionHeader = ({item, menuCollapsed}) => {
     return (
-        <div className="text-gray-400 text-xs font-medium uppercase tracking-wide my-3"
+        <div className={classnames("text-gray-400 text-xs font-medium uppercase tracking-wide my-3 flex", !menuCollapsed
+            ? ""
+            : "justify-center")}
              key={item.header}>
             {/* Если узкое, название скрывается */}
             {!menuCollapsed
