@@ -252,11 +252,26 @@
      *
      */
     public function setUserSettings($param, $value) {
-        $sql = "UPDATE
-                    sdc_users
-                SET $param = ?
-                WHERE `id` = $this->id";
-        return $this->db->run($sql, [$value]);
+      $sql = "UPDATE
+                  sdc_users
+              SET $param = ?
+              WHERE `id` = $this->id";
+      $this->db->run($sql, [$value]);
+
+      $row = $this->db->run(
+        "SELECT username, $param FROM sdc_users WHERE `id` = $this->id"
+        )->fetch(\PDO::FETCH_OBJ);
+
+      if ($row->$param === $value) {
+        try {
+          return $row;
+        } catch (\PDOException $e){
+          throw new \PDOException($e);
+        }
+      } else {
+        throw new \PDOException("Запись не изменена");
+      }
+
     }
 
   }

@@ -72,7 +72,8 @@ function route($db, $helpers) {
 
         if (in_array($param, ["sidebar", "theme"])) {
           try {
-            $helpers->setUserSettings($param, (int)$helpers->getFormData()[$param]);
+            $output["data"] = $helpers->setUserSettings($param, (int)$helpers->getFormData()[$param]);
+            $helpers->getJsonEncode($output);
           } catch (\PDOException $e){
             $helpers::isErrorInfo(200, "Што-то пошло не так", $e);
           }
