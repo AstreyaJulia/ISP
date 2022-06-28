@@ -91,7 +91,7 @@ const Calendar = () => {
                         />
                     </div>
                 </ContentLayoutWithSidebar.Sidebar>
-                <ContentLayoutWithSidebar.Body>
+                <ContentLayoutWithSidebar.Body color="white">
                     <CalendarModule
                         store={store}
                         dispatch={dispatch}

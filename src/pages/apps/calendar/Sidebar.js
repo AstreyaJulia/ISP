@@ -32,7 +32,7 @@ const SidebarLeft = props => {
     return (
         <Fragment>
             <div className="sidebar-wrapper">
-                <BasicButton label="Cобытие" onClick={handleAddEventClick} className="w-full mb-6">
+                <BasicButton label="Новое Cобытие" onClick={handleAddEventClick} className="w-full mb-6">
                     <PlusIcon className="w-4 h-4 mr-2"/>
                 </BasicButton>
                 <p className="section-label mb-4">

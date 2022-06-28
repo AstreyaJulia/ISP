@@ -87,3 +87,28 @@ export const getAmount = (col, {single: single, multi: multi, count: count}) => 
         return count
     }
 }
+
+/** Транслитератор
+ * @param string - транслитерируемая строка
+ * @returns {string}
+ */
+export const transliterate = (string) => {
+    const rusTable = ['а', 'А', 'б', 'Б', 'в', 'В', 'г', 'Г', 'д', 'Д', 'е', 'Е', 'ё', 'Ё', 'ж', 'Ж', 'з', 'З', 'и', 'И', 'й', 'Й', 'к', 'К', 'л', 'Л', 'м', 'М', 'н', 'Н', 'о', 'О', 'п', 'П', 'р', 'Р', 'с', 'С', 'т', 'Т', 'у', 'У', 'ф', 'Ф', 'х', 'Х', 'ц', 'Ц', 'ч', 'Ч', 'ш', 'Ш', 'щ', 'Щ', 'ь', 'Ь', 'ы', 'Ы', 'ъ', 'Ъ', 'э', 'Э', 'ю', 'Ю', 'я', 'Я'];
+    const transTable = ['a', 'A', 'b', 'B', 'v', 'V', 'g', 'G', 'd', 'D', 'e', 'E', 'ye', 'Ye', 'zh', 'Zh', 'z', 'Z', 'i', 'I', 'y', 'Y', 'k', 'K', 'l', 'L', 'm', 'M', 'n', 'N', 'o', 'O', 'p', 'P', 'r', 'R', 's', 'S', 't', 'T', 'u', 'U', 'f', 'F', 'h', 'H', 'ts', 'Ts', 'ch', 'Ch', 'sh', 'Sh', 'shch', 'Shch', '', '', 'y', 'Y', '', '', 'e', 'E', 'yu', 'Yu', 'ya', 'Ya'];
+
+    const convert = [];
+    Array.from(string).map((letter) => {
+        const index = rusTable.indexOf(letter);
+        convert.push(transTable[index] || letter);
+    })
+    return convert.join('');
+}
+
+/** Из полного имени позвращает логин
+ * в формате Фамилия_ИО, и транслитерирует его
+ * @param fullname
+ * @returns {string}
+ */
+export const getLoginFromName = (fullname) => {
+    return transliterate(fullname.split(" ").slice(0, 1) + "_" + fullname.split(" ").slice(1).map((n) => n[0]).join("").toUpperCase());
+}

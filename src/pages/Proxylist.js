@@ -114,7 +114,7 @@ const Proxylist = () => {
                     </div>
                 </div>
             </ContentLayoutWithSidebar.Sidebar>
-            <ContentLayoutWithSidebar.Body>
+            <ContentLayoutWithSidebar.Body color="white">
                 <div className="p-4 h-full">
                     <div className="mb-4 h-8">
                         {loginData.sudo === 1

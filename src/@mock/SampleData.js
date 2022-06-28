@@ -543,3 +543,22 @@ export const calendCat = [
         name: "Категория 4"
     }
 ]
+
+export const usersCat = [
+    {
+        color: "indigo",
+        name: "Судьи"
+    },
+    {
+        color: "green",
+        name: "Помощники судей"
+    },
+    {
+        color: "cyan",
+        name: "Секретари судебных заседаний"
+    },
+    {
+        color: "yellow",
+        name: "Канцелярия"
+    },
+]

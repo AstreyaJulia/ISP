@@ -4,6 +4,7 @@ import {MenuIcon, XIcon} from "@heroicons/react/outline";
 import {Helmet} from "react-helmet";
 import config from "../../../config";
 import PageHeader from "../../../components/PageHeader";
+import classnames from "classnames";
 
 /** Контекст для передачи в дочерние компоненты
  * @type {React.Context<null>} */
@@ -87,7 +88,7 @@ const Body = (props) => {
                         </button>
                     </div>
                     <div
-                        className="flex-1 z-0 border border-gray-200 dark:border-gray-600 rounded-lg lg:rounded-l-none lg:border-l-0 bg-white dark:bg-gray-900">
+                        className={classnames("flex-1 z-0 border border-gray-200 dark:border-gray-600 rounded-lg lg:rounded-l-none lg:border-l-0", props.color === "white" ? "bg-white dark:bg-gray-900" : "bg-gray-100 dark:bg-gray-800")}>
                         {props.children}
                     </div>
                 </div>

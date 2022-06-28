@@ -3,6 +3,7 @@ import layout from "./layout";
 import auth from "./authentication";
 import userData from "./userData";
 import calendar from "../pages/apps/calendar/store";
+import users from "./users";
 
 /** Корневое хранилище, объединяем все хранилища
  * FIXME добавлять новые хранилища сюда
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
     layout,
     auth,
     userData,
-    calendar
+    calendar,
+    users
 });
 
 export default rootReducer;

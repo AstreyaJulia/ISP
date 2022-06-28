@@ -12,7 +12,7 @@ import classNames from "classnames";
 const CardHeader = ({title, className, ...props}) => {
     return (
         <h3
-            className={classNames("text-base leading-6 font-medium text-gray-800 dark:text-gray-200", className || "")}
+            className={classNames("text-base leading-6 font-medium text-gray-800 dark:text-gray-200 pb-4 border-b border-gray-200 dark:border-gray-700", className || "")}
             {...props}
         >
             {title}
