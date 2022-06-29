@@ -47,7 +47,7 @@ const NavBar = (props) => {
     };
 
     /** Хуки */
-    const {skin, setSkin} = useSkin();
+    const {skin, changeSkin} = useSkin();
 
     const [fontSize, setFontSize] = useState(1);
 
@@ -65,9 +65,9 @@ const NavBar = (props) => {
      */
     const ThemeToggler = () => {
         if (skin === "dark") {
-            return <Sun className="h-6 w-6" onClick={() => setSkin("light")}/>;
+            return <Sun className="h-6 w-6" onClick={() => changeSkin("light")}/>;
         } else {
-            return <Moon className="h-6 w-6" onClick={() => setSkin("dark")}/>;
+            return <Moon className="h-6 w-6" onClick={() => changeSkin("dark")}/>;
         }
     };
 
@@ -153,7 +153,7 @@ const NavBar = (props) => {
                             aria-hidden="true"
                         />
                     </button>
-                    <button
+                    {/* <button
                         type="button"
                         className="font-toggler ml-4 bg-white dark:bg-gray-900 p-1 rounded-full text-gray-400 dark:text-gray-500 dark:hover:text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     >
@@ -164,10 +164,10 @@ const NavBar = (props) => {
                             className="h-6 w-6"
                             aria-hidden="true"
                         />
-                    </button>
+                    </button> */}
 
                     {/** Сообщения */}
-                    <MessageDropdown/>
+                    {/* <MessageDropdown/> */}
                     <WeatherWidget apiKey={config.OPEN_WEATHER_API_KEY} lat={config.CITY_LAT} lon={config.CITY_LON}/>
 
                     {/** Меню пользователя */}

@@ -81,7 +81,7 @@ const Routes = [
         }
     },
     {
-        path: "/phonebook",
+        path: "/users",
         element: <Phonebook/>,
         meta: {
             publicRoute: false

@@ -1,5 +1,5 @@
 import {useEffect} from "react"
-import {handleSkin} from "../../store/layout"
+import {handleChangeSkin, handleSkin} from "../../store/layout"
 import {useDispatch, useSelector} from "react-redux"
 
 /** Тема из store, ф-я обновляющая тему в store
@@ -12,6 +12,11 @@ export const useSkin = () => {
     /** Записать в store тему */
     const setSkin = type => {
         dispatch(handleSkin(type));
+    }
+
+    /** Записать в store тему */
+    const changeSkin = type => {
+        dispatch(handleChangeSkin(type));
     }
 
     /** Установка класса темы для body при монтировании */
@@ -32,5 +37,5 @@ export const useSkin = () => {
         element.classList.add(classNames[store.skin])
     }, [store.skin]);
 
-    return {skin: store.skin, setSkin};
+    return {skin: store.skin, setSkin, changeSkin};
 }

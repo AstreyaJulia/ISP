@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Outlet, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {handleMenuCollapsed, handleSkin} from "../../store/layout";
+import {handleChangeMenuCollapsed, handleMenuCollapsed, handleSkin} from "../../store/layout";
 import ScrollToTop from "./components/scrolltop";
 import classNames from "classnames";
 import Sidebar from "./components/menu";
@@ -43,7 +43,7 @@ const MainLayout = (props) => {
     const menuCollapsed = layoutStore.menuCollapsed;
 
     /** Включает сворачивание меню */
-    const setMenuCollapsed = (val) => dispatch(handleMenuCollapsed(val));
+    const setMenuCollapsed = (val) => dispatch(handleChangeMenuCollapsed(val));
 
     const navigate = useNavigate();
 
@@ -52,7 +52,6 @@ const MainLayout = (props) => {
         /*setUserData(users[0]);*/
 
         /* Получаем данные вошедшего пользователя */
-        /* TODO этот кусок можно использовать в других местах, где нужна проверка токена */
         if (localStorage.getItem("jwt") || jwtdataStore) {
             setAuthorization(localStorage.getItem("jwt").replace(/['"]+/g, '').toString() || jwtdataStore.replace(/['"]+/g, '').toString())
         }
@@ -62,9 +61,9 @@ const MainLayout = (props) => {
                     let skin;
                     let sidebar;
                     if (JSON.stringify(res.payload.theme) === "0") {
-                        skin = "light"
-                    } else if (JSON.stringify(res.payload.theme) === "1") {
                         skin = "dark"
+                    } else if (JSON.stringify(res.payload.theme) === "1") {
+                        skin = "light"
                     }
                     if (JSON.stringify(res.payload.sidebar) === "0") {
                         sidebar = false
