@@ -2,7 +2,7 @@
     "name": "isp-ui-kit-react",
     "version": "0.1.0",
     "private": true,
-    "proxy": "http://isp",
+    "proxy": "http://bdev",
     "dependencies": {
         "@fullcalendar/core": "^5.11.0",
         "@fullcalendar/daygrid": "^5.11.0",
@@ -50,6 +50,7 @@
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
+        "clear cache": "npm cache clear --force",
         "build tailwind": "postcss ./src/scss/base.scss -o ./src/scss/App.scss",
         "storybook": "start-storybook -p 6006 -s public",
         "build-storybook": "build-storybook -s public",

@@ -1,14 +1,14 @@
-import React, {Fragment, useEffect, useState} from "react";
+import React, {Fragment/*, useEffect, useState*/} from "react";
 import classNames from "classnames";
 import {MenuIcon} from "@heroicons/react/outline";
 import {ChevronDownIcon, SearchIcon} from "@heroicons/react/solid";
 import {Menu, Transition} from "@headlessui/react";
 import {getInitials} from "../../../utils";
 import {Link} from "react-router-dom";
-import {Maximize2, Minimize2, Moon, Sun, ZoomIn, ZoomOut} from "react-feather";
+import {Maximize2, Minimize2, Moon, Sun, /*ZoomIn, ZoomOut*/} from "react-feather";
 import {useSkin} from "../../../utils/Hooks/useSkin";
 import {Avatar} from "../../../components/elements/Avatar";
-import MessageDropdown from "./menu/MessageDropdown";
+//import MessageDropdown from "./menu/MessageDropdown";
 import {useDispatch} from 'react-redux'
 import {handleLogout} from '../../../store/authentication';
 import Skeleton from "react-loading-skeleton";
@@ -49,15 +49,15 @@ const NavBar = (props) => {
     /** Хуки */
     const {skin, changeSkin} = useSkin();
 
-    const [fontSize, setFontSize] = useState(1);
+    /*const [fontSize, setFontSize] = useState(1);*/
 
-    useEffect(() => {
+    /*useEffect(() => {
         /** Получаем тег html */
-        const element = document.getElementsByTagName('html')[0];
+        /*const element = document.getElementsByTagName('html')[0];
 
         /** Присваиваем стиль с размером шрифта */
-        element.style.fontSize = `${fontSize * 100}%`;
-    }, [fontSize]);
+        /*element.style.fontSize = `${fontSize * 100}%`;
+    }, [fontSize]);*/
 
     /** Переключалка темы
      * @returns {JSX.Element}
@@ -75,13 +75,13 @@ const NavBar = (props) => {
      * @returns {JSX.Element}
      * @constructor
      */
-    const FontToggler = () => {
+    /*const FontToggler = () => {
         if (fontSize === 1) {
             return <ZoomIn className="h-6 w-6" onClick={() => setFontSize(1.2)}/>;
         } else {
             return <ZoomOut className="h-6 w-6" onClick={() => setFontSize(1)}/>;
         }
-    };
+    };*/
 
 
     return (<div

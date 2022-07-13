@@ -1,4 +1,4 @@
-import {lazy, Suspense} from "react";
+import React, {lazy, Suspense} from "react";
 import ReactDOM from "react-dom";
 import {Provider} from "react-redux";
 import {BrowserRouter} from "react-router-dom";
