@@ -75,7 +75,7 @@
         ]
     },
     "devDependencies": {
-        "@mdi/js": "^6.6.96",
+        "@mdi/js": "^6.9.96",
         "@mdi/react": "^1.6.0",
         "@storybook/addon-actions": "^6.4.20",
         "@storybook/addon-essentials": "^6.4.20",
