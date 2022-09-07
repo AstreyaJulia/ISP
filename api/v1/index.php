@@ -1,7 +1,7 @@
 <?php
   error_reporting(E_ALL);
   ini_set("display_errors", "on");
-
+  cors();
   include_once 'config/core.php';
   
   $helpers = new Api\Objects\Helpers($db);
@@ -40,3 +40,24 @@
     // Выбрасываем ошибку
     $helpers::isErrorInfo(400, "invalid_router", "router not found");
   }
+
+  function cors() {
+    
+    /** Из заголовка запроса получаем заголовок origin */
+    if (isset($_SERVER['HTTP_ORIGIN'])) {
+        // Если origin есть в массиве разрешенных $_SERVER['HTTP_ORIGIN']:
+        header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
+        header('Access-Control-Allow-Credentials: true');
+    
+        // Разрешаем OPTIONS запросы
+        if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+            
+            if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']))
+                // говорим, что наш сервер принимает методы GET, POST, OPTIONS
+                header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+            
+            if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']))
+                header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
+        }
+    }
+}

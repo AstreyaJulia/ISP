@@ -72,7 +72,7 @@
      * Необходимые заголовки
     */
     public static function headlinesGET() {
-      header("Access-Control-Allow-Origin: *");
+      //header("Access-Control-Allow-Origin: *");
       header("Content-Type: application/json; charset=UTF-8");
     }
 
