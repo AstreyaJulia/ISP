@@ -41,23 +41,41 @@
     $helpers::isErrorInfo(400, "invalid_router", "router not found");
   }
 
-  function cors() {
-    
-    /** Из заголовка запроса получаем заголовок origin */
-    if (isset($_SERVER['HTTP_ORIGIN'])) {
-        // Если origin есть в массиве разрешенных $_SERVER['HTTP_ORIGIN']:
-        header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
-        header('Access-Control-Allow-Credentials: true');
-    
-        // Разрешаем OPTIONS запросы
-        if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
-            
-            if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']))
-                // говорим, что наш сервер принимает методы GET, POST, OPTIONS
-                header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-            
-            if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']))
-                header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
-        }
+function cors(): void
+{
+
+// Массив разрешенных адресов клиентов
+    $allowed_origins = ["localhost:3000", "http://localhost:3000", "https://localhost:3000", "localhost:3030", "http://isp", "https://isp", "http://bdev", "https://bdev", "http://fdevsp", "https://fdev"];
+
+// Из заголовка запроса получаем заголовок origin */
+    $request_origin = $_SERVER['HTTP_ORIGIN'] ?? null;
+
+// Если origin не установлен
+    if ( ! $request_origin ) {
+        return;
     }
+
+// Дефолтное значение на случай ошибок
+    $allowed_origin = 'http://isp';
+
+// Если origin есть в массиве разрешенных
+    if ( in_array( $request_origin, $allowed_origins ) ) {
+        $allowed_origin = $request_origin;
+    }
+
+// Устанавливаем заголовки
+    header("Access-Control-Allow-Origin: {$allowed_origin}");
+    header('Access-Control-Allow-Credentials: true');
+
+// Предзапрос OPTIONS
+    if ( isset( $_SERVER['REQUEST_METHOD'] ) && $_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+        header( 'Access-Control-Allow-Methods: GET, POST, OPTIONS' );
+        // {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']} на строке ниже можно заменить на access-control-allow-headers,access-control-allow-origin,content-type
+        header( "Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
+        header( 'Access-Control-Max-Age: 86400');
+        header( 'Cache-Control: public, max-age=86400');
+        header( 'Vary: origin' );
+        exit( 0 ); // выход из проверки OPTIONS, будет дальше выполняться скрипт
+    }
+
 }
