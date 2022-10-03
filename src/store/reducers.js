@@ -1,21 +1,17 @@
-import {combineReducers} from "redux";
-import layout from "./layout";
-import auth from "./authentication";
-import userData from "./userData";
-import calendar from "../pages/apps/calendar/store";
-import users from "./users";
+import { combineReducers } from 'redux';
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import layout from './slices/layout';
 
-/** Корневое хранилище, объединяем все хранилища
- * FIXME добавлять новые хранилища сюда
- * @type {Reducer<CombinedState<unknown>>}
- */
+const rootPersistConfig = {
+    key: 'root',
+    storage,
+    keyPrefix: 'redux-',
+    whitelist: [],
+};
+
 const rootReducer = combineReducers({
-    /** Публичные */
-    layout,
-    auth,
-    userData,
-    calendar,
-    users
+    calendar: layout,
 });
 
-export default rootReducer;
+export { rootPersistConfig, rootReducer };

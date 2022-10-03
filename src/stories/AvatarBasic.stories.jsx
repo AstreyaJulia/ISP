@@ -1,5 +1,5 @@
 import React from "react";
-import {AvatarBasic} from "../components/elements/AvatarBasic";
+import {AvatarBasic} from "../components/AvatarBasic/index";
 import {users} from "../@mock/SampleData";
 
 export default {
@@ -35,26 +35,36 @@ export const BasicAvatarSize12 = Template.bind({});
 export const BasicAvatarSize14 = Template.bind({});
 
 BasicAvatarSize6.args = {
-    item: users[0],
+    name: users[0].fullname,
+    avatar: users[0].avatar,
+    shape: 'circle',
     size: "6"
 };
 
 BasicAvatarSize8.args = {
-    item: users[1],
+    name: users[1].fullname,
+    avatar: users[1].avatar,
+    shape: 'circle',
     size: "8"
 };
 
 BasicAvatarSize10.args = {
-    item: users[2],
+    name: users[2].fullname,
+    avatar: users[2].avatar,
+    shape: 'circle',
     size: "10"
 };
 
 BasicAvatarSize12.args = {
-    item: users[3],
+    name: users[3].fullname,
+    avatar: users[3].avatar,
+    shape: 'circle',
     size: "12"
 };
 
 BasicAvatarSize14.args = {
-    item: users[4],
+    name: users[4].fullname,
+    avatar: users[4].avatar,
+    shape: 'circle',
     size: "14"
 };

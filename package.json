@@ -1,98 +1,133 @@
 {
-    "name": "isp-ui-kit-react",
-    "version": "0.1.0",
-    "private": true,
-    "proxy": "http://bdev",
-    "dependencies": {
-        "@fullcalendar/core": "^5.11.0",
-        "@fullcalendar/daygrid": "^5.11.0",
-        "@fullcalendar/interaction": "^5.11.0",
-        "@fullcalendar/list": "^5.11.0",
-        "@fullcalendar/moment-timezone": "^5.11.0",
-        "@fullcalendar/react": "^5.11.1",
-        "@fullcalendar/rrule": "^5.11.0",
-        "@fullcalendar/timegrid": "^5.11.0",
-        "@headlessui/react": "^1.6.1",
-        "@heroicons/react": "^1.0.6",
-        "@reduxjs/toolkit": "^1.8.1",
-        "@storybook/addon-docs": "^6.4.20",
-        "@storybook/addon-info": "^5.3.21",
-        "@storybook/addons": "^6.4.20",
-        "@storybook/theming": "^6.4.20",
-        "axios": "^0.26.0",
-        "classnames": "2.3.1",
-        "date-fns": "^2.28.0",
-        "eslint-config-react-app": "^7.0.1",
-        "moment": "^2.29.3",
-        "prop-types": "^15.8.1",
-        "react": "17.0.2",
-        "react-datepicker": "^4.7.0",
-        "react-dom": "17.0.2",
-        "react-feather": "^2.0.9",
-        "react-flatpickr": "^3.10.12",
-        "react-helmet": "^6.1.0",
-        "react-hook-form": "^7.31.1",
-        "react-hot-toast": "^2.2.0",
-        "react-loading-skeleton": "^3.1.0",
-        "react-paginate": "^8.1.3",
-        "react-perfect-scrollbar": "^1.5.8",
-        "react-redux": "^8.0.1",
-        "react-router-dom": "6.2.2",
-        "react-scripts": "5.0.0",
-        "react-select": "^5.3.2",
-        "react-shepherd": "^3.3.6",
-        "react-table": "^7.7.0",
-        "reactstrap": "^9.0.2",
-        "redux": "^4.2.0",
-        "sass": "^1.51.0"
-    },
-    "scripts": {
-        "start": "react-scripts start",
-        "build": "react-scripts build",
-        "test": "react-scripts test",
-        "clear cache": "npm cache clear --force",
-        "build tailwind": "postcss ./src/scss/base.scss -o ./src/scss/App.scss",
-        "storybook": "start-storybook -p 6006 -s public",
-        "build-storybook": "build-storybook -s public",
-        "update modules": "npm update"
-    },
-    "eslintConfig": {
-        "extends": [
-            "react-app",
-            "react-app/jest"
-        ]
-    },
-    "browserslist": {
-        "production": [
-            ">0.2%",
-            "not dead",
-            "not op_mini all"
+  "name": "isp-isida",
+  "version": "0.0.1",
+  "private": true,
+  "description": "1. React.js;\r 2. Tailwind CSS;\r 3. Storybook для библиотеки компонентов;",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "clear cache": "npm cache clear --force",
+    "re-start": "rimraf build node_modules && npm install && npm run start",
+    "re-build": "rimraf build node_modules && npm install && npm run build",
+    "lint": "eslint --ext .js,.jsx ./src",
+    "lint:fix": "eslint --fix --ext .js,.jsx ./src",
+    "storybook": "start-storybook -p 6006 -s public",
+    "build-storybook": "build-storybook -s public",
+    "update modules": "npm update"
+  },
+  "dependencies": {
+    "@headlessui/react": "^1.7.3",
+    "@mdi/font": "^7.0.96",
+    "@reduxjs/toolkit": "^1.8.5",
+    "@storybook/addon-actions": "^6.4.20",
+    "@storybook/addon-docs": "^6.5.12",
+    "@storybook/addon-essentials": "^6.4.20",
+    "@storybook/addon-info": "^5.3.21",
+    "@storybook/addon-interactions": "^6.4.20",
+    "@storybook/addon-links": "^6.4.20",
+    "@storybook/addons": "^6.5.12",
+    "@storybook/builder-webpack5": "^6.4.20",
+    "@storybook/manager-webpack5": "^6.4.20",
+    "@storybook/node-logger": "^6.4.20",
+    "@storybook/preset-create-react-app": "^4.1.0",
+    "@storybook/react": "^6.4.20",
+    "@storybook/theming": "^6.5.12",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/forms": "^0.5.3",
+    "@tailwindcss/line-clamp": "^0.4.2",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "axios": "^0.27.2",
+    "date-fns": "^2.29.3",
+    "jwt-decode": "^3.1.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-helmet": "^6.1.0",
+    "react-hot-toast": "^2.4.0",
+    "react-loading-skeleton": "^3.1.0",
+    "react-perfect-scrollbar": "^1.5.8",
+    "react-redux": "^8.0.4",
+    "react-router-dom": "^6.4.1",
+    "react-scripts": "5.0.1",
+    "redux": "^4.2.0",
+    "redux-persist": "^6.0.0",
+    "web-vitals": "^2.1.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AstreyaJulia/ISP.git"
+  },
+  "keywords": [],
+  "author": "Latysheva Y. A., Chernov R. A.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AstreyaJulia/ISP/issues"
+  },
+  "homepage": "https://github.com/AstreyaJulia/ISP#readme",
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ],
+    "overrides": [
+      {
+        "files": [
+          "**/*.stories.*"
         ],
-        "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
-        ]
-    },
-    "devDependencies": {
-        "@mdi/js": "^6.9.96",
-        "@mdi/react": "^1.6.0",
-        "@storybook/addon-actions": "^6.4.20",
-        "@storybook/addon-essentials": "^6.4.20",
-        "@storybook/addon-interactions": "^6.4.20",
-        "@storybook/addon-links": "^6.4.20",
-        "@storybook/builder-webpack5": "^6.4.20",
-        "@storybook/manager-webpack5": "^6.4.20",
-        "@storybook/node-logger": "^6.4.20",
-        "@storybook/preset-create-react-app": "^4.1.0",
-        "@storybook/react": "^6.4.20",
-        "@storybook/testing-library": "0.0.9",
-        "@tailwindcss/aspect-ratio": "^0.4.0",
-        "@tailwindcss/forms": "^0.5.0",
-        "@tailwindcss/line-clamp": "^0.4.0",
-        "autoprefixer": "^10.4.5",
-        "postcss-cli": "^9.1.0",
-        "tailwindcss": "^3.0.24",
-        "webpack": "^5.71.0"
-    }
+        "rules": {
+          "import/no-anonymous-default-export": "off"
+        }
+      }
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.13",
+    "@babel/eslint-parser": "^7.18.9",
+    "@babel/preset-react": "^7.18.6",
+    "@storybook/addon-actions": "^6.5.12",
+    "@storybook/addon-essentials": "^6.5.12",
+    "@storybook/addon-interactions": "^6.5.12",
+    "@storybook/addon-links": "^6.5.12",
+    "@storybook/builder-webpack5": "^6.5.12",
+    "@storybook/manager-webpack5": "^6.5.12",
+    "@storybook/node-logger": "^6.5.12",
+    "@storybook/preset-create-react-app": "^4.1.2",
+    "@storybook/react": "^6.5.12",
+    "@storybook/testing-library": "^0.0.13",
+    "@typescript-eslint/eslint-plugin": "^5.36.1",
+    "@typescript-eslint/parser": "^5.36.1",
+    "autoprefixer": "^10.4.12",
+    "babel-eslint": "^10.1.0",
+    "babel-plugin-named-exports-order": "^0.0.2",
+    "eslint": "8.22.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-react-app": "^7.0.1",
+    "eslint-plugin-flowtype": "^8.0.3",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.31.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "postcss": "^8.4.17",
+    "prettier": "^2.7.1",
+    "prop-types": "^15.8.1",
+    "tailwindcss": "^3.1.8",
+    "typescript": "^4.8.2",
+    "webpack": "^5.74.0"
+  }
 }
