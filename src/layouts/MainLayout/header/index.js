@@ -1,15 +1,12 @@
-import React, {Fragment/*, useEffect, useState*/} from "react";
-import {MenuIcon} from "@heroicons/react/outline";
-import {ChevronDownIcon, SearchIcon} from "@heroicons/react/solid";
-import {Menu, Transition} from "@headlessui/react";
-import {getInitials} from "../../../utils/getInitials";
+import React, { Fragment } from "react";
+import { Menu, Transition } from "@headlessui/react";
 import { Link, useNavigate } from "react-router-dom";
-import {Maximize2, Minimize2, Moon, Sun, /*ZoomIn, ZoomOut*/} from "react-feather";
-import {Avatar} from "../../../components/Avatar";
-import {useDispatch} from 'react-redux'
+import { useDispatch } from "react-redux";
 import Skeleton from "react-loading-skeleton";
 import toast from "react-hot-toast";
-import Toast, {toastStyles} from "../../../components/Toast";
+import { Avatar } from "../../../components/Avatar";
+import { getInitials } from "../../../utils/getInitials";
+import Toast, { toastStyles } from "../../../components/Toast";
 import { classNames } from "../../../utils/classNames";
 import useAuth from "../../../hooks/useAuth";
 import { PATH_AUTH } from "../../../routes/paths";
@@ -31,7 +28,7 @@ const Header = (props) => {
     }
   };
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const {
     menuCollapsed, setMenuVisibility, setMenuCollapsed, skin, changeSkin
@@ -45,17 +42,31 @@ const Header = (props) => {
         onClick={() => setMenuCollapsed(false)}
         title="Развернуть меню"
       >
-        <Maximize2/>
-      </button>);
-    } else {
-      return (<button
-        className="sidebar-collapse-button bg-white dark:bg-gray-900 p-1 rounded-full text-gray-400 dark:text-gray-500 dark:hover:text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        onClick={() => setMenuCollapsed(true)}
-        title="Свернуть меню"
-      >
-        <Minimize2/>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+             className="feather feather-maximize-2">
+          <polyline points="15 3 21 3 21 9"/>
+          <polyline points="9 21 3 21 3 15"/>
+          <line x1="21" y1="3" x2="14" y2="10"/>
+          <line x1="3" y1="21" x2="10" y2="14"/>
+        </svg>
       </button>);
     }
+    return (<button
+      className="sidebar-collapse-button bg-white dark:bg-gray-900 p-1 rounded-full text-gray-400 dark:text-gray-500 dark:hover:text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+      onClick={() => setMenuCollapsed(true)}
+      title="Свернуть меню"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+           className="feather feather-minimize-2">
+        <polyline points="4 14 10 14 10 20"/>
+        <polyline points="20 10 14 10 14 4"/>
+        <line x1="14" y1="10" x2="21" y2="3"/>
+        <line x1="3" y1="21" x2="10" y2="14"/>
+      </svg>
+    </button>);
+
   };
 
   /** Переключалка темы
@@ -64,10 +75,28 @@ const Header = (props) => {
    */
   const ThemeToggler = () => {
     if (skin === "dark") {
-      return <Sun className="h-6 w-6" onClick={() => changeSkin("light")}/>;
-    } else {
-      return <Moon className="h-6 w-6" onClick={() => changeSkin("dark")}/>;
+      return <svg onClick={() => changeSkin("light")}
+                  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                  className="feather feather-sun">
+        <circle cx="12" cy="12" r="5"/>
+        <line x1="12" y1="1" x2="12" y2="3"/>
+        <line x1="12" y1="21" x2="12" y2="23"/>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+        <line x1="1" y1="12" x2="3" y2="12"/>
+        <line x1="21" y1="12" x2="23" y2="12"/>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+      </svg>;
     }
+    return <svg onClick={() => changeSkin("dark")}
+                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor"
+                strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-moon">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>;
+
   };
 
   return (<div
@@ -79,10 +108,13 @@ const Header = (props) => {
       onClick={() => setMenuVisibility(true)}
     >
       <span className="sr-only">Открыть меню</span>
-      <MenuIcon className="h-6 w-6" aria-hidden="true"/>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
+           className="w-6 h-6">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+      </svg>
     </button>
     <div className="ml-4 hidden lg:flex items-center md:ml-6">
-      <MenuToggler/>
+      <MenuToggler />
     </div>
 
     <div className="flex-1 px-4 flex justify-end sm:justify-between content-center sm:px-6 lg:px-8">
@@ -95,10 +127,12 @@ const Header = (props) => {
           <div className="search-input mt-1 relative rounded-md shadow-sm">
             <div
               className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
-              <SearchIcon
-                className="h-5 w-5 text-gray-400 dark:text-gray-500"
-                aria-hidden="true"
-              />
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                   className="h-5 w-5 text-gray-400 dark:text-gray-500">
+                <path fillRule="evenodd"
+                      d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z"
+                      clipRule="evenodd" />
+              </svg>
             </div>
             <input
               id="search"
@@ -145,22 +179,25 @@ const Header = (props) => {
             <Menu.Button
               className="user-dropdown max-w-xs bg-white dark:bg-gray-900 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 lg:p-1 lg:rounded-md lg:hover:bg-gray-50 dark:lg:hover:bg-gray-800">
               {user.fullname ?
-                <Avatar size="10" name={user.fullname} avatar={user.avatar} shape="circle"/> :
+                <Avatar size="10" name={user.fullname} avatar={user.avatar} shape="circle" /> :
                 <Skeleton
-                  className="bg-gray-500/30 after:bg-gradient-to-r from-gray-400/10 via-gray-500/10 to-gray-400/10"/>}
+                  className="bg-gray-500/30 after:bg-gradient-to-r from-gray-400/10 via-gray-500/10 to-gray-400/10" />}
               <span
                 className="hidden ml-3 text-gray-700 dark:text-gray-300 text-sm font-medium lg:block">
                                                 <span className="sr-only">
                                                     Открыть меню пользователя
                                                 </span>
                 {user.fullname ? getInitials(user.fullname) : <Skeleton
-                  className="bg-gray-500/30 after:bg-gradient-to-r from-gray-400/10 via-gray-500/10 to-gray-400/10"/>}
+                  className="bg-gray-500/30 after:bg-gradient-to-r from-gray-400/10 via-gray-500/10 to-gray-400/10" />}
 
                                             </span>
-              <ChevronDownIcon
-                className="hidden flex-shrink-0 ml-1 h-5 w-5 text-gray-400 dark:text-gray-500 lg:block"
-                aria-hidden="true"
-              />
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                   fill="currentColor" className="hidden flex-shrink-0 ml-1 h-5 w-5 text-gray-400 dark:text-gray-500 lg:block">
+                <path fillRule="evenodd"
+                      d="M12.53 16.28a.75.75 0 01-1.06 0l-7.5-7.5a.75.75 0 011.06-1.06L12 14.69l6.97-6.97a.75.75 0 111.06 1.06l-7.5 7.5z"
+                      clipRule="evenodd" />
+              </svg>
+
             </Menu.Button>
           </div>
           <Transition
@@ -179,12 +216,12 @@ const Header = (props) => {
                 {user.username ?
                   <p className="text-sm font-medium text-gray-900 dark:text-gray-50 truncate">{user.username}</p> :
                   <Skeleton
-                    className="bg-gray-500/30 after:bg-gradient-to-r from-gray-400/10 via-gray-500/10 to-gray-400/10"/>}
+                    className="bg-gray-500/30 after:bg-gradient-to-r from-gray-400/10 via-gray-500/10 to-gray-400/10" />}
 
               </div>
               <div className="py-1">
                 <Menu.Item>
-                  {({active}) => (<Link
+                  {({ active }) => (<Link
                     to="/myprofile"
                     className={classNames(active ? "bg-gray-100 dark:bg-gray-700" : "", "block px-4 py-2 text-sm text-gray-700 dark:text-gray-400")}
                   >
@@ -194,12 +231,12 @@ const Header = (props) => {
               </div>
               <div className="py-1">
                 <Menu.Item>
-                  {({active}) => (<Link
+                  {({ active }) => (<Link
                     to="/auth"
                     onClick={() => {
                       handleLogout();
                       toast(t => <Toast t={t} message="Вы вышли из системы."
-                                        type="success"/>, {className: toastStyles})
+                                        type="success" />, { className: toastStyles });
                     }}
                     className={classNames(active ? "bg-gray-100 dark:bg-gray-700" : "", "block px-4 py-2 text-sm text-gray-700 dark:text-gray-400")}
                   >
@@ -212,7 +249,7 @@ const Header = (props) => {
         </Menu>
       </div>
     </div>
-  </div>)
-}
+  </div>);
+};
 
 export default Header;

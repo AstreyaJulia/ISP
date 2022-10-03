@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
 import {Outlet, useNavigate} from "react-router-dom";
+import Skeleton from "react-loading-skeleton";
 import ScrollToTop from "./scrolltop";
 import Sidebar from "./sidebar";
 import Header from "./header";
-import Skeleton from "react-loading-skeleton";
 import useSettings from "../../hooks/useSettings";
 import { navigation } from "../../@mock/SampleData";
 import { classNames } from "../../utils/classNames";

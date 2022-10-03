@@ -4,8 +4,8 @@
   "private": true,
   "description": "1. React.js;\r 2. Tailwind CSS;\r 3. Storybook для библиотеки компонентов;",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
     "test": "react-scripts test",
     "clear cache": "npm cache clear --force",
     "re-start": "rimraf build node_modules && npm install && npm run start",
@@ -43,6 +43,7 @@
     "date-fns": "^2.29.3",
     "jwt-decode": "^3.1.2",
     "react": "^18.2.0",
+    "react-app-rewired": "^2.2.1",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
     "react-hot-toast": "^2.4.0",
@@ -65,7 +66,6 @@
   "bugs": {
     "url": "https://github.com/AstreyaJulia/ISP/issues"
   },
-  "homepage": "https://github.com/AstreyaJulia/ISP#readme",
   "eslintConfig": {
     "extends": [
       "react-app",

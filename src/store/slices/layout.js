@@ -32,7 +32,7 @@ const changeTheme = async (theme) => {
     const response = await axios.post("users/login-data", {"theme": theme});
     if (response.data) {
         return response.data.theme.toString() === "1" ? "light" : "dark";
-    } else return initialSkin();
+    } return initialSkin();
 };
 
 const changeMenuCollapsed = async (sidebar) => {
@@ -41,8 +41,8 @@ const changeMenuCollapsed = async (sidebar) => {
     }
     const response = await axios.post("users/login-data", {"sidebar": sidebar});
     if (response.data) {
-        return response.data.sidebar.toString() === "1" ? true : false;
-    } else return initialMenuCollapsed();
+        return response.data.sidebar.toString() === "1";
+    } return initialMenuCollapsed();
 };
 
 /** Хранилище для раскладки

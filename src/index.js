@@ -1,12 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
+import { Provider as ReduxProvider } from "react-redux";
+import { PersistGate } from "redux-persist/lib/integration/react";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { AuthProvider } from "./contexts/JWTContext";
 import { SettingsProvider } from "./contexts/SettingsContext";
-import { Provider as ReduxProvider } from "react-redux";
-import { PersistGate } from "redux-persist/lib/integration/react";
 import { persistor, store } from "./store/index";
 import "./theme/index.css";
 

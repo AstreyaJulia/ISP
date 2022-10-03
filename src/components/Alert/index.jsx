@@ -74,7 +74,8 @@ Alert.propTypes = {
   /**  Заголовок */
   title: PropTypes.string.isRequired,
   /**  Тип */
-  alertType: PropTypes.oneOf(["error", "warning", "success"]).isRequired
+  alertType: PropTypes.oneOf(["error", "warning", "success"]).isRequired,
+  children: PropTypes.object
 };
 
 Alert.defaultProps = {

@@ -11,9 +11,7 @@ import { classNames } from "../../utils/classNames";
  * @returns {JSX.Element}
  * @constructor
  */
-const PageHeader = ({ pages, classname, header, children }) => {
-
-  return (
+const PageHeader = ({ pages, classname, header, children }) => (
     <div className={classname}>
       <nav className="sm:hidden" aria-label="Назад">
         <Link
@@ -88,6 +86,5 @@ const PageHeader = ({ pages, classname, header, children }) => {
         : ""}
     </div>
   );
-};
 
 export default PageHeader;

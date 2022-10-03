@@ -41,9 +41,6 @@ Badge.propTypes = {
 };
 
 Badge.defaultProps = {
-  size: "small",
-  color: "red",
-  item: "Бейдж",
   className: ""
 };
 

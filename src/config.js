@@ -6,7 +6,7 @@ export const HOST_API = process.env.REACT_APP_HOST_API_KEY || "";
 export const APP_NAME = "ИСП"; /** Название приложения */
 
 /** Бесплатный ключ получить тут https://openweathermap.org/price */
-export const OPEN_WEATHER_API_KEY = process.env.OPEN_WEATHER_API_KEY || ""; /** API-ключ Open Weather из .ENV */
+export const OPEN_WEATHER_API_KEY = process.env.REACT_APP_OPEN_WEATHER_API_KEY || ""; /** API-ключ Open Weather из .ENV */
 
 /** Координаты города. Искать кликом на карту https://yandex.ru/maps/ и нажав на название улицы или места, слева в меню будут показаны координаты  */
 export const CITY_LAT = "55.106610";
