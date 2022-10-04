@@ -59,9 +59,4 @@ Toast.propTypes = {
   type: PropTypes.oneOf(["error", "success"]).isRequired
 };
 
-Toast.defaultProps = {
-  message: "Внимание",
-  type: "error"
-};
-
 export default Toast;

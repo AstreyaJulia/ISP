@@ -5,7 +5,7 @@ import ScrollToTop from "./scrolltop";
 import Sidebar from "./sidebar";
 import Header from "./header";
 import useSettings from "../../hooks/useSettings";
-import { navigation } from "../../@mock/SampleData";
+import { navigation, users } from "../../@mock/SampleData";
 import { classNames } from "../../utils/classNames";
 
 /** Основная раскладка с меню и заголовком
@@ -13,12 +13,9 @@ import { classNames } from "../../utils/classNames";
  * @returns {JSX.Element|null}
  * @constructor
  */
-const MainLayout = (props) => {
+const MainLayout = () => {
 
   const { skin, menuCollapsed, onChangeSkin, onChangeMenuCollapsed } = useSettings();
-
-  /** Пропсы */
-  const {children} = props;
 
   /** Стейты */
   const [isMounted, setIsMounted] = useState(false);
@@ -32,7 +29,7 @@ const MainLayout = (props) => {
   useEffect(() => {
     setMenuData(navigation);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  });
 
     /** ComponentDidMount */
     useEffect(() => {
@@ -61,7 +58,7 @@ const MainLayout = (props) => {
       >
         {/* Заголовок */}
         <Header
-          user={}
+          user={users[0]}
           menuCollapsed={menuCollapsed}
           setMenuVisibility={setMenuVisibility}
           setMenuCollapsed={onChangeMenuCollapsed}
@@ -75,7 +72,6 @@ const MainLayout = (props) => {
         >
           {/* Содержимое страницы */}
           <Outlet/>
-          {children}
         </div>
       </div>
       {/* Кнопка назад наверх */}

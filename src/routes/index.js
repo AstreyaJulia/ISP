@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from "react";
 import { Navigate, useLocation, useRoutes } from "react-router-dom";
-import MainLayout from "../layouts/MainLayout";
+import MainLayout from "../layouts/MainLayout/index";
 import LogoOnlyLayout from "../layouts/LogoOnlyLayout";
 import GuestGuard from "../guards/GuestGuard";
 import AuthGuard from "../guards/AuthGuard";
