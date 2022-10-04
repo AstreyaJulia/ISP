@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import React, { lazy, Suspense } from "react";
 import { Navigate, useLocation, useRoutes } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 import LogoOnlyLayout from "../layouts/LogoOnlyLayout";
@@ -9,11 +9,8 @@ import { PATH_HOME } from "./paths";
 import RoleBasedGuard from "../guards/RoleBasedGuard";
 
 const Loadable = (Component) => (props) => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const { pathname } = useLocation();
-
   return (
-    <Suspense fallback={<LoadingScreen isDashboard={pathname.includes("/dashboard")} />}>
+    <Suspense fallback={<LoadingScreen />}>
       <Component {...props} />
     </Suspense>
   );

@@ -61,7 +61,7 @@ const MainLayout = (props) => {
       >
         {/* Заголовок */}
         <Header
-          user={loginData}
+          user={}
           menuCollapsed={menuCollapsed}
           setMenuVisibility={setMenuVisibility}
           setMenuCollapsed={onChangeMenuCollapsed}
