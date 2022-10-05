@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.3",
+    "@hookform/resolvers": "^2.9.8",
     "@mdi/font": "^7.0.96",
     "@reduxjs/toolkit": "^1.8.5",
     "@storybook/addon-actions": "^6.4.20",
@@ -45,16 +46,21 @@
     "react": "^18.2.0",
     "react-app-rewired": "^2.2.1",
     "react-dom": "^18.2.0",
+    "react-feather": "^2.0.10",
     "react-helmet": "^6.1.0",
+    "react-hook-form": "^7.36.1",
     "react-hot-toast": "^2.4.0",
     "react-loading-skeleton": "^3.1.0",
     "react-perfect-scrollbar": "^1.5.8",
+    "react-quill": "^2.0.0",
     "react-redux": "^8.0.4",
     "react-router-dom": "^6.4.1",
     "react-scripts": "5.0.1",
+    "reactstrap": "^9.1.4",
     "redux": "^4.2.0",
     "redux-persist": "^6.0.0",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^0.32.11"
   },
   "repository": {
     "type": "git",

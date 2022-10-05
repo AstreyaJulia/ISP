@@ -8,13 +8,11 @@ import LoadingScreen from "../components/LoadingScreen";
 import { PATH_HOME } from "./paths";
 import RoleBasedGuard from "../guards/RoleBasedGuard";
 
-const Loadable = (Component) => (props) => {
-  return (
+const Loadable = (Component) => (props) => (
     <Suspense fallback={<LoadingScreen />}>
       <Component {...props} />
     </Suspense>
   );
-};
 
 export default function Router() {
   return useRoutes([

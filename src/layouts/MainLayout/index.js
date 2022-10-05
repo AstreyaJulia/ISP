@@ -9,11 +9,10 @@ import { navigation, users } from "../../@mock/SampleData";
 import { classNames } from "../../utils/classNames";
 
 /** Основная раскладка с меню и заголовком
- * @param props
  * @returns {JSX.Element|null}
  * @constructor
  */
-const MainLayout = () => {
+export default function MainLayout() {
 
   const { skin, menuCollapsed, onChangeSkin, onChangeMenuCollapsed } = useSettings();
 
@@ -79,5 +78,3 @@ const MainLayout = () => {
     </div>
   </>);
 };
-
-export default MainLayout;

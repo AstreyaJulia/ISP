@@ -5,8 +5,7 @@ import React from "react";
  * @constructor
  */
 
-const LoadingScreen = () => {
-  return (
+const LoadingScreen = () => (
     <div className="page-spinner h-full flex items-center justify-center h-screen flex-col">
       <div className="page-spinner-wrapper mt-1 w-16 h-16 rounded-full border border-4 border-indigo-500">
         <div
@@ -17,6 +16,5 @@ const LoadingScreen = () => {
       </div>
     </div>
   )
-}
 
 export default LoadingScreen;

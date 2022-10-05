@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const index = () => (
-    <></>
+const Home = () => (
+    <div className='page'/>
   );
 
-export default index;
+export default Home;
