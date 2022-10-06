@@ -21,5 +21,5 @@ export const COURT_REGION = "Смоленская область";
  */
 export const defaultSettings = {
   skin: 'light',
-  menuCollapsed: false
+  menuCollapsed: 'false'
 };

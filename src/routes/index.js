@@ -54,7 +54,6 @@ export default function Router() {
         </AuthGuard>
       ),
       children: [
-        { element: <Navigate to={"/home"} replace />, index: true },
         { path: "", element: <Home /> },
       ]
     },

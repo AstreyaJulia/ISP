@@ -125,6 +125,5 @@ AvatarCircularWithPlaceholderInitials.propTypes = {
 
 /** Дефолтные свойства */
 AvatarCircularWithPlaceholderInitials.defaultProps = {
-    classname: "",
-    icon: ''
+    classname: ""
 };

@@ -28,6 +28,5 @@ Avatar.propTypes = {
 
 
 Avatar.defaultProps = {
-    classname: "",
-    icon: ''
+    classname: ""
 };

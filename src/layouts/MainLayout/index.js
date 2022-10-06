@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Outlet, useNavigate} from "react-router-dom";
+import {Outlet} from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import ScrollToTop from "./scrolltop";
 import Sidebar from "./sidebar";
@@ -22,8 +22,6 @@ export default function MainLayout() {
 
   /** Для серверной навигации */
   const [menuData, setMenuData] = useState([]);
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     setMenuData(navigation);

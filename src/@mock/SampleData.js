@@ -7,7 +7,7 @@ import avatar5 from './avatars/5.png';
 /** Навигация для сайдбара, для локального тестирования
  * @type {[{header: string},{icon: string, alias: string, id: string, pagetitle: string},{icon: string, alias: string, id: string, pagetitle: string},{badgeColor: string, icon: string, alias: string, id: string, pagetitle: string},{children: [{icon: string, alias: string, id: string, pagetitle: string}], icon: string, id: string, pagetitle: string},null,null,null,null]}
  */
-export const navigation = [{header: "Главное меню"}, {
+export const navigation = [{
   id: "1", pagetitle: "Главная", icon: "mdi-apps", alias: "/home",
 }, {
   id: "2", pagetitle: "Каталог ссылок", icon: "mdi-folder-table-outline", alias: "/proxylist",
