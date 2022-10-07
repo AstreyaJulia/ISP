@@ -16,6 +16,7 @@ export default function MainLayout() {
 
   const { skin, menuCollapsed, onChangeSkin, onChangeMenuCollapsed } = useSettings();
 
+  // console.log(menuCollapsed)
   /** Стейты */
   const [isMounted, setIsMounted] = useState(false);
   const [menuVisibility, setMenuVisibility] = useState(false);

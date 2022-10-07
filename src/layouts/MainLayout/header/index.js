@@ -54,7 +54,7 @@ const Header = (props) => {
       return <button
         type="button"
         value="dark"
-        onClick={() => onChangeSkin}
+        onClick={() => onChangeSkin("light")}
         className="skin-toggler bg-white dark:bg-gray-900 p-1 rounded-full text-gray-400 dark:text-gray-500 dark:hover:text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
       >
         <span className="sr-only">
@@ -67,7 +67,7 @@ const Header = (props) => {
     return <button
       type="button"
       value="light"
-      onClick={() => onChangeSkin}
+      onClick={() => onChangeSkin("dark")}
       className="skin-toggler bg-white dark:bg-gray-900 p-1 rounded-full text-gray-400 dark:text-gray-500 dark:hover:text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
     >
       <span className="sr-only">
