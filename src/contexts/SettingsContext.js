@@ -59,7 +59,6 @@ function SettingsProvider({ children }) {
         skin: response.data.data.theme.toString() === "1" ? "light" : "dark"
       });
     }
-
   };
 
   /** Смена ширины меню

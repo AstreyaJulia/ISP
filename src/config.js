@@ -20,6 +20,6 @@ export const COURT_REGION = "Смоленская область";
  * @type {{menuCollapsed: boolean, skin: string}}
  */
 export const defaultSettings = {
-  skin: 'light',
-  menuCollapsed: 'false'
+  skin: localStorage.getItem('settings'.skin) || 'light',
+  menuCollapsed: localStorage.getItem('settings'.menuCollapsed) || 'false'
 };

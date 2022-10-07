@@ -7,6 +7,7 @@ import Header from "./header";
 import useSettings from "../../hooks/useSettings";
 import { navigation, users } from "../../@mock/SampleData";
 import { classNames } from "../../utils/classNames";
+import useAuth from "../../hooks/useAuth";
 
 /** Основная раскладка с меню и заголовком
  * @returns {JSX.Element|null}
@@ -16,7 +17,8 @@ export default function MainLayout() {
 
   const { skin, menuCollapsed, onChangeSkin, onChangeMenuCollapsed } = useSettings();
 
-  // console.log(menuCollapsed)
+  const { user } = useAuth();
+
   /** Стейты */
   const [isMounted, setIsMounted] = useState(false);
   const [menuVisibility, setMenuVisibility] = useState(false);
@@ -56,7 +58,7 @@ export default function MainLayout() {
       >
         {/* Заголовок */}
         <Header
-          user={users[0]}
+          user={user}
           menuCollapsed={menuCollapsed}
           setMenuVisibility={setMenuVisibility}
           setMenuCollapsed={onChangeMenuCollapsed}

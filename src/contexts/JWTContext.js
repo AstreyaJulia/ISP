@@ -2,6 +2,7 @@ import { createContext, useEffect, useReducer } from "react";
 import PropTypes from "prop-types";
 import axios from "../utils/axios";
 import { isValidToken, setSession } from "../utils/jwt";
+import useSettings from "../hooks/useSettings";
 
 const initialState = {
   isAuthenticated: false,
@@ -60,6 +61,7 @@ AuthProvider.propTypes = {
 
 function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const { onChangeSkin, onChangeMenuCollapsed } = useSettings();
 
   useEffect(() => {
     const initialize = async () => {
@@ -88,6 +90,8 @@ function AuthProvider({ children }) {
               }
             }
           });
+          onChangeSkin(theme === "dark" ? "0" : "1");
+          onChangeMenuCollapsed(sidebar === true ? "1" : "0");
         } else {
           dispatch({
             type: "INITIALIZE",
