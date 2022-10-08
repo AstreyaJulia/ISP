@@ -14,12 +14,14 @@ import { classNames } from "../../../utils/classNames";
 
 const Header = (props) => {
 
+  const {menuCollapsed, setMenuVisibility, setMenuCollapsed} = props;
+
+  /** Хуки */
+  const { skin, onChangeSkin } = useSettings();
   const { logout } = useAuth();
   const dispatch = useDispatch();
+  const { user } = useAuth();
 
-  const {
-    user, menuCollapsed, setMenuVisibility, setMenuCollapsed
-  } = props;
 
   /** Кнопка-переключатель узкого/широкого меню */
   const MenuToggler = () => {
@@ -39,11 +41,8 @@ const Header = (props) => {
     >
       <Minimize2 />
     </button>);
-
   };
 
-  /** Хуки */
-  const { skin, onChangeSkin } = useSettings();
 
   /** Переключалка темы
    * @returns {JSX.Element}
@@ -74,9 +73,7 @@ const Header = (props) => {
         Переключить тему
       </span>
       <Moon className="h-6 w-6" />
-    </button>
-      ;
-
+    </button>;
   };
 
   return (
@@ -155,8 +152,8 @@ const Header = (props) => {
             <div>
               <Menu.Button
                 className="user-dropdown max-w-xs bg-white dark:bg-gray-900 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 lg:p-1 lg:rounded-md lg:hover:bg-gray-50 dark:lg:hover:bg-gray-800">
-                {user.fullname ?
-                  <Avatar size="10" name={user.fullname} avatar={user.avatar} shape="circle" /> :
+                {user?.fullname ?
+                  <Avatar size="10" name={user?.fullname} avatar={user?.avatar} shape="circle" /> :
                   <Skeleton
                     className="bg-gray-500/30 after:bg-gradient-to-r from-gray-400/10 via-gray-500/10 to-gray-400/10" />}
                 <span
@@ -164,7 +161,7 @@ const Header = (props) => {
                                                 <span className="sr-only">
                                                     Открыть меню пользователя
                                                 </span>
-                  {user.fullname ? getInitials(user.fullname) : <Skeleton
+                  {user?.fullname ? getInitials(user?.fullname) : <Skeleton
                     className="bg-gray-500/30 after:bg-gradient-to-r from-gray-400/10 via-gray-500/10 to-gray-400/10" />}
 
                                             </span>
@@ -190,8 +187,8 @@ const Header = (props) => {
                 className="dark:border dark:border-gray-700 origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white dark:bg-gray-900 ring-1 ring-black ring-opacity-5 focus:outline-none divide-y divide-gray-100 dark:divide-gray-800">
                 <div className="px-4 py-3">
                   <p className="text-sm text-gray-700 dark:text-gray-400">Выполнен вход</p>
-                  {user.username ?
-                    <p className="text-sm font-medium text-gray-900 dark:text-gray-50 truncate">{user.username}</p> :
+                  {user?.username ?
+                    <p className="text-sm font-medium text-gray-900 dark:text-gray-50 truncate">{user?.username}</p> :
                     <Skeleton
                       className="bg-gray-500/30 after:bg-gradient-to-r from-gray-400/10 via-gray-500/10 to-gray-400/10" />}
 

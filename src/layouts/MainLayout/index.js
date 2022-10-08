@@ -17,8 +17,6 @@ export default function MainLayout() {
 
   const { skin, menuCollapsed, onChangeSkin, onChangeMenuCollapsed } = useSettings();
 
-  const { user } = useAuth();
-
   /** Стейты */
   const [isMounted, setIsMounted] = useState(false);
   const [menuVisibility, setMenuVisibility] = useState(false);
@@ -58,12 +56,9 @@ export default function MainLayout() {
       >
         {/* Заголовок */}
         <Header
-          user={user}
           menuCollapsed={menuCollapsed}
           setMenuVisibility={setMenuVisibility}
           setMenuCollapsed={onChangeMenuCollapsed}
-          skin={skin}
-          changeSkin={onChangeSkin}
         />
 
         {/* Основное содержимое */}
