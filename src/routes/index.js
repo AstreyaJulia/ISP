@@ -1,7 +1,6 @@
 import React, { lazy, Suspense } from "react";
-import { Navigate, useLocation, useRoutes } from "react-router-dom";
+import { Navigate, useRoutes } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout/index";
-import LogoOnlyLayout from "../layouts/LogoOnlyLayout";
 import GuestGuard from "../guards/GuestGuard";
 import AuthGuard from "../guards/AuthGuard";
 import LoadingScreen from "../components/LoadingScreen";
@@ -9,10 +8,10 @@ import { PATH_HOME } from "./paths";
 import RoleBasedGuard from "../guards/RoleBasedGuard";
 
 const Loadable = (Component) => (props) => (
-    <Suspense fallback={<LoadingScreen />}>
-      <Component {...props} />
-    </Suspense>
-  );
+  <Suspense fallback={<LoadingScreen />}>
+    <Component {...props} />
+  </Suspense>
+);
 
 export default function Router() {
   return useRoutes([
@@ -54,14 +53,18 @@ export default function Router() {
         </AuthGuard>
       ),
       children: [
-        { path: "", element: <Home /> },
+        { path: "", element: <Home /> }
       ]
     },
 
-    // General Routes
+    // Ошибки
     {
       path: "*",
-      element: <LogoOnlyLayout />,
+      element: (
+        <AuthGuard>
+          <MainLayout />
+        </AuthGuard>
+      ),
       children: [
         { path: "500", element: <Page500 /> },
         { path: "404", element: <NotFound /> },

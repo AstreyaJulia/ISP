@@ -1,84 +1,120 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { Link } from "react-router-dom";
-import { Maximize2, Minimize2, Moon, Sun } from "react-feather";
 import { useDispatch } from "react-redux";
 import Skeleton from "react-loading-skeleton";
 import toast from "react-hot-toast";
 import { Avatar } from "../../../components/Avatar";
-import useSettings from "../../../hooks/useSettings";
 import { getInitials } from "../../../utils/getInitials";
 import Toast, { toastStyles } from "../../../components/Toast";
 import useAuth from "../../../hooks/useAuth";
 import { classNames } from "../../../utils/classNames";
+import { PATH_AUTH } from "../../../routes/paths";
 
 const Header = (props) => {
 
-  const {menuCollapsed, setMenuVisibility, setMenuCollapsed} = props;
+  const searchTypes = {
+    users: { selectText: "Сотрудники", searchText: "Поиск сотрудников" },
+    inbox: { selectText: "Входящая почта", searchText: "Поиск входящей корреспонденции" },
+    outbox: { selectText: "Исходящая почта", searchText: "Поиск исходящей корреспонденции" }
+  };
+
+  const searchChangeHandler = (evt) => {
+    evt.preventDefault();
+    changeSearchType(evt.target.value);
+  };
+
+  const { setMenuVisibility } = props;
+  const [searchType, changeSearchType] = useState("users");
 
   /** Хуки */
-  const { skin, onChangeSkin } = useSettings();
-  const { logout } = useAuth();
+  const { user, logout, onChangeSkin, theme, onChangeMenuCollapsed, sidebar } = useAuth();
   const dispatch = useDispatch();
-  const { user } = useAuth();
-
 
   /** Кнопка-переключатель узкого/широкого меню */
   const MenuToggler = () => {
-    if (menuCollapsed) {
+    if (sidebar?.toString() === "0") {
       return (<button
+        value={1}
         className="hidden lg:flex items-center justify-center sidebar-collapse-button bg-white dark:bg-gray-900 p-1 rounded-full text-gray-400 dark:text-gray-500 dark:hover:text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        onClick={() => setMenuCollapsed(false)}
+        onClick={() => onChangeMenuCollapsed(1)}
         title="Развернуть меню"
       >
-        <Maximize2 />
+        <svg className='rotate-180' width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+          <g fill="none" fillRule="evenodd">
+            <path d="M0 0h24v24H0z"/>
+            <g fill="currentColor" fillRule="nonzero">
+              <path
+                d="M14.3283 11.4343 18.5126 7.25c.4142-.4142.4142-1.0858 0-1.5-.4142-.4142-1.0858-.4142-1.5 0l-5.543 5.5429c-.3904.3905-.3904 1.0237 0 1.4142l5.543 5.5429c.4142.4142 1.0858.4142 1.5 0 .4142-.4142.4142-1.0858 0-1.5l-4.1843-4.1843a.8.8 0 0 1 0-1.1314Z"
+                opacity=".48"/>
+              <path
+                d="M8.3283 11.4343 12.5126 7.25c.4142-.4142.4142-1.0858 0-1.5-.4142-.4142-1.0858-.4142-1.5 0l-5.543 5.5429c-.3904.3905-.3904 1.0237 0 1.4142l5.543 5.5429c.4142.4142 1.0858.4142 1.5 0 .4142-.4142.4142-1.0858 0-1.5l-4.1843-4.1843a.8.8 0 0 1 0-1.1314Z"/>
+            </g>
+          </g>
+        </svg>
       </button>);
     }
     return (<button
       className="sidebar-collapse-button bg-white dark:bg-gray-900 p-1 rounded-full text-gray-400 dark:text-gray-500 dark:hover:text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-      onClick={() => setMenuCollapsed(true)}
+      value={0}
+      onClick={() => onChangeMenuCollapsed(0)}
       title="Свернуть меню"
     >
-      <Minimize2 />
+      <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+        <g fill="none" fillRule="evenodd">
+          <path d="M0 0h24v24H0z"/>
+          <g fill="currentColor" fillRule="nonzero">
+            <path
+              d="M14.3283 11.4343 18.5126 7.25c.4142-.4142.4142-1.0858 0-1.5-.4142-.4142-1.0858-.4142-1.5 0l-5.543 5.5429c-.3904.3905-.3904 1.0237 0 1.4142l5.543 5.5429c.4142.4142 1.0858.4142 1.5 0 .4142-.4142.4142-1.0858 0-1.5l-4.1843-4.1843a.8.8 0 0 1 0-1.1314Z"
+              opacity=".48"/>
+            <path
+              d="M8.3283 11.4343 12.5126 7.25c.4142-.4142.4142-1.0858 0-1.5-.4142-.4142-1.0858-.4142-1.5 0l-5.543 5.5429c-.3904.3905-.3904 1.0237 0 1.4142l5.543 5.5429c.4142.4142 1.0858.4142 1.5 0 .4142-.4142.4142-1.0858 0-1.5l-4.1843-4.1843a.8.8 0 0 1 0-1.1314Z"/>
+          </g>
+        </g>
+      </svg>
     </button>);
   };
-
 
   /** Переключалка темы
    * @returns {JSX.Element}
    * @constructor
    */
   const ThemeToggler = () => {
-    if (skin === "dark") {
+    if (theme === 0) {
       return <button
         type="button"
-        value="dark"
-        onClick={() => onChangeSkin("light")}
-        className="skin-toggler bg-white dark:bg-gray-900 p-1 rounded-full text-gray-400 dark:text-gray-500 dark:hover:text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        value={1}
+        onClick={() => onChangeSkin(1)}
+        className="skin-toggler p-1 rounded-full text-gray-500 dark:text-gray-400 dark:hover:text-gray-300 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
       >
         <span className="sr-only">
         Переключить тему
         </span>
-        <Sun className="h-6 w-6" />
+        <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5">
+          <circle cy="8" cx="8" r="3.25"/>
+          <path d="m2.75 13.25.5-.5m9.5 0 .5.5m-.5-10 .5-.5m-10 .5-.5-.5m-.50 5.25h-1m13.5 0h-1m-5.75 5.75v1m0-13.5v1"/>
+        </svg>
       </button>
         ;
     }
     return <button
       type="button"
-      value="light"
-      onClick={() => onChangeSkin("dark")}
-      className="skin-toggler bg-white dark:bg-gray-900 p-1 rounded-full text-gray-400 dark:text-gray-500 dark:hover:text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+      value={0}
+      onClick={() => onChangeSkin(0)}
+      className="skin-toggler p-1 rounded-full text-gray-500 dark:text-gray-400 dark:hover:text-gray-300 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
     >
       <span className="sr-only">
         Переключить тему
       </span>
-      <Moon className="h-6 w-6" />
+      <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5">
+        <path d="m1.75 8c0 3.45 2.8 6.25 6.25 6.25 3.41-.0027 6.25-3 6.25-6-1 .5-4 1.5-6-.5s-1-5-.5-6c-3 0-6 2.84-6 6.25z"/>
+      </svg>
     </button>;
   };
 
   return (
     <div
-      className={classNames(menuCollapsed ? "lg:left-20" : "lg:left-64", "left-0 fixed top-0 right-0 z-10 flex-shrink-0 flex h-16 shadow bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 lg:border-none")}
+      className={classNames(sidebar?.toString() === "0" ? "lg:left-20" : "lg:left-64", "left-0 fixed top-0 right-0 z-10 flex-shrink-0 flex h-16 shadow bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 lg:border-none")}
     >
       <button
         type="button"
@@ -93,7 +129,7 @@ const Header = (props) => {
         </svg>
 
       </button>
-      <div className="ml-4 hidden lg:flex items-center md:ml-6">
+      <div className="ml-4 hidden lg:flex items-center md:ml-3">
         <MenuToggler />
       </div>
 
@@ -118,22 +154,24 @@ const Header = (props) => {
               <input
                 id="search"
                 name="search"
-                className="block w-full bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-md py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:outline-none focus:text-gray-900 dark:focus:text-gray-400 focus:placeholder-gray-400 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                placeholder="Поиск"
+                className="block w-full bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-md py-2 pl-10 pr-3 text-sm placeholder-gray-600 focus:outline-none focus:text-gray-900 dark:focus:text-gray-400 focus:placeholder-gray-300 dark:placeholder-gray-400 dark:focus:placeholder-gray-700 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                placeholder={searchTypes[searchType].searchText}
                 type="search"
               />
               <div className="absolute inset-y-0 right-0 flex items-center">
-                <label htmlFor="currency" className="sr-only">
+                <label htmlFor="search-type" className="sr-only">
                   Разделы поиска
                 </label>
                 <select
                   id="search-type"
                   name="search-type"
-                  className="search-select focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md"
+                  value={searchType}
+                  onChange={searchChangeHandler}
+                  className="search-select focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-600 dark:text-gray-400 sm:text-sm rounded-md"
                 >
-                  <option>Сотрудники</option>
-                  <option>Входящая почта</option>
-                  <option>Исходящая почта</option>
+                  <option value="users">Сотрудники</option>
+                  <option value="inbox">Входящая почта</option>
+                  <option value="outbox">Исходящая почта</option>
                 </select>
               </div>
             </div>
@@ -206,7 +244,7 @@ const Header = (props) => {
                 <div className="py-1">
                   <Menu.Item>
                     {({ active }) => (<Link
-                      to="/auth"
+                      to={PATH_AUTH.login}
                       onClick={() => {
                         dispatch(logout);
                         toast(t => <Toast t={t} message="Вы вышли из системы."

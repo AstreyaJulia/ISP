@@ -8,3 +8,12 @@
 @tailwind components;
 @tailwind utilities;
 
+/** Замена браузерных стилей для Мозиллы */
+@supports (-moz-appearance:none) {
+    option
+    {
+        -moz-appearance:none !important;
+        font-size: 16px;
+        @apply text-gray-800 bg-white
+    }
+}

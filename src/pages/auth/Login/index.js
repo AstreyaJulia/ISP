@@ -10,6 +10,8 @@ import { setSession } from "../../../utils/jwt";
 import useAuth from "../../../hooks/useAuth";
 import useIsMountedRef from "../../../hooks/useIsMountedRef";
 import { APP_NAME } from "../../../config";
+import BasicPage from "../../pagesLayouts/basicPage";
+import LoadingButton from "../../../components/LoadingButton";
 
 const defaultValues = {
   login: "chainik",
@@ -47,12 +49,7 @@ const Login = () => {
   }
 
   return (
-    <>
-      <Helmet>
-        <title>{APP_NAME} - Вход</title>
-      </Helmet>
-
-      <div className="min-h-full flex bg-white dark:bg-gray-900">
+    <BasicPage title='Вход' className='main-content min-h-full flex bg-white dark:bg-gray-900' >
         <div
           className="hidden lg:flex relative w-0 flex-1 content-center items-center justify-center rounded-full">
           <div className="w-1/3 bg-cyan-400 rounded-full overflow-hidden">
@@ -118,24 +115,21 @@ const Login = () => {
                     <div className="text-sm">
                       <Link to="/reg"
                             className="font-medium text-indigo-600 hover:text-indigo-500">
-                        У меня нет пароля
+                        У меня нет пароля / Пароль был сброшен
                       </Link>
                     </div>
                   </div>
-                  <div>
-                    <Button type="submit"
-                            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                            block>
-                      Войти
-                    </Button>
-                  </div>
+                    <LoadingButton type='submit' isLoading={isSubmitting} label='Войти' classes='w-full text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-offset-2 focus:ring-indigo-500'>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m15 14 2.045-1.533C19.469 10.648 20.542 6.98 20 4c-2.981-.542-6.649.531-8.467 2.955L10 9m5 5-3.5 2.5-4-4L10 9m5 5v2.667a4 4 0 0 1-.8 2.4l-.7.933-1-1M10 9H7.333a4 4 0 0 0-2.4.8L4 10.5l1 1M8.5 18 5 19l1.166-3.5m9.334-6a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"/>
+                      </svg>
+                    </LoadingButton>
                 </Form>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </>
+    </BasicPage>
   )
 }
 

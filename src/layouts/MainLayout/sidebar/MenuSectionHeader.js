@@ -7,17 +7,17 @@ import { classNames } from "../../../utils/classNames";
  * @param menuCollapsed - состояние меню узкое/широкое
  * @returns {JSX.Element}
  * @constructor */
-const MenuSectionHeader = ({item, menuCollapsed}) => (
-    <div className={classNames("text-gray-400 text-xs font-medium uppercase tracking-wide my-3 flex", !menuCollapsed
+const MenuSectionHeader = ({item, sidebar}) => (
+    <div className={classNames("text-gray-700 dark:text-gray-300 text-xs font-bold uppercase tracking-wide my-4 flex", sidebar?.toString() === '1'
       ? ""
       : "justify-center")}
          key={item.header}>
       {/* Если узкое, название скрывается */}
-      {!menuCollapsed
+      {sidebar?.toString() === '1'
         ? <span>{item.header}</span>
         : ""}
       {/* Если узкое, показывается значок из трех точек вместо заголовка */}
-      {menuCollapsed
+      {sidebar?.toString() === '0'
         ? <MoreHorizontal className="feather-more-horizontal"/>
         : ""}
     </div>

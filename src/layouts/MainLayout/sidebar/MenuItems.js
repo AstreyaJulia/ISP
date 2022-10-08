@@ -30,10 +30,10 @@ const MenuItems = (props) => {
     if (item.children) {
       return (
         <TagName key={item.id || item.header} item={item} index={index}
-                 menuCollapsed={props.menuCollapsed} {...props} />
+                 sidebar={props.sidebar} {...props} />
       );
     }
-    return <TagName key={item.id || item.header} item={item} menuCollapsed={props.menuCollapsed} {...props} />;
+    return <TagName key={item.id || item.header} item={item} sidebar={props.sidebar} {...props} />;
   });
 };
 

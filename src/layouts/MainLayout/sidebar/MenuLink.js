@@ -1,8 +1,8 @@
 import {Link, useLocation} from "react-router-dom";
-import classNames from "classnames";
 import React, {useEffect, useState} from "react";
+import { classNames } from "../../../utils/classNames";
 
-const MenuLink = ({item, menuCollapsed}) => {
+const MenuLink = ({item, sidebar}) => {
   /** Текущий элемент меню */
   const [activeItem, setActiveItem] = useState(null)
 
@@ -25,12 +25,12 @@ const MenuLink = ({item, menuCollapsed}) => {
       <Link
         to={item.alias}
         className={classNames(item.alias === activeItem || `/${  item.alias}` === activeItem
-            ? "bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 flex"
-            : "flex text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700",
-          "group flex items-center py-2 text-base leading-6 rounded-lg",
-          menuCollapsed
+            ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex"
+            : "flex text-gray-500 dark:text-gray-400 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700",
+          "menu-item flex items-center py-3 text-base leading-6 rounded-lg",
+          sidebar?.toString() === '0'
             ? "justify-center"
-            : "px-2"
+            : "px-3"
         )}
 
         aria-current={
@@ -48,10 +48,10 @@ const MenuLink = ({item, menuCollapsed}) => {
       >
         {/** Значок элемента, если меню узкое, отступ убирается */}
         <i className={classNames(
-          menuCollapsed
+          sidebar?.toString() === '0'
             ? ""
-            : "mr-3",
-          "flex-shrink-0 flex items-center text-2xl mdi relative text-gray-500",
+            : "mr-4",
+          "flex-shrink-0 flex items-center text-2xl mdi relative",
           item.icon)
         }
         >
@@ -60,7 +60,7 @@ const MenuLink = ({item, menuCollapsed}) => {
               <span className={classNames(
                 "absolute top-0.5 right-0 inline-flex items-center w-2 h-2 rounded-full text-xs font-medium",
                 item.badgeColor,
-                menuCollapsed
+                sidebar?.toString() === '0'
                   ? ""
                   : "ml-auto"
               )
@@ -70,8 +70,8 @@ const MenuLink = ({item, menuCollapsed}) => {
           }
         </i>
         {/** Название элемента меню, если меню узкое, не отрисовывается */}
-        {!menuCollapsed
-          ? <span className="text-gray-800 dark:text-gray-300 text-sm">{item.pagetitle}</span>
+        {sidebar?.toString() === '1'
+          ? <span className="text-sm font-medium">{item.pagetitle}</span>
           : ""}
         {/** Отрисовка бейджа для меню */}
 

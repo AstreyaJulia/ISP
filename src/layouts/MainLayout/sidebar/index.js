@@ -7,11 +7,11 @@ import logo from "../../../assets/images/logo/gerbwoframe.svg";
 import { COURT_NAME, COURT_REGION } from "../../../config";
 import MenuSectionHeader from "./MenuSectionHeader";
 import MenuItems from "./MenuItems";
+import useAuth from "../../../hooks/useAuth";
 
 const Sidebar = (props) => {
 
   const {
-    menuCollapsed,
     menuData,
     menuVisibility,
     setMenuVisibility,
@@ -21,6 +21,7 @@ const Sidebar = (props) => {
   const [groupOpen, setGroupOpen] = useState([])
   const [groupActive, setGroupActive] = useState([])
   const [currentActiveGroup, setCurrentActiveGroup] = useState([])
+  const { sidebar, onChangeMenuCollapsed } = useAuth();
 
   return (
     <>
@@ -65,16 +66,14 @@ const Sidebar = (props) => {
                 <div className="absolute top-0 right-0 mr-4 pt-4">
                   <button
                     type="button"
+                    value='1'
                     className="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
                     onClick={() => setMenuVisibility(false)}
                   >
-                                        <span className="sr-only">
-                                            Close sidebar
-                                        </span>
+                    <span className="sr-only">Закрыть сайдбар</span>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-6 w-6 text-gray-800 dark:text-gray-100">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>
-
                   </button>
                 </div>
               </Transition.Child>
@@ -104,13 +103,14 @@ const Sidebar = (props) => {
                   options={{wheelPropagation: false}}
                 >
                   <div className="px-4 space-y-1">
-                    <MenuSectionHeader menuCollapsed={menuCollapsed}
+                    <MenuSectionHeader sidebar={sidebar}
                                           item={{header: "Главное меню"}}/>
                     <MenuItems
                       items={menuData}
                       groupOpen={groupOpen}
                       groupActive={groupActive}
                       setGroupOpen={setGroupOpen}
+                      sidebar={sidebar}
                       setGroupActive={setGroupActive}
                       currentActiveGroup={currentActiveGroup}
                       setCurrentActiveGroup={setCurrentActiveGroup}
@@ -129,7 +129,7 @@ const Sidebar = (props) => {
       {/** Десктопное меню */}
       <div
         className={classNames(
-          menuCollapsed ? "lg:w-20" : "lg:w-64",
+          sidebar?.toString() === '0' ? "lg:w-20" : "lg:w-64",
           "sidebar-menu relative hidden lg:flex lg:flex-col lg:fixed lg:inset-y-0"
         )}
       >
@@ -141,12 +141,12 @@ const Sidebar = (props) => {
             )}
           >
             <div className="flex items-center space-x-3">
-              <div className={classNames("flex-shrink-0", !menuCollapsed ? "" : "justify-center")}>
+              <div className={classNames("flex-shrink-0", sidebar?.toString() === '1' ? "" : "justify-center")}>
                 <Avatar size="10" avatar={logo} shape="roundedMD"
                         classname="border-2 border-gray-200 dark:border-gray-700"
                         name={COURT_NAME}/>
               </div>
-              {!menuCollapsed ? (
+              {sidebar?.toString() === '1' ? (
                 <div className="flex-1 min-w-0">
                   <p className="text-xs text-gray-700 dark:text-gray-200 flex-wrap font-medium">
                     {COURT_NAME}
@@ -167,17 +167,17 @@ const Sidebar = (props) => {
             >
               <div
                 className={classNames(
-                  "px-4 space-y-1",
-                  menuCollapsed ? "justify-center" : ""
+                  "p-3 space-y-1",
+                  sidebar?.toString() === '0' ? "justify-center" : ""
                 )}
               >
-                <MenuSectionHeader menuCollapsed={menuCollapsed} item={{header: "Главное меню"}}/>
+                <MenuSectionHeader sidebar={sidebar} item={{header: "Главное меню"}}/>
                 <MenuItems
                   items={menuData}
                   groupOpen={groupOpen}
                   groupActive={groupActive}
                   setGroupOpen={setGroupOpen}
-                  menuCollapsed={menuCollapsed}
+                  sidebar={sidebar}
                   setGroupActive={setGroupActive}
                   currentActiveGroup={currentActiveGroup}
                   setCurrentActiveGroup={setCurrentActiveGroup}

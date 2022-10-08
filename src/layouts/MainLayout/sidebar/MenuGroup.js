@@ -3,6 +3,7 @@ import {useLocation} from "react-router-dom";
 import MenuItems from "./MenuItems";
 import {makeArrayFromObj} from "../../../utils/makeArrayFromObj";
 import { classNames } from "../../../utils/classNames";
+import sidebar from "./index";
 
 /** Проверяет, есть ли у потомков элемента текущий url
  * @param item - элемент
@@ -54,7 +55,7 @@ const MenuGroup = ({
                           parentItem,
                           groupActive,
                           setGroupOpen,
-                          menuCollapsed,
+                          sidebar,
                           setGroupActive,
                           currentActiveGroup,
                           setCurrentActiveGroup,
@@ -137,12 +138,12 @@ const MenuGroup = ({
 
     // ** Returns condition to add open class
     const openClassCondition = (id) => {
-        if ((menuCollapsed) || menuCollapsed === false) {
+        if (sidebar || sidebar?.toString() === '0') {
             if (groupActive.includes(id) || groupOpen.includes(id)) {
                 return true;
             }
             // eslint-disable-next-line
-        } else if (groupActive.includes(id) && menuCollapsed) {
+        } else if (groupActive.includes(id) && sidebar) {
             return false;
         } else {
             return null;
@@ -153,17 +154,17 @@ const MenuGroup = ({
             <>
                 <div className="w-full">
                     <a href="#"
-                       className={classNames({open: openClassCondition(item.id)}, groupActive.includes(item.id) || groupOpen.includes(item.id) || currentActiveGroup.includes(item.id) ? "bg-gray-200 dark:bg-gray-800 text-gray-600 dark:text-gray-400 flex" : "flex text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700", "group flex items-center py-2 text-base leading-6 rounded-md  w-full hover:cursor-pointer", menuCollapsed ? "justify-end" : "px-2 justify-between")}
+                       className={classNames(openClassCondition(item.id), groupActive.includes(item.id) || groupOpen.includes(item.id) || currentActiveGroup.includes(item.id) ? "bg-gray-200 dark:bg-gray-800 text-gray-600 dark:text-gray-400 flex" : "flex text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700", "group flex items-center py-3 text-base leading-6 rounded-md  w-full hover:cursor-pointer", sidebar?.toString() === '0' ? "justify-end" : "px-3 justify-between")}
                        aria-current={groupActive.includes(item.id) || groupOpen.includes(item.id) || currentActiveGroup.includes(item.id) ? "page" : undefined}
                        onClick={e => onCollapseClick(e, item)}
                     >
                         <div className="flex items-center truncate mr-1">
-                            <i className={classNames(menuCollapsed ? "" : "mr-3", "flex-shrink-0 flex items-center text-2xl mdi text-gray-500", item.icon)}/>
-                            {!menuCollapsed ? <span
-                                className="text-gray-800 dark:text-gray-300 truncate text-sm">{item.pagetitle}</span> : ""}
+                            <i className={classNames(sidebar?.toString() === '0' ? "" : "mr-4", "flex-shrink-0 flex items-center text-2xl mdi text-gray-500", item.icon)}/>
+                            {sidebar?.toString() === '1' ? <span
+                                className="text-gray-500 dark:text-gray-400 truncate text-sm font-medium">{item.pagetitle}</span> : ""}
                         </div>
                         <svg xmlns="http://www.w3.org/2000/svg"
-                             className={classNames(groupActive.includes(item.id) || groupOpen.includes(item.id) || currentActiveGroup.includes(item.id) ? "text-gray-500 rotate-90" : "text-gray-400", !menuCollapsed ? "w-4" : "w-3", "flex-shrink-0 h-4 transform group-hover:text-gray-400 transition-colors ease-in-out duration-150")}
+                             className={classNames(groupActive.includes(item.id) || groupOpen.includes(item.id) || currentActiveGroup.includes(item.id) ? "text-gray-500 rotate-90" : "text-gray-500", sidebar?.toString() === '0' ? "w-5" : "w-4", "flex-shrink-0 h-4 transform group-hover:text-gray-500 transition-colors ease-in-out duration-150")}
                              viewBox="0 0 20 20" fill="currentColor">
                             <path fillRule="evenodd"
                                   d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
@@ -183,7 +184,7 @@ const MenuGroup = ({
                             groupOpen={groupOpen}
                             setGroupOpen={setGroupOpen}
                             parentItem={item}
-                            menuCollapsed={menuCollapsed}
+                            sidebar={sidebar}
                             activeItem={activeItem}
                         />) : ""}
                 </div>
