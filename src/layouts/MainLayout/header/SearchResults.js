@@ -8,8 +8,7 @@ const SearchResults = ({ show, query, searchQueryClose, searchType, searchresult
 
   const searchTypesSettings = {
     users: {
-      element: (item) => {
-        return (
+      element: (item) => (
           <a key={item.fullname}
              className="flex flex-col border border-transparent border-b-slate-300 border-dashed py-2 hover:cursor-pointer hover:bg-emerald-50 hover:border-emerald-300 hover:border hover:rounded-md p-2">
             <p className="text-sm font-bold text-slate-800">{item.fullname}</p>
@@ -21,12 +20,10 @@ const SearchResults = ({ show, query, searchQueryClose, searchType, searchresult
               <span>{item.phone}</span>
             </p>
           </a>
-        );
-      }
+        )
     },
     inbox: {
-      element: (item) => {
-        return (
+      element: (item) => (
           <a key={item.number}
              className="flex flex-col border border-transparent border-b-slate-300 border-dashed py-2 hover:cursor-pointer hover:bg-emerald-50 hover:border-emerald-300 hover:border hover:rounded-md p-2">
             <div className='flex flex-col'>
@@ -52,12 +49,10 @@ const SearchResults = ({ show, query, searchQueryClose, searchType, searchresult
               </p>
             </div>
           </a>
-        );
-      }
+        )
     },
     outbox: {
-      element: (item) => {
-        return (
+      element: (item) => (
           <a key={item.number}
              className="flex flex-col border border-transparent border-b-slate-300 border-dashed py-2 hover:cursor-pointer hover:bg-emerald-50 hover:border-emerald-300 hover:border hover:rounded-md p-2">
             <div className='flex flex-col'>
@@ -84,8 +79,7 @@ const SearchResults = ({ show, query, searchQueryClose, searchType, searchresult
               </p>
             </div>
           </a>
-        );
-      }
+        )
     }
   };
 
@@ -120,9 +114,7 @@ const SearchResults = ({ show, query, searchQueryClose, searchType, searchresult
             options={{ wheelPropagation: false }}
           >
             {
-              searchresults.map((item) => {
-                return searchTypesSettings[searchType].element(item);
-              })
+              searchresults.map((item) => searchTypesSettings[searchType].element(item))
             }
           </PerfectScrollbar>
         </div>

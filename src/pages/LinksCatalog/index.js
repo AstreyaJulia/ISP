@@ -6,6 +6,7 @@ import { proxyListGroups, proxyListLinks } from "../../@mock/SampleData";
 import { makeArrayFromObj } from "../../utils/makeArrayFromObj";
 import ContentLayoutWithSidebar from "../pagesLayouts/ContentLayoutWithSidebar";
 import useAuth from "../../hooks/useAuth";
+import DeleteModal from "./DeleteModal";
 
 const breadcrumbs = [{ name: "Каталог ссылок", href: "#", current: true }];
 
@@ -15,6 +16,7 @@ const LinksCatalog = () => {
   /** Стейты */
   const [selectedGroup, setSelectedGroup] = useState(null); // Выбранная группа
   const [groupsList, setGroupsList] = useState({}); // Список групп
+  const [openDialog, setOpenDialog] = useState(false); // модал удаления
 
   /** Нажатие на группу
    * @param event
@@ -36,6 +38,8 @@ const LinksCatalog = () => {
   }
   const focus = (evt) => evt.target.focus;
 
+  const openModalHandle = () => setOpenDialog(true);
+
   return (
     <ContentLayoutWithSidebar
       boxed="true"
@@ -46,13 +50,13 @@ const LinksCatalog = () => {
       fullHeight="true"
     >
       <ContentLayoutWithSidebar.Sidebar>
+        <DeleteModal open={openDialog} setOpen={setOpenDialog} />
         <div className="p-4 pt-0.5">
           <div className="grid grid-cols-1 gap-2">
-            {makeArrayFromObj(groupsList).map((group, key) => {
-              return (
+            {makeArrayFromObj(groupsList).map((group, key) => (
                 <div key={group.id} className="flex items-center w-full flex-shrink-0">
                   <div onClick={event => groupClick(event, key)} onKeyDown={handleKeyDown} role='link' tabIndex={group.id}
-                    className={["flex-grow rounded-lg border border-gray-300 dark:border-gray-700 bg-white hover:cursor-pointer dark:bg-gray-900 p-3 shadow-sm flex items-center space-x-3 hover:border-gray-400 dark:hover:border-gray-600", key === selectedGroup ? "ring-2 ring-indigo-500 bg-gray-200 border-gray-400" : ""].join(" ")}>
+                    className={["flex-grow rounded-lg border border-gray-300 dark:border-gray-700 bg-white hover:cursor-pointer dark:bg-gray-900 p-3 shadow-sm flex items-center space-x-3 hover:border-gray-400 dark:hover:border-gray-600", key === selectedGroup ? "ring-2 ring-indigo-500 bg-indigo-100 border-gray-400" : ""].join(" ")}>
                     <div className="flex-shrink-0">
                       <span
                         className="inline-flex items-center justify-center rounded-full h-8 w-8 bg-indigo-500/30">
@@ -108,6 +112,7 @@ const LinksCatalog = () => {
                           <Menu.Item>
                             {({ active }) => (
                               <button
+                                onClick={openModalHandle}
                                 className={`${
                                   active ? "bg-indigo-500 text-white" : "text-gray-900 dark:text-gray-100"
                                 } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
@@ -121,8 +126,7 @@ const LinksCatalog = () => {
                     </Menu>
                     : null}
                 </div>
-              );
-            })}
+              ))}
           </div>
         </div>
       </ContentLayoutWithSidebar.Sidebar>
@@ -138,8 +142,7 @@ const LinksCatalog = () => {
           </div>
           <div className={[selectedGroup != null ? "" : "h-full", "grid grid-cols-1 gap-2"].join(" ")}>
             {selectedGroup != null
-              ? makeArrayFromObj(proxyListLinks[selectedGroup].children).map((link) => {
-                return (
+              ? makeArrayFromObj(proxyListLinks[selectedGroup].children).map((link) => (
                   <div key={link.id} className="w-full flex flex-shrink-0 items-center">
                     <a
                       href={link.link}
@@ -204,6 +207,7 @@ const LinksCatalog = () => {
                             <Menu.Item>
                               {({ active }) => (
                                 <button
+                                  onClick={openModalHandle}
                                   className={`${
                                     active ? "bg-indigo-500 text-white" : "text-gray-900 dark:text-gray-100"
                                   } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
@@ -217,8 +221,7 @@ const LinksCatalog = () => {
                       </Menu>
                       : null}
                   </div>
-                );
-              })
+                ))
               : (
                 <div className="text-center flex flex-col items-center justify-center">
                   <div
