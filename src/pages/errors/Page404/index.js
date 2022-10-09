@@ -1,7 +1,7 @@
 import {Link} from "react-router-dom";
 import React from "react";
 import astronautConfuse from "../../../assets/images/pages/astronaut-confuse.svg";
-import BasicPage from "../../pagesLayouts/basicPage";
+import BasicPage from "../../pagesLayouts/BasicPage";
 
 const Page404 = () => (
   <BasicPage title='Страница не найдена' className='main-content' >

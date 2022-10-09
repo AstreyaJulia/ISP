@@ -1,6 +1,6 @@
 import React from "react";
-import BasicPage from "../pagesLayouts/basicPage";
-import HeaderBreadcrumbs from "../../components/HeaderBreadcrumbs";
+import BasicPage from "../pagesLayouts/BasicPage";
+import PageHeader from "../../components/PageHeader";
 
 const Home = () => {
 
@@ -8,8 +8,8 @@ const Home = () => {
     {name: "Редактирование моего профиля", href: "/myprofile/edit", current: true}];
 
   return (
-    <BasicPage title='Главная' className='main-content max-w-6xl mx-auto' >
-      <HeaderBreadcrumbs header='Заголовок' pages={breadcrumbs}/>
+    <BasicPage title='Главная' className='main-content max-w-6xl mx-auto px-3' >
+      <PageHeader pages={breadcrumbs} header='Заголовок' />
     </BasicPage>
   )
 };

@@ -150,10 +150,11 @@ const MenuGroup = ({
         }
     };
 
-    return (<div key={item.id} className="space-y-1 w-full">
+    return (<div key={item.id} className="my-1 w-full">
             <>
                 <div className="w-full">
                     <a href="#"
+                       title={sidebar?.toString() === '0' ? item.pagetitle : null}
                        className={classNames(openClassCondition(item.id), groupActive.includes(item.id) || groupOpen.includes(item.id) || currentActiveGroup.includes(item.id) ? "bg-gray-200 dark:bg-gray-800 text-gray-600 dark:text-gray-400 flex" : "flex text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700", "group flex items-center py-3 text-base leading-6 rounded-md  w-full hover:cursor-pointer", sidebar?.toString() === '0' ? "justify-end" : "px-3 justify-between")}
                        aria-current={groupActive.includes(item.id) || groupOpen.includes(item.id) || currentActiveGroup.includes(item.id) ? "page" : undefined}
                        onClick={e => onCollapseClick(e, item)}
@@ -164,7 +165,7 @@ const MenuGroup = ({
                                 className="text-gray-500 dark:text-gray-400 truncate text-sm font-medium">{item.pagetitle}</span> : ""}
                         </div>
                         <svg xmlns="http://www.w3.org/2000/svg"
-                             className={classNames(groupActive.includes(item.id) || groupOpen.includes(item.id) || currentActiveGroup.includes(item.id) ? "text-gray-500 rotate-90" : "text-gray-500", sidebar?.toString() === '0' ? "w-5" : "w-4", "flex-shrink-0 h-4 transform group-hover:text-gray-500 transition-colors ease-in-out duration-150")}
+                             className={classNames(groupActive.includes(item.id) || groupOpen.includes(item.id) || currentActiveGroup.includes(item.id) ? "text-gray-500 rotate-90" : "text-gray-500", sidebar?.toString() === '0' ? "w-3" : "w-5", "flex-shrink-0 h-4 transform group-hover:text-gray-500 transition-colors ease-in-out duration-150")}
                              viewBox="0 0 20 20" fill="currentColor">
                             <path fillRule="evenodd"
                                   d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
@@ -172,7 +173,7 @@ const MenuGroup = ({
                         </svg>
                     </a>
                 </div>
-                <div className="space-y-1">
+                <div className={classNames(groupActive.includes(item.id) || groupOpen.includes(item.id) || currentActiveGroup.includes(item.id) ? 'px-2 pb-3' : '', 'my-1')}>
                     {groupActive.includes(item.id) || groupOpen.includes(item.id) || currentActiveGroup.includes(item.id) ? (
                         <MenuItems
                             {...rest}

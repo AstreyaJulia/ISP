@@ -102,14 +102,14 @@ function AuthProvider({ children }) {
       payload: {
         isAuthenticated: true,
         user: {
-          id: res.data.data.id, // ид пользователя в базе
-          username: res.data.data.username, // Логин
-          fullname: res.data.data.fullname, // полное имя
-          role: res.data.data.sudo === 1 ? "Администратор" : "Пользователь", // Роль, текстовое значение
-          sudo: res.data.data.sudo, // Права суперпользователя, 0 - пользователь, 1 - администратор
+          id, // ид пользователя в базе
+          username, // Логин
+          fullname, // полное имя
+          role: sudo === 1 ? "Администратор" : "Пользователь", // Роль, текстовое значение
+          sudo, // Права суперпользователя, 0 - пользователь, 1 - администратор
         },
-        theme: res.data.data.theme, // Тема 0 - темная, 1 - светлая
-        sidebar: res.data.data.sidebar, // Сайдбар, 1 - широкий, 0 - узкий
+        theme, // Тема 0 - темная, 1 - светлая
+        sidebar, // Сайдбар, 1 - широкий, 0 - узкий
       }
     });
   }

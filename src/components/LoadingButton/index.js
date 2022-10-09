@@ -3,8 +3,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { classNames } from "../../utils/classNames";
 
-const LoadingButton = ({isLoading, classes, children, label, type, ...other}) => {
-  return (
+const LoadingButton = ({isLoading, classes, children, label, type, ...other}) => (
     <Button type={type} {...other}
             className={classNames(classes || '', "flex justify-center items-center py-2 px-4 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2")}
     >
@@ -18,7 +17,6 @@ const LoadingButton = ({isLoading, classes, children, label, type, ...other}) =>
       <span className='ml-3'>{label}</span>
     </Button>
   )
-}
 
 LoadingButton.propTypes = {
   isLoading: PropTypes.bool,

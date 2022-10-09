@@ -8,6 +8,7 @@ import { COURT_NAME, COURT_REGION } from "../../../config";
 import MenuSectionHeader from "./MenuSectionHeader";
 import MenuItems from "./MenuItems";
 import useAuth from "../../../hooks/useAuth";
+import UserInfo from "./UserInfo";
 
 const Sidebar = (props) => {
 
@@ -102,7 +103,7 @@ const Sidebar = (props) => {
                   className="main-menu-content"
                   options={{wheelPropagation: false}}
                 >
-                  <div className="px-4 space-y-1">
+                  <div className="px-4">
                     <MenuSectionHeader sidebar={sidebar}
                                           item={{header: "Главное меню"}}/>
                     <MenuItems
@@ -157,6 +158,7 @@ const Sidebar = (props) => {
                 </div>) : null}
             </div>
           </div>
+          <UserInfo />
           <nav
             className="mt-2 flex-1 flex flex-col overflow-y-auto"
             aria-label="Меню"
@@ -167,11 +169,10 @@ const Sidebar = (props) => {
             >
               <div
                 className={classNames(
-                  "p-3 space-y-1",
+                  "p-3",
                   sidebar?.toString() === '0' ? "justify-center" : ""
                 )}
               >
-                <MenuSectionHeader sidebar={sidebar} item={{header: "Главное меню"}}/>
                 <MenuItems
                   items={menuData}
                   groupOpen={groupOpen}

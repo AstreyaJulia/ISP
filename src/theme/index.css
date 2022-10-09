@@ -3,6 +3,10 @@
 /** Анимация  */
 @import "./animation";
 
+/** npm модули */
+@import '~react-loading-skeleton/dist/skeleton.css';
+@import "~react-perfect-scrollbar/dist/css/styles.css";
+
 /** Tailwind  */
 @tailwind base;
 @tailwind components;
@@ -16,4 +20,14 @@
         font-size: 16px;
         @apply text-gray-800 bg-white
     }
+}
+
+/** Для страниц с фиксированной высотой */
+.full-height-page {
+    height: calc(100vh - 64px - 52px);
+}
+
+/** Perfect scrollbar постоянно отображается */
+.ps__show .ps__rail-y {
+    opacity: 1;
 }

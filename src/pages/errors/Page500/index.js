@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import astronautsTalking from "../../../assets/images/pages/astronauts-talking.svg";
-import BasicPage from "../../pagesLayouts/basicPage";
+import BasicPage from "../../pagesLayouts/BasicPage";
 
 const index = () => (
   <BasicPage title='Ошибка сервера' className='main-content' >

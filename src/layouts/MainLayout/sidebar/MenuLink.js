@@ -1,6 +1,7 @@
 import {Link, useLocation} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import { classNames } from "../../../utils/classNames";
+import Badge from "../../../components/Badge";
 
 const MenuLink = ({item, sidebar}) => {
   /** Текущий элемент меню */
@@ -20,10 +21,12 @@ const MenuLink = ({item, sidebar}) => {
   return (
     <div
       key={item.id}
+      className='my-1'
     >
       {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
       <Link
         to={item.alias}
+        title={sidebar?.toString() === '0' ? item.pagetitle : null}
         className={classNames(item.alias === activeItem || `/${  item.alias}` === activeItem
             ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex"
             : "flex text-gray-500 dark:text-gray-400 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700",
@@ -39,7 +42,7 @@ const MenuLink = ({item, sidebar}) => {
         onClick={(e) => {
           if (
             item.alias.length === 0 ||
-            item.alias === "#" ||
+            !item.alias ||
             item.disabled === true
           ) {
             e.preventDefault();
@@ -55,26 +58,31 @@ const MenuLink = ({item, sidebar}) => {
           item.icon)
         }
         >
-          {item.badgeColor
+          {item.badgeColor && sidebar?.toString() === '0'
             ? (
               <span className={classNames(
-                "absolute top-0.5 right-0 inline-flex items-center w-2 h-2 rounded-full text-xs font-medium",
-                item.badgeColor,
+                "absolute top-0.5 right-0 inline-flex items-center w-2 h-2 rounded-full text-xs font-medium bg-red-400",
                 sidebar?.toString() === '0'
                   ? ""
                   : "ml-auto"
               )
               } />
             )
-            : null
-          }
+            : null}
         </i>
         {/** Название элемента меню, если меню узкое, не отрисовывается */}
         {sidebar?.toString() === '1'
           ? <span className="text-sm font-medium">{item.pagetitle}</span>
           : ""}
         {/** Отрисовка бейджа для меню */}
-
+        {item.badgeColor && sidebar?.toString() === '1'
+          ? (
+            <Badge size='small' shape='rounded' color={item.badgeColor || 'red'} item={item.badgeText} className={sidebar?.toString() === '0'
+              ? ""
+              : "ml-auto"}/>
+          )
+          : null
+        }
       </Link>
     </div>
   );

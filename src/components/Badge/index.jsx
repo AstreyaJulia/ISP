@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { classNames } from "../../utils/classNames";
 
-const Badge = ({size, color, item, className}) => {
+const Badge = ({size, color, item, shape, className}) => {
 
   const BadgeSize = {
     small: "px-2.5 py-0.5 text-xs",
@@ -20,10 +20,15 @@ const Badge = ({size, color, item, className}) => {
     pink: "bg-pink-500/30 text-pink-700 dark:text-pink-300"
   }
 
+  const BadgeShapes = {
+    rounded: 'rounded-md',
+    circle: 'rounded-full'
+  }
+
 
   return (
     <span
-      className={classNames("inline-flex items-center rounded-full font-medium", BadgeSize[size], BadgeColor[color], className)}>
+      className={classNames("inline-flex items-center font-medium", BadgeSize[size], BadgeColor[color], BadgeShapes[shape], className)}>
         {item}
       </span>
   );
@@ -36,6 +41,8 @@ Badge.propTypes = {
   size: PropTypes.oneOf(["small", "large"]).isRequired,
   /**  Цвет бейджа */
   color: PropTypes.oneOf(["red", "orange", "yellow", "green", "cyan", "blue", "indigo", "pink"]).isRequired,
+  /**  Форма бейджа */
+  shape: PropTypes.oneOf(["rounded", "circle"]).isRequired,
   /** Доп. класс/ы для бейджа */
   className: PropTypes.string
 };

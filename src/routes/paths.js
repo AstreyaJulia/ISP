@@ -61,7 +61,18 @@ export const PATH_INFO = {
   root: ROOTS_INFO, // Плашки, поиск
   info: {
     addressBook: path(ROOTS_INFO, "/address-book"), // Телефоны, адреса
-    proxyList: path(ROOTS_INFO, "/proxy-list"), // Каталог ссылок
+    proxyList: {
+      list: path(ROOTS_INFO, "/proxy-list"), // Каталог ссылок
+      group: {
+        edit: (id) => path(ROOTS_INFO, `/proxy-list/group/${id}/edit`), // Правка группы администратором
+        new: path(ROOTS_INFO, "/proxy-list/group/new"), // Добавление группы администратором
+
+      },
+      link: {
+        edit: (id) => path(ROOTS_INFO, `/proxy-list/link/${id}/edit`), // Правка ссылки администратором
+        new: path(ROOTS_INFO, "/proxy-list/link/new"), // Добавление ссылки администратором
+      },
+    },
     faq: path(ROOTS_INFO, "/faq"), // База знаний
   },
 };

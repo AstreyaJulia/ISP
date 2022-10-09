@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {Outlet} from "react-router-dom";
 import Header from "./header";
 import { classNames } from "../../utils/classNames";
@@ -19,10 +19,12 @@ const Layout = ({setMenuVisibility}) => {
 
       {/* Основное содержимое */}
       <div
-        className={classNames(sidebar === 0 ? "lg:left-20" : "lg:left-64", "main-content animate__fadeIn left-0 text-gray-900 dark:text-gray-200 fixed top-16 right-0 bottom-0 overflow-hidden py-7")}
+        className={classNames(sidebar === 0 ? "lg:left-20" : "lg:left-64", "main-content animate__fadeIn left-0 text-gray-900 dark:text-gray-200 fixed top-16 right-0 bottom-0 overflow-hidden")}
       >
-        {/* Содержимое страницы */}
-        <Outlet/>
+        <div className='content-body overflow-y-scroll h-full py-3'>
+          {/* Содержимое страницы */}
+          <Outlet/>
+        </div>
       </div>
     </div>
   )

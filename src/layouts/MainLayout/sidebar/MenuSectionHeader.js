@@ -8,7 +8,7 @@ import { classNames } from "../../../utils/classNames";
  * @returns {JSX.Element}
  * @constructor */
 const MenuSectionHeader = ({item, sidebar}) => (
-    <div className={classNames("text-gray-700 dark:text-gray-300 text-xs font-bold uppercase tracking-wide my-4 flex", sidebar?.toString() === '1'
+    <div className={classNames("text-gray-700 dark:text-gray-300 text-xs font-bold uppercase tracking-wide m-3 flex", sidebar?.toString() === '1'
       ? ""
       : "justify-center")}
          key={item.header}>

@@ -10,7 +10,7 @@ import { setSession } from "../../../utils/jwt";
 import useAuth from "../../../hooks/useAuth";
 import useIsMountedRef from "../../../hooks/useIsMountedRef";
 import { APP_NAME } from "../../../config";
-import BasicPage from "../../pagesLayouts/basicPage";
+import BasicPage from "../../pagesLayouts/BasicPage";
 import LoadingButton from "../../../components/LoadingButton";
 
 const defaultValues = {

@@ -38,7 +38,7 @@ const Toast = ({t, message, type}) => {
         <p className="text-sm font-medium text-gray-700 dark:text-gray-200">{serverErrors[message] || message}</p>
       </div>
       <div className="ml-4 flex-shrink-0 flex">
-        <button
+        <button type='button'
           className="bg-white dark:bg-gray-900 rounded-md inline-flex text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           onClick={() => toast.dismiss(t.id)}
         >
@@ -56,7 +56,8 @@ Toast.propTypes = {
   /** Сообщение, либо код ошибки из промиса */
   message: PropTypes.string.isRequired,
   /** Тип всплывашки */
-  type: PropTypes.oneOf(["error", "success"]).isRequired
+  type: PropTypes.oneOf(["error", "success"]).isRequired,
+  t: PropTypes.object
 };
 
 export default Toast;

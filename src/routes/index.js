@@ -20,6 +20,7 @@ export default function Router() {
       index: true,
       element: <Navigate replace to={PATH_HOME} />
     },
+    // Вход, регистрация
     {
       path: "auth",
       children: [
@@ -44,7 +45,7 @@ export default function Router() {
       ]
     },
 
-    // Main Routes
+    // Основное
     {
       path: "home",
       element: (
@@ -54,6 +55,20 @@ export default function Router() {
       ),
       children: [
         { path: "", element: <Home /> }
+      ]
+    },
+
+    // Каталог ссылок
+    {
+      path: "/",
+      element: (
+        <AuthGuard>
+          <MainLayout />
+        </AuthGuard>
+      ),
+      children: [
+        { path: "info/proxy-list", element: <LinksCatalog /> },
+
       ]
     },
 
@@ -75,13 +90,14 @@ export default function Router() {
   ]);
 }
 
-// Auth
-const Login = Loadable(lazy(() => import("../pages/auth/Login")));
-const Register = Loadable(lazy(() => import("../pages/auth/Register")));
+// Основные страницы
+const Home = Loadable(lazy(() => import("../pages/Home"))); // Главная
+// Каталог ссылок
+const LinksCatalog = Loadable(lazy(() => import("../pages/LinksCatalog"))); // Каталог ссылок
 
-// Home
-const Home = Loadable(lazy(() => import("../pages/Home")));
-
-// General
-const Page500 = Loadable(lazy(() => import("../pages/errors/Page500")));
-const NotFound = Loadable(lazy(() => import("../pages/errors/Page404")));
+// Вход, регистрация
+const Login = Loadable(lazy(() => import("../pages/auth/Login"))); // Вход
+const Register = Loadable(lazy(() => import("../pages/auth/Register"))); // Регистрация
+// Ошибки
+const Page500 = Loadable(lazy(() => import("../pages/errors/Page500"))); // Ошибка сервера
+const NotFound = Loadable(lazy(() => import("../pages/errors/Page404"))); // Страница не найдена

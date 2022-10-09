@@ -1,35 +1,127 @@
-import avatar1 from './avatars/1.png';
-import avatar2 from './avatars/2.png';
-import avatar3 from './avatars/3.png';
-import avatar4 from './avatars/4.png';
-import avatar5 from './avatars/5.png';
+import avatar1 from "./avatars/1.png";
+import avatar2 from "./avatars/2.png";
+import avatar3 from "./avatars/3.png";
+import avatar4 from "./avatars/4.png";
+import avatar5 from "./avatars/5.png";
 
 /** Навигация для сайдбара, для локального тестирования
- * @type {[{header: string},{icon: string, alias: string, id: string, pagetitle: string},{icon: string, alias: string, id: string, pagetitle: string},{badgeColor: string, icon: string, alias: string, id: string, pagetitle: string},{children: [{icon: string, alias: string, id: string, pagetitle: string}], icon: string, id: string, pagetitle: string},null,null,null,null]}
+ * @type {[{icon: string, alias: string, id: string, pagetitle: string},{icon: string, alias: string, id: string, pagetitle: string},{icon: string, alias: string, id: string, pagetitle: string},{badgeColor: string, icon: string, alias: string, id: string, pagetitle: string, badgeText: string},{children: [{icon: string, alias: string, id: string, pagetitle: string}], icon: string, id: string, pagetitle: string},null,null,null,null]}
  */
-export const navigation = [{
-  id: "1", pagetitle: "Главная", icon: "mdi-apps", alias: "/home",
-}, {
-  id: "2", pagetitle: "Каталог ссылок", icon: "mdi-folder-table-outline", alias: "/proxylist",
-}, {
-  id: "3", pagetitle: "Календарь", icon: "mdi-calendar", alias: "/calendar", badgeColor: "bg-red-500"
-}, {
-  id: "4", pagetitle: "Информация", icon: "mdi-information-outline", children: [{
-    id: "5", pagetitle: "Телефонный справочник", icon: "mdi-phone-classic", alias: "/phonebook",
-  }]
-}, {
-  id: "6", pagetitle: "Статистика", icon: "mdi-chart-arc", children: [{
-    id: "7", pagetitle: "Графики", icon: "mdi-chart-arc", alias: "/stats",
-  }, {
-    id: "8", pagetitle: "Качество", icon: "mdi-finance", alias: "/grade",
-  }]
-}, {
-  id: "9", pagetitle: "Помощь", icon: "mdi-help-circle-outline", children: [{
-    id: "10", pagetitle: "База знаний", icon: "mdi-lightbulb-on-outline", alias: "/faq",
-  }]
-}, {header: "Администрирование"}, {
-  id: "12", pagetitle: "Панель управления", icon: "mdi-view-dashboard-outline", alias: "/admin",
-}]
+export const navigation = [
+  {
+    header: "Главное меню"
+  },
+  {
+    id: "1",
+    pagetitle: "Главная",
+    icon: "mdi-apps",
+    alias: "/home"
+  },
+  {
+    id: "2",
+    pagetitle: "Делопроизводство",
+    icon: "mdi-briefcase-outline",
+    children: [
+      {
+        id: "13",
+        pagetitle: "Судебные заседания",
+        icon: "mdi-briefcase-outline",
+        alias: "/phonebook"
+      },
+      {
+        id: "14",
+        pagetitle: "Дела в производстве",
+        icon: "mdi-briefcase-clock",
+        alias: "/phonebook"
+      },
+      {
+        id: "15",
+        pagetitle: "Оконченные дела",
+        icon: "mdi-briefcase-check-outline",
+        alias: "/phonebook"
+      },
+      {
+        id: "16",
+        pagetitle: "Архив дел",
+        icon: "mdi-briefcase-off-outline",
+        alias: "/phonebook"
+      },
+      {
+        id: "17",
+        pagetitle: "Контроль публикации",
+        icon: "mdi-briefcase-eye-outline",
+        alias: "/phonebook"
+      },
+    ]
+  },
+  {
+    id: "3",
+    pagetitle: "Каталог ссылок",
+    icon: "mdi-folder-table-outline",
+    alias: "/info/proxy-list"
+  },
+  {
+    id: "4",
+    pagetitle: "Календарь",
+    icon: "mdi-calendar",
+    alias: "/calendar",
+    badgeColor: "red",
+    badgeText: "+10"
+  },
+  {
+    id: "5",
+    pagetitle: "Информация",
+    icon: "mdi-information-outline",
+    children: [
+      {
+        id: "6",
+        pagetitle: "Телефонный справочник",
+        icon: "mdi-phone-classic",
+        alias: "/phonebook"
+      }
+    ]
+  },
+  {
+    id: "7",
+    pagetitle: "Статистика",
+    icon: "mdi-chart-arc",
+    children: [
+      {
+        id: "8",
+        pagetitle: "Графики",
+        icon: "mdi-chart-arc",
+        alias: "/stats"
+      },
+      {
+        id: "9",
+        pagetitle: "Качество",
+        icon: "mdi-finance",
+        alias: "/grade"
+      }
+    ]
+  },
+  {
+    id: "10",
+    pagetitle: "Помощь",
+    icon: "mdi-help-circle-outline",
+    children: [
+      {
+        id: "11",
+        pagetitle: "База знаний",
+        icon: "mdi-lightbulb-on-outline",
+        alias: "/faq"
+      }]
+  },
+  {
+    header: "Администрирование"
+  },
+  {
+    id: "12",
+    pagetitle: "Панель управления",
+    icon: "mdi-view-dashboard-outline",
+    alias: "/admin"
+  }
+];
 
 /** Пользователи, для локального тестирования
  * @type {[{profession: string, birthday: string, role: string, address: string, color: string, gender: string, ip: string, facebook: string, work_phone: string, instagram: string, avatar: string, site1: string, site2: string, odnoklassniki: string, mobile_phone: string, vkontakte: string, id: string, sudo: string, fullname: string, judge: string, place: string, cabinet: string, email: string, username: string},{profession: string, birthday: string, role: string, address: string, color: string, gender: string, ip: string, facebook: string, work_phone: string, instagram: string, avatar: string, site1: string, site2: string, odnoklassniki: string, mobile_phone: string, vkontakte: string, id: string, sudo: string, fullname: string, judge: string, place: string, cabinet: string, email: string, username: string},{profession: string, birthday: string, role: string, address: string, color: string, gender: string, ip: string, facebook: string, work_phone: string, instagram: string, avatar: string, site1: string, site2: string, odnoklassniki: string, mobile_phone: string, vkontakte: string, id: string, sudo: string, fullname: string, judge: string, place: string, cabinet: string, email: string, username: string},{profession: string, birthday: string, role: string, address: string, color: string, gender: string, ip: string, facebook: string, work_phone: string, instagram: string, avatar: string, site1: string, site2: string, odnoklassniki: string, mobile_phone: string, vkontakte: string, id: string, sudo: string, fullname: string, judge: string, place: string, cabinet: string, email: string, username: string},{profession: string, birthday: string, role: string, address: string, color: string, gender: string, ip: string, facebook: string, work_phone: string, instagram: string, avatar: string, site1: string, site2: string, odnoklassniki: string, mobile_phone: string, vkontakte: string, id: string, sudo: string, fullname: string, judge: string, place: string, cabinet: string, email: string, username: string},null]}
@@ -57,7 +149,7 @@ export const users = [{
   instagram: "https://instagram.com/id&=1",
   site1: "",
   site2: "",
-  avatar: avatar1,
+  avatar: avatar1
 }, {
   id: "2",
   sudo: "0",
@@ -81,7 +173,7 @@ export const users = [{
   instagram: "https://instagram.com/id&=2",
   site1: "",
   site2: "",
-  avatar: avatar2,
+  avatar: avatar2
 }, {
   id: "3",
   sudo: "0",
@@ -105,7 +197,7 @@ export const users = [{
   instagram: "https://instagram.com/id&=3",
   site1: "",
   site2: "",
-  avatar: avatar3,
+  avatar: avatar3
 }, {
   id: "4",
   sudo: "0",
@@ -129,7 +221,7 @@ export const users = [{
   instagram: "https://instagram.com/id&=4",
   site1: "",
   site2: "",
-  avatar: avatar4,
+  avatar: avatar4
 }, {
   id: "5",
   sudo: "0",
@@ -179,22 +271,25 @@ export const users = [{
   site2: "https://site2.com",
   avatar: ""
 }
-]
+];
 
 export const userStats = [
-  {label: 'Осталось дней отпуска', value: 12},
-  {label: 'Дней болезни', value: 4},
-  {label: 'Дежурная неделя', value: ""},
-]
+  { label: "Осталось дней отпуска", value: 12 },
+  { label: "Дней болезни", value: 4 },
+  { label: "Дежурная неделя", value: "" }
+];
 
 export const messages = [{
   id: "1",
   user: users[5],
   time: "2022-05-21 11:05:00",
   message: "Hey John, I am looking for the best admin template. Could you please help me to find it out?"
-}]
+}];
 
-export const birthdaysToday = [{user: users[5], age: "36"}, {user: users[1], age: "32"}, {user: users[3], age: "21"}]
+export const birthdaysToday = [{ user: users[5], age: "36" }, { user: users[1], age: "32" }, {
+  user: users[3],
+  age: "21"
+}];
 
 export const events = [{
   id: "1",
@@ -429,7 +524,7 @@ export const events = [{
   allDay: true,
   calendar: "red",
   display: "background"
-}, {title: "", start: "2022-04-30", end: "2022-04-30", allDay: true, calendar: "red", display: "background"}, {
+}, { title: "", start: "2022-04-30", end: "2022-04-30", allDay: true, calendar: "red", display: "background" }, {
   title: "Сокращенный рабочий день",
   start: "2022-04-29",
   end: "2022-04-29",
@@ -442,10 +537,10 @@ export const events = [{
  * @type {{"0": {name: string, id: string}, "1": {name: string, id: string}, "2": {name: string, id: string}}}
  */
 export const proxyListGroups = {
-  0: {id: "1", name: "Сервисы"},
-  1: {id: "2", name: "Судебная система, госслужба, адвокаты, нотариусы"},
-  2: {id: "3", name: "Органы государственной власти"}
-}
+  0: { id: "1", name: "Сервисы" },
+  1: { id: "2", name: "Судебная система, госслужба, адвокаты, нотариусы" },
+  2: { id: "3", name: "Органы государственной власти" }
+};
 
 /** Элементы групп каталога ссылок
  * @type {{"0": {children: {"0": {name: string, link: string, id: number}, "1": {name: string, link: string, id: number}}, groupID: string}, "1": {children: {"0": {name: string, link: string, id: number}, "1": {name: string, link: string, id: number}}, groupID: string}, "2": {children: {"0": {name: string, link: string, id: number}, "1": {name: string, link: string, id: number}}, groupID: string}}}
@@ -453,55 +548,55 @@ export const proxyListGroups = {
 export const proxyListLinks = {
   0: {
     groupID: "1", children: {
-      0: {id: 1, name: "Почта - кабинет отправителя", link: "https://otpravka.pochta.ru/"},
-      1: {id: 2, name: "Отслеживание почтовых отправлений", link: "https://www.pochta.ru/tracking"}
+      0: { id: 1, name: "Почта - кабинет отправителя", link: "https://otpravka.pochta.ru/" },
+      1: { id: 2, name: "Отслеживание почтовых отправлений", link: "https://www.pochta.ru/tracking" }
     }
   },
   1: {
     groupID: "2", children: {
-      0: {id: 1, name: "Смоленский областной суд", link: "https://oblsud.sml.sudrf.ru/"},
-      1: {id: 2, name: "Второй кассационный суд", link: "https://2kas.sudrf.ru/"}
+      0: { id: 1, name: "Смоленский областной суд", link: "https://oblsud.sml.sudrf.ru/" },
+      1: { id: 2, name: "Второй кассационный суд", link: "https://2kas.sudrf.ru/" }
     }
   },
   2: {
     groupID: "3", children: {
-      0: {id: 1, name: "МВД", link: "https://xn--b1aew.xn--p1ai/"},
-      1: {id: 2, name: "Муниципальное образование Сафоново", link: "https://safonovo-admin.ru/"}
+      0: { id: 1, name: "МВД", link: "https://xn--b1aew.xn--p1ai/" },
+      1: { id: 2, name: "Муниципальное образование Сафоново", link: "https://safonovo-admin.ru/" }
     }
   }
-}
+};
 
 /** Объект с пользователями
  * @type {[{label: string, avatar: *, value: string},{label: string, avatar: *, value: string},{label: string, avatar: *, value: string},{label: string, avatar: *, value: string},{label: string, avatar: *, value: string},null]}
  */
 export const usersOptions = [
   {
-    label: 'Судьи',
+    label: "Судьи",
     options: [
-      {value: 1, label: users[0].fullname, avatar: users[0].avatar}
+      { value: 1, label: users[0].fullname, avatar: users[0].avatar }
     ]
   },
   {
-    label: 'Помощники',
+    label: "Помощники",
     options: [
-      {value: 3, label: users[2].fullname, avatar: users[2].avatar}
+      { value: 3, label: users[2].fullname, avatar: users[2].avatar }
     ]
   },
   {
-    label: 'Секретари судебного заседания',
+    label: "Секретари судебного заседания",
     options: [
-      {value: 2, label: users[1].fullname, avatar: users[1].avatar}
+      { value: 2, label: users[1].fullname, avatar: users[1].avatar }
     ]
   },
   {
-    label: 'Канцелярия',
+    label: "Канцелярия",
     options: [
-      {value: 4, label: users[3].fullname, avatar: users[3].avatar},
-      {value: 5, label: users[4].fullname, avatar: users[4].avatar},
-      {value: 6, label: users[5].fullname, avatar: users[5].avatar}
+      { value: 4, label: users[3].fullname, avatar: users[3].avatar },
+      { value: 5, label: users[4].fullname, avatar: users[4].avatar },
+      { value: 6, label: users[5].fullname, avatar: users[5].avatar }
     ]
   }
-]
+];
 
 /** Цвета для Fullcalendar */
 /** Цвета событий, названия менять в разметке, в js менять не надо */
@@ -542,7 +637,7 @@ export const calendCat = [
     color: "teal",
     name: "Категория 4"
   }
-]
+];
 
 export const usersCat = [
   {
@@ -560,5 +655,24 @@ export const usersCat = [
   {
     color: "yellow",
     name: "Канцелярия"
-  },
+  }
+];
+
+export const usersSearchResults = [
+  {fullname: 'Иванов Иван Иванович', room: 'Каб. 7', phone: '5-13-27', profession: 'Помощник судьи Иванова И.И.'},
+  {fullname: 'Иванов Иван Иванович', room: 'Каб. 7', phone: '5-13-27', profession: 'Помощник судьи Иванова И.И.'},
+  {fullname: 'Иванов Иван Иванович', room: 'Каб. 7', phone: '5-13-27', profession: 'Помощник судьи Иванова И.И.'},
+  {fullname: 'Иванов Иван Иванович', room: 'Каб. 7', phone: '5-13-27', profession: 'Помощник судьи Иванова И.И.'},
+  {fullname: 'Иванов Иван Иванович', room: 'Каб. 7', phone: '5-13-27', profession: 'Помощник судьи Иванова И.И.'}
+]
+
+export const inboxSearchResults = [
+  {number: '123', content: 'Ходатайство без участия', sender: 'Администрация Барановского с/п', type: 'Электронная почта', sendto: 'Иванов И.И.'},
+  {number: '124', content: 'Ходатайство без участия', sender: 'Администрация Барановского с/п', type: 'Почта', sendto: 'Иванов И.И.'},
+
+]
+
+export const outboxSearchResults = [
+  {number: '123', content: 'Извещение на 12.05.2022', sender: 'Иванов И.И.', type: 'Разноска', address: 'Сафоново, Красногвардейская, д.41', sendto: 'Петров П.П.'},
+  {number: '123', content: 'Извещение на 12.05.2022', sender: 'Иванов И.И.', type: 'Почта', address: 'Сафоново, Красногвардейская, д.41', sendto: 'Петров П.П.'},
 ]

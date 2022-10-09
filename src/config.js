@@ -15,11 +15,3 @@ export const CITY_LON = "33.242566";
 /** Название суда и область */
 export const COURT_NAME = "Сафоновский районный суд";
 export const COURT_REGION = "Смоленская область";
-
-/** Дефолтные значения темы и ширины меню
- * @type {{theme: number, sidebar: number}}
- */
-export const defaultSettings = {
-  theme: 1,
-  sidebar: 1
-};
