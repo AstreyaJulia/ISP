@@ -71,7 +71,7 @@
           throw new \Exception("Введите действующий логин");
         }
       } catch (\Exception $e) {
-        $this->helpers::isErrorInfo(200, "Логин не найден", $e);
+        $this->helpers::isErrorInfo(401, "Логин не найден", $e);
       }
 
       try {
@@ -79,7 +79,7 @@
           throw new \Exception("Обратитесь к системному администратору");
         }
       } catch (\Exception $e) {
-        $this->helpers::isErrorInfo(200, "Логин заблокирован", $e);
+        $this->helpers::isErrorInfo(401, "Логин заблокирован", $e);
       }
     }
 
@@ -102,7 +102,7 @@
           throw new \Exception("Пользователь $this->login зарегистрирован");
         }
       } catch (\Exception $e) {
-        $this->helpers::isErrorInfo(200, "Ошибка регистрации", $e);
+        $this->helpers::isErrorInfo(401, "Ошибка регистрации", $e);
       }
     }
 
