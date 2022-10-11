@@ -13,7 +13,7 @@ import { getAvatarColor } from "../../utils/getAvatarColor";
  * @returns {JSX.Element}
  * @constructor
  */
-export const AvatarCircularWithPlaceholderInitials = ({size, classname, name, icon, shape}) => {
+export const AvatarCircularWithPlaceholderInitials = ({size, classname, name, icon, shape, color}) => {
 
     /** Размеры аватаров
      * @type {{"12": {nameFont: string, size: string}, "14": {nameFont: string, size: string}, "6": {nameFont: string, size: string}, "8": {nameFont: string, size: string}, "10": {nameFont: string, size: string}}}
@@ -97,12 +97,12 @@ export const AvatarCircularWithPlaceholderInitials = ({size, classname, name, ic
     return (<>
         <span
             className={
-                ["flex-shrink-0 inline-flex items-center justify-center", AvatarShape[shape], AvatarGroupSize[size].size, AvatarColor[getAvatarColor(name) || "indigo"].bg, classname || ""].join(" ")}
+                ["flex-shrink-0 inline-flex items-center justify-center", AvatarShape[shape], AvatarGroupSize[size].size, AvatarColor[color].bg || AvatarColor[getAvatarColor(name) || "indigo"].bg, classname || ""].join(" ")}
         >
         <span
-            className={["font-medium leading-none d-flex items-center justify-center", AvatarGroupSize[size].nameFont, AvatarColor[getAvatarColor(name) || "indigo"].text].join(" ")}
+            className={["font-medium leading-none d-flex items-center justify-center", AvatarGroupSize[size].nameFont, AvatarColor[color].text || AvatarColor[getAvatarColor(name) || "indigo"].text].join(" ")}
         >
-            {name && getInitialsOnly(name)}
+            {getInitialsOnly(name) || name}
             {icon && icon}
         </span>
       </span>

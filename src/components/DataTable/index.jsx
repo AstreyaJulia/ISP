@@ -110,7 +110,7 @@ const DataTable = ({ rows = [], columnNames }) => {
       <table className="w-full mt-2">
 
         <tbody>
-        <tr className=" rounded-md">
+        <tr className="rounded-md">
           {columns.map((column, key) => (
             <th key={key} className="pr-3 py-3 text-left bg-slate-100 border-b border-slate-300">
               <div
@@ -157,7 +157,9 @@ const DataTable = ({ rows = [], columnNames }) => {
                 </td>
               ))}
             </tr>
-          )) : <tr><td colSpan={columns.length} className='text-center py-6'>Нет строк для отображения</td></tr>}
+          )) : <tr>
+          <td colSpan={columns.length} className="text-center py-6">Нет строк для отображения</td>
+        </tr>}
         </tbody>
 
       </table>
@@ -183,7 +185,7 @@ const DataTable = ({ rows = [], columnNames }) => {
         </div>
         <p
           className="mx-5 shrink-0 block text-sm font-medium text-gray-700 mr-2">
-          { /* eslint-disable-next-line */ }
+          { /* eslint-disable-next-line */}
           {sortFilter().length > 0 ? (currentPage * elementsPerPage) + 1 : 0} - {sortFilter().length > 0 ? sortFilter().length < (currentPage + 1) * elementsPerPage ? sortFilter().length : (currentPage + 1) * elementsPerPage : 0} из {sortFilter().length > 0 ? sortFilter().length : 0}</p>
         <div className="mx-5 flex items-center gap-4">
           <button

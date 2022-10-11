@@ -25,7 +25,7 @@ const CategoryDataTable = ({ rows = [], columnNames }) => {
   function filter(rows) {
     return rows.filter((row) =>
         columns.some(
-            (column) => row[column].toLowerCase().indexOf(query.toLowerCase()) > -1 && row.PREFIX !== ''
+            (column) => row[column].toLowerCase().indexOf(query.toLowerCase()) > -1
         )
     );
   }
@@ -54,7 +54,7 @@ const CategoryDataTable = ({ rows = [], columnNames }) => {
   };
 
   return (
-    <Card>
+    <Card classname='mt-4'>
       <div className="px-4 py-5 sm:p-3">
         <div className="flex flex-col gap-2 w-full">
           <label htmlFor="table-search" className="sr-only">
@@ -80,7 +80,7 @@ const CategoryDataTable = ({ rows = [], columnNames }) => {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               className="block w-full bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-md py-3 pl-10 pr-3 text-sm placeholder-gray-600 focus:outline-none focus:text-gray-900 dark:focus:text-gray-400 focus:placeholder-gray-300 dark:placeholder-gray-400 dark:focus:placeholder-gray-700 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              placeholder="Поиск"
+              placeholder="Поиск по категориям дел"
               type="search"
             />
             <div className="absolute inset-y-0 right-0 flex items-center z-30">
