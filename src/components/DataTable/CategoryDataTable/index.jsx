@@ -25,7 +25,7 @@ const CategoryDataTable = ({ rows = [], columnNames }) => {
   function filter(rows) {
     return rows.filter((row) =>
         columns.some(
-            (column) => row[column].toLowerCase().indexOf(query.toLowerCase()) > -1
+            (column) => row[column].toLowerCase().indexOf(query.toLowerCase()) > -1 && row.PREFIX !== ''
         )
     );
   }
