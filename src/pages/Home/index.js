@@ -4,6 +4,7 @@ import PageHeader from "../../components/PageHeader";
 import CategoryDataTable from "../../components/DataTable/CategoryDataTable";
 import category from "../../@mock/grcategory.json";
 import CasesList from "../../components/CasesList";
+import { outdatedCases } from "../../@mock/SampleData";
 
 const Home = () => {
 
@@ -15,7 +16,6 @@ const Home = () => {
     <BasicPage title='Главная' className='main-content max-w-6xl mx-auto px-3' >
       <PageHeader pages={breadcrumbs} header='Заголовок' />
       <CategoryDataTable rows={category} columnNames={tableGrColumns} />
-      <CasesList />
     </BasicPage>
   )
 };

@@ -54,7 +54,8 @@ export default function Router() {
         </AuthGuard>
       ),
       children: [
-        { path: "", element: <Home /> }
+        { path: "", element: <Home /> },
+        { path: "over-period", element: <Finished /> }
       ]
     },
 
@@ -67,7 +68,19 @@ export default function Router() {
         </AuthGuard>
       ),
       children: [
+        /* FIXME сюда добавлять другие роуты */
         { path: "info/proxy-list", element: <LinksCatalog /> },
+        { path: "over-period", element: <Finished /> },
+        { path: "publication", element: <Publication /> },
+        { path: "process", element: <Process /> },
+        { path: "calendar", element: <Calendar /> },
+        { path: "phonebook", element: <Stats /> },
+        { path: "stats", element: <Phonebook /> },
+        { path: "grade", element: <Grade /> },
+        { path: "faq", element: <Faq /> },
+        { path: "admin", element: <Admin /> },
+        { path: "settings", element: <Settings /> },
+        { path: "profile", element: <Profile /> },
 
       ]
     },
@@ -92,9 +105,19 @@ export default function Router() {
 
 // Основные страницы
 const Home = Loadable(lazy(() => import("../pages/Home"))); // Главная
-// Каталог ссылок
 const LinksCatalog = Loadable(lazy(() => import("../pages/LinksCatalog"))); // Каталог ссылок
+const Finished = Loadable(lazy(() => import("../pages/cases/Finished"))); // Оконченные дела
+const Publication = Loadable(lazy(() => import("../pages/Publication"))); // Контроль публикации СА
+const Process = Loadable(lazy(() => import("../pages/Process"))); // Каталог ссылок
+const Calendar = Loadable(lazy(() => import("../pages/Calendar"))); // Дела в производстве
+const Phonebook = Loadable(lazy(() => import("../pages/Phonebook"))); // Телефонный справочник
+const Stats = Loadable(lazy(() => import("../pages/Stats"))); // Каталог ссылок
+const Grade = Loadable(lazy(() => import("../pages/Grade"))); // Графики
+const Faq = Loadable(lazy(() => import("../pages/Faq"))); // База знаний
+const Admin = Loadable(lazy(() => import("../pages/Admin"))); // Админка
 
+const Profile = Loadable(lazy(() => import("../pages/Profile"))); // Профиль
+const Settings = Loadable(lazy(() => import("../pages/Settings"))); // Настройки
 // Вход, регистрация
 const Login = Loadable(lazy(() => import("../pages/auth/Login"))); // Вход
 const Register = Loadable(lazy(() => import("../pages/auth/Register"))); // Регистрация

@@ -1,11 +1,16 @@
 import React, { useState } from "react";
-import { Card } from "../../Card";
+import { Disclosure } from "@headlessui/react";
 import { classNames } from "../../../utils/classNames";
+import { Card } from "../../Card";
+import { Avatar } from "../../Avatar";
+import { formatDate } from "../../../utils/formatTime";
 
-const CategoryDataTable = ({ rows = [], columnNames }) => {
+const CasesOverPeriod = ({ rows = [] }) => {
+
   const columns = Object.keys(rows[0]);
-  const [sortedBy, setSortedBy] = useState({
-    column: columns[3],
+
+  const [sortedBy] = useState({
+    column: columns[0],
     asc: false
   });
 
@@ -16,17 +21,17 @@ const CategoryDataTable = ({ rows = [], columnNames }) => {
   function sort(rows) {
     const { column, asc } = sortedBy;
     return rows.sort((a, b) => {
-      if (parseInt(a[column], 10) > parseInt(b[column], 10)) return asc ? -1 : 1;
-      if (parseInt(b[column], 10) > parseInt(a[column], 10)) return asc ? 1 : -1;
+      if (a[column].toString() > b[column].toString()) return asc ? -1 : 1;
+      if (b[column].toString() > a[column].toString()) return asc ? 1 : -1;
       return 0;
     });
   }
 
   function filter(rows) {
     return rows.filter((row) =>
-        columns.some(
-            (column) => row[column].toLowerCase().indexOf(query.toLowerCase()) > -1
-        )
+      columns.slice(3, 6).filter((item) => item !== 'RESULT_DATE').some(
+        (column) =>row[column].toLowerCase().indexOf(query.toLowerCase()) > -1
+      )
     );
   }
 
@@ -41,6 +46,14 @@ const CategoryDataTable = ({ rows = [], columnNames }) => {
     setCurrentPage(0);
   };
 
+  const caseTypesSettings = {
+    ADM: { color: "blue" },
+    G1: { color: "green" },
+    U1: { color: "red" },
+    ADM1: { color: "indigo" },
+    M: { color: "orange" }
+  };
+
   const nextPage = () => {
     if ((sortFilter().length / elementsPerPage) - 1 > currentPage) {
       setCurrentPage(currentPage + 1);
@@ -53,8 +66,9 @@ const CategoryDataTable = ({ rows = [], columnNames }) => {
     }
   };
 
+
   return (
-    <Card classname='mt-4'>
+    <Card classname="mt-4">
       <div className="px-4 py-5 sm:p-3">
         <div className="flex flex-col gap-2 w-full">
           <label htmlFor="table-search" className="sr-only">
@@ -80,7 +94,7 @@ const CategoryDataTable = ({ rows = [], columnNames }) => {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               className="block w-full bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-md py-3 pl-10 pr-3 text-sm placeholder-gray-600 focus:outline-none focus:text-gray-900 dark:focus:text-gray-400 focus:placeholder-gray-300 dark:placeholder-gray-400 dark:focus:placeholder-gray-700 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              placeholder="Поиск по категориям дел"
+              placeholder="Поиск по делам, рассмотренным свыше срока"
               type="search"
             />
             <div className="absolute inset-y-0 right-0 flex items-center z-30">
@@ -100,62 +114,71 @@ const CategoryDataTable = ({ rows = [], columnNames }) => {
 
         </div>
       </div>
-      <table className="w-full mt-2">
-
-        <tbody>
-        <tr className=" rounded-md">
-          {columns.slice(0, 2).map((column, key) => (
-            <th key={key} className="pr-3 py-3 text-left bg-slate-100 border-b border-slate-300">
-              <div
-                className="flex items-center gap-2"
-                >
-                <span
-                  className={classNames("text-slate-600 text-sm capitalize pl-4 border-slate-300", key === 0 ? "" : "border-l-2")}>
-                  {columnNames[column]}
-                </span>
-              </div>
-            </th>
-          ))}
-        </tr>
-
-        {sortFilter().length > 0 ? sortFilter()
-          .slice(currentPage * elementsPerPage, (currentPage + 1) * elementsPerPage)
-          .map((row, key) => (
-            <tr key={row + key}>
-              {columns.slice(0, 2).map((column, key) => (
-                <td key={column + key} className="border-b border-gray-200 py-2 px-3 text-sm text-slate-700">
-                  {row[column]}
-                </td>
-              ))}
-            </tr>
-          )) : <tr><td colSpan={columns.slice(0, 2).length} className='text-center py-6'>Нет строк для отображения</td></tr>}
-        </tbody>
-
-      </table>
-
-      <div className="w-full flex items-center justify-end p-2">
-        <div className="flex items-center">
-          <label htmlFor="rowsperpage" className="shrink-0 block text-sm font-medium text-gray-700 mr-2">
-            Строк на страницу:
-          </label>
-          <select
-            id="rowsperpage"
-            name="rowsperpage"
-            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
-            defaultValue={elementsPerPage}
-            onChange={elementsPerPageChangeHandler}
-          >
-            <option value={10}>10</option>
-            <option value={25}>25</option>
-            <option value={50}>50</option>
-            <option value={100}>100</option>
-            <option value={sortFilter().length}>Все</option>
-          </select>
+      <div className="px-4 py-5 sm:p-4">
+        <div className="flex flex-col gap-2 my-4">
+          {sortFilter().length > 0 ? sortFilter()
+              .slice(currentPage * elementsPerPage, (currentPage + 1) * elementsPerPage)
+              .map((item, key) =>
+                <Disclosure key={key}>
+                  {({ open }) => (
+                    <>
+                      <Disclosure.Button className="py-3 px-2 w-full flex items-center bg-slate-100 rounded-md">
+                        <div className="flex grow items-center">
+                          <Avatar size="10" shape="circle" name={item.CASE_TYPE}
+                                  color={caseTypesSettings[item.CASE_TYPE].color} classname="mr-3" />
+                          <div className="flex flex-col items-start">
+                            <p
+                              className="font-medium text-sm text-slate-800 flex flex-wrap line-clamp-1 justify-start items-center text-left mb-1">{item.CASE_NUMBER}</p>
+                            <p
+                              className="text-sm text-slate-700 flex flex-wrap line-clamp-1 justify-start items-center text-left">{item.PARTS_FIO}</p>
+                          </div>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={classNames(open ? 'rotate-90 transform' : '', "w-5 h-5 mx-3 shrink-0")}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
+                      </Disclosure.Button>
+                      <Disclosure.Panel className="text-gray-500 p-4 bg-slate-100 rounded-md mb-2">
+                        <p className="text-slate-700 text-sm font-bold mb-2">Дата рассмотрения дела:</p>
+                        <p className="text-slate-700 text-sm mb-5">{formatDate(item.RESULT_DATE)}</p>
+                        <p className="text-slate-700 text-sm font-bold mb-2">Категория / статья:</p>
+                        <p className="text-slate-700 text-sm mb-5">{item.CAT}</p>
+                        <p className="text-slate-700 text-sm font-bold mb-2">Информация:</p>
+                        {item.INFO.length > 0 && item.INFO !== 'null' ? item.INFO.split(";").map((item, key) => <p key={key}
+                                                                                                                   className="text-slate-700 text-sm">{item};</p>) :
+                          <p className="text-slate-700 text-sm">Нет информации</p>}
+                      </Disclosure.Panel>
+                    </>
+                  )}
+                </Disclosure>)
+            : <p className="text-center py-6">Нет строк для отображения</p>
+          }
         </div>
-        <p
-          className="mx-5 shrink-0 block text-sm font-medium text-gray-700 mr-2">
-          { /* eslint-disable-next-line */ }
-          {sortFilter().length > 0 ? (currentPage * elementsPerPage) + 1 : 0} - {sortFilter().length > 0 ? sortFilter().length < (currentPage + 1) * elementsPerPage ? sortFilter().length : (currentPage + 1) * elementsPerPage : 0} из {sortFilter().length > 0 ? sortFilter().length : 0}</p>
+      </div>
+      <div className="w-full flex items-center justify-between p-4">
+        <div className="flex items-center">
+          <div className="flex items-center">
+            <label htmlFor="rowsperpage" className="shrink-0 block text-sm font-medium text-gray-700 mr-2">
+              Строк на страницу:
+            </label>
+            <select
+              id="rowsperpage"
+              name="rowsperpage"
+              className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+              defaultValue={elementsPerPage}
+              onChange={elementsPerPageChangeHandler}
+            >
+              <option value={10}>10</option>
+              <option value={25}>25</option>
+              <option value={50}>50</option>
+              <option value={100}>100</option>
+              <option value={sortFilter().length}>Все</option>
+            </select>
+          </div>
+          <p
+            className="mx-5 shrink-0 block text-sm font-medium text-gray-700 mr-2">
+            { /* eslint-disable-next-line */}
+            {sortFilter().length > 0 ? (currentPage * elementsPerPage) + 1 : 0} - {sortFilter().length > 0 ? sortFilter().length < (currentPage + 1) * elementsPerPage ? sortFilter().length : (currentPage + 1) * elementsPerPage : 0} из {sortFilter().length > 0 ? sortFilter().length : 0}</p>
+        </div>
         <div className="mx-5 flex items-center gap-4">
           <button
             onClick={prevPage}
@@ -177,9 +200,8 @@ const CategoryDataTable = ({ rows = [], columnNames }) => {
           </button>
         </div>
       </div>
-
     </Card>
   );
 };
 
-export default CategoryDataTable;
+export default CasesOverPeriod;
