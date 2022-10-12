@@ -81,8 +81,36 @@ const tabs = [
 
 const CasesList = () => {
 
+  const columns = Object.keys(outdatedCases[0]);
+
+  const [sortedBy, setSortedBy] = useState({
+    column: columns[0],
+    asc: false
+  });
+
   const [query, setQuery] = useState("");
+  const [elementsPerPage, setElementsPerPage] = useState(10);
+  const [currentPage, setCurrentPage] = useState(0);
   const [currentTab, setCurrentTab] = useState(0);
+
+  function sort(rows) {
+    const { column, asc } = sortedBy;
+    return rows.sort((a, b) => {
+      if (a[column].toString() > b[column].toString()) return asc ? -1 : 1;
+      if (b[column].toString() > a[column].toString()) return asc ? 1 : -1;
+      return 0;
+    });
+  }
+
+  function filter(rows) {
+    return rows.filter((row) =>
+        columns.some(
+            (column) => row[column].toLowerCase().indexOf(query.toLowerCase()) > -1
+        )
+    );
+  }
+
+  const sortFilter = () => sort(filter(outdatedCases));
 
   const searchQueryClearHandler = () => {
     setQuery("");
@@ -92,13 +120,30 @@ const CasesList = () => {
     setCurrentTab(index);
   };
 
+  const elementsPerPageChangeHandler = (evt) => {
+    setElementsPerPage(parseInt(evt.target.value, 10));
+    setCurrentPage(0);
+  };
+
   const caseTypesSettings = {
-    A: {color: 'blue'},
-    G: {color: 'green'},
-    U: {color: 'red'},
-    A1: {color: 'indigo'},
+    ADM: {color: 'blue'},
+    G1: {color: 'green'},
+    U1: {color: 'red'},
+    ADM1: {color: 'indigo'},
     M: {color: 'orange'},
   }
+
+  const nextPage = () => {
+    if ((sortFilter().length / elementsPerPage) - 1 > currentPage) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
 
 
   return (
@@ -170,30 +215,78 @@ const CasesList = () => {
           </nav>
         </div>
         <div className='flex flex-col gap-2 my-4'>
-          {outdatedCases.map((item) =>
-            <Disclosure key={item.case_num}>
+          {sortFilter().length > 0 ? sortFilter()
+              .slice(currentPage * elementsPerPage, (currentPage + 1) * elementsPerPage)
+              .map((item, key) =>
+                  <Disclosure key={item.case_num}>
               <Disclosure.Button className="py-3 px-2 w-full flex items-center bg-slate-50 rounded-md">
                 <div className='flex grow items-center'>
                   <Avatar size='8' shape='circle' name={item.type} color={caseTypesSettings[item.type].color} classname='mr-3'/>
                   <div className='flex flex-col items-start'>
-                    <p className='font-bold text-sm text-slate-800 flex flex-wrap line-clamp-1 justify-start items-center text-left'>{item.case_num}</p>
+                    <p className='font-bold text-sm text-slate-800 flex flex-wrap line-clamp-1 justify-start items-center text-left mb-1'>{item.case_num}</p>
                     <p className='font-medium text-sm text-slate-700 flex flex-wrap line-clamp-1 justify-start items-center text-left'>{item.case_parts}</p>
                   </div>
                 </div>
-
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mx-3 shrink-0">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                 </svg>
               </Disclosure.Button>
-              <Disclosure.Panel className="text-gray-500">
-                {item.case_codex}
-                {item.case_info}
+              <Disclosure.Panel className="text-gray-500 p-3">
+                <p className='text-slate-700 text-sm font-bold mb-2'>Категория / статья::</p>
+                <p className='text-slate-700 text-sm mb-5'>{item.case_codex}</p>
+                <p className='text-slate-700 text-sm font-bold mb-2'>Информация:</p>
+                {item.case_info.length > 0 ? item.case_info.split(';').map((item, key)=> <p key={key} className='text-slate-700 text-sm'>{item};</p>) : <p className='text-slate-700 text-sm'>Нет информации</p>}
               </Disclosure.Panel>
-            </Disclosure>
-          )
+            </Disclosure>)
+                  : <p className='text-center py-6'>Нет строк для отображения</p>
           }
         </div>
 
+      </div>
+      <div className="w-full flex items-center justify-end p-2">
+        <div className="flex items-center">
+          <label htmlFor="rowsperpage" className="shrink-0 block text-sm font-medium text-gray-700 mr-2">
+            Строк на страницу:
+          </label>
+          <select
+              id="rowsperpage"
+              name="rowsperpage"
+              className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+              defaultValue={elementsPerPage}
+              onChange={elementsPerPageChangeHandler}
+          >
+            <option value={10}>10</option>
+            <option value={25}>25</option>
+            <option value={50}>50</option>
+            <option value={100}>100</option>
+            <option value={sortFilter().length}>Все</option>
+          </select>
+        </div>
+        <p
+            className="mx-5 shrink-0 block text-sm font-medium text-gray-700 mr-2">
+          { /* eslint-disable-next-line */ }
+          {sortFilter().length > 0 ? (currentPage * elementsPerPage) + 1 : 0} - {sortFilter().length > 0 ? sortFilter().length < (currentPage + 1) * elementsPerPage ? sortFilter().length : (currentPage + 1) * elementsPerPage : 0} из {sortFilter().length > 0 ? sortFilter().length : 0}</p>
+        <div className="mx-5 flex items-center gap-4">
+          <button
+              onClick={prevPage}
+              disabled={currentPage === 0 || sortFilter().length === 0}
+              className={classNames("bg-white dark:bg-gray-900 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 lg:p-1 lg:rounded-md lg:hover:bg-gray-50 dark:lg:hover:bg-gray-800", currentPage === 0 ? "text-slate-300" : "text-slate-600")}>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
+                 stroke="currentColor" className="w-6 h-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+            </svg>
+
+          </button>
+          <button
+              onClick={nextPage}
+              disabled={(sortFilter().length / elementsPerPage) - 1 <= currentPage || sortFilter().length === 0}
+              className={classNames("bg-white dark:bg-gray-900 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 lg:p-1 lg:rounded-md lg:hover:bg-gray-50 dark:lg:hover:bg-gray-800", (sortFilter().length / elementsPerPage) - 1 <= currentPage ? "text-slate-300" : "text-slate-600")}>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
+                 stroke="currentColor" className="w-6 h-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
+        </div>
       </div>
     </Card>
   );
