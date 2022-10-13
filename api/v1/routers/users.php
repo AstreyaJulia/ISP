@@ -1,7 +1,7 @@
 <?php
 
 // Роутинг, основная функция
-function route($db, $helpers) {
+function route($helpers) {
 
   if ($helpers->getMethod() === 'GET') {
     // необходимые HTTP-заголовки

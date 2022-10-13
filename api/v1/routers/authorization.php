@@ -1,9 +1,9 @@
 <?php
 
 // Роутинг, основная функция
-function route($db, $helpers) {
+function route($helpers) {
   include_once 'config/jwt.php';
-  $authorizationClass = new Api\Objects\Authorization($db, $helpers);
+  $authorizationClass = new Api\Objects\Authorization($helpers);
   // POST
     switch ($helpers->getMethod()) {
       // GET /authorization

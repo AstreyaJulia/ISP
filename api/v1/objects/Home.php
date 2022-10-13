@@ -1,17 +1,17 @@
 <?php
 	namespace Api\Objects;
 
-	class Home extends Helpers {
+	class Home {
 
-    protected $db;
-    protected $helpers;
+    protected Helpers $helpers;
 
     private $sudo;
     private $profession;
     private $membership;
 
-    public function __construct(DB $db, helpers $helpers) {
-      $this->db = $db;
+    public function __construct(
+      Helpers $helpers = new \Api\Objects\Helpers()
+      ) {
       $this->helpers = $helpers;
       $this->sudo = $helpers->getSudo();
       $this->profession = $helpers->getProfession();
@@ -39,7 +39,7 @@
                     (FIND_IN_SET(0, group_access) OR FIND_IN_SET($this->membership, group_access)) AND
                     class_key = 'Route'";
       }
-        return $this->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
+        return $this->helpers->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
     }
 
 	}

@@ -4,12 +4,6 @@
 
   class User {
 
-    // подключение к БД
-    protected $db;
-    // jwt
-    private $classJWT;
-
-    // свойства объекта
     private $id;
     private $idGAS;
     private $username;
@@ -22,9 +16,12 @@
     private $membership;
 
 
-    public function __construct(DB $db) {
-      $this->db = $db;
-      $this->classJWT = new JWT;
+    public function __construct(
+      public readonly DB $db = new \Api\Objects\DB(DB_NAME, DB_USER, DB_PASS, DB_HOST),
+      private JWT $classJWT = new JWT
+    ) 
+    {
+      //$this->classJWT = new JWT;
     }
 
     /**

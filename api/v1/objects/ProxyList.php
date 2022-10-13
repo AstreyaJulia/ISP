@@ -3,7 +3,7 @@
 
     class ProxyList {
         // подключение к БД
-        protected $db;
+
 
         // свойства объекта
         protected $id;
@@ -13,9 +13,9 @@
         protected $name_href;
         protected $proxy_href;
 
-        public function __construct(DB $db) {
-            $this->db = $db;
-        }
+        public function __construct(
+            protected DB $db = new \Api\Objects\DB(DB_NAME, DB_USER, DB_PASS, DB_HOST)
+        ) {}
 
 /*
         //Редактируем  ссылку

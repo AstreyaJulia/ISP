@@ -1,8 +1,8 @@
 <?php
 
 // Роутинг, основная функция
-function route($db, $helpers) {
-  $proxyListClass = new Api\Objects\ProxyList($db);
+function route($helpers) {
+  $proxyListClass = new Api\Objects\ProxyList();
   // GET
   if ($helpers->getMethod() === 'GET') {
     // необходимые HTTP-заголовки

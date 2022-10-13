@@ -1,8 +1,8 @@
 <?php
 
 // Роутинг, основная функция
-function route($db, $helpers) {
-  $homeClass = new Api\Objects\Home($db, $helpers);
+function route($helpers) {
+  $homeClass = new Api\Objects\Home($helpers);
   // GET
   if ($helpers->getMethod() === 'GET') {
 

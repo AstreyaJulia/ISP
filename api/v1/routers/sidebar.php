@@ -1,8 +1,8 @@
 <?php
 
 // Роутинг, основная функция
-function route($db, $helpers) {
-  $sidebarClass = new Api\Objects\Sidebar($db, $helpers);
+function route($helpers) {
+  $sidebarClass = new Api\Objects\Sidebar($helpers);
   // GET
   if ($helpers->getMethod() === 'GET') {
 

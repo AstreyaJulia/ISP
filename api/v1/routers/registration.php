@@ -1,9 +1,9 @@
 <?php
 
 // Роутинг, основная функция
-function route($db, $helpers) {
+function route($helpers) {
   include_once 'config/jwt.php';
-  $registrationClass = new Api\Objects\Registration($db, $helpers);
+  $registrationClass = new Api\Objects\Registration($helpers);
   // POST
     switch ($helpers->getMethod()) {
       case "POST": {

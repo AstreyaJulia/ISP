@@ -3,14 +3,14 @@
 
   class Authorization {
 
-    protected $db;
-    protected $helpers;
+    protected Helpers $helpers;
 
     private $login;
     private $password;
 
-    public function __construct(DB $db, helpers $helpers) {
-        $this->db = $db;
+    public function __construct(
+      Helpers $helpers = new \Api\Objects\Helpers()
+    ) {
         $this->helpers = $helpers;
     }
 

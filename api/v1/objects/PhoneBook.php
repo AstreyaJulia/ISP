@@ -1,14 +1,11 @@
 <?php
     namespace Api\Objects;
-    use Core\Config\DB;
 
     class PhoneBook {
 
-        protected $db;
-
-        public function __construct(DB $db) {
-            $this->db = $db;
-        }
+        public function __construct(
+            protected DB $db = new \Api\Objects\DB(DB_NAME, DB_USER, DB_PASS, DB_HOST)
+        ) {}
         
         public function getSelect($in, $which_record, $number_records) {
             $prepare = str_repeat('?,', count($in) - 1) . '?';

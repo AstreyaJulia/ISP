@@ -4,7 +4,7 @@
   cors();
   include_once 'config/core.php';
   
-  $helpers = new Api\Objects\Helpers($db);
+  $helpers = new Api\Objects\Helpers();
 
   $helpers::headlinesGET();
 
@@ -34,7 +34,7 @@
     include_once "routers/".$helpers->getRouter().".php";
 
     // Запускаем главную функцию
-    route($db, $helpers);
+    route($helpers);
 
   } else {
     // Выбрасываем ошибку
