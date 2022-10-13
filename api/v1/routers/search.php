@@ -1,8 +1,8 @@
 <?php
 
 // Роутинг, основная функция
-function route($db, $helpers) {
-  $searchClass = new Api\Objects\Search($db, $helpers);
+function route($helpers) {
+  $searchClass = new Api\Objects\Search($helpers);
   // GET
   if ($helpers->getMethod() === 'GET') {
     switch ($helpers->getUrlData()[1]) {

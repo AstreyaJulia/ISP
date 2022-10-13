@@ -3,11 +3,11 @@
 
 	class Search {
 
-		protected $db;
-		protected $helpers;
+		protected Helpers $helpers;
 
-    public function __construct(DB $db, helpers $helpers) {
-      $this->db = $db;
+    public function __construct(
+      Helpers $helpers = new \Api\Objects\Helpers()
+    ) {
       $this->helpers = $helpers;
     }
 
@@ -38,7 +38,7 @@
                       LEFT JOIN `sdc_users` AS Users ON UserAttributes.internalKey=Users.id
                       LEFT JOIN `sdc_vocation` AS Vocation ON Vocation.id=UserAttributes.profession
               WHERE Users.active = 1 and UserAttributes.profession != '' AND (UserAttributes.fullname LIKE ? or ChildUserType.phone_worck LIKE ?)";
-      return $this->db->run($sql, ["%$param%", "%$param%"])->fetchAll(\PDO::FETCH_CLASS);
+      return $this->helpers->db->run($sql, ["%$param%", "%$param%"])->fetchAll(\PDO::FETCH_CLASS);
     }
 
     /**

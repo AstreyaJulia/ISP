@@ -24,8 +24,6 @@ date_default_timezone_set('Europe/Moscow');
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/conection.php";
 
-//Подключаемся  базе
-$db = new Api\Objects\DB($dbname, $user, $password, $host);
 
 // URL домашней страницы
 //$home_url="http://isp/api/";

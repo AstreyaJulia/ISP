@@ -1,14 +1,11 @@
 <?php
 	namespace Api\Objects;
-	use Core\Config\DB;
 
 	class CertificateWork {
 
-		protected $db;
-
-	    public function __construct(DB $db) {
-	        $this->db = $db;
-	    }
+	    public function __construct(
+			protected DB $db = new \Api\Objects\DB(DB_NAME, DB_USER, DB_PASS, DB_HOST)
+		) {}
 
 	    //Получаем всех действующих судей
 	    public function getJudge() {

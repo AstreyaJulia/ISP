@@ -1,7 +1,7 @@
 <?php
 $helpers->validateIdGAS();
 // Роутинг, основная функция
-function route($db, $helpers) {
+function route($helpers) {
 
   // GET
   if ($helpers->getMethod() === 'GET') {

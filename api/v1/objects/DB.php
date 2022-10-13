@@ -1,12 +1,12 @@
 <?php
-/*
-Ноги растут из этой статьи: https://phpdelusions.net/pdo/pdo_wrapper
-
-Пример запроса:
-$data = $db->run("SELECT * FROM sdc_users WHERE id=?",[$id])->fetchAll();
-*/
 
 namespace Api\Objects;
+/**
+ * Ноги растут из этой статьи: https://phpdelusions.net/pdo/pdo_wrapper
+ * Пример запроса:
+ * $data = $db->run("SELECT * FROM sdc_users WHERE id=?",[$id])->fetchAll();
+ * 
+ */
 class DB
 {
   public $pdo;
@@ -24,18 +24,34 @@ class DB
     try {
       $this->pdo = new \PDO($dsn, $username, $password, $options);
     } catch (\PDOException $e) {
-      throw new \PDOException($e->getMessage(), (int)$e->getCode());
+      echo json_encode(array(
+        "data" =>[],
+        "error" => array(
+          "message" => (int)$e->getCode(),
+          "info" => $e->getMessage()
+        )), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+        die();
     }
   }
 
   public function run($sql, $args = NULL)
   {
-    if (!$args) {
-      return $this->pdo->query($sql);
+    try {
+      if (!$args) {
+        return $this->pdo->query($sql);
+      }
+      $stmt = $this->pdo->prepare($sql);
+      $stmt->execute($args);
+      return $stmt;
+    } catch (\PDOException $e) {
+      echo json_encode(array(
+        "data" =>[],
+        "error" => array(
+          "message" => (int)$e->getCode(),
+          "info" => $e->getMessage()
+        )), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+        die();
     }
-    $stmt = $this->pdo->prepare($sql);
-    $stmt->execute($args);
-    return $stmt;
   }
 
   /* Выполнение запроса на добавление нескольких записей
