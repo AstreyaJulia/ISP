@@ -173,7 +173,7 @@ const MenuGroup = ({
                         </svg>
                     </a>
                 </div>
-                <div className={classNames(groupActive.includes(item.id) || groupOpen.includes(item.id) || currentActiveGroup.includes(item.id) ? 'px-2 pb-3' : '', 'my-1')}>
+                <div className={classNames(groupActive.includes(item.id) || groupOpen.includes(item.id) || currentActiveGroup.includes(item.id) ? 'pb-3' : '', 'my-1', sidebar?.toString() === '0' ? '' : 'px-2')}>
                     {groupActive.includes(item.id) || groupOpen.includes(item.id) || currentActiveGroup.includes(item.id) ? (
                         <MenuItems
                             {...rest}

@@ -57,7 +57,7 @@ export default function ContentLayoutWithSidebar({
             {/* Сюда можно тоже вставить разметку, например, кнопки */}
           </PageHeader>
           <div
-            className={classNames("main-content min-h-full flex overflow-y-auto relative p-4 pt-0 xl:pt-4 rounded-lg", boxed ? "max-w-6xl mx-auto" : '')}>
+            className={classNames("main-content min-h-full flex overflow-y-auto relative pt-0 xl:pt-4 rounded-lg", boxed ? "max-w-6xl mx-auto" : '')}>
             {/* Дочерние компоненты */}
             {children}
           </div>
