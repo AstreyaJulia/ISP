@@ -62,11 +62,11 @@ const Faq = () => {
       <Disclosure key={key}>
         {({open}) => (
             <>
-              <Disclosure.Button className={classNames("py-3 pl-2 w-full flex items-center rounded-md shrink-0 w-full hover:bg-slate-200", open ? 'bg-green-100' : 'bg-slate-50')}>
+              <Disclosure.Button className={classNames("py-3 pl-2 w-full flex items-center rounded-md shrink-0 w-full hover:bg-slate-200", open ? 'bg-indigo-100 text-indigo-800' : 'bg-slate-50 text-slate-800')}>
                 <div className="flex grow items-center">
                   <div className="flex flex-col items-start">
                     <p
-                        className="font-medium text-sm text-slate-800 flex flex-wrap line-clamp-1 justify-start items-center text-left mb-1">{item.title}</p>
+                        className="font-medium text-sm flex flex-wrap justify-start items-center text-left mb-1">{item.title}</p>
                   </div>
                 </div>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3}

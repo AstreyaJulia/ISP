@@ -66,7 +66,6 @@ const CasesOverPeriod = ({ rows = [] }) => {
     }
   };
 
-
   return (
     <Card classname="mt-4">
       <div className="px-4 py-5 sm:p-3">

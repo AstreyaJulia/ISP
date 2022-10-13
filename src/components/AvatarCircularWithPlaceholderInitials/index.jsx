@@ -97,10 +97,10 @@ export const AvatarCircularWithPlaceholderInitials = ({size, classname, name, ic
     return (<>
         <span
             className={
-                ["flex-shrink-0 inline-flex items-center justify-center", AvatarShape[shape], AvatarGroupSize[size].size, AvatarColor[color].bg || AvatarColor[getAvatarColor(name) || "indigo"].bg, classname || ""].join(" ")}
+                ["flex-shrink-0 inline-flex items-center justify-center", AvatarShape[shape], AvatarGroupSize[size].size, AvatarColor[color || getAvatarColor(name) || 'indigo'].bg, classname || ""].join(" ")}
         >
         <span
-            className={["font-medium leading-none d-flex items-center justify-center", AvatarGroupSize[size].nameFont, AvatarColor[color].text || AvatarColor[getAvatarColor(name) || "indigo"].text].join(" ")}
+            className={["font-medium leading-none d-flex items-center justify-center", AvatarGroupSize[size].nameFont, AvatarColor[color || getAvatarColor(name) || 'indigo'].text].join(" ")}
         >
             {getInitialsOnly(name) || name}
             {icon && icon}

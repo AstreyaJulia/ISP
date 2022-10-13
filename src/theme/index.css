@@ -31,3 +31,8 @@
 .ps__show .ps__rail-y {
     opacity: 1;
 }
+
+/** Подсветка найденных строк */
+.text-highlight {
+    @apply bg-amber-400 dark:bg-amber-500 dark:text-slate-900
+}

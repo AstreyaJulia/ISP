@@ -6,7 +6,7 @@ import {AvatarCircularWithPlaceholderInitials} from "../AvatarCircularWithPlaceh
 export const Avatar = ({size, classname, name, avatar, color, icon, shape}) => (
         avatar ?
             <AvatarBasic size={size} name={name} avatar={avatar} classname={classname || ""} shape={shape}/> :
-            <AvatarCircularWithPlaceholderInitials name={name} size={size} color={color || "indigo"}
+            <AvatarCircularWithPlaceholderInitials name={name} size={size} color={color}
                                                    classname={classname || ""} icon={icon} shape={shape}/>
     );
 
