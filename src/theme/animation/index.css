@@ -1,95 +1,50 @@
 /** FIXME сюда добавлять элементы для анимации */
 .content-body, .main-content {
-    -webkit-animation: fadeIn .5s linear;
-    animation: fadeIn .5s linear;
-    animation-delay: 0s;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
-    transition: all .2s, background 0s, border-color 0s, color 0s;
+	-webkit-animation: fadeIn .5s linear;
+	animation: fadeIn .5s linear;
+	animation-delay: 0s;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+	transition: all .2s, background 0s, border-color 0s, color 0s;
 }
 
 /** Скелетон */
 .react-loading-skeleton {
-    --base-color: transparent;
-    --highlight-color: transparent;
-}
-
-/** Анимация спиннера загрузки */
-.page-spinner-1 {
-    animation: rotate 1s ease infinite;
-}
-
-.page-spinner-2 {
-    animation: rotateOpacity 1s ease infinite 0.1s;
-}
-
-.page-spinner-3 {
-    animation: rotateOpacity 1s ease infinite 0.2s;
-}
-
-.page-spinner-wrapper .effects {
-    transition: all 0.3s ease;
+	--base-color: transparent;
+	--highlight-color: transparent;
 }
 
 .menu-item {
-    transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-}
-
-.rotation-animation {
-    transform: rotate(90deg);
-}
-
-@keyframes rotate {
-    0% {
-        -webkit-transform: rotate(0deg);
-        transform: rotate(0deg);
-    }
-    100% {
-        -webkit-transform: rotate(1turn);
-        transform: rotate(1turn);
-    }
-}
-
-@keyframes rotateOpacity {
-    0% {
-        -webkit-transform: rotate(0deg);
-        transform: rotate(0deg);
-        opacity: 0.1;
-    }
-    100% {
-        -webkit-transform: rotate(1turn);
-        transform: rotate(1turn);
-        opacity: 1;
-    }
+	transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 }
 
 .animate__fadeIn {
-    -webkit-animation-name: fadeIn;
-    animation-name: fadeIn;
-    -webkit-animation-duration: 1ms !important;
-    animation-duration: 1ms !important;
-    -webkit-animation-iteration-count: 1 !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 1ms !important;
-    animation-fill-mode: both;
+	-webkit-animation-name: fadeIn;
+	animation-name: fadeIn;
+	-webkit-animation-duration: 1ms !important;
+	animation-duration: 1ms !important;
+	-webkit-animation-iteration-count: 1 !important;
+	animation-iteration-count: 1 !important;
+	transition-duration: 1ms !important;
+	animation-fill-mode: both;
 }
 
 @-webkit-keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
+	from {
+		opacity: 0;
+	}
 
-    to {
-        opacity: 1;
-    }
+	to {
+		opacity: 1;
+	}
 }
 
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
+	from {
+		opacity: 0;
+	}
 
-    to {
-        opacity: 1;
-    }
+	to {
+		opacity: 1;
+	}
 }

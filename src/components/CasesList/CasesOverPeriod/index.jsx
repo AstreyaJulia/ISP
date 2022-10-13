@@ -122,7 +122,7 @@ const CasesOverPeriod = ({ rows = [] }) => {
                 <Disclosure key={key}>
                   {({ open }) => (
                     <>
-                      <Disclosure.Button className="py-3 px-2 w-full flex items-center bg-slate-100 rounded-md">
+                      <Disclosure.Button className={classNames("py-3 px-2 w-full flex items-center rounded-md", open ? 'bg-indigo-100' : 'bg-slate-100')}>
                         <div className="flex grow items-center">
                           <Avatar size="10" shape="circle" name={item.CASE_TYPE}
                                   color={caseTypesSettings[item.CASE_TYPE].color} classname="mr-3" />
