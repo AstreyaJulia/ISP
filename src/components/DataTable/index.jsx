@@ -164,43 +164,45 @@ const DataTable = ({ rows = [], columnNames }) => {
 
       </table>
 
-      <div className="w-full flex items-center justify-end p-2">
+      <div className="w-full flex items-center justify-between p-4">
         <div className="flex items-center">
-          <label htmlFor="rowsperpage" className="shrink-0 block text-sm font-medium text-gray-700 mr-2">
-            Строк на страницу:
-          </label>
-          <select
-            id="rowsperpage"
-            name="rowsperpage"
-            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
-            defaultValue={elementsPerPage}
-            onChange={elementsPerPageChangeHandler}
-          >
-            <option value={10}>10</option>
-            <option value={25}>25</option>
-            <option value={50}>50</option>
-            <option value={100}>100</option>
-            <option value={sortFilter().length}>Все</option>
-          </select>
+          <div className="flex items-center">
+            <label htmlFor="rowsperpage" className="shrink-0 block text-sm font-medium text-gray-700 dark:text-slate-300 mr-2">
+              Строк на страницу:
+            </label>
+            <select
+                id="rowsperpage"
+                name="rowsperpage"
+                className="mt-1 block w-full pl-3 pr-10 py-2 text-base bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                defaultValue={elementsPerPage}
+                onChange={elementsPerPageChangeHandler}
+            >
+              <option value={10}>10</option>
+              <option value={25}>25</option>
+              <option value={50}>50</option>
+              <option value={100}>100</option>
+              <option value={sortFilter().length}>Все</option>
+            </select>
+          </div>
+          <p
+              className="mx-5 shrink-0 block text-sm font-medium text-gray-700 dark:text-slate-200 mr-2">
+            { /* eslint-disable-next-line */}
+            {sortFilter().length > 0 ? (currentPage * elementsPerPage) + 1 : 0} - {sortFilter().length > 0 ? sortFilter().length < (currentPage + 1) * elementsPerPage ? sortFilter().length : (currentPage + 1) * elementsPerPage : 0} из {sortFilter().length > 0 ? sortFilter().length : 0}</p>
         </div>
-        <p
-          className="mx-5 shrink-0 block text-sm font-medium text-gray-700 mr-2">
-          { /* eslint-disable-next-line */}
-          {sortFilter().length > 0 ? (currentPage * elementsPerPage) + 1 : 0} - {sortFilter().length > 0 ? sortFilter().length < (currentPage + 1) * elementsPerPage ? sortFilter().length : (currentPage + 1) * elementsPerPage : 0} из {sortFilter().length > 0 ? sortFilter().length : 0}</p>
         <div className="mx-5 flex items-center gap-4">
           <button
-            onClick={prevPage}
-            disabled={currentPage === 0 || sortFilter().length === 0}
-            className={classNames("bg-white dark:bg-gray-900 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 p-3 lg:rounded-md lg:hover:bg-gray-50 dark:lg:hover:bg-gray-800", currentPage === 0 ? "text-slate-300" : "text-slate-600")}>
+              onClick={prevPage}
+              disabled={currentPage === 0 || sortFilter().length === 0}
+              className={classNames("bg-white dark:bg-gray-900 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 p-3 lg:rounded-md lg:hover:bg-gray-50 dark:lg:hover:bg-gray-800", currentPage === 0 ? "text-slate-300 dark:text-slate-700" : "text-slate-600 dark:text-slate-300")}>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
                  stroke="currentColor" className="w-6 h-6">
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
             </svg>
           </button>
           <button
-            onClick={nextPage}
-            disabled={(sortFilter().length / elementsPerPage) - 1 <= currentPage || sortFilter().length === 0}
-            className={classNames("bg-white dark:bg-gray-900 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 p-3 lg:rounded-md lg:hover:bg-gray-50 dark:lg:hover:bg-gray-800", (sortFilter().length / elementsPerPage) - 1 <= currentPage ? "text-slate-300" : "text-slate-600")}>
+              onClick={nextPage}
+              disabled={(sortFilter().length / elementsPerPage) - 1 <= currentPage || sortFilter().length === 0}
+              className={classNames("bg-white dark:bg-gray-900 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 p-3 lg:rounded-md lg:hover:bg-gray-50 dark:lg:hover:bg-gray-800", (sortFilter().length / elementsPerPage) - 1 <= currentPage ? "text-slate-300 dark:text-slate-700" : "text-slate-600 dark:text-slate-300")}>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
                  stroke="currentColor" className="w-6 h-6">
               <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />

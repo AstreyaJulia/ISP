@@ -13,7 +13,7 @@ const SearchResults = ({ show, query, searchQueryClose, searchType, searchresult
            className="flex flex-col border border-transparent border-b-slate-300 border-dashed py-2 hover:cursor-pointer hover:bg-emerald-50 dark:hover:bg-emerald-800/70 hover:border-emerald-300 hover:border hover:rounded-md p-2">
           <p
             className="text-sm font-bold text-slate-800 dark:text-slate-200">{getHighlightedText(item.fullname, query)}</p>
-          <p className="flex items-center text-sm text-slate-600">
+          <p className="flex items-center text-sm text-slate-600 dark:text-slate-400">
             <span>{item.profession}</span>
             <span className="mx-2">•</span>
             <span>{item.room}</span>
@@ -36,7 +36,7 @@ const SearchResults = ({ show, query, searchQueryClose, searchType, searchresult
                 </span>
               <span className="ml-2">{getHighlightedText(item.content, query)}</span>
             </p>
-            <p className="flex items-center text-sm text-slate-600">
+            <p className="flex items-center text-sm text-slate-600 dark:text-slate-400">
               {item.type === "Электронная почта" ?
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
                      stroke="currentColor" className="w-5 h-5 mr-2">

@@ -17,8 +17,8 @@
     option
     {
         -moz-appearance:none !important;
-        font-size: 16px;
-        @apply text-gray-800 bg-white
+        font-size: 14px;
+        @apply text-slate-700 bg-slate-100 font-medium dark:text-slate-300 dark:bg-slate-800 border border-slate-200 dark:border-slate-700
     }
 }
 
