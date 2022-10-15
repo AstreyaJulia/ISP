@@ -4,6 +4,7 @@ import { classNames } from "../../utils/classNames";
 import { Card } from "../Card";
 import { Avatar } from "../Avatar";
 import { formatDate } from "../../utils/formatTime";
+import { caseTypesSettings } from "../../config";
 
 const tabs = [
   {
@@ -125,14 +126,6 @@ const CasesList = ({ rows = [] }) => {
     setCurrentPage(0);
   };
 
-  const caseTypesSettings = {
-    ADM: { color: "blue" },
-    G1: { color: "green" },
-    U1: { color: "red" },
-    ADM1: { color: "indigo" },
-    M: { color: "orange" }
-  };
-
   const nextPage = () => {
     if ((sortFilter().length / elementsPerPage) - 1 > currentPage) {
       setCurrentPage(currentPage + 1);
@@ -144,7 +137,6 @@ const CasesList = ({ rows = [] }) => {
       setCurrentPage(currentPage - 1);
     }
   };
-
 
   return (
     <Card classname="mt-4">

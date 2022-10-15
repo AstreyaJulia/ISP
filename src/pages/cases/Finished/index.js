@@ -2,7 +2,7 @@ import React from "react";
 import BasicPage from "../../pagesLayouts/BasicPage";
 import PageHeader from "../../../components/PageHeader";
 import { outdatedCases } from "../../../@mock/SampleData";
-import CasesOverPeriod from "../../../components/CasesList/CasesOverPeriod";
+import CasesOverPeriod from "../../../components/DataTable/CasesOverPeriod";
 
 const Finished = () => {
 

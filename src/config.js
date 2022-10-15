@@ -15,3 +15,29 @@ export const CITY_LON = "33.242566";
 /** Название суда и область */
 export const COURT_NAME = "Сафоновский районный суд";
 export const COURT_REGION = "Смоленская область";
+
+/** Настройки для картотек
+ * @type {{ADM1: {color: string}, ADM: {color: string}, G1: {color: string}, U1: {color: string}, M: {color: string}}}
+ */
+export const caseTypesSettings = {
+  ADM1: {
+    color: "indigo",
+    name: 'Жалобы по делам об административных правонарушениях'
+  },
+  ADM: {
+    color: "blue",
+    name: 'Дела об административных правонарушениях'
+  },
+  G1: {
+    color: "green",
+    name: 'Гражданские дела первой инстанции'
+  },
+  M: {
+    color: "orange",
+    name: 'Материалы в порядке исполнения решений, ОРМ, досудебные материалы'
+  },
+  U1: {
+    color: "red",
+    name: 'Уголовные дела первой инстанции'
+  },
+};

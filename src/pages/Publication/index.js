@@ -1,6 +1,8 @@
 import React from "react";
 import BasicPage from "../pagesLayouts/BasicPage";
 import PageHeader from "../../components/PageHeader";
+import PublicationControl from "../../components/DataTable/PublicationControl";
+import publication from '../../@mock/publication_acts.json'
 
 const Publication = () => {
   const breadcrumbs = [{name: "Публикация судебных актов", href: "", current: true}];
@@ -8,6 +10,7 @@ const Publication = () => {
   return (
     <BasicPage title='Публикация судебных актов' className='main-content max-w-6xl mx-auto px-3' >
       <PageHeader pages={breadcrumbs} header='Публикация судебных актов' />
+      <PublicationControl rows={publication} />
     </BasicPage>
   )
 };
