@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { Card } from "../../Card";
 import { classNames } from "../../../utils/classNames";
 import { getHighlightedText } from "../../../utils/getHighlightedText";
@@ -15,17 +15,17 @@ const DataTableCore = ({
                          isLoading,
                          makeItem,
                          makeMenu,
-                         table: { isTable, startColumn, endColumn, columnNames },
+                         table: { isTable, startColumn, endColumn, columnNames, coltosort: [...coltosort] },
                          children
                        }) => {
 
   /** Стейты */
-  const [sortedBy,] = useState({ column: initSortColumn, asc: false }); // сортировка
+  const [sortedBy, setSortedBy] = useState({ column: initSortColumn, asc: false }); // сортировка
   const [query, setQuery] = useState(""); // поисковый запрос
   const [elementsPerPage, setElementsPerPage] = useState(10); // кол-во элементов на странице
   const [currentPage, setCurrentPage] = useState(0); // текущая страница
 
-  /** Дефолтная ф-я сортировки, если не задан sortCallback. Для сортировки строк. Другие типы данных - коллбек.
+  /** Дефолтная ф-я сортировки, если не задан sortCallback. Для сортировки строк и чисел (). Другие типы данных - коллбек.
    * @param column
    * @param asc
    * @param rows
@@ -33,8 +33,13 @@ const DataTableCore = ({
    */
   function sortFunction(column, asc, rows) {
     return rows.sort((a, b) => {
-      if (a[column].toString() > b[column].toString()) return asc ? -1 : 1;
-      if (b[column].toString() > a[column].toString()) return asc ? 1 : -1;
+       /* eslint-disable-next-line */
+      if (!isNaN(a[column]) || !isNaN(parseInt(a[column]))) {
+        if (parseInt(a[column], 10) > parseInt(b[column], 10)) return asc ? -1 : 1;
+        if (parseInt(b[column], 10) > parseInt(a[column], 10)) return asc ? 1 : -1;
+      }
+      if (a[column].toString().toLowerCase() > b[column].toString().toLowerCase()) return asc ? -1 : 1;
+      if (b[column].toString().toLowerCase() > a[column].toString().toLowerCase()) return asc ? 1 : -1;
       return 0;
     });
   }
@@ -141,21 +146,45 @@ const DataTableCore = ({
           <tbody>
           <tr className="rounded-md">
             {columns.slice(startColumn, endColumn).map((column, key) => (
-              <>
-                <th key={key}
-                    className="pr-3 py-3 text-left bg-slate-100 dark:bg-slate-800 border-b border-slate-300 dark:border-slate-600">
-                  <div
-                    className="flex items-center gap-2"
-                  >
+              <th key={key}
+                className="pr-3 py-3 text-left bg-slate-100 dark:bg-slate-800 border-b border-slate-300 dark:border-slate-600">
+                <div
+                  className="flex items-center gap-2"
+                >
                 <span
-                  className={classNames("text-slate-600 dark:text-slate-300 text-sm capitalize pl-4 border-slate-300 dark:border-slate-600", key === 0 ? "" : "border-l-2")}>
-                  {columnNames[column]}
+                  className={classNames("h-5 text-slate-600 dark:text-slate-300 text-sm capitalize pl-4 border-slate-300 dark:border-slate-600 flex", key === 0 ? "" : "border-l-2")}>
+                  {coltosort.indexOf(column) !== -1 ?
+                    <button
+                      onClick={() =>
+                        setSortedBy((prev) => ({
+                          column,
+                          asc: !prev.asc
+                        }))
+                      }
+                      className="text-slate-500 dark:text-slate-400 border-0 mx-2 flex items-center">
+                      {columnNames[column]}
+                      {sortedBy.column === column &&
+                        (sortedBy.asc ? (
+                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"
+                                   className="w-5 h-5">
+                                <path fill="currentColor" d="m16 28l-7-7l1.4-1.4l5.6 5.6l5.6-5.6L23 21z"/>
+                              </svg>
+                        ) : (
+                          <svg xmlns="http://www.w3.org/2000/svg"
+                               viewBox="0 0 32 32"
+                               className="w-5 h-5">
+                            <path fill="currentColor" d="m16 4l7 7l-1.4 1.4L16 6.8l-5.6 5.6L9 11z"/>
+                          </svg>
+                        )) || <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-slate-400 dark:text-slate-600">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
+                        </svg>
+                      }
+                    </button> : <span className='text-slate-500 dark:text-slate-400'>{columnNames[column]}<span className='w-6'/></span>}
                 </span>
-                  </div>
-                </th>
-                {makeMenu ? <th/> : null}
-              </>
+                </div>
+              </th>
             ))}
+            {makeMenu ? <th/> : null}
           </tr>
           { /* eslint-disable-next-line */}
           {isLoading === "true" ?
@@ -176,13 +205,13 @@ const DataTableCore = ({
               .map((row, key) => (
                 <tr key={row + key}>
                   {columns.slice(0, 2).map((column, key) => (
-                    <>
-                      <td key={column + key}
+                    <Fragment key={column + key}>
+                      <td
                           className="border-b border-slate-300 dark:border-slate-600 py-2 px-3 text-sm text-slate-700 dark:text-slate-200">
                         {getHighlightedText(row[column], query)}
                       </td>
                       {makeMenu ? <td>makeMenu(item, key, query)</td> : null}
-                    </>
+                    </Fragment>
                   ))}
                 </tr>
               )) : <tr>

@@ -42,9 +42,9 @@ const CategoryDataTable = ({ rows }) => {
     initSortColumn={columns[3]}
     placeholder="Поиск по категориям гражданских и административных дел"
     filterCallback={filter}
-    sortCallback={sort}
+    sortCallback={null}
     makeItem={null}
-    table={{isTable: 'true', startColumn: 0, endColumn: 2, columnNames: tableGrColumns}}
+    table={{isTable: 'true', startColumn: 0, endColumn: 2, columnNames: tableGrColumns, coltosort: []}}
   />
 )
 };

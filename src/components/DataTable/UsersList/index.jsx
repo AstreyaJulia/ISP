@@ -115,7 +115,7 @@ const UsersList = ({ rows }) => {
       filterCallback={filter}
       sortCallback={null}
       makeItem={makeItem}
-      table={{ isTable: "false", startColumn: null, endColumn: null, columnNames: null }}
+      table={{ isTable: "false", startColumn: null, endColumn: null, columnNames: null, coltosort: [] }}
     />
   );
 };
