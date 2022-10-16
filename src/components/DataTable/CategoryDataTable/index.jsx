@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import DataTableCore from "../DataTableCore";
 
 const CategoryDataTable = ({ rows }) => {
 
   const columns = Object.keys(rows[0]);
+  const [currentPage, setCurrentPage] = useState(0); // текущая страница
 
   const sort = (column, asc, rows) => {
     return rows.sort((a, b) => {
@@ -36,6 +37,8 @@ const CategoryDataTable = ({ rows }) => {
   <DataTableCore
     classname='mt-5'
     rows={rows}
+    currentPage={currentPage}
+    setCurrentPage={setCurrentPage}
     tableID="cases-over-period"
     isLoading="false"
     columns={columns}

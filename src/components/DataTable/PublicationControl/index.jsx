@@ -15,6 +15,7 @@ const PublicationControl = ({ data }) => {
   const [rows, setRows] = useState(data);
   const [columns, setColumns] = useState(Object.keys(data[0]));
   const [selectedJudge, setSelectedJudge] = useState("All");
+  const [currentPage, setCurrentPage] = useState(0); // текущая страница
 
   const [judgesList] = useState(getUniqueArrayValuesByKey(rows, "JUDGE_NAME").sort((a, b) => a.localeCompare(b)));
 
@@ -79,6 +80,7 @@ const PublicationControl = ({ data }) => {
 
   const judgeSelectChangeHandler = (evt) => {
     setSelectedJudge(evt.target.value);
+    setCurrentPage(0);
     setRows(data.filter((row) =>
       columns.slice(4, 5).filter((item) => item === "JUDGE_NAME").some(
         (column) => evt.target.value !== "All" ? row[column].toLowerCase().indexOf(evt.target.value.toLowerCase()) > -1 : row[column].toLowerCase().indexOf(evt.target.value.toLowerCase()) === -1
@@ -90,6 +92,8 @@ const PublicationControl = ({ data }) => {
     <DataTableCore
       classname="mt-5"
       rows={rows}
+      currentPage={currentPage}
+      setCurrentPage={setCurrentPage}
       tableID="cases-over-period"
       isLoading="false"
       columns={columns}

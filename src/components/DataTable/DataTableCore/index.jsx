@@ -6,6 +6,8 @@ import { getHighlightedText } from "../../../utils/getHighlightedText";
 const DataTableCore = ({
                          header,
                          subheader,
+                         currentPage,
+                         setCurrentPage,
                          rows = [],
                          columns,
                          initSortColumn,
@@ -26,7 +28,6 @@ const DataTableCore = ({
   const [sortedBy, setSortedBy] = useState({ column: initSortColumn, asc: false }); // сортировка
   const [query, setQuery] = useState(""); // поисковый запрос
   const [elementsPerPage, setElementsPerPage] = useState(10); // кол-во элементов на странице
-  const [currentPage, setCurrentPage] = useState(0); // текущая страница
 
   /** Дефолтная ф-я сортировки, если не задан sortCallback. Для сортировки строк и чисел (). Другие типы данных - коллбек.
    * @param column

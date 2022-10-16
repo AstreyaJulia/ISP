@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
 import { Disclosure } from "@headlessui/react";
-
 import DataTableCore from "../DataTableCore";
 import { classNames } from "../../../utils/classNames";
 import { Avatar } from "../../Avatar";
@@ -10,6 +9,7 @@ import { formatDate } from "../../../utils/formatTime";
 const CasesOverPeriod = ({ rows }) => {
 
   const columns = Object.keys(rows[0]);
+  const [currentPage, setCurrentPage] = useState(0); // текущая страница
 
   const makeItem = (item, key) => <Disclosure key={key}>
     {({ open }) => (
@@ -58,6 +58,8 @@ const CasesOverPeriod = ({ rows }) => {
     <DataTableCore
       classname='mt-5'
       rows={rows}
+      currentPage={currentPage}
+      setCurrentPage={setCurrentPage}
       tableID="cases-over-period"
       isLoading="false"
       columns={columns}
