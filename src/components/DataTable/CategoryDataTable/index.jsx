@@ -6,14 +6,6 @@ const CategoryDataTable = ({ rows }) => {
   const columns = Object.keys(rows[0]);
   const [currentPage, setCurrentPage] = useState(0); // текущая страница
 
-  const sort = (column, asc, rows) => {
-    return rows.sort((a, b) => {
-      if (parseInt(a[column], 10) > parseInt(b[column], 10)) return asc ? -1 : 1;
-      if (parseInt(b[column], 10) > parseInt(a[column], 10)) return asc ? 1 : -1;
-      return 0;
-    });
-  }
-
   const filter = (rows, query, columns) => {
     const findQuery = rows.filter((row) => query !== '' ? row.NAME.toLowerCase().indexOf(query.toLowerCase()) > -1 && row.PREFIX !== '' : row.NAME.toLowerCase().indexOf(query.toLowerCase()) > -1)
 

@@ -111,7 +111,7 @@ const DataTableCore = ({
 
 
         { /* Поиск */}
-        <div className="p-5 flex gap-2 w-full items-center">
+        <div className={classNames(!children ? 'pb-4' : '', "px-4 pt-4 flex gap-2 w-full items-center")}>
           <label htmlFor={tableID} className="sr-only">
             Поиск
           </label>
@@ -195,7 +195,11 @@ const DataTableCore = ({
           </div>
         </div>
       </div>
+
+      {/* Дочерние компоненты под заголовком */}
       {children}
+
+      {/* Таблица */}
       {isTable === "true" ?
         <table className="w-full mb-5">
           <tbody>
@@ -279,7 +283,10 @@ const DataTableCore = ({
             </tr>}
           </tbody>
         </table>
+
         :
+
+         /* Псевдо-таблица */
         <div className="px-4 py-5 sm:p-4">
           <div className={itemsContainerClassNames || ""}>
             { /* eslint-disable-next-line */}
@@ -293,12 +300,13 @@ const DataTableCore = ({
             </div> : sortFilter().length > 0 ? sortFilter()
                 .slice(currentPage * elementsPerPage, (currentPage + 1) * elementsPerPage)
                 .map((item, key) => makeItem(item, key, query))
-              : <p className="flex justify-center items-center text-slate-700 dark:text-slate-300 text-sm py-5">Нет
+              : <p className="flex justify-center items-center text-slate-700 dark:text-slate-300 text-sm py-5 col-span-full">Нет
                 информации для отображения</p>
             }
           </div>
         </div>
       }
+
       {/* Футер с пагинацией */}
       <div className="w-full flex items-center justify-between p-4 border-t-2 border-slate-200 dark:border-slate-700">
         <div className="flex items-center">
