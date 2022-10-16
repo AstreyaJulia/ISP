@@ -33,6 +33,7 @@ const Faq = () => {
     count += 1;
 
     return (
+      item.children?.length > 0 ?
       <Disclosure key={key}>
         {({ open }) => (
           <>
@@ -42,7 +43,7 @@ const Faq = () => {
                 <div className="flex flex-col items-start">
                   <p
                     className="font-medium text-sm flex flex-wrap justify-start items-center text-left mb-1"><span
-                    className="flex flex-wrap items-center">{new Array(count).join("●")}{" "}{item.title}</span></p>
+                    className="flex flex-wrap items-center">{item.title}</span></p>
                 </div>
               </div>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3}
@@ -51,17 +52,17 @@ const Faq = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
               </svg>
             </Disclosure.Button>
-            <Disclosure.Panel className="text-gray-500">
+            <Disclosure.Panel className={classNames(`ml-${count+1}`, "text-gray-500 mb-1")}>
               {item.children?.length > 0 ? item.children.map((item, key) => sidebarLink(item, key, count))
                 : <p
-                  className="py-3 pl-2 w-full flex items-center rounded-md shrink-0 w-full hover:bg-slate-200">{item.title}</p>
+                  className="font-medium text-sm mt-2 py-3 pl-2 w-full flex items-center rounded-md shrink-0 w-full hover:bg-slate-200">{item.title}</p>
               }
             </Disclosure.Panel>
           </>
         )}
       </Disclosure>
-    );
-
+  : <p
+      className="hover:cursor-pointer text-slate-800 font-medium text-sm mt-2 py-3 pl-2 w-full flex items-center rounded-md shrink-0 w-full hover:bg-slate-200">{item.title}</p>);
   };
 
   return (

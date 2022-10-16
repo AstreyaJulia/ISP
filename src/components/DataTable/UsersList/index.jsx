@@ -20,7 +20,7 @@ const UsersList = ({ rows }) => {
         <Avatar size="10" name={item.fullname} shape="circle" classname="mr-5" />
         <div className="flex flex-col items-start mr-7 w-72">
           <p
-            className="font-medium text-sm text-slate-800 dark:text-slate-200 flex flex-wrap justify-start items-center text-left mb-1">{getHighlightedText(item?.fullname, query)}</p>
+            className="font-medium text-sm text-indigo-700 dark:text-indigo-200 flex flex-wrap justify-start items-center text-left mb-1">{getHighlightedText(item?.fullname, query)}</p>
           <p
             className="text-sm text-slate-700 dark:text-slate-300 flex flex-wrap justify-start items-center text-left">{item?.profession}</p>
         </div>
@@ -105,6 +105,7 @@ const UsersList = ({ rows }) => {
 
   return (
     <DataTableCore
+      classname='mt-5'
       rows={rows}
       tableID="users-list"
       isLoading="false"

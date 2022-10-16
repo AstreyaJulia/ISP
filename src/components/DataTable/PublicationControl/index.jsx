@@ -1,9 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { compareDesc, intervalToDuration, parse, parseISO } from "date-fns";
 import ru from "date-fns/locale/ru";
-
-import { Disclosure } from "@headlessui/react";
-import { classNames } from "../../../utils/classNames";
 import { Avatar } from "../../Avatar";
 import { caseTypesSettings } from "../../../config";
 import DataTableCore from "../DataTableCore";
@@ -11,10 +8,15 @@ import { formatDate } from "../../../utils/formatTime";
 import Badge from "../../Badge";
 import { getInitials } from "../../../utils/getInitials";
 import { getHighlightedText } from "../../../utils/getHighlightedText";
+import { getUniqueArrayValuesByKey } from "../../../utils/getArrayValuesByKey";
 
-const PublicationControl = ({ rows }) => {
+const PublicationControl = ({ data }) => {
 
-  const columns = Object.keys(rows[0]);
+  const [rows, setRows] = useState(data);
+  const [columns, setColumns] = useState(Object.keys(data[0]));
+  const [selectedJudge, setSelectedJudge] = useState("All");
+
+  const [judgesList] = useState(getUniqueArrayValuesByKey(rows, "JUDGE_NAME").sort((a, b) => a.localeCompare(b)));
 
   const getCaseUntilColor = (date) => {
     if (date === "null") return "indigo";
@@ -31,68 +33,41 @@ const PublicationControl = ({ rows }) => {
     if (daysCount >= 14) return "green";
   };
 
-  const makeItem = (item, key, query) => <Disclosure key={key}>
-    {({ open }) => (
-      <>
-        <Disclosure.Button
-          className={classNames("py-3 px-2 w-full flex items-center rounded-md", open ? "bg-indigo-100 dark:bg-indigo-700/30" : "bg-slate-100 dark:bg-slate-800")}>
-          <div className="flex grow items-center">
-            <Avatar size="10" shape="circle" name={item.CASE_TYPE}
-                    color={caseTypesSettings[item.CASE_TYPE].color} classname="mr-3" />
-            <div className="flex items-center justify-between w-full">
-              <div className="flex flex-col items-start">
-                <p
-                  className="font-medium text-sm text-slate-800 dark:text-slate-200 flex flex-wrap line-clamp-1 justify-start items-center text-left mb-1">
-                  <span>{getHighlightedText(item.CASE_NUMBER, query)}</span>
-                  <span className="ml-2 text-xs text-slate-700 dark:text-slate-300">(Судья: {getInitials(item.JUDGE_NAME)})</span>
-                </p>
-                <p
-                  className="text-sm text-slate-700 dark:text-slate-300 flex flex-wrap line-clamp-1 justify-start items-center text-left">{getHighlightedText(item.PARTS_FIO, query)}</p>
-              </div>
-              <div className="flex flex-col items-end mr-5">
-                {item.DATE_UNTILL !== "null" ? <p
-                  className="font-medium text-sm text-slate-800 dark:text-slate-200 flex flex-wrap line-clamp-1 justify-start items-center text-left mb-1">Срок
-                  до:
-                  <Badge size="large" shape="rounded" className="ml-2"
-                         color={getCaseUntilColor(item.DATE_UNTILL) || "indigo"}
-                         item={item.DATE_UNTILL !== "null" ? `${item.DATE_UNTILL}` : ""} />
-                </p> : ""}
-                <p
-                  className="font-medium text-sm text-slate-600 dark:text-slate-200 flex flex-wrap line-clamp-1 justify-start items-center text-left mb-1">{item.PUBLICATION_STATUS}</p>
-              </div>
-            </div>
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
-               stroke="currentColor" className={classNames(open ? "rotate-90 transform" : "", "w-5 h-5 mx-3 shrink-0")}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-          </svg>
-        </Disclosure.Button>
-        <Disclosure.Panel
-          className="text-gray-500 dark:text-gray-600 p-4 bg-slate-100 dark:bg-slate-800 rounded-md mb-2">
-          <div className='flex items-center flex-wrap'>
-            <p className="text-slate-700 dark:text-slate-300 text-sm mr-6">
-              <span className='font-bold mr-3'>Срок публикации до (включительно):</span>
-              <span>{item.DATE_UNTILL !== "null" ? item.DATE_UNTILL : "Невозможно вычислить дату"}</span>
-            </p>
-            <p className="text-slate-700 dark:text-slate-300 text-sm">
-              <span className='font-bold mr-3'>Судья:</span>
-              <span>{getInitials(item.JUDGE_NAME)}</span>
-            </p>
-          </div>
-          <div className='flex items-center flex-wrap'>
-            <p className="text-slate-700 dark:text-slate-300 text-sm mr-6">
-              <span className='font-bold mr-3'>Дата рассмотрения:</span>
-              <span>{formatDate(parseISO(item.VERDICT_DATE))}</span>
-            </p>
-            <p className="text-slate-700 dark:text-slate-300 text-sm">
-              <span className='font-bold mr-3'>Дата вступления в законную силу:</span>
-              <span>{item.VALIDITY_DATE !== "null" ? formatDate(parseISO(item.VALIDITY_DATE)) : "Не указана"}</span>
-            </p>
-          </div>
-        </Disclosure.Panel>
-      </>
-    )}
-  </Disclosure>;
+  const makeItem = (item, key, query) => <div key={key}
+                                              className="p-3 w-full flex items-center rounded-md bg-slate-100 dark:bg-slate-800">
+    <div className="flex grow items-center">
+
+      <div className="flex items-center justify-between w-full">
+        <div className="flex flex-col items-start">
+          <p
+            className="font-medium text-sm text-slate-800 dark:text-slate-200 flex flex-wrap line-clamp-1 justify-start items-center text-left mb-1">
+            <Avatar size="6" shape="circle" name={item.CASE_TYPE}
+                    color={caseTypesSettings[item.CASE_TYPE].color} classname="mr-2" />
+            <span>{getHighlightedText(item.CASE_NUMBER, query)}</span>
+
+          </p>
+          <span className="text-xs text-indigo-700 dark:text-indigo-300 mb-2">{getInitials(item.JUDGE_NAME)}</span>
+          <p
+            className="text-sm text-slate-700 dark:text-slate-300 flex flex-wrap line-clamp-1 justify-start items-center text-left">{getHighlightedText(item.PARTS_FIO, query)}</p>
+        </div>
+        <div className="flex flex-col items-end shrink-0 gap-1">
+          {item.DATE_UNTILL !== "null" ? <p
+            className="font-medium text-xs text-slate-800 dark:text-slate-200 flex flex-wrap line-clamp-1 justify-start items-center text-left mb-1">До:
+            <Badge size="small" shape="rounded" className="ml-1"
+                   color={getCaseUntilColor(item.DATE_UNTILL) || "indigo"}
+                   item={item.DATE_UNTILL !== "null" ? `${item.DATE_UNTILL}` : ""} />
+          </p> : <Badge size="small" shape="rounded"
+                        color="indigo"
+                        item="Не вступило" />}
+          <p
+            className="font-medium text-xs text-slate-600 dark:text-slate-200 flex flex-wrap justify-start items-center text-left mb-1">Рассм.: {formatDate(parseISO(item.VERDICT_DATE))}</p>
+          <p
+            className="font-medium text-xs text-slate-600 dark:text-slate-200 flex flex-wrap justify-start items-center text-left mb-1">{item.PUBLICATION_STATUS}</p>
+
+        </div>
+      </div>
+    </div>
+  </div>;
 
   const filter = (rows, query, columns) => {
     return rows.filter((row) =>
@@ -102,20 +77,51 @@ const PublicationControl = ({ rows }) => {
     );
   };
 
+  const judgeSelectChangeHandler = (evt) => {
+    setSelectedJudge(evt.target.value);
+    setRows(data.filter((row) =>
+      columns.slice(4, 5).filter((item) => item === "JUDGE_NAME").some(
+        (column) => evt.target.value !== "All" ? row[column].toLowerCase().indexOf(evt.target.value.toLowerCase()) > -1 : row[column].toLowerCase().indexOf(evt.target.value.toLowerCase()) === -1
+      )
+    ));
+  };
+
   return (
     <DataTableCore
+      classname="mt-5"
       rows={rows}
       tableID="cases-over-period"
       isLoading="false"
       columns={columns}
-      itemsContainerClassNames="flex flex-col gap-2"
+      itemsContainerClassNames="grid grid-cols-2 gap-3"
       initSortColumn={columns[0]}
-      placeholder="Поиск по неопубликованным судебным актам"
+      placeholder="Поиск по неопубликованным судебным актам: номер дела / стороны / лица"
       filterCallback={filter}
       sortCallback={null}
       makeItem={makeItem}
       table={{ isTable: "false", startColumn: null, endColumn: null, columnNames: null, coltosort: [] }}
-    />
+    >
+      <div className="px-3">
+        <div className="flex items-center ml-4 justify-start">
+          <label htmlFor="judges"
+                 className="shrink-0 block text-sm font-medium text-slate-700 dark:text-slate-300 mr-2">
+            Судья:
+          </label>
+          <select
+            id="judges"
+            name="judges"
+            defaultValue={selectedJudge}
+            onChange={judgeSelectChangeHandler}
+            className="grow-0 mt-1 block pl-3 pr-10 py-2 text-base bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+          >
+            <option value="All">Все</option>
+            {judgesList.map((judge, key) =>
+              <option key={judge + key} value={judge}>{getInitials(judge)}</option>
+            )}
+          </select>
+        </div>
+      </div>
+    </DataTableCore>
   );
 };
 

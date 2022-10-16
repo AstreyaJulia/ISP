@@ -52,12 +52,12 @@ export default function ContentLayoutWithSidebar({
           <title>{`${title} | ${APP_NAME}`}</title>
           {meta}
         </Helmet>
-        <div className={fullHeight ? "full-height-page" : "min-h-full"}>
-          <PageHeader pages={breadcrumbs} classname="p-4 pb-4 xl:pb-0">
+        <div className={fullHeight ? "main-content max-w-6xl mx-auto px-3 full-height-page flex flex-col" : "min-h-full"}>
+          <PageHeader pages={breadcrumbs} header={header}>
             {/* Сюда можно тоже вставить разметку, например, кнопки */}
           </PageHeader>
           <div
-            className={classNames("main-content min-h-full flex overflow-y-auto relative pt-0 xl:pt-4 rounded-lg", boxed ? "max-w-6xl mx-auto" : '')}>
+            className={classNames(" flex-grow w-full flex overflow-y-auto relative rounded-lg mt-5", boxed ? "max-w-6xl mx-auto" : '')}>
             {/* Дочерние компоненты */}
             {children}
           </div>
@@ -174,13 +174,6 @@ const Sidebar = (props) => {
                 </div>
               </Transition.Child>
               <div className="flex-1 overflow-y-auto">
-                {header
-                  ? <div className="p-4">
-                    <h2 className="text-xl font-bold leading-7 text-gray-700 dark:text-gray-200 sm:text-2xl sm:truncate">
-                      {header}
-                    </h2>
-                  </div>
-                  : null}
                 {props.children}
               </div>
             </div>
@@ -195,13 +188,6 @@ const Sidebar = (props) => {
         <div
           className={["flex-1 flex flex-col min-h-0 border-t border-b border-r border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 border-l rounded-l-lg", boxed ? "" : ""].join(" ")}>
           <div className="flex-1 flex flex-col">
-            {header
-              ? <div className="p-4">
-                <h2 className="text-xl font-bold leading-7 text-gray-700 dark:text-gray-200 sm:text-2xl sm:truncate">
-                  {header}
-                </h2>
-              </div>
-              : null}
             {props.children}
           </div>
         </div>

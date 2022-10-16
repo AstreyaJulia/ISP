@@ -21,21 +21,20 @@ const MenuLink = ({item, sidebar}) => {
   return (
     <div
       key={item.id}
-      className='my-1'
+      className='my-2'
     >
       {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
       <Link
         to={item.alias}
         title={sidebar?.toString() === '0' ? item.pagetitle : null}
         className={classNames(item.alias === activeItem || `/${  item.alias}` === activeItem
-            ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex"
-            : "flex text-gray-500 dark:text-gray-400 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700",
-          "menu-item flex items-center py-3 text-base leading-6 rounded-lg",
+            ? "bg-emerald-500/20 text-emerald-800 dark:text-emerald-200 flex"
+            : "flex text-gray-600 dark:text-gray-400 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700",
+          "menu-item flex items-center py-2 text-base leading-6 rounded-lg font-medium",
           sidebar?.toString() === '0'
             ? "justify-center"
-            : "px-3"
+            : "px-2"
         )}
-
         aria-current={
           activeItem ? "page" : undefined
         }
@@ -53,7 +52,7 @@ const MenuLink = ({item, sidebar}) => {
         <i className={classNames(
           sidebar?.toString() === '0'
             ? ""
-            : "mr-4",
+            : "mr-3",
           "flex-shrink-0 flex items-center text-2xl mdi relative",
           item.icon)
         }

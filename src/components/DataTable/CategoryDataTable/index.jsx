@@ -34,6 +34,7 @@ const CategoryDataTable = ({ rows }) => {
 
   return (
   <DataTableCore
+    classname='mt-5'
     rows={rows}
     tableID="cases-over-period"
     isLoading="false"

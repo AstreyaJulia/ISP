@@ -13,12 +13,12 @@ const INDIGO_NAME = ["A", "N", "H", "L", "А", "Л", "Ю", "Ы", "Э"];
  * @returns {string} - цвет, строка
  */
 export const getAvatarColor = name => {
-  if (INDIGO_NAME.includes(getSecondCharacter(name))) return "indigo";
-  if (CYAN_NAME.includes(getSecondCharacter(name))) return "cyan";
-  if (GREEN_NAME.includes(getSecondCharacter(name))) return "green";
-  if (YELLOW_NAME.includes(getSecondCharacter(name))) return "yellow";
-  if (RED_NAME.includes(getSecondCharacter(name))) return "red";
-  if (ORANGE_NAME.includes(getSecondCharacter(name))) return "orange";
-  if (BLUE_NAME.includes(getSecondCharacter(name))) return "blue";
+  if (INDIGO_NAME.includes(getSecondCharacter(name.toUpperCase()))) return "indigo";
+  if (CYAN_NAME.includes(getSecondCharacter(name.toUpperCase()))) return "cyan";
+  if (GREEN_NAME.includes(getSecondCharacter(name.toUpperCase()))) return "green";
+  if (YELLOW_NAME.includes(getSecondCharacter(name.toUpperCase()))) return "yellow";
+  if (RED_NAME.includes(getSecondCharacter(name.toUpperCase()))) return "red";
+  if (ORANGE_NAME.includes(getSecondCharacter(name.toUpperCase()))) return "orange";
+  if (BLUE_NAME.includes(getSecondCharacter(name.toUpperCase()))) return "blue";
   return "default";
 };

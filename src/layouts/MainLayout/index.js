@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
-import ScrollToTop from "./scrolltop";
 import Sidebar from "./sidebar";
 import { navigation } from "../../@mock/SampleData";
 import Layout from "./layout";
@@ -18,6 +17,9 @@ const MainLayout = () => {
   /** Для серверной навигации */
   const [menuData, setMenuData] = useState([]);
 
+  /** Стейт видимости */
+  const [visible, setVisible] = useState(false);
+
   useEffect(() => {
     setMenuData(navigation);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -33,6 +35,18 @@ const MainLayout = () => {
     return null;
   }
 
+  const scrollHandler = (evt) => {
+    if (evt.target.scrollTop >= 100) {
+      setVisible(true)
+    } else {
+      setVisible(false)
+    }
+  }
+
+  const handleScrollToTop = () => {
+    document.querySelector('.content-body').scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   return (<>
     <div className="h-full">
       {/* Сайдбар меню */}
@@ -42,9 +56,20 @@ const MainLayout = () => {
         setMenuVisibility={setMenuVisibility}
       /> : <Skeleton count="5"
                      className="bg-gray-500/30 after:bg-gradient-to-r from-gray-400/10 via-gray-500/10 to-gray-400/10" />}
-      <Layout setMenuVisibility={setMenuVisibility} />
+      <Layout setMenuVisibility={setMenuVisibility} scrollHandler={scrollHandler} />
       {/* Кнопка назад наверх */}
-      <ScrollToTop showOffset={300} />
+      {visible && (
+        <button
+          className="flex fixed px-3 text-white py-2 w-12 h-12 rounded-full z-50 bottom-5 right-6 items-center justify-center bg-indigo-500/70 hover:bg-indigo-700/70 shadow-xl"
+          onClick={handleScrollToTop}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+               className="feather feather-arrow-up">
+            <line x1="12" y1="19" x2="12" y2="5"/>
+            <polyline points="5 12 12 5 19 12"/>
+          </svg>
+        </button>
+      )}
     </div>
   </>);
 };

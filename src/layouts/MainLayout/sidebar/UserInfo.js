@@ -15,7 +15,7 @@ const UserInfo = () => {
   return (
     <div className="p-3 mt-3">
       <Link to={PATH_PROFILE} title="Мой профиль"
-            className={classNames("flex items-center rounded-md py-4", sidebar?.toString() === "1" ? "bg-slate-100 dark:bg-slate-800 px-4" : "justify-center")}>
+            className={classNames("flex items-center rounded-md py-3", sidebar?.toString() === "1" ? "bg-slate-100 dark:bg-slate-800 px-3" : "justify-center")}>
         {user?.fullname ?
           <Avatar size="10" name={user?.fullname} avatar={user?.avatar} shape="circle" /> :
           <Skeleton

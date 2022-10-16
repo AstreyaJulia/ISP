@@ -4,7 +4,7 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 import { Avatar } from "../../../components/Avatar";
 import { classNames } from "../../../utils/classNames";
 import logo from "../../../assets/images/logo/gerbwoframe.svg";
-import { COURT_NAME, COURT_REGION } from "../../../config";
+import { COURT_NAME } from "../../../config";
 import MenuSectionHeader from "./MenuSectionHeader";
 import MenuItems from "./MenuItems";
 import useAuth from "../../../hooks/useAuth";
@@ -22,7 +22,7 @@ const Sidebar = (props) => {
   const [groupOpen, setGroupOpen] = useState([])
   const [groupActive, setGroupActive] = useState([])
   const [currentActiveGroup, setCurrentActiveGroup] = useState([])
-  const { sidebar, onChangeMenuCollapsed } = useAuth();
+  const { sidebar } = useAuth();
 
   return (
     <>
@@ -54,7 +54,7 @@ const Sidebar = (props) => {
             leaveTo="-translate-x-full"
           >
             <div
-              className="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-white dark:bg-gray-900 shadow border-r border-gray-200">
+              className="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-white dark:bg-gray-900 border-r border-gray-200">
               <Transition.Child
                 as={Fragment}
                 enter="ease-in-out duration-300"
@@ -79,18 +79,15 @@ const Sidebar = (props) => {
                 </div>
               </Transition.Child>
               <div className="flex-shrink-0 flex items-center px-4">
-                <div className="flex items-center space-x-3">
+                <div className="flex items-center space-x-4">
                   <div className="flex-shrink-0">
                     <Avatar size="10" avatar={logo} shape="roundedMD"
-                            classname="border-2 border-gray-200 dark:border-gray-700"
+                            classname="border border-gray-300 dark:border-gray-600 shadow"
                             name={COURT_NAME}/>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-xs text-gray-700 dark:text-gray-200 flex-wrap font-medium">
+                    <p className="text-sm text-gray-600 dark:text-gray-300 flex-wrap font-medium line-clamp-2 w-48">
                       {COURT_NAME}
-                    </p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 flex-wrap font-medium">
-                      {COURT_REGION}
                     </p>
                   </div>
                 </div>
@@ -135,32 +132,29 @@ const Sidebar = (props) => {
         )}
       >
         <div
-          className="flex flex-col flex-grow shadow bg-white dark:bg-gray-900 pt-5 pb-4 overflow-y-auto border-r border-gray-200 dark:border-gray-600">
+          className="flex flex-col flex-grow bg-white dark:bg-gray-900 pt-5 pb-4 overflow-y-auto border-r border-gray-200 dark:border-gray-600">
           <div
             className={classNames(
               "flex items-center justify-center flex-shrink-0 px-4 h-10 mb-3"
             )}
           >
-            <div className="flex items-center space-x-3">
-              <div className={classNames("flex-shrink-0", sidebar?.toString() === '1' ? "" : "justify-center")}>
+            <div className="flex items-center space-x-4 w-full">
+              <div className={classNames("flex-shrink-0", sidebar?.toString() === '0' ? "" : "justify-center")}>
                 <Avatar size="10" avatar={logo} shape="roundedMD"
-                        classname="border-2 border-gray-200 dark:border-gray-700"
+                        classname="border border-gray-300 dark:border-gray-600 shadow"
                         name={COURT_NAME}/>
               </div>
               {sidebar?.toString() === '1' ? (
                 <div className="flex-1 min-w-0">
-                  <p className="text-xs text-gray-700 dark:text-gray-200 flex-wrap font-medium">
+                  <p className="text-sm text-gray-600 dark:text-gray-300 flex-wrap font-medium line-clamp-2">
                     {COURT_NAME}
-                  </p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 flex-wrap font-medium">
-                    {COURT_REGION}
                   </p>
                 </div>) : null}
             </div>
           </div>
           <UserInfo />
           <nav
-            className="mt-2 flex-1 flex flex-col overflow-y-auto"
+            className="flex-1 flex flex-col overflow-y-auto"
             aria-label="Меню"
           >
             <PerfectScrollbar
@@ -169,7 +163,7 @@ const Sidebar = (props) => {
             >
               <div
                 className={classNames(
-                  "p-3",
+                  "px-3",
                   sidebar?.toString() === '0' ? "justify-center" : ""
                 )}
               >

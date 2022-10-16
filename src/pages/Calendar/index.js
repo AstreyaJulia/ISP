@@ -7,7 +7,7 @@ const Process = () => {
   const breadcrumbs = [{name: "Календарь", href: "", current: true}];
 
   return (
-    <BasicPage title='Календарь' className='main-content max-w-6xl mx-auto px-3' >
+    <BasicPage title='Календарь' className='max-w-6xl mx-auto px-4' >
       <PageHeader pages={breadcrumbs} header='Календарь' />
     </BasicPage>
   )

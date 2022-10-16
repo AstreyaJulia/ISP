@@ -35,13 +35,13 @@ const PageHeader = ({ pages, classname, header, children }) => (
               </h2>
             </div>
             : ""}
-          <div className="mt-4 justify-end flex-shrink-0 flex md:mt-0 md:ml-4">
+          <div className="mt-5 justify-end flex-shrink-0 flex md:mt-0 md:ml-4">
             {children}
           </div>
         </div>
         : ""}
-      <nav className={classNames("mt-3 w-full hidden sm:flex")} aria-label="Навигация">
-        <ol className="flex items-center space-x-4">
+      <nav className={classNames("mt-4 w-full hidden sm:flex")} aria-label="Навигация">
+        <ol className="flex items-center space-x-3">
           <li>
             <div>
               <Link
@@ -49,7 +49,7 @@ const PageHeader = ({ pages, classname, header, children }) => (
                 className="text-gray-400 hover:text-gray-500"
                 title="Главная"
               >
-                <svg className="flex-shrink-0 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                <svg className="flex-shrink-0 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                      fill="currentColor">
                   <path
                     d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z" />
@@ -63,13 +63,13 @@ const PageHeader = ({ pages, classname, header, children }) => (
           {pages.map((page) => (
             <li key={page.name}>
               <div className="flex items-center">
-                <svg className="flex-shrink-0 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
-                     viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                <svg className="flex-shrink-0 h-4 w-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
+                     viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                 </svg>
                 <Link
                   to={page.href}
-                  className="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700"
+                  className="ml-3 text-sm font-medium text-gray-500 hover:text-gray-700"
                   aria-current={
                     page.current
                       ? "page"

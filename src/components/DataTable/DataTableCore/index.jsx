@@ -4,6 +4,8 @@ import { classNames } from "../../../utils/classNames";
 import { getHighlightedText } from "../../../utils/getHighlightedText";
 
 const DataTableCore = ({
+                         header,
+                         subheader,
                          rows = [],
                          columns,
                          initSortColumn,
@@ -13,6 +15,7 @@ const DataTableCore = ({
                          placeholder,
                          itemsContainerClassNames,
                          isLoading,
+                         classname,
                          makeItem,
                          makeMenu,
                          table: { isTable, startColumn, endColumn, columnNames, coltosort: [...coltosort] },
@@ -33,7 +36,7 @@ const DataTableCore = ({
    */
   function sortFunction(column, asc, rows) {
     return rows.sort((a, b) => {
-       /* eslint-disable-next-line */
+      /* eslint-disable-next-line */
       if (!isNaN(a[column]) || !isNaN(parseInt(a[column]))) {
         if (parseInt(a[column], 10) > parseInt(b[column], 10)) return asc ? -1 : 1;
         if (parseInt(b[column], 10) > parseInt(a[column], 10)) return asc ? 1 : -1;
@@ -95,20 +98,30 @@ const DataTableCore = ({
   };
 
   return (
-    <Card classname="mt-4">
-      <div className="px-4 py-5 sm:p-3">
-        <div className="flex flex-col gap-2 w-full">
+    <Card classname={classname || ""}>
+      <div>
+        { /* Заголовок */}
+        {header ?
+          <div className="px-5 py-4 flex flex-col gap-1 border-b-2 border-slate-200 dark:border-slate-700">
+            {header ? <p className="font-medium text-xl text-slate-800 dark:text-slate-200">header</p> : ""}
+            {subheader ? <p className="font-medium text-base text-slate-500 dark:text-slate-500">subheader</p> : ""}
+          </div> : ""
+        }
+
+
+        { /* Поиск */}
+        <div className="p-5 flex gap-2 w-full items-center">
           <label htmlFor={tableID} className="sr-only">
             Поиск
           </label>
-          <div className="search-input mt-1 relative rounded-md shadow-sm">
+          <div className="search-input relative rounded-md shadow-sm flex-grow">
             <div
               className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="currentColor"
-                className="h-5 w-5 text-gray-400 dark:text-gray-500">
+                className="h-5 w-5 text-slate-400 dark:text-slate-500">
                 <path
                   fillRule="evenodd"
                   d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z"
@@ -120,14 +133,14 @@ const DataTableCore = ({
               name={tableID}
               value={query}
               onChange={(evt) => searchQueryChangeHandler(evt)}
-              className="block w-full bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-md py-3 pl-10 pr-3 text-sm placeholder-gray-600 focus:outline-none focus:text-gray-900 dark:focus:text-gray-400 focus:placeholder-gray-300 dark:placeholder-gray-400 dark:focus:placeholder-gray-700 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              className="block w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-md py-2 pl-10 pr-2 text-sm placeholder-slate-600 focus:outline-none focus:text-slate-900 dark:focus:text-slate-400 focus:placeholder-slate-300 dark:placeholder-slate-400 dark:focus:placeholder-slate-700 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               placeholder={placeholder}
               type="search"
             />
             <div className="absolute inset-y-0 right-0 flex items-center z-30">
               {query !== "" ?
                 <button onClick={searchQueryClearHandler} title="Очистить строку поиска"
-                        className="mr-3 p-1 rounded-full text-gray-500 dark:text-gray-400 dark:hover:text-gray-300 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 hover:text-indigo-600"
+                        className="mr-3 p-1 rounded-full text-slate-500 dark:text-slate-400 dark:hover:text-slate-300 hover:text-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 hover:text-indigo-600"
                         type="button">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
                        stroke="currentColor" className="w-6 h-6">
@@ -138,21 +151,62 @@ const DataTableCore = ({
                 : ""}
             </div>
           </div>
+          <div className="flex items-center ml-4">
+            <label htmlFor="rowsperpage"
+                   className="shrink-0 block text-sm font-medium text-slate-700 dark:text-slate-300 mr-2">
+              Строк:
+            </label>
+            <select
+              id="rowsperpage"
+              name="rowsperpage"
+              className="mt-1 block w-full pl-3 pr-10 py-2 text-base bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+              defaultValue={elementsPerPage}
+              onChange={elementsPerPageChangeHandler}
+            >
+              <option value={10}>10</option>
+              <option value={25}>25</option>
+              <option value={50}>50</option>
+              <option value={100}>100</option>
+              <option value={sortFilter().length}>Все</option>
+            </select>
+          </div>
+          <div className="mx-5 flex items-center gap-4">
+            <button
+              title="Предыдущая страница"
+              onClick={prevPage}
+              disabled={currentPage === 0 || sortFilter().length === 0}
+              className={classNames("bg-white dark:bg-slate-900 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 p-3 lg:rounded-md lg:hover:bg-slate-50 dark:lg:hover:bg-slate-800", currentPage === 0 ? "text-slate-300 dark:text-slate-700" : "text-slate-600 dark:text-slate-300")}>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
+                   stroke="currentColor" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+              </svg>
+            </button>
+            <button
+              title="Следующая страница"
+              onClick={nextPage}
+              disabled={(sortFilter().length / elementsPerPage) - 1 <= currentPage || sortFilter().length === 0}
+              className={classNames("bg-white dark:bg-slate-900 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 p-3 lg:rounded-md lg:hover:bg-slate-50 dark:lg:hover:bg-slate-800", (sortFilter().length / elementsPerPage) - 1 <= currentPage ? "text-slate-300 dark:text-slate-700" : "text-slate-600 dark:text-slate-300")}>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
+                   stroke="currentColor" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
       {children}
       {isTable === "true" ?
-        <table className="w-full mt-2">
+        <table className="w-full mb-5">
           <tbody>
           <tr className="rounded-md">
             {columns.slice(startColumn, endColumn).map((column, key) => (
               <th key={key}
-                className="pr-3 py-3 text-left bg-slate-100 dark:bg-slate-800 border-b border-slate-300 dark:border-slate-600">
+                  className="pr-3 py-3 text-left bg-slate-100 dark:bg-slate-800 border-b border-slate-300 dark:border-slate-600">
                 <div
                   className="flex items-center gap-2"
                 >
                 <span
-                  className={classNames("h-5 text-slate-600 dark:text-slate-300 text-sm capitalize pl-4 border-slate-300 dark:border-slate-600 flex", key === 0 ? "" : "border-l-2")}>
+                  className={classNames("h-5 text-slate-600 dark:text-slate-300 text-sm uppercase pl-4 border-slate-300 dark:border-slate-600 flex", key === 0 ? "" : "border-l-2")}>
                   {coltosort.indexOf(column) !== -1 ?
                     <button
                       onClick={() =>
@@ -165,26 +219,29 @@ const DataTableCore = ({
                       {columnNames[column]}
                       {sortedBy.column === column &&
                         (sortedBy.asc ? (
-                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"
-                                   className="w-5 h-5">
-                                <path fill="currentColor" d="m16 28l-7-7l1.4-1.4l5.6 5.6l5.6-5.6L23 21z"/>
-                              </svg>
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"
+                               className="w-5 h-5">
+                            <path fill="currentColor" d="m16 28l-7-7l1.4-1.4l5.6 5.6l5.6-5.6L23 21z" />
+                          </svg>
                         ) : (
                           <svg xmlns="http://www.w3.org/2000/svg"
                                viewBox="0 0 32 32"
                                className="w-5 h-5">
-                            <path fill="currentColor" d="m16 4l7 7l-1.4 1.4L16 6.8l-5.6 5.6L9 11z"/>
+                            <path fill="currentColor" d="m16 4l7 7l-1.4 1.4L16 6.8l-5.6 5.6L9 11z" />
                           </svg>
-                        )) || <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-slate-400 dark:text-slate-600">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
+                        )) || <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
+                                   stroke="currentColor" className="w-5 h-5 text-slate-400 dark:text-slate-600">
+                          <path strokeLinecap="round" strokeLinejoin="round"
+                                d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
                         </svg>
                       }
-                    </button> : <span className='text-slate-500 dark:text-slate-400'>{columnNames[column]}<span className='w-6'/></span>}
+                    </button> : <span className="text-slate-500 dark:text-slate-400">{columnNames[column]}<span
+                      className="w-6" /></span>}
                 </span>
                 </div>
               </th>
             ))}
-            {makeMenu ? <th/> : null}
+            {makeMenu ? <th /> : null}
           </tr>
           { /* eslint-disable-next-line */}
           {isLoading === "true" ?
@@ -204,10 +261,10 @@ const DataTableCore = ({
               .slice(currentPage * elementsPerPage, (currentPage + 1) * elementsPerPage)
               .map((row, key) => (
                 <tr key={row + key}>
-                  {columns.slice(0, 2).map((column, key) => (
+                  {columns.slice(startColumn, endColumn).map((column, key) => (
                     <Fragment key={column + key}>
                       <td
-                          className="border-b border-slate-300 dark:border-slate-600 py-2 px-3 text-sm text-slate-700 dark:text-slate-200">
+                        className="border-b border-slate-200 dark:border-slate-700 py-3 px-5 text-sm text-slate-700 dark:text-slate-200">
                         {getHighlightedText(row[column], query)}
                       </td>
                       {makeMenu ? <td>makeMenu(item, key, query)</td> : null}
@@ -242,46 +299,30 @@ const DataTableCore = ({
         </div>
       }
       {/* Футер с пагинацией */}
-      <div className="w-full flex items-center justify-between p-4">
+      <div className="w-full flex items-center justify-between p-4 border-t-2 border-slate-200 dark:border-slate-700">
         <div className="flex items-center">
-          <div className="flex items-center">
-            <label htmlFor="rowsperpage"
-                   className="shrink-0 block text-sm font-medium text-gray-700 dark:text-slate-300 mr-2">
-              Строк на страницу:
-            </label>
-            <select
-              id="rowsperpage"
-              name="rowsperpage"
-              className="mt-1 block w-full pl-3 pr-10 py-2 text-base bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
-              defaultValue={elementsPerPage}
-              onChange={elementsPerPageChangeHandler}
-            >
-              <option value={10}>10</option>
-              <option value={25}>25</option>
-              <option value={50}>50</option>
-              <option value={100}>100</option>
-              <option value={sortFilter().length}>Все</option>
-            </select>
-          </div>
           <p
-            className="mx-5 shrink-0 block text-sm font-medium text-gray-700 dark:text-slate-200 mr-2">
+            className="mx-5 shrink-0 block text-sm font-bold text-slate-700 dark:text-slate-200 mr-2">
             { /* eslint-disable-next-line */}
-            {sortFilter().length > 0 ? (currentPage * elementsPerPage) + 1 : 0} - {sortFilter().length > 0 ? sortFilter().length < (currentPage + 1) * elementsPerPage ? sortFilter().length : (currentPage + 1) * elementsPerPage : 0} из {sortFilter().length > 0 ? sortFilter().length : 0}</p>
+            {sortFilter().length > 0 ? (currentPage * elementsPerPage) + 1 : 0} - {sortFilter().length > 0 ? sortFilter().length < (currentPage + 1) * elementsPerPage ? sortFilter().length : (currentPage + 1) * elementsPerPage : 0}
+            <span className="font-medium mx-1">из</span> {sortFilter().length > 0 ? sortFilter().length : 0}</p>
         </div>
         <div className="mx-5 flex items-center gap-4">
           <button
+            title="Предыдущая страница"
             onClick={prevPage}
             disabled={currentPage === 0 || sortFilter().length === 0}
-            className={classNames("bg-white dark:bg-gray-900 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 p-3 lg:rounded-md lg:hover:bg-gray-50 dark:lg:hover:bg-gray-800", currentPage === 0 ? "text-slate-300 dark:text-slate-700" : "text-slate-600 dark:text-slate-300")}>
+            className={classNames("bg-white dark:bg-slate-900 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 p-3 lg:rounded-md lg:hover:bg-slate-50 dark:lg:hover:bg-slate-800", currentPage === 0 ? "text-slate-300 dark:text-slate-700" : "text-slate-600 dark:text-slate-300")}>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
                  stroke="currentColor" className="w-6 h-6">
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
             </svg>
           </button>
           <button
+            title="Следующая страница"
             onClick={nextPage}
             disabled={(sortFilter().length / elementsPerPage) - 1 <= currentPage || sortFilter().length === 0}
-            className={classNames("bg-white dark:bg-gray-900 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 p-3 lg:rounded-md lg:hover:bg-gray-50 dark:lg:hover:bg-gray-800", (sortFilter().length / elementsPerPage) - 1 <= currentPage ? "text-slate-300 dark:text-slate-700" : "text-slate-600 dark:text-slate-300")}>
+            className={classNames("bg-white dark:bg-slate-900 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 p-3 lg:rounded-md lg:hover:bg-slate-50 dark:lg:hover:bg-slate-800", (sortFilter().length / elementsPerPage) - 1 <= currentPage ? "text-slate-300 dark:text-slate-700" : "text-slate-600 dark:text-slate-300")}>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
                  stroke="currentColor" className="w-6 h-6">
               <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />

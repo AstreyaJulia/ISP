@@ -41,6 +41,8 @@ export const navigation = [{
   header: "Администрирование"
 }, {
   id: "12", pagetitle: "Панель управления", icon: "mdi-view-dashboard-outline", alias: "/admin"
+}, {
+  id: "9999", pagetitle: "Тест", icon: "mdi-view-dashboard-outline", alias: "/test"
 }];
 
 /** Пользователи, для локального тестирования

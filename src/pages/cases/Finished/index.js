@@ -10,7 +10,7 @@ const Finished = () => {
     {name: "Дела, рассмотренные свыше срока", href: "", current: true}];
 
   return (
-    <BasicPage title='Дела, рассмотренные свыше срока' className='main-content max-w-6xl mx-auto px-3' >
+    <BasicPage title='Дела, рассмотренные свыше срока' className='main-content max-w-6xl mx-auto px-4' >
       <PageHeader pages={breadcrumbs} header='Дела, рассмотренные свыше срока' />
       <CasesOverPeriod rows={outdatedCases} />
     </BasicPage>

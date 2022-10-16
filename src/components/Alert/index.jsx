@@ -13,7 +13,7 @@ const Alert = ({ title, alertType, children }) => {
 
   const alertTypes = {
     error: {
-      containerColor: "bg-red-50",
+      containerColor: "bg-red-100",
       icon: <svg className="h-5 w-5 fill-red-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" height="24px"
                  viewBox="0 0 24 24" width="24px" fill="#000000">
         <path d="M0 0h24v24H0V0z" fill="none" />
@@ -27,7 +27,7 @@ const Alert = ({ title, alertType, children }) => {
       textColor: "text-red-700"
     },
     warning: {
-      containerColor: "bg-yellow-50",
+      containerColor: "bg-yellow-100",
       icon: <svg className="h-5 w-5 fill-yellow-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" height="24px"
                  viewBox="0 0 24 24" width="24px" fill="#000000">
         <path d="M0 0h24v24H0V0z" fill="none" />
@@ -38,7 +38,7 @@ const Alert = ({ title, alertType, children }) => {
       textColor: "text-yellow-700"
     },
     success: {
-      containerColor: "bg-green-50",
+      containerColor: "bg-green-100",
       icon: <svg className="h-5 w-5 fill-green-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" height="24px"
                  viewBox="0 0 24 24" width="24px" fill="#000000">
         <path d="M0 0h24v24H0V0z" fill="none" />

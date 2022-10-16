@@ -69,18 +69,65 @@ export default function Router() {
       ),
       children: [
         /* FIXME сюда добавлять другие роуты */
-        { path: "info/proxy-list", element: <LinksCatalog /> },
-        { path: "over-period", element: <Finished /> },
-        { path: "publication", element: <Publication /> },
-        { path: "process", element: <Process /> },
-        { path: "calendar", element: <Calendar /> },
-        { path: "phonebook", element: <Phonebook /> },
-        { path: "stats", element: <Stats /> },
-        { path: "grade", element: <Grade /> },
-        { path: "faq", element: <Faq /> },
-        { path: "admin", element: <Admin /> },
-        { path: "settings", element: <Settings /> },
-        { path: "profile", element: <Profile /> },
+        {
+          path: "info/proxy-list",
+          element: <LinksCatalog />
+        },
+        {
+          path: "over-period",
+          element: <Finished />
+        },
+        {
+          path: "publication",
+          element: <Publication />
+        },
+        {
+          path: "process",
+          element: <Process />
+        },
+        {
+          path: "calendar",
+          element: <Calendar />
+        },
+        {
+          path: "phonebook",
+          element: <Phonebook />
+        },
+        {
+          path: "stats",
+          element: <Stats />
+        },
+        {
+          path: "grade",
+          element: <Grade />
+        },
+        {
+          path: "faq",
+          element: <Faq />
+        },
+        {
+          path: "admin",
+          element:
+            <RoleBasedGuard accessibleRoles={[1]}>
+              <Admin />
+            </RoleBasedGuard>
+        },
+        {
+          path: "settings",
+          element: <Settings />
+        },
+        {
+          path: "profile",
+          element: <Profile />
+        },
+
+        {
+          path: "test",
+          element:
+            <RoleBasedGuard accessibleRoles={[1]}>
+              <Test />
+            </RoleBasedGuard>
+        }
 
       ]
     },
@@ -124,3 +171,5 @@ const Register = Loadable(lazy(() => import("../pages/auth/Register"))); // Ре
 // Ошибки
 const Page500 = Loadable(lazy(() => import("../pages/errors/Page500"))); // Ошибка сервера
 const NotFound = Loadable(lazy(() => import("../pages/errors/Page404"))); // Страница не найдена
+// Тестирование
+const Test = Loadable(lazy(() => import("../pages/Test")));

@@ -7,7 +7,7 @@ const Settings = () => {
   const breadcrumbs = [{name: "Настройки", href: "", current: true}];
 
   return (
-    <BasicPage title='Настройки' className='main-content max-w-6xl mx-auto px-3' >
+    <BasicPage title='Настройки' className='main-content max-w-6xl mx-auto px-4' >
       <PageHeader pages={breadcrumbs} header='Настройки' />
     </BasicPage>
   )

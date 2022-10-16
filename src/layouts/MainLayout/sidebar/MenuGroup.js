@@ -3,7 +3,6 @@ import {useLocation} from "react-router-dom";
 import MenuItems from "./MenuItems";
 import {makeArrayFromObj} from "../../../utils/makeArrayFromObj";
 import { classNames } from "../../../utils/classNames";
-import sidebar from "./index";
 
 /** Проверяет, есть ли у потомков элемента текущий url
  * @param item - элемент
@@ -155,14 +154,14 @@ const MenuGroup = ({
                 <div className="w-full">
                     <a href="#"
                        title={sidebar?.toString() === '0' ? item.pagetitle : null}
-                       className={classNames(openClassCondition(item.id), groupActive.includes(item.id) || groupOpen.includes(item.id) || currentActiveGroup.includes(item.id) ? "bg-gray-200 dark:bg-gray-800 text-gray-600 dark:text-gray-400 flex" : "flex text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700", "group flex items-center py-3 text-base leading-6 rounded-md  w-full hover:cursor-pointer", sidebar?.toString() === '0' ? "justify-end" : "px-3 justify-between")}
+                       className={classNames(openClassCondition(item.id), groupActive.includes(item.id) || groupOpen.includes(item.id) || currentActiveGroup.includes(item.id) ? "bg-gray-200 dark:bg-gray-800 text-gray-600 dark:text-gray-400 flex" : "flex text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700", "group flex items-center py-2 text-base leading-6 rounded-md  w-full hover:cursor-pointer", sidebar?.toString() === '0' ? "justify-end" : "px-2 justify-between")}
                        aria-current={groupActive.includes(item.id) || groupOpen.includes(item.id) || currentActiveGroup.includes(item.id) ? "page" : undefined}
                        onClick={e => onCollapseClick(e, item)}
                     >
                         <div className="flex items-center truncate mr-1">
-                            <i className={classNames(sidebar?.toString() === '0' ? "" : "mr-4", "flex-shrink-0 flex items-center text-2xl mdi text-gray-500", item.icon)}/>
+                            <i className={classNames(sidebar?.toString() === '0' ? "" : "mr-3", "flex-shrink-0 flex items-center text-2xl mdi text-gray-500", item.icon)}/>
                             {sidebar?.toString() === '1' ? <span
-                                className="text-gray-500 dark:text-gray-400 truncate text-sm font-medium">{item.pagetitle}</span> : ""}
+                                className="text-gray-600 dark:text-gray-400 truncate text-sm font-medium">{item.pagetitle}</span> : ""}
                         </div>
                         <svg xmlns="http://www.w3.org/2000/svg"
                              className={classNames(groupActive.includes(item.id) || groupOpen.includes(item.id) || currentActiveGroup.includes(item.id) ? "text-gray-500 rotate-90" : "text-gray-500", sidebar?.toString() === '0' ? "w-3" : "w-5", "flex-shrink-0 h-4 transform group-hover:text-gray-500 transition-colors ease-in-out duration-150")}

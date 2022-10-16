@@ -51,8 +51,8 @@ const LinksCatalog = () => {
     >
       <ContentLayoutWithSidebar.Sidebar>
         <DeleteModal open={openDialog} setOpen={setOpenDialog} />
-        <div className="p-4 pt-0.5">
-          <div className="grid grid-cols-1 gap-2">
+        <div className="p-4">
+          <div className="grid grid-cols-1 gap-2 mt-12">
             {makeArrayFromObj(groupsList).map((group, key) => (
                 <div key={group.id} className="flex items-center w-full flex-shrink-0">
                   <div onClick={event => groupClick(event, key)} onKeyDown={handleKeyDown} role='link' tabIndex={group.id}
@@ -243,7 +243,6 @@ const LinksCatalog = () => {
           </div>
         </div>
       </ContentLayoutWithSidebar.Body>
-
     </ContentLayoutWithSidebar>
   );
 };
