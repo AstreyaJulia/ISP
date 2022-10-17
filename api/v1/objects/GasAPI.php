@@ -13,6 +13,11 @@ class GasAPI
         $this->helpers = $helpers;
     }
 
+    /**
+     * 
+     * 
+     * 
+     */
     public function responseGasAPI()
     {
         try {
@@ -30,12 +35,11 @@ class GasAPI
     /**
      * Нарушение сроков рассмотения
      * Судья, помощник, секретарь судебного заседания
-     * видят только свои дела за текущий год при их наличии
+     * видят только свои дела за текущий год при их наличии.
+     * Председатель, заместитель председателя,
+     * администраторы ресурса имеют доступ
+     * к просмотру дел всех судей
      * 
-     * Председатель, заместитель председателя
-     * имеют доступ к просмотру дел всех судей
-     * 
-     * @return array|string
      */
     private function deadlines():array|string
     {
@@ -54,8 +58,10 @@ class GasAPI
                                             LEFT JOIN sdc_user_attributes AS UserAttributes ON UserAttributes.internalKey=sdc_users.id
                                             WHERE UserAttributes.idGAS IS NOT NULL AND sdc_users.active = 1")->fetchAll(\PDO::FETCH_COLUMN);
                 $deadlines = $this->helpers::sendGET(["idJudge" => implode(",", $idGAS)], 'http://192.168.2.253:8079/api_GAS/v1/'.$this->helpers->getUrlData()["1"].'.php?');
-            } else {
+            } elseif(!empty($this->helpers->getIdGAS()) and empty($this->helpers->getUrlData()["2"]) ) {
                 $deadlines = $this->helpers::sendGET(["idJudge" => $this->helpers->getIdGAS()], 'http://192.168.2.253:8079/api_GAS/v1/'.$this->helpers->getUrlData()["1"].'.php?');
+            } else {
+                throw new \Exception("Недостаточно прав");
             }
             return $this->helpers::wrap($deadlines, "data");
         } catch (\UnhandledMatchError | \Exception $e) {
