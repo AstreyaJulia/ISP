@@ -12,6 +12,7 @@ import useIsMountedRef from "../../../hooks/useIsMountedRef";
 import { APP_NAME } from "../../../config";
 import BasicPage from "../../pagesLayouts/BasicPage";
 import LoadingButton from "../../../components/LoadingButton";
+import { classNames } from "../../../utils/classNames";
 
 const defaultValues = {
   login: "chainik",
@@ -119,7 +120,7 @@ const Login = () => {
                       </Link>
                     </div>
                   </div>
-                    <LoadingButton type='submit' isLoading={isSubmitting} label='Войти' classes='w-full text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-offset-2 focus:ring-indigo-500'>
+                    <LoadingButton type='submit' isLoading={isSubmitting} label='Войти' classes={classNames(isSubmitting ? 'bg-slate-600 hover:bg-slate-600 focus:ring-offset-0' : 'bg-indigo-600 hover:bg-indigo-700 focus:ring-offset-2 focus:ring-indigo-500', 'w-full text-sm font-medium text-white focus:outline-none')}>
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m15 14 2.045-1.533C19.469 10.648 20.542 6.98 20 4c-2.981-.542-6.649.531-8.467 2.955L10 9m5 5-3.5 2.5-4-4L10 9m5 5v2.667a4 4 0 0 1-.8 2.4l-.7.933-1-1M10 9H7.333a4 4 0 0 0-2.4.8L4 10.5l1 1M8.5 18 5 19l1.166-3.5m9.334-6a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"/>
                       </svg>

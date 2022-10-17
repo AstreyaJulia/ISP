@@ -309,11 +309,11 @@ const DataTableCore = ({
       {/* Футер с пагинацией */}
       <div className="w-full flex items-center justify-between p-4 border-t-2 border-slate-200 dark:border-slate-700">
         <div className="flex items-center">
-          <p
+          {sortFilter().length > 0 ? <p
             className="mx-5 shrink-0 block text-sm font-bold text-slate-700 dark:text-slate-200 mr-2">
             { /* eslint-disable-next-line */}
             {sortFilter().length > 0 ? (currentPage * elementsPerPage) + 1 : 0} - {sortFilter().length > 0 ? sortFilter().length < (currentPage + 1) * elementsPerPage ? sortFilter().length : (currentPage + 1) * elementsPerPage : 0}
-            <span className="font-medium mx-1">из</span> {sortFilter().length > 0 ? sortFilter().length : 0}</p>
+            <span className="font-medium mx-1">из</span> {sortFilter().length > 0 ? sortFilter().length : 0}</p> : ''}
         </div>
         <div className="mx-5 flex items-center gap-4">
           <button

@@ -7,6 +7,9 @@
 @import '~react-loading-skeleton/dist/skeleton.css';
 @import "~react-perfect-scrollbar/dist/css/styles.css";
 
+/** Кастомные стили для npm модулей */
+@import "./modules/apexcharts.css";
+
 /** Tailwind  */
 @tailwind base;
 @tailwind components;

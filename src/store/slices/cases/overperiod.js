@@ -2,6 +2,9 @@ import {createSlice} from "@reduxjs/toolkit";
 import axios from "../../../utils/axios";
 import { dispatch } from '../../index';
 
+/** Начальное состояние
+ * @type {{isLoading: string, cases: *[], error: null}}
+ */
 const initialState = {
     isLoading: 'false',
     error: null,

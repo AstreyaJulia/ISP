@@ -231,16 +231,17 @@ function AuthProvider({ children }) {
           , {className: toastStyles});
         // Получаем данные пользователя
         getUserData();
-      } else if (res.data.error.message.length > 0) {
+      } else  {
+        const error = res.data.error.message ? res : res.toString();
         toast(t =>
-            <Toast t={t} message={res.data.error.message} type="error"/>
+            <Toast t={t} message={error} type="error"/>
           , {className: toastStyles});
       }
     }).catch((err) => {
+      const error = err.error ? err.error.message : err.toString();
       toast(t =>
-          <Toast t={t} message={err.error.message} type="error"/>
+          <Toast t={t} message={error} type="error"/>
         , {className: toastStyles});
-      console.log(err.error.message)
     });
   };
 

@@ -1,4 +1,5 @@
 import React from "react";
+import ReactApexChart from 'react-apexcharts';
 import BasicPage from "../pagesLayouts/BasicPage";
 import PageHeader from "../../components/PageHeader";
 import CategoryDataTable from "../../components/DataTable/CategoryDataTable";
@@ -7,6 +8,32 @@ import { Card } from "../../components/Card";
 import { Avatar } from "../../components/Avatar";
 import CardWithLeftIcon from "../../components/CardWithLeftIcon";
 import { getAmount } from "../../utils/getAmount";
+import { fNumber } from "../../utils/formatNumber";
+import { baseChartOptions } from "../../components/ApexCharts/chartsSettings";
+
+const CHART_DATA = [4344, 5435, 1443, 4443];
+
+
+const chartOptions = {
+  ...baseChartOptions,
+
+  labels: ['Америка', 'Азия', 'Европа', 'Африка'],
+  stroke: { colors: ['#fff'] },
+  dataLabels: { enabled: true, dropShadow: { enabled: false } },
+  tooltip: {
+    fillSeriesColor: false,
+    y: {
+      formatter: (seriesName) => fNumber(seriesName),
+      title: {
+        formatter: (seriesName) => `${seriesName}`,
+      },
+    },
+  },
+  plotOptions: {
+    pie: { donut: { labels: { show: false } } },
+  },
+};
+
 
 const Stats = () => {
 
@@ -120,6 +147,9 @@ const Stats = () => {
             ))}
           </div>
         </div>
+      </div>
+      <div>
+        <ReactApexChart type="pie" series={CHART_DATA} options={chartOptions} height={280} />
       </div>
 
     </BasicPage>
