@@ -36,7 +36,7 @@ const DataTableCore = ({
    * @returns {*}
    */
   function sortFunction(column, asc, rows) {
-    return rows.sort((a, b) => {
+    return rows?.sort((a, b) => {
       /* eslint-disable-next-line */
       if (!isNaN(a[column]) || !isNaN(parseInt(a[column]))) {
         if (parseInt(a[column], 10) > parseInt(b[column], 10)) return asc ? -1 : 1;
@@ -54,7 +54,7 @@ const DataTableCore = ({
    * @returns {*}
    */
   function filterFunction(rows) {
-    return rows.filter((row) =>
+    return rows?.filter((row) =>
       columns.some(
         (column) => row[column].toLowerCase().indexOf(query.toLowerCase()) > -1
       )
@@ -108,7 +108,6 @@ const DataTableCore = ({
             {subheader ? <p className="font-medium text-base text-slate-500 dark:text-slate-500">subheader</p> : ""}
           </div> : ""
         }
-
 
         { /* Поиск */}
         <div className={classNames(!children ? 'pb-4' : '', "px-4 pt-4 flex gap-2 w-full items-center")}>

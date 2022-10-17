@@ -6,9 +6,9 @@ import { Avatar } from "../../Avatar";
 import { caseTypesSettings } from "../../../config";
 import { formatDate } from "../../../utils/formatTime";
 
-const CasesOverPeriod = ({ rows }) => {
+const CasesOverPeriod = ({ rows, isLoading }) => {
 
-  const columns = Object.keys(rows[0]);
+  const columns = Object.keys(rows[0] ?? []);
   const [currentPage, setCurrentPage] = useState(0); // текущая страница
 
   const makeItem = (item, key) => <Disclosure key={key}>
@@ -47,7 +47,7 @@ const CasesOverPeriod = ({ rows }) => {
   </Disclosure>;
 
   const filter = (rows, query, columns) => {
-    return rows.filter((row) =>
+    return rows?.filter((row) =>
       columns.slice(3, 6).filter((item) => item !== "RESULT_DATE").some(
         (column) => row[column].toLowerCase().indexOf(query.toLowerCase()) > -1
       )
@@ -57,11 +57,11 @@ const CasesOverPeriod = ({ rows }) => {
   return (
     <DataTableCore
       classname='mt-5'
-      rows={rows}
+      rows={rows ?? []}
       currentPage={currentPage}
       setCurrentPage={setCurrentPage}
       tableID="cases-over-period"
-      isLoading="false"
+      isLoading={isLoading}
       columns={columns}
       itemsContainerClassNames="flex flex-col gap-2"
       initSortColumn={columns[0]}

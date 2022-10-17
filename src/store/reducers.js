@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import layout from './slices/layout';
+import overperiod from './slices/cases/overperiod';
 
 const rootPersistConfig = {
     key: 'root',
@@ -11,7 +11,7 @@ const rootPersistConfig = {
 };
 
 const rootReducer = combineReducers({
-    calendar: layout,
+    overperiod,
 });
 
 export { rootPersistConfig, rootReducer };
