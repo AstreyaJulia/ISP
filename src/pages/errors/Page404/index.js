@@ -1,18 +1,19 @@
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import React from "react";
 import astronautConfuse from "../../../assets/images/pages/astronaut-confuse.svg";
 import BasicPage from "../../pagesLayouts/BasicPage";
 
 const Page404 = () => (
-  <BasicPage title='Страница не найдена' className='main-content' >
+  <BasicPage title="Страница не найдена" className="main-content">
     <div className="overscroll-y-auto p-4 w-full h-screen flex justify-center items-center flex-col flex-grow m-y-auto">
-      <img className="w-52" src={astronautConfuse} alt="Not authorized page"/>
+      <img className="w-52" src={astronautConfuse} alt="Not authorized page" />
       <div className="max-w-max mx-auto">
         <main className="sm:flex">
           <p className="text-4xl font-extrabold text-indigo-600 sm:text-5xl">404</p>
           <div className="sm:ml-6">
             <div className="sm:border-l sm:border-gray-200 dark:sm:border-gray-600 sm:pl-6">
-              <h1 className="text-4xl font-extrabold text-gray-900 dark:text-gray-200 tracking-tight sm:text-5xl">Страница
+              <h1
+                className="text-4xl font-extrabold text-gray-900 dark:text-gray-200 tracking-tight sm:text-5xl">Страница
                 не найдена</h1>
               <p className="mt-1 text-base text-gray-500">Понятия не имеем, как вы сюда попали.</p>
             </div>
@@ -27,6 +28,6 @@ const Page404 = () => (
       </div>
     </div>
   </BasicPage>
-  );
+);
 
 export default Page404;

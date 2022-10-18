@@ -17,7 +17,7 @@ const searchResultsMock = {
   users: usersSearchResults,
   inbox: inboxSearchResults,
   outbox: outboxSearchResults
-}
+};
 
 const Header = (props) => {
 
@@ -35,7 +35,7 @@ const Header = (props) => {
   const { setMenuVisibility } = props;
   const [searchType, changeSearchType] = useState("users");
   const [searchResultsShow, changeSearchResultsShow] = useState(false);
-  const [searchQuery, changeSearchQuery] = useState('');
+  const [searchQuery, changeSearchQuery] = useState("");
   const [searchResults, changeSearchResults] = useState([]);
 
   /** Хуки */
@@ -133,20 +133,20 @@ const Header = (props) => {
   const searchQueryHandler = (evt) => {
     changeSearchQuery(evt.target.value);
     if (evt.target.value.length === 0) {
-      changeSearchResults([])
+      changeSearchResults([]);
     } else {
       changeSearchResults(searchResultsMock[searchType]);
     }
   };
 
   const searchQueryClearHandler = () => {
-    changeSearchQuery('');
+    changeSearchQuery("");
     changeSearchResults([]);
   };
 
   const searchResultsCloseHandler = () => searchResultShowHandler(false);
 
-  const searchOnBlur = () => searchQuery.length === 0 || searchQuery === '' ? searchResultShowHandler(false) : null;
+  const searchOnBlur = () => searchQuery.length === 0 || searchQuery === "" ? searchResultShowHandler(false) : null;
 
   return (
     <div
@@ -208,13 +208,17 @@ const Header = (props) => {
                 type="search"
               />
               <div className="absolute inset-y-0 right-0 flex items-center z-30">
-                {searchQuery !== '' ?
-                  <button onClick={searchQueryClearHandler} title='Очистить строку поиска' className='p-1 rounded-full text-gray-500 dark:text-gray-400 dark:hover:text-gray-300 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 hover:text-indigo-600' type='button'>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 9.75L14.25 12m0 0l2.25 2.25M14.25 12l2.25-2.25M14.25 12L12 14.25m-2.58 4.92l-6.375-6.375a1.125 1.125 0 010-1.59L9.42 4.83c.211-.211.498-.33.796-.33H19.5a2.25 2.25 0 012.25 2.25v10.5a2.25 2.25 0 01-2.25 2.25h-9.284c-.298 0-.585-.119-.796-.33z" />
+                {searchQuery !== "" ?
+                  <button onClick={searchQueryClearHandler} title="Очистить строку поиска"
+                          className="p-1 rounded-full text-gray-500 dark:text-gray-400 dark:hover:text-gray-300 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 hover:text-indigo-600"
+                          type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
+                         stroke="currentColor" className="w-6 h-6">
+                      <path strokeLinecap="round" strokeLinejoin="round"
+                            d="M12 9.75L14.25 12m0 0l2.25 2.25M14.25 12l2.25-2.25M14.25 12L12 14.25m-2.58 4.92l-6.375-6.375a1.125 1.125 0 010-1.59L9.42 4.83c.211-.211.498-.33.796-.33H19.5a2.25 2.25 0 012.25 2.25v10.5a2.25 2.25 0 01-2.25 2.25h-9.284c-.298 0-.585-.119-.796-.33z" />
                     </svg>
                   </button>
-                    : ''}
+                  : ""}
                 <label htmlFor="search-type" className="sr-only">
                   Разделы поиска
                 </label>

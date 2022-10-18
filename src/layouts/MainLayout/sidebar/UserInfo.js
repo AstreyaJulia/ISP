@@ -22,8 +22,8 @@ const UserInfo = () => {
             className="bg-gray-500/30 after:bg-gradient-to-r from-gray-400/10 via-gray-500/10 to-gray-400/10" />}
         {sidebar?.toString() === "1" ?
           <div className="flex flex-col ml-3 text-gray-800 dark:text-gray-200 text-sm">
-            <p className='font-bold'>{getInitials(user?.fullname)}</p>
-            <p className='font-medium text-gray-600 dark:text-gray-400'>{user?.role}</p>
+            <p className="font-bold">{getInitials(user?.fullname)}</p>
+            <p className="font-medium text-gray-600 dark:text-gray-400">{user?.role}</p>
           </div>
           : ""}
       </Link>

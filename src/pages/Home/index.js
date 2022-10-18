@@ -14,14 +14,14 @@ const Home = () => {
   }, [dispatch]);
 
   return (
-    <BasicPage title='Главная' className='main-content max-w-6xl mx-auto px-4' >
-      <div className='grid grid-cols-2 mt-4 gap-4'>
-        <div className='grid grid-cols-2 gap-4'>
+    <BasicPage title="Главная" className="main-content max-w-6xl mx-auto px-4">
+      <div className="grid grid-cols-2 mt-4 gap-4">
+        <div className="grid grid-cols-2 gap-4">
           <CasesOverPeriodWidget rows={cases ?? []} isLoading={isLoading} />
         </div>
       </div>
     </BasicPage>
-  )
+  );
 };
 
 export default Home;

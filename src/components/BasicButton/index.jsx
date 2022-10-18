@@ -13,13 +13,13 @@ import { classNames } from "../../utils/classNames";
  * @returns {JSX.Element}
  * @constructor
  */
-const BasicButton = ({size, label, onClick, type, className, children, ...props}) => {
+const BasicButton = ({ size, label, onClick, type, className, children, ...props }) => {
 
   const sizes = {
     "small": "px-3 py-1.5 text-xs",
     "medium": "px-4 py-2 text-sm",
     "large": "px-6 py-3 text-base"
-  }
+  };
 
   return (
     <button
@@ -31,7 +31,7 @@ const BasicButton = ({size, label, onClick, type, className, children, ...props}
       {children}
       {label}
     </button>
-  )
+  );
 };
 
 /** Типы свойств */
@@ -46,13 +46,15 @@ BasicButton.propTypes = {
   type: PropTypes.oneOf(["button", "submit", "reset"]),
   /** Обработчик клика */
   onClick: PropTypes.func,
+  /** Дочерние элементы */
+  children: PropTypes.object
 };
 
 /** Дефолтные свойства */
 BasicButton.defaultProps = {
   type: "button",
   className: "",
-  onClick: undefined,
+  onClick: undefined
 };
 
 export default BasicButton;

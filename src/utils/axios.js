@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { HOST_API } from '../config';
+import axios from "axios";
+import { HOST_API } from "../config";
 
 /** Заголовок контента для API-запросов
  * @type {string} */
@@ -9,12 +9,12 @@ axios.defaults.headers.post["Access-Control-Allow-Headers"] = "Content-Type, Acc
 
 const axiosInstance = axios.create({
   withCredentials: true,
-  baseURL: HOST_API,
+  baseURL: HOST_API
 });
 
 axiosInstance.interceptors.response.use(
   (response) => response,
-  (error) => Promise.reject((error.response && error.response.data.error) || 'Что-то пошло не так')
+  (error) => Promise.reject((error.response && error.response.data.error) || "Что-то пошло не так")
 );
 
 export default axiosInstance;

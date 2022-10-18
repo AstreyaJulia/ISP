@@ -1,7 +1,7 @@
-import {forwardRef, Fragment, useState} from "react";
+import { forwardRef, useState } from "react";
 import PropTypes from "prop-types";
-import {Eye, EyeOff} from "react-feather";
-import {Input, InputGroup, InputGroupText, Label} from "reactstrap";
+import { Eye, EyeOff } from "react-feather";
+import { Input, InputGroup, InputGroupText, Label } from "reactstrap";
 import { classNames } from "../../utils/classNames";
 
 /** Инпут с кнопкой Показать/скрыть пароль
@@ -20,21 +20,21 @@ const InputPasswordToggle = forwardRef((props, ref) => {
     inputClassName,
     invalid,
     ...rest
-  } = props
+  } = props;
 
   /** Стейт */
-  const [inputVisibility, setInputVisibility] = useState(visible)
+  const [inputVisibility, setInputVisibility] = useState(visible);
 
   /** Рендеринг значка, на основе видимости */
   const renderIcon = () => {
     const size = iconSize || 14;
 
     if (inputVisibility === false) {
-      return hideIcon || <Eye size={size}/>;
-    } 
-      return showIcon || <EyeOff size={size}/>;
-    
-  }
+      return hideIcon || <Eye size={size} />;
+    }
+    return showIcon || <EyeOff size={size} />;
+
+  };
 
   return (
     <>
@@ -73,8 +73,8 @@ const InputPasswordToggle = forwardRef((props, ref) => {
         </InputGroupText>
       </InputGroup>
     </>
-  )
-})
+  );
+});
 
 export default InputPasswordToggle;
 
@@ -91,17 +91,17 @@ InputPasswordToggle.propTypes = {
   label(props, propName) {
     /** Если лейбл задан, а htmlFor не задан, вывести ошибку */
     if (props[propName] && props.htmlFor === "undefined") {
-      throw new Error("htmlFor обязателен, если задана метка")
+      throw new Error("htmlFor обязателен, если задана метка");
     }
   },
   htmlFor(props, propName) {
     /** Если htmlFor задан, а лейбл не задан, вывести ошибку */
     if (props[propName] && props.label === "undefined") {
-      throw new Error("метка обязательна, если задан htmlFor")
+      throw new Error("метка обязательна, если задан htmlFor");
     }
   }
-}
+};
 
 InputPasswordToggle.defaultProps = {
   visible: false
-}
+};

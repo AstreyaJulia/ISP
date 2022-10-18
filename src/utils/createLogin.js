@@ -6,4 +6,4 @@ import transliterate from "./transliterate";
  * @returns {string}
  */
 
-export const getLoginFromName = (fullname) => transliterate(`${fullname.split(" ").slice(0, 1)  }_${  fullname.split(" ").slice(1).map((n) => n[0]).join("").toUpperCase()}`)
+export const getLoginFromName = (fullname) => transliterate(`${fullname.split(" ").slice(0, 1)}_${fullname.split(" ").slice(1).map((n) => n[0]).join("").toUpperCase()}`);

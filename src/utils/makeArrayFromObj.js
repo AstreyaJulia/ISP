@@ -5,8 +5,8 @@
 export const makeArrayFromObj = (object) => {
   const array = [];
   // eslint-disable-next-line
-  Object.keys(object).map(function (key, index) {
+  Object.keys(object).map(function(key, index) {
     array.push(object[key]);
   });
   return array;
-}
+};

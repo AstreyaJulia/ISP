@@ -1,7 +1,8 @@
 import React, { Fragment, useState } from "react";
-import { Card } from "../../Card";
+import Card from "../../Card";
 import { classNames } from "../../../utils/classNames";
 import { getHighlightedText } from "../../../utils/getHighlightedText";
+import PropTypes from "prop-types";
 
 const DataTableCore = ({
                          header,
@@ -110,7 +111,7 @@ const DataTableCore = ({
         }
 
         { /* Поиск */}
-        <div className={classNames(!children ? 'pb-4' : '', "px-4 pt-4 flex gap-2 w-full items-center")}>
+        <div className={classNames(!children ? "pb-4" : "", "px-4 pt-4 flex gap-2 w-full items-center")}>
           <label htmlFor={tableID} className="sr-only">
             Поиск
           </label>
@@ -258,7 +259,7 @@ const DataTableCore = ({
                           d="M12 19C15.866 19 19 15.866 19 12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12C5 15.866 8.13401 19 12 19ZM12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" />
                     <path d="M2 12C2 6.47715 6.47715 2 12 2V5C8.13401 5 5 8.13401 5 12H2Z" />
                   </svg>
-                  <p className='text-gray-600 dark:text-gray-4000 font-medium text-sm'>Загрузка</p>
+                  <p className="text-gray-600 dark:text-gray-4000 font-medium text-sm">Загрузка</p>
                 </div>
               </td>
             </tr>
@@ -286,7 +287,7 @@ const DataTableCore = ({
 
         :
 
-         /* Псевдо-таблица */
+        /* Псевдо-таблица */
         <div className="px-4 py-5 sm:p-4">
           <div className={itemsContainerClassNames || ""}>
             { /* eslint-disable-next-line */}
@@ -297,11 +298,12 @@ const DataTableCore = ({
                       d="M12 19C15.866 19 19 15.866 19 12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12C5 15.866 8.13401 19 12 19ZM12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" />
                 <path d="M2 12C2 6.47715 6.47715 2 12 2V5C8.13401 5 5 8.13401 5 12H2Z" />
               </svg>
-              <p className='text-gray-600 dark:text-gray-400 font-medium text-sm'>Загрузка</p>
+              <p className="text-gray-600 dark:text-gray-400 font-medium text-sm">Загрузка</p>
             </div> : sortFilter().length > 0 ? sortFilter()
                 .slice(currentPage * elementsPerPage, (currentPage + 1) * elementsPerPage)
                 .map((item, key) => makeItem(item, key, query))
-              : <p className="flex justify-center items-center text-slate-700 dark:text-slate-300 text-sm py-5 col-span-full">Нет
+              : <p
+                className="flex justify-center items-center text-slate-700 dark:text-slate-300 text-sm py-5 col-span-full">Нет
                 информации для отображения</p>
             }
           </div>
@@ -315,7 +317,7 @@ const DataTableCore = ({
             className="mx-5 shrink-0 block text-sm font-bold text-slate-700 dark:text-slate-200 mr-2">
             { /* eslint-disable-next-line */}
             {sortFilter().length > 0 ? (currentPage * elementsPerPage) + 1 : 0} - {sortFilter().length > 0 ? sortFilter().length < (currentPage + 1) * elementsPerPage ? sortFilter().length : (currentPage + 1) * elementsPerPage : 0}
-            <span className="font-medium mx-1">из</span> {sortFilter().length > 0 ? sortFilter().length : 0}</p> : ''}
+            <span className="font-medium mx-1">из</span> {sortFilter().length > 0 ? sortFilter().length : 0}</p> : ""}
         </div>
         <div className="mx-5 flex items-center gap-4">
           <button
@@ -343,6 +345,33 @@ const DataTableCore = ({
     </Card>
   );
 
+};
+
+DataTableCore.propTypes = {
+  /** Заголовок таблицы */
+  header: PropTypes.string,
+  /** Подзаголовок таблицы */
+  subheader:  PropTypes.string,
+  /** Состояние текущей страницы */
+  currentPage: PropTypes.number,
+  /** Установить текущую страницу */
+  setCurrentPage: PropTypes.func,
+  /** Массив строк */
+  rows: PropTypes.array,
+  /** Массив заголовков столбцов */
+  columns: PropTypes.array,
+  initSortColumn: PropTypes.string,
+  sortCallback: PropTypes.func,
+  filterCallback: PropTypes.func,
+  tableID: PropTypes.string,
+  placeholder: PropTypes.string,
+  itemsContainerClassNames: PropTypes.string,
+  isLoading: PropTypes.string,
+  classname: PropTypes.string,
+  makeItem: PropTypes.func,
+  makeMenu: PropTypes.func,
+  table: PropTypes.object,
+  children: PropTypes.object
 };
 
 export default DataTableCore;

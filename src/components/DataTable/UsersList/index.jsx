@@ -16,7 +16,7 @@ const UsersList = ({ rows }) => {
   const makeItem = (item, key, query) =>
     <div key={item.id}
          className={classNames("flex grow items-center p-2 justify-between", key % 2 === 0 ? "" : "bg-slate-100 dark:bg-slate-800")}>
-      <div className='flex grow items-center'>
+      <div className="flex grow items-center">
         <Avatar size="10" name={item.fullname} shape="circle" classname="mr-5" />
         <div className="flex flex-col items-start mr-7 w-72">
           <p
@@ -95,17 +95,15 @@ const UsersList = ({ rows }) => {
     </div>
   ;
 
-  const filter = (rows, query, columns) => {
-    return rows.filter((row) =>
-      columns.slice(1, 2).some(
-        (column) =>row[column].toLowerCase().indexOf(query.toLowerCase()) > -1
-      )
-    );
-  };
+  const filter = (rows, query, columns) => rows.filter((row) =>
+    columns.slice(1, 2).some(
+      (column) => row[column].toLowerCase().indexOf(query.toLowerCase()) > -1
+    )
+  );
 
   return (
     <DataTableCore
-      classname='mt-5'
+      classname="mt-5"
       rows={rows}
       currentPage={currentPage}
       setCurrentPage={setCurrentPage}

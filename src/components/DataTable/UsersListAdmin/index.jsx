@@ -1,10 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
 
-const UsersListAdmin = () => {
-  return (
-    <></>
-  );
-};
+const UsersListAdmin = () => (
+  <></>
+);
 
 export default UsersListAdmin;

@@ -1,10 +1,10 @@
-import {tailwindColorsConfig} from "../../utils/getTailwindconfig";
-import {pxToRem} from "../../utils/remUtils";
+import { tailwindColorsConfig } from "../../utils/getTailwindconfig";
+import { pxToRem } from "../../utils/remUtils";
 import useAuth from "../../hooks/useAuth";
 
 export function BaseChartOptions() {
 
-  const {theme} = useAuth();
+  const { theme } = useAuth();
 
   return {
     // Цвета графиков
@@ -19,8 +19,8 @@ export function BaseChartOptions() {
 
     // График
     chart: {
-      toolbar: {show: false},
-      zoom: {enabled: false},
+      toolbar: { show: false },
+      zoom: { enabled: false },
       // animations: { enabled: false },
       foreColor: tailwindColorsConfig.theme.colors.gray["600"],
       fontFamily: "'OpenSans', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji', 'sans-serif'"
@@ -55,7 +55,7 @@ export function BaseChartOptions() {
     },
 
     // Подписи данных
-    dataLabels: {enabled: false},
+    dataLabels: { enabled: false },
 
     // Строки
     stroke: {
@@ -72,8 +72,8 @@ export function BaseChartOptions() {
 
     // Xaxis
     xaxis: {
-      axisBorder: {show: false},
-      axisTicks: {show: false}
+      axisBorder: { show: false },
+      axisTicks: { show: false }
     },
 
 // Маркеры
@@ -99,7 +99,7 @@ export function BaseChartOptions() {
         radius: 12
       },
       fontWeight: 500,
-      itemMargin: {horizontal: 12},
+      itemMargin: { horizontal: 12 },
       labels: {
         colors: theme === 1 ? tailwindColorsConfig.theme.colors.gray["600"] : tailwindColorsConfig.theme.colors.gray["300"]
       }
@@ -162,7 +162,7 @@ export function BaseChartOptions() {
       // Radar
       radar: {
         polygons: {
-          fill: {colors: ["transparent"]},
+          fill: { colors: ["transparent"] },
           strokeColors: tailwindColorsConfig.theme.colors.slate["300"],
           connectorColors: tailwindColorsConfig.theme.colors.slate["300"]
         }
@@ -184,17 +184,17 @@ export function BaseChartOptions() {
         // sm
         breakpoint: "640px",
         options: {
-          plotOptions: {bar: {columnWidth: "40%"}}
+          plotOptions: { bar: { columnWidth: "40%" } }
         }
       },
       {
         // md
         breakpoint: "768px",
         options: {
-          plotOptions: {bar: {columnWidth: "32%"}}
+          plotOptions: { bar: { columnWidth: "32%" } }
         }
       }
-    ],
-  }
+    ]
+  };
 
 }

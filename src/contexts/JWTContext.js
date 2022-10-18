@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import axios from "../utils/axios";
 import { isValidToken, setSession } from "../utils/jwt";
 import useLocalStorage from "../hooks/useLocalStorage";
-import Toast, {toastStyles} from "../components/Toast";
+import Toast, { toastStyles } from "../components/Toast";
 
 const initialState = {
   theme: null,
@@ -25,7 +25,7 @@ const handlers = {
       isInitialized: true,
       user,
       theme,
-      sidebar,
+      sidebar
     };
   },
   LOGIN: (state, action) => {
@@ -68,7 +68,7 @@ const handlers = {
       ...state,
       sidebar
     };
-  },
+  }
 };
 
 const reducer = (state, action) => (handlers[action.type] ? handlers[action.type](state, action) : state);
@@ -106,13 +106,13 @@ function AuthProvider({ children }) {
           username, // Логин
           fullname, // полное имя
           role: sudo === 1 ? "Администратор" : "Пользователь", // Роль, текстовое значение
-          sudo, // Права суперпользователя, 0 - пользователь, 1 - администратор
+          sudo // Права суперпользователя, 0 - пользователь, 1 - администратор
         },
         theme, // Тема 0 - темная, 1 - светлая
-        sidebar, // Сайдбар, 1 - широкий, 0 - узкий
+        sidebar // Сайдбар, 1 - широкий, 0 - узкий
       }
     });
-  }
+  };
 
   useEffect(() => {
     const initialize = async () => {
@@ -129,7 +129,7 @@ function AuthProvider({ children }) {
             type: "INITIALIZE",
             payload: {
               isAuthenticated: false,
-              user: null,
+              user: null
             }
           });
         }
@@ -139,7 +139,7 @@ function AuthProvider({ children }) {
           type: "INITIALIZE",
           payload: {
             isAuthenticated: false,
-            user: null,
+            user: null
           }
         });
       }
@@ -155,12 +155,12 @@ function AuthProvider({ children }) {
 
     /** Названия классов для тем */
     const classNames = {
-      '0': "dark",
-      '1': "light"
+      "0": "dark",
+      "1": "light"
     };
 
     /** Удаляем классы тем при монтировании */
-    element.classList.remove("dark", "light", 'undefined');
+    element.classList.remove("dark", "light", "undefined");
 
     /** Если тема не светлая, добавляем класс темы из store */
     element.classList.add(classNames[state.theme]);
@@ -227,21 +227,21 @@ function AuthProvider({ children }) {
           }
         });
         toast(t =>
-            <Toast t={t} message="Вы успешно вошли в систему." type="success"/>
-          , {className: toastStyles});
+            <Toast t={t} message="Вы успешно вошли в систему." type="success" />
+          , { className: toastStyles });
         // Получаем данные пользователя
         getUserData();
-      } else  {
+      } else {
         const error = res.data.error.message ? res : res.toString();
         toast(t =>
-            <Toast t={t} message={error} type="error"/>
-          , {className: toastStyles});
+            <Toast t={t} message={error} type="error" />
+          , { className: toastStyles });
       }
     }).catch((err) => {
       const error = err.error ? err.error.message : err.toString();
       toast(t =>
-          <Toast t={t} message={error} type="error"/>
-        , {className: toastStyles});
+          <Toast t={t} message={error} type="error" />
+        , { className: toastStyles });
     });
   };
 
@@ -279,7 +279,7 @@ function AuthProvider({ children }) {
   };
 
   const logout = async () => {
-    localStorage.removeItem('settings');
+    localStorage.removeItem("settings");
     setSession(null);
     dispatch({ type: "LOGOUT" });
   };

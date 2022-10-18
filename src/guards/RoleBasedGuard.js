@@ -21,8 +21,8 @@ export default function RoleBasedGuard({ accessibleRoles, children }) {
 
   if (!accessibleRoles.includes(user.sudo)) {
     return (
-      <div className='p-4'>
-        <Alert alertType='error' title='Доступ запрещён'>
+      <div className="p-4">
+        <Alert alertType="error" title="Доступ запрещён">
           <p>У вас нет прав доступа к этой странице</p>
         </Alert>
         <div className="mt-10 flex space-x-3 sm:border-l sm:border-transparent sm:pl-6 justify-center">

@@ -1,5 +1,5 @@
-import jwtDecode from 'jwt-decode';
-import axios from './axios';
+import jwtDecode from "jwt-decode";
+import axios from "./axios";
 
 /** Проверка JWT токена
  * @param accessToken - токен
@@ -20,16 +20,16 @@ const isValidToken = (accessToken) => {
  * @param exp
  */
 const handleTokenExpired = (exp) => {
-let expiredTimer;
+  let expiredTimer;
 
-window.clearTimeout(expiredTimer);
-const currentTime = Date.now();
-const timeLeft = exp * 1000 - currentTime;
+  window.clearTimeout(expiredTimer);
+  const currentTime = Date.now();
+  const timeLeft = exp * 1000 - currentTime;
 // console.log(timeLeft);
-expiredTimer = window.setTimeout(() => {
+  expiredTimer = window.setTimeout(() => {
 // console.log('expired');
 // Действие, если срок действия токена истек
-}, timeLeft);
+  }, timeLeft);
 };
 
 /** Старт сессии
@@ -37,13 +37,13 @@ expiredTimer = window.setTimeout(() => {
  */
 const setSession = (accessToken) => {
   if (accessToken) {
-    localStorage.setItem('jwt', accessToken);
+    localStorage.setItem("jwt", accessToken);
     axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
     // Проверка срока действия токена
     const { exp } = jwtDecode(accessToken);
     handleTokenExpired(exp);
   } else {
-    localStorage.removeItem('jwt');
+    localStorage.removeItem("jwt");
     delete axios.defaults.headers.common.Authorization;
   }
 };

@@ -2,12 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import { classNames } from "../../utils/classNames";
 
-const Badge = ({size, color, item, shape, className}) => {
+const Badge = ({ size, color, item, shape, className }) => {
 
   const BadgeSize = {
     small: "px-2.5 py-0.5 text-xs",
     large: "px-3 py-0.5 text-sm"
-  }
+  };
 
   const BadgeColor = {
     red: "bg-red-500/30 text-red-700 dark:text-red-300",
@@ -18,12 +18,12 @@ const Badge = ({size, color, item, shape, className}) => {
     blue: "bg-blue-500/30 text-blue-700 dark:text-blue-300",
     indigo: "bg-indigo-500/30 text-indigo-700 dark:text-indigo-300",
     pink: "bg-pink-500/30 text-pink-700 dark:text-pink-300"
-  }
+  };
 
   const BadgeShapes = {
-    rounded: 'rounded-md',
-    circle: 'rounded-full'
-  }
+    rounded: "rounded-md",
+    circle: "rounded-full"
+  };
 
 
   return (

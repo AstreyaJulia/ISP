@@ -4,13 +4,13 @@ import PageHeader from "../../components/PageHeader";
 
 const Profile = () => {
 
-  const breadcrumbs = [{name: "Мой профиль", href: "", current: true}];
+  const breadcrumbs = [{ name: "Мой профиль", href: "", current: true }];
 
   return (
-    <BasicPage title='Мой профиль' className='main-content max-w-6xl mx-auto px-4' >
-      <PageHeader pages={breadcrumbs} header='Мой профиль' />
+    <BasicPage title="Мой профиль" className="main-content max-w-6xl mx-auto px-4">
+      <PageHeader pages={breadcrumbs} header="Мой профиль" />
     </BasicPage>
-  )
+  );
 };
 
 export default Profile;

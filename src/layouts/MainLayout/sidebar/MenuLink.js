@@ -1,11 +1,11 @@
-import {Link, useLocation} from "react-router-dom";
-import React, {useEffect, useState} from "react";
+import { Link, useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import { classNames } from "../../../utils/classNames";
 import Badge from "../../../components/Badge";
 
-const MenuLink = ({item, sidebar}) => {
+const MenuLink = ({ item, sidebar }) => {
   /** Текущий элемент меню */
-  const [activeItem, setActiveItem] = useState(null)
+  const [activeItem, setActiveItem] = useState(null);
 
   /** Текущее местоположение в адресной строке
    * @type {Location<LocationState>}
@@ -14,24 +14,24 @@ const MenuLink = ({item, sidebar}) => {
   const currentURL = useLocation().pathname;
 
   useEffect(() => {
-    setActiveItem(currentURL)
+    setActiveItem(currentURL);
     // eslint-disable-next-line
-  }, [location])
+  }, [location]);
 
   return (
     <div
       key={item.id}
-      className='my-2'
+      className="my-2"
     >
       {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
       <Link
         to={item.alias}
-        title={sidebar?.toString() === '0' ? item.pagetitle : null}
-        className={classNames(item.alias === activeItem || `/${  item.alias}` === activeItem
+        title={sidebar?.toString() === "0" ? item.pagetitle : null}
+        className={classNames(item.alias === activeItem || `/${item.alias}` === activeItem
             ? "bg-emerald-500/20 text-emerald-800 dark:text-emerald-200 flex"
             : "flex text-gray-600 dark:text-gray-400 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700",
           "menu-item flex items-center py-2 text-base leading-6 rounded-lg font-medium",
-          sidebar?.toString() === '0'
+          sidebar?.toString() === "0"
             ? "justify-center"
             : "px-2"
         )}
@@ -50,18 +50,18 @@ const MenuLink = ({item, sidebar}) => {
       >
         {/** Значок элемента, если меню узкое, отступ убирается */}
         <i className={classNames(
-          sidebar?.toString() === '0'
+          sidebar?.toString() === "0"
             ? ""
             : "mr-3",
           "flex-shrink-0 flex items-center text-2xl mdi relative",
           item.icon)
         }
         >
-          {item.badgeColor && sidebar?.toString() === '0'
+          {item.badgeColor && sidebar?.toString() === "0"
             ? (
               <span className={classNames(
                 "absolute top-0.5 right-0 inline-flex items-center w-2 h-2 rounded-full text-xs font-medium bg-red-400",
-                sidebar?.toString() === '0'
+                sidebar?.toString() === "0"
                   ? ""
                   : "ml-auto"
               )
@@ -70,15 +70,16 @@ const MenuLink = ({item, sidebar}) => {
             : null}
         </i>
         {/** Название элемента меню, если меню узкое, не отрисовывается */}
-        {sidebar?.toString() === '1'
+        {sidebar?.toString() === "1"
           ? <span className="text-sm font-medium">{item.pagetitle}</span>
           : ""}
         {/** Отрисовка бейджа для меню */}
-        {item.badgeColor && sidebar?.toString() === '1'
+        {item.badgeColor && sidebar?.toString() === "1"
           ? (
-            <Badge size='small' shape='rounded' color={item.badgeColor || 'red'} item={item.badgeText} className={sidebar?.toString() === '0'
-              ? ""
-              : "ml-auto"}/>
+            <Badge size="small" shape="rounded" color={item.badgeColor || "red"} item={item.badgeText}
+                   className={sidebar?.toString() === "0"
+                     ? ""
+                     : "ml-auto"} />
           )
           : null
         }

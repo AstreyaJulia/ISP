@@ -21,7 +21,7 @@ const MenuItems = (props) => {
   const Components = {
     MenuLink,
     MenuGroup,
-    MenuSectionHeader,
+    MenuSectionHeader
   };
 
   /** Рендер элементов меню */

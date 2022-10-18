@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import {Dialog, Transition} from "@headlessui/react";
+import { Dialog, Transition } from "@headlessui/react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import { Avatar } from "../../../components/Avatar";
 import { classNames } from "../../../utils/classNames";
@@ -15,13 +15,13 @@ const Sidebar = (props) => {
   const {
     menuData,
     menuVisibility,
-    setMenuVisibility,
+    setMenuVisibility
   } = props;
 
   /** Стейты */
-  const [groupOpen, setGroupOpen] = useState([])
-  const [groupActive, setGroupActive] = useState([])
-  const [currentActiveGroup, setCurrentActiveGroup] = useState([])
+  const [groupOpen, setGroupOpen] = useState([]);
+  const [groupActive, setGroupActive] = useState([]);
+  const [currentActiveGroup, setCurrentActiveGroup] = useState([]);
   const { sidebar } = useAuth();
 
   return (
@@ -42,7 +42,7 @@ const Sidebar = (props) => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Dialog.Overlay className="fixed inset-0 bg-gray-600 bg-opacity-75"/>
+            <Dialog.Overlay className="fixed inset-0 bg-gray-600 bg-opacity-75" />
           </Transition.Child>
           <Transition.Child
             as={Fragment}
@@ -67,12 +67,13 @@ const Sidebar = (props) => {
                 <div className="absolute top-0 right-0 mr-4 pt-4">
                   <button
                     type="button"
-                    value='1'
+                    value="1"
                     className="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
                     onClick={() => setMenuVisibility(false)}
                   >
                     <span className="sr-only">Закрыть сайдбар</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-6 w-6 text-gray-800 dark:text-gray-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
+                         stroke="currentColor" className="h-6 w-6 text-gray-800 dark:text-gray-100">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                   </button>
@@ -83,7 +84,7 @@ const Sidebar = (props) => {
                   <div className="flex-shrink-0">
                     <Avatar size="10" avatar={logo} shape="roundedMD"
                             classname="border border-gray-300 dark:border-gray-600 shadow"
-                            name={COURT_NAME}/>
+                            name={COURT_NAME} />
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm text-gray-600 dark:text-gray-300 flex-wrap font-medium line-clamp-2 w-48">
@@ -98,11 +99,11 @@ const Sidebar = (props) => {
               >
                 <PerfectScrollbar
                   className="main-menu-content"
-                  options={{wheelPropagation: false}}
+                  options={{ wheelPropagation: false }}
                 >
                   <div className="px-4">
                     <MenuSectionHeader sidebar={sidebar}
-                                          item={{header: "Главное меню"}}/>
+                                       item={{ header: "Главное меню" }} />
                     <MenuItems
                       items={menuData}
                       groupOpen={groupOpen}
@@ -127,7 +128,7 @@ const Sidebar = (props) => {
       {/** Десктопное меню */}
       <div
         className={classNames(
-          sidebar?.toString() === '0' ? "lg:w-20" : "lg:w-64",
+          sidebar?.toString() === "0" ? "lg:w-20" : "lg:w-64",
           "sidebar-menu relative hidden lg:flex lg:flex-col lg:fixed lg:inset-y-0"
         )}
       >
@@ -139,12 +140,12 @@ const Sidebar = (props) => {
             )}
           >
             <div className="flex items-center space-x-4 w-full">
-              <div className={classNames("flex-shrink-0", sidebar?.toString() === '0' ? "" : "justify-center")}>
+              <div className={classNames("flex-shrink-0", sidebar?.toString() === "0" ? "" : "justify-center")}>
                 <Avatar size="10" avatar={logo} shape="roundedMD"
                         classname="border border-gray-300 dark:border-gray-600 shadow"
-                        name={COURT_NAME}/>
+                        name={COURT_NAME} />
               </div>
-              {sidebar?.toString() === '1' ? (
+              {sidebar?.toString() === "1" ? (
                 <div className="flex-1 min-w-0">
                   <p className="text-sm text-gray-600 dark:text-gray-300 flex-wrap font-medium line-clamp-2">
                     {COURT_NAME}
@@ -159,12 +160,12 @@ const Sidebar = (props) => {
           >
             <PerfectScrollbar
               className="main-menu-content"
-              options={{wheelPropagation: false}}
+              options={{ wheelPropagation: false }}
             >
               <div
                 className={classNames(
                   "px-3",
-                  sidebar?.toString() === '0' ? "justify-center" : ""
+                  sidebar?.toString() === "0" ? "justify-center" : ""
                 )}
               >
                 <MenuItems

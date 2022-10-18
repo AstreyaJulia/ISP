@@ -35,25 +35,25 @@ export const PATH_CASE = {
     overPeriod: path(ROOTS_CASE, "/over-period"), // Рассмотренные свыше срока
     process: path(ROOTS_CASE, "/process"), // В производстве
     finished: path(ROOTS_CASE, "/finished"), // Оконченные
-    archive: path(ROOTS_CASE, "/archive"), // Архив
+    archive: path(ROOTS_CASE, "/archive") // Архив
   },
   case: {
-    view: (id) => path(ROOTS_CASE, `/case/${id}/view`), // Просмотр данных по делу
+    view: (id) => path(ROOTS_CASE, `/case/${id}/view`) // Просмотр данных по делу
   },
   publication: {
     list: path(ROOTS_CASE, "/publication"), // Данные по публикации
-    notLoaded: path(ROOTS_CASE, "/publication/not-loaded"), // Неопубликованные
-  },
+    notLoaded: path(ROOTS_CASE, "/publication/not-loaded") // Неопубликованные
+  }
 };
 
 // Корреспонденция
 export const PATH_MAIL = {
-  list: path(ROOTS_MAIL, "/list"), // Список
+  list: path(ROOTS_MAIL, "/list") // Список
 };
 
 // Планировщик
 export const PATH_PLANING = {
-  root: ROOTS_PLANING, // Календарь + задачи
+  root: ROOTS_PLANING // Календарь + задачи
 };
 
 // Информация
@@ -65,23 +65,23 @@ export const PATH_INFO = {
       list: path(ROOTS_INFO, "/proxy-list"), // Каталог ссылок
       group: {
         edit: (id) => path(ROOTS_INFO, `/proxy-list/group/${id}/edit`), // Правка группы администратором
-        new: path(ROOTS_INFO, "/proxy-list/group/new"), // Добавление группы администратором
+        new: path(ROOTS_INFO, "/proxy-list/group/new") // Добавление группы администратором
 
       },
       link: {
         edit: (id) => path(ROOTS_INFO, `/proxy-list/link/${id}/edit`), // Правка ссылки администратором
-        new: path(ROOTS_INFO, "/proxy-list/link/new"), // Добавление ссылки администратором
-      },
+        new: path(ROOTS_INFO, "/proxy-list/link/new") // Добавление ссылки администратором
+      }
     },
-    faq: path(ROOTS_INFO, "/faq"), // База знаний
-  },
+    faq: path(ROOTS_INFO, "/faq") // База знаний
+  }
 };
 
 // Сотрудники, телефоны суда
 export const PATH_USERS = {
   list: path(ROOTS_USERS, "/list"), // Список
   user: {
-    root: path(ROOTS_USERS, "/user/profile"), // Профиль пользователя для просмотра, ограниченные данные
+    root: path(ROOTS_USERS, "/user/profile") // Профиль пользователя для просмотра, ограниченные данные
   }
 };
 
@@ -100,11 +100,11 @@ export const PATH_ADMIN = {
 // Авторизация
 export const PATH_AUTH = {
   login: path(ROOTS_AUTH, "/login"), // Вход
-  register: path(ROOTS_AUTH, "/register"), // Регистрация
+  register: path(ROOTS_AUTH, "/register") // Регистрация
 };
 
 // Ошибки
 export const PATH_ERRORS = {
   404: path(ROOTS_ERRORS, "/404"), // Страница не найдена
-  500: path(ROOTS_ERRORS, "/500"), // Ошибка на стороне сервера
+  500: path(ROOTS_ERRORS, "/500") // Ошибка на стороне сервера
 };

@@ -1,6 +1,6 @@
-import React, {Fragment, useContext, useState} from "react";
-import {Dialog, Transition} from "@headlessui/react";
-import {Helmet} from "react-helmet";
+import React, { Fragment, useContext, useState } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { Helmet } from "react-helmet";
 import { APP_NAME } from "../../../config";
 import PageHeader from "../../../components/PageHeader";
 import { classNames } from "../../../utils/classNames";
@@ -47,24 +47,25 @@ export default function ContentLayoutWithSidebar({
   return (
     <>
       {/* Контекст для передачи в дочерние элементы */}
-      <ContextContainer.Provider value={{sidebarOpen, setSidebarOpen, boxed, header, sidebarSize, meta}}>
+      <ContextContainer.Provider value={{ sidebarOpen, setSidebarOpen, boxed, header, sidebarSize, meta }}>
         <Helmet>
           <title>{`${title} | ${APP_NAME}`}</title>
           {meta}
         </Helmet>
-        <div className={fullHeight ? "main-content max-w-6xl mx-auto px-3 full-height-page flex flex-col" : "min-h-full"}>
+        <div
+          className={fullHeight ? "main-content max-w-6xl mx-auto px-3 full-height-page flex flex-col" : "min-h-full"}>
           <PageHeader pages={breadcrumbs} header={header}>
             {/* Сюда можно тоже вставить разметку, например, кнопки */}
           </PageHeader>
           <div
-            className={classNames(" flex-grow w-full flex overflow-y-auto relative rounded-lg mt-5", boxed ? "max-w-6xl mx-auto" : '')}>
+            className={classNames(" flex-grow w-full flex overflow-y-auto relative rounded-lg mt-5", boxed ? "max-w-6xl mx-auto" : "")}>
             {/* Дочерние компоненты */}
             {children}
           </div>
         </div>
       </ContextContainer.Provider>
     </>
-  )
+  );
 }
 
 /** Отрисовщик содержимого
@@ -73,7 +74,7 @@ export default function ContentLayoutWithSidebar({
  * @constructor
  */
 const Body = (props) => {
-  const {setSidebarOpen} = useContext(ContextContainer);
+  const { setSidebarOpen } = useContext(ContextContainer);
   return (
     <>
       <div className="flex flex-col flex-1 overflow-hidden">
@@ -85,7 +86,8 @@ const Body = (props) => {
               onClick={() => setSidebarOpen(true)}
             >
               <span className="sr-only">Открыть меню</span>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
+                   stroke="currentColor" className="w-6 h-6">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
               </svg>
             </button>
@@ -97,8 +99,8 @@ const Body = (props) => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
 /** Отрисовщик сайдбара
  * @param props
@@ -106,7 +108,7 @@ const Body = (props) => {
  * @constructor
  */
 const Sidebar = (props) => {
-  const {sidebarOpen, setSidebarOpen, boxed, header, sidebarSize} = useContext(ContextContainer);
+  const { sidebarOpen, setSidebarOpen, boxed, header, sidebarSize } = useContext(ContextContainer);
 
   const sidebarSizes = {
     small: {
@@ -121,7 +123,7 @@ const Sidebar = (props) => {
       mobile: "max-w-md",
       desktop: "lg:w-96"
     }
-  }
+  };
 
   return (
     <>
@@ -138,7 +140,7 @@ const Sidebar = (props) => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Dialog.Overlay className="bg-gray-600 bg-opacity-75"/>
+            <Dialog.Overlay className="bg-gray-600 bg-opacity-75" />
           </Transition.Child>
           <Transition.Child
             as={Fragment}
@@ -167,7 +169,8 @@ const Sidebar = (props) => {
                     onClick={() => setSidebarOpen(false)}
                   >
                     <span className="sr-only">Закрыть меню</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-6 w-6 text-gray-700 dark:text-gray-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
+                         stroke="currentColor" className="h-6 w-6 text-gray-700 dark:text-gray-200">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                   </button>
@@ -193,8 +196,8 @@ const Sidebar = (props) => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
 /** Компонент меню/сайдбара, в разметке первый
  * @param props

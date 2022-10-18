@@ -70,13 +70,11 @@ const PublicationControl = ({ data }) => {
     </div>
   </div>;
 
-  const filter = (rows, query, columns) => {
-    return rows.filter((row) =>
-      columns.slice(2, 6).filter((item) => item !== "JUDGE_NAME" && item !== "JUDGE_ID").some(
-        (column) => row[column].toLowerCase().indexOf(query.toLowerCase()) > -1
-      )
-    );
-  };
+  const filter = (rows, query, columns) => rows.filter((row) =>
+    columns.slice(2, 6).filter((item) => item !== "JUDGE_NAME" && item !== "JUDGE_ID").some(
+      (column) => row[column].toLowerCase().indexOf(query.toLowerCase()) > -1
+    )
+  );
 
   const judgeSelectChangeHandler = (evt) => {
     setSelectedJudge(evt.target.value);
