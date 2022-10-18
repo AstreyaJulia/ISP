@@ -54,7 +54,7 @@ class Helpers extends Router
   public function validateIdGAS()
   {
     try {
-      if (!$this->getIdGAS()) {
+      if (!$this->idGAS) {
         throw new \Exception("Недостаточно прав для просмотра данного ресурса");
       }
     } catch (\Exception $e) {

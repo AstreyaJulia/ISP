@@ -23,12 +23,12 @@ function route($helpers) {
         switch ($helpers->getUrlData()[1]) {
           case "login-data": {
             $userLoginData["data"] = [
-              "id" => $helpers->getId(),
+              "id" => $helpers->id,
               "sudo" => $helpers->getSudo(),
-              "username" => $helpers->getUsername(),
-              "fullname" => $helpers->getFullname(),
-              "sidebar" => $helpers->getSidebar(),
-              "theme" => $helpers->getTheme()];
+              "username" => $helpers->username,
+              "fullname" => $helpers->fullname,
+              "sidebar" => $helpers->sidebar,
+              "theme" => $helpers->theme];
             $helpers->getJsonEncode($userLoginData);
             break;
           }

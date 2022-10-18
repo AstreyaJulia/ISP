@@ -4,14 +4,14 @@
 
   class User {
 
-    private $id;
-    private $idGAS;
-    private $username;
+    public readonly int $id;
+    public readonly int|NULL $idGAS;
+    public readonly string $username;
     private $password;
-    private $fullname;
+    public readonly string|NULL $fullname;
     private $sudo;
-    private $sidebar;
-    private $theme;
+    public readonly int $sidebar;
+    public readonly int $theme;
     private $profession;
     private $membership;
 
@@ -21,43 +21,7 @@
       private JWT $classJWT = new JWT
     ) 
     {
-      //$this->classJWT = new JWT;
-    }
 
-    /**
-     * get элемент для id
-     *
-     * @return int
-     */
-    public function getId() {
-      return $this->id;
-    }
-
-    /**
-     * get элемент для idGAS
-     *
-     * @return int
-     */
-    public function getIdGAS() {
-      return $this->idGAS;
-    }
-
-    /**
-     * get элемент для username
-     *
-     * @return int
-     */
-    public function getUsername() {
-      return $this->username;
-    }
-
-    /**
-     * get элемент для fullname
-     *
-     * @return int
-     */
-    public function getFullname() {
-      return $this->fullname;
     }
 
     /**
@@ -67,24 +31,6 @@
      */
     public function getSudo() {
       return $this->sudo;
-    }
-
-    /**
-     * get элемент для sidebar
-     *
-     * @return int
-     */
-    public function getSidebar() {
-      return $this->sidebar;
-    }
-
-    /**
-     * get элемент для theme
-     *
-     * @return int
-     */
-    public function getTheme() {
-      return $this->theme;
     }
 
     /**

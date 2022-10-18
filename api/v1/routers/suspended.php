@@ -9,7 +9,7 @@ function route($helpers) {
     switch (count($helpers->getUrlData())) {
 
       case 1: {
-        $output["data"] = $helpers::sendGET(["idJudge" => $helpers->getIdGAS()], 'http://192.168.2.253:8079/api_GAS/'.$helpers->getRouter().'?');
+        $output["data"] = $helpers::sendGET(["idJudge" => $helpers->idGAS], 'http://192.168.2.253:8079/api_GAS/'.$helpers->getRouter().'?');
 
         // вывод в json-формате
         $helpers->getJsonEncode($output);
