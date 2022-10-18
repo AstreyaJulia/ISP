@@ -36,7 +36,7 @@ const DataTableCore = ({
    * @returns {*}
    */
   function sortFunction(column, asc, rows) {
-    return rows?.sort((a, b) => {
+    return rows ?? [].sort((a, b) => {
       /* eslint-disable-next-line */
       if (!isNaN(a[column]) || !isNaN(parseInt(a[column]))) {
         if (parseInt(a[column], 10) > parseInt(b[column], 10)) return asc ? -1 : 1;
@@ -55,7 +55,7 @@ const DataTableCore = ({
    */
   function filterFunction(rows) {
     return rows?.filter((row) =>
-      columns.some(
+      columns?.some(
         (column) => row[column].toLowerCase().indexOf(query.toLowerCase()) > -1
       )
     );
@@ -63,11 +63,11 @@ const DataTableCore = ({
 
   function sort(rows) {
     const { column, asc } = sortedBy;
-    return sortCallback ? sortCallback(column, asc, rows) : sortFunction(column, asc, rows);
+    return sortCallback ? sortCallback(column, asc, rows ?? []) : sortFunction(column, asc, rows ?? []);
   }
 
   function filter(rows) {
-    return filterCallback ? filterCallback(rows, query, columns) : filterFunction(rows);
+    return filterCallback ? filterCallback(rows ?? [], query, columns) : filterFunction(rows ?? []);
   }
 
   const sortFilter = () => sort(filter(rows));
@@ -258,6 +258,7 @@ const DataTableCore = ({
                           d="M12 19C15.866 19 19 15.866 19 12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12C5 15.866 8.13401 19 12 19ZM12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" />
                     <path d="M2 12C2 6.47715 6.47715 2 12 2V5C8.13401 5 5 8.13401 5 12H2Z" />
                   </svg>
+                  <p className='text-gray-600 dark:text-gray-4000 font-medium text-sm'>Загрузка</p>
                 </div>
               </td>
             </tr>
@@ -296,6 +297,7 @@ const DataTableCore = ({
                       d="M12 19C15.866 19 19 15.866 19 12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12C5 15.866 8.13401 19 12 19ZM12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" />
                 <path d="M2 12C2 6.47715 6.47715 2 12 2V5C8.13401 5 5 8.13401 5 12H2Z" />
               </svg>
+              <p className='text-gray-600 dark:text-gray-400 font-medium text-sm'>Загрузка</p>
             </div> : sortFilter().length > 0 ? sortFilter()
                 .slice(currentPage * elementsPerPage, (currentPage + 1) * elementsPerPage)
                 .map((item, key) => makeItem(item, key, query))
