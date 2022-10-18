@@ -13,7 +13,6 @@ const Finished = () => {
     const { cases, isLoading, error } = useSelector((state) => state.overperiod);
 
     useEffect(() => {
-        // console.log(getAllOverPeriodCases());
         dispatch(getAllOverPeriodCases());
     }, [dispatch]);
 

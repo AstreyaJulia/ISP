@@ -1,5 +1,7 @@
 import React from "react";
 import ReactApexChart from 'react-apexcharts';
+import { Link } from "react-router-dom";
+
 import BasicPage from "../pagesLayouts/BasicPage";
 import PageHeader from "../../components/PageHeader";
 import CategoryDataTable from "../../components/DataTable/CategoryDataTable";
@@ -10,9 +12,33 @@ import CardWithLeftIcon from "../../components/CardWithLeftIcon";
 import {getAmount} from "../../utils/getAmount";
 import {fNumber} from "../../utils/formatNumber";
 import {BaseChartOptions} from "../../components/ApexCharts/chartsSettings";
-import useAuth from "../../hooks/useAuth";
+import { classNames } from "../../utils/classNames";
 
 const CHART_DATA = [4344, 5435, 1443, 4443];
+const actions = [
+  {
+    title: 'Дел с нарушением срока',
+    href: '#',
+    icon: "mdi-clock-outline",
+    col: 1,
+    color: 'red'
+  },
+  {
+    title: 'Не отмечен результат события',
+    href: '#',
+    icon: "mdi-check-circle-outline",
+    col: 1,
+    color: 'indigo'
+  },
+  {
+    title: 'Не сдано в канцелярию',
+    href: '#',
+    icon: "mdi-flag-remove-outline",
+    col: 1,
+    color: 'blue'
+  },
+]
+
 
 const Stats = () => {
 
@@ -61,7 +87,7 @@ const Stats = () => {
             <div className='flex items-center justify-between'>
               <h3 className='text-sm uppercase font-bold text-gray-500'>Дела c нарушением срока рассмотрения</h3>
             </div>
-            <div className='rounded-full border-3 border-red-300 flex '>
+            <div className='rounded-full border-2 border-red-500 flex items-center justify-center '>
               <span>1</span>
             </div>
           </Card>
@@ -163,6 +189,39 @@ const Stats = () => {
         <div>
           <ReactApexChart type="pie" series={CHART_DATA} options={chartOptions} height={280}/>
         </div>
+        <div className='grid grid-cols-2 mt-4 gap-4'>
+          <div
+            className="mt-3 rounded-lg bg-gray-200 dark:bg-gray-700 overflow-hidden shadow divide-y divide-gray-200 dark:divide-gray-700 sm:divide-y-0 sm:grid sm:grid-cols-2 sm:gap-px">
+            {actions.map((action, actionIdx) => (
+              <div
+                key={action.title}
+                className={classNames(
+                  actionIdx === 0 ? 'rounded-tl-lg rounded-tr-lg sm:rounded-tr-none' : '',
+                  actionIdx === 1 ? 'sm:rounded-tr-lg' : '',
+                  actionIdx === actions.length - 2 ? 'sm:rounded-bl-lg' : '',
+                  actionIdx === actions.length - 1 ? 'rounded-bl-lg rounded-br-lg sm:rounded-bl-none' : '',
+                  'relative group bg-white dark:bg-gray-900 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500'
+                )}
+              >
+                <Link to={action.href} className="w-full focus:outline-none min-w-0">
+                  <div className="flex items-center p-3">
+                    <Avatar name='' size="14" color={action.color} icon={<i className={['text-2xl mdi', action.icon].join(' ')} />} shape="roundedLG" classname="flex-shrink-0" />
+                    <div className="min-w-0 flex flex-col ml-3 text-sm">
+                      <span className="line-clamp-3">{action.title}</span>
+                      <p className="text-gray-500 truncate">{action.col} {`${getAmount(action.col, {
+                        single: "дело",
+                        multi: "дела",
+                        count: "дел"
+                      })}`}</p>
+                    </div>
+
+                  </div>
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+
 
       </BasicPage>
   )
