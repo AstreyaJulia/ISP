@@ -1,4 +1,4 @@
-import { createContext, useEffect, useReducer } from "react";
+import React, { createContext, useEffect, useReducer } from "react";
 import PropTypes from "prop-types";
 import toast from "react-hot-toast";
 import axios from "../utils/axios";
@@ -95,7 +95,7 @@ function AuthProvider({ children }) {
 
   const getUserData = async () => {
     const res = await axios.get("/users/login-data");
-    const { fullname, id, sidebar, sudo, theme, username } = res.data.data;
+    const { fullname, id, sidebar, sudo, theme, username, professionID, professionName } = res.data.data;
 
     dispatch({
       type: "INITIALIZE",
@@ -105,6 +105,8 @@ function AuthProvider({ children }) {
           id, // ид пользователя в базе
           username, // Логин
           fullname, // полное имя
+          professionID: professionName, // ID профессии, может быть null
+          professionName: professionName === null || professionName.toString() === 'null' ? 'Администратор системы' : professionName,
           role: sudo === 1 ? "Администратор" : "Пользователь", // Роль, текстовое значение
           sudo // Права суперпользователя, 0 - пользователь, 1 - администратор
         },
@@ -238,7 +240,7 @@ function AuthProvider({ children }) {
           , { className: toastStyles });
       }
     }).catch((err) => {
-      const error = err.error ? err.error.message : err.toString();
+      const error = err.message ? err.message : err.toString();
       toast(t =>
           <Toast t={t} message={error} type="error" />
         , { className: toastStyles });
@@ -278,6 +280,9 @@ function AuthProvider({ children }) {
     }
   };
 
+  /** Выход
+   * @returns {Promise<void>}
+   */
   const logout = async () => {
     localStorage.removeItem("settings");
     setSession(null);

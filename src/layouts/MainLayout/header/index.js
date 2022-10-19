@@ -11,6 +11,8 @@ import { classNames } from "../../../utils/classNames";
 import { PATH_AUTH, PATH_SETTINGS } from "../../../routes/paths";
 import SearchResults from "./SearchResults";
 import { inboxSearchResults, outboxSearchResults, usersSearchResults } from "../../../@mock/SampleData";
+import {getInitialsOnly} from "../../../utils/getInitials";
+import {getAvatarColor} from "../../../utils/getAvatarColor";
 
 // Sample
 const searchResultsMock = {
@@ -258,7 +260,7 @@ const Header = (props) => {
                 title="Открыть меню пользователя"
                 className="user-dropdown max-w-xs bg-white dark:bg-gray-900 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 lg:p-1 lg:rounded-md lg:hover:bg-gray-50 dark:lg:hover:bg-gray-800">
                 {user?.fullname ?
-                  <Avatar size="10" name={user?.fullname} avatar={user?.avatar} shape="circle" /> :
+                  <Avatar size="10" name={getInitialsOnly(user?.fullname)} color={getAvatarColor(user?.fullname)} avatar={user?.avatar} shape="circle" /> :
                   <Skeleton
                     className="bg-gray-500/30 after:bg-gradient-to-r from-gray-400/10 via-gray-500/10 to-gray-400/10" />}
                 <span

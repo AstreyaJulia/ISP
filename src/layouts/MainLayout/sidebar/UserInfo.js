@@ -6,7 +6,8 @@ import { PATH_PROFILE } from "../../../routes/paths";
 import useAuth from "../../../hooks/useAuth";
 import { Avatar } from "../../../components/Avatar";
 import { classNames } from "../../../utils/classNames";
-import { getInitials } from "../../../utils/getInitials";
+import {getInitials, getInitialsOnly} from "../../../utils/getInitials";
+import {getAvatarColor} from "../../../utils/getAvatarColor";
 
 const UserInfo = () => {
   /** Хуки */
@@ -17,7 +18,7 @@ const UserInfo = () => {
       <Link to={PATH_PROFILE} title="Мой профиль"
             className={classNames("flex items-center rounded-md py-3", sidebar?.toString() === "1" ? "bg-slate-100 dark:bg-slate-800 px-3" : "justify-center")}>
         {user?.fullname ?
-          <Avatar size="10" name={user?.fullname} avatar={user?.avatar} shape="circle" /> :
+          <Avatar size="10" name={getInitialsOnly(user?.fullname)} color={getAvatarColor(user?.fullname)} avatar={user?.avatar} shape="circle" /> :
           <Skeleton
             className="bg-gray-500/30 after:bg-gradient-to-r from-gray-400/10 via-gray-500/10 to-gray-400/10" />}
         {sidebar?.toString() === "1" ?

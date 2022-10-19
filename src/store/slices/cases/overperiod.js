@@ -6,35 +6,35 @@ import { dispatch } from "../../index";
  * @type {{isLoading: string, cases: *[], error: null}}
  */
 const initialState = {
-  isLoading: "false",
+  isLoading: 'false',
   error: null,
   cases: []
 };
 
 const slice = createSlice({
-  name: "casesoverperiod",
+  name: 'casesoverperiod',
   initialState,
   reducers: {
     // Начало загрузки
     startLoading(state) {
-      state.isLoading = "true";
+      state.isLoading = 'true';
     },
 
     // Получили ошибку
     hasError(state, action) {
-      state.isLoading = "false";
+      state.isLoading = 'false';
       state.error = action.payload;
     },
 
     // Получение списка для судьи
     getJudgeOverPeriodSuccess(state, action) {
-      state.isLoading = "false";
+      state.isLoading = 'false';
       state.cases = action.payload;
     },
 
     // Получение списка всех
     getAllOverSuccess(state, action) {
-      state.isLoading = "false";
+      state.isLoading = 'false';
       state.cases = action.payload;
     }
   }
@@ -47,10 +47,11 @@ export function getJudgeOverPeriodCases() {
   return async () => {
     dispatch(slice.actions.startLoading());
     try {
-      const response = await axios.get("/gas-api/deadlines");
+      const response = await axios.get('/gas-api/deadlines');
       dispatch(slice.actions.getJudgeOverPeriodSuccess(response.data.data));
     } catch (error) {
-      dispatch(slice.actions.hasError(error));
+      dispatch(slice.actions.getJudgeOverPeriodSuccess([]));
+      dispatch(slice.actions.hasError(error.message));
     }
   };
 }
@@ -59,10 +60,11 @@ export function getAllOverPeriodCases() {
   return async () => {
     dispatch(slice.actions.startLoading());
     try {
-      const response = await axios.get("/gas-api/deadlines/all");
+      const response = await axios.get('/gas-api/deadlines/all');
       dispatch(slice.actions.getJudgeOverPeriodSuccess(response.data.data));
     } catch (error) {
-      dispatch(slice.actions.hasError(error));
+      dispatch(slice.actions.getJudgeOverPeriodSuccess([]));
+      dispatch(slice.actions.hasError(error.message));
     }
   };
 }

@@ -32,7 +32,7 @@ export const AlertSuccess = Template.bind({});
 AlertError.args = {
   title: "There were 2 errors with your submission",
   alertType: "error",
-  children: <ul role="list" className="list-disc pl-5 space-y-1">
+  children: <ul className="list-disc pl-5 space-y-1">
     <li>Your password must be at least 8 characters</li>
     <li>Your password must include at least one pro wrestling finishing move</li>
   </ul>

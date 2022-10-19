@@ -5,6 +5,8 @@ import { classNames } from "../../../utils/classNames";
 import { Avatar } from "../../Avatar";
 import { getHighlightedText } from "../../../utils/getHighlightedText";
 import useAuth from "../../../hooks/useAuth";
+import {getInitialsOnly} from "../../../utils/getInitials";
+import {getAvatarColor} from "../../../utils/getAvatarColor";
 
 const UsersList = ({ rows }) => {
 
@@ -17,7 +19,7 @@ const UsersList = ({ rows }) => {
     <div key={item.id}
          className={classNames("flex grow items-center p-2 justify-between", key % 2 === 0 ? "" : "bg-slate-100 dark:bg-slate-800")}>
       <div className="flex grow items-center">
-        <Avatar size="10" name={item.fullname} shape="circle" classname="mr-5" />
+        <Avatar size="10" name={getInitialsOnly(item.fullname)} color={getAvatarColor(item.fullname)} shape="circle" classname="mr-5" />
         <div className="flex flex-col items-start mr-7 w-72">
           <p
             className="font-medium text-sm text-indigo-700 dark:text-indigo-200 flex flex-wrap justify-start items-center text-left mb-1">{getHighlightedText(item?.fullname, query)}</p>

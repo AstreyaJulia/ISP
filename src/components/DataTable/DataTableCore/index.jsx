@@ -1,8 +1,8 @@
 import React, { Fragment, useState } from "react";
+import PropTypes from "prop-types";
 import Card from "../../Card";
 import { classNames } from "../../../utils/classNames";
 import { getHighlightedText } from "../../../utils/getHighlightedText";
-import PropTypes from "prop-types";
 
 const DataTableCore = ({
                          header,

@@ -9,8 +9,18 @@ const rootPersistConfig = {
   whitelist: []
 };
 
-const rootReducer = combineReducers({
+const appReducer = combineReducers({
   overperiod
 });
+
+const rootReducer = (state, action) => {
+
+  if (action.type === 'logout') {
+    storage.removeItem('persist:root');
+    return appReducer(undefined, action);
+  }
+
+  return appReducer(state, action)
+}
 
 export { rootPersistConfig, rootReducer };

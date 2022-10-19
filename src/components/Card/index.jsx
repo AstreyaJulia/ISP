@@ -10,7 +10,7 @@ const Card = ({ children, classname }) => (
 
 Card.propTypes = {
   /** Дочерние элементы  */
-  children: PropTypes.object,
+  children: PropTypes.node,
   /** Доп. классы */
   classname: PropTypes.string
 };
