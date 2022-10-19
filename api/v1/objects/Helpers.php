@@ -41,7 +41,7 @@ class Helpers extends Router
    */
   public function validateSudo()
   {
-    if (!$this->getSudo() === 1) {
+    if (!$this->sudo === 1) {
       throw new \Exception("Недостаточно прав");
     }
   }

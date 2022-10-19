@@ -11,7 +11,7 @@ function route($helpers) {
       // GET /ProxyList
       case 1: {
         // если запрос без параметров выдаём полный список
-        $proxylist["data"] = $proxyListClass->getProxyList($helpers->getSudo());
+        $proxylist["data"] = $proxyListClass->getProxyList($helpers->sudo);
         // установим код ответа - 200 OK
         http_response_code(200);
         // вывод в json-формате
@@ -38,7 +38,7 @@ function route($helpers) {
         $helpers::headlinesPOST();
         try {
             // проверяем права пользователя
-            if (!$helpers->getSudo() === 1) {
+            if (!$helpers->sudo === 1) {
                 throw new Exception("Недостаточно прав");
             }
 
@@ -56,7 +56,7 @@ function route($helpers) {
     if ($helpers->getMethod() === 'PUT' && count($helpers->getUrlData()) === 2) {
       try {
         // проверяем права пользователя
-        if (!$helpers->getSudo() === 1) {
+        if (!$helpers->sudo === 1) {
             throw new Exception("Недостаточно прав");
         }
 
@@ -115,7 +115,7 @@ function ProxyListOne($proxyListClass, $helpers) {
         список категорий +
         для категории которой принадлежит ссылка ставим атрибут selected
       */
-      foreach ($proxyListClass->multipleFather($helpers->getSudo()) as $key => $value) {
+      foreach ($proxyListClass->multipleFather($helpers->sudo) as $key => $value) {
         if ($proxylist["data"]["link"][0]["parent_id"]== $value["id"]) {
           $proxylist["data"]["category"][] = [
             "id" => $value["id"],

@@ -9,13 +9,12 @@
     public readonly string $username;
     private $password;
     public readonly string|NULL $fullname;
-    private $sudo;
+    public readonly int $sudo;
     public readonly int $sidebar;
     public readonly int $theme;
     public readonly int|NULL $professionID;
     public readonly string|NULL $professionName;
-    private $membership;
-
+    public readonly int|NULL $membership;
 
     public function __construct(
       public readonly DB $db = new \Api\Objects\DB(DB_NAME, DB_USER, DB_PASS, DB_HOST),
@@ -26,48 +25,24 @@
     }
 
     /**
-     * get элемент для sudo
-     *
-     * @return int
-     */
-    public function getSudo() {
-      return $this->sudo;
-    }
-
-    /**
-     * get элемент для membership
-     *
-     * @return int
-     */
-    public function getMembership() {
-      return $this->membership;
-    }
-
-    /**
      * set элемент для id
-     *
-     * @return int
      */
-    public function setId($id) {
-      $this->id = (int)$id;
+    public function setId(int $id):void {
+      $this->id = $id;
     }
 
     /**
      * set элемент для sudo
-     *
-     * @return int
      */
-    public function setSudo($sudo) {
+    public function setSudo(int $sudo):void {
       $this->sudo = (int)$sudo;
     }
 
     /**
      * set элемент для membership
-     *
-     * @return int
      */
-    public function setMembership($membership) {
-      $this->membership = (int)$membership;
+    public function setMembership(int|NULL $membership):void {
+      $this->membership = $membership;
     }
 
         public function secureJWT ($jwt, $key) {

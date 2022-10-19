@@ -51,7 +51,7 @@ class GasAPI
     private function prepareQuery(array $urlData):array|string
     {
         try {
-            if (empty($this->helpers->idGAS or $this->helpers->getSudo() === 1)) {
+            if (empty($this->helpers->idGAS or $this->helpers->sudo === 1)) {
                 throw new \Exception("Недостаточно прав");
             }
 
@@ -59,7 +59,7 @@ class GasAPI
                 and
                 $urlData["2"] === "all"
                 and
-                (in_array($this->helpers->professionID, [1,2]) or $this->helpers->getSudo() === 1)) {
+                (in_array($this->helpers->professionID, [1,2]) or $this->helpers->sudo === 1)) {
                     $idGAS = $this->helpers->db->run("SELECT UserAttributes.idGAS 
                                             FROM sdc_users
                                             LEFT JOIN sdc_user_attributes AS UserAttributes ON UserAttributes.internalKey=sdc_users.id

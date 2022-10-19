@@ -24,7 +24,7 @@ function route($helpers) {
           case "login-data": {
             $userLoginData["data"] = [
               "id" => $helpers->id,
-              "sudo" => $helpers->getSudo(),
+              "sudo" => $helpers->sudo,
               "username" => $helpers->username,
               "fullname" => $helpers->fullname,
               "professionID" => $helpers->professionID,

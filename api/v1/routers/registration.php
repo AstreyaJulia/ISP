@@ -15,8 +15,8 @@ function route($helpers) {
           "nbf" => $nbf,
           "data" => array(
             "id" => $helpers->id,
-            "sudo" => $helpers->getSudo(),
-            "membership" => $helpers->getMembership()
+            "sudo" => $helpers->sudo,
+            "membership" => $helpers->membership
           )
         );
 

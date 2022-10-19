@@ -13,9 +13,9 @@
       Helpers $helpers = new \Api\Objects\Helpers()
     ) {
       $this->helpers = $helpers;
-      $this->sudo = $helpers->getSudo();
+      $this->sudo = $helpers->sudo;
       $this->profession = $helpers->professionID;
-      $this->membership = $helpers->getMembership();
+      $this->membership = $helpers->membership;
     }
 
     /**
