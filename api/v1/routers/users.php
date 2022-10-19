@@ -27,6 +27,8 @@ function route($helpers) {
               "sudo" => $helpers->getSudo(),
               "username" => $helpers->username,
               "fullname" => $helpers->fullname,
+              "professionID" => $helpers->professionID,
+              "professionName" => $helpers->professionName,
               "sidebar" => $helpers->sidebar,
               "theme" => $helpers->theme];
             $helpers->getJsonEncode($userLoginData);

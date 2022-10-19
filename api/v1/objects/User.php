@@ -12,7 +12,8 @@
     private $sudo;
     public readonly int $sidebar;
     public readonly int $theme;
-    private $profession;
+    public readonly int|NULL $professionID;
+    public readonly string|NULL $professionName;
     private $membership;
 
 
@@ -31,15 +32,6 @@
      */
     public function getSudo() {
       return $this->sudo;
-    }
-
-    /**
-     * get элемент для profession
-     *
-     * @return int
-     */
-    public function getProfession() {
-      return $this->profession;
     }
 
     /**
@@ -102,7 +94,8 @@
                     sdc_users.sudo,
                     sdc_users.sidebar,
                     sdc_users.theme,
-                    UserAttributes.profession,
+                    UserAttributes.profession AS professionID,
+                    sdc_vocation.name AS professionName,
                     sdc_vocation.parent_id AS membership
                   FROM sdc_users
                   LEFT JOIN sdc_user_attributes AS UserAttributes ON UserAttributes.internalKey=sdc_users.id
@@ -119,7 +112,8 @@
         $this->password = $row['password'];
         $this->sidebar = $row['sidebar'];
         $this->theme = $row['theme'];
-        $this->profession = $row['profession'];
+        $this->professionID = $row['professionID'];
+        $this->professionName = $row['professionName'];
       }
       return $row;
     }

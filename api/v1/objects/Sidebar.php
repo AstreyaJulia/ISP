@@ -14,7 +14,7 @@
     ) {
       $this->helpers = $helpers;
       $this->sudo = $helpers->getSudo();
-      $this->profession = $helpers->getProfession();
+      $this->profession = $helpers->professionID;
       $this->membership = $helpers->getMembership();
     }
 
