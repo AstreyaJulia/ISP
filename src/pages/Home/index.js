@@ -19,9 +19,10 @@ const Home = () => {
     <BasicPage title="Главная" className="main-content max-w-6xl mx-auto px-4">
       <div className="grid grid-cols-3 mt-4 gap-4">
         <div>
-          <h5 className='text-gray-700'>{user?.fullname}</h5>
-          <h5 className='text-gray-700'>{user?.professionName}</h5>
-          {user?.professionID !== null ? <CasesOverPeriodWidget rows={cases ?? []} isLoading={isLoading} error={error ?? null} /> : ''}
+          <h5 className="text-gray-700">{user?.fullname}</h5>
+          <h5 className="text-gray-700">{user?.professionName}</h5>
+          {user?.professionID !== null ?
+            <CasesOverPeriodWidget rows={cases ?? []} isLoading={isLoading} error={error ?? null} /> : ""}
         </div>
       </div>
     </BasicPage>

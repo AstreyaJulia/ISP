@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Menu } from "@headlessui/react";
+import PropTypes from "prop-types";
 import DataTableCore from "../DataTableCore";
 import { classNames } from "../../../utils/classNames";
 import { Avatar } from "../../Avatar";
 import { getHighlightedText } from "../../../utils/getHighlightedText";
 import useAuth from "../../../hooks/useAuth";
-import {getInitialsOnly} from "../../../utils/getInitials";
-import {getAvatarColor} from "../../../utils/getAvatarColor";
+import { getInitialsOnly } from "../../../utils/getInitials";
+import { getAvatarColor } from "../../../utils/getAvatarColor";
 
 const UsersList = ({ rows }) => {
 
@@ -19,7 +20,8 @@ const UsersList = ({ rows }) => {
     <div key={item.id}
          className={classNames("flex grow items-center p-2 justify-between", key % 2 === 0 ? "" : "bg-slate-100 dark:bg-slate-800")}>
       <div className="flex grow items-center">
-        <Avatar size="10" name={getInitialsOnly(item.fullname)} color={getAvatarColor(item.fullname)} shape="circle" classname="mr-5" />
+        <Avatar size="10" name={getInitialsOnly(item.fullname)} color={getAvatarColor(item.fullname)} shape="circle"
+                classname="mr-5" />
         <div className="flex flex-col items-start mr-7 w-72">
           <p
             className="font-medium text-sm text-indigo-700 dark:text-indigo-200 flex flex-wrap justify-start items-center text-left mb-1">{getHighlightedText(item?.fullname, query)}</p>
@@ -82,6 +84,7 @@ const UsersList = ({ rows }) => {
               <Menu.Item>
                 {({ active }) => (
                   <button
+                    type="button"
                     className={`${
                       active ? "bg-indigo-500 text-white" : "text-gray-900 dark:text-gray-100"
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
@@ -96,6 +99,13 @@ const UsersList = ({ rows }) => {
         : null}
     </div>
   ;
+
+  makeItem.propTypes = {
+    /** Данные */
+    item: PropTypes.object.isRequired,
+    key: PropTypes.number.isRequired,
+    query: PropTypes.string
+  };
 
   const filter = (rows, query, columns) => rows.filter((row) =>
     columns.slice(1, 2).some(
@@ -121,6 +131,11 @@ const UsersList = ({ rows }) => {
       table={{ isTable: "false", startColumn: null, endColumn: null, columnNames: null, coltosort: [] }}
     />
   );
+};
+
+UsersList.propTypes = {
+  /** Данные */
+  rows: PropTypes.array.isRequired
 };
 
 export default UsersList;

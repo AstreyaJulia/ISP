@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import Skeleton from "react-loading-skeleton";
 import toast from "react-hot-toast";
+import PropTypes from "prop-types";
 import { Avatar } from "../../../components/Avatar";
 import Toast, { toastStyles } from "../../../components/Toast";
 import useAuth from "../../../hooks/useAuth";
@@ -11,8 +12,8 @@ import { classNames } from "../../../utils/classNames";
 import { PATH_AUTH, PATH_SETTINGS } from "../../../routes/paths";
 import SearchResults from "./SearchResults";
 import { inboxSearchResults, outboxSearchResults, usersSearchResults } from "../../../@mock/SampleData";
-import {getInitialsOnly} from "../../../utils/getInitials";
-import {getAvatarColor} from "../../../utils/getAvatarColor";
+import { getInitialsOnly } from "../../../utils/getInitials";
+import { getAvatarColor } from "../../../utils/getAvatarColor";
 
 // Sample
 const searchResultsMock = {
@@ -21,7 +22,7 @@ const searchResultsMock = {
   outbox: outboxSearchResults
 };
 
-const Header = (props) => {
+const Header = ({ setMenuVisibility }) => {
 
   const searchTypes = {
     users: { selectText: "Сотрудники", searchText: "Поиск сотрудников" },
@@ -34,7 +35,6 @@ const Header = (props) => {
     changeSearchType(evt.target.value);
   };
 
-  const { setMenuVisibility } = props;
   const [searchType, changeSearchType] = useState("users");
   const [searchResultsShow, changeSearchResultsShow] = useState(false);
   const [searchQuery, changeSearchQuery] = useState("");
@@ -48,6 +48,7 @@ const Header = (props) => {
   const MenuToggler = () => {
     if (sidebar?.toString() === "0") {
       return (<button
+        type="button"
         value={1}
         className="hidden lg:flex items-center justify-center sidebar-collapse-button bg-white dark:bg-gray-900 p-1 rounded-full text-gray-400 dark:text-gray-500 dark:hover:text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
         onClick={() => onChangeMenuCollapsed(1)}
@@ -68,6 +69,7 @@ const Header = (props) => {
       </button>);
     }
     return (<button
+      type="button"
       className="sidebar-collapse-button bg-white dark:bg-gray-900 p-1 rounded-full text-gray-400 dark:text-gray-500 dark:hover:text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
       value={0}
       onClick={() => onChangeMenuCollapsed(0)}
@@ -260,7 +262,8 @@ const Header = (props) => {
                 title="Открыть меню пользователя"
                 className="user-dropdown max-w-xs bg-white dark:bg-gray-900 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 lg:p-1 lg:rounded-md lg:hover:bg-gray-50 dark:lg:hover:bg-gray-800">
                 {user?.fullname ?
-                  <Avatar size="10" name={getInitialsOnly(user?.fullname)} color={getAvatarColor(user?.fullname)} avatar={user?.avatar} shape="circle" /> :
+                  <Avatar size="10" name={getInitialsOnly(user?.fullname)} color={getAvatarColor(user?.fullname)}
+                          avatar={user?.avatar} shape="circle" /> :
                   <Skeleton
                     className="bg-gray-500/30 after:bg-gradient-to-r from-gray-400/10 via-gray-500/10 to-gray-400/10" />}
                 <span
@@ -330,6 +333,10 @@ const Header = (props) => {
         </div>
       </div>
     </div>);
+};
+
+Header.propTypes = {
+  setMenuVisibility: PropTypes.func.isRequired
 };
 
 export default Header;

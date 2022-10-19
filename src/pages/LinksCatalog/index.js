@@ -112,6 +112,7 @@ const LinksCatalog = () => {
                         <Menu.Item>
                           {({ active }) => (
                             <button
+                              type="button"
                               onClick={openModalHandle}
                               className={`${
                                 active ? "bg-indigo-500 text-white" : "text-gray-900 dark:text-gray-100"
@@ -211,6 +212,7 @@ const LinksCatalog = () => {
                           <Menu.Item>
                             {({ active }) => (
                               <button
+                                type="button"
                                 onClick={openModalHandle}
                                 className={`${
                                   active ? "bg-indigo-500 text-white" : "text-gray-900 dark:text-gray-100"

@@ -15,12 +15,12 @@ const appReducer = combineReducers({
 
 const rootReducer = (state, action) => {
 
-  if (action.type === 'logout') {
-    storage.removeItem('persist:root');
+  if (action.type === "logout") {
+    storage.removeItem("persist:root");
     return appReducer(undefined, action);
   }
 
-  return appReducer(state, action)
-}
+  return appReducer(state, action);
+};
 
 export { rootPersistConfig, rootReducer };

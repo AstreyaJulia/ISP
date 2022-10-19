@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 import { classNames } from "../../utils/classNames";
 
 /** Заголовок содержимого страницы, "хлебные крошки"
@@ -85,5 +86,12 @@ const PageHeader = ({ pages, classname, header, children }) => (
     </nav>
   </div>
 );
+
+PageHeader.propTypes = {
+  pages: PropTypes.array,
+  classname: PropTypes.string,
+  header: PropTypes.string,
+  children: PropTypes.node
+};
 
 export default PageHeader;

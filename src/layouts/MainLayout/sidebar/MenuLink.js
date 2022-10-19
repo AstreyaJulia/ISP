@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { classNames } from "../../../utils/classNames";
 import Badge from "../../../components/Badge";
 
@@ -7,9 +8,7 @@ const MenuLink = ({ item, sidebar }) => {
   /** Текущий элемент меню */
   const [activeItem, setActiveItem] = useState(null);
 
-  /** Текущее местоположение в адресной строке
-   * @type {Location<LocationState>}
-   */
+  /** Текущее местоположение в адресной строке */
   const location = useLocation();
   const currentURL = useLocation().pathname;
 
@@ -86,6 +85,11 @@ const MenuLink = ({ item, sidebar }) => {
       </Link>
     </div>
   );
+};
+
+MenuLink.propTypes = {
+  item: PropTypes.object.isRequired,
+  sidebar: PropTypes.number.isRequired
 };
 
 export default MenuLink;

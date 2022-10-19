@@ -1,5 +1,6 @@
 import { MoreHorizontal } from "react-feather";
 import React from "react";
+import PropTypes from "prop-types";
 import { classNames } from "../../../utils/classNames";
 
 /** Заголовок группы меню сайдбара
@@ -21,5 +22,11 @@ const MenuSectionHeader = ({ item, sidebar }) =>
     }
     </span>
 ;
+
+MenuSectionHeader.propTypes = {
+  item: PropTypes.object.isRequired,
+  sidebar: PropTypes.number.isRequired
+};
+
 
 export default MenuSectionHeader;

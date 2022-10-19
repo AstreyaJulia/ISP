@@ -1,5 +1,6 @@
 import React from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
+import PropTypes from "prop-types";
 import { getAmount } from "../../../utils/getAmount";
 import { classNames } from "../../../utils/classNames";
 import { getHighlightedText } from "../../../utils/getHighlightedText";
@@ -158,6 +159,14 @@ const SearchResults = ({ show, query, searchQueryClose, searchType, searchresult
       </div>
       : ""
   );
+};
+
+SearchResults.propTypes = {
+  show: PropTypes.bool.isRequired,
+  query: PropTypes.string,
+  searchQueryClose: PropTypes.func.isRequired,
+  searchType: PropTypes.string.isRequired,
+  searchresults: PropTypes.array
 };
 
 export default SearchResults;

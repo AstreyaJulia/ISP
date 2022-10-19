@@ -1,7 +1,6 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Form, Input, Label } from "reactstrap";
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import rocket from "../../../assets/images/pages/cosmonaut-rocket.svg";
 import InputPasswordToggle from "../../../components/PasswordShow";
@@ -19,9 +18,6 @@ const defaultValues = {
 
 const Login = () => {
   const { login } = useAuth();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState(false);
   const isMountedRef = useIsMountedRef();
 
   const {

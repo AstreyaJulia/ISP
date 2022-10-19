@@ -23,6 +23,7 @@ const BasicButton = ({ size, label, onClick, type, className, children, ...props
 
   return (
     <button
+      /* eslint-disable-next-line */
       type={type}
       onClick={onClick}
       className={classNames("inline-flex items-center justify-center bg-white dark:bg-gray-900 border border-gray-300 rounded-md shadow-sm leading-4 font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:border-gray-600 dark:hover:bg-gray-700", sizes[size], className)}

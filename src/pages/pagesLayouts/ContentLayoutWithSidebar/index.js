@@ -1,6 +1,7 @@
 import React, { Fragment, useContext, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Helmet } from "react-helmet";
+import PropTypes from "prop-types";
 import { APP_NAME } from "../../../config";
 import PageHeader from "../../../components/PageHeader";
 import { classNames } from "../../../utils/classNames";
@@ -73,7 +74,7 @@ export default function ContentLayoutWithSidebar({
  * @returns {JSX.Element}
  * @constructor
  */
-const Body = (props) => {
+const Body = ({ children, color }) => {
   const { setSidebarOpen } = useContext(ContextContainer);
   return (
     <>
@@ -93,8 +94,8 @@ const Body = (props) => {
             </button>
           </div>
           <div
-            className={classNames("flex-1 z-0 border border-gray-200 dark:border-gray-600 rounded-lg lg:rounded-l-none lg:border-l-0", props.color === "white" ? "bg-white dark:bg-gray-900" : "bg-gray-100 dark:bg-gray-800")}>
-            {props.children}
+            className={classNames("flex-1 z-0 border border-gray-200 dark:border-gray-600 rounded-lg lg:rounded-l-none lg:border-l-0", color === "white" ? "bg-white dark:bg-gray-900" : "bg-gray-100 dark:bg-gray-800")}>
+            {children}
           </div>
         </div>
       </div>
@@ -102,13 +103,18 @@ const Body = (props) => {
   );
 };
 
+Body.propTypes = {
+  children: PropTypes.node,
+  color: PropTypes.oneOf(["white", "gray"]).isRequired
+};
+
 /** Отрисовщик сайдбара
  * @param props
  * @returns {JSX.Element}
  * @constructor
  */
-const Sidebar = (props) => {
-  const { sidebarOpen, setSidebarOpen, boxed, header, sidebarSize } = useContext(ContextContainer);
+const Sidebar = ({ children }) => {
+  const { sidebarOpen, setSidebarOpen, boxed, sidebarSize } = useContext(ContextContainer);
 
   const sidebarSizes = {
     small: {
@@ -177,7 +183,7 @@ const Sidebar = (props) => {
                 </div>
               </Transition.Child>
               <div className="flex-1 overflow-y-auto">
-                {props.children}
+                {children}
               </div>
             </div>
           </Transition.Child>
@@ -191,12 +197,16 @@ const Sidebar = (props) => {
         <div
           className={["flex-1 flex flex-col min-h-0 border-t border-b border-r border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 border-l rounded-l-lg", boxed ? "" : ""].join(" ")}>
           <div className="flex-1 flex flex-col">
-            {props.children}
+            {children}
           </div>
         </div>
       </div>
     </>
   );
+};
+
+Sidebar.propTypes = {
+  children: PropTypes.node
 };
 
 /** Компонент меню/сайдбара, в разметке первый
@@ -212,3 +222,14 @@ ContentLayoutWithSidebar.Sidebar = (props) => Sidebar(props);
  * @constructor
  */
 ContentLayoutWithSidebar.Body = (props) => Body(props);
+
+ContentLayoutWithSidebar.propTypes = {
+  children: PropTypes.node,
+  boxed: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  breadcrumbs: PropTypes.array,
+  header: PropTypes.string,
+  sidebarSize: PropTypes.string.isRequired,
+  fullHeight: PropTypes.string.isRequired,
+  meta: PropTypes.object
+};

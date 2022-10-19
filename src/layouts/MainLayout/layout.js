@@ -1,5 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
+import PropTypes from "prop-types";
 import Header from "./header";
 import { classNames } from "../../utils/classNames";
 import useAuth from "../../hooks/useAuth";
@@ -29,6 +30,11 @@ const Layout = ({ setMenuVisibility, scrollHandler }) => {
       </div>
     </div>
   );
+};
+
+Layout.propTypes = {
+  setMenuVisibility: PropTypes.func.isRequired,
+  scrollHandler: PropTypes.func.isRequired
 };
 
 export default Layout;

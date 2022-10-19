@@ -105,8 +105,8 @@ function AuthProvider({ children }) {
           id, // ид пользователя в базе
           username, // Логин
           fullname, // полное имя
-          professionID: professionName, // ID профессии, может быть null
-          professionName: professionName === null || professionName.toString() === 'null' ? 'Администратор системы' : professionName,
+          professionID, // ID профессии, может быть null
+          professionName: professionName === null || professionName.toString() === "null" ? "Администратор системы" : professionName,
           role: sudo === 1 ? "Администратор" : "Пользователь", // Роль, текстовое значение
           sudo // Права суперпользователя, 0 - пользователь, 1 - администратор
         },

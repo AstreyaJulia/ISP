@@ -20,14 +20,10 @@ const MainLayout = () => {
   /** Стейт видимости */
   const [visible, setVisible] = useState(false);
 
-  useEffect(() => {
-    setMenuData(navigation);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  });
-
   /** ComponentDidMount */
   useEffect(() => {
     setIsMounted(true);
+    setMenuData(navigation);
     return () => setIsMounted(false);
   }, []);
 
@@ -50,16 +46,18 @@ const MainLayout = () => {
   return (<>
     <div className="h-full">
       {/* Сайдбар меню */}
-      {menuData !== [] ? <Sidebar
-        menuVisibility={menuVisibility}
-        menuData={menuData}
-        setMenuVisibility={setMenuVisibility}
-      /> : <Skeleton count="5"
-                     className="bg-gray-500/30 after:bg-gradient-to-r from-gray-400/10 via-gray-500/10 to-gray-400/10" />}
+      {menuData !== [] ?
+        <Sidebar
+          menuVisibility={menuVisibility}
+          menuData={menuData}
+          setMenuVisibility={setMenuVisibility}
+        /> : <Skeleton count="5"
+                       className="bg-gray-500/30 after:bg-gradient-to-r from-gray-400/10 via-gray-500/10 to-gray-400/10" />}
       <Layout setMenuVisibility={setMenuVisibility} scrollHandler={scrollHandler} />
       {/* Кнопка назад наверх */}
       {visible && (
         <button
+          type="button"
           className="flex fixed px-3 text-white py-2 w-12 h-12 rounded-full z-50 bottom-5 right-6 items-center justify-center bg-indigo-500/70 hover:bg-indigo-700/70 shadow-xl"
           onClick={handleScrollToTop}>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"

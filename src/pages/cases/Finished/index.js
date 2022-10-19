@@ -9,7 +9,7 @@ const Finished = () => {
 
   const dispatch = useDispatch();
 
-  const { cases, isLoading, error } = useSelector((state) => state.overperiod);
+  const { cases, isLoading } = useSelector((state) => state.overperiod);
 
   useEffect(() => {
     dispatch(getAllOverPeriodCases());

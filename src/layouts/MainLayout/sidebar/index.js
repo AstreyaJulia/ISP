@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import PerfectScrollbar from "react-perfect-scrollbar";
+import PropTypes from "prop-types";
 import { Avatar } from "../../../components/Avatar";
 import { classNames } from "../../../utils/classNames";
 import logo from "../../../assets/images/logo/gerbwoframe.svg";
@@ -10,13 +11,7 @@ import MenuItems from "./MenuItems";
 import useAuth from "../../../hooks/useAuth";
 import UserInfo from "./UserInfo";
 
-const Sidebar = (props) => {
-
-  const {
-    menuData,
-    menuVisibility,
-    setMenuVisibility
-  } = props;
+const Sidebar = ({ menuData, menuVisibility, setMenuVisibility }) => {
 
   /** Стейты */
   const [groupOpen, setGroupOpen] = useState([]);
@@ -185,6 +180,12 @@ const Sidebar = (props) => {
     </>
   );
 
+};
+
+Sidebar.propTypes = {
+  menuData: PropTypes.array,
+  menuVisibility: PropTypes.bool.isRequired,
+  setMenuVisibility: PropTypes.func.isRequired
 };
 
 export default Sidebar;

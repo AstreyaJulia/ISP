@@ -13,8 +13,8 @@ import { getAmount } from "../../utils/getAmount";
 import { fNumber } from "../../utils/formatNumber";
 import { BaseChartOptions } from "../../components/ApexCharts/chartsSettings";
 import { classNames } from "../../utils/classNames";
-import {getInitialsOnly} from "../../utils/getInitials";
-import {getAvatarColor} from "../../utils/getAvatarColor";
+import { getInitialsOnly } from "../../utils/getInitials";
+import { getAvatarColor } from "../../utils/getAvatarColor";
 
 const CHART_DATA = [4344, 5435, 1443, 4443];
 const actions = [
@@ -96,7 +96,8 @@ const Stats = () => {
 
         <Card classname="p-4">
           <div className="flex items-center gap-3">
-            <Avatar size="16" name={getInitialsOnly("Иванов Иван Иванович")} color={getAvatarColor("Иванов Иван Иванович")} shape="circle" classname="mr-5" />
+            <Avatar size="16" name={getInitialsOnly("Иванов Иван Иванович")}
+                    color={getAvatarColor("Иванов Иван Иванович")} shape="circle" classname="mr-5" />
             <div className="flex flex-col items-start mr-7 w-72">
               <p
                 className="font-medium text-base text-slate-800 dark:text-slate-200 flex flex-wrap justify-start items-center text-left">Иванов
@@ -141,7 +142,8 @@ const Stats = () => {
               </div>
               <p className="mt-1 text-gray-500 text-sm truncate">Помощник</p>
             </div>
-            <Avatar size="10" name={getInitialsOnly("Иванов Иван Иванович")} color={getAvatarColor("Иванов Иван Иванович")} shape="circle" classname="mr-5" />
+            <Avatar size="10" name={getInitialsOnly("Иванов Иван Иванович")}
+                    color={getAvatarColor("Иванов Иван Иванович")} shape="circle" classname="mr-5" />
           </div>
           <div>
             <div className="-mt-px flex divide-x divide-gray-200">

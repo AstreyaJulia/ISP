@@ -1,5 +1,6 @@
 import { Fragment, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
+import PropTypes from "prop-types";
 
 const DeleteModal = ({ open, setOpen }) => {
 
@@ -83,6 +84,11 @@ const DeleteModal = ({ open, setOpen }) => {
       </Dialog>
     </Transition.Root>
   );
+};
+
+DeleteModal.propTypes = {
+  open: PropTypes.bool.isRequired,
+  setOpen: PropTypes.func.isRequired
 };
 
 export default DeleteModal;

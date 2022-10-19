@@ -9,6 +9,7 @@
 
 /** Кастомные стили для npm модулей */
 @import "./modules/apexcharts.css";
+@import "./modules/fullcalendar.css";
 
 /** Tailwind  */
 @tailwind base;

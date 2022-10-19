@@ -173,6 +173,7 @@ const DataTableCore = ({
           </div>
           <div className="mx-5 flex items-center gap-4">
             <button
+              type="button"
               title="Предыдущая страница"
               onClick={prevPage}
               disabled={currentPage === 0 || sortFilter().length === 0}
@@ -183,6 +184,7 @@ const DataTableCore = ({
               </svg>
             </button>
             <button
+              type="button"
               title="Следующая страница"
               onClick={nextPage}
               disabled={(sortFilter().length / elementsPerPage) - 1 <= currentPage || sortFilter().length === 0}
@@ -214,6 +216,7 @@ const DataTableCore = ({
                   className={classNames("h-5 text-slate-600 dark:text-slate-300 text-sm uppercase pl-4 border-slate-300 dark:border-slate-600 flex", key === 0 ? "" : "border-l-2")}>
                   {coltosort.indexOf(column) !== -1 ?
                     <button
+                      type="button"
                       onClick={() =>
                         setSortedBy((prev) => ({
                           column,
@@ -322,6 +325,7 @@ const DataTableCore = ({
         <div className="mx-5 flex items-center gap-4">
           <button
             title="Предыдущая страница"
+            type="button"
             onClick={prevPage}
             disabled={currentPage === 0 || sortFilter().length === 0}
             className={classNames("bg-white dark:bg-slate-900 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 p-3 lg:rounded-md lg:hover:bg-slate-50 dark:lg:hover:bg-slate-800", currentPage === 0 ? "text-slate-300 dark:text-slate-700" : "text-slate-600 dark:text-slate-300")}>
@@ -332,6 +336,7 @@ const DataTableCore = ({
           </button>
           <button
             title="Следующая страница"
+            type="button"
             onClick={nextPage}
             disabled={(sortFilter().length / elementsPerPage) - 1 <= currentPage || sortFilter().length === 0}
             className={classNames("bg-white dark:bg-slate-900 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 p-3 lg:rounded-md lg:hover:bg-slate-50 dark:lg:hover:bg-slate-800", (sortFilter().length / elementsPerPage) - 1 <= currentPage ? "text-slate-300 dark:text-slate-700" : "text-slate-600 dark:text-slate-300")}>
@@ -351,7 +356,7 @@ DataTableCore.propTypes = {
   /** Заголовок таблицы */
   header: PropTypes.string,
   /** Подзаголовок таблицы */
-  subheader:  PropTypes.string,
+  subheader: PropTypes.string,
   /** Состояние текущей страницы */
   currentPage: PropTypes.number,
   /** Установить текущую страницу */

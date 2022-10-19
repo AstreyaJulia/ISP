@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { compareDesc, intervalToDuration, parse, parseISO } from "date-fns";
 import ru from "date-fns/locale/ru";
+import PropTypes from "prop-types";
 import { Avatar } from "../../Avatar";
 import { caseTypesSettings } from "../../../config";
 import DataTableCore from "../DataTableCore";
@@ -13,7 +14,7 @@ import { getUniqueArrayValuesByKey } from "../../../utils/getArrayValuesByKey";
 const PublicationControl = ({ data }) => {
 
   const [rows, setRows] = useState(data);
-  const [columns, setColumns] = useState(Object.keys(data[0]));
+  const [columns] = useState(Object.keys(data[0]));
   const [selectedJudge, setSelectedJudge] = useState("All");
   const [currentPage, setCurrentPage] = useState(0); // текущая страница
 
@@ -31,7 +32,12 @@ const PublicationControl = ({ data }) => {
 
     if (daysCount <= 5) return "red";
     if (daysCount > 5 && daysCount < 14) return "yellow";
-    if (daysCount >= 14) return "green";
+    return "green";
+  };
+
+  getCaseUntilColor.propTypes = {
+    /** Дата */
+    date: PropTypes.string.isRequired
   };
 
   const makeItem = (item, key, query) => <div key={key}
@@ -126,5 +132,11 @@ const PublicationControl = ({ data }) => {
     </DataTableCore>
   );
 };
+
+PublicationControl.propTypes = {
+  /** Данные */
+  data: PropTypes.array.isRequired
+};
+
 
 export default PublicationControl;

@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import PropTypes from "prop-types";
 import MenuItems from "./MenuItems";
 import { makeArrayFromObj } from "../../../utils/makeArrayFromObj";
 import { classNames } from "../../../utils/classNames";
@@ -115,13 +116,13 @@ const MenuGroup = ({
     setGroupOpen([...openGroup]);
   };
 
-  // ** On Group Item Click
+  /** Клик на группу */
   const onCollapseClick = (e, item) => {
     toggleOpenGroup(item, parentItem);
     e.preventDefault();
   };
 
-  // ** Checks url & updates active item
+  /** Проверяет url и обновляет активный элемент */
   useEffect(() => {
     if (hasActiveChild(item, currentURL)) {
       if (!groupActive.includes(item.id)) groupActive.push(item.id);
@@ -135,7 +136,7 @@ const MenuGroup = ({
     // eslint-disable-next-line
   }, [location]);
 
-  // ** Returns condition to add open class
+  /** Возвращает состояние открытой группы */
   const openClassCondition = (id) => {
     if (sidebar || sidebar?.toString() === "0") {
       if (groupActive.includes(id) || groupOpen.includes(id)) {
@@ -144,9 +145,8 @@ const MenuGroup = ({
       // eslint-disable-next-line
     } else if (groupActive.includes(id) && sidebar) {
       return false;
-    } else {
-      return null;
     }
+    return null;
   };
 
   return (<div key={item.id} className="my-1 w-full">
@@ -192,6 +192,19 @@ const MenuGroup = ({
       </div>
     </>
   </div>);
+};
+
+MenuGroup.propTypes = {
+  item: PropTypes.object.isRequired,
+  groupOpen: PropTypes.array.isRequired,
+  activeItem: PropTypes.object.isRequired,
+  parentItem: PropTypes.object.isRequired,
+  groupActive: PropTypes.array.isRequired,
+  setGroupOpen: PropTypes.func.isRequired,
+  sidebar: PropTypes.number.isRequired,
+  setGroupActive: PropTypes.array.isRequired,
+  currentActiveGroup: PropTypes.array.isRequired,
+  setCurrentActiveGroup: PropTypes.func.isRequired
 };
 
 export default MenuGroup;
