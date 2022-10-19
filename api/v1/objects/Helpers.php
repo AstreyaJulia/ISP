@@ -28,7 +28,7 @@ class Helpers extends Router
    *
    * @return array
    */
-  public static function wrap(array|string|bool|int $data, string $name): array
+  public static function wrap(mixed $data, string $name): array
   {
     $showing[$name] = $data;
     return $showing;
