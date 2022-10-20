@@ -49,7 +49,12 @@ export function getJudgeOverPeriodCases() {
     dispatch(slice.actions.startLoading());
     try {
       const response = await axios.get("/gas-api/deadlines");
-      dispatch(slice.actions.getJudgeOverPeriodSuccess(response.data.data));
+      if (response.data.error.message.length === 0) {
+        dispatch(slice.actions.getJudgeOverPeriodSuccess(response.data.data));
+      } else {
+        dispatch(slice.actions.getJudgeOverPeriodSuccess([]));
+        dispatch(slice.actions.hasError(response.data.error.message));
+      }
     } catch (error) {
       dispatch(slice.actions.getJudgeOverPeriodSuccess([]));
       dispatch(slice.actions.hasError(error.message));
@@ -61,8 +66,13 @@ export function getAllOverPeriodCases() {
   return async () => {
     dispatch(slice.actions.startLoading());
     try {
-      const response = await axios.get("/gas-api/deadlines/all");
-      dispatch(slice.actions.getAllOverSuccess(response.data.data));
+        const response = await axios.get("/gas-api/deadlines/all");
+      if (response.data.error.message.length === 0) {
+        dispatch(slice.actions.getAllOverSuccess(response.data.data));
+      } else {
+        dispatch(slice.actions.getAllOverSuccess([]));
+        dispatch(slice.actions.hasError(response.data.error.message));
+      }
     } catch (error) {
       dispatch(slice.actions.getAllOverSuccess([]));
       dispatch(slice.actions.hasError(error.message));

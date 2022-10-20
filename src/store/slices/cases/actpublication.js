@@ -49,7 +49,12 @@ export function getJudgeActPublicationCases() {
         dispatch(slice.actions.startLoading());
         try {
             const response = await axios.get("/gas-api/sudact");
-            dispatch(slice.actions.getJudgeActPublicationSuccess(response.data.data));
+            if (response.data.error.message.length === 0) {
+                dispatch(slice.actions.getJudgeActPublicationSuccess(response.data.data));
+            } else {
+                dispatch(slice.actions.getJudgeActPublicationSuccess([]));
+                dispatch(slice.actions.hasError(response.data.error.message));
+            }
         } catch (error) {
             dispatch(slice.actions.getJudgeActPublicationSuccess([]));
             dispatch(slice.actions.hasError(error.message));
@@ -62,7 +67,12 @@ export function getAllActPublicationCases() {
         dispatch(slice.actions.startLoading());
         try {
             const response = await axios.get("/gas-api/sudact/all");
-            dispatch(slice.actions.getActPublicationSuccess(response.data.data));
+            if (response.data.error.message.length === 0) {
+                dispatch(slice.actions.getActPublicationSuccess(response.data.data));
+            } else {
+                dispatch(slice.actions.getActPublicationSuccess([]));
+                dispatch(slice.actions.hasError(response.data.error.message));
+            }
         } catch (error) {
             dispatch(slice.actions.getActPublicationSuccess([]));
             dispatch(slice.actions.hasError(error.message));
