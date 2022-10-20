@@ -27,8 +27,8 @@ const Home = () => {
           <h5 className="text-gray-700">{user?.fullname}</h5>
           <h5 className="text-gray-700">{user?.professionName}</h5>
           <div className="flex flex-col gap-4">
-            <CasesOverPeriodWidget data={overperiodcases ?? []} link="/over-period" isLoading={overperiodisLoading}
-                                   error={overperioderror ?? null} />
+            <CasesOverPeriodWidget data={overperiodcases} link="/over-period" isLoading={overperiodisLoading}
+                                   error={overperioderror} />
             <NoPublicatedActs data={nopublacts} error={nopublactserror} link="/publication"
                               isLoading={nopublactsisLoading} />
           </div>

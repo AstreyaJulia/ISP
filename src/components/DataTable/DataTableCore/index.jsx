@@ -376,7 +376,7 @@ DataTableCore.propTypes = {
   makeItem: PropTypes.func,
   makeMenu: PropTypes.func,
   table: PropTypes.object,
-  children: PropTypes.object
+  children: PropTypes.node
 };
 
 export default DataTableCore;

@@ -27,8 +27,8 @@ const Grade = () => {
             <PageHeader pages={breadcrumbs} header="Качество"/>
             <div className="grid grid-cols-3 mt-4 gap-4">
                 <div className='flex flex-col gap-4'>
-                    <CasesOverPeriodWidget data={overperiodcases ?? []} link="/over-period-all" isLoading={overperiodisLoading}
-                                           error={overperioderror ?? null}/>
+                    <CasesOverPeriodWidget data={overperiodcases} link="/over-period-all" isLoading={overperiodisLoading}
+                                           error={overperioderror}/>
                     <NoPublicatedActs data={nopublacts} error={nopublactserror} link="/publication-all" isLoading={nopublactsisLoading}/>
                 </div>
             </div>

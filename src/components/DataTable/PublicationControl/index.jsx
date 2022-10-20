@@ -134,7 +134,7 @@ const PublicationControl = ({ data, isLoading, all }) => {
         </select>
         </div>
         </div>
-      : ''}
+      : <></>}
     </DataTableCore>
   );
 };
