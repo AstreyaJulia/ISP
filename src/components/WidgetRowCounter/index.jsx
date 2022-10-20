@@ -7,6 +7,7 @@ import { getAmount } from "../../utils/getAmount";
 const WidgetRowCounter = ({ rows, isLoading, error, title, color, link, counter: { ...counter } }) => {
 
   return (
+    // eslint-disable-next-line
       error === null ?
         <div
           className="rounded-lg relative group bg-white dark:bg-gray-900 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500 shadow">
