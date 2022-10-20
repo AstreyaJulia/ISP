@@ -11,7 +11,7 @@ const Home = () => {
   const dispatch = useDispatch();
 
   const { overperiodcases, overperiodisLoading, overperioderror } = useSelector((state) => state.overperiod);
-  const {nopublacts, nopublactsisLoading, nopublactserror} = useSelector((state) => state.actpublication);
+  const { nopublacts, nopublactsisLoading, nopublactserror } = useSelector((state) => state.actpublication);
 
   const { user } = useAuth();
 
@@ -26,10 +26,12 @@ const Home = () => {
         <div>
           <h5 className="text-gray-700">{user?.fullname}</h5>
           <h5 className="text-gray-700">{user?.professionName}</h5>
-          {user?.professionID !== null ?
-            <CasesOverPeriodWidget data={overperiodcases ?? []} link="/over-period" isLoading={overperiodisLoading} error={overperioderror ?? null} /> : ""}
-          <NoPublicatedActs data={nopublacts} error={nopublactserror} link="/publication" isLoading={nopublactsisLoading}/>
-
+          <div className="flex flex-col gap-4">
+            <CasesOverPeriodWidget data={overperiodcases ?? []} link="/over-period" isLoading={overperiodisLoading}
+                                   error={overperioderror ?? null} /> : ""
+            <NoPublicatedActs data={nopublacts} error={nopublactserror} link="/publication"
+                              isLoading={nopublactsisLoading} />
+          </div>
         </div>
       </div>
     </BasicPage>
