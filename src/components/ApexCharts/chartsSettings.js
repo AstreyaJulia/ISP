@@ -9,12 +9,12 @@ export function BaseChartOptions() {
   return {
     // Цвета графиков
     colors: [
-      tailwindColorsConfig.theme.colors.indigo["500"],
-      tailwindColorsConfig.theme.colors.amber["500"],
-      tailwindColorsConfig.theme.colors.emerald["500"],
-      tailwindColorsConfig.theme.colors.rose["500"],
-      tailwindColorsConfig.theme.colors.violet["500"],
-      tailwindColorsConfig.theme.colors.cyan["500"]
+      theme === 1 ? tailwindColorsConfig.theme.colors.indigo["500"] : tailwindColorsConfig.theme.colors.indigo["600"],
+      theme === 1 ? tailwindColorsConfig.theme.colors.amber["500"] : tailwindColorsConfig.theme.colors.amber["600"],
+      theme === 1 ? tailwindColorsConfig.theme.colors.emerald["500"] : tailwindColorsConfig.theme.colors.emerald["600"],
+      theme === 1 ? tailwindColorsConfig.theme.colors.rose["500"] : tailwindColorsConfig.theme.colors.rose["600"],
+      theme === 1 ? tailwindColorsConfig.theme.colors.violet["500"] : tailwindColorsConfig.theme.colors.violet["600"],
+      theme === 1 ? tailwindColorsConfig.theme.colors.cyan["500"] : tailwindColorsConfig.theme.colors.cyan["600"]
     ],
 
     // График
