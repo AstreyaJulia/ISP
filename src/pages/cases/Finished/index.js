@@ -3,16 +3,16 @@ import BasicPage from "../../pagesLayouts/BasicPage";
 import PageHeader from "../../../components/PageHeader";
 import CasesOverPeriod from "../../../components/DataTable/CasesOverPeriod";
 import { useDispatch, useSelector } from "../../../store";
-import { getAllOverPeriodCases } from "../../../store/slices/cases/overperiod";
+import { getAllOverPeriodCases, getJudgeOverPeriodCases } from "../../../store/slices/cases/overperiod";
 
-const Finished = () => {
+const Finished = ({all}) => {
 
   const dispatch = useDispatch();
 
   const { overperiodcases, overperiodisLoading } = useSelector((state) => state.overperiod);
 
   useEffect(() => {
-    dispatch(getAllOverPeriodCases());
+    dispatch(all === 'true' ? getAllOverPeriodCases() : getJudgeOverPeriodCases());
   }, [dispatch]);
 
   const breadcrumbs = [{ name: "Делопроизводство", href: "", current: false },

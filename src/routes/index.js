@@ -75,11 +75,21 @@ export default function Router() {
         },
         {
           path: "over-period",
-          element: <Finished />
+          element: <Finished all='false' />
+        },
+        // Все
+        {
+          path: "over-period-all",
+          element: <Finished all='true' />
         },
         {
           path: "publication",
-          element: <Publication />
+          element: <Publication all='false'/>
+        },
+        // Все
+        {
+          path: "publication-all",
+          element: <Publication all='true'/>
         },
         {
           path: "process",
@@ -154,7 +164,7 @@ export default function Router() {
 const Home = Loadable(lazy(() => import("../pages/Home"))); // Главная
 const LinksCatalog = Loadable(lazy(() => import("../pages/LinksCatalog"))); // Каталог ссылок
 const Finished = Loadable(lazy(() => import("../pages/cases/Finished"))); // Оконченные дела
-const Publication = Loadable(lazy(() => import("../pages/Publication"))); // Контроль публикации СА
+const Publication = Loadable(lazy(() => import("../pages/Publication"))); // Контроль публикации СА (для судьи)
 const Process = Loadable(lazy(() => import("../pages/Process"))); // Каталог ссылок
 const Calendar = Loadable(lazy(() => import("../pages/Calendar"))); // Дела в производстве
 const Phonebook = Loadable(lazy(() => import("../pages/Phonebook"))); // Телефонный справочник

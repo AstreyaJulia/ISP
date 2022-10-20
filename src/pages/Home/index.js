@@ -3,16 +3,21 @@ import BasicPage from "../pagesLayouts/BasicPage";
 import CasesOverPeriodWidget from "./widgets/CasesOverPeriodWidget";
 import { useDispatch, useSelector } from "../../store";
 import { getJudgeOverPeriodCases } from "../../store/slices/cases/overperiod";
+import { getJudgeActPublicationCases } from "../../store/slices/cases/actpublication";
 import useAuth from "../../hooks/useAuth";
+import { NoPublicatedActs } from "./widgets/NoPublicatedActs";
 
 const Home = () => {
   const dispatch = useDispatch();
 
   const { overperiodcases, overperiodisLoading, overperioderror } = useSelector((state) => state.overperiod);
+  const {nopublacts, nopublactsisLoading, nopublactserror} = useSelector((state) => state.actpublication);
+
   const { user } = useAuth();
 
   useEffect(() => {
     dispatch(getJudgeOverPeriodCases());
+    dispatch(getJudgeActPublicationCases());
   }, [dispatch]);
 
   return (
@@ -22,7 +27,9 @@ const Home = () => {
           <h5 className="text-gray-700">{user?.fullname}</h5>
           <h5 className="text-gray-700">{user?.professionName}</h5>
           {user?.professionID !== null ?
-            <CasesOverPeriodWidget rows={overperiodcases ?? []} isLoading={overperiodisLoading} error={overperioderror ?? null} /> : ""}
+            <CasesOverPeriodWidget rows={overperiodcases ?? []} link="/over-period" isLoading={overperiodisLoading} error={overperioderror ?? null} /> : ""}
+          <NoPublicatedActs rows={nopublacts} error={nopublactserror} link="/publication" isLoading={nopublactsisLoading}/>
+
         </div>
       </div>
     </BasicPage>
