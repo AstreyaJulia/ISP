@@ -1,21 +1,14 @@
 <?php
 	namespace Api\Objects;
 
-	class Sidebar extends Helpers {
+	class Sidebar {
 
     protected Helpers $helpers;
 
-    private $sudo;
-    private $profession;
-    private $membership;
-
     public function __construct(
-      Helpers $helpers = new \Api\Objects\Helpers()
+        Helpers $helpers = new \Api\Objects\Helpers()
     ) {
-      $this->helpers = $helpers;
-      $this->sudo = $helpers->sudo;
-      $this->profession = $helpers->professionID;
-      $this->membership = $helpers->membership;
+        $this->helpers = $helpers;
     }
 
     /**
@@ -24,7 +17,7 @@
      * @return array
      */
     public function getSidebar() {
-      switch ($this->sudo) {
+      switch ($this->helpers->sudo) {
         case 1:
           $sql = "SELECT * FROM sdc_site_content WHERE class_key != 'Route'";
           break;
@@ -35,8 +28,8 @@
                     `sdc_site_content`
                   WHERE
                     `id` NOT IN (10,11) AND `parent` NOT IN (10,11) AND
-                    (FIND_IN_SET(0, job_access) OR FIND_IN_SET($this->profession, job_access)) AND
-                    (FIND_IN_SET(0, group_access) OR FIND_IN_SET($this->membership, group_access)) AND class_key != 'Route'";
+                    (FIND_IN_SET(0, job_access) OR FIND_IN_SET({$this->helpers->sudo}, job_access)) AND
+                    (FIND_IN_SET(0, group_access) OR FIND_IN_SET({$this->helpers->membership}, group_access)) AND class_key != 'Route'";
       }
         return $this->helpers->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
     }
