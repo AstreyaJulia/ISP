@@ -9,7 +9,6 @@ import { COURT_NAME } from "../../../config";
 import MenuSectionHeader from "./MenuSectionHeader";
 import MenuItems from "./MenuItems";
 import useAuth from "../../../hooks/useAuth";
-import UserInfo from "./UserInfo";
 
 const Sidebar = ({ menuData, menuVisibility, setMenuVisibility }) => {
 
@@ -148,7 +147,6 @@ const Sidebar = ({ menuData, menuVisibility, setMenuVisibility }) => {
                 </div>) : null}
             </div>
           </div>
-          <UserInfo />
           <nav
             className="flex-1 flex flex-col overflow-y-auto"
             aria-label="Меню"

@@ -9,7 +9,7 @@ import { Avatar } from "../../../components/Avatar";
 import Toast, { toastStyles } from "../../../components/Toast";
 import useAuth from "../../../hooks/useAuth";
 import { classNames } from "../../../utils/classNames";
-import { PATH_AUTH, PATH_SETTINGS } from "../../../routes/paths";
+import { PATH_AUTH, PATH_PROFILE, PATH_SETTINGS } from "../../../routes/paths";
 import SearchResults from "./SearchResults";
 import { inboxSearchResults, outboxSearchResults, usersSearchResults } from "../../../@mock/SampleData";
 import { getInitialsOnly } from "../../../utils/getInitials";
@@ -304,6 +304,13 @@ const Header = ({ setMenuVisibility }) => {
                       className="bg-gray-500/30 after:bg-gradient-to-r from-gray-400/10 via-gray-500/10 to-gray-400/10" />}
                 </div>
                 <div className="py-1">
+                  <Menu.Item>
+                    {({ active }) => (<Link
+                      to={PATH_PROFILE}
+                      className={classNames(active ? "bg-gray-100 dark:bg-gray-700" : "", "block px-4 py-2 text-sm text-gray-700 dark:text-gray-400")}>
+                      Мой профиль
+                    </Link>)}
+                  </Menu.Item>
                   <Menu.Item>
                     {({ active }) => (<Link
                       to={PATH_SETTINGS}
