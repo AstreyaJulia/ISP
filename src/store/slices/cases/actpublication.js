@@ -8,7 +8,8 @@ import { dispatch } from "../../index";
 const initialState = {
     nopublactsisLoading: "false",
     nopublactserror: null,
-    nopublacts: []
+    nopublacts: [],
+    nopublactsall: []
 };
 
 const slice = createSlice({
@@ -35,7 +36,7 @@ const slice = createSlice({
         // Получение списка всех
         getActPublicationSuccess(state, action) {
             state.nopublactsisLoading = "false";
-            state.nopublacts = action.payload;
+            state.nopublactsall = action.payload;
         }
     }
 });

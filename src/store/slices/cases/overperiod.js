@@ -8,7 +8,8 @@ import { dispatch } from "../../index";
 const initialState = {
   overperiodisLoading: "false",
   overperioderror: null,
-  overperiodcases: []
+  overperiodcases: [],
+  overperiodcasesall: []
 };
 
 const slice = createSlice({
@@ -35,7 +36,7 @@ const slice = createSlice({
     // Получение списка всех
     getAllOverSuccess(state, action) {
       state.overperiodisLoading = "false";
-      state.overperiodcases = action.payload;
+      state.overperiodcasesall = action.payload;
     }
   }
 });
