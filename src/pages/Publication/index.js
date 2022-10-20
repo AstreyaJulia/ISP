@@ -19,7 +19,7 @@ const Publication = ({all}) => {
   return (
     <BasicPage title="Публикация судебных актов" className="main-content max-w-6xl mx-auto px-4">
       <PageHeader pages={breadcrumbs} header="Публикация судебных актов" />
-      <PublicationControl data={nopublacts ?? []} isLoading={nopublactsisLoading} />
+      <PublicationControl data={nopublacts ?? []} isLoading={nopublactsisLoading} all={all} />
     </BasicPage>
   );
 };

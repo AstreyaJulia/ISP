@@ -27,8 +27,8 @@ const Home = () => {
           <h5 className="text-gray-700">{user?.fullname}</h5>
           <h5 className="text-gray-700">{user?.professionName}</h5>
           {user?.professionID !== null ?
-            <CasesOverPeriodWidget rows={overperiodcases ?? []} link="/over-period" isLoading={overperiodisLoading} error={overperioderror ?? null} /> : ""}
-          <NoPublicatedActs rows={nopublacts} error={nopublactserror} link="/publication" isLoading={nopublactsisLoading}/>
+            <CasesOverPeriodWidget data={overperiodcases ?? []} link="/over-period" isLoading={overperiodisLoading} error={overperioderror ?? null} /> : ""}
+          <NoPublicatedActs data={nopublacts} error={nopublactserror} link="/publication" isLoading={nopublactsisLoading}/>
 
         </div>
       </div>
