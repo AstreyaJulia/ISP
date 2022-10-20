@@ -13,10 +13,8 @@
 
     /**
      * Получаем меню сайдбара
-     * 
-     * @return array
      */
-    public function getSidebar() {
+    public function getSidebar():array {
       switch ($this->helpers->sudo) {
         case 1:
           $sql = "SELECT * FROM sdc_site_content WHERE class_key != 'Route'";
@@ -34,10 +32,12 @@
         return $this->helpers->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    //Получаем меню сайдбара
-    public function readOne() {
+    /**
+     * Получаем запись из меню сайдбара
+     */
+    public function readOne():array {
       try {
-        if ($this->sudo === 1){
+        if ($this->helpers->sudo === 1){
           $id = (int)$this->helpers->getUrlData()[1];
           $sql = "SELECT * FROM sdc_site_content WHERE id = ?";
           return $this->helpers->db->run($sql, [$id])->fetchAll(\PDO::FETCH_ASSOC);
