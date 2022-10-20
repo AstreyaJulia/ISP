@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 import storage from "redux-persist/lib/storage";
 import overperiod from "./slices/cases/overperiod";
+import actpublication from "./slices/cases/actpublication";
 
 const rootPersistConfig = {
   key: "root",
@@ -10,7 +11,8 @@ const rootPersistConfig = {
 };
 
 const appReducer = combineReducers({
-  overperiod
+  overperiod,
+  actpublication
 });
 
 const rootReducer = (state, action) => {

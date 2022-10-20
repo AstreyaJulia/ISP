@@ -8,7 +8,7 @@ import useAuth from "../../hooks/useAuth";
 const Home = () => {
   const dispatch = useDispatch();
 
-  const { cases, isLoading, error } = useSelector((state) => state.overperiod);
+  const { overperiodcases, overperiodisLoading, overperioderror } = useSelector((state) => state.overperiod);
   const { user } = useAuth();
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const Home = () => {
           <h5 className="text-gray-700">{user?.fullname}</h5>
           <h5 className="text-gray-700">{user?.professionName}</h5>
           {user?.professionID !== null ?
-            <CasesOverPeriodWidget rows={cases ?? []} isLoading={isLoading} error={error ?? null} /> : ""}
+            <CasesOverPeriodWidget rows={overperiodcases ?? []} isLoading={overperiodisLoading} error={overperioderror ?? null} /> : ""}
         </div>
       </div>
     </BasicPage>

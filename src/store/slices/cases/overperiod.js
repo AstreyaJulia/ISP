@@ -6,9 +6,9 @@ import { dispatch } from "../../index";
  * @type {{isLoading: string, cases: *[], error: null}}
  */
 const initialState = {
-  isLoading: "false",
-  error: null,
-  cases: []
+  overperiodisLoading: "false",
+  overperioderror: null,
+  overperiodcases: []
 };
 
 const slice = createSlice({
@@ -17,25 +17,25 @@ const slice = createSlice({
   reducers: {
     // Начало загрузки
     startLoading(state) {
-      state.isLoading = "true";
+      state.overperiodisLoading = "true";
     },
 
     // Получили ошибку
     hasError(state, action) {
-      state.isLoading = "false";
-      state.error = action.payload;
+      state.overperiodisLoading = "false";
+      state.overperioderror = action.payload;
     },
 
     // Получение списка для судьи
     getJudgeOverPeriodSuccess(state, action) {
-      state.isLoading = "false";
-      state.cases = action.payload;
+      state.overperiodisLoading = "false";
+      state.overperiodoverperiodcases = action.payload;
     },
 
     // Получение списка всех
     getAllOverSuccess(state, action) {
-      state.isLoading = "false";
-      state.cases = action.payload;
+      state.overperiodisLoading = "false";
+      state.overperiodcases = action.payload;
     }
   }
 });
@@ -61,9 +61,9 @@ export function getAllOverPeriodCases() {
     dispatch(slice.actions.startLoading());
     try {
       const response = await axios.get("/gas-api/deadlines/all");
-      dispatch(slice.actions.getJudgeOverPeriodSuccess(response.data.data));
+      dispatch(slice.actions.getAllOverSuccess(response.data.data));
     } catch (error) {
-      dispatch(slice.actions.getJudgeOverPeriodSuccess([]));
+      dispatch(slice.actions.getAllOverSuccess([]));
       dispatch(slice.actions.hasError(error.message));
     }
   };

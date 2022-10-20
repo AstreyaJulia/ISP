@@ -9,7 +9,7 @@ const Finished = () => {
 
   const dispatch = useDispatch();
 
-  const { cases, isLoading } = useSelector((state) => state.overperiod);
+  const { overperiodcases, overperiodisLoading } = useSelector((state) => state.overperiod);
 
   useEffect(() => {
     dispatch(getAllOverPeriodCases());
@@ -21,7 +21,7 @@ const Finished = () => {
   return (
     <BasicPage title="Дела, рассмотренные свыше срока" className="main-content max-w-6xl mx-auto px-4">
       <PageHeader pages={breadcrumbs} header="Дела, рассмотренные свыше срока" />
-      <CasesOverPeriod rows={cases ?? []} isLoading={isLoading} />
+      <CasesOverPeriod rows={overperiodcases ?? []} isLoading={overperiodisLoading} />
     </BasicPage>
   );
 };

@@ -120,7 +120,7 @@ AvatarCircularWithPlaceholderInitials.propTypes = {
   /** Значок вместо букв */
   icon: PropTypes.object,
   /** Цвет  */
-  color: PropTypes.string
+  color: PropTypes.oneOf(["red", "orange", "yellow", "green", "cyan", "blue", "indigo", "pink"])
 };
 
 /** Дефолтные свойства */

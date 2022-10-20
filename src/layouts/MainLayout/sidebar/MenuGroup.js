@@ -197,12 +197,12 @@ const MenuGroup = ({
 MenuGroup.propTypes = {
   item: PropTypes.object.isRequired,
   groupOpen: PropTypes.array.isRequired,
-  activeItem: PropTypes.object.isRequired,
-  parentItem: PropTypes.object.isRequired,
+  activeItem: PropTypes.object,
+  parentItem: PropTypes.object,
   groupActive: PropTypes.array.isRequired,
   setGroupOpen: PropTypes.func.isRequired,
   sidebar: PropTypes.number.isRequired,
-  setGroupActive: PropTypes.array.isRequired,
+  setGroupActive: PropTypes.func,
   currentActiveGroup: PropTypes.array.isRequired,
   setCurrentActiveGroup: PropTypes.func.isRequired
 };
