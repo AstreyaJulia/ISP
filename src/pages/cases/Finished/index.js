@@ -21,7 +21,7 @@ const Finished = ({all}) => {
   return (
     <BasicPage title="Дела, рассмотренные свыше срока" className="main-content max-w-6xl mx-auto px-4">
       <PageHeader pages={breadcrumbs} header="Дела, рассмотренные свыше срока" />
-      <CasesOverPeriod rows={overperiodcases ?? []} isLoading={overperiodisLoading} />
+      <CasesOverPeriod data={overperiodcases ?? []} isLoading={overperiodisLoading} />
     </BasicPage>
   );
 };

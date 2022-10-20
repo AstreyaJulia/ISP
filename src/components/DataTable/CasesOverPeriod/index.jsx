@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Disclosure } from "@headlessui/react";
 import PropTypes from "prop-types";
 import DataTableCore from "../DataTableCore";
@@ -9,10 +9,15 @@ import { getHighlightedText } from "../../../utils/getHighlightedText";
 import { getInitials } from "../../../utils/getInitials";
 import Badge from "../../Badge";
 
-const CasesOverPeriod = ({ rows, isLoading }) => {
+const CasesOverPeriod = ({ data, isLoading }) => {
 
-  const columns = Object.keys(rows[0] ?? []);
+  const [rows, setRows] = useState(data ?? []);
+  const columns = Object.keys(data[0] ?? []);
   const [currentPage, setCurrentPage] = useState(0); // текущая страница
+
+  useEffect(() => {
+    setRows(data);
+  }, [isLoading]);
 
   const makeItem = (item, key, query) => <Disclosure key={key}>
     {({ open }) => (
@@ -93,7 +98,7 @@ const CasesOverPeriod = ({ rows, isLoading }) => {
 
 CasesOverPeriod.propTypes = {
   /** Массив элементов  */
-  rows: PropTypes.array.isRequired,
+  data: PropTypes.array.isRequired,
   /** Состояние получения данных */
   isLoading: PropTypes.string.isRequired
 };
