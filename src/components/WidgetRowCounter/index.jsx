@@ -10,7 +10,7 @@ const WidgetRowCounter = ({ rows, isLoading, error, title, color, link, counter:
       error === null ?
         <div
           className="rounded-lg relative group bg-white dark:bg-gray-900 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500 shadow">
-          <Link to={isLoading === "true" ? "" : { link }} className="w-full focus:outline-none min-w-0">
+          <Link to={link} className="w-full focus:outline-none min-w-0">
             <div className="flex items-center p-3">
               {isLoading === "true" ?
                 <>
