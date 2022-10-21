@@ -26,16 +26,19 @@ const NoPublicatedActs = ({ user }) => {
       if (availableUsers.includes(user.professionID)) dispatch(getJudgeActPublicationCases());
     }, [dispatch]);
 
-  return (
-    <WidgetRowCounter isLoading={nopublactsisLoading} rows={nopublacts} color="indigo" link='/publication' error={nopublactserror}
-                      title="подлежит публикации" counter={{
-      single: "Акт",
-      multi: "Акта",
-      count: "Акт"
-    }} />
-  )
-}
-  ;
+  if (availableUsers.includes(user.professionID)) {
+
+    return (
+      <WidgetRowCounter isLoading={nopublactsisLoading} rows={nopublacts} color="indigo" link='/publication' error={nopublactserror}
+                        title="подлежит публикации" counter={{
+        single: "Акт",
+        multi: "Акта",
+        count: "Акт"
+      }} />
+    )
+  }
+
+};
 
 NoPublicatedActs.propTypes = {
   user: PropTypes.object.isRequired

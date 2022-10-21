@@ -7,7 +7,7 @@ import { getJudgeActPublicationCases } from "../../../../store/slices/cases/actp
 const NoPublicatedActsAll = ({ user }) => {
 
     /** Должности, которым доступна отрисовка */
-    const availableUsers = [1, 2, 3, 6, 7];
+    const availableUsers = [null, 1, 2, 3, 6, 7];
     /* [
       {id: 1, profession: 'Председатель', group: 24},
       {id: 2, profession: 'Заместитель председателя', group: 24},
@@ -26,14 +26,18 @@ const NoPublicatedActsAll = ({ user }) => {
       if (availableUsers.includes(user.professionID)) dispatch(getJudgeActPublicationCases());
     }, [dispatch]);
 
-  return (
-    <WidgetRowCounter isLoading={nopublactsisLoading} rows={nopublactsall} color="indigo" link="/publication-all" error={nopublactserror}
-                      title="подлежит публикации" counter={{
-      single: "Акт",
-      multi: "Акта",
-      count: "Акт"
-    }} />
-  )
+  if (availableUsers.includes(user.professionID)) {
+
+    return (
+      <WidgetRowCounter isLoading={nopublactsisLoading} rows={nopublactsall} color="indigo" link="/publication-all" error={nopublactserror}
+                        title="подлежит публикации" counter={{
+        single: "Акт",
+        multi: "Акта",
+        count: "Акт"
+      }} />
+    )
+  }
+
 };
 
 NoPublicatedActsAll.propTypes = {

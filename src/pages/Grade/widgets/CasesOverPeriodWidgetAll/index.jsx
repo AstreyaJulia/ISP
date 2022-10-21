@@ -26,7 +26,7 @@ const CasesOverPeriodWidgetAll = ({ user }) => {
     if (availableUsers.includes(user.professionID)) dispatch(getAllOverPeriodCases());
   }, [dispatch]);
 
-  if (availableUsers.includes(user)) {
+  if (availableUsers.includes(user.professionID)) {
     return (
       <WidgetRowCounter isLoading={overperiodisLoading} rows={overperiodcasesall} color="red" error={overperioderror}
                         link="/over-period-all" title="с нарушением срока" counter={{
