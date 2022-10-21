@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import WidgetRowCounter from "../../../../components/WidgetRowCounter";
 import { useDispatch, useSelector } from "../../../../store";
-import { getJudgeActPublicationCases } from "../../../../store/slices/cases/actpublication";
+import { getAllActPublicationCases } from "../../../../store/slices/cases/actpublication";
 
 const NoPublicatedActsAll = ({ user }) => {
 
@@ -23,7 +23,7 @@ const NoPublicatedActsAll = ({ user }) => {
 
     /** Обновление данных при отрисовке компонента после загрузки запроса */
     useEffect(() => {
-      if (availableUsers.includes(user.professionID)) dispatch(getJudgeActPublicationCases());
+      if (availableUsers.includes(user.professionID)) dispatch(getAllActPublicationCases());
     }, [dispatch]);
 
   if (availableUsers.includes(user.professionID)) {
