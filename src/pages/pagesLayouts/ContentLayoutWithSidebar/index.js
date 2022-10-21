@@ -54,7 +54,7 @@ export default function ContentLayoutWithSidebar({
           {meta}
         </Helmet>
         <div
-          className={fullHeight ? "main-content max-w-6xl mx-auto px-3 full-height-page flex flex-col" : "min-h-full"}>
+          className={fullHeight ? "main-content max-w-6xl mx-auto px-5 full-height-page flex flex-col" : "min-h-full"}>
           <PageHeader pages={breadcrumbs} header={header}>
             {/* Сюда можно тоже вставить разметку, например, кнопки */}
           </PageHeader>

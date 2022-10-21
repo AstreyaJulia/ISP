@@ -5,7 +5,7 @@ import BasicPage from "../../pagesLayouts/BasicPage";
 
 const index = () => (
   <BasicPage title="Ошибка сервера" className="main-content">
-    <div className="overscroll-y-auto p-4 w-full h-screen flex justify-center items-center flex-col flex-grow m-y-auto">
+    <div className="overscroll-y-auto p-5 w-full h-screen flex justify-center items-center flex-col flex-grow m-y-auto">
       <img className="w-52" src={astronautsTalking} alt="Not authorized page" />
       <div className="max-w-max mx-auto">
         <main className="sm:flex">

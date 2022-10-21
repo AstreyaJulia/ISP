@@ -8,7 +8,7 @@ const Stats = () => {
     { name: "Графики", href: "", current: true }];
 
   return (
-    <BasicPage title="Графики" className="main-content max-w-6xl mx-auto px-4">
+    <BasicPage title="Графики" className="main-content max-w-6xl mx-auto px-5">
       <PageHeader pages={breadcrumbs} header="Графики" />
     </BasicPage>
   );

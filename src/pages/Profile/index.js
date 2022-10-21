@@ -7,7 +7,7 @@ const Profile = () => {
   const breadcrumbs = [{ name: "Мой профиль", href: "", current: true }];
 
   return (
-    <BasicPage title="Мой профиль" className="main-content max-w-6xl mx-auto px-4">
+    <BasicPage title="Мой профиль" className="main-content max-w-6xl mx-auto px-5">
       <PageHeader pages={breadcrumbs} header="Мой профиль" />
     </BasicPage>
   );

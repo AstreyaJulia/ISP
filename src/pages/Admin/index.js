@@ -7,7 +7,7 @@ const Admin = () => {
   const breadcrumbs = [{ name: "Администрирование", href: "", current: true }];
 
   return (
-    <BasicPage title="Администрирование" className="max-w-6xl mx-auto px-4">
+    <BasicPage title="Администрирование" className="max-w-6xl mx-auto px-5">
       <PageHeader pages={breadcrumbs} header="Администрирование" />
     </BasicPage>
   );

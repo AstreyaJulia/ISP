@@ -8,7 +8,7 @@ const Process = () => {
     { name: "Дела, находящиеся в производстве", href: "", current: true }];
 
   return (
-    <BasicPage title="Дела, находящиеся в производстве" className="main-content max-w-6xl mx-auto px-4">
+    <BasicPage title="Дела, находящиеся в производстве" className="main-content max-w-6xl mx-auto px-5">
       <PageHeader pages={breadcrumbs} header="Дела, находящиеся в производстве" />
     </BasicPage>
   );

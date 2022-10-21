@@ -10,7 +10,7 @@ const Phonebook = () => {
     { name: "Сотрудники", href: "", current: true }];
 
   return (
-    <BasicPage title="Сотрудники" className="main-content max-w-6xl mx-auto px-4">
+    <BasicPage title="Сотрудники" className="main-content max-w-6xl mx-auto px-5">
       <PageHeader pages={breadcrumbs} header="Сотрудники" />
       <UsersList rows={rows} />
     </BasicPage>

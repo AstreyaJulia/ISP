@@ -17,6 +17,7 @@ const DataTableCore = ({
                          tableID,
                          placeholder,
                          itemsContainerClassNames,
+                         pseudoTableBodyClassNames,
                          isLoading,
                          classname,
                          makeItem,
@@ -291,7 +292,7 @@ const DataTableCore = ({
         :
 
         /* Псевдо-таблица */
-        <div className="px-4 py-5 sm:p-4">
+        <div className={pseudoTableBodyClassNames || "px-4 py-5 sm:p-4"}>
           <div className={itemsContainerClassNames || ""}>
             { /* eslint-disable-next-line */}
             {isLoading === "true" ? <div className="my-5 flex flex-col items-center justify-center w-full">

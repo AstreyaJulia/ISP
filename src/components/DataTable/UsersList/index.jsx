@@ -22,7 +22,7 @@ const UsersList = ({ rows }) => {
             className="font-medium text-base text-slate-800 dark:text-slate-200 flex flex-wrap justify-start items-center text-left">{getHighlightedText(item.fullname, query)}</p>
           <p
             className="text-sm text-indigo-700 dark:text-indigo-300 flex flex-wrap justify-start items-center text-left">{item.profession}</p>
-          <div className="flex items-center w-full gap-6 mt-2">
+          <div className="flex items-center w-full gap-7 mt-3">
             <p
               className="flex items-center font-medium text-sm text-slate-600 dark:text-slate-400 flex justify-start items-center text-left">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
@@ -45,7 +45,6 @@ const UsersList = ({ rows }) => {
         </div>
       </div>
     </Card>
-  ;
 
   makeItem.propTypes = {
     /** Данные */
@@ -69,7 +68,8 @@ const UsersList = ({ rows }) => {
       tableID="users-list"
       isLoading="false"
       columns={columns}
-      itemsContainerClassNames="grid grid-cols-2 gap-3 bg-slate-100 dark:bg-slate-800 p-3 rounded-md"
+      itemsContainerClassNames="grid grid-cols-2 gap-4 bg-slate-100 dark:bg-slate-800 p-4"
+      pseudoTableBodyClassNames='py-5'
       initSortColumn={columns[1]}
       placeholder="Поиск по сотрудникам"
       filterCallback={filter}

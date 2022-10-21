@@ -19,7 +19,7 @@ const Publication = ({ all }) => {
   }, [dispatch]);
 
   return (
-    <BasicPage title="Публикация судебных актов" className="main-content max-w-6xl mx-auto px-4">
+    <BasicPage title="Публикация судебных актов" className="main-content max-w-6xl mx-auto px-5">
       <PageHeader pages={breadcrumbs} header="Публикация судебных актов" />
       <PublicationControl data={all === "true" ? nopublactsall : nopublacts ?? []} isLoading={nopublactsisLoading}
                           all={all} />
