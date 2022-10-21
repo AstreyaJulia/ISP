@@ -33,7 +33,7 @@ const NoPublicatedActs = ({ user }) => {
                         title="подлежит публикации" counter={{
         single: "Акт",
         multi: "Акта",
-        count: "Акт"
+        count: "Актов"
       }} />
     )
   }
