@@ -4,7 +4,7 @@ import WidgetRowCounter from "../../../../components/WidgetRowCounter";
 import { useDispatch, useSelector } from "../../../../store";
 import { getJudgeActPublicationCases } from "../../../../store/slices/cases/actpublication";
 
-const NoPublicatedActs = ({ user }) => {
+const NoPublicatedActsAll = ({ user }) => {
 
     /** Должности, которым доступна отрисовка */
     const availableUsers = [1, 2, 3, 6, 7];
@@ -19,7 +19,7 @@ const NoPublicatedActs = ({ user }) => {
     const dispatch = useDispatch();
 
     /** Стейты данных */
-    const { nopublacts, nopublactsisLoading, nopublactserror } = useSelector((state) => state.actpublication);
+    const { nopublactsall, nopublactsisLoading, nopublactserror } = useSelector((state) => state.actpublication);
 
     /** Обновление данных при отрисовке компонента после загрузки запроса */
     useEffect(() => {
@@ -27,18 +27,17 @@ const NoPublicatedActs = ({ user }) => {
     }, [dispatch]);
 
   return (
-    <WidgetRowCounter isLoading={nopublactsisLoading} rows={nopublacts} color="indigo" link='/publication' error={nopublactserror}
+    <WidgetRowCounter isLoading={nopublactsisLoading} rows={nopublactsall} color="indigo" link="/publication-all" error={nopublactserror}
                       title="подлежит публикации" counter={{
       single: "Акт",
       multi: "Акта",
       count: "Акт"
     }} />
   )
-}
-  ;
+};
 
-NoPublicatedActs.propTypes = {
+NoPublicatedActsAll.propTypes = {
   user: PropTypes.object.isRequired
 };
 
-export default NoPublicatedActs;
+export default NoPublicatedActsAll;

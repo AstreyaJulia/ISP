@@ -40,7 +40,7 @@ const CasesOverPeriodWidget = ({ user }) => {
 };
 
 CasesOverPeriodWidget.propTypes = {
-  user: PropTypes.number.isRequired
+  user: PropTypes.object.isRequired
 };
 
 export default CasesOverPeriodWidget;

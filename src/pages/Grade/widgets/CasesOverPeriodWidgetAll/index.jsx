@@ -2,12 +2,12 @@ import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import WidgetRowCounter from "../../../../components/WidgetRowCounter";
 import { useDispatch, useSelector } from "../../../../store";
-import { getAllOverPeriodCases, getJudgeOverPeriodCases } from "../../../../store/slices/cases/overperiod";
+import { getAllOverPeriodCases } from "../../../../store/slices/cases/overperiod";
 
 const CasesOverPeriodWidgetAll = ({ user }) => {
 
   /** Должности, которым доступна отрисовка */
-  const availableUsers = [1, 2, 3, 6, 7];
+  const availableUsers = [null, 1, 2, 3, 6, 7];
   /* [
     {id: 1, profession: 'Председатель', group: 24},
     {id: 2, profession: 'Заместитель председателя', group: 24},
@@ -23,7 +23,7 @@ const CasesOverPeriodWidgetAll = ({ user }) => {
 
   /** Обновление данных при отрисовке компонента после загрузки запроса */
   useEffect(() => {
-    dispatch(getAllOverPeriodCases());
+    if (availableUsers.includes(user.professionID)) dispatch(getAllOverPeriodCases());
   }, [dispatch]);
 
   if (availableUsers.includes(user)) {
@@ -40,7 +40,7 @@ const CasesOverPeriodWidgetAll = ({ user }) => {
 };
 
 CasesOverPeriodWidgetAll.propTypes = {
-  user: PropTypes.number.isRequired
+  user: PropTypes.object.isRequired
 };
 
 export default CasesOverPeriodWidgetAll;
