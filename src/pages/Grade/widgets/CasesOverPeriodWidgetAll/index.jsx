@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import WidgetRowCounter from "../../../../components/WidgetRowCounter";
 import { useDispatch, useSelector } from "../../../../store";
-import { getJudgeOverPeriodCases } from "../../../../store/slices/cases/overperiod";
+import { getAllOverPeriodCases, getJudgeOverPeriodCases } from "../../../../store/slices/cases/overperiod";
 
-const CasesOverPeriodWidget = ({ user }) => {
+const CasesOverPeriodWidgetAll = ({ user }) => {
 
   /** Должности, которым доступна отрисовка */
   const availableUsers = [1, 2, 3, 6, 7];
@@ -19,17 +19,17 @@ const CasesOverPeriodWidget = ({ user }) => {
   const dispatch = useDispatch();
 
   /** Стейты данных */
-  const { overperiodcases, overperiodisLoading, overperioderror } = useSelector((state) => state.overperiod);
+  const {overperiodcasesall, overperiodisLoading, overperioderror} = useSelector((state) => state.overperiod);
 
   /** Обновление данных при отрисовке компонента после загрузки запроса */
   useEffect(() => {
-    dispatch(getJudgeOverPeriodCases());
+    dispatch(getAllOverPeriodCases());
   }, [dispatch]);
 
   if (availableUsers.includes(user)) {
     return (
-      <WidgetRowCounter isLoading={overperiodisLoading} rows={overperiodcases} color="red" error={overperioderror}
-                        link="/publication" title="с нарушением срока" counter={{
+      <WidgetRowCounter isLoading={overperiodisLoading} rows={overperiodcasesall} color="red" error={overperioderror}
+                        link="/over-period-all" title="с нарушением срока" counter={{
         single: "Дело",
         multi: "Дела",
         count: "Дел"
@@ -39,8 +39,8 @@ const CasesOverPeriodWidget = ({ user }) => {
 
 };
 
-CasesOverPeriodWidget.propTypes = {
+CasesOverPeriodWidgetAll.propTypes = {
   user: PropTypes.number.isRequired
 };
 
-export default CasesOverPeriodWidget;
+export default CasesOverPeriodWidgetAll;

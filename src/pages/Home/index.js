@@ -8,11 +8,13 @@ import useAuth from "../../hooks/useAuth";
 import { NoPublicatedActs } from "./widgets/NoPublicatedActs";
 
 const Home = () => {
+
   const dispatch = useDispatch();
 
-  const { overperiodcases, overperiodisLoading, overperioderror } = useSelector((state) => state.overperiod);
+  /** Стейты для виджетов */
   const { nopublacts, nopublactsisLoading, nopublactserror } = useSelector((state) => state.actpublication);
 
+  /** Состояние пользователя */
   const { user } = useAuth();
 
   useEffect(() => {
@@ -27,8 +29,7 @@ const Home = () => {
           <h5 className="text-gray-700">{user?.fullname}</h5>
           <h5 className="text-gray-700">{user?.professionName}</h5>
           <div className="flex flex-col gap-4">
-            <CasesOverPeriodWidget data={overperiodcases} link="/over-period" isLoading={overperiodisLoading}
-                                   error={overperioderror} />
+            <CasesOverPeriodWidget user={user ?? 0} />
             <NoPublicatedActs data={nopublacts} error={nopublactserror} link="/publication"
                               isLoading={nopublactsisLoading} />
           </div>
