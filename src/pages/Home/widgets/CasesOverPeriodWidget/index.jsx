@@ -26,7 +26,7 @@ const CasesOverPeriodWidget = ({ user }) => {
     dispatch(getJudgeOverPeriodCases());
   }, [dispatch]);
 
-  if (availableUsers.includes(user)) {
+  if (availableUsers.includes(user.professionID)) {
     return (
       <WidgetRowCounter isLoading={overperiodisLoading} rows={overperiodcases} color="red" error={overperioderror}
                         link="/publication" title="с нарушением срока" counter={{
