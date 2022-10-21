@@ -1,18 +1,13 @@
 import React, { useState } from "react";
-import { Menu } from "@headlessui/react";
 import PropTypes from "prop-types";
 import DataTableCore from "../DataTableCore";
-import { classNames } from "../../../utils/classNames";
 import { Avatar } from "../../Avatar";
 import { getHighlightedText } from "../../../utils/getHighlightedText";
-import useAuth from "../../../hooks/useAuth";
 import { getInitialsOnly } from "../../../utils/getInitials";
 import { getAvatarColor } from "../../../utils/getAvatarColor";
 import Card from "../../Card";
 
 const UsersList = ({ rows }) => {
-
-  const { user } = useAuth();
 
   const columns = Object.keys(rows[0]);
   const [currentPage, setCurrentPage] = useState(0); // текущая страница

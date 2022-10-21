@@ -21,6 +21,7 @@ const PublicationControl = ({ data, isLoading, all }) => {
   useEffect(() => {
     setRows(data);
     setJudgesList(getUniqueArrayValuesByKey(data ?? [], "JUDGE_NAME").sort((a, b) => a.localeCompare(b)));
+    // eslint-disable-next-line
   }, [isLoading]);
 
 
@@ -140,7 +141,9 @@ const PublicationControl = ({ data, isLoading, all }) => {
 
 PublicationControl.propTypes = {
   /** Данные */
-  data: PropTypes.array.isRequired
+  data: PropTypes.array.isRequired,
+  isLoading: PropTypes.string.isRequired,
+  all: PropTypes.string.isRequired
 };
 
 

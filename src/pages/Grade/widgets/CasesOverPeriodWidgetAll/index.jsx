@@ -19,11 +19,12 @@ const CasesOverPeriodWidgetAll = ({ user }) => {
   const dispatch = useDispatch();
 
   /** Стейты данных */
-  const {overperiodcasesall, overperiodisLoading, overperioderror} = useSelector((state) => state.overperiod);
+  const { overperiodcasesall, overperiodisLoading, overperioderror } = useSelector((state) => state.overperiod);
 
   /** Обновление данных при отрисовке компонента после загрузки запроса */
   useEffect(() => {
     if (availableUsers.includes(user.professionID)) dispatch(getAllOverPeriodCases());
+    // eslint-disable-next-line
   }, [dispatch]);
 
   if (availableUsers.includes(user.professionID)) {
@@ -34,8 +35,9 @@ const CasesOverPeriodWidgetAll = ({ user }) => {
         multi: "Дела",
         count: "Дел"
       }} />
-    );
+    )
   }
+  return null;
 
 };
 

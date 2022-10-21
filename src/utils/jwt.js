@@ -25,10 +25,10 @@ const handleTokenExpired = (exp) => {
   window.clearTimeout(expiredTimer);
   const currentTime = Date.now();
   const timeLeft = exp * 1000 - currentTime;
-// console.log(timeLeft);
+  // console.log(timeLeft);
   expiredTimer = window.setTimeout(() => {
-// console.log('expired');
-// Действие, если срок действия токена истек
+    // console.log('expired');
+    // Действие, если срок действия токена истек
   }, timeLeft);
 };
 

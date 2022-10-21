@@ -24,6 +24,7 @@ const CasesOverPeriodWidget = ({ user }) => {
   /** Обновление данных при отрисовке компонента после загрузки запроса */
   useEffect(() => {
     if (availableUsers.includes(user.professionID)) dispatch(getJudgeOverPeriodCases());
+    // eslint-disable-next-line
   }, [dispatch]);
 
   if (availableUsers.includes(user.professionID)) {
@@ -36,6 +37,8 @@ const CasesOverPeriodWidget = ({ user }) => {
       }} />
     );
   }
+
+  return null;
 
 };
 

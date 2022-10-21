@@ -75,21 +75,21 @@ export default function Router() {
         },
         {
           path: "over-period",
-          element: <Finished all='false' />
+          element: <Finished all="false" />
         },
         // Все
         {
           path: "over-period-all",
-          element: <Finished all='true' />
+          element: <Finished all="true" />
         },
         {
           path: "publication",
-          element: <Publication all='false'/>
+          element: <Publication all="false" />
         },
         // Все
         {
           path: "publication-all",
-          element: <Publication all='true'/>
+          element: <Publication all="true" />
         },
         {
           path: "process",

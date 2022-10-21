@@ -3,7 +3,7 @@ import ru from "date-fns/locale/ru";
 
 const today = new Date();
 
-/** Форматирует в формат дд месяц гггг
+/** Форматирует в формат 'дд месяц гггг'
  * @param date
  * @returns {string}
  */
@@ -11,7 +11,7 @@ export function fDate(date) {
   return format(new Date(date), "dd MMMM yyyy", { locale: ru });
 }
 
-/** Форматирует в формат дд мм гггг
+/** Форматирует в формат 'дд мм гггг'
  * @param date
  * @returns {string}
  */

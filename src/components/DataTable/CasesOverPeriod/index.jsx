@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Disclosure } from "@headlessui/react";
 import PropTypes from "prop-types";
 import DataTableCore from "../DataTableCore";
@@ -17,6 +17,7 @@ const CasesOverPeriod = ({ data, isLoading }) => {
 
   useEffect(() => {
     setRows(data);
+    // eslint-disable-next-line
   }, [isLoading]);
 
   const makeItem = (item, key, query) => <Disclosure key={key}>

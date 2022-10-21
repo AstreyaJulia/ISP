@@ -62,7 +62,7 @@ export function getAllOverPeriodCases() {
   return async () => {
     dispatch(slice.actions.startLoading());
     try {
-        const response = await axios.get("/gas-api/deadlines/all");
+      const response = await axios.get("/gas-api/deadlines/all");
       dispatch(slice.actions.getAllOverSuccess(response.data.data));
     } catch (error) {
       dispatch(slice.actions.getAllOverSuccess([]));
