@@ -19,6 +19,7 @@ const slice = createSlice({
         // Начало загрузки
         startLoading(state) {
             state.nopublactsisLoading = "true";
+            state.nopublactserror = null;
         },
 
         // Получили ошибку
@@ -49,12 +50,7 @@ export function getJudgeActPublicationCases() {
         dispatch(slice.actions.startLoading());
         try {
             const response = await axios.get("/gas-api/sudact");
-            if (response.data.error.message.length === 0) {
-                dispatch(slice.actions.getJudgeActPublicationSuccess(response.data.data));
-            } else {
-                dispatch(slice.actions.getJudgeActPublicationSuccess([]));
-                dispatch(slice.actions.hasError(response.data.error.message));
-            }
+            dispatch(slice.actions.getJudgeActPublicationSuccess(response.data.data));
         } catch (error) {
             dispatch(slice.actions.getJudgeActPublicationSuccess([]));
             dispatch(slice.actions.hasError(error.message));
@@ -67,12 +63,7 @@ export function getAllActPublicationCases() {
         dispatch(slice.actions.startLoading());
         try {
             const response = await axios.get("/gas-api/sudact/all");
-            if (response.data.error.message.length === 0) {
-                dispatch(slice.actions.getActPublicationSuccess(response.data.data));
-            } else {
-                dispatch(slice.actions.getActPublicationSuccess([]));
-                dispatch(slice.actions.hasError(response.data.error.message));
-            }
+            dispatch(slice.actions.getActPublicationSuccess(response.data.data));
         } catch (error) {
             dispatch(slice.actions.getActPublicationSuccess([]));
             dispatch(slice.actions.hasError(error.message));

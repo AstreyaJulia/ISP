@@ -19,6 +19,7 @@ const slice = createSlice({
     // Начало загрузки
     startLoading(state) {
       state.overperiodisLoading = "true";
+      state.overperioderror = null;
     },
 
     // Получили ошибку
@@ -30,7 +31,7 @@ const slice = createSlice({
     // Получение списка для судьи
     getJudgeOverPeriodSuccess(state, action) {
       state.overperiodisLoading = "false";
-      state.overperiodoverperiodcases = action.payload;
+      state.overperiodcases = action.payload;
     },
 
     // Получение списка всех
@@ -49,12 +50,7 @@ export function getJudgeOverPeriodCases() {
     dispatch(slice.actions.startLoading());
     try {
       const response = await axios.get("/gas-api/deadlines");
-      if (response.data.error.message.length === 0) {
-        dispatch(slice.actions.getJudgeOverPeriodSuccess(response.data.data));
-      } else {
-        dispatch(slice.actions.getJudgeOverPeriodSuccess([]));
-        dispatch(slice.actions.hasError(response.data.error.message));
-      }
+      dispatch(slice.actions.getJudgeOverPeriodSuccess(response.data.data));
     } catch (error) {
       dispatch(slice.actions.getJudgeOverPeriodSuccess([]));
       dispatch(slice.actions.hasError(error.message));
@@ -67,12 +63,7 @@ export function getAllOverPeriodCases() {
     dispatch(slice.actions.startLoading());
     try {
         const response = await axios.get("/gas-api/deadlines/all");
-      if (response.data.error.message.length === 0) {
-        dispatch(slice.actions.getAllOverSuccess(response.data.data));
-      } else {
-        dispatch(slice.actions.getAllOverSuccess([]));
-        dispatch(slice.actions.hasError(response.data.error.message));
-      }
+      dispatch(slice.actions.getAllOverSuccess(response.data.data));
     } catch (error) {
       dispatch(slice.actions.getAllOverSuccess([]));
       dispatch(slice.actions.hasError(error.message));

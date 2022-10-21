@@ -10,7 +10,7 @@ const Publication = ({all}) => {
 
     const dispatch = useDispatch();
 
-    const { nopublacts, nopublactsisLoading } = useSelector((state) => state.actpublication);
+    const { nopublacts, nopublactsall, nopublactsisLoading } = useSelector((state) => state.actpublication);
 
     useEffect(() => {
         dispatch(all === 'true' ? getAllActPublicationCases() : getJudgeActPublicationCases());
@@ -19,7 +19,7 @@ const Publication = ({all}) => {
   return (
     <BasicPage title="Публикация судебных актов" className="main-content max-w-6xl mx-auto px-4">
       <PageHeader pages={breadcrumbs} header="Публикация судебных актов" />
-      <PublicationControl data={nopublacts ?? []} isLoading={nopublactsisLoading} all={all} />
+      <PublicationControl data={all === 'true' ? nopublactsall : nopublacts ?? []} isLoading={nopublactsisLoading} all={all} />
     </BasicPage>
   );
 };
