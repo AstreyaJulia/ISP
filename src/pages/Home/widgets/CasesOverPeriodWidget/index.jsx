@@ -23,7 +23,7 @@ const CasesOverPeriodWidget = ({ user }) => {
 
   /** Обновление данных при отрисовке компонента после загрузки запроса */
   useEffect(() => {
-    dispatch(getJudgeOverPeriodCases());
+    if (availableUsers.includes(user.professionID)) dispatch(getJudgeOverPeriodCases());
   }, [dispatch]);
 
   if (availableUsers.includes(user.professionID)) {
