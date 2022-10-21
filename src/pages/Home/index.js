@@ -18,7 +18,6 @@ const Home = () => {
   const { user } = useAuth();
 
   useEffect(() => {
-    dispatch(getJudgeOverPeriodCases());
     dispatch(getJudgeActPublicationCases());
   }, [dispatch]);
 
