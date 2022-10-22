@@ -146,7 +146,7 @@ const Processed = ({ data, isLoading, all }) => {
           >
             <option value="All">Все</option>
             {statusList.map((status, key) =>
-              <option key={status + key} value={status}>{statusSettings[status].title ?? ''}</option>
+              <option key={status + key} value={status}>{statusSettings[status ?? 0].title}</option>
             )}
           </select>
         </div>
