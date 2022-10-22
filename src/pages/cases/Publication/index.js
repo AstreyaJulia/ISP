@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-import BasicPage from "../pagesLayouts/BasicPage";
-import PageHeader from "../../components/PageHeader";
-import PublicationControl from "../../components/DataTable/PublicationControl";
-import { useDispatch, useSelector } from "../../store";
-import { getAllActPublicationCases, getJudgeActPublicationCases } from "../../store/slices/cases/actpublication";
+import BasicPage from "../../pagesLayouts/BasicPage";
+import PageHeader from "../../../components/PageHeader";
+import PublicationControl from "../../../components/DataTable/PublicationControl";
+import { useDispatch, useSelector } from "../../../store";
+import { getAllActPublicationCases, getJudgeActPublicationCases } from "../../../store/slices/cases/actpublication";
 
 const Publication = ({ all }) => {
   const breadcrumbs = [{ name: "Публикация судебных актов", href: "", current: true }];

@@ -164,8 +164,8 @@ export default function Router() {
 const Home = Loadable(lazy(() => import("../pages/Home"))); // Главная
 const LinksCatalog = Loadable(lazy(() => import("../pages/LinksCatalog"))); // Каталог ссылок
 const Finished = Loadable(lazy(() => import("../pages/cases/Finished"))); // Оконченные дела
-const Publication = Loadable(lazy(() => import("../pages/Publication"))); // Контроль публикации СА (для судьи)
-const Process = Loadable(lazy(() => import("../pages/Process"))); // Каталог ссылок
+const Publication = Loadable(lazy(() => import("../pages/cases/Publication"))); // Контроль публикации СА (для судьи)
+const Process = Loadable(lazy(() => import("../pages/cases/Process"))); // Каталог ссылок
 const Calendar = Loadable(lazy(() => import("../pages/Calendar"))); // Дела в производстве
 const Phonebook = Loadable(lazy(() => import("../pages/Phonebook"))); // Телефонный справочник
 const Stats = Loadable(lazy(() => import("../pages/Stats"))); // Каталог ссылок
