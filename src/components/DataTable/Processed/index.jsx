@@ -51,8 +51,8 @@ const Processed = ({ data, isLoading, all }) => {
           </div>
           <div className="flex flex-col items-end shrink-0 gap-1 h-full grow-0">
             <Badge size="small" shape="rounded" className="ml-1"
-                   color={statusSettings[item?.CASE_STATUS  ?? 0].color}
-                   item={statusSettings[item?.CASE_STATUS  ?? 0].title} />
+                   color={statusSettings[item?.CASE_STATUS  ?? "motionless"].color}
+                   item={statusSettings[item?.CASE_STATUS  ?? "motionless"].title} />
             {item?.MOTIONLES_DATE !== "" ? <p
               className="font-medium text-xs text-slate-600 dark:text-slate-200 flex flex-wrap justify-start items-center text-left mb-1">До: {item?.MOTIONLES_DATE}</p> : ""}
             {item?.STOP_DATE !== "" ? <p
@@ -146,7 +146,7 @@ const Processed = ({ data, isLoading, all }) => {
           >
             <option value="All">Все</option>
             {statusList.map((status, key) =>
-              <option key={status + key} value={status}>{statusSettings[status ?? 0].title}</option>
+              <option key={status + key} value={status}>{statusSettings[status ?? "motionless"].title}</option>
             )}
           </select>
         </div>
