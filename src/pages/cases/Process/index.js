@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import PropTypes from "prop-types";
 import BasicPage from "../../pagesLayouts/BasicPage";
 import PageHeader from "../../../components/PageHeader";
 import Processed from "../../../components/DataTable/Processed";
@@ -27,5 +28,9 @@ const Process = ({ all }) => {
     </BasicPage>
   );
 };
+
+Process.propTypes = {
+  all: PropTypes.string.isRequired
+}
 
 export default Process;

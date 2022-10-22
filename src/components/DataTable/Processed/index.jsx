@@ -49,7 +49,7 @@ const Processed = ({ data, isLoading, all }) => {
     const daysCount = months > 0 ? months * days : days;
 
     if (daysCount <= 1) return "red";
-    if (daysCount > 1 && daysCount < 14) return "yellow";
+    if (daysCount > 1 && daysCount < 3) return "yellow";
     return "green";
   };
 

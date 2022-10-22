@@ -80,44 +80,11 @@ const Stats = () => {
       <CategoryDataTable rows={category} />
       <div className="grid grid-cols-2 mt-4 gap-4"/>
 
-
-
       <div>
         <ReactApexChart type="pie" series={CHART_DATA} options={chartOptions} height={280} />
       </div>
-      <div className="grid grid-cols-2 mt-4 gap-4">
-        <div
-          className="mt-3 rounded-lg bg-gray-200 dark:bg-gray-700 overflow-hidden shadow divide-y divide-gray-200 dark:divide-gray-700 sm:divide-y-0 sm:grid sm:grid-cols-2 sm:gap-px">
-          {actions.map((action, actionIdx) => (
-            <div
-              key={action.title}
-              className={classNames(
-                actionIdx === 0 ? "rounded-tl-lg rounded-tr-lg sm:rounded-tr-none" : "",
-                actionIdx === 1 ? "sm:rounded-tr-lg" : "",
-                actionIdx === actions.length - 2 ? "sm:rounded-bl-lg" : "",
-                actionIdx === actions.length - 1 ? "rounded-bl-lg rounded-br-lg sm:rounded-bl-none" : "",
-                "relative group bg-white dark:bg-gray-900 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500"
-              )}
-            >
-              <Link to={action.href} className="w-full focus:outline-none min-w-0">
-                <div className="flex items-center p-3">
-                  <Avatar name="" size="14" color={action.color}
-                          icon={<i className={["text-2xl mdi", action.icon].join(" ")} />} shape="roundedLG"
-                          classname="flex-shrink-0" />
-                  <div className="min-w-0 flex flex-col ml-3 text-sm">
-                    <span className="line-clamp-3">{action.title}</span>
-                    <p className="text-gray-500 truncate">{action.col} {`${getAmount(action.col, {
-                      single: "дело",
-                      multi: "дела",
-                      count: "дел"
-                    })}`}</p>
-                  </div>
 
-                </div>
-              </Link>
-            </div>
-          ))}
-        </div>
+      <div className="grid grid-cols-2 mt-4 gap-4">
         <Card classname="p-4 flex flex-col gap-4">
           <p className="text-sm font-medium uppercase text-gray-500 dark:text-gray-600 mb-3">Дни рождения сегодня</p>
           {birthdays.map((item, key) =>
@@ -140,7 +107,6 @@ const Stats = () => {
           }
         </Card>
       </div>
-
 
     </BasicPage>
   );

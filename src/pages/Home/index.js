@@ -4,6 +4,7 @@ import CasesOverPeriodWidget from "./widgets/CasesOverPeriodWidget";
 import useAuth from "../../hooks/useAuth";
 import NoPublicatedActs from "./widgets/NoPublicatedActs";
 import ProcessedWidget from "./widgets/ProcessedWidget";
+import UserWelcomeWidget from "./widgets/UserWelcomeWidget";
 
 const Home = () => {
 
@@ -12,14 +13,24 @@ const Home = () => {
 
   return (
     <BasicPage title="Главная" className="main-content mx-auto px-5">
-      <div className="grid grid-cols-3 gap-4">
+      <div className="flex sm:grid md:grid-cols-2 2xl:grid-cols-3 gap-3 sm:gap-5 xl:gap-7">
         <div>
-          <h5 className="text-gray-700">{user?.fullname}</h5>
-          <h5 className="text-gray-700">{user?.professionName}</h5>
           <div className="flex flex-col gap-4">
+            {/* 1-я колонка */}
+            <UserWelcomeWidget user={user ?? {}} />
             <CasesOverPeriodWidget user={user ?? {}} />
             <NoPublicatedActs user={user ?? {}} />
             <ProcessedWidget user={user ?? {}} />
+          </div>
+        </div>
+        <div>
+          <div className="flex flex-col gap-4">
+            {/* 2-я колонка */}
+          </div>
+        </div>
+        <div>
+          <div className="flex flex-col gap-4">
+            {/* 3-я колонка */}
           </div>
         </div>
       </div>
