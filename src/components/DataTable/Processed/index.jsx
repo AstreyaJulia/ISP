@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { compareDesc, intervalToDuration, parse } from "date-fns";
+import ru from "date-fns/locale/ru";
 import { getUniqueArrayValuesByKey } from "../../../utils/getArrayValuesByKey";
 import { getInitials } from "../../../utils/getInitials";
 import DataTableCore from "../DataTableCore";
@@ -7,8 +9,6 @@ import { Avatar } from "../../Avatar";
 import { caseTypesSettings } from "../../../config";
 import { getHighlightedText } from "../../../utils/getHighlightedText";
 import Badge from "../../Badge";
-import { compareDesc, intervalToDuration, parse } from "date-fns";
-import ru from "date-fns/locale/ru";
 
 const Processed = ({ data, isLoading, all }) => {
 
