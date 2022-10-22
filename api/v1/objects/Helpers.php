@@ -145,10 +145,9 @@ class Helpers extends Router
    * @param array $params массив с параметрами key => value
    * @param string $host_api адрес на который отправляем запрос
    * 
-   * @return array
    * 
    */
-  public static function sendGET($params, $host_api)
+  public static function sendGET(array $params, string $host_api):array
   {
     // собираем адрес и параметры запроса
     $url = $host_api . http_build_query($params);
@@ -160,9 +159,9 @@ class Helpers extends Router
     $result = curl_exec($ch);
     $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
-    $message = json_decode($result);
+    $message = json_decode($result) ?? array();
     if (in_array($httpcode, [0, 504])) {
-      $message = self::isErrorInfo(200, "ГАС недоступен", "Обратитесь к администратору");
+      $message = self::isErrorInfo(501, "ГАС недоступен", "Обратитесь к администратору");
     } else {
       http_response_code($httpcode);
       $message;
