@@ -28,6 +28,8 @@ const Processed = ({ data, isLoading, all }) => {
     const statusSettings = {
       "motionless": { title: "Без движения", color: "red" },
       "process": { title: "Рассматривается", color: "indigo" },
+      "process   ": { title: "Рассматривается", color: "indigo" }, // костыль удалить
+      "stopped   ": { title: "Приостановлено", color: "orange" }, // ксстыль удалить
       "stopped": { title: "Приостановлено", color: "orange" }
     };
     if (status) {
