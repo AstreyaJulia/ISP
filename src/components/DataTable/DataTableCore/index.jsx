@@ -372,6 +372,7 @@ DataTableCore.propTypes = {
   tableID: PropTypes.string,
   placeholder: PropTypes.string,
   itemsContainerClassNames: PropTypes.string,
+  pseudoTableBodyClassNames: PropTypes.string,
   isLoading: PropTypes.string,
   classname: PropTypes.string,
   makeItem: PropTypes.func,

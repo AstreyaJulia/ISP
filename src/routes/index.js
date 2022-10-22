@@ -93,7 +93,12 @@ export default function Router() {
         },
         {
           path: "process",
-          element: <Process />
+          element: <Process all="false" />
+        },
+        // Все
+        {
+          path: "process-all",
+          element: <Process all="true" />
         },
         {
           path: "calendar",

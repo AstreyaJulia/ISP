@@ -3,6 +3,7 @@ import BasicPage from "../pagesLayouts/BasicPage";
 import CasesOverPeriodWidget from "./widgets/CasesOverPeriodWidget";
 import useAuth from "../../hooks/useAuth";
 import NoPublicatedActs from "./widgets/NoPublicatedActs";
+import ProcessedWidget from "./widgets/ProcessedWidget";
 
 const Home = () => {
 
@@ -18,6 +19,7 @@ const Home = () => {
           <div className="flex flex-col gap-4">
             <CasesOverPeriodWidget user={user ?? {}} />
             <NoPublicatedActs user={user ?? {}} />
+            <ProcessedWidget user={user ?? {}} />
           </div>
         </div>
       </div>

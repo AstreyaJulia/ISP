@@ -4,6 +4,7 @@ import PageHeader from "../../components/PageHeader";
 import useAuth from "../../hooks/useAuth";
 import CasesOverPeriodWidgetAll from "./widgets/CasesOverPeriodWidgetAll";
 import NoPublicatedActsAll from "./widgets/NoPublicatedActsAll";
+import ProcessedWidgetAll from "./widgets/ProcessedWidgetAll";
 
 const Grade = () => {
 
@@ -20,6 +21,7 @@ const Grade = () => {
         <div className="flex flex-col gap-4">
           <CasesOverPeriodWidgetAll user={user ?? {}} />
           <NoPublicatedActsAll user={user ?? {}} />
+          <ProcessedWidgetAll user={user ?? {}} />
         </div>
       </div>
     </BasicPage>
