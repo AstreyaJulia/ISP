@@ -26,7 +26,7 @@ class GasAPI
             }
             match ($this->helpers->getUrlData()["1"]) {
                 //'deadlines' => $this->helpers->getJsonEncode($this->deadlines()),
-                'sudact', 'deadlines' => $this->helpers->getJsonEncode($this->prepareQuery($this->helpers->getUrlData()))
+                'sudact', 'deadlines', 'materials-production' => $this->helpers->getJsonEncode($this->prepareQuery($this->helpers->getUrlData()))
             };
         } catch (\UnhandledMatchError | \Exception $e) {
             $this->helpers->isErrorInfo(400, "Ошибка в переданных данных", $e);
