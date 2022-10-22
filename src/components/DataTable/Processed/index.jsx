@@ -7,6 +7,8 @@ import { Avatar } from "../../Avatar";
 import { caseTypesSettings } from "../../../config";
 import { getHighlightedText } from "../../../utils/getHighlightedText";
 import Badge from "../../Badge";
+import { compareDesc, intervalToDuration, parse } from "date-fns";
+import ru from "date-fns/locale/ru";
 
 const Processed = ({ data, isLoading, all }) => {
 
@@ -36,6 +38,22 @@ const Processed = ({ data, isLoading, all }) => {
     return statusSettings[0][item]
   }
 
+  const getCaseUntilColor = (date) => {
+    if (date === "null" || date === null) return "indigo";
+    if (compareDesc(new Date(), parse(date, "dd.MM.yyyy", new Date(), { locale: ru })) === -1) return "red";
+
+    const { days, months } = intervalToDuration({
+      start: new Date(),
+      end: parse(date, "dd.MM.yyyy", new Date(), { locale: ru })
+    });
+    const daysCount = months > 0 ? months * days : days;
+
+    if (daysCount <= 1) return "red";
+    if (daysCount > 1 && daysCount < 14) return "yellow";
+    return "green";
+  };
+
+
   const makeItem = (item, key, query) =>
     <div
       key={key}
@@ -64,7 +82,10 @@ const Processed = ({ data, isLoading, all }) => {
             {item?.STOP_DATE !== "" ? <p
               className="font-medium text-xs text-slate-600 dark:text-slate-200 flex flex-wrap justify-start items-center text-left mb-1">{item?.STOP_DATE}</p> : ""}
             {item?.DATE_UNTIL !== "" ? <p
-              className="font-medium text-xs text-slate-600 dark:text-slate-200 flex flex-wrap justify-start items-center text-left mb-1">До: {item?.DATE_UNTIL}</p> : ""}
+              className="font-medium text-xs text-slate-600 dark:text-slate-200 flex flex-wrap justify-start items-center text-left mb-1">До:
+              <Badge size="small" shape="rounded" className="ml-1"
+                     color={getCaseUntilColor(item?.DATE_UNTIL ?? null)}
+                     item={item?.DATE_UNTIL} /> </p> : "" }
           </div>
         </div>
       </div>
