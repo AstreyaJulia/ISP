@@ -28,8 +28,6 @@ const Processed = ({ data, isLoading, all }) => {
     const statusSettings = {
       "motionless": { title: "Без движения", color: "red" },
       "process": { title: "Рассматривается", color: "indigo" },
-      "process   ": { title: "Рассматривается", color: "indigo" }, // костыль удалить
-      "stopped   ": { title: "Приостановлено", color: "orange" }, // ксстыль удалить
       "stopped": { title: "Приостановлено", color: "orange" }
     };
     if (status) {
@@ -62,9 +60,11 @@ const Processed = ({ data, isLoading, all }) => {
                    color={getStatusSettings(item?.CASE_STATUS, 'color')}
                    item={getStatusSettings(item?.CASE_STATUS, 'title')} />
             {item?.MOTIONLES_DATE !== "" ? <p
-              className="font-medium text-xs text-slate-600 dark:text-slate-200 flex flex-wrap justify-start items-center text-left mb-1">До: {item?.MOTIONLES_DATE}</p> : ""}
+              className="font-medium text-xs text-slate-600 dark:text-slate-200 flex flex-wrap justify-start items-center text-left mb-1">{item?.MOTIONLES_DATE}</p> : ""}
             {item?.STOP_DATE !== "" ? <p
               className="font-medium text-xs text-slate-600 dark:text-slate-200 flex flex-wrap justify-start items-center text-left mb-1">{item?.STOP_DATE}</p> : ""}
+            {item?.DATE_UNTIL !== "" ? <p
+              className="font-medium text-xs text-slate-600 dark:text-slate-200 flex flex-wrap justify-start items-center text-left mb-1">До: {item?.DATE_UNTIL}</p> : ""}
           </div>
         </div>
       </div>
