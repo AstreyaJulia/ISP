@@ -12,7 +12,7 @@ const Process = ({ all }) => {
 
   const dispatch = useDispatch();
 
-  const { processedcases, processedcasessall, processedisLoading } = useSelector((state) => state.processed);
+  const { processedcases, processedcasesall, processedisLoading } = useSelector((state) => state.processed);
 
   useEffect(() => {
     dispatch(all === "true" ? getAllProcessedCases() : getJudgeProcessedCases());
@@ -23,7 +23,7 @@ const Process = ({ all }) => {
   return (
     <BasicPage title="Дела, находящиеся в производстве" className="main-content max-w-6xl mx-auto px-5">
       <PageHeader pages={breadcrumbs} header="Дела, находящиеся в производстве" />
-      <Processed data={all === "true" ? processedcasessall : processedcases ?? []} isLoading={processedisLoading} all={all} />
+      <Processed data={all === "true" ? processedcasesall : processedcases ?? []} isLoading={processedisLoading} all={all} />
     </BasicPage>
   );
 };
