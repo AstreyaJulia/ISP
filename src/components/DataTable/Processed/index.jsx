@@ -10,13 +10,10 @@ import Badge from "../../Badge";
 
 const Processed = ({ data, isLoading, all }) => {
 
-  const [rows, setRows] = useState([]);
+  const [rows, setRows] = useState(data ?? []);
   const columns = Object.keys(data[0] ?? []);
-
   const [selectedFilter, setSelectedFilter] = useState({ JUDGE_NAME: "All", CASE_STATUS: "All" });
-
   const [currentPage, setCurrentPage] = useState(0); // текущая страница
-
   const [judgesList, setJudgesList] = useState([]);
   const [statusList, setStatusList] = useState([]);
 
@@ -154,7 +151,6 @@ const Processed = ({ data, isLoading, all }) => {
           </select>
         </div>
       </div>
-
     </DataTableCore>
   );
 };
