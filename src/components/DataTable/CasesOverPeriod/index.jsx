@@ -18,8 +18,7 @@ const CasesOverPeriod = ({ data, isLoading }) => {
     // eslint-disable-next-line
   }, [isLoading]);
 
-  const handleCardDoubleClick = (item, evt) => {
-    evt.preventDefault();
+  const handleCardDoubleClick = (item) => {
     setSelectedCase({ item });
     setModalOpened(true);
   }
@@ -30,7 +29,7 @@ const CasesOverPeriod = ({ data, isLoading }) => {
   }
 
   const makeItem = (item, key, query) =>
-    <CaseListCard key={key} item={item} query={query} handleOnDblclick={(item, evt) => handleCardDoubleClick(item, evt)}>
+    <CaseListCard key={key} item={item} query={query} handleOnDblclick={(item) => handleCardDoubleClick(item)}>
       {item.INFO.toLowerCase().includes("Д.б. рассм./изг.реш. в оконч.форме до".toLowerCase()) ? <p
           className="font-medium text-xs text-slate-600 dark:text-slate-200 flex flex-wrap justify-start items-center text-left mb-1">
           До: <Badge size="small" shape="rounded" className="ml-1"
