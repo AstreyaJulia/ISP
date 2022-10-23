@@ -47,7 +47,7 @@ const CaseInfoModal = ({ open, setOpen, onModalClose, children }) => <Transition
           </div>
           <div className="sm:flex sm:items-start">
             <div
-              className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+              className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-cyan-100 sm:mx-0 sm:h-10 sm:w-10">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
                    stroke="currentColor" className="w-6 h-6 text-cyan-600">
                 <path strokeLinecap="round" strokeLinejoin="round"
