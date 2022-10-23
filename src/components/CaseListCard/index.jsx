@@ -29,7 +29,7 @@ const CaseListCard = ({ item, query, children, link, handleOnDblclick }) => {
               className="font-medium text-sm text-slate-800 dark:text-slate-200 flex flex-wrap line-clamp-1 justify-start items-center text-left mb-1">
               <Avatar size="6" shape="circle" name={item?.CASE_TYPE}
                       color={caseTypesSettings[item?.CASE_TYPE].color} classname="mr-2" />
-              <span>{getHighlightedText(item?.CASE_NUMBER, query)}</span>
+              <span className='w-40 line-clamp-1'>{getHighlightedText(item?.CASE_NUMBER, query)}</span>
               <button className="relative bg-transparent border-0 ml-1 p-1" type='button' onClick={handleInfoCopy}
                  title={copied === "false" ? "Скопировать информацию" : "Скопировано!"}>
                 {copied === "false" ?
