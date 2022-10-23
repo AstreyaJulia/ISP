@@ -26,7 +26,7 @@ const CaseListCard = ({ item, query, children, link, handleOnDblclick }) => {
         <div className="flex items-center justify-between w-full">
           <div className="flex flex-col items-start">
             <p
-              className="font-medium text-sm text-slate-800 dark:text-slate-200 flex flex-wrap line-clamp-1 justify-start items-center text-left mb-1">
+              className="w-60 font-medium text-sm text-slate-800 dark:text-slate-200 flex flex-wrap line-clamp-1 justify-start items-center text-left mb-1">
               <Avatar size="6" shape="circle" name={item?.CASE_TYPE}
                       color={caseTypesSettings[item?.CASE_TYPE].color} classname="mr-2" />
               <span className='w-40 line-clamp-1'>{getHighlightedText(item?.CASE_NUMBER, query)}</span>
