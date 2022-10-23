@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   },
   mb8: { marginBottom: 8 },
 
-  tableCell_1: { width: "15%" },
+  tableCell_1: { width: "25%" },
   tableCell_2: { paddingRight: 16, display: "flex", flexWrap: "wrap", width: "95%" }
 });
 
