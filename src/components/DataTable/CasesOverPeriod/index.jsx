@@ -72,7 +72,7 @@ const CasesOverPeriod = ({ data, isLoading }) => {
         <p className="text-slate-600 dark:text-slate-400 text-sm font-bold mb-2">Категория / статья:</p>
         <p className="text-slate-700 dark:text-slate-300 text-sm mb-5">{selectedCase.CAT}</p>
         <p className="text-slate-600 dark:text-slate-400 text-sm font-bold mb-2">Информация:</p>
-        {selectedCase.INFO.length > 0 && selectedCase.INFO !== "null" ? selectedCase.INFO.split(";").map((item, key) =>
+        {selectedCase.INFO?.length > 0 && selectedCase.INFO !== "null" ? selectedCase.INFO.split(";").map((item, key) =>
             <p key={key} className="text-slate-700 dark:text-slate-300 text-sm">{item};</p>) :
           <p className="text-slate-700 dark:text-slate-300 text-sm">Нет информации</p>}
       </CaseInfoModal>
