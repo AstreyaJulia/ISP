@@ -58,11 +58,11 @@ const CasesOverPeriod = ({ data, isLoading }) => {
   );
 
   const handlePDFModalClosed = () => {
-    setModalOpened(false);
+    setModalPDFOpened(false);
   };
 
   const handlePDFModalOpen = () => {
-    setModalOpened(true);
+    setModalPDFOpened(true);
   };
 
   return (
