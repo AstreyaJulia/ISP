@@ -95,7 +95,7 @@ const PublicationControl = ({ data, isLoading, all }) => {
     >
 
       {all === "true" ?
-        <DataTableToolBar>
+        <DataTableToolBar className='mt-3'>
           <div className="flex items-center ml-3 justify-start">
             <label htmlFor="judges"
                    className="shrink-0 block text-sm font-medium text-slate-700 dark:text-slate-300 mr-2">

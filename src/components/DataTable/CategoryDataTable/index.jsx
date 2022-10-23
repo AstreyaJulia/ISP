@@ -12,7 +12,6 @@ const CategoryDataTable = ({ rows }) => {
   const [currentPage, setCurrentPage] = useState(0); // текущая страница
   const [modalOpened, setModalOpened] = useState(false);
 
-
   const filter = (rows, query) => {
     const findQuery = rows.filter((row) => query !== "" ? row.NAME.toLowerCase().indexOf(query.toLowerCase()) > -1 && row.PREFIX !== "" : row.NAME.toLowerCase().indexOf(query.toLowerCase()) > -1);
 
@@ -23,8 +22,6 @@ const CategoryDataTable = ({ rows }) => {
         )
       );
     }
-
-
 
     findParents.propTypes = {
       /** Массив элементов  */
@@ -77,9 +74,11 @@ const CategoryDataTable = ({ rows }) => {
       table={{ isTable: "true", startColumn: 0, endColumn: 2, columnNames: tableGrColumns, coltosort: [] }}
     >
 
-      <DataTableToolBar>
+      <DataTableToolBar className='mt-3'>
         <div className="flex items-center justify-between w-full">
           <div />
+
+          {/* PDF */}
           <div className="flex items-center gap-2">
 
             <PDFDownloadLink
@@ -89,7 +88,7 @@ const CategoryDataTable = ({ rows }) => {
             >
               {({ loading }) => (
                 <button type="button" disabled={loading} title="Сохранить в файл"
-                        className="bg-transparent border-0 rounded-full hover:bg-slate-300/30 p-2 text-gray-500">
+                        className="bg-transparent border-0 rounded-full hover:bg-slate-300/30 p-2 text-gray-500 dark:text-gray-400">
                   {loading ? <svg className="animate-spin w-5 h-5 text-gray-500" viewBox="0 0 24 24" fill="none"
                                   xmlns="http://www.w3.org/2000/svg">
                     <path opacity="0.2" fillRule="evenodd" clipRule="evenodd"
@@ -106,7 +105,7 @@ const CategoryDataTable = ({ rows }) => {
             </PDFDownloadLink>
 
             <button type="button" title="Предпросмотр" onClick={handleModalOpen}
-                    className="bg-transparent border-0 rounded-full hover:bg-slate-300/30 p-2 text-gray-500">
+                    className="bg-transparent border-0 rounded-full hover:bg-slate-300/30 p-2 text-gray-500 dark:text-gray-400">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
                    stroke="currentColor" className="w-5 h-5">
                 <path strokeLinecap="round" strokeLinejoin="round"
@@ -116,6 +115,7 @@ const CategoryDataTable = ({ rows }) => {
             </button>
 
           </div>
+
         </div>
       </DataTableToolBar>
       <PdfModal onModalClose={handleModalClosed} open={modalOpened} setOpen={setModalOpened} >

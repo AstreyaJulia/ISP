@@ -209,7 +209,7 @@ const DataTableCore = ({
           <tr className="rounded-md">
             {columns.slice(startColumn, endColumn).map((column, key) => (
               <th key={key}
-                  className="pr-3 py-3 text-left bg-slate-100 dark:bg-slate-800 border-b border-slate-300 dark:border-slate-600">
+                  className="pr-3 py-3 text-left bg-slate-100 dark:bg-slate-800">
                 <div
                   className="flex items-center gap-2"
                 >

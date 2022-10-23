@@ -194,21 +194,6 @@ export const users = [{
   avatar: ""
 }];
 
-export const userStats = [{ label: "Осталось дней отпуска", value: 12 }, {
-  label: "Дней болезни",
-  value: 4
-}, { label: "Дежурная неделя", value: "" }];
-
-export const messages = [{
-  id: "1",
-  user: users[5],
-  time: "2022-05-21 11:05:00",
-  message: "Hey John, I am looking for the best admin template. Could you please help me to find it out?"
-}];
-
-export const birthdaysToday = [{ user: users[5], age: "36" }, { user: users[1], age: "32" }, {
-  user: users[3], age: "21"
-}];
 
 export const events = [{
   id: "1",
@@ -343,25 +328,6 @@ export const proxyListLinks = {
   }
 };
 
-/** Объект с пользователями
- * @type {[{label: string, avatar: *, value: string},{label: string, avatar: *, value: string},{label: string, avatar: *, value: string},{label: string, avatar: *, value: string},{label: string, avatar: *, value: string},null]}
- */
-export const usersOptions = [{
-  label: "Судьи", options: [{ value: 1, label: users[0].fullname, avatar: users[0].avatar }]
-}, {
-  label: "Помощники", options: [{ value: 3, label: users[2].fullname, avatar: users[2].avatar }]
-}, {
-  label: "Секретари судебного заседания", options: [{ value: 2, label: users[1].fullname, avatar: users[1].avatar }]
-}, {
-  label: "Канцелярия",
-  options: [{ value: 4, label: users[3].fullname, avatar: users[3].avatar }, {
-    value: 5,
-    label: users[4].fullname,
-    avatar: users[4].avatar
-  }, { value: 6, label: users[5].fullname, avatar: users[5].avatar }]
-}];
-
-
 
 export const usersCat = [{
   color: "indigo", name: "Судьи"
@@ -425,41 +391,6 @@ export const outboxSearchResults = [{
   type: "Почта",
   address: "Сафоново, Красногвардейская, д.41",
   sendto: "Петров П.П."
-}];
-
-export const outdatedCases = [{
-  "CASE_TYPE": "G1",
-  "CASE_ID": 32767614,
-  "CASE_STATUS": "overperiod",
-  "CASE_NUMBER": "2-1/2022 (2-384/2021;)",
-  "RESULT_DATE": "2022-02-03 00:00:00.0000",
-  "PARTS_FIO": "Смирнов Александр Анатольевич, Государственное учреждение - Управление Пенсионного фонда Российской Федерации в Сафоновском районе Смоленской области",
-  "JUDGE_ID": 9300120,
-  "JUDGE_NAME": "Вайцещук Ирина Сергеевна",
-  "CAT": "2.069 - Споры, возникающие из пенсионного законодательства -> Иски физических лиц к ПФ... -> по искам застрахованных",
-  "INFO": "Неучитываемый срок (ст. 152 ч.3 ГПК РФ): 0; На интервале с: 26.02.2021 по: 03.02.2022. ; Нач. срока: 26.02.2021; Без движ.: 0; Приост.: 280; Примир.: 0; Медиация: 0; Общ. норм. срок: 59; Д.б. рассм. изг.реш. в оконч.форме до: 01.02.2022; Оконч.: 03.02.2022; Изг.реш. в оконч.фоме: 09.02.2022"
-}, {
-  "CASE_TYPE": "G1",
-  "CASE_ID": 38399951,
-  "CASE_STATUS": "overperiod",
-  "CASE_NUMBER": "2-720/2022",
-  "RESULT_DATE": "2022-10-06 00:00:00.0000",
-  "PARTS_FIO": "ПАО \"Совкомбанк\", Макаров Иван Викторович \r\nМакарова Виолетта Ивановна \r\nМакарова Милана Ивановна \r\nМакарова Юлия Васильевна",
-  "JUDGE_ID": 9000032,
-  "JUDGE_NAME": "Мельничук Елена Владимировна",
-  "CAT": "2.113 - Споры, возникающие из жилищного законодательства -> О выселении -> из жилого помещения, принадлежащего на праве собственности",
-  "INFO": "Неучитываемый срок (ст. 152 ч.3 ГПК РФ): 0; На интервале с: 24.05.2022 по: 06.10.2022. ; Нач. срока: 24.05.2022; Без движ.: 0; Приост.: 63; Примир.: 0; Медиация: 0; Общ. норм. срок: 61; Д.б. рассм. изг.реш. в оконч.форме до: 26.09.2022; Оконч.: 06.10.2022; Изг.реш. в оконч.фоме: "
-}, {
-  "CASE_TYPE": "ADM",
-  "CASE_ID": 35663541,
-  "CASE_STATUS": "overperiod",
-  "CASE_NUMBER": "5-54/2022 (5-1140/2021;)",
-  "RESULT_DATE": "2022-02-15 00:00:00.0000",
-  "PARTS_FIO": "Оглоблин Геннадий Владимирович",
-  "JUDGE_ID": 9300076,
-  "JUDGE_NAME": "Басурова Елена Евгеньевна",
-  "CAT": "ст.20.6.1 ч.1 КоАП РФ",
-  "INFO": "null"
 }];
 
 export const UsersList = [

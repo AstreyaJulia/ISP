@@ -120,7 +120,7 @@ const Processed = ({ data, isLoading, all }) => {
       table={{ isTable: "false", startColumn: null, endColumn: null, columnNames: null, coltosort: [] }}
     >
 
-      <DataTableToolBar>
+      <DataTableToolBar className='mt-3'>
         {all === "true" ? <div className="flex items-center ml-3 justify-start">
           <label htmlFor="JUDGE_NAME"
                  className="shrink-0 block text-sm font-medium text-slate-700 dark:text-slate-300 mr-2">

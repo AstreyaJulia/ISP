@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { getInitials } from "../../../../utils/getInitials";
+import { classNames } from "../../../../utils/classNames";
 
-const DataTableToolBar = ({children}) => {
+const DataTableToolBar = ({children, className}) => {
   return (
-    <div className="p-3 bg-slate-100 dark:bg-slate-800 rounded-md mt-3 mx-4 flex items-center gap-2">
+    <div className={classNames("p-3 bg-slate-100 dark:bg-slate-700 flex items-center gap-2", className || '')}>
       {children}
     </div>
   );
