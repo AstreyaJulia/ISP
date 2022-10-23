@@ -18,8 +18,9 @@ const CasesOverPeriod = ({ data, isLoading }) => {
     // eslint-disable-next-line
   }, [isLoading]);
 
-  const handleCardDoubleClick = (item) => {
-    setSelectedCase(item);
+  const handleCardDoubleClick = (item, evt) => {
+    evt.preventDefault();
+    setSelectedCase({ item });
     setModalOpened(true);
   }
 
@@ -29,7 +30,7 @@ const CasesOverPeriod = ({ data, isLoading }) => {
   }
 
   const makeItem = (item, key, query) =>
-    <CaseListCard key={key} item={item} query={query} handleOnDblclick={(item) => handleCardDoubleClick(item)}>
+    <CaseListCard key={key} item={item} query={query} handleOnDblclick={(item, evt) => handleCardDoubleClick(item, evt)}>
       {item.INFO.toLowerCase().includes("Д.б. рассм./изг.реш. в оконч.форме до".toLowerCase()) ? <p
           className="font-medium text-xs text-slate-600 dark:text-slate-200 flex flex-wrap justify-start items-center text-left mb-1">
           До: <Badge size="small" shape="rounded" className="ml-1"
@@ -67,14 +68,16 @@ const CasesOverPeriod = ({ data, isLoading }) => {
         table={{ isTable: "false", startColumn: null, endColumn: null, columnNames: null, coltosort: [] }}
       />
       <CaseInfoModal open={modalOpened} setOpen={setModalOpened} onModalClose={handleModalClosed}>
-        <p className="text-slate-600 dark:text-slate-400 text-sm font-bold mb-2">Дата рассмотрения дела:</p>
-        <p className="text-slate-700 dark:text-slate-300 text-sm mb-5">{selectedCase.RESULT_DATE}</p>
-        <p className="text-slate-600 dark:text-slate-400 text-sm font-bold mb-2">Категория / статья:</p>
-        <p className="text-slate-700 dark:text-slate-300 text-sm mb-5">{selectedCase.CAT}</p>
-        <p className="text-slate-600 dark:text-slate-400 text-sm font-bold mb-2">Информация:</p>
-        {selectedCase.INFO?.length > 0 && selectedCase.INFO !== "null" ? selectedCase.INFO.split(";").map((item, key) =>
-            <p key={key} className="text-slate-700 dark:text-slate-300 text-sm">{item};</p>) :
-          <p className="text-slate-700 dark:text-slate-300 text-sm">Нет информации</p>}
+        <div className='mt-7'>
+          <p className="text-slate-600 dark:text-slate-400 text-sm font-bold mb-2">Дата рассмотрения дела:</p>
+          <p className="text-slate-700 dark:text-slate-300 text-sm mb-5">{selectedCase.RESULT_DATE}</p>
+          <p className="text-slate-600 dark:text-slate-400 text-sm font-bold mb-2">Категория / статья:</p>
+          <p className="text-slate-700 dark:text-slate-300 text-sm mb-5">{selectedCase.CAT}</p>
+          <p className="text-slate-600 dark:text-slate-400 text-sm font-bold mb-2">Информация:</p>
+          {selectedCase.INFO?.length > 0 && selectedCase.INFO !== "null" ? selectedCase.INFO.split(";").map((item, key) =>
+              <p key={key} className="text-slate-700 dark:text-slate-300 text-sm">{item};</p>) :
+            <p className="text-slate-700 dark:text-slate-300 text-sm">Нет информации</p>}
+        </div>
       </CaseInfoModal>
     </>
 
