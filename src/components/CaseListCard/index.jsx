@@ -20,7 +20,7 @@ const CaseListCard = ({ item, query, children, link, handleOnDblclick }) => {
   return (
     <a
       href={link}
-      onDoubleClick={handleOnDblclick}
+      onDoubleClick={(item) => handleOnDblclick(item)}
       className="p-3 w-full flex items-center rounded-md bg-slate-100 dark:bg-slate-800">
       <div className="flex grow items-center">
         <div className="flex items-center justify-between w-full">
