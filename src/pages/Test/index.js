@@ -11,6 +11,9 @@ import { fNumber } from "../../utils/formatNumber";
 import { BaseChartOptions } from "../../components/ApexCharts/chartsSettings";
 import { getInitialsOnly } from "../../utils/getInitials";
 import { getAvatarColor } from "../../utils/getAvatarColor";
+import ProcessedWidget from "../Home/widgets/ProcessedWidget";
+import WidgetRowCounter from "../../components/WidgetRowCounter";
+import { UsersList } from "../../@mock/SampleData";
 
 const CHART_DATA = [4344, 5435, 1443, 4443];
 
@@ -75,7 +78,13 @@ const Test = () => {
           )
           }
         </Card>
-      </div>
+        <WidgetRowCounter isLoading='false' rows={UsersList} color="green" link="/process"
+                          error={null}
+                          title="в производстве" counter={{
+          single: "Дело",
+          multi: "Дела",
+          count: "Дел"
+        }} />      </div>
 
     </BasicPage>
   );
