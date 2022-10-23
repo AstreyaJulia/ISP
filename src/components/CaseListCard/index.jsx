@@ -6,7 +6,7 @@ import { getHighlightedText } from "../../utils/getHighlightedText";
 import { getInitials } from "../../utils/getInitials";
 import { copyTextToClipboard } from "../../utils/copyTextToClipboard";
 
-const CaseListCard = ({ key, item, query, children, link, handleOnDblclick }) => {
+const CaseListCard = ({ item, query, children, link, handleOnDblclick }) => {
 
   const [copied, setIsCopied] = useState("false");
 
@@ -19,7 +19,6 @@ const CaseListCard = ({ key, item, query, children, link, handleOnDblclick }) =>
 
   return (
     <a
-      key={key}
       href={link}
       onDoubleClick={handleOnDblclick}
       className="p-3 w-full flex items-center rounded-md bg-slate-100 dark:bg-slate-800">
