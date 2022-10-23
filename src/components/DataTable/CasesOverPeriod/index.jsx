@@ -58,9 +58,9 @@ const CasesOverPeriod = ({ data, isLoading }) => {
         tableID="cases-over-period"
         isLoading={isLoading}
         columns={columns}
-        itemsContainerClassNames="flex flex-col gap-2"
+        itemsContainerClassNames="grid grid-cols-2 gap-3"
         initSortColumn={columns[0]}
-        placeholder="Поиск по делам, рассмотренным свыше срока"
+        placeholder="Поиск по делам, рассмотренным свыше срока: номер дела / стороны / лица"
         filterCallback={filter}
         sortCallback={null}
         makeItem={makeItem}

@@ -99,7 +99,7 @@ const PublicationControl = ({ data, isLoading, all }) => {
 
   return (
     <DataTableCore
-      classname="mt-5"
+      classname="mt-7"
       rows={rows}
       currentPage={currentPage}
       setCurrentPage={setCurrentPage}
