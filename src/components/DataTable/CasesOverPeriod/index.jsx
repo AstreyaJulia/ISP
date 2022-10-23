@@ -18,18 +18,21 @@ const CasesOverPeriod = ({ data, isLoading }) => {
     // eslint-disable-next-line
   }, [isLoading]);
 
-  const handleCardDoubleClick = (item) => {
-    setSelectedCase({ item });
+  const handleCardDoubleClick = (evt, item) => {
+    evt.preventDefault()
+    setSelectedCase( item );
     setModalOpened(true);
   }
 
   const handleModalClosed = () => {
     setModalOpened(false);
-    setSelectedCase({});
+    setTimeout(() => {
+      setSelectedCase({});
+    }, 1500);
   }
 
   const makeItem = (item, key, query) =>
-    <CaseListCard key={key} item={item} query={query} handleOnDblclick={(item) => handleCardDoubleClick(item)}>
+    <CaseListCard key={key} item={item} query={query} handleOnDblclick={(evt) => handleCardDoubleClick(evt, item)}>
       {item.INFO.toLowerCase().includes("Д.б. рассм./изг.реш. в оконч.форме до".toLowerCase()) ? <p
           className="font-medium text-xs text-slate-600 dark:text-slate-200 flex flex-wrap justify-start items-center text-left mb-1">
           До: <Badge size="small" shape="rounded" className="ml-1"
