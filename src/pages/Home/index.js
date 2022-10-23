@@ -19,11 +19,9 @@ const Home = () => {
           <div className="flex flex-col gap-4">
             {/* 1-я колонка */}
             <UserWelcomeWidget user={user ?? {}} />
-            <div className='flex md:grid md:grid-cols-2 gap-3'>
-              <CasesOverPeriodWidget user={user ?? {}} />
-              <ProcessedWidget user={user ?? {}} />
-              <NoPublicatedActs user={user ?? {}} />
-            </div>
+            <CasesOverPeriodWidget user={user ?? {}} />
+            <NoPublicatedActs user={user ?? {}} />
+            <ProcessedWidget user={user ?? {}} />
           </div>
         </div>
         <div>
