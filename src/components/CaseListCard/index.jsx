@@ -67,8 +67,7 @@ CaseListCard.propTypes = {
   query: PropTypes.string,
   children: PropTypes.node,
   link: PropTypes.string,
-  handleOnDblclick: PropTypes.func,
-  props: PropTypes.object
+  handleOnDblclick: PropTypes.func
 };
 
 export default CaseListCard;
