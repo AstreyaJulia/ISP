@@ -26,11 +26,11 @@ const CaseListCard = ({ item, query, children, link, handleOnDblclick }) => {
         <div className="flex items-center justify-between w-full">
           <div className="flex flex-col items-start">
             <p
-              className="w-60 font-medium text-sm text-slate-800 dark:text-slate-200 flex flex-wrap line-clamp-1 justify-start items-center text-left mb-1">
+              className="font-medium text-sm text-slate-800 dark:text-slate-200 flex flex-wrap line-clamp-1 justify-start items-center text-left mb-1">
               <Avatar size="6" shape="circle" name={item?.CASE_TYPE}
                       color={caseTypesSettings[item?.CASE_TYPE].color} classname="mr-2" />
-              <span className='w-40 line-clamp-1'>{getHighlightedText(item?.CASE_NUMBER, query)}</span>
-              <button className="relative bg-transparent border-0 ml-1 p-1" type='button' onClick={handleInfoCopy}
+              <span>{getHighlightedText(item?.CASE_NUMBER, query)}</span>
+              <button className="relative bg-transparent border-0 ml-1 p-1 shrink-0" type='button' onClick={handleInfoCopy}
                  title={copied === "false" ? "Скопировать информацию" : "Скопировано!"}>
                 {copied === "false" ?
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
