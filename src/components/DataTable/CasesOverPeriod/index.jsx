@@ -53,7 +53,7 @@ const CasesOverPeriod = ({ data, isLoading }) => {
 
   return (
     <>
-      <div className="rounded-md bg-blue-200 dark:bg-blue-600/30 p-4 mt-7">
+      <div className="rounded-md bg-blue-100 dark:bg-blue-600/30 p-4 mt-7">
         <div className="flex">
           <div className="flex-shrink-0">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
