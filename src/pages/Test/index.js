@@ -1,7 +1,5 @@
 import React from "react";
 import ReactApexChart from "react-apexcharts";
-import { Link } from "react-router-dom";
-
 import BasicPage from "../pagesLayouts/BasicPage";
 import PageHeader from "../../components/PageHeader";
 import CategoryDataTable from "../../components/DataTable/CategoryDataTable";
@@ -11,37 +9,12 @@ import { Avatar } from "../../components/Avatar";
 import { getAmount } from "../../utils/getAmount";
 import { fNumber } from "../../utils/formatNumber";
 import { BaseChartOptions } from "../../components/ApexCharts/chartsSettings";
-import { classNames } from "../../utils/classNames";
 import { getInitialsOnly } from "../../utils/getInitials";
 import { getAvatarColor } from "../../utils/getAvatarColor";
 
 const CHART_DATA = [4344, 5435, 1443, 4443];
-const actions = [
-  {
-    title: "Дел с нарушением срока",
-    href: "#",
-    icon: "mdi-clock-outline",
-    col: 1,
-    color: "red"
-  },
-  {
-    title: "Не отмечен результат события",
-    href: "#",
-    icon: "mdi-check-circle-outline",
-    col: 1,
-    color: "indigo"
-  },
-  {
-    title: "Не сдано в канцелярию",
-    href: "#",
-    icon: "mdi-flag-remove-outline",
-    col: 1,
-    color: "blue"
-  }
-];
 
-
-const Stats = () => {
+const Test = () => {
 
   const breadcrumbs = [{ name: "Тестовая страница", href: "", current: true }];
 
@@ -65,21 +38,17 @@ const Stats = () => {
     }
   };
 
-
-
   const birthdays = [
     { fullname: "Иванов Иван Иванович", age: "30" },
     { fullname: "Смирнова Светлана Сергеевна", age: "41" },
     { fullname: "Петров Петр Петрович", age: "45" }
   ];
 
-
   return (
     <BasicPage title="Тестовая страница" className="main-content max-w-6xl mx-auto px-5">
       <PageHeader pages={breadcrumbs} header="Тестовая страница" />
       <CategoryDataTable rows={category} />
       <div className="grid grid-cols-2 mt-4 gap-4"/>
-
       <div>
         <ReactApexChart type="pie" series={CHART_DATA} options={chartOptions} height={280} />
       </div>
@@ -112,4 +81,4 @@ const Stats = () => {
   );
 };
 
-export default Stats;
+export default Test;

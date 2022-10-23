@@ -5,10 +5,8 @@ import ru from "date-fns/locale/ru";
 import { getUniqueArrayValuesByKey } from "../../../utils/getArrayValuesByKey";
 import { getInitials } from "../../../utils/getInitials";
 import DataTableCore from "../DataTableCore";
-import { Avatar } from "../../Avatar";
-import { caseTypesSettings } from "../../../config";
-import { getHighlightedText } from "../../../utils/getHighlightedText";
 import Badge from "../../Badge";
+import CaseListCard from "../../CaseListCard";
 
 const Processed = ({ data, isLoading, all }) => {
 
@@ -33,10 +31,10 @@ const Processed = ({ data, isLoading, all }) => {
       "stopped": { title: "Приостановлено", color: "orange" }
     };
     if (status) {
-      return statusSettings[status][item]
+      return statusSettings[status][item];
     }
-    return statusSettings[0][item]
-  }
+    return statusSettings[0][item];
+  };
 
   const getCaseUntilColor = (date) => {
     if (date === "null" || date === null) return "indigo";
@@ -53,43 +51,21 @@ const Processed = ({ data, isLoading, all }) => {
     return "green";
   };
 
-
   const makeItem = (item, key, query) =>
-    <div
-      key={key}
-      className="p-3 w-full flex items-center rounded-md bg-slate-100 dark:bg-slate-800">
-      <div className="flex grow items-center">
-        <div className="flex items-center justify-between w-full">
-          <div className="flex flex-col items-start">
-            <p
-              className="font-medium text-sm text-slate-800 dark:text-slate-200 flex flex-wrap line-clamp-1 justify-start items-center text-left mb-1">
-              <Avatar size="6" shape="circle" name={item?.CASE_TYPE}
-                      color={caseTypesSettings[item?.CASE_TYPE].color} classname="mr-2" />
-              <span>{getHighlightedText(item?.CASE_NUMBER, query)}</span>
-            </p>
-            <span className="text-xs text-indigo-700 dark:text-indigo-300 mb-2">{getInitials(item?.JUDGE_NAME)}</span>
-            <p
-              className="text-sm text-slate-700 dark:text-slate-300 flex flex-wrap line-clamp-1 justify-start items-center text-left">
-              {getHighlightedText(item?.PARTS_FIO, query)}
-            </p>
-          </div>
-          <div className="flex flex-col items-end shrink-0 gap-1 h-full grow-0">
-            <Badge size="small" shape="rounded" className="ml-1"
-                   color={getStatusSettings(item?.CASE_STATUS, 'color')}
-                   item={getStatusSettings(item?.CASE_STATUS, 'title')} />
-            {item?.MOTIONLES_DATE !== "" ? <p
-              className="font-medium text-xs text-slate-600 dark:text-slate-200 flex flex-wrap justify-start items-center text-left mb-1">{item?.MOTIONLES_DATE}</p> : ""}
-            {item?.STOP_DATE !== "" ? <p
-              className="font-medium text-xs text-slate-600 dark:text-slate-200 flex flex-wrap justify-start items-center text-left mb-1">{item?.STOP_DATE}</p> : ""}
-            {item?.DATE_UNTIL !== "" ? <p
-              className="font-medium text-xs text-slate-600 dark:text-slate-200 flex flex-wrap justify-start items-center text-left mb-1">До:
-              <Badge size="small" shape="rounded" className="ml-1"
-                     color={getCaseUntilColor(item?.DATE_UNTIL ?? null)}
-                     item={item?.DATE_UNTIL} /> </p> : "" }
-          </div>
-        </div>
-      </div>
-    </div>;
+    <CaseListCard key={key} item={item} query={query}>
+      <Badge size="small" shape="rounded" className="ml-1"
+             color={getStatusSettings(item?.CASE_STATUS, "color")}
+             item={getStatusSettings(item?.CASE_STATUS, "title")} />
+      {item?.MOTIONLES_DATE !== "" ? <p
+        className="font-medium text-xs text-slate-600 dark:text-slate-200 flex flex-wrap justify-start items-center text-left mb-1">{item?.MOTIONLES_DATE}</p> : ""}
+      {item?.STOP_DATE !== "" ? <p
+        className="font-medium text-xs text-slate-600 dark:text-slate-200 flex flex-wrap justify-start items-center text-left mb-1">{item?.STOP_DATE}</p> : ""}
+      {item?.DATE_UNTIL !== "" ? <p
+        className="font-medium text-xs text-slate-600 dark:text-slate-200 flex flex-wrap justify-start items-center text-left mb-1">До:
+        <Badge size="small" shape="rounded" className="ml-1"
+               color={getCaseUntilColor(item?.DATE_UNTIL ?? null)}
+               item={item?.DATE_UNTIL} /></p> : ""}
+    </CaseListCard>
 
   const filter = (rows, query, columns) => rows?.filter((row) =>
     columns.slice(3, 7).filter((item) => item !== "JUDGE_NAME" && item !== "JUDGE_ID").some(
@@ -175,7 +151,7 @@ const Processed = ({ data, isLoading, all }) => {
           >
             <option value="All">Все</option>
             {statusList.map((status, key) =>
-              <option key={status + key} value={status}>{getStatusSettings(status, 'title')}</option>
+              <option key={status + key} value={status}>{getStatusSettings(status, "title")}</option>
             )}
           </select>
         </div>
