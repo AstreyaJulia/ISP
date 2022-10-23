@@ -7,6 +7,7 @@ import { getInitials } from "../../../utils/getInitials";
 import DataTableCore from "../DataTableCore";
 import Badge from "../../Badge";
 import CaseListCard from "../../CaseListCard";
+import DataTableToolBar from "../DataTableCore/DataTableToolBar";
 
 const Processed = ({ data, isLoading, all }) => {
 
@@ -118,7 +119,8 @@ const Processed = ({ data, isLoading, all }) => {
       makeItem={makeItem}
       table={{ isTable: "false", startColumn: null, endColumn: null, columnNames: null, coltosort: [] }}
     >
-      <div className="p-3 bg-slate-100 rounded-md mt-3 mx-4 flex items-center gap-2">
+
+      <DataTableToolBar>
         {all === "true" ? <div className="flex items-center ml-3 justify-start">
           <label htmlFor="JUDGE_NAME"
                  className="shrink-0 block text-sm font-medium text-slate-700 dark:text-slate-300 mr-2">
@@ -155,7 +157,8 @@ const Processed = ({ data, isLoading, all }) => {
             )}
           </select>
         </div>
-      </div>
+      </DataTableToolBar>
+
     </DataTableCore>
   );
 };

@@ -204,7 +204,7 @@ const DataTableCore = ({
 
       {/* Таблица */}
       {isTable === "true" ?
-        <table className="w-full mb-5">
+        <table className="w-full my-5">
           <tbody>
           <tr className="rounded-md">
             {columns.slice(startColumn, endColumn).map((column, key) => (

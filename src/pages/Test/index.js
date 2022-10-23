@@ -11,7 +11,6 @@ import { fNumber } from "../../utils/formatNumber";
 import { BaseChartOptions } from "../../components/ApexCharts/chartsSettings";
 import { getInitialsOnly } from "../../utils/getInitials";
 import { getAvatarColor } from "../../utils/getAvatarColor";
-import ProcessedWidget from "../Home/widgets/ProcessedWidget";
 import WidgetRowCounter from "../../components/WidgetRowCounter";
 import { UsersList } from "../../@mock/SampleData";
 

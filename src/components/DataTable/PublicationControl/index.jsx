@@ -7,6 +7,7 @@ import Badge from "../../Badge";
 import { getInitials } from "../../../utils/getInitials";
 import { getUniqueArrayValuesByKey } from "../../../utils/getArrayValuesByKey";
 import CaseListCard from "../../CaseListCard";
+import DataTableToolBar from "../DataTableCore/DataTableToolBar";
 
 const PublicationControl = ({ data, isLoading, all }) => {
 
@@ -92,7 +93,9 @@ const PublicationControl = ({ data, isLoading, all }) => {
       makeItem={makeItem}
       table={{ isTable: "false", startColumn: null, endColumn: null, columnNames: null, coltosort: [] }}
     >
-      {all === "true" ? <div className="p-3 bg-slate-100 rounded-md mt-3 mx-4">
+
+      {all === "true" ?
+        <DataTableToolBar>
           <div className="flex items-center ml-3 justify-start">
             <label htmlFor="judges"
                    className="shrink-0 block text-sm font-medium text-slate-700 dark:text-slate-300 mr-2">
@@ -111,8 +114,9 @@ const PublicationControl = ({ data, isLoading, all }) => {
               )}
             </select>
           </div>
-        </div>
+        </DataTableToolBar>
         : <></>}
+
     </DataTableCore>
   );
 };
