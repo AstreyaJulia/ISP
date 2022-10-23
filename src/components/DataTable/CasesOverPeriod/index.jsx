@@ -19,17 +19,17 @@ const CasesOverPeriod = ({ data, isLoading }) => {
   }, [isLoading]);
 
   const handleCardDoubleClick = (evt, item) => {
-    evt.preventDefault()
-    setSelectedCase( item );
+    evt.preventDefault();
+    setSelectedCase(item);
     setModalOpened(true);
-  }
+  };
 
   const handleModalClosed = () => {
     setModalOpened(false);
     setTimeout(() => {
       setSelectedCase({});
     }, 1500);
-  }
+  };
 
   const makeItem = (item, key, query) =>
     <CaseListCard key={key} item={item} query={query} handleOnDblclick={(evt) => handleCardDoubleClick(evt, item)}>
@@ -53,25 +53,35 @@ const CasesOverPeriod = ({ data, isLoading }) => {
 
   return (
     <>
-      <div className="rounded-md bg-blue-50 p-4">
+      <div className="rounded-md bg-blue-200 dark:bg-blue-600/30 p-4 mt-7">
         <div className="flex">
           <div className="flex-shrink-0">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5 text-blue-400">
-              <path fillRule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 01.67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 11-.671-1.34l.041-.022zM12 9a.75.75 0 100-1.5.75.75 0 000 1.5z" clipRule="evenodd" />
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                 className="h-5 w-5 text-blue-600">
+              <path fillRule="evenodd"
+                    d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 01.67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 11-.671-1.34l.041-.022zM12 9a.75.75 0 100-1.5.75.75 0 000 1.5z"
+                    clipRule="evenodd" />
             </svg>
           </div>
           <div className="ml-3 flex-1 md:flex md:justify-between">
-            <p className="text-sm text-blue-700">
-              <svg className="h-5 w-5 text-blue-400" strokeWidth="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M20 10V14C20 18.4183 16.4183 22 12 22C7.58172 22 4 18.4183 4 14V9C4 5.13401 7.13401 2 11 2H12C16.4183 2 20 5.58172 20 10Z" stroke="currentColor" stroke-linecap="round"/>
-                <path d="M12 2V8.4C12 8.73137 11.7314 9 11.4 9H4" stroke="currentColor" strokeLinecap="round"/>
-              </svg>
-              Нажмите дважды левой кнопкой мыши на карточке для отображения информации по делу</p>
+            <p className="text-sm text-blue-800 flex items-center">
+              <span>Нажмите дважды</span>
+              <span title="левой кнопкой мыши" className='mx-1'>
+                <svg className="h-5 w-5 text-blue-500" strokeWidth="1.5" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                  <path
+                  d="M20 10V14C20 18.4183 16.4183 22 12 22C7.58172 22 4 18.4183 4 14V9C4 5.13401 7.13401 2 11 2H12C16.4183 2 20 5.58172 20 10Z"
+                  stroke="currentColor" strokeLinecap="round" />
+                <path d="M12 2V8.4C12 8.73137 11.7314 9 11.4 9H4" stroke="currentColor" strokeLinecap="round" />
+                </svg>
+              </span>
+              <span>на карточке для отображения информации по делу</span>
+            </p>
           </div>
         </div>
       </div>
       <DataTableCore
-        classname="mt-7"
+        classname="mt-5"
         rows={rows ?? []}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
@@ -87,7 +97,7 @@ const CasesOverPeriod = ({ data, isLoading }) => {
         table={{ isTable: "false", startColumn: null, endColumn: null, columnNames: null, coltosort: [] }}
       />
       <CaseInfoModal open={modalOpened} setOpen={setModalOpened} onModalClose={handleModalClosed}>
-        <div className='mt-7'>
+        <div className="mt-7">
           <p className="text-slate-600 dark:text-slate-400 text-sm font-bold mb-2">Дата рассмотрения дела:</p>
           <p className="text-slate-700 dark:text-slate-300 text-sm mb-5">{selectedCase.RESULT_DATE}</p>
           <p className="text-slate-600 dark:text-slate-400 text-sm font-bold mb-2">Категория / статья:</p>
