@@ -10,7 +10,7 @@ const WidgetRowCounter = ({ rows, isLoading, error, title, color, link, counter:
       <div
         className="rounded-lg relative group bg-white dark:bg-gray-900 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500 shadow">
         <Link to={link} className="w-full focus:outline-none min-w-0">
-          <div className="flex flex-col items-center p-3 gap-3">
+          <div className="flex flex-col p-3 gap-3">
             {isLoading === "true" ?
               <>
                 <AvatarCircularWithPlaceholderInitials name="" size="12" color={color}
@@ -35,7 +35,7 @@ const WidgetRowCounter = ({ rows, isLoading, error, title, color, link, counter:
                 <AvatarCircularWithPlaceholderInitials name={rows?.length.toString()} size="12"
                                                        color={color}
                                                        shape="roundedLG" classname="flex-shrink-0" />
-                <div className="min-w-0 flex flex-col ml-4 text-sm">
+                <div className="min-w-0 flex flex-col text-sm">
                   <span className="line-clamp-3">{`${getAmount(rows?.length, { ...counter })}`} {title}</span>
                 </div>
               </>
