@@ -73,11 +73,7 @@ class Helpers extends Router
       'authorization',
       'registration',
       'home',
-      'gas-api',
-      'publication-acts',
-      'deadlines',
-      'motionless',
-      'not-reviewed'
+      'gas-api'
     ));
   }
 
