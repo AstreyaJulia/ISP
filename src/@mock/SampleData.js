@@ -295,6 +295,20 @@ export const events = [{
   allDay: true,
   calendar: "orange",
   display: "background"
+},{
+  title: "Задача",
+  start: "2022-10-29",
+  end: "2022-10-29",
+  allDay: true,
+  calendar: "orange",
+  display: "task"
+},{
+  title: "Задача выполнена",
+  start: "2022-10-28",
+  end: "2022-10-31",
+  allDay: true,
+  calendar: "red",
+  display: "task-completed"
 }];
 
 /** Группы каталога ссылок

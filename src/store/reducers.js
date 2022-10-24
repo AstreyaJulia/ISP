@@ -3,6 +3,7 @@ import storage from "redux-persist/lib/storage";
 import overperiod from "./slices/cases/overperiod";
 import actpublication from "./slices/cases/actpublication";
 import processed from "./slices/cases/processed";
+import calendar from "./slices/calendar";
 
 const rootPersistConfig = {
   key: "root",
@@ -14,7 +15,8 @@ const rootPersistConfig = {
 const appReducer = combineReducers({
   overperiod,
   actpublication,
-  processed
+  processed,
+  calendar
 });
 
 const rootReducer = (state, action) => {
