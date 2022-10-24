@@ -112,17 +112,9 @@ class Helpers extends Router
 
   /**
    * Сообщение об ошибке.
-   * 
-   * @param int $responseCode
-   * @param string $mecage
-   * @param object|string $e - сообщение от исключения
-   * 
-   * Если ключ jwt не прошел проверку отдаем заголовок 401
-   * и исключение из библиотеки Firebase\JWT
    *
-   * @return string
    */
-  public static function isErrorInfo($responseCode, $mesage, $e)
+  public static function isErrorInfo(int $responseCode, string $mesage, object|string $e):string
   {
 
     $info = array(
