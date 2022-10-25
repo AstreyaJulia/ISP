@@ -331,15 +331,15 @@
 
 /** Цвет фона сегодняшнего дня */
 .calendar-module .fc .fc-daygrid-day .fc-daygrid-day-number {
-    @apply text-gray-600 dark:text-gray-400;
+    @apply mt-1 text-gray-700 dark:text-gray-300 w-7 h-7 flex items-center justify-center hover:bg-slate-100 hover:rounded-full hover:no-underline text-sm font-medium;
 }
 
 .calendar-module .fc .fc-daygrid-day.fc-day-today .fc-daygrid-day-number {
-    @apply text-gray-900 dark:text-gray-50;
+    @apply text-white bg-blue-600 rounded-full;
 }
 
 .calendar-module .fc .fc-daygrid-day.fc-day-today {
-    @apply bg-gray-200 dark:bg-gray-700;
+    background-color: revert;
 }
 
 .calendar-module .fc-daygrid-day-number {
@@ -490,4 +490,28 @@
 
 .fc-event-task-completed .fc-event-main .fc-event-main-frame .fc-event-title-container .fc-event-title.fc-sticky {
     text-decoration: line-through;
+}
+
+.fc .fc-daygrid-day-top {
+    @apply flex-row justify-center
+}
+
+.fc .fc-timegrid-axis-cushion {
+    @apply text-gray-700 dark:text-gray-300 text-sm text-center
+}
+
+.fc .fc-timegrid-axis-cushion, .fc .fc-timegrid-slot-label-cushion {
+    @apply text-gray-600 dark:text-gray-400 text-sm font-medium
+}
+
+.fc .fc-timegrid-col.fc-day-today {
+    background-color: revert !important;
+}
+
+.fc-col-header-cell.fc-day .fc-col-header-cell-cushion{
+    @apply mb-1 font-medium text-sm text-gray-700 dark:text-gray-300
+}
+
+.fc-col-header-cell.fc-day.fc-day-tue.fc-day-today .fc-col-header-cell-cushion  {
+    @apply  rounded-md bg-blue-600 text-white
 }
