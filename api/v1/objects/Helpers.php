@@ -6,29 +6,23 @@ class Helpers extends Router
 {
 
   /**
-   * Возвращает JSON-представление данных
-   * Не кодирует многобайтовые символы Unicode (по умолчанию они кодируются как \uXXXX)
-   * Использует пробельные символы в возвращаемых данных для их форматирования.
-   *
-   * @var array|string|bool|int
-   *
-   * @return string
+   * Возвращает JSON-представление данных. Не код кодирует многобайтовые
+   * символы Unicode, (по умолчанию они кодируются как \uXXXX). Использует
+   * пробельные символы в возвращаемых данных для их форматирования.
    */
-  public static function getJsonEncode($data)
+  public static function getJsonEncode(array|string|bool|int $data):void
   {
     echo json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
   }
 
   /**
-   * Обёртка, помещает все данные в 
-   * ассоциативный массив
+   * Обёртка, помещает все данные в ассоциативный массив
    * 
-   * @param $data данные которые необходимо обернуть в массив
-   * @param $name имя ключа массива
-   *
-   * @return array
+   * @param mixed $data данные которые необходимо обернуть в массив
+   * @param string $name имя ключа массива
+   * 
    */
-  public static function wrap(mixed $data, string $name): array
+  public static function wrap(mixed $data, string $name):array
   {
     $showing[$name] = $data;
     return $showing;
@@ -72,7 +66,6 @@ class Helpers extends Router
       'search',
       'authorization',
       'registration',
-      'home',
       'gas-api'
     ));
   }
