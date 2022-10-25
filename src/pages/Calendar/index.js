@@ -31,6 +31,7 @@ const Calendar = () => {
 
   const calendarRef = useRef(null);
   const [date, setDate] = useState(new Date());
+  const [viewDates, setViewDates] = useState({start: new Date(), end: new Date()})
   const [view, setView] = useState('dayGridMonth');
 
   const selectedEvent = useSelector(selectedEventSelector);
@@ -91,11 +92,15 @@ const Calendar = () => {
           onToday={handleClickToday}
           onChangeView={handleChangeView}
           onAddEvent={handleAddEvent}
+          dates={viewDates}
         />
         <FullCalendar
           events={events}
           plugins={[listPlugin, dayGridPlugin, timeGridPlugin, interactionPlugin]}
           initialView={view}
+          datesSet={(arg) => {
+            setViewDates({start: arg.start, end: arg.end})
+          }}
           headerToolbar={false}
           editable
           ref={calendarRef}

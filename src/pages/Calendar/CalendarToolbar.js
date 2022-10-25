@@ -1,10 +1,11 @@
 import React from "react";
-import { monthYear } from "../../utils/formatTime";
+import { fDate, monthYear } from "../../utils/formatTime";
+import { classNames } from "../../utils/classNames";
 
 const VIEW_OPTIONS = [
   {
     value: "dayGridMonth",
-    label: "Месяц"
+    label: "Месяц",
   },
   {
     value: "timeGridWeek",
@@ -16,24 +17,36 @@ const VIEW_OPTIONS = [
   }
 ];
 
-export const CalendarToolbar = ({ date, view, onToday, onNextDate, onPrevDate, onChangeView, onAddEvent }) => {
+const viewTitle = (view, date, start, end) => {
+
+  const settings = {
+    dayGridMonth: monthYear(date),
+    timeGridWeek: `${fDate(start)} - ${fDate(end - 1)}`,
+    timeGridDay: `${fDate(start)}`
+  }
+
+  return settings[view]
+}
+
+
+export const CalendarToolbar = ({ date, view, onToday, onNextDate, onPrevDate, onChangeView, onAddEvent, dates }) => {
 
   return (
     <div className="flex items-center justify-between  p-4">
       <div className="flex items-center gap-2 justify-center">
         <button type="button" onClick={onToday}
-                className="mr-2 cursor-pointer text-gray-700 focus:outline-none border border-slate-300 shadow rounded-md py-2 px-4 flex items-center text-sm font-medium hover:bg-slate-100">
+                className="mr-2 cursor-pointer text-gray-700 dark:text-gray-300 focus:outline-none border border-slate-300 dark:border-gray-700 shadow rounded-md py-2 px-4 flex items-center text-sm font-medium hover:bg-slate-100">
           Сегодня
         </button>
         <button type="button" onClick={onPrevDate}
-                className="cursor-pointer text-gray-700 focus:outline-none rounded-full p-2 flex items-center justify-center text-base hover:bg-slate-100">
+                className="cursor-pointer text-gray-700 dark:text-gray-300 focus:outline-none rounded-full p-2 flex items-center justify-center text-base hover:bg-slate-100">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
                stroke="currentColor" className="w-5 h-5">
             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
           </svg>
         </button>
         <button type="button" onClick={onNextDate}
-                className="cursor-pointer text-gray-700 focus:outline-none rounded-full p-2 flex items-center justify-center text-base hover:bg-slate-100">
+                className="cursor-pointer text-gray-700 dark:text-gray-300 focus:outline-none rounded-full p-2 flex items-center justify-center text-base hover:bg-slate-100">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
                stroke="currentColor" className="w-5 h-5">
             <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
@@ -41,7 +54,9 @@ export const CalendarToolbar = ({ date, view, onToday, onNextDate, onPrevDate, o
         </button>
 
         <h4
-          className="text-xl font-bold text-gray-700 capitalize w-40 flex justify-center items-center">{monthYear(date)}</h4>
+          className={classNames("text-2xl font-medium text-gray-700 dark:text-gray-300 flex justify-center items-center shrink-0", view === 'dayGridMonth' ? "capitalize" : '')}>
+          {viewTitle(view, date, dates.start, dates.end)}
+        </h4>
       </div>
 
       <div className="flex items-center gap-6">
@@ -63,9 +78,9 @@ export const CalendarToolbar = ({ date, view, onToday, onNextDate, onPrevDate, o
           </select>
         </div>
 
-        <div className='pl-6 border-l border-gray-400'>
+        <div className='pl-6 border-l border-gray-400 dark:border-gray-600'>
           <button type="button" onClick={onAddEvent}
-                  className="cursor-pointer text-white shadow border border-indigo-600 bg-indigo-600 focus:outline-none border rounded-md py-2 px-4 flex items-center justify-center text-sm font-medium">
+                  className="cursor-pointer text-white shadow border border-indigo-600 bg-indigo-600 dark:bg-indigo-700 dark:border-indigo-700 focus:outline-none border rounded-md py-2 px-4 flex items-center justify-center text-sm font-medium">
             <span>Добавить событие</span>
           </button>
         </div>
