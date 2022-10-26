@@ -83,7 +83,7 @@ const Calendar = () => {
 
   return (
     <BasicPage title="Календарь" className="full-height-page mx-auto px-5">
-      <Card classname='calendar-module'>
+      <Card classname='calendar-module overflow-visible'>
         <CalendarToolbar
           date={date}
           view={view}

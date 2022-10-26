@@ -331,7 +331,7 @@
 
 /** Цвет фона сегодняшнего дня */
 .calendar-module .fc .fc-daygrid-day .fc-daygrid-day-number {
-    @apply mt-1 text-gray-700 dark:text-gray-300 w-7 h-7 flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-800 hover:rounded-full hover:no-underline text-sm font-medium;
+    @apply mt-1 text-gray-700 dark:text-gray-300 w-7 h-7 flex items-center justify-center hover:bg-slate-600/10 hover:rounded-full hover:no-underline text-sm font-medium;
 }
 
 .calendar-module .fc .fc-daygrid-day.fc-day-today .fc-daygrid-day-number {
@@ -518,4 +518,20 @@
 
 .fc .fc-daygrid-more-link {
     @apply text-gray-700 dark:text-gray-300 text-sm font-medium
+}
+
+.fc-theme-standard .fc-popover {
+    @apply bg-white dark:bg-gray-900 shadow rounded-md border border-slate-300 dark:border-slate-600
+}
+
+.fc-theme-standard .fc-popover-header {
+    background-color: revert !important;
+}
+
+.fc .fc-popover-header {
+    @apply p-2
+}
+
+.fc-popover-close.fc-icon.fc-icon-x {
+    @apply bg-slate-800/10 dark:bg-slate-200/30 w-7 h-7 rounded-full flex items-center justify-center text-xl text-gray-700 dark:text-gray-100
 }

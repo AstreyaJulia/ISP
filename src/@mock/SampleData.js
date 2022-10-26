@@ -323,6 +323,20 @@ export const events = [{
   end: "2022-06-03 09:00:00",
   allDay: false,
   calendar: "yellow"
+}, {
+  id: "82",
+  title: "Отчёт",
+  start: "2022-06-03 09:00:00",
+  end: "2022-06-03 09:00:00",
+  allDay: false,
+  calendar: "yellow"
+}, {
+  id: "83",
+  title: "Отчёт",
+  start: "2022-06-03 09:00:00",
+  end: "2022-06-03 09:00:00",
+  allDay: false,
+  calendar: "yellow"
 }];
 
 /** Группы каталога ссылок
