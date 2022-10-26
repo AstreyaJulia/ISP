@@ -23,9 +23,9 @@
     /**
      * Тело переданного GET, POST, PUT, DELETE запроса
      *
-     * @var array
+     * @var array|null
      */
-    private $formData;
+    public readonly array|NULL $formData;
 
     /**
      * Тело запроса:
@@ -132,13 +132,4 @@
       return $this->router;
     }
 
-    /**
-     * get элемент для formData
-     *
-     *@return array
-     */
-    public function getFormData()
-    {
-      return $this->formData;
-    }
   }

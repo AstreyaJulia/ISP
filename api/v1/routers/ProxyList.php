@@ -42,7 +42,7 @@ function route($helpers) {
                 throw new Exception("Недостаточно прав");
             }
 
-            $result = $proxyListClass->insertLink($helpers->getFormData());
+            $result = $proxyListClass->insertLink($helpers->formData);
 
             $helpers->getJsonEncode($result);
         } catch (Exception $e){

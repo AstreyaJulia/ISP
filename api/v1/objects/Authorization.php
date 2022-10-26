@@ -22,8 +22,8 @@
     public function assignValuesAuthorization() {
       // login
       try {
-        if (!empty($this->helpers->getFormData()["login"])) {
-          $this->login = $this->helpers->getFormData()["login"];
+        if (!empty($this->helpers->formData["login"])) {
+          $this->login = $this->helpers->formData["login"];
         } else {
           throw new \Exception("Ожидаю login в методе POST");
         }
@@ -32,8 +32,8 @@
       }
       // password
       try {
-        if (!empty($this->helpers->getFormData()["password"])) {
-          $this->password = $this->helpers->getFormData()["password"];
+        if (!empty($this->helpers->formData["password"])) {
+          $this->password = $this->helpers->formData["password"];
         } else {
           throw new \Exception("Ожидаю password в методе POST");
         }

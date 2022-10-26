@@ -30,7 +30,7 @@ class Users
                       LEFT JOIN `sdc_users` AS Users ON UserAttributes.internalKey=Users.id
                       LEFT JOIN `sdc_vocation` AS Vocation ON Vocation.id=UserAttributes.profession
               WHERE Users.active = 1 and UserAttributes.profession != ''";
-    return $row = $this->helpers->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
+    return $this->helpers->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
   }
 
   /**
@@ -104,11 +104,11 @@ class Users
     switch ($this->helpers->getUrlData()[1] ?? false) {
       case 'login-data': {
 
-          $param = $this->helpers->getFormData() ? implode(array_keys($this->helpers->getFormData())) : false;
+          $param = $this->helpers->formData ? implode(array_keys($this->helpers->formData)) : false;
 
           if (in_array($param, ["sidebar", "theme"])) {
             try {
-              $output["data"] = $this->helpers->setUserSettings($param, (int)$this->helpers->getFormData()[$param]);
+              $output["data"] = $this->helpers->setUserSettings($param, (int)$this->helpers->formData[$param]);
               $this->helpers->getJsonEncode($output);
             } catch (\PDOException $e) {
               $this->helpers::isErrorInfo(200, "Што-то пошло не так", $e);
