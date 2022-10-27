@@ -4,6 +4,8 @@ import overperiod from "./slices/cases/overperiod";
 import actpublication from "./slices/cases/actpublication";
 import processed from "./slices/cases/processed";
 import calendar from "./slices/calendar";
+import phonebook from "./slices/users";
+import weather from "./slices/weather";
 
 const rootPersistConfig = {
   key: "root",
@@ -16,7 +18,9 @@ const appReducer = combineReducers({
   overperiod,
   actpublication,
   processed,
-  calendar
+  calendar,
+  phonebook,
+  weather
 });
 
 const rootReducer = (state, action) => {

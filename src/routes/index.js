@@ -83,7 +83,7 @@ export default function Router() {
         {
           path: "over-period-all",
           element:
-            <RoleBasedGuard accessibleProfessions={[1, 2, 4, 5, 6]}>
+            <RoleBasedGuard accessibleProfessions={[1, 2, 4, 5, 6, null]}>
               <Finished all="true" />
             </RoleBasedGuard>
         },
@@ -98,7 +98,7 @@ export default function Router() {
         {
           path: "publication-all",
           element:
-            <RoleBasedGuard accessibleProfessions={[1, 2, 4, 5, 6]}>
+            <RoleBasedGuard accessibleProfessions={[1, 2, 4, 5, 6, null]}>
               <Publication all="true" />
             </RoleBasedGuard>
         },
@@ -113,7 +113,7 @@ export default function Router() {
         {
           path: "process-all",
           element:
-            <RoleBasedGuard accessibleProfessions={[1, 2, 4, 5, 6]}>
+            <RoleBasedGuard accessibleProfessions={[1, 2, 4, 5, 6, null]}>
               <Process all="true" />
             </RoleBasedGuard>
         },
@@ -132,7 +132,7 @@ export default function Router() {
         {
           path: "grade",
           element:
-            <RoleBasedGuard accessibleProfessions={[1, 2, 4, 5, 6, 8]}>
+            <RoleBasedGuard accessibleProfessions={[1, 2, 4, 5, 6, 8, null]}>
               <Grade />
             </RoleBasedGuard>
         },

@@ -1,18 +1,28 @@
-import React from "react";
+import React, {useEffect} from "react";
 import BasicPage from "../pagesLayouts/BasicPage";
 import PageHeader from "../../components/PageHeader";
 import UsersList from "../../components/DataTable/UsersList";
-import { UsersList as rows } from "../../@mock/SampleData";
+import {useDispatch, useSelector} from "../../store";
+import {getPhonebookList} from "../../store/slices/users";
 
 const Phonebook = () => {
 
   const breadcrumbs = [{ name: "Информация", href: "", current: false },
     { name: "Сотрудники", href: "", current: true }];
 
+    const dispatch = useDispatch();
+
+    const { userList, isLoading } = useSelector((state) => state.phonebook);
+
+    useEffect(() => {
+        dispatch(getPhonebookList());
+        // eslint-disable-next-line
+    }, [dispatch]);
+
   return (
     <BasicPage title="Сотрудники" className="main-content max-w-6xl mx-auto px-5">
       <PageHeader pages={breadcrumbs} header="Сотрудники" />
-      <UsersList rows={rows} />
+      <UsersList data={userList ?? []} isLoading={isLoading} />
     </BasicPage>
   );
 };
