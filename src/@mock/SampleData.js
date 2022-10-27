@@ -40,7 +40,9 @@ export const navigation = [{
 }, {
   header: "Администрирование"
 }, {
-  id: "12", pagetitle: "Панель управления", icon: "mdi-view-dashboard-outline", alias: "/admin"
+  id: "12", pagetitle: "Панель управления", icon: "mdi-view-dashboard-outline", children: [{
+    id: "14", pagetitle: "Пользователи", icon: "mdi-account-multiple-outline", alias: "/admin/users"
+  }]
 }, {
   id: "9999", pagetitle: "Тест", icon: "mdi-view-dashboard-outline", alias: "/test"
 }];
