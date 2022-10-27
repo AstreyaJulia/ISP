@@ -43,7 +43,6 @@ const Test = () => {
   return (
     <BasicPage title="Тестовая страница" className="main-content max-w-6xl mx-auto px-5">
       <PageHeader pages={breadcrumbs} header="Тестовая страница" />
-      <CategoryDataTable rows={category} />
       <div className="grid grid-cols-2 mt-4 gap-4" />
       <div>
         <ReactApexChart type="pie" series={CHART_DATA} options={chartOptions} height={280} />
