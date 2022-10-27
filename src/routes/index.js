@@ -59,7 +59,6 @@ export default function Router() {
       ]
     },
 
-    // Каталог ссылок
     {
       path: "/",
       element: (
@@ -75,30 +74,48 @@ export default function Router() {
         },
         {
           path: "over-period",
-          element: <Finished all="false" />
+          element:
+            <RoleBasedGuard accessibleProfessions={[1, 2, 3, 6, 7, 9]}>
+              <Finished all="false" />
+            </RoleBasedGuard>
         },
         // Все
         {
           path: "over-period-all",
-          element: <Finished all="true" />
+          element:
+            <RoleBasedGuard accessibleProfessions={[1, 2, 4, 5, 6]}>
+              <Finished all="true" />
+            </RoleBasedGuard>
         },
         {
           path: "publication",
-          element: <Publication all="false" />
+          element:
+            <RoleBasedGuard accessibleProfessions={[1, 2, 3, 6, 7]}>
+              <Publication all="false" />
+            </RoleBasedGuard>
         },
         // Все
         {
           path: "publication-all",
-          element: <Publication all="true" />
+          element:
+            <RoleBasedGuard accessibleProfessions={[1, 2, 4, 5, 6]}>
+              <Publication all="true" />
+            </RoleBasedGuard>
         },
         {
           path: "process",
-          element: <Process all="false" />
+          element:
+            <RoleBasedGuard accessibleProfessions={[1, 2, 3, 6, 7, 9]}>
+              <Process all="false" />
+            </RoleBasedGuard>
         },
         // Все
         {
           path: "process-all",
-          element: <Process all="true" />
+          element:
+            <RoleBasedGuard accessibleProfessions={[1, 2, 4, 5, 6]}>
+              <Process all="true" />
+            </RoleBasedGuard>
         },
         {
           path: "calendar",
@@ -114,7 +131,10 @@ export default function Router() {
         },
         {
           path: "grade",
-          element: <Grade />
+          element:
+            <RoleBasedGuard accessibleProfessions={[1, 2, 4, 5, 6, 8]}>
+              <Grade />
+            </RoleBasedGuard>
         },
         {
           path: "faq",

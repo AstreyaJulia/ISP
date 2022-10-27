@@ -10,16 +10,17 @@ RoleBasedGuard.propTypes = {
 };
 
 /**
- * @param accessibleRoles - массив разрешенных пользователей / ролей
+ * @param accessibleRoles - массив разрешенных ролей
+ * @param accessibleProfessions - массив разрешенных профессий
  * @param children
  * @returns {JSX.Element}
  * @constructor
  */
-export default function RoleBasedGuard({ accessibleRoles, children }) {
+export default function RoleBasedGuard({ accessibleRoles, accessibleProfessions, children }) {
 
   const { user } = useAuth();
 
-  if (!accessibleRoles.includes(user.sudo)) {
+  if (accessibleRoles && !accessibleRoles.includes(user.sudo) || accessibleProfessions && !accessibleProfessions.includes(user.professionID) ) {
     return (
       <div className="p-4">
         <Alert alertType="error" title="Доступ запрещён">
