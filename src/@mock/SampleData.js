@@ -45,6 +45,8 @@ export const navigation = [{
   }]
 }, {
   id: "9999", pagetitle: "Тест", icon: "mdi-view-dashboard-outline", alias: "/test"
+}, {
+  id: "9998", pagetitle: "Тест2", icon: "mdi-view-dashboard-outline", alias: "/test2"
 }];
 
 /** Пользователи, для локального тестирования

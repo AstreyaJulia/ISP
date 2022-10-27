@@ -141,6 +141,14 @@ export default function Router() {
           element: <Faq />
         },
         {
+          path: "faq/gas",
+          element: <Gas />
+        },
+        {
+          path: "faq/gas/g-category",
+          element: <Gcategory />
+        },
+        {
           path: "admin",
           element:
             <RoleBasedGuard accessibleRoles={[1]}>
@@ -161,6 +169,13 @@ export default function Router() {
           element:
             <RoleBasedGuard accessibleRoles={[1]}>
               <Test />
+            </RoleBasedGuard>
+        },
+        {
+          path: "test2",
+          element:
+            <RoleBasedGuard accessibleRoles={[1]}>
+              <Test2 />
             </RoleBasedGuard>
         }
 
@@ -196,6 +211,9 @@ const Phonebook = Loadable(lazy(() => import("../pages/Phonebook"))); // Тел�
 const Stats = Loadable(lazy(() => import("../pages/Stats"))); // Каталог ссылок
 const Grade = Loadable(lazy(() => import("../pages/Grade"))); // Графики
 const Faq = Loadable(lazy(() => import("../pages/Faq"))); // База знаний
+const Gas = Loadable(lazy(() => import("../pages/Faq/Subpages/Gas"))); // База знаний
+const Gcategory = Loadable(lazy(() => import("../pages/Faq/Subpages/Gcategory"))); // База знаний
+
 const Admin = Loadable(lazy(() => import("../pages/Admin"))); // Админка
 
 const Profile = Loadable(lazy(() => import("../pages/Profile"))); // Профиль
@@ -208,3 +226,4 @@ const Page500 = Loadable(lazy(() => import("../pages/errors/Page500"))); // Ош
 const NotFound = Loadable(lazy(() => import("../pages/errors/Page404"))); // Страница не найдена
 // Тестирование
 const Test = Loadable(lazy(() => import("../pages/Test")));
+const Test2 = Loadable(lazy(() => import("../pages/Test/test2")));

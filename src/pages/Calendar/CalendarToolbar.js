@@ -81,7 +81,7 @@ export const CalendarToolbar = ({ date, view, onToday, onNextDate, onPrevDate, o
         <div className='pl-6 border-l border-gray-400 dark:border-gray-600'>
           <button type="button" onClick={onAddEvent}
                   className="cursor-pointer text-white shadow border border-indigo-600 bg-indigo-600 dark:bg-indigo-700 dark:border-indigo-700 focus:outline-none border rounded-md py-2 px-4 flex items-center justify-center text-sm font-medium">
-            <span>Добавить событие</span>
+            <span>Добавить</span>
           </button>
         </div>
       </div>
