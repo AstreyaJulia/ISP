@@ -9,8 +9,8 @@ export const APP_NAME = "ИСП"; /** Название приложения */
 export const OPEN_WEATHER_API_KEY = process.env.REACT_APP_OPEN_WEATHER_API_KEY || ""; /** API-ключ Open Weather из .ENV */
 
 /** Координаты города. Искать кликом на карту https://yandex.ru/maps/ и нажав на название улицы или места, слева в меню будут показаны координаты  */
-export const CITY_LAT = "55.106610";
-export const CITY_LON = "33.242566";
+export const CITY_LAT = "55.1066";
+export const CITY_LON = "33.2425";
 
 /** Название суда и область */
 export const COURT_NAME = "Сафоновский районный суд";
