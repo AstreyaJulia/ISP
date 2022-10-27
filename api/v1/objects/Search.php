@@ -11,12 +11,6 @@
       $this->helpers = $helpers;
     }
 
-    public function secureJWT ($jwt, $key) {
-      $decoded = $this->classJWT::decode($jwt, $key, array('HS256'));
-      $this->sudo = $decoded->data->sudo;
-      return $decoded;
-    }
-
     /**
      * Поиск сотрудников по ФИО или номеров телефонов
      *
@@ -78,7 +72,7 @@
 
           http_response_code(200);
 
-          $searchInbox["data"] = self::sendGET($this->paramsSearch(), $api_gas);
+          $searchInbox["data"] = $this->helpers::sendGET($this->paramsSearch(), $api_gas);
 
           return $this->helpers->getJsonEncode($searchInbox);
 
@@ -121,34 +115,4 @@
           "query" => $queryString
       );
     }
-
-    /**
-     * Отправка данных методом GET
-     *
-     * @param array $params
-     * @param string $host_api
-     *
-     * @return mixed
-     *
-     */
-    public static function sendGET($params, $host_api) {
-      $url = $host_api. http_build_query($params);
-      $ch = curl_init($url);
-      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-      curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);//ожидание при попытке подключения, секунд (0 - бесконечно)
-      $result = curl_exec($ch);
-      $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-      curl_close($ch);
-      $message = json_decode($result);
-      if ($result) {
-        http_response_code($httpcode);
-        $message;
-      } else {
-        http_response_code(504);
-        $message;
-      }
-      return $message;
-    }
-
-
 	}
