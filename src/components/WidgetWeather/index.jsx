@@ -94,7 +94,7 @@ export const WidgetWeather = ({ currentWeather, currentIsLoading, currentError }
       <div className="flex items-center justify-between bg-blue-600 rounded-md relative">
           {currentError === null && weather?.weather ?
             <>
-                <div className="flex flex-col gap-1 p-5">
+                <div className="flex flex-col gap-1 p-3">
                     <p className="flex items-center gap-2 text-gray-100">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
                              stroke="currentColor" className="w-5 h-5">
@@ -118,7 +118,7 @@ export const WidgetWeather = ({ currentWeather, currentIsLoading, currentError }
                          alt={weather?.weather[0]?.description} className="w-24 h-24" />
                 </div>
 
-                <div className="flex flex-col justify-strength h-full border-l border-white/50 px-5 gap-3">
+                <div className="flex flex-col justify-strength h-full border-l border-white/50 px-3 gap-3">
                     <p className='text-white flex items-center gap-3 text-base' title='Влажность'>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                              stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
