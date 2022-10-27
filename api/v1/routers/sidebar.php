@@ -6,7 +6,7 @@ function route($helpers) {
   // GET
   if ($helpers->getMethod() === 'GET') {
 
-    switch (count($helpers->getUrlData())) {
+    switch (count($helpers->urlData)) {
       // GET /sidebar
       case 1: {
         // если запрос без параметров выдаём полный список

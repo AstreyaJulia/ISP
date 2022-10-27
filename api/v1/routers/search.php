@@ -5,7 +5,7 @@ function route($helpers) {
   $searchClass = new Api\Objects\Search($helpers);
   // GET
   if ($helpers->getMethod() === 'GET') {
-    switch ($helpers->getUrlData()[1]) {
+    switch ($helpers->urlData[1]) {
       // GET /search/users
       case "users": {
         $searchClass->routUsers();

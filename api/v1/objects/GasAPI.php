@@ -16,7 +16,7 @@ class GasAPI
     /**
      * @deadlines - нарушение сроков рассмотения
      * @sudact - не опубликованные судебные акты
-     * @materials-production - дела,материалы находящиеся в производстве
+     * @materials-production - дела, материалы находящиеся в производстве
      * 
      * Судья, помощник, секретарь судебного заседания
      * видят только свои дела за текущий год при их наличии.
@@ -28,12 +28,12 @@ class GasAPI
     public function responseGasAPI()
     {
         try {
-            if (empty($this->helpers->getUrlData()["1"])) {
+            if (empty($this->helpers->urlData["1"])) {
                 throw new \Exception("Не задан маршрут до ресурса");
             }
-            match ($this->helpers->getUrlData()["1"]) {
+            match ($this->helpers->urlData["1"]) {
                 //'deadlines' => $this->helpers->getJsonEncode($this->deadlines()),
-                'sudact', 'deadlines', 'materials-production' => $this->helpers->getJsonEncode($this->prepareQuery($this->helpers->getUrlData()))
+                'sudact', 'deadlines', 'materials-production' => $this->helpers->getJsonEncode($this->prepareQuery($this->helpers->urlData))
             };
         } catch (\UnhandledMatchError | \Exception $e) {
             $this->helpers->isErrorInfo(400, "Ошибка в переданных данных", $e);

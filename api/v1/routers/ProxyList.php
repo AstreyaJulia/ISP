@@ -7,7 +7,7 @@ function route($helpers) {
   if ($helpers->getMethod() === 'GET') {
     // необходимые HTTP-заголовки
 
-    switch (count($helpers->getUrlData())) {
+    switch (count($helpers->urlData)) {
       // GET /ProxyList
       case 1: {
         // если запрос без параметров выдаём полный список
@@ -33,7 +33,7 @@ function route($helpers) {
   }
 
     // POST /ProxyList
-    if ($helpers->getMethod() === 'POST' && count($helpers->getUrlData()) === 1 ) {
+    if ($helpers->getMethod() === 'POST' && count($helpers->urlData) === 1 ) {
         // необходимые HTTP-заголовки
         $helpers::headlinesPOST();
         try {
@@ -53,14 +53,14 @@ function route($helpers) {
     }
 
     // PUT /ProxyList/6
-    if ($helpers->getMethod() === 'PUT' && count($helpers->getUrlData()) === 2) {
+    if ($helpers->getMethod() === 'PUT' && count($helpers->urlData) === 2) {
       try {
         // проверяем права пользователя
         if (!$helpers->sudo === 1) {
             throw new Exception("Недостаточно прав");
         }
 
-        $id = (int)$helpers->getUrlData()[1];
+        $id = (int)$helpers->urlData[1];
         $result = "Я метод PUT";
 
         echo json_encode($result." | ".$id, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
@@ -72,7 +72,7 @@ function route($helpers) {
     }
 
     // DELETE /ProxyList/5
-    if ($helpers->getMethod() === 'DELETE' && count($helpers->getUrlData()) === 2) {
+    if ($helpers->getMethod() === 'DELETE' && count($helpers->urlData) === 2) {
       delRecord($proxyListClass, $helpers);
       exit;
     }
@@ -84,7 +84,7 @@ function route($helpers) {
 
 // Формитруем одну запись
 function ProxyListOne($proxyListClass, $helpers) {
-  $id = $helpers->getUrlData()[1];
+  $id = $helpers->urlData[1];
   // проверяем права пользователя
   try {
     $helpers->validateSudo();
@@ -138,7 +138,7 @@ function ProxyListOne($proxyListClass, $helpers) {
 }
 
 function delRecord($proxyListClass, $helpers) {
-  $id = (int)$helpers->getUrlData()[1];
+  $id = (int)$helpers->urlData[1];
   // проверяем существует ли запись
   if (!$helpers->isExistsById("sdc_proxy_list", $id)) {
     $helpers::isErrorInfo(400, "not_exists", "записи не существует");

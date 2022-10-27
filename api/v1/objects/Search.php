@@ -49,9 +49,9 @@
      *
      */
     public function routUsers(){
-      if (count($this->helpers->getUrlData()) == 3 and strlen($this->helpers->getUrlData()[2]) > 2 ) {
+      if (count($this->helpers->urlData) == 3 and strlen($this->helpers->urlData[2]) > 2 ) {
         http_response_code(200);
-        $searchUsers["data"] = $this->searchUsers($this->helpers->getUrlData()[2]);
+        $searchUsers["data"] = $this->searchUsers($this->helpers->urlData[2]);
         
         if (empty($searchUsers["data"])) {
           $searchUsers["error"] = ["message" => "По вашему запросу ничего не найдено", "info" => "Not Found"];
@@ -73,7 +73,7 @@
      *
      */
     public function correspondence($api_gas){
-      if (count($this->helpers->getUrlData()) == 5 ) {
+      if (count($this->helpers->urlData) == 5 ) {
         try {
 
           http_response_code(200);
@@ -98,13 +98,13 @@
      */
 
     private function paramsSearch() {
-      $queryString = $this->helpers->getUrlData()[2];
+      $queryString = $this->helpers->urlData[2];
       if (mb_strlen($queryString) < 3) {
         throw new \Exception("Значение для поиска должно быть больше 3-х символов");
       } 
       
-      $startDate = new \DateTime($this->helpers->getUrlData()[3]);
-      $endDate = new \DateTime($this->helpers->getUrlData()[4]);
+      $startDate = new \DateTime($this->helpers->urlData[3]);
+      $endDate = new \DateTime($this->helpers->urlData[4]);
       $interval = (int)$startDate->diff($endDate)->format("%R%m");
 
       if ($interval < 0) {

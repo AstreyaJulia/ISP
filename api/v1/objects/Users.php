@@ -38,7 +38,7 @@ class Users
    */
   private function metodGET()
   {
-    switch (count($this->helpers->getUrlData())) {
+    switch (count($this->helpers->urlData)) {
         // GET /users
       case 1: {
           // если запрос без параметров отдаём полный список
@@ -52,7 +52,7 @@ class Users
         // GET /users/parameter
       case 2: {
           // если запрос с параметрами отдаём запрашиваемую запись
-          switch ($this->helpers->getUrlData()[1]) {
+          switch ($this->helpers->urlData[1]) {
             case "login-data": {
                 $userLoginData["data"] = [
                   "id" => $this->helpers->id,
@@ -101,7 +101,7 @@ class Users
   {
     $this->helpers::headlinesPOST();
 
-    switch ($this->helpers->getUrlData()[1] ?? false) {
+    switch ($this->helpers->urlData[1] ?? false) {
       case 'login-data': {
 
           $param = $this->helpers->formData ? implode(array_keys($this->helpers->formData)) : false;

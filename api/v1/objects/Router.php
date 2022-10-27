@@ -29,12 +29,12 @@
 
     /**
      * Тело запроса:
-     * 0 элемент это роутер
+     * 0 элемент это роутер $router
      * 1 элемент параметр запроса
      *
      * @var array
      */
-    private $urlData;
+    public readonly array $urlData;
 
     /**
      * Роутер для подключения
@@ -42,7 +42,7 @@
      *
      * @var string
      */
-    private $router;
+    public readonly string $router;
 
 
     /**
@@ -110,26 +110,6 @@
     public function getMethod()
     {
       return $this->method;
-    }
-
-    /**
-     * get элемент для urlData
-     *
-     * @return array
-     */
-    public function getUrlData()
-    {
-      return $this->urlData;
-    }
-
-    /**
-     * get элемент для router
-     *
-     *@return string
-     */
-    public function getRouter()
-    {
-      return $this->router;
     }
 
   }

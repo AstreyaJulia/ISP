@@ -38,7 +38,7 @@
     public function readOne():array {
       try {
         if ($this->helpers->sudo === 1){
-          $id = (int)$this->helpers->getUrlData()[1];
+          $id = (int)$this->helpers->urlData[1];
           $sql = "SELECT * FROM sdc_site_content WHERE id = ?";
           return $this->helpers->db->run($sql, [$id])->fetchAll(\PDO::FETCH_ASSOC);
         } else {
