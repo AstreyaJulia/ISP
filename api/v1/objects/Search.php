@@ -1,6 +1,6 @@
 <?php
 	namespace Api\Objects;
-
+  use DateTime;
 	class Search {
 
 		protected Helpers $helpers;
@@ -43,20 +43,24 @@
      *
      */
     public function routUsers(){
-      if (count($this->helpers->urlData) == 3 and strlen($this->helpers->urlData[2]) > 2 ) {
+      try {
+        $queryString = $this->helpers->formData["query"] ?? "";
+
+        if (isset($queryString) and mb_strlen($queryString) < 3) {
+          throw new \Exception("Значение для поиска должно быть больше 3-х символов");
+        }
+
         http_response_code(200);
-        $searchUsers["data"] = $this->searchUsers($this->helpers->urlData[2]);
-        
+        $searchUsers["data"] = $this->searchUsers($queryString);
+
         if (empty($searchUsers["data"])) {
           $searchUsers["error"] = ["message" => "По вашему запросу ничего не найдено", "info" => "Not Found"];
         }
 
         $this->helpers->getJsonEncode($searchUsers);
-
-      } else {
-        $this->helpers::isErrorInfo(400, "invalid_router", "router not found");
-      }
-      
+      } catch (\Exception $e) {
+        $this->helpers::isErrorInfo(400, "Ошибка в переданных параметрах", $e);
+      }      
     }
 
     /**
@@ -66,13 +70,13 @@
      * @return string строка в формате json
      *
      */
-    public function correspondence($api_gas){
-      if (count($this->helpers->urlData) == 5 ) {
+    public function correspondence(){
+
         try {
 
           http_response_code(200);
 
-          $searchInbox["data"] = $this->helpers::sendGET($this->paramsSearch(), $api_gas);
+          $searchInbox["data"] = $this->helpers::sendGET($this->paramsSearch(), API_GAS."v1/".$this->helpers->router."/".$this->helpers->urlData["1"].".php?");
 
           return $this->helpers->getJsonEncode($searchInbox);
 
@@ -81,7 +85,7 @@
           $this->helpers::isErrorInfo(501, "Ошибка в переданных параметрах", $e);
         }
 
-      }
+
     }
 
     /**
@@ -91,14 +95,18 @@
      * 
      */
 
-    private function paramsSearch() {
-      $queryString = $this->helpers->urlData[2];
+    private function paramsSearch():array {
+
+      $queryString = $this->helpers->formData["query"] ?? "";
+      $startDate = $this->helpers->formData["startDate"] ?? "";
+      $endDate = $this->helpers->formData["endDate"] ?? "";
+
       if (mb_strlen($queryString) < 3) {
         throw new \Exception("Значение для поиска должно быть больше 3-х символов");
       } 
       
-      $startDate = new \DateTime($this->helpers->urlData[3]);
-      $endDate = new \DateTime($this->helpers->urlData[4]);
+      $startDate = new \DateTime($startDate);
+      $endDate = new \DateTime($endDate);
       $interval = (int)$startDate->diff($endDate)->format("%R%m");
 
       if ($interval < 0) {

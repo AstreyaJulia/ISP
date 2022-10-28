@@ -12,11 +12,11 @@ function route($helpers) {
         break;
       }
       case "inbox": {
-        $searchClass->correspondence("http://192.168.2.253:8079/api_GAS/search/inbox.php?");
+        $searchClass->correspondence();
         break;
       }
       case "outbox": {
-        $searchClass->correspondence("http://192.168.2.253:8079/api_GAS/search/outbox.php?");
+        $searchClass->correspondence();
         break;
       }
       default:

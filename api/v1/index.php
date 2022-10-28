@@ -1,16 +1,17 @@
-<?php
+<?php declare(strict_types=1);
   error_reporting(E_ALL);
   ini_set("display_errors", "on");
+
   cors();
   include_once 'config/core.php';
-  
+
   $helpers = new Api\Objects\Helpers();
 
   $helpers::headlinesGET();
 
   $helpers->getRequestData();
 
-  if (!in_array($helpers->getRouter(), array("authorization", "registration"))) {
+  if (!in_array($helpers->router, array("authorization", "registration"))) {
     include_once 'config/jwt.php';
     // если декодирование выполнено успешно, продолжаем выполнять скрипт
     try {
@@ -28,10 +29,10 @@
     }
   }
   // Проверяем роутер на валидность
-  if ($helpers->isValidRouter($helpers->getRouter())) {
+  if ($helpers->isValidRouter($helpers->router)) {
 
     // Подключаем файл-роутер
-    include_once "routers/".$helpers->getRouter().".php";
+    include_once "routers/".$helpers->router.".php";
 
     // Запускаем главную функцию
     route($helpers);
@@ -45,7 +46,7 @@ function cors(): void
 {
 
 // Массив разрешенных адресов клиентов
-    $allowed_origins = ["localhost:3000", "http://localhost:3000", "https://localhost:3000", "localhost:3030", "http://isp", "https://isp", "http://bdev", "https://bdev", "http://fdevsp", "https://fdev"];
+$allowed_origins = ["localhost:3000", "http://localhost:3000", "http://localhost:3030", "https://localhost:3000", "localhost:3030", "http://isp", "https://isp", "http://bdev", "https://bdev", "http://fdevsp", "https://fdev", "http://192.168.2.2:3000"];
 
 // Из заголовка запроса получаем заголовок origin */
     $request_origin = $_SERVER['HTTP_ORIGIN'] ?? null;

@@ -14,10 +14,12 @@ class GasAPI
     }
 
     /**
-     * @deadlines - нарушение сроков рассмотения
-     * @sudact - не опубликованные судебные акты
-     * @materials-production - дела, материалы находящиеся в производстве
-     * 
+     * @deadlines  нарушение сроков рассмотения
+     * @sudact не опубликованные судебные акты
+     * @materials-production дела, материалы находящиеся в производстве
+     */
+    public function responseGasAPI()
+    /** 
      * Судья, помощник, секретарь судебного заседания
      * видят только свои дела за текущий год при их наличии.
      * Председатель, заместитель председателя,
@@ -25,27 +27,18 @@ class GasAPI
      * к просмотру дел всех судей
      * 
      */
-    public function responseGasAPI()
     {
         try {
             if (empty($this->helpers->urlData["1"])) {
                 throw new \Exception("Не задан маршрут до ресурса");
             }
             match ($this->helpers->urlData["1"]) {
-                //'deadlines' => $this->helpers->getJsonEncode($this->deadlines()),
                 'sudact', 'deadlines', 'materials-production' => $this->helpers->getJsonEncode($this->prepareQuery($this->helpers->urlData))
             };
         } catch (\UnhandledMatchError | \Exception $e) {
             $this->helpers->isErrorInfo(400, "Ошибка в переданных данных", $e);
         }
     }
-
-    /*
-     
-     */
-
-
-
 
     /**
      * Подготавливем запрос перед отправкой в API ГАС
@@ -67,9 +60,9 @@ class GasAPI
                                             FROM sdc_users
                                             LEFT JOIN sdc_user_attributes AS UserAttributes ON UserAttributes.internalKey=sdc_users.id
                                             WHERE UserAttributes.idGAS IS NOT NULL AND sdc_users.active = 1")->fetchAll(\PDO::FETCH_COLUMN);
-                $responseGasAPI = $this->helpers::sendGET(["idJudge" => implode(",", $idGAS)], API_GAS.$urlData["1"].'.php?');
+                $responseGasAPI = $this->helpers::sendGET(["idJudge" => implode(",", $idGAS)], API_GAS.'v1/'.$urlData["1"].'.php?');
             } elseif(!empty($this->helpers->idGAS) and empty($urlData["2"]) ) {
-                $responseGasAPI = $this->helpers::sendGET(["idJudge" => $this->helpers->idGAS], API_GAS.$urlData["1"].'.php?');
+                $responseGasAPI = $this->helpers::sendGET(["idJudge" => $this->helpers->idGAS], API_GAS.'v1/'.$urlData["1"].'.php?');
             } else {
                 throw new \Exception("Недостаточно прав");
             }
