@@ -82,13 +82,11 @@
       $url = trim($url, '/');
       $urls = explode('/', $url);
 
-      // Убираем из api-запросов префикс admin/api/v1
-      //$urlData = array_slice($urls, 3);
-
+      $formData = $this->receiveFormData();
       $this->method = $_SERVER['REQUEST_METHOD'];
       $this->urlData = $urls;
       $this->router = $this->urlData[0];
-      $this->formData = $this->receiveFormData();
+      $this->formData = $formData;
     }
 
     /**
