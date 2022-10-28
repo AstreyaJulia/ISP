@@ -66,3 +66,7 @@ export function getQuarter(year, quarter, point) {
 export function formatDdMmYyyyDate(date) {
   return parse(date, "dd.MM.yyyy", new Date(), { locale: ru });
 }
+
+export function formatYyyyMmDdDate(date) {
+  return format(date, "yyyy-MM-dd", { locale: ru });
+}

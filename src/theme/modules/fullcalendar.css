@@ -331,7 +331,7 @@
 
 /** Цвет фона сегодняшнего дня */
 .calendar-module .fc .fc-daygrid-day .fc-daygrid-day-number {
-    @apply mt-1 text-gray-700 dark:text-gray-300 w-7 h-7 flex items-center justify-center hover:bg-slate-600/10 hover:rounded-full hover:no-underline text-sm font-medium;
+    @apply my-1 text-gray-700 dark:text-gray-300 w-7 h-7 flex items-center justify-center hover:bg-slate-600/10 hover:rounded-full hover:no-underline text-sm font-medium;
 }
 
 .calendar-module .fc .fc-daygrid-day.fc-day-today .fc-daygrid-day-number {

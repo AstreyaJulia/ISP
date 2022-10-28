@@ -1,5 +1,5 @@
 /** FIXME сюда добавлять элементы для анимации */
-.content-body, .main-content {
+.content-body, .main-content, .links-list {
     -webkit-animation: fadeIn .5s linear;
     animation: fadeIn .5s linear;
     animation-delay: 0s;

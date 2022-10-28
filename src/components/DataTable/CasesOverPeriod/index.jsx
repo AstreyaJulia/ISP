@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
+import { PDFViewer } from "@react-pdf/renderer";
 import DataTableCore from "../DataTableCore";
 import Badge from "../../Badge";
 import CaseInfoModal from "../../CaseInfoModal";

@@ -9,11 +9,11 @@ import ruLocale from "@fullcalendar/core/locales/ru";
 
 import { events } from "../../@mock/SampleData";
 import BasicPage from "../pagesLayouts/BasicPage";
-import PageHeader from "../../components/PageHeader";
 import Card from "../../components/Card";
 import { CalendarToolbar } from "./CalendarToolbar";
 import { useDispatch, useSelector } from "../../store";
-import { openModal } from "../../store/slices/calendar";
+import {closeModal, openModal} from "../../store/slices/calendar";
+import EventsModal from "./EventsModal";
 
 const selectedEventSelector = (state) => {
   const { events, selectedEventId } = state.calendar;
@@ -25,8 +25,6 @@ const selectedEventSelector = (state) => {
 
 const Calendar = () => {
 
-  const breadcrumbs = [{ name: "Календарь", href: "", current: true }];
-
   const dispatch = useDispatch();
 
   const calendarRef = useRef(null);
@@ -36,10 +34,10 @@ const Calendar = () => {
 
   const selectedEvent = useSelector(selectedEventSelector);
   /*
-    const { events, isOpenModal, selectedRange } = useSelector((state) => state.calendar);
+    const { events, isOpenModal} = useSelector((state) => state.calendar);
 
    */
-  const { isOpenModal, selectedRange } = useSelector((state) => state.calendar);
+  const { isOpenModal } = useSelector((state) => state.calendar);
 
   const handleClickDatePrev = () => {
     const calendarEl = calendarRef.current;
@@ -81,6 +79,10 @@ const Calendar = () => {
     dispatch(openModal());
   };
 
+  const handleCloseModal = () => {
+    dispatch(closeModal());
+  };
+
   return (
     <BasicPage title="Календарь" className="full-height-page mx-auto px-5">
       <Card classname='calendar-module overflow-visible'>
@@ -114,6 +116,7 @@ const Calendar = () => {
           eventClassNames={({event: calendarEvent}) => [`fc-event-${calendarEvent._def.extendedProps.calendar}`, `fc-event-${calendarEvent._def.ui.display}`]} // Фоновый цвет событий
         />
       </Card>
+      <EventsModal open={isOpenModal} setOpen={handleCloseModal} event={events[0]} />
     </BasicPage>
   );
 };

@@ -1,26 +1,21 @@
-import React, { Fragment, useState } from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import Skeleton from "react-loading-skeleton";
 import toast from "react-hot-toast";
 import PropTypes from "prop-types";
+import { sub } from 'date-fns';
 import { Avatar } from "../../../components/Avatar";
 import Toast, { toastStyles } from "../../../components/Toast";
 import useAuth from "../../../hooks/useAuth";
 import { classNames } from "../../../utils/classNames";
 import { PATH_AUTH, PATH_PROFILE, PATH_SETTINGS } from "../../../routes/paths";
 import SearchResults from "./SearchResults";
-import { inboxSearchResults, outboxSearchResults, usersSearchResults } from "../../../@mock/SampleData";
 import { getInitialsOnly } from "../../../utils/getInitials";
 import { getAvatarColor } from "../../../utils/getAvatarColor";
-
-// Sample
-const searchResultsMock = {
-  users: usersSearchResults,
-  inbox: inboxSearchResults,
-  outbox: outboxSearchResults
-};
+import axios from "../../../utils/axios";
+import {formatYyyyMmDdDate} from "../../../utils/formatTime";
 
 const Header = ({ setMenuVisibility }) => {
 
@@ -39,10 +34,38 @@ const Header = ({ setMenuVisibility }) => {
   const [searchResultsShow, changeSearchResultsShow] = useState(false);
   const [searchQuery, changeSearchQuery] = useState("");
   const [searchResults, changeSearchResults] = useState([]);
+  const [error, setError] = useState(null);
+  const [isLoading, setIsloading] = useState(false);
 
   /** Хуки */
   const { user, logout, onChangeSkin, theme, onChangeMenuCollapsed, sidebar } = useAuth();
   const dispatch = useDispatch();
+
+    useEffect(() => {
+        const delayDebounceFn = setTimeout(() => {
+            // Send Axios request here
+            if (searchQuery.length <= 3) {
+                changeSearchResults([]);
+            } else {
+                setIsloading(true)
+                try {
+                    const response = axios.get(`/search/${searchType}`, {
+                        params: {
+                            query: searchQuery,
+                            ...searchSettings[searchType]
+                        }
+                    });
+                    changeSearchResults([])
+                    changeSearchResults(response.data.data)
+                } catch (error) {
+                    changeSearchResults([])
+                    setError(error.message)
+                }
+            }
+        }, 3000)
+
+        return () => clearTimeout(delayDebounceFn)
+    }, [searchQuery])
 
   /** Кнопка-переключатель узкого/широкого меню */
   const MenuToggler = () => {
@@ -134,18 +157,32 @@ const Header = ({ setMenuVisibility }) => {
 
   const searchResultShowHandler = (state) => changeSearchResultsShow(state);
 
+    const end = new Date();
+    const start = sub(new Date(), {
+        days: 80,
+    });
+
+    const searchSettings = {
+
+        users: {},
+        inbox: {
+            startDate: formatYyyyMmDdDate(start),
+            endDate: formatYyyyMmDdDate(end)
+        },
+        outbox: {
+            startDate: formatYyyyMmDdDate(start),
+            endDate: formatYyyyMmDdDate(end)
+        }
+    }
+
   const searchQueryHandler = (evt) => {
     changeSearchQuery(evt.target.value);
-    if (evt.target.value.length === 0) {
-      changeSearchResults([]);
-    } else {
-      changeSearchResults(searchResultsMock[searchType]);
-    }
+
   };
 
   const searchQueryClearHandler = () => {
     changeSearchQuery("");
-    changeSearchResults([]);
+      changeSearchResults([]);
   };
 
   const searchResultsCloseHandler = () => searchResultShowHandler(false);

@@ -36,6 +36,7 @@ const LinksCatalog = () => {
       focus();
     }
   };
+
   const focus = (evt) => evt.target.focus;
 
   const openModalHandle = () => setOpenDialog(true);
@@ -145,7 +146,7 @@ const LinksCatalog = () => {
               </>
               : null}
           </div>
-          <div className={[selectedGroup != null ? "" : "h-full", "grid grid-cols-1 gap-2"].join(" ")}>
+          <div className={[selectedGroup != null ? "" : "h-full", "links-list grid grid-cols-1 gap-2"].join(" ")}>
             {selectedGroup != null
               ? makeArrayFromObj(proxyListLinks[selectedGroup].children).map((link) => (
                 <div key={link.id} className="w-full flex flex-shrink-0 items-center">

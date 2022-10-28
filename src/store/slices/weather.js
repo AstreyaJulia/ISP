@@ -4,7 +4,7 @@ import { dispatch } from "../index";
 import {CITY_LAT, CITY_LON, OPEN_WEATHER_API_KEY} from "../../config";
 
 /** Начальное состояние
- * @type {{isLoading: string, userList: [], error: null}}
+ * @type {{currentError: null, currentWeather: {}, currentIsLoading: string}}
  */
 const initialState = {
   currentIsLoading: "false",
