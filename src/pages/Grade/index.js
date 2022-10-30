@@ -1,18 +1,19 @@
-import React from "react";
-import BasicPage from "../pagesLayouts/BasicPage";
-import PageHeader from "../../components/PageHeader";
-import useAuth from "../../hooks/useAuth";
-import CasesOverPeriodWidgetAll from "./widgets/CasesOverPeriodWidgetAll";
-import NoPublicatedActsAll from "./widgets/NoPublicatedActsAll";
-import ProcessedWidgetAll from "./widgets/ProcessedWidgetAll";
+import React from 'react';
+import BasicPage from '../pagesLayouts/BasicPage';
+import PageHeader from '../../components/PageHeader';
+import useAuth from '../../hooks/useAuth';
+import CasesOverPeriodWidgetAll from './widgets/CasesOverPeriodWidgetAll';
+import NoPublicatedActsAll from './widgets/NoPublicatedActsAll';
+import ProcessedWidgetAll from './widgets/ProcessedWidgetAll';
 
 const Grade = () => {
-
   /** Состояние пользователя */
   const { user } = useAuth();
 
-  const breadcrumbs = [{ name: "Статистика", href: "", current: false },
-    { name: "Качество", href: "", current: true }];
+  const breadcrumbs = [
+    { name: 'Статистика', href: '', current: false },
+    { name: 'Качество', href: '', current: true },
+  ];
 
   return (
     <BasicPage title="Качество" className="main-content max-w-6xl mx-auto px-5">

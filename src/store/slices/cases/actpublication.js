@@ -1,45 +1,45 @@
-import { createSlice } from "@reduxjs/toolkit";
-import axios from "../../../utils/axios";
-import { dispatch } from "../../index";
+import { createSlice } from '@reduxjs/toolkit';
+import axios from '../../../utils/axios';
+import { dispatch } from '../../index';
 
 /** Начальное состояние
  * @type {{isLoading: string, cases: *[], error: null}}
  */
 const initialState = {
-  nopublactsisLoading: "false",
+  nopublactsisLoading: 'false',
   nopublactserror: null,
   nopublacts: [],
-  nopublactsall: []
+  nopublactsall: [],
 };
 
 const slice = createSlice({
-  name: "actpublication",
+  name: 'actpublication',
   initialState,
   reducers: {
     // Начало загрузки
     startLoading(state) {
-      state.nopublactsisLoading = "true";
+      state.nopublactsisLoading = 'true';
       state.nopublactserror = null;
     },
 
     // Получили ошибку
     hasError(state, action) {
-      state.nopublactsisLoading = "false";
+      state.nopublactsisLoading = 'false';
       state.nopublactserror = action.payload;
     },
 
     // Получение списка для судьи
     getJudgeActPublicationSuccess(state, action) {
-      state.nopublactsisLoading = "false";
+      state.nopublactsisLoading = 'false';
       state.nopublacts = action.payload;
     },
 
     // Получение списка всех
     getActPublicationSuccess(state, action) {
-      state.nopublactsisLoading = "false";
+      state.nopublactsisLoading = 'false';
       state.nopublactsall = action.payload;
-    }
-  }
+    },
+  },
 });
 
 // Хранилище
@@ -49,7 +49,7 @@ export function getJudgeActPublicationCases() {
   return async () => {
     dispatch(slice.actions.startLoading());
     try {
-      const response = await axios.get("/gas-api/sudact");
+      const response = await axios.get('/gas-api/sudact');
       dispatch(slice.actions.getJudgeActPublicationSuccess(response.data.data));
     } catch (error) {
       dispatch(slice.actions.getJudgeActPublicationSuccess([]));
@@ -62,7 +62,7 @@ export function getAllActPublicationCases() {
   return async () => {
     dispatch(slice.actions.startLoading());
     try {
-      const response = await axios.get("/gas-api/sudact/all");
+      const response = await axios.get('/gas-api/sudact/all');
       dispatch(slice.actions.getActPublicationSuccess(response.data.data));
     } catch (error) {
       dispatch(slice.actions.getActPublicationSuccess([]));

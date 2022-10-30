@@ -1,15 +1,15 @@
-@import "../assets/fonts/index.css";
+@import '../assets/fonts/index.css';
 
 /** Анимация  */
-@import "./animation";
+@import './animation';
 
 /** npm модули */
 @import '~react-loading-skeleton/dist/skeleton.css';
-@import "~react-perfect-scrollbar/dist/css/styles.css";
+@import '~react-perfect-scrollbar/dist/css/styles.css';
 
 /** Кастомные стили для npm модулей */
-@import "./modules/apexcharts.css";
-@import "./modules/fullcalendar.css";
+@import './modules/apexcharts.css';
+@import './modules/fullcalendar.css';
 
 /** Tailwind  */
 @tailwind base;
@@ -17,25 +17,25 @@
 @tailwind utilities;
 
 /** Замена браузерных стилей для Мозиллы */
-@supports (-moz-appearance:none) {
-    option {
-        -moz-appearance: none !important;
-        font-size: 14px;
-        @apply text-slate-700 bg-slate-100 font-medium dark:text-slate-300 dark:bg-slate-800 border border-slate-200 dark:border-slate-700
-    }
+@supports (-moz-appearance: none) {
+  option {
+    -moz-appearance: none !important;
+    font-size: 14px;
+    @apply text-slate-700 bg-slate-100 font-medium dark:text-slate-300 dark:bg-slate-800 border border-slate-200 dark:border-slate-700;
+  }
 }
 
 /** Для страниц с фиксированной высотой */
 .full-height-page {
-	height: calc(100vh - 64px - 40px);
+  height: calc(100vh - 64px - 40px);
 }
 
 /** Perfect scrollbar постоянно отображается */
 .ps__show .ps__rail-y {
-	opacity: 1;
+  opacity: 1;
 }
 
 /** Подсветка найденных строк */
 .text-highlight {
-	@apply bg-amber-400 dark:bg-amber-500 dark:text-slate-900
+  @apply bg-amber-400 dark:bg-amber-500 dark:text-slate-900;
 }

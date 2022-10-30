@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
-import PropTypes from "prop-types";
-import WidgetRowCounter from "../../../../components/WidgetRowCounter";
-import { useDispatch, useSelector } from "../../../../store";
-import { getAllOverPeriodCases } from "../../../../store/slices/cases/overperiod";
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import WidgetRowCounter from '../../../../components/WidgetRowCounter';
+import { useDispatch, useSelector } from '../../../../store';
+import { getAllOverPeriodCases } from '../../../../store/slices/cases/overperiod';
 
 const CasesOverPeriodWidgetAll = ({ user }) => {
-
   /** Должности, которым доступна отрисовка */
   const availableUsers = [null, 1, 2, 3, 6, 7];
   /* [
@@ -29,20 +28,26 @@ const CasesOverPeriodWidgetAll = ({ user }) => {
 
   if (availableUsers.includes(user.professionID)) {
     return (
-      <WidgetRowCounter isLoading={overperiodisLoading} rows={overperiodcasesall} color="red" error={overperioderror}
-                        link="/over-period-all" title="с нарушением срока" counter={{
-        single: "Дело",
-        multi: "Дела",
-        count: "Дел"
-      }} />
-    )
+      <WidgetRowCounter
+        isLoading={overperiodisLoading}
+        rows={overperiodcasesall}
+        color="red"
+        error={overperioderror}
+        link="/over-period-all"
+        title="с нарушением срока"
+        counter={{
+          single: 'Дело',
+          multi: 'Дела',
+          count: 'Дел',
+        }}
+      />
+    );
   }
   return null;
-
 };
 
 CasesOverPeriodWidgetAll.propTypes = {
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
 };
 
 export default CasesOverPeriodWidgetAll;

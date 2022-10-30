@@ -1,4 +1,4 @@
-import { Page, View, Text, Document } from '@react-pdf/renderer';
+import { Document, Page, Text, View } from '@react-pdf/renderer';
 import styles from './CasesOverPeriodListStyle';
 
 export default function CasesOverPeriodListFile({ list }) {
@@ -17,7 +17,6 @@ export default function CasesOverPeriodListFile({ list }) {
               <View style={styles.tableCell_2}>
                 <Text style={styles.tableHeaderText}>Информация</Text>
               </View>
-
             </View>
           </View>
 
@@ -33,13 +32,10 @@ export default function CasesOverPeriodListFile({ list }) {
                   <Text>{item.PARTS_FIO}</Text>
                   {item.INFO ? <Text>{item.INFO}</Text> : null}
                 </View>
-
               </View>
             ))}
-
           </View>
         </View>
-
       </Page>
     </Document>
   );

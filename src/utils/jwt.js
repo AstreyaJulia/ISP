@@ -1,5 +1,5 @@
-import jwtDecode from "jwt-decode";
-import axios from "./axios";
+import jwtDecode from 'jwt-decode';
+import axios from './axios';
 
 /** Проверка JWT токена
  * @param accessToken - токен
@@ -13,7 +13,7 @@ const isValidToken = (accessToken) => {
 
   /** Проверка валидности */
   // у нас проверяем aud
-  return decoded.aud !== "";
+  return decoded.aud !== '';
 };
 
 /** Проерка, не истек ли срок токена
@@ -37,13 +37,13 @@ const handleTokenExpired = (exp) => {
  */
 const setSession = (accessToken) => {
   if (accessToken) {
-    localStorage.setItem("jwt", accessToken);
+    localStorage.setItem('jwt', accessToken);
     axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
     // Проверка срока действия токена
     const { exp } = jwtDecode(accessToken);
     handleTokenExpired(exp);
   } else {
-    localStorage.removeItem("jwt");
+    localStorage.removeItem('jwt');
     delete axios.defaults.headers.common.Authorization;
   }
 };

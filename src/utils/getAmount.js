@@ -7,20 +7,20 @@
  * например: {single: "год", multi: "года", count: "лет"}
  */
 export const getAmount = (col, { single, multi, count }) => {
-    while (col > 20) {
-      col = col.toString().slice(-1);
-      col = parseInt(col, 10);
-    }
+  while (col > 20) {
+    col = col.toString().slice(-1);
+    col = parseInt(col, 10);
+  }
 
-    if (col === 1) {
-      return single;
-    }
-    if (col > 1 && col <= 4) {
-      return multi;
-    }
-    if (col >= 5 && col <= 20) {
-      return count;
-    }
+  if (col === 1) {
+    return single;
+  }
+  if (col > 1 && col <= 4) {
+    return multi;
+  }
+  if (col >= 5 && col <= 20) {
+    return count;
+  }
 
-    return count; // если col === 0
-  };
+  return count; // если col === 0
+};

@@ -1,13 +1,13 @@
-import React from "react";
-import { AvatarCircularWithPlaceholderInitials } from "../components/AvatarCircularWithPlaceholderInitials";
-import { users } from "../@mock/SampleData";
+import React from 'react';
+import { AvatarCircularWithPlaceholderInitials } from '../components/AvatarCircularWithPlaceholderInitials';
+import { users } from '../@mock/SampleData';
 
 export default {
-  title: "Elements/Avatar",
+  title: 'Elements/Avatar',
   component: AvatarCircularWithPlaceholderInitials,
   argTypes: {
-    size: { control: "radio" }
-  }
+    size: { control: 'radio' },
+  },
 };
 
 const Template = (args) => <AvatarCircularWithPlaceholderInitials {...args} />;
@@ -20,30 +20,30 @@ export const CircularWithPlaceholderInitialsSize14 = Template.bind({});
 
 CircularWithPlaceholderInitialsSize6.args = {
   name: users[0].fullname,
-  shape: "circle",
-  size: "6"
+  shape: 'circle',
+  size: '6',
 };
 
 CircularWithPlaceholderInitialsSize8.args = {
   name: users[1].fullname,
-  shape: "circle",
-  size: "8"
+  shape: 'circle',
+  size: '8',
 };
 
 CircularWithPlaceholderInitialsSize10.args = {
   name: users[2].fullname,
-  shape: "circle",
-  size: "10"
+  shape: 'circle',
+  size: '10',
 };
 
 CircularWithPlaceholderInitialsSize12.args = {
   name: users[3].fullname,
-  shape: "circle",
-  size: "12"
+  shape: 'circle',
+  size: '12',
 };
 
 CircularWithPlaceholderInitialsSize14.args = {
   name: users[4].fullname,
-  shape: "circle",
-  size: "14"
+  shape: 'circle',
+  size: '14',
 };

@@ -1,29 +1,30 @@
 body {
-    @apply bg-slate-100 dark:bg-slate-200;
+  @apply bg-slate-100 dark:bg-slate-200;
 }
 
-.info-table{
-    border-collapse: collapse;
-    background-color: #fff;
-    border: 1px solid #cbd5e1;
-    padding: 10px;
-    width: 100%;
-    border-radius: 2px;
+.info-table {
+  border-collapse: collapse;
+  background-color: #fff;
+  border: 1px solid #cbd5e1;
+  padding: 10px;
+  width: 100%;
+  border-radius: 2px;
 }
 
 thead {
-    @apply bg-slate-100 dark:bg-slate-200 font-bold;
+  @apply bg-slate-100 dark:bg-slate-200 font-bold;
 }
 
-th, td {
-    padding: 10px;
-    border: 1px solid #cbd5e1;
+th,
+td {
+  padding: 10px;
+  border: 1px solid #cbd5e1;
 }
 
 th {
-    @apply text-slate-900 font-bold;
+  @apply text-slate-900 font-bold;
 }
 
 td {
-    color: #334155;
+  color: #334155;
 }

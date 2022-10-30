@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
-import PropTypes from "prop-types";
-import WidgetRowCounter from "../../../../components/WidgetRowCounter";
-import { useDispatch, useSelector } from "../../../../store";
-import { getAllActPublicationCases } from "../../../../store/slices/cases/actpublication";
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import WidgetRowCounter from '../../../../components/WidgetRowCounter';
+import { useDispatch, useSelector } from '../../../../store';
+import { getAllActPublicationCases } from '../../../../store/slices/cases/actpublication';
 
 const NoPublicatedActsAll = ({ user }) => {
-
   /** Должности, которым доступна отрисовка */
   const availableUsers = [null, 1, 2, 3, 6, 7];
   /* [
@@ -28,23 +27,27 @@ const NoPublicatedActsAll = ({ user }) => {
   }, [dispatch]);
 
   if (availableUsers.includes(user.professionID)) {
-
     return (
-      <WidgetRowCounter isLoading={nopublactsisLoading} rows={nopublactsall} color="indigo" link="/publication-all"
-                        error={nopublactserror}
-                        title="подлежит публикации" counter={{
-        single: "Акт",
-        multi: "Акта",
-        count: "Актов"
-      }} />
+      <WidgetRowCounter
+        isLoading={nopublactsisLoading}
+        rows={nopublactsall}
+        color="indigo"
+        link="/publication-all"
+        error={nopublactserror}
+        title="подлежит публикации"
+        counter={{
+          single: 'Акт',
+          multi: 'Акта',
+          count: 'Актов',
+        }}
+      />
     );
   }
   return null;
-
 };
 
 NoPublicatedActsAll.propTypes = {
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
 };
 
 export default NoPublicatedActsAll;

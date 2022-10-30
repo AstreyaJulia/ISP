@@ -1,7 +1,5 @@
-import React from "react";
+import React from 'react';
 
-const UsersListAdmin = () => (
-  <></>
-);
+const UsersListAdmin = () => <></>;
 
 export default UsersListAdmin;

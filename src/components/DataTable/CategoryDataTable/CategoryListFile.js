@@ -1,4 +1,4 @@
-import { Page, View, Text, Document } from '@react-pdf/renderer';
+import { Document, Page, Text, View } from '@react-pdf/renderer';
 import styles from './CategoryListStyle';
 
 export default function CategoryListFile({ list }) {
@@ -17,7 +17,6 @@ export default function CategoryListFile({ list }) {
               <View style={styles.tableCell_2}>
                 <Text style={styles.tableHeaderText}>Категория</Text>
               </View>
-
             </View>
           </View>
 
@@ -31,13 +30,10 @@ export default function CategoryListFile({ list }) {
                 <View style={styles.tableCell_2}>
                   <Text>{item.NAME}</Text>
                 </View>
-
               </View>
             ))}
-
           </View>
         </View>
-
       </Page>
     </Document>
   );

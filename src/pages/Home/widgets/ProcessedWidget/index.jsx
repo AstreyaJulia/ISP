@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
-import PropTypes from "prop-types";
-import WidgetRowCounter from "../../../../components/WidgetRowCounter";
-import { useDispatch, useSelector } from "../../../../store";
-import { getJudgeProcessedCases } from "../../../../store/slices/cases/processed";
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import WidgetRowCounter from '../../../../components/WidgetRowCounter';
+import { useDispatch, useSelector } from '../../../../store';
+import { getJudgeProcessedCases } from '../../../../store/slices/cases/processed';
 
 const ProcessedWidget = ({ user }) => {
-
   /** Должности, которым доступна отрисовка */
   const availableUsers = [1, 2, 3, 6, 7];
   /* [
@@ -28,24 +27,28 @@ const ProcessedWidget = ({ user }) => {
   }, [dispatch]);
 
   if (availableUsers.includes(user.professionID)) {
-
     return (
-      <WidgetRowCounter isLoading={processedisLoading} rows={processedcases} color="green" link="/process"
-                        error={processederror}
-                        title="в производстве" counter={{
-        single: "Дело",
-        multi: "Дела",
-        count: "Дел"
-      }} />
+      <WidgetRowCounter
+        isLoading={processedisLoading}
+        rows={processedcases}
+        color="green"
+        link="/process"
+        error={processederror}
+        title="в производстве"
+        counter={{
+          single: 'Дело',
+          multi: 'Дела',
+          count: 'Дел',
+        }}
+      />
     );
   }
 
   return null;
-
 };
 
 ProcessedWidget.propTypes = {
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
 };
 
 export default ProcessedWidget;

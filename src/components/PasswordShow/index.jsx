@@ -1,8 +1,8 @@
-import { forwardRef, useState } from "react";
-import PropTypes from "prop-types";
-import { Eye, EyeOff } from "react-feather";
-import { Input, InputGroup, InputGroupText, Label } from "reactstrap";
-import { classNames } from "../../utils/classNames";
+import { forwardRef, useState } from 'react';
+import PropTypes from 'prop-types';
+import { Eye, EyeOff } from 'react-feather';
+import { Input, InputGroup, InputGroupText, Label } from 'reactstrap';
+import { classNames } from '../../utils/classNames';
 
 /** Инпут с кнопкой Показать/скрыть пароль
  * @type {React.ForwardRefExoticComponent<React.PropsWithoutRef<{}> & React.RefAttributes<unknown>>}
@@ -33,7 +33,6 @@ const InputPasswordToggle = forwardRef((props, ref) => {
       return hideIcon || <Eye size={size} />;
     }
     return showIcon || <EyeOff size={size} />;
-
   };
 
   return (
@@ -44,31 +43,38 @@ const InputPasswordToggle = forwardRef((props, ref) => {
         </Label>
       ) : null}
       <InputGroup
-        className={classNames({
-          [className]: className,
-          "is-invalid": invalid
-        }, "mt-1 flex rounded-md shadow-sm")}
+        className={classNames(
+          {
+            [className]: className,
+            'is-invalid': invalid,
+          },
+          'mt-1 flex rounded-md shadow-sm'
+        )}
       >
         <Input
           ref={ref}
           invalid={invalid}
-          type={inputVisibility === false ? "password" : "text"}
-          placeholder={placeholder || "············"}
-          className={classNames({
-            [inputClassName]: inputClassName
-          }, "block w-full flex min-w-0 px-3 py-2 rounded-none rounded-l-md bg-gray-100 dark:bg-gray-800 appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm")}
+          type={inputVisibility === false ? 'password' : 'text'}
+          placeholder={placeholder || '············'}
+          className={classNames(
+            {
+              [inputClassName]: inputClassName,
+            },
+            'block w-full flex min-w-0 px-3 py-2 rounded-none rounded-l-md bg-gray-100 dark:bg-gray-800 appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
+          )}
           /*eslint-disable */
           {...(label && htmlFor
             ? {
-              id: htmlFor
-            }
+                id: htmlFor,
+              }
             : {})}
           {...rest}
           /* eslint-enable */
         />
         <InputGroupText
           className="cursor-pointer inline-flex items-center px-3 rounded-r-md border border-l-0 border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 sm:text-sm"
-          onClick={() => setInputVisibility(!inputVisibility)}>
+          onClick={() => setInputVisibility(!inputVisibility)}
+        >
           {renderIcon()}
         </InputGroupText>
       </InputGroup>
@@ -90,18 +96,18 @@ InputPasswordToggle.propTypes = {
   inputClassName: PropTypes.string,
   label(props, propName) {
     /** Если лейбл задан, а htmlFor не задан, вывести ошибку */
-    if (props[propName] && props.htmlFor === "undefined") {
-      throw new Error("htmlFor обязателен, если задана метка");
+    if (props[propName] && props.htmlFor === 'undefined') {
+      throw new Error('htmlFor обязателен, если задана метка');
     }
   },
   htmlFor(props, propName) {
     /** Если htmlFor задан, а лейбл не задан, вывести ошибку */
-    if (props[propName] && props.label === "undefined") {
-      throw new Error("метка обязательна, если задан htmlFor");
+    if (props[propName] && props.label === 'undefined') {
+      throw new Error('метка обязательна, если задан htmlFor');
     }
-  }
+  },
 };
 
 InputPasswordToggle.defaultProps = {
-  visible: false
+  visible: false,
 };

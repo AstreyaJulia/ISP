@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 /** Спиннер на всю страницу
  * @returns {JSX.Element}
@@ -8,8 +8,11 @@ import React from "react";
 const LoadingScreen = () => (
   <div className="page-spinner h-full flex items-center justify-center h-screen flex-col">
     <div className="page-spinner-wrapper mt-1">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"
-           className="w-3/5 h-auto animate-spin fill-indigo-600 ">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 50 50"
+        className="w-3/5 h-auto animate-spin fill-indigo-600 "
+      >
         <circle cx="25" cy="10" r="2" />
         <circle opacity=".3" cx="25" cy="40" r="2" />
         <circle opacity=".3" cx="32.5" cy="12" r="2" />

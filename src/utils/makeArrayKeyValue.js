@@ -7,8 +7,8 @@
  */
 export const makeArrayKeyValue = (object, key1, key2) => {
   const array = new Map();
-  for (let i = 0; i < object.length; i+1) {
+  for (let i = 0; i < object.length; i + 1) {
     array.set(object[i][key1], object[i][key2]);
   }
-  return (Object.fromEntries(array));
-}
+  return Object.fromEntries(array);
+};

@@ -1,10 +1,10 @@
-import React, { Fragment, useContext, useState } from "react";
-import { Dialog, Transition } from "@headlessui/react";
-import { Helmet } from "react-helmet";
-import PropTypes from "prop-types";
-import { APP_NAME } from "../../../config";
-import PageHeader from "../../../components/PageHeader";
-import { classNames } from "../../../utils/classNames";
+import React, { Fragment, useContext, useState } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
+import { Helmet } from 'react-helmet';
+import PropTypes from 'prop-types';
+import { APP_NAME } from '../../../config';
+import PageHeader from '../../../components/PageHeader';
+import { classNames } from '../../../utils/classNames';
 
 /** Контекст для передачи в дочерние компоненты
  * @type {React.Context<null>} */
@@ -33,15 +33,15 @@ const ContextContainer = React.createContext(null);
  * @returns {JSX.Element}
  * @constructor */
 export default function ContentLayoutWithSidebar({
-                                                   children,
-                                                   boxed,
-                                                   title,
-                                                   breadcrumbs,
-                                                   header,
-                                                   sidebarSize,
-                                                   fullHeight, meta
-                                                 }) {
-
+  children,
+  boxed,
+  title,
+  breadcrumbs,
+  header,
+  sidebarSize,
+  fullHeight,
+  meta,
+}) {
   /** Стейт сайдбара */
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -54,12 +54,17 @@ export default function ContentLayoutWithSidebar({
           {meta}
         </Helmet>
         <div
-          className={fullHeight ? "main-content max-w-6xl mx-auto px-5 full-height-page flex flex-col" : "min-h-full"}>
+          className={fullHeight ? 'main-content max-w-6xl mx-auto px-5 full-height-page flex flex-col' : 'min-h-full'}
+        >
           <PageHeader pages={breadcrumbs} header={header}>
             {/* Сюда можно тоже вставить разметку, например, кнопки */}
           </PageHeader>
           <div
-            className={classNames(" flex-grow w-full flex overflow-y-auto relative rounded-lg mt-5", boxed ? "max-w-6xl mx-auto" : "")}>
+            className={classNames(
+              ' flex-grow w-full flex overflow-y-auto relative rounded-lg mt-5',
+              boxed ? 'max-w-6xl mx-auto' : ''
+            )}
+          >
             {/* Дочерние компоненты */}
             {children}
           </div>
@@ -87,14 +92,24 @@ const Body = ({ children, color }) => {
               onClick={() => setSidebarOpen(true)}
             >
               <span className="sr-only">Открыть меню</span>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
-                   stroke="currentColor" className="w-6 h-6">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
               </svg>
             </button>
           </div>
           <div
-            className={classNames("flex-1 z-0 border border-gray-200 dark:border-gray-600 rounded-lg lg:rounded-l-none lg:border-l-0", color === "white" ? "bg-white dark:bg-gray-900" : "bg-gray-100 dark:bg-gray-800")}>
+            className={classNames(
+              'flex-1 z-0 border border-gray-200 dark:border-gray-600 rounded-lg lg:rounded-l-none lg:border-l-0',
+              color === 'white' ? 'bg-white dark:bg-gray-900' : 'bg-gray-100 dark:bg-gray-800'
+            )}
+          >
             {children}
           </div>
         </div>
@@ -105,7 +120,7 @@ const Body = ({ children, color }) => {
 
 Body.propTypes = {
   children: PropTypes.node,
-  color: PropTypes.oneOf(["white", "gray"]).isRequired
+  color: PropTypes.oneOf(['white', 'gray']).isRequired,
 };
 
 /** Отрисовщик сайдбара
@@ -118,25 +133,24 @@ const Sidebar = ({ children }) => {
 
   const sidebarSizes = {
     small: {
-      mobile: "max-w-xs",
-      desktop: "lg:w-60"
+      mobile: 'max-w-xs',
+      desktop: 'lg:w-60',
     },
     medium: {
-      mobile: "max-w-sm",
-      desktop: "lg:w-72"
+      mobile: 'max-w-sm',
+      desktop: 'lg:w-72',
     },
     large: {
-      mobile: "max-w-md",
-      desktop: "lg:w-96"
-    }
+      mobile: 'max-w-md',
+      desktop: 'lg:w-96',
+    },
   };
 
   return (
     <>
       {/** Мобильное меню */}
       <Transition.Root show={sidebarOpen} as={Fragment}>
-        <Dialog as="div" className="fixed top-16 left-0 bottom-0 right-0 flex z-40 xl:hidden"
-                onClose={setSidebarOpen}>
+        <Dialog as="div" className="fixed top-16 left-0 bottom-0 right-0 flex z-40 xl:hidden" onClose={setSidebarOpen}>
           <Transition.Child
             as={Fragment}
             enter="transition-opacity ease-linear duration-300"
@@ -158,7 +172,11 @@ const Sidebar = ({ children }) => {
             leaveTo="-translate-x-full"
           >
             <div
-              className={["relative flex-1 flex flex-col w-full bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 shadow-lg", sidebarSizes[sidebarSize].mobile].join(" ")}>
+              className={[
+                'relative flex-1 flex flex-col w-full bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 shadow-lg',
+                sidebarSizes[sidebarSize].mobile,
+              ].join(' ')}
+            >
               <Transition.Child
                 as={Fragment}
                 enter="ease-in-out duration-300"
@@ -175,30 +193,37 @@ const Sidebar = ({ children }) => {
                     onClick={() => setSidebarOpen(false)}
                   >
                     <span className="sr-only">Закрыть меню</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
-                         stroke="currentColor" className="h-6 w-6 text-gray-700 dark:text-gray-200">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="h-6 w-6 text-gray-700 dark:text-gray-200"
+                    >
                       <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                   </button>
                 </div>
               </Transition.Child>
-              <div className="flex-1 overflow-y-auto">
-                {children}
-              </div>
+              <div className="flex-1 overflow-y-auto">{children}</div>
             </div>
           </Transition.Child>
-          <div
-            className="flex-shrink-0 w-14">{/** Заглушка, не позволяющая меню схлопываться, чтобы вместить кнопку меню */}</div>
+          <div className="flex-shrink-0 w-14">
+            {/** Заглушка, не позволяющая меню схлопываться, чтобы вместить кнопку меню */}
+          </div>
         </Dialog>
       </Transition.Root>
 
       {/** Десктопное меню */}
-      <div className={["hidden lg:flex lg:flex-col", sidebarSizes[sidebarSize].desktop].join(" ")}>
+      <div className={['hidden lg:flex lg:flex-col', sidebarSizes[sidebarSize].desktop].join(' ')}>
         <div
-          className={["flex-1 flex flex-col min-h-0 border-t border-b border-r border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 border-l rounded-l-lg", boxed ? "" : ""].join(" ")}>
-          <div className="flex-1 flex flex-col">
-            {children}
-          </div>
+          className={[
+            'flex-1 flex flex-col min-h-0 border-t border-b border-r border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 border-l rounded-l-lg',
+            boxed ? '' : '',
+          ].join(' ')}
+        >
+          <div className="flex-1 flex flex-col">{children}</div>
         </div>
       </div>
     </>
@@ -206,7 +231,7 @@ const Sidebar = ({ children }) => {
 };
 
 Sidebar.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 /** Компонент меню/сайдбара, в разметке первый
@@ -231,5 +256,5 @@ ContentLayoutWithSidebar.propTypes = {
   header: PropTypes.string,
   sidebarSize: PropTypes.string.isRequired,
   fullHeight: PropTypes.string.isRequired,
-  meta: PropTypes.object
+  meta: PropTypes.object,
 };

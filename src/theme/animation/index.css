@@ -1,50 +1,52 @@
 /** FIXME сюда добавлять элементы для анимации */
-.content-body, .main-content, .links-list {
-    -webkit-animation: fadeIn .5s linear;
-    animation: fadeIn .5s linear;
-    animation-delay: 0s;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
-    transition: all .2s, background 0s, border-color 0s, color 0s;
+.content-body,
+.main-content,
+.links-list {
+  -webkit-animation: fadeIn 0.5s linear;
+  animation: fadeIn 0.5s linear;
+  animation-delay: 0s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  transition: all 0.2s, background 0s, border-color 0s, color 0s;
 }
 
 /** Скелетон */
 .react-loading-skeleton {
-    --base-color: transparent;
-    --highlight-color: transparent;
+  --base-color: transparent;
+  --highlight-color: transparent;
 }
 
 .menu-item {
-    transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 }
 
 .animate__fadeIn {
-    -webkit-animation-name: fadeIn;
-    animation-name: fadeIn;
-    -webkit-animation-duration: 1ms !important;
-    animation-duration: 1ms !important;
-    -webkit-animation-iteration-count: 1 !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 1ms !important;
-    animation-fill-mode: both;
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+  -webkit-animation-duration: 1ms !important;
+  animation-duration: 1ms !important;
+  -webkit-animation-iteration-count: 1 !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 1ms !important;
+  animation-fill-mode: both;
 }
 
 @-webkit-keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
+  from {
+    opacity: 0;
+  }
 
-    to {
-        opacity: 1;
-    }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
+  from {
+    opacity: 0;
+  }
 
-    to {
-        opacity: 1;
-    }
+  to {
+    opacity: 1;
+  }
 }

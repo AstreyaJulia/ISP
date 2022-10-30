@@ -1,19 +1,18 @@
-import React, { useRef, useState } from "react";
-import FullCalendar from "@fullcalendar/react";
-import listPlugin from "@fullcalendar/list";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import timeGridPlugin from "@fullcalendar/timegrid";
-import interactionPlugin from "@fullcalendar/interaction";
-import ruLocale from "@fullcalendar/core/locales/ru";
+import React, { useRef, useState } from 'react';
+import FullCalendar from '@fullcalendar/react';
+import listPlugin from '@fullcalendar/list';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import ruLocale from '@fullcalendar/core/locales/ru';
 
-
-import { events } from "../../@mock/SampleData";
-import BasicPage from "../pagesLayouts/BasicPage";
-import Card from "../../components/Card";
-import { CalendarToolbar } from "./CalendarToolbar";
-import { useDispatch, useSelector } from "../../store";
-import {closeModal, openModal} from "../../store/slices/calendar";
-import EventsModal from "./EventsModal";
+import { events } from '../../@mock/SampleData';
+import BasicPage from '../pagesLayouts/BasicPage';
+import Card from '../../components/Card';
+import { CalendarToolbar } from './CalendarToolbar';
+import { useDispatch, useSelector } from '../../store';
+import { closeModal, openModal } from '../../store/slices/calendar';
+import EventsModal from './EventsModal';
 
 const selectedEventSelector = (state) => {
   const { events, selectedEventId } = state.calendar;
@@ -24,12 +23,11 @@ const selectedEventSelector = (state) => {
 };
 
 const Calendar = () => {
-
   const dispatch = useDispatch();
 
   const calendarRef = useRef(null);
   const [date, setDate] = useState(new Date());
-  const [viewDates, setViewDates] = useState({start: new Date(), end: new Date()})
+  const [viewDates, setViewDates] = useState({ start: new Date(), end: new Date() });
   const [view, setView] = useState('dayGridMonth');
 
   const selectedEvent = useSelector(selectedEventSelector);
@@ -85,7 +83,7 @@ const Calendar = () => {
 
   return (
     <BasicPage title="Календарь" className="full-height-page mx-auto px-5">
-      <Card classname='calendar-module overflow-visible'>
+      <Card classname="calendar-module overflow-visible">
         <CalendarToolbar
           date={date}
           view={view}
@@ -101,7 +99,7 @@ const Calendar = () => {
           plugins={[listPlugin, dayGridPlugin, timeGridPlugin, interactionPlugin]}
           initialView={view}
           datesSet={(arg) => {
-            setViewDates({start: arg.start, end: arg.end})
+            setViewDates({ start: arg.start, end: arg.end });
           }}
           headerToolbar={false}
           editable
@@ -113,7 +111,10 @@ const Calendar = () => {
           eventDisplay="block"
           allDayMaintainDuration
           locale={ruLocale}
-          eventClassNames={({event: calendarEvent}) => [`fc-event-${calendarEvent._def.extendedProps.calendar}`, `fc-event-${calendarEvent._def.ui.display}`]} // Фоновый цвет событий
+          eventClassNames={({ event: calendarEvent }) => [
+            `fc-event-${calendarEvent._def.extendedProps.calendar}`,
+            `fc-event-${calendarEvent._def.ui.display}`,
+          ]} // Фоновый цвет событий
         />
       </Card>
       <EventsModal open={isOpenModal} setOpen={handleCloseModal} event={events[0]} />

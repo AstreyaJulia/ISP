@@ -1,10 +1,10 @@
-import tailwindColors from "tailwindcss/colors";
+import tailwindColors from 'tailwindcss/colors';
 
 export const tailwindColorsConfig = {
   theme: {
     colors: {
-      transparent: "transparent",
-      current: "currentColor",
+      transparent: 'transparent',
+      current: 'currentColor',
       black: tailwindColors.black,
       white: tailwindColors.white,
       slate: tailwindColors.slate,
@@ -28,7 +28,7 @@ export const tailwindColorsConfig = {
       purple: tailwindColors.purple,
       fuchsia: tailwindColors.fuchsia,
       pink: tailwindColors.pink,
-      rose: tailwindColors.rose
-    }
-  }
+      rose: tailwindColors.rose,
+    },
+  },
 };

@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import PropTypes from "prop-types";
-import MenuItems from "./MenuItems";
-import { makeArrayFromObj } from "../../../utils/makeArrayFromObj";
-import { classNames } from "../../../utils/classNames";
+import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import MenuItems from './MenuItems';
+import { makeArrayFromObj } from '../../../utils/makeArrayFromObj';
+import { classNames } from '../../../utils/classNames';
 
 /** Проверяет, есть ли у потомков элемента текущий url
  * @param item - элемент
@@ -16,7 +16,7 @@ export const hasActiveChild = (item, currentUrl) => {
   if (!children) {
     return false;
   }
-// eslint-disable-next-line
+  // eslint-disable-next-line
   for (const child of makeArrayFromObj(children)) {
     if (child.children) {
       if (hasActiveChild(child, currentUrl)) {
@@ -49,18 +49,18 @@ export const removeChildren = (children, openGroup, currentActiveGroup) => {
 };
 
 const MenuGroup = ({
-                     item,
-                     groupOpen,
-                     activeItem,
-                     parentItem,
-                     groupActive,
-                     setGroupOpen,
-                     sidebar,
-                     setGroupActive,
-                     currentActiveGroup,
-                     setCurrentActiveGroup,
-                     ...rest
-                   }) => {
+  item,
+  groupOpen,
+  activeItem,
+  parentItem,
+  groupActive,
+  setGroupOpen,
+  sidebar,
+  setGroupActive,
+  currentActiveGroup,
+  setCurrentActiveGroup,
+  ...rest
+}) => {
   const location = useLocation();
   const currentURL = useLocation().pathname;
 
@@ -138,7 +138,7 @@ const MenuGroup = ({
 
   /** Возвращает состояние открытой группы */
   const openClassCondition = (id) => {
-    if (sidebar || sidebar?.toString() === "0") {
+    if (sidebar || sidebar?.toString() === '0') {
       if (groupActive.includes(id) || groupOpen.includes(id)) {
         return true;
       }
@@ -149,49 +149,92 @@ const MenuGroup = ({
     return null;
   };
 
-  return (<div key={item.id} className="my-1 w-full">
-    <>
-      <div className="w-full">
-        <a href="#"
-           title={sidebar?.toString() === "0" ? item.pagetitle : null}
-           className={classNames(openClassCondition(item.id), groupActive.includes(item.id) || groupOpen.includes(item.id) || currentActiveGroup.includes(item.id) ? "bg-gray-200 dark:bg-gray-800 text-gray-600 dark:text-gray-400 flex" : "flex text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700", "group flex items-center py-2 text-base leading-6 rounded-md  w-full hover:cursor-pointer", sidebar?.toString() === "0" ? "justify-end" : "px-2 justify-between")}
-           aria-current={groupActive.includes(item.id) || groupOpen.includes(item.id) || currentActiveGroup.includes(item.id) ? "page" : undefined}
-           onClick={e => onCollapseClick(e, item)}
+  return (
+    <div key={item.id} className="my-1 w-full">
+      <>
+        <div className="w-full">
+          <a
+            href="#"
+            title={sidebar?.toString() === '0' ? item.pagetitle : null}
+            className={classNames(
+              openClassCondition(item.id),
+              groupActive.includes(item.id) || groupOpen.includes(item.id) || currentActiveGroup.includes(item.id)
+                ? 'bg-gray-200 dark:bg-gray-800 text-gray-600 dark:text-gray-400 flex'
+                : 'flex text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700',
+              'group flex items-center py-2 text-base leading-6 rounded-md  w-full hover:cursor-pointer',
+              sidebar?.toString() === '0' ? 'justify-end' : 'px-2 justify-between'
+            )}
+            aria-current={
+              groupActive.includes(item.id) || groupOpen.includes(item.id) || currentActiveGroup.includes(item.id)
+                ? 'page'
+                : undefined
+            }
+            onClick={(e) => onCollapseClick(e, item)}
+          >
+            <div className="flex items-center truncate mr-1">
+              <i
+                className={classNames(
+                  sidebar?.toString() === '0' ? '' : 'mr-3',
+                  'flex-shrink-0 flex items-center text-2xl mdi text-gray-500',
+                  item.icon
+                )}
+              />
+              {sidebar?.toString() === '1' ? (
+                <span className="text-gray-600 dark:text-gray-400 truncate text-sm font-medium">{item.pagetitle}</span>
+              ) : (
+                ''
+              )}
+            </div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className={classNames(
+                groupActive.includes(item.id) || groupOpen.includes(item.id) || currentActiveGroup.includes(item.id)
+                  ? 'text-gray-500 rotate-90'
+                  : 'text-gray-500',
+                sidebar?.toString() === '0' ? 'w-3' : 'w-5',
+                'flex-shrink-0 h-4 transform group-hover:text-gray-500 transition-colors ease-in-out duration-150'
+              )}
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </a>
+        </div>
+        <div
+          className={classNames(
+            groupActive.includes(item.id) || groupOpen.includes(item.id) || currentActiveGroup.includes(item.id)
+              ? 'pb-3'
+              : '',
+            'my-1',
+            sidebar?.toString() === '0' ? '' : 'px-2'
+          )}
         >
-          <div className="flex items-center truncate mr-1">
-            <i
-              className={classNames(sidebar?.toString() === "0" ? "" : "mr-3", "flex-shrink-0 flex items-center text-2xl mdi text-gray-500", item.icon)} />
-            {sidebar?.toString() === "1" ? <span
-              className="text-gray-600 dark:text-gray-400 truncate text-sm font-medium">{item.pagetitle}</span> : ""}
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg"
-               className={classNames(groupActive.includes(item.id) || groupOpen.includes(item.id) || currentActiveGroup.includes(item.id) ? "text-gray-500 rotate-90" : "text-gray-500", sidebar?.toString() === "0" ? "w-3" : "w-5", "flex-shrink-0 h-4 transform group-hover:text-gray-500 transition-colors ease-in-out duration-150")}
-               viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd"
-                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                  clipRule="evenodd" />
-          </svg>
-        </a>
-      </div>
-      <div
-        className={classNames(groupActive.includes(item.id) || groupOpen.includes(item.id) || currentActiveGroup.includes(item.id) ? "pb-3" : "", "my-1", sidebar?.toString() === "0" ? "" : "px-2")}>
-        {groupActive.includes(item.id) || groupOpen.includes(item.id) || currentActiveGroup.includes(item.id) ? (
-          <MenuItems
-            {...rest}
-            items={makeArrayFromObj(item.children)}
-            groupActive={groupActive}
-            setGroupActive={setGroupActive}
-            currentActiveGroup={currentActiveGroup}
-            setCurrentActiveGroup={setCurrentActiveGroup}
-            groupOpen={groupOpen}
-            setGroupOpen={setGroupOpen}
-            parentItem={item}
-            sidebar={sidebar}
-            activeItem={activeItem}
-          />) : ""}
-      </div>
-    </>
-  </div>);
+          {groupActive.includes(item.id) || groupOpen.includes(item.id) || currentActiveGroup.includes(item.id) ? (
+            <MenuItems
+              {...rest}
+              items={makeArrayFromObj(item.children)}
+              groupActive={groupActive}
+              setGroupActive={setGroupActive}
+              currentActiveGroup={currentActiveGroup}
+              setCurrentActiveGroup={setCurrentActiveGroup}
+              groupOpen={groupOpen}
+              setGroupOpen={setGroupOpen}
+              parentItem={item}
+              sidebar={sidebar}
+              activeItem={activeItem}
+            />
+          ) : (
+            ''
+          )}
+        </div>
+      </>
+    </div>
+  );
 };
 
 MenuGroup.propTypes = {
@@ -204,7 +247,7 @@ MenuGroup.propTypes = {
   sidebar: PropTypes.number.isRequired,
   setGroupActive: PropTypes.func,
   currentActiveGroup: PropTypes.array.isRequired,
-  setCurrentActiveGroup: PropTypes.func.isRequired
+  setCurrentActiveGroup: PropTypes.func.isRequired,
 };
 
 export default MenuGroup;

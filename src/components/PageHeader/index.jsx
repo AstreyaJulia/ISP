@@ -1,7 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
-import { classNames } from "../../utils/classNames";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { classNames } from '../../utils/classNames';
 
 /** Заголовок содержимого страницы, "хлебные крошки"
  * @param pages - объект для навигации:
@@ -15,41 +15,41 @@ import { classNames } from "../../utils/classNames";
 const PageHeader = ({ pages, classname, header, children }) => (
   <div className={classname}>
     <nav className="sm:hidden mb-4" aria-label="Назад">
-      <Link
-        to={-1}
-        className="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 p-2"
-      >
-        <svg className="flex-shrink-0 -ml-1 mr-1 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
-             viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+      <Link to={-1} className="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 p-2">
+        <svg
+          className="flex-shrink-0 -ml-1 mr-1 h-5 w-5 text-gray-400"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+        >
           <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
         </svg>
         Назад
       </Link>
     </nav>
-    {header || children
-      ? <div
-        className={classNames("md:flex md:items-center", header ? "md:justify-between" : "md:justify-end")}>
-        {header
-          ? <div className="flex-1 min-w-0">
+    {header || children ? (
+      <div className={classNames('md:flex md:items-center', header ? 'md:justify-between' : 'md:justify-end')}>
+        {header ? (
+          <div className="flex-1 min-w-0">
             <h2 className="text-base font-bold leading-7 text-gray-700 dark:text-gray-300 sm:text-2xl sm:truncate">
               {header}
             </h2>
           </div>
-          : ""}
-        <div className="mt-5 justify-end flex-shrink-0 flex md:mt-0 md:ml-4">
-          {children}
-        </div>
+        ) : (
+          ''
+        )}
+        <div className="mt-5 justify-end flex-shrink-0 flex md:mt-0 md:ml-4">{children}</div>
       </div>
-      : ""}
-    <nav className={classNames("mt-2 w-full hidden sm:flex")} aria-label="Навигация">
+    ) : (
+      ''
+    )}
+    <nav className={classNames('mt-2 w-full hidden sm:flex')} aria-label="Навигация">
       <ol className="flex items-center space-x-2">
         <li>
           <div>
-            <Link
-              to="/home"
-              className="text-sm font-medium text-gray-500 hover:text-gray-700"
-              title="Главная"
-            >
+            <Link to="/home" className="text-sm font-medium text-gray-500 hover:text-gray-700" title="Главная">
               <span title="Главная">Главная</span>
             </Link>
           </div>
@@ -60,12 +60,11 @@ const PageHeader = ({ pages, classname, header, children }) => (
               <span className="mx-2 text-sm font-medium text-gray-300 hover:text-gray-900">/</span>
               <Link
                 to={page.href}
-                className={classNames("ml-2 text-sm font-medium ", page.current ? 'text-indigo-500 hover:text-indigo-700' : 'text-gray-500 hover:text-gray-700')}
-                aria-current={
-                  page.current
-                    ? "page"
-                    : undefined
-                }
+                className={classNames(
+                  'ml-2 text-sm font-medium ',
+                  page.current ? 'text-indigo-500 hover:text-indigo-700' : 'text-gray-500 hover:text-gray-700'
+                )}
+                aria-current={page.current ? 'page' : undefined}
               >
                 {page.name}
               </Link>
@@ -81,7 +80,7 @@ PageHeader.propTypes = {
   pages: PropTypes.array,
   classname: PropTypes.string,
   header: PropTypes.string,
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 export default PageHeader;

@@ -1,66 +1,67 @@
-import React, { lazy, Suspense } from "react";
-import { Navigate, useRoutes } from "react-router-dom";
-import MainLayout from "../layouts/MainLayout/index";
-import GuestGuard from "../guards/GuestGuard";
-import AuthGuard from "../guards/AuthGuard";
-import LoadingScreen from "../components/LoadingScreen";
-import { PATH_HOME } from "./paths";
-import RoleBasedGuard from "../guards/RoleBasedGuard";
+import React, { lazy, Suspense } from 'react';
+import { Navigate, useRoutes } from 'react-router-dom';
+import MainLayout from '../layouts/MainLayout/index';
+import GuestGuard from '../guards/GuestGuard';
+import AuthGuard from '../guards/AuthGuard';
+import LoadingScreen from '../components/LoadingScreen';
+import { PATH_HOME } from './paths';
+import RoleBasedGuard from '../guards/RoleBasedGuard';
 
-const Loadable = (Component) => (props) => (
-  <Suspense fallback={<LoadingScreen />}>
-    <Component {...props} />
-  </Suspense>
-);
+const Loadable = (Component) => (props) =>
+  (
+    <Suspense fallback={<LoadingScreen />}>
+      <Component {...props} />
+    </Suspense>
+  );
 
 export default function Router() {
   return useRoutes([
     {
-      path: "/",
+      path: '/',
       index: true,
-      element: <Navigate replace to={PATH_HOME} />
+      element: <Navigate replace to={PATH_HOME} />,
     },
     // Вход, регистрация
     {
-      path: "auth",
+      path: 'auth',
       children: [
         {
-          path: "login",
+          path: 'login',
           element: (
             <GuestGuard>
               <Login />
             </GuestGuard>
-          )
+          ),
         },
         {
-          path: "register",
+          path: 'register',
           element: (
             <GuestGuard>
               <Register />
             </GuestGuard>
-          )
+          ),
         },
-        { path: "login-unprotected", element: <Login /> },
-        { path: "register-unprotected", element: <Register /> }
-      ]
+        { path: 'login-unprotected', element: <Login /> },
+        { path: 'register-unprotected', element: <Register /> },
+      ],
     },
 
     // Основное
     {
-      path: "home",
+      path: 'home',
       element: (
         <AuthGuard>
           <MainLayout />
         </AuthGuard>
       ),
       children: [
-        { path: "", element: <Home /> },
-        { path: "over-period", element: <Finished /> }
-      ]
+        { path: '', element: <Home /> },
+        { path: 'over-period', element: <Finished /> },
+      ],
     },
 
     {
-      path: "/",
+      path: '/',
       element: (
         <AuthGuard>
           <MainLayout />
@@ -69,161 +70,170 @@ export default function Router() {
       children: [
         /* FIXME сюда добавлять другие роуты */
         {
-          path: "info/proxy-list",
-          element: <LinksCatalog />
+          path: 'info/proxy-list',
+          element: <LinksCatalog />,
         },
         {
-          path: "over-period",
-          element:
+          path: 'over-period',
+          element: (
             <RoleBasedGuard accessibleProfessions={[1, 2, 3, 6, 7, 9]}>
               <Finished all="false" />
             </RoleBasedGuard>
+          ),
         },
         // Все
         {
-          path: "over-period-all",
-          element:
+          path: 'over-period-all',
+          element: (
             <RoleBasedGuard accessibleProfessions={[1, 2, 4, 5, 6, null]}>
               <Finished all="true" />
             </RoleBasedGuard>
+          ),
         },
         {
-          path: "publication",
-          element:
+          path: 'publication',
+          element: (
             <RoleBasedGuard accessibleProfessions={[1, 2, 3, 6, 7]}>
               <Publication all="false" />
             </RoleBasedGuard>
+          ),
         },
         // Все
         {
-          path: "publication-all",
-          element:
+          path: 'publication-all',
+          element: (
             <RoleBasedGuard accessibleProfessions={[1, 2, 4, 5, 6, null]}>
               <Publication all="true" />
             </RoleBasedGuard>
+          ),
         },
         {
-          path: "process",
-          element:
+          path: 'process',
+          element: (
             <RoleBasedGuard accessibleProfessions={[1, 2, 3, 6, 7, 9]}>
               <Process all="false" />
             </RoleBasedGuard>
+          ),
         },
         // Все
         {
-          path: "process-all",
-          element:
+          path: 'process-all',
+          element: (
             <RoleBasedGuard accessibleProfessions={[1, 2, 4, 5, 6, null]}>
               <Process all="true" />
             </RoleBasedGuard>
+          ),
         },
         {
-          path: "calendar",
-          element: <Calendar />
+          path: 'calendar',
+          element: <Calendar />,
         },
         {
-          path: "phonebook",
-          element: <Phonebook />
+          path: 'phonebook',
+          element: <Phonebook />,
         },
         {
-          path: "stats",
-          element: <Stats />
+          path: 'stats',
+          element: <Stats />,
         },
         {
-          path: "grade",
-          element:
+          path: 'grade',
+          element: (
             <RoleBasedGuard accessibleProfessions={[1, 2, 4, 5, 6, 8, null]}>
               <Grade />
             </RoleBasedGuard>
+          ),
         },
         {
-          path: "faq",
-          element: <Faq />
+          path: 'faq',
+          element: <Faq />,
         },
         {
-          path: "faq/gas",
-          element: <Gas />
+          path: 'faq/gas',
+          element: <Gas />,
         },
         {
-          path: "faq/gas/g-category",
-          element: <Gcategory />
+          path: 'faq/gas/g-category',
+          element: <Gcategory />,
         },
         {
-          path: "admin",
-          element:
+          path: 'admin',
+          element: (
             <RoleBasedGuard accessibleRoles={[1]}>
               <Admin />
             </RoleBasedGuard>
+          ),
         },
         {
-          path: "settings",
-          element: <Settings />
+          path: 'settings',
+          element: <Settings />,
         },
         {
-          path: "profile",
-          element: <Profile />
+          path: 'profile',
+          element: <Profile />,
         },
 
         {
-          path: "test",
-          element:
+          path: 'test',
+          element: (
             <RoleBasedGuard accessibleRoles={[1]}>
               <Test />
             </RoleBasedGuard>
+          ),
         },
         {
-          path: "test2",
-          element:
+          path: 'test2',
+          element: (
             <RoleBasedGuard accessibleRoles={[1]}>
               <Test2 />
             </RoleBasedGuard>
-        }
-
-      ]
+          ),
+        },
+      ],
     },
 
     // Ошибки
     {
-      path: "*",
+      path: '*',
       element: (
         <AuthGuard>
           <MainLayout />
         </AuthGuard>
       ),
       children: [
-        { path: "500", element: <Page500 /> },
-        { path: "404", element: <NotFound /> },
-        { path: "*", element: <Navigate to="/404" replace /> }
-      ]
+        { path: '500', element: <Page500 /> },
+        { path: '404', element: <NotFound /> },
+        { path: '*', element: <Navigate to="/404" replace /> },
+      ],
     },
-    { path: "*", element: <Navigate to="/404" replace /> }
+    { path: '*', element: <Navigate to="/404" replace /> },
   ]);
 }
 
 // Основные страницы
-const Home = Loadable(lazy(() => import("../pages/Home"))); // Главная
-const LinksCatalog = Loadable(lazy(() => import("../pages/LinksCatalog"))); // Каталог ссылок
-const Finished = Loadable(lazy(() => import("../pages/cases/Finished"))); // Оконченные дела
-const Publication = Loadable(lazy(() => import("../pages/cases/Publication"))); // Контроль публикации СА (для судьи)
-const Process = Loadable(lazy(() => import("../pages/cases/Process"))); // Каталог ссылок
-const Calendar = Loadable(lazy(() => import("../pages/Calendar"))); // Дела в производстве
-const Phonebook = Loadable(lazy(() => import("../pages/Phonebook"))); // Телефонный справочник
-const Stats = Loadable(lazy(() => import("../pages/Stats"))); // Каталог ссылок
-const Grade = Loadable(lazy(() => import("../pages/Grade"))); // Графики
-const Faq = Loadable(lazy(() => import("../pages/Faq"))); // База знаний
-const Gas = Loadable(lazy(() => import("../pages/Faq/Subpages/Gas"))); // База знаний
-const Gcategory = Loadable(lazy(() => import("../pages/Faq/Subpages/Gcategory"))); // База знаний
+const Home = Loadable(lazy(() => import('../pages/Home'))); // Главная
+const LinksCatalog = Loadable(lazy(() => import('../pages/LinksCatalog'))); // Каталог ссылок
+const Finished = Loadable(lazy(() => import('../pages/cases/Finished'))); // Оконченные дела
+const Publication = Loadable(lazy(() => import('../pages/cases/Publication'))); // Контроль публикации СА (для судьи)
+const Process = Loadable(lazy(() => import('../pages/cases/Process'))); // Каталог ссылок
+const Calendar = Loadable(lazy(() => import('../pages/Calendar'))); // Дела в производстве
+const Phonebook = Loadable(lazy(() => import('../pages/Phonebook'))); // Телефонный справочник
+const Stats = Loadable(lazy(() => import('../pages/Stats'))); // Каталог ссылок
+const Grade = Loadable(lazy(() => import('../pages/Grade'))); // Графики
+const Faq = Loadable(lazy(() => import('../pages/Faq'))); // База знаний
+const Gas = Loadable(lazy(() => import('../pages/Faq/Subpages/Gas'))); // База знаний
+const Gcategory = Loadable(lazy(() => import('../pages/Faq/Subpages/Gcategory'))); // База знаний
 
-const Admin = Loadable(lazy(() => import("../pages/Admin"))); // Админка
+const Admin = Loadable(lazy(() => import('../pages/Admin'))); // Админка
 
-const Profile = Loadable(lazy(() => import("../pages/Profile"))); // Профиль
-const Settings = Loadable(lazy(() => import("../pages/Settings"))); // Настройки
+const Profile = Loadable(lazy(() => import('../pages/Profile'))); // Профиль
+const Settings = Loadable(lazy(() => import('../pages/Settings'))); // Настройки
 // Вход, регистрация
-const Login = Loadable(lazy(() => import("../pages/auth/Login"))); // Вход
-const Register = Loadable(lazy(() => import("../pages/auth/Register"))); // Регистрация
+const Login = Loadable(lazy(() => import('../pages/auth/Login'))); // Вход
+const Register = Loadable(lazy(() => import('../pages/auth/Register'))); // Регистрация
 // Ошибки
-const Page500 = Loadable(lazy(() => import("../pages/errors/Page500"))); // Ошибка сервера
-const NotFound = Loadable(lazy(() => import("../pages/errors/Page404"))); // Страница не найдена
+const Page500 = Loadable(lazy(() => import('../pages/errors/Page500'))); // Ошибка сервера
+const NotFound = Loadable(lazy(() => import('../pages/errors/Page404'))); // Страница не найдена
 // Тестирование
-const Test = Loadable(lazy(() => import("../pages/Test")));
-const Test2 = Loadable(lazy(() => import("../pages/Test/test2")));
+const Test = Loadable(lazy(() => import('../pages/Test')));
+const Test2 = Loadable(lazy(() => import('../pages/Test/test2')));
