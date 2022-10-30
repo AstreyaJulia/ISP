@@ -8,7 +8,7 @@ import Card from '../../components/Card';
 const Faq = () => {
   const breadcrumbs = [{ name: 'База знаний', href: '', current: true }];
 
-  const [activeStep, setActiveStep] = useState('3');
+  const [activeStep, setActiveStep] = useState(3);
 
   const getStepIcon = (stepId, currentStepId) => {
     if (parseInt(currentStepId, 10) > parseInt(stepId, 10)) {
@@ -46,7 +46,7 @@ const Faq = () => {
         <span className='absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200' aria-hidden='true' />
       ) : null}
       <div className='relative flex space-x-3'>
-        <button type='button' onClick={() => setStepHandler(key.toString())} className='gap-3 min-w-0 flex flex text-left bg-transparent border-0 text-sm text-gray-700 font-medium'>
+        <button type='button' onClick={() => setStepHandler(key)} className='gap-3 min-w-0 flex flex text-left bg-transparent border-0 text-sm text-gray-700 font-medium'>
           {getStepIcon(key, activeStep)}
           {item.title}
         </button>
@@ -54,10 +54,18 @@ const Faq = () => {
     </div>
   </li>;
 
-  const getCourseStep = (id) => demoSteps.find(x => x.id === id);
+  const getCourseStep = (id) => demoSteps.find(x => x.id === id.toString());
 
   const setStepHandler = (id) => {
     setActiveStep(id);
+  }
+
+  const nextStepHandler = () => {
+    if (activeStep < demoSteps.length - 1) setActiveStep(activeStep + 1);
+  }
+
+  const prevStepHandler = () => {
+    if (activeStep > 0) setActiveStep(activeStep - 1);
   }
 
   return (
@@ -69,8 +77,8 @@ const Faq = () => {
       >
         <PerfectScrollbar className='main-course-content' options={{ wheelPropagation: false }}>
 
-        <Card classname='max-w-5xl px-8 ml-8 my-6'>
-          <div className=''>
+        <Card classname='max-w-5xl px-8 ml-8 my-6 full-height-course'>
+          <div className='h-full'>
             <Markdown
               options={{
                 wrapper: 'article',
@@ -110,9 +118,9 @@ const Faq = () => {
         </PerfectScrollbar>
         <div className='w-full absolute bottom-5 right-0 flex items-center justify-center'>
           <div className='flex items-center mx-auto justify-center'>
-            <button type='button' className='bg-indigo-600 text-white h-10 py-2 px-4'>Назад</button>
-            <span className='bg-indigo-600 text-white h-10 min-w-10 flex items-center justify-center py-2 px-4'>{activeStep} / {demoSteps.length}</span>
-            <button type='button' className='bg-indigo-600 text-white h-10 py-2 px-4'>Вперед</button>
+            <button type='button' onClick={prevStepHandler} className='bg-indigo-600 text-white h-10 py-2 px-4'>Назад</button>
+            <span className='bg-indigo-600 text-white h-10 min-w-10 flex items-center justify-center py-2 px-4'>{parseInt(activeStep, 10) + 1} / {demoSteps.length}</span>
+            <button type='button' onClick={nextStepHandler} className='bg-indigo-600 text-white h-10 py-2 px-4'>Вперед</button>
 
           </div>
         </div>
