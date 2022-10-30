@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from 'react';
 import { Navigate, useRoutes } from 'react-router-dom';
 import MainLayout from '../layouts/MainLayout/index';
+import CourseLayout from '../layouts/CourseLayout/index';
 import GuestGuard from '../guards/GuestGuard';
 import AuthGuard from '../guards/AuthGuard';
 import LoadingScreen from '../components/LoadingScreen';
@@ -192,6 +193,27 @@ export default function Router() {
       ],
     },
 
+    // Курсы
+    {
+      path: '/',
+      element: (
+        <AuthGuard>
+          <CourseLayout />
+        </AuthGuard>
+      ),
+      children: [
+        /* FIXME сюда добавлять другие курсы */
+        {
+          path: 'test3',
+          element: (
+            <RoleBasedGuard accessibleRoles={[1]}>
+              <Test3 />
+            </RoleBasedGuard>
+          ),
+        },
+      ],
+    },
+
     // Ошибки
     {
       path: '*',
@@ -237,3 +259,4 @@ const NotFound = Loadable(lazy(() => import('../pages/errors/Page404'))); // С�
 // Тестирование
 const Test = Loadable(lazy(() => import('../pages/Test')));
 const Test2 = Loadable(lazy(() => import('../pages/Test/test2')));
+const Test3 = Loadable(lazy(() => import('../pages/Test/test3')));

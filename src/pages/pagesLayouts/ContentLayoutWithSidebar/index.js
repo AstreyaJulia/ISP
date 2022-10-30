@@ -54,14 +54,14 @@ export default function ContentLayoutWithSidebar({
           {meta}
         </Helmet>
         <div
-          className={fullHeight ? 'main-content max-w-6xl mx-auto px-5 full-height-page flex flex-col' : 'min-h-full'}
+          className={classNames(fullHeight ? 'main-content px-5 full-height-page flex flex-col' : 'min-h-full',  boxed ? 'max-w-6xl mx-auto' : '')}
         >
           <PageHeader pages={breadcrumbs} header={header}>
             {/* Сюда можно тоже вставить разметку, например, кнопки */}
           </PageHeader>
           <div
             className={classNames(
-              ' flex-grow w-full flex overflow-y-auto relative rounded-lg mt-5',
+              ' flex-grow w-full flex relative rounded-lg mt-5',
               boxed ? 'max-w-6xl mx-auto' : ''
             )}
           >
@@ -250,7 +250,7 @@ ContentLayoutWithSidebar.Body = (props) => Body(props);
 
 ContentLayoutWithSidebar.propTypes = {
   children: PropTypes.node,
-  boxed: PropTypes.string.isRequired,
+  boxed: PropTypes.string,
   title: PropTypes.string,
   breadcrumbs: PropTypes.array,
   header: PropTypes.string,
