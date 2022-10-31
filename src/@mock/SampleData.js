@@ -1116,14 +1116,87 @@ export const demoSteps = [
     title: 'Introduction',
     content:
       '<h1>Introduction</h1>' +
-      '<p>Oh, and here\'s a great quote from this Wikipedia on\n [salted duck eggs](https://en.wikipedia.org/wiki/Salted_duck_egg).</p>' +
+      '<p>Oh, and here\'s a great quote from this Wikipedia on [salted duck eggs](https://en.wikipedia.org/wiki/Salted_duck_egg).</p>' +
       '<blockquote>A salted duck egg is a Chinese preserved food product made by soaking duck' +
       'This is an example step of the course. You can put anything in here from example codes to videos.</blockquote>' +
-      'To install the CLI you need to have installed <b>npm</b> which typically comes with <b>NodeJS</b>.' +
-      'To install or upgrade the CLI run the following <b>npm</b> command:' +
       '<code>npm -g install @angular/cli</code>' +
-      'To verify that the CLI has been installed correctly, open a console and run:' +
-      '<code>ng version</code>' +
+      '<b>Bold</b> <i>Italic3</i>' +
+      '<del>Deleted</del> <abbr>Abbreviature</abbr>' +
+      '<figure>\n' +
+      '    <figcaption>Listen to the T-Rex:</figcaption>\n' +
+      '    <audio\n' +
+      '        controls\n' +
+      '        src="https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3">\n' +
+      '            <a href="https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3">\n' +
+      '                Download audio\n' +
+      '            </a>\n' +
+      '    </audio>\n' +
+      '</figure>'+
+      '<table>\n' +
+      '    <caption>Superheros and sidekicks</caption>\n' +
+      '    <colgroup>\n' +
+      '        <col>\n' +
+      '        <col span="2" class="batman">\n' +
+      '        <col span="2" class="flash">\n' +
+      '    </colgroup>\n' +
+      '    <tr>\n' +
+      '        <td> </td>\n' +
+      '        <th scope="col">Batman</th>\n' +
+      '        <th scope="col">Robin</th>\n' +
+      '        <th scope="col">The Flash</th>\n' +
+      '        <th scope="col">Kid Flash</th>\n' +
+      '    </tr>\n' +
+      '    <tr>\n' +
+      '        <th scope="row">Skill</th>\n' +
+      '        <td>Smarts</td>\n' +
+      '        <td>Dex, acrobat</td>\n' +
+      '        <td>Super speed</td>\n' +
+      '        <td>Super speed</td>\n' +
+      '    </tr>\n' +
+      '</table>'+
+      '<form>\n' +
+      '  <fieldset>\n' +
+      '    <legend>Choose your favorite monster</legend>\n' +
+      '\n' +
+      '    <input type="radio" id="kraken" name="monster" value="K">\n' +
+      '    <label for="kraken">Kraken</label><br>\n' +
+      '\n' +
+      '    <input type="radio" id="sasquatch" name="monster" value="S">\n' +
+      '    <label for="sasquatch">Sasquatch</label><br>\n' +
+      '\n' +
+      '    <input type="radio" id="mothman" name="monster" value="M" />\n' +
+      '    <label for="mothman">Mothman</label>\n' +
+      '  </fieldset>\n' +
+      '</form>'+
+      '<hgroup>\n' +
+      '\t<h1>Frankenstein</h1>\n' +
+      '\t<p>Or: The Modern Prometheus</p>\n' +
+      '</hgroup>\n' +
+      '<p>Victor Frankenstein, a Swiss scientist, has a great ambition: to create intelligent life. But when his creature first stirs, he realizes he has made a monster. A monster which, abandoned by his master and shunned by everyone who sees it, follows Dr Frankenstein to the very ends of the earth.</p>\n'+
+      '<hr>'+
+      '<img' +
+      '     src="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg"\n' +
+      '     alt="Grapefruit slice atop a pile of other slices">\n'+
+      '<p>Several species of <mark>salamander</mark> inhabit the temperate rainforest of the Pacific Northwest.</p>'+
+      '<ruby>\n' +
+      '明日 <rp>(</rp><rt>Ashita</rt><rp>)</rp>\n' +
+      '</ruby>'+
+      '<s>There will be a few tickets available at the box office tonight.</s>'+
+      '<samp>Keyboard not found <br>Press F1 to continue</samp>'+
+      '<video controls width="500">\n' +
+      '\n' +
+      '    <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm"\n' +
+      '            type="video/webm">\n' +
+      '\n' +
+      '    <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"\n' +
+      '            type="video/mp4">\n' +
+      '\n' +
+      '    Download the\n' +
+      '    <a href="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm">WEBM</a>\n' +
+      '    or\n' +
+      '    <a href="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4">MP4</a>\n' +
+      '    video.\n' +
+      '</video>'+
       '<h2>Header 2</h2>' +
         '<h3>Header 3</h3>' +
         '<h4>Header 4</h4>' +
