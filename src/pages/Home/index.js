@@ -33,10 +33,7 @@ const Home = () => {
   return (
     <BasicPage title="Главная" className="main-content mx-auto px-5">
       <div
-        className={classNames(
-          sidebar?.toString() === '0' ? 'xl:grid-cols-3' : 'xl:grid-cols-2',
-          'pt-2 flex sm:grid md:grid-cols-2 gap-3 sm:gap-5 xl:gap-7'
-        )}
+        className='pt-2 flex sm:grid md:grid-cols-2 gap-3 sm:gap-5 xl:gap-7 xl:grid-cols-3'
       >
         <div>
           <div className="flex flex-col gap-4">

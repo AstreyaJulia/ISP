@@ -1117,35 +1117,40 @@ export const demoSteps = [
     content:
       '<h1>Introduction</h1>' +
       '<p>Oh, and here\'s a great quote from this Wikipedia on\n [salted duck eggs](https://en.wikipedia.org/wiki/Salted_duck_egg).</p>' +
-      '<q>A salted duck egg is a Chinese preserved food product made by soaking duck' +
-      'This is an example step of the course. You can put anything in here from example codes to videos.</q>' +
+      '<blockquote>A salted duck egg is a Chinese preserved food product made by soaking duck' +
+      'This is an example step of the course. You can put anything in here from example codes to videos.</blockquote>' +
       'To install the CLI you need to have installed <b>npm</b> which typically comes with <b>NodeJS</b>.' +
       'To install or upgrade the CLI run the following <b>npm</b> command:' +
       '<code>npm -g install @angular/cli</code>' +
       'To verify that the CLI has been installed correctly, open a console and run:' +
       '<code>ng version</code>' +
-      '<h2>Install dependencies</h2>' +
-      'To moderate the images we\'ll need a few Node.js packages:' +
-      '<br><br>' +
+      '<h2>Header 2</h2>' +
+        '<h3>Header 3</h3>' +
+        '<h4>Header 4</h4>' +
+        '<h5>Header 5</h5>' +
+        '<h6>Header 6</h6>' +
       '<ul>' +
       '<li>' +
-      'The Google Cloud Vision Client Library for Node.js: @google-cloud/vision to run the image through the Cloud Vision API to detect inappropriate images.' +
+      'List item' +
       '</li>' +
-      '<br>' +
       '<li>' +
-      'The Google Cloud Storage Client Library for Node.js: @google-cloud/storage to download and upload the images from Cloud Storage.' +
+      'List item' +
       '</li>' +
-      '<br>' +
       '<li>' +
-      'A Node.js library allowing us to run processes: child-process-promise to run ImageMagick since the ImageMagick command-line tool comes pre-installed on all Functions instances.' +
+      'List item' +
       '</li>' +
       '</ul>' +
-      '<br>' +
-      'To install these three packages into your Cloud Functions app, run the following npm install --save command. Make sure that you do this from the functions directory.' +
-      '<br><br>' +
-      '<code>npm install --save @google-cloud/vision @google-cloud/storage child-process-promise</code>' +
-      '<br><br>' +
-      'This will install the three packages locally and add them as declared dependencies in your package.js file.',
+        '<details>' +
+        '<summary>Ответ</summary>' +
+        '<p>И это - правильный ответ.</p>' +
+        '</details>' +
+        '<table>' +
+        '<tr><th>стл 1</th><th>стл 2</th><th>стл3</th><tr>' +
+        '<tr><td>1</td><td>2</td><td>3</td></tr>' +
+        '<tr><td>1</td><td>2</td><td>3</td></tr>' +
+        '<tr><td>1</td><td>2</td><td>3</td></tr>' +
+        '</table>' +
+      '<p>This will install the three packages locally and add them as declared dependencies in your package.js file.</p>',
   },
   {
     id: '1',

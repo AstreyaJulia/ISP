@@ -14,8 +14,9 @@ import { PATH_AUTH, PATH_PROFILE, PATH_SETTINGS } from '../../../routes/paths';
 import SearchResults from './SearchResults';
 import { getInitialsOnly } from '../../../utils/getInitials';
 import { getAvatarColor } from '../../../utils/getAvatarColor';
-import axios from '../../../utils/axios';
 import { formatYyyyMmDdDate } from '../../../utils/formatTime';
+import {useSelector} from "../../../store";
+import {getSearch, resetSearch} from "../../../store/slices/search";
 
 const Header = ({ setMenuVisibility }) => {
   const searchTypes = {
@@ -32,9 +33,7 @@ const Header = ({ setMenuVisibility }) => {
   const [searchType, changeSearchType] = useState('users');
   const [searchResultsShow, changeSearchResultsShow] = useState(false);
   const [searchQuery, changeSearchQuery] = useState('');
-  const [searchResults, changeSearchResults] = useState([]);
-  const [error, setError] = useState(null);
-  const [isLoading, setIsloading] = useState(false);
+  const { searchResults, isLoading, error } = useSelector((state) => state.search);
 
   /** Хуки */
   const { user, logout, onChangeSkin, theme, onChangeMenuCollapsed, sidebar } = useAuth();
@@ -43,25 +42,12 @@ const Header = ({ setMenuVisibility }) => {
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       // Send Axios request here
-      if (searchQuery.length <= 3) {
-        changeSearchResults([]);
+      if (searchQuery.length < 3) {
+        dispatch(resetSearch());
       } else {
-        setIsloading(true);
-        try {
-          const response = axios.get(`/search/${searchType}`, {
-            params: {
-              query: searchQuery,
-              ...searchSettings[searchType],
-            },
-          });
-          changeSearchResults([]);
-          changeSearchResults(response.data.data);
-        } catch (error) {
-          changeSearchResults([]);
-          setError(error.message);
-        }
+        dispatch(getSearch(searchType, searchQuery));
       }
-    }, 3000);
+    }, 2000);
 
     return () => clearTimeout(delayDebounceFn);
   }, [searchQuery]);
@@ -201,7 +187,7 @@ const Header = ({ setMenuVisibility }) => {
 
   const searchQueryClearHandler = () => {
     changeSearchQuery('');
-    changeSearchResults([]);
+    dispatch(resetSearch());
   };
 
   const searchResultsCloseHandler = () => searchResultShowHandler(false);

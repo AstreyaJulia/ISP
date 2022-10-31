@@ -6,6 +6,7 @@ import processed from './slices/cases/processed';
 import calendar from './slices/calendar';
 import phonebook from './slices/users';
 import weather from './slices/weather';
+import search from './slices/search';
 
 const rootPersistConfig = {
   key: 'root',
@@ -21,6 +22,7 @@ const appReducer = combineReducers({
   calendar,
   phonebook,
   weather,
+  search
 });
 
 const rootReducer = (state, action) => {

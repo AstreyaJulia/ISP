@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
+import {sub} from "date-fns";
 import axios from '../../utils/axios';
 import { dispatch } from '../index';
+import {formatYyyyMmDdDate} from "../../utils/formatTime";
 
 /** Начальное состояние
  * @type {{isLoading: string, error: null, sea: []}}
@@ -8,7 +10,7 @@ import { dispatch } from '../index';
 const initialState = {
   isLoading: 'false',
   error: null,
-  searchResults: {},
+  searchResults: [],
 };
 
 const slice = createSlice({
@@ -38,16 +40,21 @@ const slice = createSlice({
 // Хранилище
 export default slice.reducer;
 
+const end = new Date();
+const start = sub(new Date(), {
+  days: 80,
+});
+
 export function getSearch(type, query) {
   const searchSettings = {
     users: {},
     inbox: {
-      startDate: new Date(),
-      endDate: new Date(),
+      startDate: formatYyyyMmDdDate(start),
+      endDate: formatYyyyMmDdDate(end),
     },
     outbox: {
-      startDate: new Date(),
-      endDate: new Date(),
+      startDate: formatYyyyMmDdDate(start),
+      endDate: formatYyyyMmDdDate(end),
     },
   };
 

@@ -21,7 +21,7 @@ const SearchResults = ({ show, query, searchQueryClose, searchType, searchresult
             <span className="mx-2">•</span>
             <span>{item.room}</span>
             <span className="mx-2">•</span>
-            <span>{item.phone}</span>
+            <span>{item.phone_worck}</span>
           </p>
         </a>
       ),
@@ -29,19 +29,23 @@ const SearchResults = ({ show, query, searchQueryClose, searchType, searchresult
     inbox: {
       element: (item, query) => (
         <a
-          key={item.number}
+          key={item.DELO_CORRESP_NUM}
           className="flex flex-col border border-transparent border-b-slate-300 border-dashed py-2 hover:cursor-pointer hover:bg-emerald-50 dark:hover:bg-emerald-800/70 hover:border-emerald-300 hover:border hover:rounded-md p-2"
         >
           <div className="flex flex-col">
             <p className="text-sm font-bold  text-slate-800 dark:text-slate-200 mb-1">
               <span className="inline-flex items-center font-medium px-2.5 py-0.5 text-xs bg-cyan-500/30 text-cyan-700 dark:text-cyan-300 rounded-md">
                 <span className="mr-1">Вх. №:</span>
-                {getHighlightedText(item.number, query)}
+                {getHighlightedText(item.DELO_CORRESP_NUM, query)}
               </span>
-              <span className="ml-2">{getHighlightedText(item.content, query)}</span>
+              <span className="inline-flex items-center font-medium px-2.5 py-0.5 text-xs text-gray-700 dark:text-gray-300">
+                {getHighlightedText(item.INSERT_DATE, query)}
+              </span>
+              <span className="ml-2">{getHighlightedText(item.CORRESP_MSG_ANNOTATION, query)}</span>
             </p>
             <p className="flex items-center text-sm text-slate-600 dark:text-slate-400">
-              {item.type === 'Электронная почта' ? (
+
+              {item.MESSAGE_TYPE === 'Электронная почта' ? (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -71,7 +75,7 @@ const SearchResults = ({ show, query, searchQueryClose, searchType, searchresult
                   />
                 </svg>
               )}
-              <span>{getHighlightedText(item.sender, query)}</span>
+              <span>{getHighlightedText(item.SENDER_NAME, query)}</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -82,7 +86,7 @@ const SearchResults = ({ show, query, searchQueryClose, searchType, searchresult
               >
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
               </svg>
-              <span>{item.sendto}</span>
+              <span>{item.CORRESP_FIO}</span>
             </p>
           </div>
         </a>
@@ -98,12 +102,15 @@ const SearchResults = ({ show, query, searchQueryClose, searchType, searchresult
             <p className="text-sm font-bold  text-slate-800 dark:text-slate-200 mb-1">
               <span className="inline-flex items-center font-medium px-2.5 py-0.5 text-xs bg-indigo-500/30 text-indigo-700 dark:text-indigo-300 rounded-md">
                 <span className="mr-1">Исх. №:</span>
-                {getHighlightedText(item.number, query)}
+                {getHighlightedText(item.DELO_SEND_NUM, query)}
               </span>
-              <span className="ml-2">{getHighlightedText(item.content, query)}</span>
+              <span className="inline-flex items-center font-medium px-2.5 py-0.5 text-xs text-gray-700 dark:text-gray-300">
+                {getHighlightedText(item.INSERT_DATE, query)}
+              </span>
+              <span className="ml-2">{getHighlightedText(item.SEND_MSG_ANNOTATION, query)}</span>
             </p>
             <p className="flex items-center text-sm text-slate-600 dark:text-slate-400">
-              {item.type === 'Разноска' ? (
+              {item.MESSAGE_TYPE === 'Разноска' ? (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -134,7 +141,7 @@ const SearchResults = ({ show, query, searchQueryClose, searchType, searchresult
                   />
                 </svg>
               )}
-              <span>{item.sender}</span>
+              <span>{item.SENDER_FIO}</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -145,8 +152,7 @@ const SearchResults = ({ show, query, searchQueryClose, searchType, searchresult
               >
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
               </svg>
-              <span>{item.sendto},</span>
-              <span className="ml-2">{item.address}</span>
+              <span>{getHighlightedText(item.SEND_TO, query)}</span>
             </p>
           </div>
         </a>
@@ -198,7 +204,13 @@ const SearchResults = ({ show, query, searchQueryClose, searchType, searchresult
             <p className="uppercase font-bold text-xs text-slate-600 dark:text-slate-400 dark:text-slate-300 wrap">
               {searchresults.length > 0 && query !== '' ? (
                 <>
-                  <span>Найдено:</span>
+                                    <span>
+                    {getAmount(searchresults.length, {
+                      single: 'Найден:',
+                      multi: 'Найдено:',
+                      count: 'Найдено:',
+                    })}
+                  </span>
                   <span className="ml-2">{searchresults.length}</span>
                   <span className="ml-2">
                     {getAmount(searchresults.length, {

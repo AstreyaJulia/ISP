@@ -32,7 +32,7 @@
 
 /** Для страниц с фиксированной высотой - курс */
 .full-height-course {
-  min-height: calc(100vh - 64px - 40px);
+  height: calc(100vh - 64px - 50px);
 }
 
 /** Perfect scrollbar постоянно отображается */
