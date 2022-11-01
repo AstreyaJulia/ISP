@@ -124,12 +124,12 @@ const Faq = () => {
                     },
                     p: {
                       props: {
-                        className: 'flex text-base text-gray-800 my-4',
+                        className: 'text-gray-800 my-4',
                       },
                     },
                     a: {
                       props: {
-                        className: 'flex text-base underline mx-1 font-medium text-indigo-600',
+                        className: 'underline font-medium text-indigo-600',
                       },
                     },
                     ul: {
@@ -199,7 +199,7 @@ const Faq = () => {
                     },
                     mark: {
                       props: {
-                        className: 'bg-amber-500 mx-1',
+                        className: 'bg-amber-500',
                       },
                     },
                     rt: {

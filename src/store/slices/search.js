@@ -78,4 +78,9 @@ export function getSearch(type, query) {
 
 export function resetSearch() {
   dispatch(slice.actions.getSearchSuccess([]));
+
+  return {
+    type: 'RESET_SEARCH',
+  }
+
 }

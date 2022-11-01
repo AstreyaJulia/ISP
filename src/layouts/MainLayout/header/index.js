@@ -25,11 +25,6 @@ const Header = ({ setMenuVisibility }) => {
     outbox: { selectText: 'Исходящая почта', searchText: 'Поиск исходящей корреспонденции' },
   };
 
-  const searchChangeHandler = (evt) => {
-    evt.preventDefault();
-    changeSearchType(evt.target.value);
-  };
-
   const [searchType, changeSearchType] = useState('users');
   const [searchResultsShow, changeSearchResultsShow] = useState(false);
   const [searchQuery, changeSearchQuery] = useState('');
@@ -46,11 +41,12 @@ const Header = ({ setMenuVisibility }) => {
         dispatch(resetSearch());
       } else {
         dispatch(getSearch(searchType, searchQuery));
+        if (searchResultsShow === false) changeSearchResultsShow(true)
       }
     }, 2000);
 
     return () => clearTimeout(delayDebounceFn);
-  }, [searchQuery]);
+  }, [searchQuery, searchType]);
 
   /** Кнопка-переключатель узкого/широкого меню */
   const MenuToggler = () => {
@@ -164,29 +160,22 @@ const Header = ({ setMenuVisibility }) => {
 
   const searchResultShowHandler = (state) => changeSearchResultsShow(state);
 
-  const end = new Date();
-  const start = sub(new Date(), {
-    days: 80,
-  });
-
-  const searchSettings = {
-    users: {},
-    inbox: {
-      startDate: formatYyyyMmDdDate(start),
-      endDate: formatYyyyMmDdDate(end),
-    },
-    outbox: {
-      startDate: formatYyyyMmDdDate(start),
-      endDate: formatYyyyMmDdDate(end),
-    },
-  };
-
   const searchQueryHandler = (evt) => {
     changeSearchQuery(evt.target.value);
   };
 
   const searchQueryClearHandler = () => {
     changeSearchQuery('');
+    dispatch(resetSearch());
+    searchResultShowHandler(false);
+  };
+
+  /** Переключатель разделов поиска */
+  const searchChangeHandler = (evt) => {
+    evt.preventDefault();
+    searchResultShowHandler(false);
+    changeSearchType(evt.target.value);
+    // Сброс ррезультатов поиска
     dispatch(resetSearch());
   };
 
@@ -242,7 +231,6 @@ const Header = ({ setMenuVisibility }) => {
               </div>
               <input
                 id="search"
-                onFocus={() => searchResultShowHandler(true)}
                 name="search"
                 onChange={searchQueryHandler}
                 onBlur={searchOnBlur}
@@ -298,6 +286,8 @@ const Header = ({ setMenuVisibility }) => {
                 searchQueryClose={searchResultsCloseHandler}
                 searchType={searchType}
                 searchresults={searchResults}
+                isLoading={isLoading}
+                error={error}
               />
             </div>
           </div>
