@@ -66,7 +66,8 @@ class Helpers extends Router
       'search',
       'authorization',
       'registration',
-      'gas-api'
+      'gas-api',
+      'weather'
     ));
   }
 
@@ -126,7 +127,6 @@ class Helpers extends Router
    * @param array $params массив с параметрами key => value
    * @param string $host_api адрес на который отправляем запрос
    * 
-   * 
    */
   public static function sendGET(array $params, string $host_api):array
   {
@@ -148,5 +148,30 @@ class Helpers extends Router
       $message;
     }
     return $message;
+  }
+
+  /**
+   * Отправка данных методом $_GET через прокси
+   * 
+   * @param array $params массив с параметрами key => value
+   * @param string $host адрес на который отправляем запрос
+   * @param string $host ip-адрес либо url proxy-сервера
+   * @param int $port порт proxy-сервера
+   * 
+   */
+  public function sendGETtoProxy(array $params, string $host, string $proxy = '10.67.254.42', int $port = 3128):string|bool 
+  {
+    $url = $host . http_build_query($params);
+    $ch = curl_init($url);
+
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_PROXY, $proxy);
+    curl_setopt($ch, CURLOPT_PROXYPORT, $port);
+    //curl_setopt($ch, CURLOPT_PROXYUSERPWD, "username:pass"); //username:pass 
+    $file_contents = curl_exec($ch);
+    curl_close($ch);
+    return $file_contents;
   }
 }
