@@ -54,8 +54,6 @@
       // GET или POST: данные возвращаем как есть
       if ($this->method === 'GET') {
         $data = $_GET;
-      } else if ($this->method === 'POST') {
-        $data = $_POST;
       } else {
         // PUT, PATCH или DELETE
         $data = json_decode(file_get_contents('php://input'), JSON_OBJECT_AS_ARRAY);
@@ -82,8 +80,8 @@
       $url = trim($url, '/');
       $urls = explode('/', $url);
 
-      $formData = $this->receiveFormData();
       $this->method = $_SERVER['REQUEST_METHOD'];
+      $formData = $this->receiveFormData();
       $this->urlData = $urls;
       $this->router = $this->urlData[0];
       $this->formData = $formData;
