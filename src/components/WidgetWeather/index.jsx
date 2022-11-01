@@ -90,10 +90,10 @@ export const WidgetWeather = ({ currentWeather, currentIsLoading, currentError }
   };
 
   return (
-    <div className="flex items-center justify-between bg-blue-600 rounded-md relative">
+    <div className="flex items-center justify-between bg-blue-500 rounded-md relative">
       {currentError === null && weather?.weather ? (
         <>
-          <div className="flex flex-col gap-1 p-3">
+          <div className="flex flex-col gap-2 p-3">
             <p className="flex items-center gap-2 text-gray-100">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -112,7 +112,7 @@ export const WidgetWeather = ({ currentWeather, currentIsLoading, currentError }
               </svg>
               <span>{weather?.name}</span>
             </p>
-            <p className="font-bold text-2xl text-gray-100">
+            <p className="font-bold text-2xl text-gray-100 ml-6">
               {Math.ceil(weather?.main?.temp) > 0
                 ? `+ ${Math.ceil(weather?.main?.temp)}`
                 : Math.ceil(weather?.main?.temp)}
@@ -129,12 +129,12 @@ export const WidgetWeather = ({ currentWeather, currentIsLoading, currentError }
               title={weather?.weather[0]?.description}
               src={weatherStates[weather?.weather[0]?.id].icon}
               alt={weather?.weather[0]?.description}
-              className="w-10 h-20 xl:w-24 xl:h-24 shrink-0"
+              className="w-10 h-20 xl:w-20 xl:h-20 shrink-0 mr-1"
             />
           </div>
 
-          <div className="flex flex-col justify-strength h-full border-l border-white/50 px-3 gap-3">
-            <p className="text-white flex items-center gap-3 text-sm" title="Влажность">
+          <div className="flex flex-col justify-strength h-full border-l border-white/50 px-3 gap-4">
+            <p className="text-white flex items-center text-sm" title="Влажность">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -143,14 +143,14 @@ export const WidgetWeather = ({ currentWeather, currentIsLoading, currentError }
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="w-4 h-4 text-white shrink-0"
+                className="w-4 h-4 text-white shrink-0 mr-2"
               >
                 <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
               </svg>
-              {weather?.main?.humidity} %
+              {weather?.main?.humidity} <small className='ml-1'>%</small>
             </p>
 
-            <p className="text-white flex items-center gap-3 text-sm" title="Скорость ветра">
+            <p className="text-white flex items-center text-sm" title="Скорость ветра">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -161,11 +161,11 @@ export const WidgetWeather = ({ currentWeather, currentIsLoading, currentError }
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="w-4 h-4 text-white shrink-0"
+                className="w-4 h-4 text-white shrink-0 mr-2"
               >
                 <path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2" />
               </svg>
-              {weather?.wind?.speed} м/с
+              {Math.ceil(weather?.wind?.speed)} <small className='ml-1'>м/с</small>
             </p>
           </div>
         </>

@@ -138,7 +138,7 @@ const Processed = ({ data, isLoading, all }) => {
       tableID="processed_cases"
       isLoading={isLoading}
       columns={columns}
-      itemsContainerClassNames="grid grid-cols-2 gap-3"
+      itemsContainerClassNames={isLoading === 'true' ? 'flex w-full' : "grid grid-cols-2 gap-3"}
       initSortColumn={columns[2]}
       placeholder="Поиск по нерассмотренным делам: номер дела / стороны / лица"
       filterCallback={filter}

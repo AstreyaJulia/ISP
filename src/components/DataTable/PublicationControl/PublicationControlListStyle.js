@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   boldRowText: { fontWeight: 700 },
   smallRowText: { fontSize: 10 },
 
-  tableCell_1: { width: '25%' },
+  tableCell_1: { width: '35%', paddingRight: 16 },
   tableCell_2: { paddingRight: 16, width: '95%' },
 });
 

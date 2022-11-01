@@ -15,7 +15,7 @@ import { classNames } from '../../utils/classNames';
 const PageHeader = ({ pages, classname, header, children }) => (
   <div className={classname}>
     <nav className="sm:hidden mb-4" aria-label="Назад">
-      <Link to={-1} className="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 p-2">
+      <Link to={-1} className="flex items-center text-sm font-medium text-gray-500 dark:text-gray-400 p-2">
         <svg
           className="flex-shrink-0 -ml-1 mr-1 h-5 w-5 text-gray-400"
           xmlns="http://www.w3.org/2000/svg"

@@ -1,37 +1,47 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import BasicPage from '../../pagesLayouts/BasicPage';
 import PageHeader from '../../../components/PageHeader';
 import PublicationControl from '../../../components/DataTable/PublicationControl';
-import { useDispatch, useSelector } from '../../../store';
-import { getAllActPublicationCases, getJudgeActPublicationCases } from '../../../store/slices/cases/actpublication';
+import {useDispatch, useSelector} from '../../../store';
+import {getAllActPublicationCases, getJudgeActPublicationCases} from '../../../store/slices/cases/actpublication';
 
-const Publication = ({ all }) => {
-  const breadcrumbs = [{ name: 'Публикация судебных актов', href: '', current: true }];
+const Publication = ({all}) => {
 
-  const dispatch = useDispatch();
+    const breadcrumbs = [{name: 'Делопроизводство', href: '', current: false}, {
+        name: 'Публикация судебных актов (по судье)',
+        href: '',
+        current: true
+    }];
+    const breadcrumbsAll = [{name: 'Качество', href: '/grade', current: false}, {
+        name: 'Публикация судебных актов (общий список)',
+        href: '',
+        current: true
+    }];
 
-  const { nopublacts, nopublactsall, nopublactsisLoading } = useSelector((state) => state.actpublication);
+    const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(all === 'true' ? getAllActPublicationCases() : getJudgeActPublicationCases());
-    // eslint-disable-next-line
-  }, [dispatch]);
+    const {nopublacts, nopublactsall, nopublactsisLoading} = useSelector((state) => state.actpublication);
 
-  return (
-    <BasicPage title="Публикация судебных актов" className="main-content max-w-6xl mx-auto px-5">
-      <PageHeader pages={breadcrumbs} header="Публикация судебных актов" />
-      <PublicationControl
-        data={all === 'true' ? nopublactsall : nopublacts ?? []}
-        isLoading={nopublactsisLoading}
-        all={all}
-      />
-    </BasicPage>
-  );
+    useEffect(() => {
+        dispatch(all === 'true' ? getAllActPublicationCases() : getJudgeActPublicationCases());
+        // eslint-disable-next-line
+    }, [dispatch]);
+
+    return (
+        <BasicPage title="Публикация судебных актов" className="main-content max-w-6xl mx-auto px-5">
+            <PageHeader pages={all === 'true' ? breadcrumbsAll : breadcrumbs} header={all === 'true' ? 'Публикация судебных актов (общий список)' : 'Публикация судебных актов (по судье)'}/>
+            <PublicationControl
+                data={all === 'true' ? nopublactsall : nopublacts ?? []}
+                isLoading={nopublactsisLoading}
+                all={all}
+            />
+        </BasicPage>
+    );
 };
 
 Publication.propTypes = {
-  all: PropTypes.string.isRequired,
+    all: PropTypes.string.isRequired,
 };
 
 export default Publication;

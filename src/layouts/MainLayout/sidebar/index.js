@@ -15,7 +15,8 @@ const Sidebar = ({ menuData, menuVisibility, setMenuVisibility }) => {
   const [groupOpen, setGroupOpen] = useState([]);
   const [groupActive, setGroupActive] = useState([]);
   const [currentActiveGroup, setCurrentActiveGroup] = useState([]);
-  const { sidebar } = useAuth();
+  /** Состояние пользователя */
+  const { user, sidebar } = useAuth();
 
   return (
     <>
@@ -107,6 +108,7 @@ const Sidebar = ({ menuData, menuVisibility, setMenuVisibility }) => {
                       setGroupActive={setGroupActive}
                       currentActiveGroup={currentActiveGroup}
                       setCurrentActiveGroup={setCurrentActiveGroup}
+                      user={user}
                     />
                   </div>
                 </PerfectScrollbar>

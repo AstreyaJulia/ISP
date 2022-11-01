@@ -54,7 +54,7 @@ const SearchResults = ({show, query, searchQueryClose, searchType, searchresults
                                     viewBox="0 0 24 24"
                                     strokeWidth={1.5}
                                     stroke="currentColor"
-                                    className="w-5 h-5 mr-2"
+                                    className="w-4 h-4 mr-2"
                                 >
                                     <path
                                         strokeLinecap="round"
@@ -68,7 +68,7 @@ const SearchResults = ({show, query, searchQueryClose, searchType, searchresults
                                     viewBox="0 0 24 24"
                                     strokeWidth={1.5}
                                     stroke="currentColor"
-                                    className="w-5 h-5 mr-2"
+                                    className="w-4 h-4 mr-2"
                                 >
                                     <path
                                         strokeLinecap="round"
@@ -77,7 +77,7 @@ const SearchResults = ({show, query, searchQueryClose, searchType, searchresults
                                     />
                                 </svg>
                             )}
-                            <span>{getHighlightedText(item.SENDER_NAME, query)}</span>
+                            <span className='shrink-0'>{getHighlightedText(item.SENDER_NAME, query)}</span>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -123,7 +123,7 @@ const SearchResults = ({show, query, searchQueryClose, searchType, searchresults
                                     viewBox="0 0 24 24"
                                     strokeWidth={1.5}
                                     stroke="currentColor"
-                                    className="w-5 h-5 mr-2"
+                                    className="w-4 h-4 mr-2"
                                 >
                                     <path
                                         strokeLinecap="round"
@@ -138,7 +138,7 @@ const SearchResults = ({show, query, searchQueryClose, searchType, searchresults
                                     viewBox="0 0 24 24"
                                     strokeWidth={1.5}
                                     stroke="currentColor"
-                                    className="w-5 h-5 mr-2"
+                                    className="w-4 h-4 mr-2"
                                 >
                                     <path
                                         strokeLinecap="round"
@@ -152,7 +152,7 @@ const SearchResults = ({show, query, searchQueryClose, searchType, searchresults
                                     viewBox="0 0 24 24"
                                     strokeWidth={1.5}
                                     stroke="currentColor"
-                                    className="w-5 h-5 mr-2"
+                                    className="w-4 h-4 mr-2"
                                 >
                                     <path
                                         strokeLinecap="round"
@@ -161,7 +161,7 @@ const SearchResults = ({show, query, searchQueryClose, searchType, searchresults
                                     />
                                 </svg>
                             )}
-                            <span>{item.SENDER_FIO}</span>
+                            <span className='shrink-0'>{item.SENDER_FIO}</span>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"

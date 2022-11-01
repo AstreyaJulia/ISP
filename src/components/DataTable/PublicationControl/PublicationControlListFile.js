@@ -1,12 +1,12 @@
-import React from "react";
 import { Document, Page, Text, View } from '@react-pdf/renderer';
-import styles from './CasesOverPeriodListStyle';
+import React from "react";
+import styles from './PublicationControlListStyle';
 
-export default function CasesOverPeriodListFile({ list }) {
+export default function PublicationControlListFile({ list }) {
   return (
     <Document>
       <Page size="A4" style={styles.page}>
-        <Text style={[styles.h1, styles.mb8]}>Дела, рассмотренные с нарушением срока</Text>
+        <Text style={[styles.h1, styles.mb8]}>Неопубликованные судебные акты</Text>
 
         <View style={styles.table}>
           <View style={styles.tableHeader}>
@@ -31,11 +31,9 @@ export default function CasesOverPeriodListFile({ list }) {
 
                 <View style={styles.tableCell_2}>
                   <Text style={styles.boldRowText}>{item.PARTS_FIO}</Text>
-                  {item.INFO ? item.INFO.split(';').map((item, key) => (
-                      <Text style={styles.smallRowText}>
-                        {item};
-                      </Text>
-                  )): null}
+                  <Text>{item.DATE_UNTILL !== null ? `Опубликовать до: ${item.DATE_UNTILL}` : "Не вступило"}</Text>
+                  <Text>Рассм.: {item.VERDICT_DATE}</Text>
+                  <Text style={styles.smallRowText}>{item.PUBLICATION_STATUS}</Text>
                 </View>
               </View>
             ))}

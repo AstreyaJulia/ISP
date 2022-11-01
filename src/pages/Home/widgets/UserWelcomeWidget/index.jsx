@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import image from '../../../../assets/images/pages/cosmonaut_rocket_flying.svg';
 
 const UserWelcomeWidget = ({ user }) => (
-  <div className="bg-indigo-700 rounded-md w-full flex justify-between relative shadow">
+  <div className="bg-indigo-700 rounded-md w-full flex justify-between relative shadow pr-24">
     <div className="flex flex-col p-5 gap-2">
-      <p className="text-white font-medium text-base">{user?.fullname}</p>
+      <p className="text-white font-medium text-base wrap">{user?.fullname}</p>
       <p className="text-indigo-100 font-medium text-sm">{user?.professionName}</p>
     </div>
     <img src={image} alt="astronaut" className="w-32 shrink-0 absolute bottom-0 right-0" />

@@ -18,12 +18,17 @@ const Finished = ({ all }) => {
 
   const breadcrumbs = [
     { name: 'Делопроизводство', href: '', current: false },
-    { name: 'Дела, рассмотренные свыше срока', href: '', current: true },
+    { name: 'Дела, рассмотренные свыше срока (по судье)', href: '', current: true },
+  ];
+
+  const breadcrumbsAll = [
+    { name: 'Качество', href: '/grade', current: false },
+    { name: 'Дела, рассмотренные свыше срока (общий список)', href: '', current: true },
   ];
 
   return (
     <BasicPage title="Дела, рассмотренные свыше срока" className="main-content max-w-6xl mx-auto px-5">
-      <PageHeader pages={breadcrumbs} header="Дела, рассмотренные свыше срока" />
+      <PageHeader pages={all === 'true' ? breadcrumbsAll : breadcrumbs} header={all === 'true' ? 'Дела, рассмотренные свыше срока (общий список)' : 'Дела, рассмотренные свыше срока (по судье)'} />
       <CasesOverPeriod
         data={all === 'true' ? overperiodcasesall : overperiodcases ?? []}
         isLoading={overperiodisLoading}
