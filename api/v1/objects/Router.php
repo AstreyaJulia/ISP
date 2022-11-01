@@ -47,15 +47,17 @@
 
     /**
      * Получение данных из тела запроса
+     * 
+     * $_GET принимаем параметры типа ?startDate=2022-03-01&endDate=2022-05-30&query=Ковал
+     * 
+     * $_POST, $_PUT, $_PATCH или $_DELETE принимаем json
      *
-     * @return array $data
+     * @return array
      */
-    public function receiveFormData() {
-      // GET или POST: данные возвращаем как есть
+    public function receiveFormData():array {
       if ($this->method === 'GET') {
         $data = $_GET;
       } else {
-        // PUT, PATCH или DELETE
         $data = json_decode(file_get_contents('php://input'), JSON_OBJECT_AS_ARRAY);
       }
 
