@@ -1,7 +1,7 @@
 <?php
 
 // Роутинг, основная функция
-function route($helpers) {
+function route($helpers) {}
   $searchClass = new Api\Objects\Search($helpers);
   // GET
   if ($helpers->getMethod() === 'GET') {
@@ -25,4 +25,4 @@ function route($helpers) {
         break;
     }
   }
-}
+
