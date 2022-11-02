@@ -33,7 +33,7 @@ const CasesOverPeriod = ({ data, isLoading }) => {
     setModalOpened(false);
     setTimeout(() => {
       setSelectedCase({});
-    }, 1500);
+    }, 200);
   };
 
   const makeItem = (item, key, query) => (

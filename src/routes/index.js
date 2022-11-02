@@ -190,6 +190,14 @@ export default function Router() {
             </RoleBasedGuard>
           ),
         },
+        {
+          path: 'test4',
+          element: (
+              <RoleBasedGuard accessibleRoles={[1]}>
+                <Test4 />
+              </RoleBasedGuard>
+          ),
+        },
       ],
     },
 
@@ -260,3 +268,4 @@ const NotFound = Loadable(lazy(() => import('../pages/errors/Page404'))); // ะกั
 const Test = Loadable(lazy(() => import('../pages/Test')));
 const Test2 = Loadable(lazy(() => import('../pages/Test/test2')));
 const Test3 = Loadable(lazy(() => import('../pages/Test/test3')));
+const Test4 = Loadable(lazy(() => import('../pages/Test/test4')));

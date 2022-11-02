@@ -3,7 +3,6 @@ import avatar2 from './avatars/2.png';
 import avatar3 from './avatars/3.png';
 import avatar4 from './avatars/4.png';
 import avatar5 from './avatars/5.png';
-import Introduction from './Introduction.md'
 
 /** Навигация для сайдбара, для локального тестирования
  * @type {[{icon: string, alias: string, id: string, pagetitle: string},{icon: string, alias: string, id: string, pagetitle: string},{icon: string, alias: string, id: string, pagetitle: string},{badgeColor: string, icon: string, alias: string, id: string, pagetitle: string, badgeText: string},{children: [{icon: string, alias: string, id: string, pagetitle: string}], icon: string, id: string, pagetitle: string},null,null,null,null]}
@@ -154,6 +153,12 @@ export const navigation = [
         pagetitle: 'Тест3',
         icon: 'mdi-view-dashboard-outline',
         alias: '/test3',
+        accessibleRoles: [1]
+    },    {
+        id: '9996',
+        pagetitle: 'Тест4',
+        icon: 'mdi-view-dashboard-outline',
+        alias: '/test4',
         accessibleRoles: [1]
     },
 ];
@@ -1623,3 +1628,104 @@ export const demoSteps = [
             'You\'ve built a full-fidelity, offline-capable progressive web app by leveraging the power of reusable Web Components and Firebase. Why bother with a native app when you know how to do all that?!',
     },
 ];
+
+export const courtTree = [
+    {
+        id: "1",
+        title: "Сафоново",
+        subtitle: "",
+        type: "building",
+        icon: "1",
+        order: "0",
+        children: [
+            {
+                id: "12",
+                title: "Этаж 1",
+                subtitle: "",
+                type: "floor",
+                icon: "2",
+                order: "0",
+                children: [
+                    {
+                        id: "121",
+                        title: "Каб. №8",
+                        subtitle: "",
+                        type: "room",
+                        icon: "3",
+                        order: "0",
+                        children: [
+                            {
+                                id: "1211",
+                                title: "Тамбур",
+                                subtitle: "",
+                                type: "subroom",
+                                icon: "4",
+                                order: "0",
+                                children: [
+                                    {
+                                        id: "12111",
+                                        title: "Секретарь судьи Сабанцева М.М.",
+                                        subtitle: "",
+                                        type: "workplace",
+                                        icon: "5",
+                                        order: "0",
+                                    },
+                                    {
+                                        id: "12112",
+                                        title: "Секретарь судьи Дроздова С.А.",
+                                        subtitle: "",
+                                        type: "workplace",
+                                        icon: "5",
+                                        order: "1",
+                                    }
+                                ]
+                            },
+                            {
+                                id: "1212",
+                                title: "Судья",
+                                subtitle: "",
+                                type: "subroom",
+                                icon: "4",
+                                order: "1",
+                            }
+                        ]
+                    },
+                    {
+                        id: "122",
+                        title: "Каб. №9",
+                        subtitle: "",
+                        type: "room",
+                        icon: "3",
+                        order: "1",
+                    }
+                ]
+            },
+            {
+                id: "13",
+                title: "Этаж 2",
+                subtitle: "",
+                type: "floor",
+                icon: "2",
+                order: "1",
+                children: [
+                    {
+                        id: "131",
+                        title: "Каб. №1",
+                        subtitle: "",
+                        type: "room",
+                        icon: "3",
+                        order: "0",
+                    },
+                    {
+                        id: "132",
+                        title: "Каб. №2",
+                        subtitle: "",
+                        type: "room",
+                        icon: "3",
+                        order: "1",
+                    }
+                ]
+            }
+        ]
+    }
+]
