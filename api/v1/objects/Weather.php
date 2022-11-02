@@ -24,6 +24,8 @@ class Weather
       } else {
         echo file_get_contents($file, true);
       }
+    } else {
+      echo file_get_contents($file, true);
     }
   }
 }
