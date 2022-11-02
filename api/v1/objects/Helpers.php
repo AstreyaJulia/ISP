@@ -155,13 +155,14 @@ class Helpers extends Router
    * 
    * @param array $params массив с параметрами key => value
    * @param string $host адрес на который отправляем запрос
-   * @param string $host ip-адрес либо url proxy-сервера
+   * @param string $proxy ip-адрес либо url proxy-сервера
    * @param int $port порт proxy-сервера
    * 
    */
   public function sendGETtoProxy(array $params, string $host, string $proxy = '10.67.254.42', int $port = 3128):string|bool 
   {
     $url = $host . http_build_query($params);
+
     $ch = curl_init($url);
 
     curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
@@ -170,8 +171,10 @@ class Helpers extends Router
     curl_setopt($ch, CURLOPT_PROXY, $proxy);
     curl_setopt($ch, CURLOPT_PROXYPORT, $port);
     //curl_setopt($ch, CURLOPT_PROXYUSERPWD, "username:pass"); //username:pass 
+    $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     $file_contents = curl_exec($ch);
     curl_close($ch);
+    http_response_code($httpcode);
     return $file_contents;
   }
 }

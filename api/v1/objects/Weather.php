@@ -18,15 +18,12 @@ class Weather
     $date = time() - filemtime($file);
     if ($date > 600) {
       $current = $this->helpers->sendGETtoProxy($params, $host);
-      file_put_contents("../../data/weather.json", $current, LOCK_EX);
-      echo $current;
-    } else {
-      echo "пусто";
-      echo file_get_contents($file, true);
+      if(isset(json_decode($current)->cod) and (json_decode($current)->cod === 200)) {
+        file_put_contents($file, $current, LOCK_EX);
+        echo $current;
+      } else {
+        echo file_get_contents($file, true);
+      }
     }
-
-  
-
-    
   }
 }
