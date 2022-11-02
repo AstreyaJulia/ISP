@@ -62,7 +62,6 @@ class Helpers extends Router
     return in_array($router, array(
       'users',
       'ProxyList',
-      'sidebar',
       'search',
       'authorization',
       'registration',
