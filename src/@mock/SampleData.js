@@ -1635,7 +1635,7 @@ export const courtTree = [
         title: "Сафоново",
         subtitle: "",
         type: "building",
-        icon: "1",
+        icon: "building",
         order: "0",
         children: [
             {
@@ -1643,7 +1643,7 @@ export const courtTree = [
                 title: "Этаж 1",
                 subtitle: "",
                 type: "floor",
-                icon: "2",
+                icon: "floor",
                 order: "0",
                 children: [
                     {
@@ -1651,7 +1651,7 @@ export const courtTree = [
                         title: "Каб. №8",
                         subtitle: "",
                         type: "room",
-                        icon: "3",
+                        icon: "door",
                         order: "0",
                         children: [
                             {
@@ -1659,7 +1659,7 @@ export const courtTree = [
                                 title: "Тамбур",
                                 subtitle: "",
                                 type: "subroom",
-                                icon: "4",
+                                icon: "door",
                                 order: "0",
                                 children: [
                                     {
@@ -1667,7 +1667,7 @@ export const courtTree = [
                                         title: "Секретарь судьи Сабанцева М.М.",
                                         subtitle: "",
                                         type: "workplace",
-                                        icon: "5",
+                                        icon: "desktop",
                                         order: "0",
                                     },
                                     {
@@ -1675,7 +1675,7 @@ export const courtTree = [
                                         title: "Секретарь судьи Дроздова С.А.",
                                         subtitle: "",
                                         type: "workplace",
-                                        icon: "5",
+                                        icon: "desktop",
                                         order: "1",
                                     }
                                 ]
@@ -1685,7 +1685,7 @@ export const courtTree = [
                                 title: "Судья",
                                 subtitle: "",
                                 type: "subroom",
-                                icon: "4",
+                                icon: "door",
                                 order: "1",
                             }
                         ]
@@ -1695,7 +1695,7 @@ export const courtTree = [
                         title: "Каб. №9",
                         subtitle: "",
                         type: "room",
-                        icon: "3",
+                        icon: "door",
                         order: "1",
                     }
                 ]
@@ -1705,7 +1705,7 @@ export const courtTree = [
                 title: "Этаж 2",
                 subtitle: "",
                 type: "floor",
-                icon: "2",
+                icon: "floor",
                 order: "1",
                 children: [
                     {
@@ -1713,7 +1713,7 @@ export const courtTree = [
                         title: "Каб. №1",
                         subtitle: "",
                         type: "room",
-                        icon: "3",
+                        icon: "door",
                         order: "0",
                     },
                     {
@@ -1721,7 +1721,7 @@ export const courtTree = [
                         title: "Каб. №2",
                         subtitle: "",
                         type: "room",
-                        icon: "3",
+                        icon: "door",
                         order: "1",
                     }
                 ]
