@@ -352,12 +352,12 @@
 }
 
 .calendar-module .fc-h-event .fc-event-title {
-  @apply font-medium text-sm;
+  @apply font-medium text-sm line-clamp-1;
 }
 
 .calendar-module .fc-event-time,
 .calendar-module .fc-daygrid-block-event .fc-event-time {
-  @apply text-gray-800 font-bold text-sm ml-1;
+  @apply text-gray-800 font-bold text-sm;
 }
 
 .calendar-module .fc-event-indigo .fc-event-time {

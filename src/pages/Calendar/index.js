@@ -107,6 +107,11 @@ const Calendar = () => {
           rerenderDelay={10}
           initialDate={date}
           dayMaxEvents
+        eventTimeFormat={{ // like '14:30:00'
+          hour: '2-digit',
+          minute: '2-digit',
+          meridiem: false
+        }}
           navLinks
           eventDisplay="block"
           allDayMaintainDuration

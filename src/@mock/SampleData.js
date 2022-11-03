@@ -399,7 +399,7 @@ export const events = [
         title: 'Событие',
         start: '2022-06-01',
         end: '2022-06-02',
-        allDay: false,
+        allDay: true,
         calendar: 'pink',
     },
     {
@@ -415,7 +415,7 @@ export const events = [
         title: 'Событие',
         start: '2022-05-21',
         end: '2022-05-22',
-        allDay: false,
+        allDay: true,
         calendar: 'teal',
     },
     {
@@ -431,7 +431,7 @@ export const events = [
         title: 'Событие',
         start: '2022-06-03',
         end: '2022-06-04',
-        allDay: false,
+        allDay: true,
         calendar: 'orange',
     },
     {
@@ -447,7 +447,7 @@ export const events = [
         title: 'Событие',
         start: '2022-06-14',
         end: '2022-06-15',
-        allDay: false,
+        allDay: true,
         calendar: 'blue',
     },
     {
@@ -463,7 +463,7 @@ export const events = [
         title: 'Выохдной',
         start: '2022-06-11',
         end: '2022-06-11',
-        allDay: false,
+        allDay: true,
         calendar: 'green',
     },
     {
