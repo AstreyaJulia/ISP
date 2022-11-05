@@ -17,7 +17,8 @@ export default function RHFPasswordHideShow({ name, label, placeholder, ...other
       render={({ field, fieldState: { error } }) => (
         <div>
           {label ? (
-            <label htmlFor={name} className="block text-sm font-medium text-gray-700 dark:text-gray-200">
+            <label htmlFor={name} className="flex flex-col">
+              <span className="sr-only"/>
               {label}
             </label>
           ) : (
@@ -91,6 +92,6 @@ export default function RHFPasswordHideShow({ name, label, placeholder, ...other
 
 RHFPasswordHideShow.propTypes = {
   name: PropTypes.string,
-  label: PropTypes.string,
+  label: PropTypes.node,
   placeholder: PropTypes.string,
 };

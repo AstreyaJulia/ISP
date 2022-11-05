@@ -1,3 +1,4 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Controller, useFormContext } from 'react-hook-form';
 import { classNames } from '../../utils/classNames';
@@ -12,7 +13,8 @@ export default function RHFTextField({ name, label, placeholder, ...other }) {
       render={({ field, fieldState: { error } }) => (
         <div>
           {label ? (
-            <label htmlFor={name} className="block text-sm font-medium text-gray-700 dark:text-gray-200">
+            <label htmlFor={name} className="flex flex-col">
+              <span className="sr-only"/>
               {label}
             </label>
           ) : (
@@ -65,6 +67,6 @@ export default function RHFTextField({ name, label, placeholder, ...other }) {
 
 RHFTextField.propTypes = {
   name: PropTypes.string,
-  label: PropTypes.string,
+  label: PropTypes.node,
   placeholder: PropTypes.string,
 };

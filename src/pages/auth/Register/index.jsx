@@ -11,6 +11,7 @@ import rocket from '../../../assets/images/pages/cosmonaut-rocket.svg';
 import { FormProvider, RHFPasswordHideShow, RHFTextField } from '../../../components/hook-form';
 import LoadingButton from '../../../components/LoadingButton';
 import { classNames } from '../../../utils/classNames';
+import Typography from '../../../components/Typography';
 
 const Register = () => {
   const { register } = useAuth();
@@ -72,9 +73,9 @@ const Register = () => {
             <div className="mt-6">
               <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
                 <div className="flex flex-col">
-                  <RHFTextField name="login" label="Имя пользователя" placeholder="Ivanov_II" />
-                  <RHFPasswordHideShow name="password" label="Пароль" placeholder="Пароль" />
-                  <RHFPasswordHideShow name="passrep" label="Подтверждение пароля" placeholder="Подтверждение пароля" />
+                  <RHFTextField name="login" label={<Typography variant="label">Имя пользователя</Typography>} placeholder="Ivanov_II" />
+                  <RHFPasswordHideShow name="password" label={<Typography variant="label">Пароль</Typography>} placeholder="Пароль" />
+                  <RHFPasswordHideShow name="passrep" label={<Typography variant="label">Подтверждение пароля</Typography>} placeholder="Подтверждение пароля" />
                 </div>
 
                 <div className="flex items-center justify-end mb-5">
