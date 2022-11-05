@@ -193,9 +193,9 @@ export default function Router() {
         {
           path: 'test4',
           element: (
-              <RoleBasedGuard accessibleRoles={[1]}>
-                <Test4 />
-              </RoleBasedGuard>
+            <RoleBasedGuard accessibleRoles={[1]}>
+              <Test4 />
+            </RoleBasedGuard>
           ),
         },
       ],

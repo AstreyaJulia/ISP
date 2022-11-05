@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
+import PropTypes from 'prop-types';
 
 const PdfModal = ({ open, setOpen, onModalClose, children }) => (
   <Transition.Root show={open} as={Fragment}>
@@ -57,5 +58,12 @@ const PdfModal = ({ open, setOpen, onModalClose, children }) => (
     </Dialog>
   </Transition.Root>
 );
+
+PdfModal.propTypes = {
+  open: PropTypes.bool,
+  setOpen: PropTypes.func,
+  onModalClose: PropTypes.func,
+  children: PropTypes.node,
+};
 
 export default PdfModal;

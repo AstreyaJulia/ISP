@@ -1,5 +1,6 @@
 import { Document, Page, Text, View } from '@react-pdf/renderer';
-import React from "react";
+import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './PublicationControlListStyle';
 
 export default function PublicationControlListFile({ list }) {
@@ -31,7 +32,7 @@ export default function PublicationControlListFile({ list }) {
 
                 <View style={styles.tableCell_2}>
                   <Text style={styles.boldRowText}>{item.PARTS_FIO}</Text>
-                  <Text>{item.DATE_UNTILL !== null ? `Опубликовать до: ${item.DATE_UNTILL}` : "Не вступило"}</Text>
+                  <Text>{item.DATE_UNTILL !== null ? `Опубликовать до: ${item.DATE_UNTILL}` : 'Не вступило'}</Text>
                   <Text>Рассм.: {item.VERDICT_DATE}</Text>
                   <Text style={styles.smallRowText}>{item.PUBLICATION_STATUS}</Text>
                 </View>
@@ -43,3 +44,7 @@ export default function PublicationControlListFile({ list }) {
     </Document>
   );
 }
+
+PublicationControlListFile.propTypes = {
+  list: PropTypes.array.isRequired,
+};

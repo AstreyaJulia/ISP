@@ -2,7 +2,7 @@ import React, { Fragment, useRef } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import PropTypes from 'prop-types';
 
-const EventsModal = ({ open, setOpen, event }) => {
+const EventsModal = ({ open, setOpen }) => {
   const cancelButtonRef = useRef(null);
 
   return (

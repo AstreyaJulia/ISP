@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import clearday from '../../assets/images/weather/clear-day.svg';
 import cloudy from '../../assets/images/weather/cloudy.svg';
 import drizzle from '../../assets/images/weather/drizzle.svg';
@@ -147,7 +148,7 @@ export const WidgetWeather = ({ currentWeather, currentIsLoading, currentError }
               >
                 <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
               </svg>
-              {weather?.main?.humidity} <small className='ml-1'>%</small>
+              {weather?.main?.humidity} <small className="ml-1">%</small>
             </p>
 
             <p className="text-white flex items-center text-sm" title="Скорость ветра">
@@ -165,7 +166,7 @@ export const WidgetWeather = ({ currentWeather, currentIsLoading, currentError }
               >
                 <path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2" />
               </svg>
-              {Math.ceil(weather?.wind?.speed)} <small className='ml-1'>м/с</small>
+              {Math.ceil(weather?.wind?.speed)} <small className="ml-1">м/с</small>
             </p>
           </div>
         </>
@@ -190,4 +191,10 @@ export const WidgetWeather = ({ currentWeather, currentIsLoading, currentError }
       )}
     </div>
   );
+};
+
+WidgetWeather.propTypes = {
+  currentWeather: PropTypes.object,
+  currentIsLoading: PropTypes.string,
+  currentError: PropTypes.string,
 };

@@ -8,8 +8,8 @@ import DataTableCore from '../DataTableCore';
 import Badge from '../../Badge';
 import CaseListCard from '../../CaseListCard';
 import DataTableToolBar from '../DataTableCore/DataTableToolBar';
-import Alert from "../../Alert";
-import CaseInfoModal from "../../CaseInfoModal";
+import Alert from '../../Alert';
+import CaseInfoModal from '../../CaseInfoModal';
 
 const Processed = ({ data, isLoading, all }) => {
   const [rows, setRows] = useState(data ?? []);
@@ -41,7 +41,6 @@ const Processed = ({ data, isLoading, all }) => {
     }, 200);
   };
 
-
   const getStatusSettings = (status, item) => {
     const statusSettings = {
       motionless: { title: 'Без движения', color: 'red' },
@@ -72,24 +71,26 @@ const Processed = ({ data, isLoading, all }) => {
   const makeItem = (item, key, query) => (
     <CaseListCard key={key} item={item} query={query} handleOnDblclick={(evt) => handleCardDoubleClick(evt, item)}>
       {item.INFO.toLowerCase().includes('Д.б. рассм./изг.реш. в оконч.форме до'.toLowerCase()) ? (
-          <p className="font-medium text-xs text-slate-600 dark:text-slate-200 flex flex-wrap justify-start items-center text-left mb-1">
-            Рассм. до:{' '}
-            <Badge
-                size="small"
-                shape="rounded"
-                className="ml-1"
-                color={getCaseUntilColor(item?.INFO?.slice(
-                    item?.INFO?.toLowerCase().lastIndexOf('Д.б. рассм./изг.реш. в оконч.форме до:'.toLowerCase()) + 39,
-                    item?.INFO?.toLowerCase().lastIndexOf('Д.б. рассм./изг.реш. в оконч.форме до:'.toLowerCase()) + 49
-                ) ?? null)}
-                item={item.INFO.slice(
-                    item.INFO.toLowerCase().lastIndexOf('Д.б. рассм./изг.реш. в оконч.форме до:'.toLowerCase()) + 39,
-                    item.INFO.toLowerCase().lastIndexOf('Д.б. рассм./изг.реш. в оконч.форме до:'.toLowerCase()) + 49
-                )}
-            />
-          </p>
+        <p className="font-medium text-xs text-slate-600 dark:text-slate-200 flex flex-wrap justify-start items-center text-left mb-1">
+          Рассм. до:{' '}
+          <Badge
+            size="small"
+            shape="rounded"
+            className="ml-1"
+            color={getCaseUntilColor(
+              item?.INFO?.slice(
+                item?.INFO?.toLowerCase().lastIndexOf('Д.б. рассм./изг.реш. в оконч.форме до:'.toLowerCase()) + 39,
+                item?.INFO?.toLowerCase().lastIndexOf('Д.б. рассм./изг.реш. в оконч.форме до:'.toLowerCase()) + 49
+              ) ?? null
+            )}
+            item={item.INFO.slice(
+              item.INFO.toLowerCase().lastIndexOf('Д.б. рассм./изг.реш. в оконч.форме до:'.toLowerCase()) + 39,
+              item.INFO.toLowerCase().lastIndexOf('Д.б. рассм./изг.реш. в оконч.форме до:'.toLowerCase()) + 49
+            )}
+          />
+        </p>
       ) : (
-          ''
+        ''
       )}
       <Badge
         size="small"
@@ -168,175 +169,180 @@ const Processed = ({ data, isLoading, all }) => {
   };
 
   return (
-      <>
-        <Alert alertType="info" containerClassName="mt-7">
-          <p className="text-sm text-blue-800 dark:text-blue-200 flex items-center">
-            <span>Нажмите дважды</span>
-            <span title="левой кнопкой мыши" className="mx-1">
+    <>
+      <Alert alertType="info" containerClassName="mt-7">
+        <p className="text-sm text-blue-800 dark:text-blue-200 flex items-center">
+          <span>Нажмите дважды</span>
+          <span title="левой кнопкой мыши" className="mx-1">
             <svg
-                className="h-5 w-5"
-                strokeWidth="1.5"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              strokeWidth="1.5"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                  d="M20 10V14C20 18.4183 16.4183 22 12 22C7.58172 22 4 18.4183 4 14V9C4 5.13401 7.13401 2 11 2H12C16.4183 2 20 5.58172 20 10Z"
-                  stroke="currentColor"
-                  strokeLinecap="round"
+                d="M20 10V14C20 18.4183 16.4183 22 12 22C7.58172 22 4 18.4183 4 14V9C4 5.13401 7.13401 2 11 2H12C16.4183 2 20 5.58172 20 10Z"
+                stroke="currentColor"
+                strokeLinecap="round"
               />
               <path d="M12 2V8.4C12 8.73137 11.7314 9 11.4 9H4" stroke="currentColor" strokeLinecap="round" />
             </svg>
           </span>
-            <span>на карточке для отображения информации по делу</span>
-          </p>
-        </Alert>
+          <span>на карточке для отображения информации по делу</span>
+        </p>
+      </Alert>
 
-        <DataTableCore
-      classname="mt-7"
-      rows={rows}
-      currentPage={currentPage}
-      setCurrentPage={setCurrentPage}
-      tableID="processed_cases"
-      isLoading={isLoading}
-      columns={columns}
-      itemsContainerClassNames={isLoading === 'true' ? 'flex w-full' : "grid grid-cols-2 gap-3"}
-      initSortColumn={columns[2]}
-      placeholder="Поиск по нерассмотренным делам: номер дела / стороны / лица"
-      filterCallback={filter}
-      sortCallback={null}
-      makeItem={makeItem}
-      table={{ isTable: 'false', startColumn: null, endColumn: null, columnNames: null, coltosort: [] }}
-    >
-      <DataTableToolBar className="mt-3">
-        {all === 'true' ? (
+      <DataTableCore
+        classname="mt-7"
+        rows={rows}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        tableID="processed_cases"
+        isLoading={isLoading}
+        columns={columns}
+        itemsContainerClassNames={isLoading === 'true' ? 'flex w-full' : 'grid grid-cols-2 gap-3'}
+        initSortColumn={columns[2]}
+        placeholder="Поиск по нерассмотренным делам: номер дела / стороны / лица"
+        filterCallback={filter}
+        sortCallback={null}
+        makeItem={makeItem}
+        table={{ isTable: 'false', startColumn: null, endColumn: null, columnNames: null, coltosort: [] }}
+      >
+        <DataTableToolBar className="mt-3">
+          {all === 'true' ? (
+            <div className="flex items-center ml-3 justify-start">
+              <label
+                htmlFor="JUDGE_NAME"
+                className="shrink-0 block text-sm font-medium text-slate-700 dark:text-slate-300 mr-2"
+              >
+                Судья:
+              </label>
+              <select
+                id="JUDGE_NAME"
+                name="JUDGE_NAME"
+                defaultValue={selectedFilter.JUDGE_NAME}
+                onChange={filterSelectChangeHandler}
+                className="grow-0 mt-1 block pl-3 pr-10 py-2 text-base bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+              >
+                <option value="All">Все</option>
+                {judgesList.map((judge, key) => (
+                  <option key={judge + key} value={judge}>
+                    {getInitials(judge)}
+                  </option>
+                ))}
+              </select>
+            </div>
+          ) : (
+            <></>
+          )}
           <div className="flex items-center ml-3 justify-start">
             <label
-              htmlFor="JUDGE_NAME"
+              htmlFor="CASE_STATUS"
               className="shrink-0 block text-sm font-medium text-slate-700 dark:text-slate-300 mr-2"
             >
-              Судья:
+              Статус:
             </label>
             <select
-              id="JUDGE_NAME"
-              name="JUDGE_NAME"
-              defaultValue={selectedFilter.JUDGE_NAME}
+              id="CASE_STATUS"
+              name="CASE_STATUS"
+              defaultValue={selectedFilter.CASE_STATUS}
               onChange={filterSelectChangeHandler}
               className="grow-0 mt-1 block pl-3 pr-10 py-2 text-base bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
             >
               <option value="All">Все</option>
-              {judgesList.map((judge, key) => (
-                <option key={judge + key} value={judge}>
-                  {getInitials(judge)}
+              {statusList.map((status, key) => (
+                <option key={status + key} value={status}>
+                  {getStatusSettings(status, 'title')}
                 </option>
               ))}
             </select>
           </div>
-        ) : (
-          <></>
-        )}
-        <div className="flex items-center ml-3 justify-start">
-          <label
-            htmlFor="CASE_STATUS"
-            className="shrink-0 block text-sm font-medium text-slate-700 dark:text-slate-300 mr-2"
-          >
-            Статус:
-          </label>
-          <select
-            id="CASE_STATUS"
-            name="CASE_STATUS"
-            defaultValue={selectedFilter.CASE_STATUS}
-            onChange={filterSelectChangeHandler}
-            className="grow-0 mt-1 block pl-3 pr-10 py-2 text-base bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
-          >
-            <option value="All">Все</option>
-            {statusList.map((status, key) => (
-              <option key={status + key} value={status}>
-                {getStatusSettings(status, 'title')}
-              </option>
-            ))}
-          </select>
-        </div>
-      </DataTableToolBar>
-    </DataTableCore>
+        </DataTableToolBar>
+      </DataTableCore>
 
-        <CaseInfoModal open={modalOpened} setOpen={setModalOpened} onModalClose={handleModalClosed}>
-          <div className="mt-7">
-            <Badge
-                size="small"
-                shape="rounded"
-                className="mb-2"
-                color={getStatusSettings(selectedCase?.CASE_STATUS ?? null, 'color')}
-                item={getStatusSettings(selectedCase?.CASE_STATUS ?? null, 'title')}
-            />
-            <div className='flex items-center gap-2 mb-5'>
-              {selectedCase?.MOTIONLES_DATE !== '' ? (
-                  <p className="text-slate-700 dark:text-slate-300 text-sm">
-                    Ост. б./движ.: {selectedCase?.MOTIONLES_DATE}
-                  </p>
-              ) : (
-                  ''
-              )}
-              {selectedCase?.STOP_DATE !== '' ? (
-                  <p className="text-slate-700 dark:text-slate-300 text-sm">
-                    Приост.: {selectedCase?.STOP_DATE}
-                  </p>
-              ) : (
-                  ''
-              )}
-              {selectedCase?.DATE_UNTIL !== '' ? (
-                  <p className="text-slate-700 dark:text-slate-300 text-sm">
-                    до:
-                    <Badge
-                        size="small"
-                        shape="rounded"
-                        className="ml-1"
-                        color={getCaseUntilColor(selectedCase?.DATE_UNTIL ?? null)}
-                        item={selectedCase?.DATE_UNTIL}
-                    />
-                  </p>
-              ) : (
-                  ''
-              )}
-            </div>
-            {selectedCase.INFO?.toLowerCase().includes('Д.б. рассм./изг.реш. в оконч.форме до'.toLowerCase()) ? (
-                <p className="text-slate-700 dark:text-slate-300 text-sm mb-5">
-                  Срок рассм. до:{' '}
-                  <Badge
-                      size="small"
-                      shape="rounded"
-                      className="ml-1"
-                      color={getCaseUntilColor(selectedCase?.INFO?.slice(
-                          selectedCase?.INFO?.toLowerCase().lastIndexOf('Д.б. рассм./изг.реш. в оконч.форме до:'.toLowerCase()) + 39,
-                          selectedCase?.INFO?.toLowerCase().lastIndexOf('Д.б. рассм./изг.реш. в оконч.форме до:'.toLowerCase()) + 49
-                      ) ?? null)}
-                      item={selectedCase.INFO.slice(
-                          selectedCase.INFO.toLowerCase().lastIndexOf('Д.б. рассм./изг.реш. в оконч.форме до:'.toLowerCase()) + 39,
-                          selectedCase.INFO.toLowerCase().lastIndexOf('Д.б. рассм./изг.реш. в оконч.форме до:'.toLowerCase()) + 49
-                      )}
-                  />
-                </p>
+      <CaseInfoModal open={modalOpened} setOpen={setModalOpened} onModalClose={handleModalClosed}>
+        <div className="mt-7">
+          <Badge
+            size="small"
+            shape="rounded"
+            className="mb-2"
+            color={getStatusSettings(selectedCase?.CASE_STATUS ?? null, 'color')}
+            item={getStatusSettings(selectedCase?.CASE_STATUS ?? null, 'title')}
+          />
+          <div className="flex items-center gap-2 mb-5">
+            {selectedCase?.MOTIONLES_DATE !== '' ? (
+              <p className="text-slate-700 dark:text-slate-300 text-sm">
+                Ост. б./движ.: {selectedCase?.MOTIONLES_DATE}
+              </p>
             ) : (
-                ''
+              ''
             )}
-            <p className="text-slate-600 dark:text-slate-400 text-sm font-bold mb-2">Стороны лица/по делу:</p>
-            <p className="text-slate-700 dark:text-slate-300 text-sm mb-5">{selectedCase.PARTS_FIO}</p>
-            <p className="text-slate-600 dark:text-slate-400 text-sm font-bold mb-2">Категория / статья:</p>
-            <p className="text-slate-700 dark:text-slate-300 text-sm mb-5">{selectedCase.CAT}</p>
-            <p className="text-slate-600 dark:text-slate-400 text-sm font-bold mb-2">Информация:</p>
-            {selectedCase.INFO?.length > 0 && selectedCase.INFO !== 'null' ? (
-                selectedCase.INFO.split(';').map((item, key) => (
-                    <p key={key} className="text-slate-700 dark:text-slate-300 text-sm">
-                      {item};
-                    </p>
-                ))
+            {selectedCase?.STOP_DATE !== '' ? (
+              <p className="text-slate-700 dark:text-slate-300 text-sm">Приост.: {selectedCase?.STOP_DATE}</p>
             ) : (
-                <p className="text-slate-700 dark:text-slate-300 text-sm">Нет информации</p>
+              ''
+            )}
+            {selectedCase?.DATE_UNTIL !== '' ? (
+              <p className="text-slate-700 dark:text-slate-300 text-sm">
+                до:
+                <Badge
+                  size="small"
+                  shape="rounded"
+                  className="ml-1"
+                  color={getCaseUntilColor(selectedCase?.DATE_UNTIL ?? null)}
+                  item={selectedCase?.DATE_UNTIL}
+                />
+              </p>
+            ) : (
+              ''
             )}
           </div>
-        </CaseInfoModal>
-
-      </>
+          {selectedCase.INFO?.toLowerCase().includes('Д.б. рассм./изг.реш. в оконч.форме до'.toLowerCase()) ? (
+            <p className="text-slate-700 dark:text-slate-300 text-sm mb-5">
+              Срок рассм. до:{' '}
+              <Badge
+                size="small"
+                shape="rounded"
+                className="ml-1"
+                color={getCaseUntilColor(
+                  selectedCase?.INFO?.slice(
+                    selectedCase?.INFO?.toLowerCase().lastIndexOf(
+                      'Д.б. рассм./изг.реш. в оконч.форме до:'.toLowerCase()
+                    ) + 39,
+                    selectedCase?.INFO?.toLowerCase().lastIndexOf(
+                      'Д.б. рассм./изг.реш. в оконч.форме до:'.toLowerCase()
+                    ) + 49
+                  ) ?? null
+                )}
+                item={selectedCase.INFO.slice(
+                  selectedCase.INFO.toLowerCase().lastIndexOf('Д.б. рассм./изг.реш. в оконч.форме до:'.toLowerCase()) +
+                    39,
+                  selectedCase.INFO.toLowerCase().lastIndexOf('Д.б. рассм./изг.реш. в оконч.форме до:'.toLowerCase()) +
+                    49
+                )}
+              />
+            </p>
+          ) : (
+            ''
+          )}
+          <p className="text-slate-600 dark:text-slate-400 text-sm font-bold mb-2">Стороны лица/по делу:</p>
+          <p className="text-slate-700 dark:text-slate-300 text-sm mb-5">{selectedCase.PARTS_FIO}</p>
+          <p className="text-slate-600 dark:text-slate-400 text-sm font-bold mb-2">Категория / статья:</p>
+          <p className="text-slate-700 dark:text-slate-300 text-sm mb-5">{selectedCase.CAT}</p>
+          <p className="text-slate-600 dark:text-slate-400 text-sm font-bold mb-2">Информация:</p>
+          {selectedCase.INFO?.length > 0 && selectedCase.INFO !== 'null' ? (
+            selectedCase.INFO.split(';').map((item, key) => (
+              <p key={key} className="text-slate-700 dark:text-slate-300 text-sm">
+                {item};
+              </p>
+            ))
+          ) : (
+            <p className="text-slate-700 dark:text-slate-300 text-sm">Нет информации</p>
+          )}
+        </div>
+      </CaseInfoModal>
+    </>
   );
 };
 

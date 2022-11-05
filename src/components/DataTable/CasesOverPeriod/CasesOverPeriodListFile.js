@@ -1,4 +1,5 @@
-import React from "react";
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Document, Page, Text, View } from '@react-pdf/renderer';
 import styles from './CasesOverPeriodListStyle';
 
@@ -31,11 +32,13 @@ export default function CasesOverPeriodListFile({ list }) {
 
                 <View style={styles.tableCell_2}>
                   <Text style={styles.boldRowText}>{item.PARTS_FIO}</Text>
-                  {item.INFO ? item.INFO.split(';').map((item, key) => (
-                      <Text style={styles.smallRowText}>
-                        {item};
-                      </Text>
-                  )): null}
+                  {item.INFO
+                    ? item.INFO.split(';').map((item, key) => (
+                        <Text key={key} style={styles.smallRowText}>
+                          {item};
+                        </Text>
+                      ))
+                    : null}
                 </View>
               </View>
             ))}
@@ -45,3 +48,7 @@ export default function CasesOverPeriodListFile({ list }) {
     </Document>
   );
 }
+
+CasesOverPeriodListFile.propTypes = {
+  list: PropTypes.array.isRequired,
+};

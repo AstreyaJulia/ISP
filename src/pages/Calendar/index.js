@@ -14,13 +14,13 @@ import { useDispatch, useSelector } from '../../store';
 import { closeModal, openModal } from '../../store/slices/calendar';
 import EventsModal from './EventsModal';
 
-const selectedEventSelector = (state) => {
+/* const selectedEventSelector = (state) => {
   const { events, selectedEventId } = state.calendar;
   if (selectedEventId) {
     return events.find((_event) => _event.id === selectedEventId);
   }
   return null;
-};
+}; */
 
 const Calendar = () => {
   const dispatch = useDispatch();
@@ -30,7 +30,7 @@ const Calendar = () => {
   const [viewDates, setViewDates] = useState({ start: new Date(), end: new Date() });
   const [view, setView] = useState('dayGridMonth');
 
-  const selectedEvent = useSelector(selectedEventSelector);
+  // const selectedEvent = useSelector(selectedEventSelector);
   /*
     const { events, isOpenModal} = useSelector((state) => state.calendar);
 
@@ -107,11 +107,12 @@ const Calendar = () => {
           rerenderDelay={10}
           initialDate={date}
           dayMaxEvents
-        eventTimeFormat={{ // like '14:30:00'
-          hour: '2-digit',
-          minute: '2-digit',
-          meridiem: false
-        }}
+          eventTimeFormat={{
+            // like '14:30:00'
+            hour: '2-digit',
+            minute: '2-digit',
+            meridiem: false,
+          }}
           navLinks
           eventDisplay="block"
           allDayMaintainDuration

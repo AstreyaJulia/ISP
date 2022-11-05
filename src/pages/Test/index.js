@@ -48,7 +48,7 @@ const Test = () => {
   return (
     <BasicPage title="Тестовая страница" className="main-content max-w-6xl mx-auto px-5">
       <PageHeader pages={breadcrumbs} header="Тестовая страница" />
-      <Card classname='px-4 pb-4 overflow-visible mt-4'>
+      <Card classname="px-4 pb-4 overflow-visible mt-4">
         <TextEditor
           id="compose-mail"
           value={message}

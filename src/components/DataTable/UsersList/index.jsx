@@ -115,6 +115,7 @@ const UsersList = ({ data, isLoading }) => {
 UsersList.propTypes = {
   /** Данные */
   data: PropTypes.array.isRequired,
+  isLoading: PropTypes.string,
 };
 
 export default UsersList;

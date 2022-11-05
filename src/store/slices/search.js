@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {sub} from "date-fns";
+import { sub } from 'date-fns';
 import axios from '../../utils/axios';
 import { dispatch } from '../index';
-import {formatYyyyMmDdDate} from "../../utils/formatTime";
+import { formatYyyyMmDdDate } from '../../utils/formatTime';
 
 /** Начальное состояние
  * @type {{isLoading: string, error: null, sea: []}}
@@ -81,6 +81,5 @@ export function resetSearch() {
 
   return {
     type: 'RESET_SEARCH',
-  }
-
+  };
 }

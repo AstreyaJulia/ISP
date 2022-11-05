@@ -1,11 +1,10 @@
-import { Button } from 'reactstrap';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { classNames } from '../../utils/classNames';
 
 const LoadingButton = ({ isLoading, classes, children, label, type, ...other }) => (
-  <Button
-    type={type}
+  <button
+    type={type === 'submit' ? 'submit' : 'button'}
     disabled={isLoading}
     {...other}
     className={classNames(
@@ -38,7 +37,7 @@ const LoadingButton = ({ isLoading, classes, children, label, type, ...other }) 
         <path d="M2 12C2 6.47715 6.47715 2 12 2V5C8.13401 5 5 8.13401 5 12H2Z" fill="currentColor" />
       </svg>
     )}
-  </Button>
+  </button>
 );
 
 LoadingButton.propTypes = {
@@ -46,7 +45,7 @@ LoadingButton.propTypes = {
   children: PropTypes.node.isRequired,
   classes: PropTypes.string,
   label: PropTypes.string,
-  type: PropTypes.string.isRequired,
+  type: PropTypes.oneOf(['button', 'submit', 'reset']),
 };
 
 export default LoadingButton;

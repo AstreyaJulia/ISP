@@ -1,32 +1,42 @@
 import { Link } from 'react-router-dom';
-import { Form, Input, Label } from 'reactstrap';
 import React from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup';
 import rocket from '../../../assets/images/pages/cosmonaut-rocket.svg';
-import InputPasswordToggle from '../../../components/PasswordShow';
 import { setSession } from '../../../utils/jwt';
 import useAuth from '../../../hooks/useAuth';
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
 import BasicPage from '../../pagesLayouts/BasicPage';
 import LoadingButton from '../../../components/LoadingButton';
 import { classNames } from '../../../utils/classNames';
-
-const defaultValues = {
-  login: 'chainik',
-  password: 'qwer',
-};
+import { FormProvider, RHFPasswordHideShow, RHFTextField } from '../../../components/hook-form';
 
 const Login = () => {
   const { login } = useAuth();
   const isMountedRef = useIsMountedRef();
 
+  const AuthSchema = Yup.object().shape({
+    login: Yup.string().required('Логин обязателен для заполнения'),
+    password: Yup.string().required('Пароль обязателен для заполнения'),
+  });
+
+  const defaultValues = {
+    login: 'chainik',
+    password: 'qwer',
+  };
+
+  const methods = useForm({
+    resolver: yupResolver(AuthSchema),
+    defaultValues,
+  });
+
   const {
     reset,
-    control,
     setError,
     handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm({ defaultValues });
+    formState: { isSubmitting },
+  } = methods;
 
   const onSubmit = async (userData) => {
     if (Object.values(userData).every((field) => field.length > 0)) {
@@ -58,47 +68,13 @@ const Login = () => {
 
           <div className="mt-8">
             <div className="mt-6">
-              <Form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                <div>
-                  <Label className="block text-sm font-medium text-gray-700 dark:text-gray-200" for="login">
-                    Имя пользователя
-                  </Label>
-                  <div className="mt-1">
-                    <Controller
-                      id="login"
-                      name="login"
-                      control={control}
-                      render={({ field }) => (
-                        <Input
-                          className="bg-gray-100 dark:bg-gray-800 appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                          type="text"
-                          placeholder="Ivanov_II"
-                          autoFocus
-                          invalid={errors.login && true}
-                          {...field}
-                        />
-                      )}
-                    />
-                  </div>
+              <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+                <div className="flex flex-col">
+                  <RHFTextField name="login" label="Имя пользователя" placeholder="Ivanov_II" />
+                  <RHFPasswordHideShow name="password" label="Пароль" placeholder="Пароль" />
                 </div>
 
-                <div className="space-y-1">
-                  <Label className="block text-sm font-medium text-gray-700 dark:text-gray-200" for="password">
-                    Пароль
-                  </Label>
-
-                  <div className="mt-1">
-                    <Controller
-                      id="password"
-                      name="password"
-                      control={control}
-                      render={({ field }) => (
-                        <InputPasswordToggle className="block" invalid={errors.password && true} {...field} />
-                      )}
-                    />
-                  </div>
-                </div>
-                <div className="flex items-center justify-end">
+                <div className="flex items-center justify-end mb-5">
                   <div className="text-sm">
                     <Link to="/reg" className="font-medium text-indigo-600 hover:text-indigo-500">
                       У меня нет пароля / Пароль был сброшен
@@ -126,7 +102,7 @@ const Login = () => {
                     />
                   </svg>
                 </LoadingButton>
-              </Form>
+              </FormProvider>
             </div>
           </div>
         </div>

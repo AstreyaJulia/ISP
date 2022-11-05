@@ -108,7 +108,7 @@ const CasesOverPeriod = ({ data, isLoading }) => {
         tableID="cases-over-period"
         isLoading={isLoading}
         columns={columns}
-        itemsContainerClassNames={isLoading === 'true' ? 'flex w-full' : "grid grid-cols-2 gap-3"}
+        itemsContainerClassNames={isLoading === 'true' ? 'flex w-full' : 'grid grid-cols-2 gap-3'}
         initSortColumn={columns[0]}
         placeholder="Поиск по делам, рассмотренным свыше срока: номер дела / стороны / лица"
         filterCallback={filter}

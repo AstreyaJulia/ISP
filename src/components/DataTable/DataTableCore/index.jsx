@@ -400,8 +400,7 @@ const DataTableCore = ({
           {sortFilter().length > 0 ? (
             <p className="mx-5 shrink-0 block text-sm font-bold text-slate-700 dark:text-slate-200 mr-2">
               {/* eslint-disable-next-line */}
-              {sortFilter().length > 0 ? currentPage * elementsPerPage + 1 : 0} -{' '}
-              {/* eslint-disable-next-line */}
+              {sortFilter().length > 0 ? currentPage * elementsPerPage + 1 : 0} - {/* eslint-disable-next-line */}
               {sortFilter().length > 0
                 ? sortFilter().length < (currentPage + 1) * elementsPerPage
                   ? sortFilter().length

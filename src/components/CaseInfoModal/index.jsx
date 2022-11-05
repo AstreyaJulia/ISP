@@ -85,6 +85,8 @@ const CaseInfoModal = ({ open, setOpen, onModalClose, children }) => (
 CaseInfoModal.propTypes = {
   open: PropTypes.bool.isRequired,
   setOpen: PropTypes.func.isRequired,
+  onModalClose: PropTypes.func,
+  children: PropTypes.node,
 };
 
 export default CaseInfoModal;

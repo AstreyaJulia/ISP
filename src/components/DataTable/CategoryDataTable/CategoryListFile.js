@@ -1,4 +1,5 @@
 import { Document, Page, Text, View } from '@react-pdf/renderer';
+import PropTypes from 'prop-types';
 import styles from './CategoryListStyle';
 
 export default function CategoryListFile({ list }) {
@@ -38,3 +39,7 @@ export default function CategoryListFile({ list }) {
     </Document>
   );
 }
+
+CategoryListFile.propTypes = {
+  list: PropTypes.array.isRequired,
+};

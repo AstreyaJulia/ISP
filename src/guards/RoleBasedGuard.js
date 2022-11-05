@@ -4,11 +4,6 @@ import React from 'react';
 import useAuth from '../hooks/useAuth';
 import Alert from '../components/Alert';
 
-RoleBasedGuard.propTypes = {
-  accessibleRoles: PropTypes.array, // Например ['admin', 'user']
-  children: PropTypes.node,
-};
-
 /**
  * @param accessibleRoles - массив разрешенных ролей
  * @param accessibleProfessions - массив разрешенных профессий
@@ -42,3 +37,9 @@ export default function RoleBasedGuard({ accessibleRoles, accessibleProfessions,
 
   return <>{children}</>;
 }
+
+RoleBasedGuard.propTypes = {
+  accessibleRoles: PropTypes.array, // Например ['admin', 'user']
+  children: PropTypes.node,
+  accessibleProfessions: PropTypes.array,
+};

@@ -22,7 +22,7 @@ const appReducer = combineReducers({
   calendar,
   phonebook,
   weather,
-  search
+  search,
 });
 
 const rootReducer = (state, action) => {

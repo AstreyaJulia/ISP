@@ -5,7 +5,6 @@ import { useDispatch } from 'react-redux';
 import Skeleton from 'react-loading-skeleton';
 import toast from 'react-hot-toast';
 import PropTypes from 'prop-types';
-import { sub } from 'date-fns';
 import { Avatar } from '../../../components/Avatar';
 import Toast, { toastStyles } from '../../../components/Toast';
 import useAuth from '../../../hooks/useAuth';
@@ -14,9 +13,8 @@ import { PATH_AUTH, PATH_PROFILE, PATH_SETTINGS } from '../../../routes/paths';
 import SearchResults from './SearchResults';
 import { getInitialsOnly } from '../../../utils/getInitials';
 import { getAvatarColor } from '../../../utils/getAvatarColor';
-import { formatYyyyMmDdDate } from '../../../utils/formatTime';
-import {useSelector} from "../../../store";
-import {getSearch, resetSearch} from "../../../store/slices/search";
+import { useSelector } from '../../../store';
+import { getSearch, resetSearch } from '../../../store/slices/search';
 
 const Header = ({ setMenuVisibility }) => {
   const searchTypes = {
@@ -41,11 +39,12 @@ const Header = ({ setMenuVisibility }) => {
         dispatch(resetSearch());
       } else {
         dispatch(getSearch(searchType, searchQuery));
-        if (searchResultsShow === false) changeSearchResultsShow(true)
+        if (searchResultsShow === false) changeSearchResultsShow(true);
       }
     }, 2000);
 
     return () => clearTimeout(delayDebounceFn);
+    // eslint-disable-next-line
   }, [searchQuery, searchType]);
 
   /** Кнопка-переключатель узкого/широкого меню */
