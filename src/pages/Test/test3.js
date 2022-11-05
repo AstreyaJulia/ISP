@@ -88,37 +88,37 @@ const Faq = () => {
                       overrides: {
                         h1: {
                           props: {
-                            className: 'flex text-4xl my-4 text-gray-800 dark:text-gray-100 font-medium',
+                            className: 'text-4xl my-4 text-gray-800 dark:text-gray-100 font-medium',
                           },
                         }, h2: {
                           props: {
-                            className: 'flex text-3xl my-4 text-gray-800 dark:text-gray-100 font-medium',
+                            className: 'text-3xl my-4 text-gray-800 dark:text-gray-100 font-medium',
                           },
                         }, h3: {
                           props: {
-                            className: 'flex text-2xl my-4 text-gray-800 dark:text-gray-100 font-medium',
+                            className: 'text-2xl my-4 text-gray-800 dark:text-gray-100 font-medium',
                           },
                         }, h4: {
                           props: {
-                            className: 'flex text-xl my-4 text-gray-800 dark:text-gray-100 font-medium',
+                            className: 'text-xl my-4 text-gray-800 dark:text-gray-100 font-medium',
                           },
                         }, h5: {
                           props: {
-                            className: 'flex text-base my-4 text-gray-800 dark:text-gray-100 font-medium uppercase',
+                            className: 'text-base my-4 text-gray-800 dark:text-gray-100 font-medium uppercase',
                           },
                         }, h6: {
                           props: {
-                            className: 'flex text-sm my-4 text-gray-800 dark:text-gray-100 font-medium uppercase',
+                            className: 'text-sm my-4 text-gray-800 dark:text-gray-100 font-medium uppercase',
                           },
                         },
                         code: {
                           props: {
-                            className: 'flex text-base my-5 text-white font-monospace px-4 py-5 bg-slate-800 rounded-md',
+                            className: 'flex text-base my-5 text-white font-mono px-4 py-5 bg-slate-800 rounded-md',
                           },
                         },
                         blockquote: {
                           props: {
-                            className: 'flex text-base px-5 py-6 border-l-8 border-indigo-500 dark:border-indigo-600 bg-indigo-500/20 rounded-md my-5',
+                            className: 'text-base px-5 py-6 border-l-8 border-indigo-500 dark:border-indigo-600 bg-indigo-500/20 rounded-md my-5',
                           },
                         },
                         p: {
@@ -134,6 +134,11 @@ const Faq = () => {
                         ul: {
                           props: {
                             className: 'text-base text-gray-800 dark:text-gray-100 my-5 pl-6 list-disc',
+                          },
+                        },
+                        ol: {
+                          props: {
+                            className: 'text-gray-800 dark:text-gray-100 my-5 pl-6',
                           },
                         },
                         li: {
