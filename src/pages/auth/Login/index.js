@@ -76,7 +76,7 @@ const Login = () => {
 
                 <div className="flex items-center justify-end mb-5">
                   <div className="text-sm">
-                    <Link to="/reg" className="font-medium text-indigo-600 hover:text-indigo-500">
+                    <Link to="/auth/register" className="font-medium text-indigo-600 hover:text-indigo-500">
                       У меня нет пароля / Пароль был сброшен
                     </Link>
                   </div>
