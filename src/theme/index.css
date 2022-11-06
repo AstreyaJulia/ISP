@@ -48,3 +48,7 @@
 q::before {
   content: '';
 }
+
+code {
+  @apply flex text-base text-white px-4 py-5 bg-slate-800 rounded-md overflow-x-auto
+}

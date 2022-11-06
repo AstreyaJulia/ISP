@@ -144,7 +144,7 @@ const Faq = () => {
                     },
                     code: {
                       props: {
-                        className: 'flex text-base my-5 text-white font-mono px-4 py-5 bg-slate-800 rounded-md',
+                        className: 'flex text-base my-5 text-white px-4 py-5 bg-slate-800 rounded-md overflow-x-auto',
                       },
                     },
                     blockquote: {

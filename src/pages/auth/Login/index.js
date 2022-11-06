@@ -12,6 +12,7 @@ import LoadingButton from '../../../components/LoadingButton';
 import { classNames } from '../../../utils/classNames';
 import { FormProvider, RHFPasswordHideShow, RHFTextField } from '../../../components/hook-form';
 import Typography from '../../../components/Typography';
+import Alert from '../../../components/Alert';
 
 const Login = () => {
   const { login } = useAuth();
@@ -63,9 +64,11 @@ const Login = () => {
       </div>
       <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:pr-20 xl:pr-40">
         <div className="mx-auto w-full max-w-sm lg:w-96">
-          <div>
+          <div className='mb-4'>
             <h2 className="mt-6 text-3xl font-extrabold text-gray-900 dark:text-gray-50">Добро пожаловать!</h2>
           </div>
+
+          <Alert alertType='info' title="Используйте выданный вам логин и заданный вами пароль для входа" />
 
           <div className="mt-8">
             <div className="mt-6">

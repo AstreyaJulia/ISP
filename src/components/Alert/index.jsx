@@ -111,7 +111,9 @@ const Alert = ({ title, alertType, children, containerClassName }) => {
           ) : (
             ''
           )}
-          <div className={classNames(title ? 'mt-2' : '', 'text-sm', alertTypes[alertType].textColor)}>{children}</div>
+          {children &&
+            <div className={classNames(title ? 'mt-2' : '', 'text-sm', alertTypes[alertType].textColor)}>{children}</div>
+          }
         </div>
       </div>
     </div>
@@ -123,7 +125,7 @@ Alert.propTypes = {
   title: PropTypes.string,
   /**  Тип */
   alertType: PropTypes.oneOf(['error', 'warning', 'success', 'info']).isRequired,
-  children: PropTypes.object,
+  children: PropTypes.node,
   containerClassName: PropTypes.string,
 };
 

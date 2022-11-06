@@ -198,6 +198,43 @@ export default function Router() {
             </RoleBasedGuard>
           ),
         },
+        // Документация
+        {
+          path: 'doc/components/colors',
+          element: (
+            <RoleBasedGuard accessibleRoles={[1]}>
+              <Colors />
+            </RoleBasedGuard>
+          ),
+        },        {
+          path: 'doc/components/typography',
+          element: (
+            <RoleBasedGuard accessibleRoles={[1]}>
+              <Typography />
+            </RoleBasedGuard>
+          ),
+        },{
+          path: 'doc/components/shadows',
+          element: (
+            <RoleBasedGuard accessibleRoles={[1]}>
+              <Shadows />
+            </RoleBasedGuard>
+          ),
+        },{
+          path: 'doc/components/grid',
+          element: (
+            <RoleBasedGuard accessibleRoles={[1]}>
+              <Grid />
+            </RoleBasedGuard>
+          ),
+        },{
+          path: 'doc/components/icons',
+          element: (
+            <RoleBasedGuard accessibleRoles={[1]}>
+              <Icons />
+            </RoleBasedGuard>
+          ),
+        },
       ],
     },
 
@@ -269,3 +306,9 @@ const Test = Loadable(lazy(() => import('../pages/Test')));
 const Test2 = Loadable(lazy(() => import('../pages/Test/test2')));
 const Test3 = Loadable(lazy(() => import('../pages/Test/test3')));
 const Test4 = Loadable(lazy(() => import('../pages/Test/test4')));
+// Компоненты
+const Colors = Loadable(lazy(() => import('../pages/Documentation/Components/Colors')));
+const Grid = Loadable(lazy(() => import('../pages/Documentation/Components/Grid')));
+const Icons = Loadable(lazy(() => import('../pages/Documentation/Components/Icons')));
+const Shadows = Loadable(lazy(() => import('../pages/Documentation/Components/Shadows')));
+const Typography = Loadable(lazy(() => import('../pages/Documentation/Components/Typography')));
