@@ -4,6 +4,8 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import rocket from '../../../assets/images/pages/cosmonaut-rocket.svg';
+import cloud1 from '../../../assets/images/pages/cloud1.svg';
+
 import { setSession } from '../../../utils/jwt';
 import useAuth from '../../../hooks/useAuth';
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
@@ -58,8 +60,9 @@ const Login = () => {
   return (
     <BasicPage title="Вход" className="main-content min-h-full flex bg-white dark:bg-gray-900">
       <div className="hidden lg:flex relative w-0 flex-1 content-center items-center justify-center rounded-full">
-        <div className="w-96 h-96 bg-indigo-900 rounded-full overflow-hidden relative">
-          <img className="w-10/12 absolute left-7 top-7" src={rocket} alt="" />
+        <div className="w-96 h-96 bg-indigo-900 rounded-full relative">
+          <img className="w-10/12 absolute left-7 -top-7 z-40" src={rocket} alt="" />
+          <img className="w-5/6 absolute left-7 -bottom-5" src={cloud1} alt="" />
           <svg
             className="animate-pulse absolute w-3 h-3 top-20 left-28"
             version="1.0"
