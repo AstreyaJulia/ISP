@@ -7,6 +7,9 @@ import { makeArrayFromObj } from '../../utils/makeArrayFromObj';
 import ContentLayoutWithSidebar from '../pagesLayouts/ContentLayoutWithSidebar';
 import useAuth from '../../hooks/useAuth';
 import DeleteModal from './DeleteModal';
+import { useDispatch, useSelector } from '../../store';
+import linkscatalog, { getGroups, getLinks } from '../../store/slices/linkscatalog';
+import { getPhonebookList } from '../../store/slices/users';
 
 const breadcrumbs = [{ name: 'Каталог ссылок', href: '#', current: true }];
 
@@ -18,18 +21,23 @@ const LinksCatalog = () => {
   const [groupsList, setGroupsList] = useState({}); // Список групп
   const [openDialog, setOpenDialog] = useState(false); // модал удаления
 
+  const dispatch = useDispatch();
+  const { isGroupLoading, isLinkLoading, errorGroups, errorLinks, groups, links } = useSelector((state) => state.linkscatalog);
+
   /** Нажатие на группу
    * @param event
    * @param key
    */
   const groupClick = (event, key) => {
     event.preventDefault();
+    dispatch(getLinks(key));
     setSelectedGroup(key);
   };
 
   useEffect(() => {
-    setGroupsList(proxyListGroups);
-  }, []);
+    dispatch(getGroups());
+    // eslint-disable-next-line
+  }, [dispatch]);
 
   const handleKeyDown = (evt) => {
     if (evt.keyCode === 13) {
@@ -52,7 +60,7 @@ const LinksCatalog = () => {
     >
       <ContentLayoutWithSidebar.Sidebar>
         <DeleteModal open={openDialog} setOpen={setOpenDialog} />
-        <div className="p-4">
+        <div className="p-4 h-full flex flex-col">
           <div className="mb-4">
             {user.sudo === 1 ? (
               <>
@@ -65,11 +73,51 @@ const LinksCatalog = () => {
               </>
             ) : null}
           </div>
-          <div className="grid grid-cols-1 gap-2">
-            {makeArrayFromObj(groupsList).map((group, key) => (
+          <div className="flex flex-col gap-2 grow">
+            {isGroupLoading === 'false' && groups.length === 0 && !errorGroups ?
+              <div className='flex flex-col grow justify-center'>
+                <div
+                  className="w-full h-full border-2 border-gray-300 dark:border-gray-700 border-dashed rounded-md px-6 pt-5 pb-6 flex flex-col items-center justify-center">
+                  <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                       aria-hidden="true">
+                    <path vectorEffect="non-scaling-stroke" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                          d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+                  </svg>
+                  <h3 className="mt-2 text-sm font-medium text-gray-900 dark:text-gray-100">Нет элементов</h3><p
+                  className="mt-1 text-sm text-gray-500">Создайте группу.</p></div>
+              </div>
+               : ''}
+            {isGroupLoading === 'false' && errorGroups ?
+              <div className='flex flex-col grow justify-center'>
+                <div
+                  className="w-full h-full border-2 border-red-300 dark:border-red-700 border-dashed rounded-md px-6 pt-5 pb-6 flex flex-col items-center justify-center">
+                  <h3 className="mt-2 text-sm font-medium text-red-900 dark:text-red-100">Ошибка получения списка групп.</h3></div>
+              </div>
+              : ''}
+            {isGroupLoading === 'true' ?
+              <div className='flex flex-col grow justify-center'>
+                <div
+                  className="w-full h-full px-6 pt-5 pb-6 flex flex-col items-center justify-center">
+                  <svg
+                    className="w-12 h-12 animate-spin fill-indigo-600 dark:fill-indigo-300 "
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      opacity="0.2"
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M12 19C15.866 19 19 15.866 19 12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12C5 15.866 8.13401 19 12 19ZM12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                    />
+                    <path d="M2 12C2 6.47715 6.47715 2 12 2V5C8.13401 5 5 8.13401 5 12H2Z" />
+                  </svg>
+                </div>
+              </div>
+              : ''}
+            {groups ?? [].map((group, key) => (
               <div key={group.id} className="flex items-center w-full flex-shrink-0">
                 <div
-                  onClick={(event) => groupClick(event, key)}
+                  onClick={(event) => groupClick(event, group.id)}
                   onKeyDown={handleKeyDown}
                   role="link"
                   tabIndex={group.id}
@@ -148,7 +196,7 @@ const LinksCatalog = () => {
         </div>
       </ContentLayoutWithSidebar.Sidebar>
       <ContentLayoutWithSidebar.Body color="white">
-        <div className="p-4 h-full">
+        <div className="p-4 h-full flex flex-col">
           <div className="mb-4">
             {user.sudo === 1 ? (
               <>
@@ -161,9 +209,9 @@ const LinksCatalog = () => {
               </>
             ) : null}
           </div>
-          <div className={[selectedGroup != null ? '' : 'h-full', 'links-list grid grid-cols-1 gap-2'].join(' ')}>
-            {selectedGroup != null ? (
-              makeArrayFromObj(proxyListLinks[selectedGroup].children).map((link) => (
+          <div className={[selectedGroup != null ? '' : 'h-full', 'flex flex-col gap-2 grow'].join(' ')}>
+            {links.length > 0 && !errorLinks ? (
+              makeArrayFromObj(links ?? []).map((link) => (
                 <div key={link.id} className="w-full flex flex-shrink-0 items-center">
                   <a href={link.link} target="_blank" rel="noreferrer" className="flex items-center flex-grow">
                     <div
@@ -239,8 +287,8 @@ const LinksCatalog = () => {
                 </div>
               ))
             ) : (
-              <div className="text-center flex flex-col items-center justify-center">
-                <div className="mt-1 border-2 border-gray-300 dark:border-gray-700 border-dashed rounded-md px-6 pt-5 pb-6 flex flex-col items-center justify-center">
+              <div className="text-center flex grow flex-col items-center justify-center">
+                <div className="w-full h-full border-2 border-gray-300 dark:border-gray-700 border-dashed rounded-md px-6 pt-5 pb-6 flex flex-col items-center justify-center">
                   <svg
                     className="mx-auto h-12 w-12 text-gray-400"
                     fill="none"
@@ -261,6 +309,33 @@ const LinksCatalog = () => {
                 </div>
               </div>
             )}
+            {isLinkLoading === 'false' && errorLinks ?
+              <div className='flex flex-col grow justify-center'>
+                <div
+                  className="w-full h-full border-2 border-red-300 dark:border-red-700 border-dashed rounded-md px-6 pt-5 pb-6 flex flex-col items-center justify-center">
+                  <h3 className="mt-2 text-sm font-medium text-red-900 dark:text-red-100">Ошибка получения списка ссылок.</h3></div>
+              </div>
+              : ''}
+            {isLinkLoading === 'true' ?
+              <div className='flex flex-col grow justify-center'>
+                <div
+                  className="w-full h-full px-6 pt-5 pb-6 flex flex-col items-center justify-center">
+                  <svg
+                    className="w-12 h-12 animate-spin fill-indigo-600 dark:fill-indigo-300 "
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      opacity="0.2"
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M12 19C15.866 19 19 15.866 19 12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12C5 15.866 8.13401 19 12 19ZM12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                    />
+                    <path d="M2 12C2 6.47715 6.47715 2 12 2V5C8.13401 5 5 8.13401 5 12H2Z" />
+                  </svg>
+                </div>
+              </div>
+              : ''}
           </div>
         </div>
       </ContentLayoutWithSidebar.Body>

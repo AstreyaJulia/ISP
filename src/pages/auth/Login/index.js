@@ -58,17 +58,87 @@ const Login = () => {
   return (
     <BasicPage title="Вход" className="main-content min-h-full flex bg-white dark:bg-gray-900">
       <div className="hidden lg:flex relative w-0 flex-1 content-center items-center justify-center rounded-full">
-        <div className="w-1/3 bg-cyan-400 rounded-full overflow-hidden">
-          <img className="w-full" src={rocket} alt="" />
+        <div className="w-96 h-96 bg-indigo-900 rounded-full overflow-hidden relative">
+          <img className="w-10/12 absolute left-7 top-7" src={rocket} alt="" />
+          <svg
+            className="animate-pulse absolute w-3 h-3 top-20 left-28"
+            version="1.0"
+            fill="#EECC15"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 200 200"
+          >
+            <g>
+              <polygon
+                fill="#EECC15"
+                points="169.8,99.9 111.2,110.7 99.9,188.7 88.5,110.7 30.2,99.9 88.8,89.3 99.9,11.3 111.2,89.3 	"
+              />
+            </g>
+          </svg>
+          <svg
+            className="animate-pulse absolute w-6 h-6 top-12 left-20"
+            version="1.0"
+            fill="#EECC15"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 200 200"
+          >
+            <g>
+              <polygon
+                fill="#EECC15"
+                points="169.8,99.9 111.2,110.7 99.9,188.7 88.5,110.7 30.2,99.9 88.8,89.3 99.9,11.3 111.2,89.3 	"
+              />
+            </g>
+          </svg>
+          <svg
+            className="absolute w-3 h-3 top-10 right-24"
+            version="1.0"
+            fill="#EECC15"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 200 200"
+          >
+            <g>
+              <polygon
+                fill="#EECC15"
+                points="169.8,99.9 111.2,110.7 99.9,188.7 88.5,110.7 30.2,99.9 88.8,89.3 99.9,11.3 111.2,89.3 	"
+              />
+            </g>
+          </svg>
+
+          <svg
+            className="absolute w-3 h-3 bottom-10 right-24"
+            version="1.0"
+            fill="#EECC15"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 200 200"
+          >
+            <g>
+              <polygon
+                fill="#EECC15"
+                points="169.8,99.9 111.2,110.7 99.9,188.7 88.5,110.7 30.2,99.9 88.8,89.3 99.9,11.3 111.2,89.3 	"
+              />
+            </g>
+          </svg>
+          <svg
+            className="absolute w-5 h-5 top-12 right-20"
+            version="1.0"
+            fill="#EECC15"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 200 200"
+          >
+            <g>
+              <polygon
+                fill="#EECC15"
+                points="169.8,99.9 111.2,110.7 99.9,188.7 88.5,110.7 30.2,99.9 88.8,89.3 99.9,11.3 111.2,89.3 	"
+              />
+            </g>
+          </svg>
         </div>
       </div>
       <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:pr-20 xl:pr-40">
         <div className="mx-auto w-full max-w-sm lg:w-96">
-          <div className='mb-4'>
-            <h2 className="mt-6 text-3xl font-extrabold text-gray-900 dark:text-gray-50">Добро пожаловать!</h2>
-          </div>
 
-          <Alert alertType='info' title="Используйте выданный вам логин и заданный вами пароль для входа" />
+          <Alert alertType='info' title="Используйте выданный вам логин и заданный вами пароль для входа" >
+            <p>Если вы входите впервые, и у вас нет пароля, задайте пароль, пройдя по ссылке "У меня нет пароля / Пароль был сброшен"</p>
+          </Alert>
 
           <div className="mt-8">
             <div className="mt-6">
