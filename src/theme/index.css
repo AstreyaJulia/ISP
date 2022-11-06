@@ -2,7 +2,6 @@
 @import './animation';
 
 /** npm модули */
-@import '~react-loading-skeleton/dist/skeleton.css';
 @import '~react-perfect-scrollbar/dist/css/styles.css';
 @import '~react-quill/dist/quill.snow.css';
 

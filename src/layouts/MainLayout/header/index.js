@@ -2,7 +2,6 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import Skeleton from 'react-loading-skeleton';
 import toast from 'react-hot-toast';
 import PropTypes from 'prop-types';
 import { Avatar } from '../../../components/Avatar';
@@ -302,17 +301,13 @@ const Header = ({ setMenuVisibility }) => {
                 title="Открыть меню пользователя"
                 className="user-dropdown max-w-xs bg-white dark:bg-gray-900 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 lg:p-1 lg:rounded-md lg:hover:bg-gray-50 dark:lg:hover:bg-gray-800"
               >
-                {user?.fullname ? (
-                  <Avatar
-                    size="10"
-                    name={getInitialsOnly(user?.fullname)}
-                    color={getAvatarColor(user?.fullname)}
-                    avatar={user?.avatar}
-                    shape="circle"
-                  />
-                ) : (
-                  <Skeleton className="bg-gray-500/30 after:bg-gradient-to-r from-gray-400/10 via-gray-500/10 to-gray-400/10" />
-                )}
+                <Avatar
+                  size="10"
+                  name={getInitialsOnly(user?.fullname)}
+                  color={getAvatarColor(user?.fullname)}
+                  avatar={user?.avatar}
+                  shape="circle"
+                />
                 <span className="hidden ml-3 text-gray-700 dark:text-gray-300 text-sm font-medium lg:block">
                   <span className="sr-only">Открыть меню пользователя</span>
                 </span>
@@ -342,11 +337,7 @@ const Header = ({ setMenuVisibility }) => {
               <Menu.Items className="dark:border dark:border-gray-700 origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white dark:bg-gray-900 ring-1 ring-black ring-opacity-5 focus:outline-none divide-y divide-gray-100 dark:divide-gray-800">
                 <div className="px-4 py-3">
                   <p className="text-sm text-gray-700 dark:text-gray-400 mb-2">Ваш логин:</p>
-                  {user?.username ? (
-                    <p className="text-sm font-medium text-gray-900 dark:text-gray-50 truncate">{user?.username}</p>
-                  ) : (
-                    <Skeleton className="bg-gray-500/30 after:bg-gradient-to-r from-gray-400/10 via-gray-500/10 to-gray-400/10" />
-                  )}
+                  <p className="text-sm font-medium text-gray-900 dark:text-gray-50 truncate">{user?.username}</p>
                 </div>
                 <div className="py-1">
                   <Menu.Item>

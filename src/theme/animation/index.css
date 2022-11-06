@@ -10,12 +10,6 @@
   transition: all 0.2s, background 0s, border-color 0s, color 0s;
 }
 
-/** Скелетон */
-.react-loading-skeleton {
-  --base-color: transparent;
-  --highlight-color: transparent;
-}
-
 .menu-item {
   transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 }

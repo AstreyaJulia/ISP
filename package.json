@@ -12,8 +12,6 @@
     "re-build": "rimraf build node_modules && npm install && npm run build",
     "lint": "eslint --ext .js,.jsx ./src",
     "lint:fix": "eslint --fix --ext .js,.jsx ./src",
-    "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public",
     "update modules": "npm update",
     "outdated modules": "npm outdated"
   },
@@ -50,7 +48,6 @@
     "react-helmet": "^6.1.0",
     "react-hook-form": "^7.39.1",
     "react-hot-toast": "^2.4.0",
-    "react-loading-skeleton": "^3.1.0",
     "react-perfect-scrollbar": "^1.5.8",
     "react-quill": "^2.0.0-beta.4",
     "react-redux": "^8.0.5",
