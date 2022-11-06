@@ -33,7 +33,8 @@ class GasAPI
                 throw new \Exception("Не задан маршрут до ресурса");
             }
             match ($this->helpers->urlData["1"]) {
-                'sudact', 'deadlines', 'materials-production' => $this->helpers->getJsonEncode($this->prepareQuery($this->helpers->urlData))
+                'sudact', 'deadlines', 'materials-production' => $this->helpers->getJsonEncode($this->prepareQuery($this->helpers->urlData)),
+                'categories-civil-cases', 'categories-material' => $this->helpers->getJsonEncode($this->categoriesMaterial())
             };
         } catch (\UnhandledMatchError | \Exception $e) {
             $this->helpers->isErrorInfo(400, "Ошибка в переданных данных", $e);
@@ -70,5 +71,9 @@ class GasAPI
         } catch (\UnhandledMatchError | \Exception $e) {
             $this->helpers->isErrorInfo(401, "Доступ закрыт.", $e);
         }
+    }
+
+    private function categoriesMaterial() {
+        return $this->helpers::sendGET(array(), API_GAS.'v1/'.$this->helpers->urlData["1"].'.php?');
     }
 }

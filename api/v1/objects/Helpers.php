@@ -66,7 +66,9 @@ class Helpers extends Router
       'authorization',
       'registration',
       'gas-api',
-      'weather'
+      'weather',
+      'categories-civil-cases',
+      'categories-material'
     ));
   }
 
@@ -163,17 +165,27 @@ class Helpers extends Router
     $url = $host . http_build_query($params);
 
     $ch = curl_init($url);
+    //curl_setopt($ch, CURLOPT_PROXY_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT_MS, 1);
+    curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_HTTP);
 
-    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 1);
+    //curl_setopt($ch, CURLOPT_URL, $url);
+    //curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_PROXY, $proxy);
     curl_setopt($ch, CURLOPT_PROXYPORT, $port);
+    
     //curl_setopt($ch, CURLOPT_PROXYUSERPWD, "username:pass"); //username:pass 
-    $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    $file_contents = curl_exec($ch);
+    $result = curl_exec($ch);
     curl_close($ch);
-    http_response_code($httpcode);
-    return $file_contents;
+    $message = $result ?? "";
+    if (isset($message)) {
+      http_response_code(200);
+      $message;
+    } else {    
+      $message = self::isErrorInfo(501, "weather не доступна", "Обратитесь к администратору");
+    }
+    return $message;
   }
 }
