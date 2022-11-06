@@ -150,7 +150,7 @@ const MenuGroup = ({
   };
 
   return (
-    <div key={item.id} className="my-1 w-full">
+    <div key={item.id} className="my-3 w-full">
       <>
         <div className="w-full">
           <a
@@ -161,7 +161,7 @@ const MenuGroup = ({
               groupActive.includes(item.id) || groupOpen.includes(item.id) || currentActiveGroup.includes(item.id)
                 ? 'bg-gray-200 dark:bg-gray-800 text-gray-600 dark:text-gray-400 flex'
                 : 'flex text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700',
-              'group flex items-center py-2 text-base leading-6 rounded-md  w-full hover:cursor-pointer',
+              'group flex items-center py-3 text-base leading-6 rounded-md  w-full hover:cursor-pointer',
               sidebar?.toString() === '0' ? 'justify-end' : 'px-2 justify-between'
             )}
             aria-current={
@@ -172,13 +172,14 @@ const MenuGroup = ({
             onClick={(e) => onCollapseClick(e, item)}
           >
             <div className="flex items-center truncate mr-1">
-              <i
+              <span
                 className={classNames(
                   sidebar?.toString() === '0' ? '' : 'mr-3',
-                  'flex-shrink-0 flex items-center text-2xl mdi text-gray-500',
-                  item.icon
+                  'flex-shrink-0 flex items-center text-2xl text-gray-500'
                 )}
-              />
+              >
+                {item.icon}
+              </span>
               {sidebar?.toString() === '1' ? (
                 <span className="text-gray-600 dark:text-gray-400 truncate text-sm font-medium">{item.pagetitle}</span>
               ) : (

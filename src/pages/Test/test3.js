@@ -114,32 +114,32 @@ const Faq = () => {
                   overrides: {
                     h1: {
                       props: {
-                        className: 'text-4xl my-4 text-gray-800 dark:text-gray-100 font-medium',
+                        className: 'xl:text-5xl lg:text-4xl sm:text-3xl font-bold',
                       },
                     },
                     h2: {
                       props: {
-                        className: 'text-3xl my-4 text-gray-800 dark:text-gray-100 font-medium',
+                        className: 'xl:text-4xl lg:text-3xl sm:text-2xl font-bold',
                       },
                     },
                     h3: {
                       props: {
-                        className: 'text-2xl my-4 text-gray-800 dark:text-gray-100 font-medium',
+                        className: 'xl:text-3xl lg:text-2xl sm:text-xl font-bold',
                       },
                     },
                     h4: {
                       props: {
-                        className: 'text-xl my-4 text-gray-800 dark:text-gray-100 font-medium',
+                        className: 'xl:text-2xl lg:text-xl sm:text-lg font-bold',
                       },
                     },
                     h5: {
                       props: {
-                        className: 'text-base my-4 text-gray-800 dark:text-gray-100 font-medium uppercase',
+                        className: 'xl:text-xl lg:text-lg sm:text-base font-bold',
                       },
                     },
                     h6: {
                       props: {
-                        className: 'text-sm my-4 text-gray-800 dark:text-gray-100 font-medium uppercase',
+                        className: 'xl:text-lg lg:text-base sm:text-base font-bold',
                       },
                     },
                     code: {
@@ -155,7 +155,7 @@ const Faq = () => {
                     },
                     p: {
                       props: {
-                        className: 'text-gray-800 dark:text-gray-100 my-4',
+                        className: 'my-4',
                       },
                     },
                     a: {
@@ -165,12 +165,12 @@ const Faq = () => {
                     },
                     ul: {
                       props: {
-                        className: 'text-base text-gray-800 dark:text-gray-100 my-5 pl-6 list-disc',
+                        className: 'my-5 pl-6 list-disc',
                       },
                     },
                     ol: {
                       props: {
-                        className: 'text-gray-800 dark:text-gray-100 my-5 pl-6',
+                        className: 'my-5 pl-6',
                       },
                     },
                     li: {
@@ -180,7 +180,7 @@ const Faq = () => {
                     },
                     details: {
                       props: {
-                        className: 'my-5 p-4 bg-red-600/20 rounded-md font-medium',
+                        className: 'my-5 p-4 bg-red-600/20 rounded-md',
                       },
                     },
                     summary: {
@@ -205,17 +205,17 @@ const Faq = () => {
                     },
                     th: {
                       props: {
-                        className: 'border border-gray-300 dark:border-gray-700 py-1 px-2 font-medium ',
+                        className: 'border border-gray-300 dark:border-gray-700 py-1 px-2',
                       },
                     },
                     form: {
                       props: {
-                        className: 'py-1 px-2 ',
+                        className: 'py-1 px-2',
                       },
                     },
                     label: {
                       props: {
-                        className: 'py-1 px-2 ',
+                        className: 'py-1 px-2',
                       },
                     },
                     legend: {
@@ -225,7 +225,7 @@ const Faq = () => {
                     },
                     hgroup: {
                       props: {
-                        className: 'pl-3 border-l-8 border-cyan-500 dark:border-cyan-600',
+                        className: 'pl-3 border-l-8 border-cyan-500 dark:border-cyan-600 my-6',
                       },
                     },
                     hr: {

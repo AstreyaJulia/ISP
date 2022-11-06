@@ -136,27 +136,27 @@
 }
 
 .ql-snow .ql-picker.ql-header .ql-picker-item[data-value='1']::before {
-  @apply flex text-4xl font-medium;
+  @apply xl:text-5xl lg:text-4xl sm:text-3xl font-bold;
 }
 
 .ql-snow .ql-picker.ql-header .ql-picker-item[data-value='2']::before {
-  @apply flex text-3xl font-medium;
+  @apply xl:text-4xl lg:text-3xl sm:text-2xl font-bold;
 }
 
 .ql-snow .ql-picker.ql-header .ql-picker-item[data-value='3']::before {
-  @apply flex text-2xl font-medium;
+  @apply xl:text-3xl lg:text-2xl sm:text-xl font-bold;
 }
 
 .ql-snow .ql-picker.ql-header .ql-picker-item[data-value='4']::before {
-  @apply flex text-xl font-medium;
+  @apply xl:text-2xl lg:text-xl sm:text-lg font-bold;
 }
 
 .ql-snow .ql-picker.ql-header .ql-picker-item[data-value='5']::before {
-  @apply flex text-base font-medium uppercase;
+  @apply xl:text-xl lg:text-lg sm:text-base font-bold;
 }
 
 .ql-snow .ql-picker.ql-header .ql-picker-item[data-value='6']::before {
-  @apply flex text-sm font-medium uppercase;
+  @apply xl:text-lg lg:text-base sm:text-base font-bold;
 }
 
 .ql-snow .ql-picker.ql-header .ql-picker-item[data-label='Normal']::before {
@@ -216,27 +216,27 @@
 }
 
 .ql-snow .ql-editor h1 {
-  @apply text-4xl my-4 text-gray-800 dark:text-gray-100 font-medium;
+  @apply xl:text-5xl lg:text-4xl sm:text-3xl font-bold;
 }
 
 .ql-snow .ql-editor h2 {
-  @apply text-3xl my-4 text-gray-800 dark:text-gray-100 font-medium;
+  @apply xl:text-4xl lg:text-3xl sm:text-2xl font-bold;
 }
 
 .ql-snow .ql-editor h3 {
-  @apply text-2xl my-4 text-gray-800 dark:text-gray-100 font-medium;
+  @apply xl:text-3xl lg:text-2xl sm:text-xl font-bold;
 }
 
 .ql-snow .ql-editor h4 {
-  @apply text-xl my-4 text-gray-800 dark:text-gray-100 font-medium;
+  @apply xl:text-2xl lg:text-xl sm:text-lg font-bold;
 }
 
 .ql-snow .ql-editor h5 {
-  @apply text-base my-4 text-gray-800 dark:text-gray-100 font-medium uppercase;
+  @apply xl:text-xl lg:text-lg sm:text-base font-bold;
 }
 
 .ql-snow .ql-editor h6 {
-  @apply text-sm my-4 text-gray-800 dark:text-gray-100 font-medium uppercase;
+  @apply xl:text-lg lg:text-base sm:text-base font-bold;
 }
 
 .ql-snow .ql-editor p {

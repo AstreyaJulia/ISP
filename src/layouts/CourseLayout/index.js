@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import Sidebar from '../MainLayout/sidebar';
-import { navigation } from '../../@mock/SampleData';
+import { navigation } from '../../config';
 import Layout from './layout';
 
 /** Основная раскладка с меню и заголовком
