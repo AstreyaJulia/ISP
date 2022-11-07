@@ -19,7 +19,6 @@ const TextEditor = ({ id = 'editor-quill', value, onChange, simple = false, help
       maxStack: 100,
       userOnly: true,
     },
-    syntax: true,
     clipboard: {
       matchVisual: false,
     },

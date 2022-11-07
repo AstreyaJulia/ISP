@@ -477,8 +477,7 @@
 }
 
 .fc-event-task .fc-event-main .fc-event-main-frame .fc-event-title-container .fc-event-title.fc-sticky:before {
-  content: '\F0135';
-  font-family: 'Material Design Icons', serif;
+  content: '☑';
   font-size: 16px;
   margin-right: 5px;
 }
@@ -488,8 +487,7 @@
   .fc-event-main-frame
   .fc-event-title-container
   .fc-event-title.fc-sticky:before {
-  content: '\F0135';
-  font-family: 'Material Design Icons', serif;
+  content: '☑';
   font-size: 16px;
   margin-right: 5px;
   text-decoration: none;

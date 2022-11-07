@@ -1,19 +1,29 @@
 {
-  "name": "isp-isida",
-  "version": "0.0.1",
+  "name": "my-app",
+  "version": "0.1.0",
+  "author": "Latysheva Y. A., Chernov R. A.",
+  "license": "ISC",
+  "description": "Информационно-справочная система суда",
   "private": true,
-  "description": "1. React.js;\r 2. Tailwind CSS;\r 3. Storybook для библиотеки компонентов;",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AstreyaJulia/ISP.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AstreyaJulia/ISP/issues"
+  },
   "scripts": {
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "test": "react-scripts test",
-    "clear cache": "npm cache clear --force",
-    "re-start": "rimraf build node_modules && npm install && npm run start",
-    "re-build": "rimraf build node_modules && npm install && npm run build",
+    "clear cache": "yarn cache clean",
+    "clear-all": "rm -rf build node_modules",
+    "re-start": "rm -rf build node_modules && yarn install && yarn start",
+    "re-build": "rm -rf build node_modules && yarn install && yarn build",
     "lint": "eslint --ext .js,.jsx ./src",
     "lint:fix": "eslint --fix --ext .js,.jsx ./src",
-    "update modules": "npm update",
-    "outdated modules": "npm outdated"
+    "update modules": "yarn upgrade",
+    "outdated modules": "yarn outdated"
   },
   "dependencies": {
     "@fullcalendar/core": "^5.11.3",
@@ -25,63 +35,46 @@
     "@fullcalendar/timeline": "^5.11.3",
     "@headlessui/react": "^1.7.4",
     "@hookform/resolvers": "^2.9.10",
-    "@react-pdf/renderer": "^3.0.0",
+    "@react-pdf/renderer": "^3.0.1",
     "@reduxjs/toolkit": "^1.9.0",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/line-clamp": "^0.4.2",
-    "@tailwindcss/typography": "^0.5.7",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^14.4.3",
+    "@tailwindcss/typography": "^0.5.8",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^13.0.0",
+    "@testing-library/user-event": "^13.2.1",
     "apexcharts": "^3.36.3",
-    "axios": "^1.1.2",
+    "axios": "^1.1.3",
     "date-fns": "^2.29.3",
-    "highlight.js": "^11.6.0",
     "jwt-decode": "^3.1.2",
     "markdown-to-jsx": "^7.1.7",
     "numeral": "^2.0.6",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.0",
-    "react-app-rewired": "^2.2.1",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
     "react-hook-form": "^7.39.1",
     "react-hot-toast": "^2.4.0",
     "react-perfect-scrollbar": "^1.5.8",
-    "react-quill": "^2.0.0-beta.4",
+    "react-quill": "^2.0.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",
     "redux": "^4.2.0",
     "redux-persist": "^6.0.0",
-    "web-vitals": "^3.0.4",
+    "web-vitals": "^2.1.0",
     "yup": "^0.32.11"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/AstreyaJulia/ISP.git"
-  },
-  "keywords": [],
-  "author": "Latysheva Y. A., Chernov R. A.",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/AstreyaJulia/ISP/issues"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
-    ],
-    "overrides": [
-      {
-        "files": [
-          "**/*.stories.*"
-        ],
-        "rules": {
-          "import/no-anonymous-default-export": "off"
-        }
-      }
+    ]
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-react"
     ]
   },
   "browserslist": {
@@ -98,26 +91,11 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.2",
-    "@babel/eslint-parser": "^7.18.9",
+    "@babel/eslint-parser": "^7.19.1",
     "@babel/preset-react": "^7.18.6",
-    "@storybook/addon-actions": "^6.5.13",
-    "@storybook/addon-docs": "^6.5.13",
-    "@storybook/addon-essentials": "^6.5.13",
-    "@storybook/addon-interactions": "^6.5.13",
-    "@storybook/addon-links": "^6.5.13",
-    "@storybook/addons": "^6.5.13",
-    "@storybook/builder-webpack5": "^6.5.13",
-    "@storybook/manager-webpack5": "^6.5.13",
-    "@storybook/node-logger": "^6.5.13",
-    "@storybook/preset-create-react-app": "^4.1.2",
-    "@storybook/react": "^6.5.13",
-    "@storybook/testing-library": "^0.0.13",
-    "@storybook/theming": "^6.5.13",
-    "@types/file-saver": "^2.0.5",
-    "@typescript-eslint/eslint-plugin": "^5.42.0",
-    "@typescript-eslint/parser": "^5.42.0",
+    "@typescript-eslint/eslint-plugin": "^5.42.1",
+    "@typescript-eslint/parser": "^5.42.1",
     "autoprefixer": "^10.4.13",
-    "babel-eslint": "^10.1.0",
     "babel-plugin-named-exports-order": "^0.0.2",
     "eslint": "^8.27.0",
     "eslint-config-airbnb": "^19.0.4",
@@ -126,14 +104,15 @@
     "eslint-plugin-flowtype": "^8.0.3",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-markdown": "^3.0.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-react": "^7.31.1",
+    "eslint-plugin-react": "^7.31.10",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "postcss": "^8.4.17",
+    "postcss": "^8.4.18",
     "prettier": "^2.7.1",
     "prop-types": "^15.8.1",
     "tailwindcss": "^3.2.2",
-    "typescript": "^4.8.2",
+    "typescript": "^4.8.4",
     "webpack": "^5.74.0"
   }
 }

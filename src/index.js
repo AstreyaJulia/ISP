@@ -9,7 +9,6 @@ import reportWebVitals from './reportWebVitals';
 import { AuthProvider } from './contexts/JWTContext';
 import { persistor, store } from './store/index';
 import './theme/index.css';
-import './utils/highlight';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
