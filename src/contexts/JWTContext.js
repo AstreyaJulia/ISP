@@ -231,19 +231,19 @@ function AuthProvider({ children }) {
               jwt,
             },
           });
-          toast((t) => <Toast t={t} message="Вы успешно вошли в систему." type="success" />, {
+          toast((t) => <Toast t={t} message='Вы успешно вошли в систему.' type='success' />, {
             className: toastStyles,
           });
           // Получаем данные пользователя
           getUserData();
         } else {
           const error = res.data.error.message ? res : res.toString();
-          toast((t) => <Toast t={t} message={error} type="error" />, { className: toastStyles });
+          toast((t) => <Toast t={t} message={error} type='error' />, { className: toastStyles });
         }
       })
       .catch((err) => {
-        const error = err.message ? err.message : err.toString();
-        toast((t) => <Toast t={t} message={error} type="error" />, { className: toastStyles });
+        const error = err.message && err.info ? `${err.message}: ${err.info}` : err.toString();
+        toast((t) => <Toast t={t} message={error} type='error' />, { className: toastStyles });
       });
   };
 
@@ -254,30 +254,38 @@ function AuthProvider({ children }) {
    * @returns {Promise<void>}
    */
   const register = async (login, password, passrep) => {
-    const response = await axios.post('/registration', {
+    await axios.post('/registration', {
       login,
       password,
       passrep,
-    });
+    }).then((res) => {
+      // Получаем JWT токен из ответа
+      const { jwt } = res.data.data;
+      if (jwt) {
+        // Записываем токен в localStorage, и в заголовок для всех http запросов
+        // Без этого не пройдет следующий запрос получения данных пользователя
+        setSession(jwt);
 
-    // Получаем JWT токен из ответа
-    const { jwt } = response.data.data;
+        dispatch({
+          type: 'REGISTER',
+          payload: {
+            jwt,
+          },
+        });
 
-    if (jwt) {
-      // Записываем токен в localStorage, и в заголовок для всех http запросов
-      // Без этого не пройдет следующий запрос получения данных пользователя
-      setSession(jwt);
+        toast((t) => <Toast t={t} message='Пароль успешно установлен.' type='success' />, {
+          className: toastStyles,
+        });
 
-      dispatch({
-        type: 'REGISTER',
-        payload: {
-          jwt,
-        },
+        // Получаем данные пользователя
+        getUserData();
+      }
+    })
+      .catch((err) => {
+        const error = err.message && err.info ? `${err.message}: ${err.info}` : err.toString();
+        toast((t) => <Toast t={t} message={error} type='error' />, { className: toastStyles });
       });
 
-      // Получаем данные пользователя
-      await getUserData();
-    }
   };
 
   /** Выход
