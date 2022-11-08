@@ -25,6 +25,29 @@ import thunderstormsRainExtreme from '../../assets/images/weather/thunderstorms-
 import thunderstormsRain from '../../assets/images/weather/thunderstorms-rain.svg';
 import wind from '../../assets/images/weather/wind.svg';
 
+/*
+  const { currentWeather, currentIsLoading, currentError } = useSelector((state) => state.weather);
+
+  useEffect(() => {
+    dispatch(getCurrentWeather());
+    // eslint-disable-next-line
+  }, [dispatch]);
+
+  useEffect(() => {
+    setInterval(() => {
+      dispatch(getCurrentWeather());
+    }, 3000000);
+    // eslint-disable-next-line
+  }, []);
+
+              <WidgetWeather
+              currentWeather={currentWeather}
+              currentIsLoading={currentIsLoading}
+              currentError={currentError}
+            />
+
+ */
+
 export const WidgetWeather = ({ currentWeather, currentIsLoading, currentError }) => {
   const [weather, setWeather] = useState(currentWeather ?? {});
 

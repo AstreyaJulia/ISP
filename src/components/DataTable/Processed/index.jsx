@@ -61,10 +61,25 @@ const Processed = ({ data, isLoading, all }) => {
       start: new Date(),
       end: parse(date, 'dd.MM.yyyy', new Date(), { locale: ru }),
     });
-    const daysCount = months > 0 ? months * days : days;
+    const daysCount = months > 0 ? (months * 30) + days : days;
+
+    if (daysCount <= 7) return 'red';
+    if (daysCount > 7 && daysCount < 14) return 'yellow';
+    return 'green';
+  };
+
+  const getCaseMotionUntilColor = (date) => {
+    if (date === 'null' || date === null) return 'indigo';
+    if (compareDesc(new Date(), parse(date, 'dd.MM.yyyy', new Date(), { locale: ru })) === -1) return 'red';
+
+    const { days, months } = intervalToDuration({
+      start: new Date(),
+      end: parse(date, 'dd.MM.yyyy', new Date(), { locale: ru }),
+    });
+    const daysCount = months > 0 ? (months * 30) + days : days;
 
     if (daysCount <= 1) return 'red';
-    if (daysCount > 1 && daysCount < 3) return 'yellow';
+    if (daysCount > 1 && daysCount < 7) return 'yellow';
     return 'green';
   };
 
@@ -120,7 +135,7 @@ const Processed = ({ data, isLoading, all }) => {
             size="small"
             shape="rounded"
             className="ml-1"
-            color={getCaseUntilColor(item?.DATE_UNTIL ?? null)}
+            color={getCaseMotionUntilColor(item?.DATE_UNTIL ?? null)}
             item={item?.DATE_UNTIL}
           />
         </p>

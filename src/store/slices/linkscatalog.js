@@ -84,3 +84,19 @@ export function getLinks(id) {
     }
   };
 }
+
+export function resetLinks() {
+  dispatch(slice.actions.getLinksSuccess([]));
+
+  return {
+    type: 'RESET_LINKS',
+  };
+}
+
+export function resetGroups() {
+  dispatch(slice.actions.getGroupsSuccess([]));
+
+  return {
+    type: 'RESET_GROUPS',
+  };
+}

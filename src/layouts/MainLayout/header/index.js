@@ -303,7 +303,7 @@ const Header = ({ setMenuVisibility }) => {
               >
                 <Avatar
                   size="10"
-                  name={getInitialsOnly(user?.fullname)}
+                  name={user?.fullname ? getInitialsOnly(user?.fullname) : ''}
                   color={user?.fullname ? getAvatarColor(user?.fullname) : 'indigo'}
                   avatar={user?.avatar}
                   shape="circle"

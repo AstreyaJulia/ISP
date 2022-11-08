@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Menu } from '@headlessui/react';
 import { Link } from 'react-router-dom';
-
-import { proxyListGroups, proxyListLinks } from '../../@mock/SampleData';
 import { makeArrayFromObj } from '../../utils/makeArrayFromObj';
 import ContentLayoutWithSidebar from '../pagesLayouts/ContentLayoutWithSidebar';
 import useAuth from '../../hooks/useAuth';
 import DeleteModal from './DeleteModal';
 import { useDispatch, useSelector } from '../../store';
-import linkscatalog, { getGroups, getLinks } from '../../store/slices/linkscatalog';
-import { getPhonebookList } from '../../store/slices/users';
+import {getGroups, getLinks, resetGroups, resetLinks} from '../../store/slices/linkscatalog';
 
 const breadcrumbs = [{ name: 'Каталог ссылок', href: '#', current: true }];
 
@@ -18,7 +15,6 @@ const LinksCatalog = () => {
 
   /** Стейты */
   const [selectedGroup, setSelectedGroup] = useState(null); // Выбранная группа
-  const [groupsList, setGroupsList] = useState({}); // Список групп
   const [openDialog, setOpenDialog] = useState(false); // модал удаления
 
   const dispatch = useDispatch();
@@ -31,11 +27,16 @@ const LinksCatalog = () => {
   const groupClick = (event, key) => {
     event.preventDefault();
     dispatch(getLinks(key));
-    setSelectedGroup(key);
+    setSelectedGroup(key - 1);
   };
 
   useEffect(() => {
     dispatch(getGroups());
+    return () => {
+      setSelectedGroup(null)
+      dispatch(resetLinks());
+      dispatch(resetGroups());
+    };
     // eslint-disable-next-line
   }, [dispatch]);
 
@@ -114,7 +115,8 @@ const LinksCatalog = () => {
                 </div>
               </div>
               : ''}
-            {groups ?? [].map((group, key) => (
+            {groups.map((group, key) => (
+                (group.name_href !== 'blacklist' && user) || (group.name_href === 'blacklist' && user.sudo === 1) ?
               <div key={group.id} className="flex items-center w-full flex-shrink-0">
                 <div
                   onClick={(event) => groupClick(event, group.id)}
@@ -123,19 +125,19 @@ const LinksCatalog = () => {
                   tabIndex={group.id}
                   className={[
                     'flex-grow rounded-lg border border-gray-300 dark:border-gray-700 bg-white hover:cursor-pointer dark:bg-gray-900 p-3 shadow-sm flex items-center space-x-3 hover:border-gray-400 dark:hover:border-gray-600',
-                    key === selectedGroup ? 'ring-2 ring-indigo-500 bg-indigo-100 border-gray-400' : '',
+                    group.id -1 === selectedGroup ? 'ring-2 ring-indigo-500 bg-indigo-100 border-gray-400' : '',
                   ].join(' ')}
                 >
                   <div className="flex-shrink-0">
                     <span className="inline-flex items-center justify-center rounded-full h-8 w-8 bg-indigo-500/30">
                       <span className="font-medium leading-none text-sm text-indigo-700 dark:text-indigo-300">
-                        {group.id}
+                        {group.menuindex - 1}
                       </span>
                     </span>
                   </div>
                   <div className="flex min-w-0">
                     <a href="/" className="focus:outline-none">
-                      <span className="text-sm font-medium text-gray-800 dark:text-gray-200">{group.name}</span>
+                      <span className="text-sm font-medium text-gray-800 dark:text-gray-200">{group.name_href}</span>
                     </a>
                   </div>
                 </div>
@@ -190,7 +192,7 @@ const LinksCatalog = () => {
                     </Menu.Items>
                   </Menu>
                 ) : null}
-              </div>
+              </div> : ''
             ))}
           </div>
         </div>
@@ -213,7 +215,7 @@ const LinksCatalog = () => {
             {links.length > 0 && !errorLinks ? (
               makeArrayFromObj(links ?? []).map((link) => (
                 <div key={link.id} className="w-full flex flex-shrink-0 items-center">
-                  <a href={link.link} target="_blank" rel="noreferrer" className="flex items-center flex-grow">
+                  <a href={link.href} target="_blank" rel="noreferrer" className="flex items-center flex-grow">
                     <div
                       className={[
                         'rounded-lg flex-grow border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 p-3 shadow-sm flex items-center space-x-3 hover:border-gray-400 dark:hover:border-gray-600',
@@ -222,13 +224,13 @@ const LinksCatalog = () => {
                       <div className="flex-shrink-0">
                         <span className="inline-flex items-center justify-center rounded-full h-8 w-8 bg-indigo-500/30">
                           <span className="font-medium leading-none text-sm text-indigo-700 dark:text-indigo-300">
-                            {link.id}
+                            {link.menuindex}
                           </span>
                         </span>
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="focus:outline-none">
-                          <span className="text-sm font-medium text-gray-800 dark:text-gray-200">{link.name}</span>
+                          <span className="text-sm font-medium text-gray-800 dark:text-gray-200">{link.name_href}</span>
                         </p>
                       </div>
                     </div>
