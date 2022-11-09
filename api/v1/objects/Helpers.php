@@ -162,23 +162,32 @@ class Helpers extends Router
    */
   public function sendGETtoProxy(array $params, string $host, string $proxy = '10.67.254.42', int $port = 3128):string|bool 
   {
-    $url = $host . http_build_query($params);
+    $url = $host . http_build_query($params);;
 
     $ch = curl_init($url);
-    //curl_setopt($ch, CURLOPT_PROXY_SSL_VERIFYPEER, false);
-    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT_MS, 1);
-    curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_HTTP);
-
-    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
-    curl_setopt($ch, CURLOPT_TIMEOUT, 1);
-    //curl_setopt($ch, CURLOPT_URL, $url);
-    //curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    
+    curl_setopt($ch, CURLOPT_URL,$url);
     curl_setopt($ch, CURLOPT_PROXY, $proxy);
     curl_setopt($ch, CURLOPT_PROXYPORT, $port);
-    
-    //curl_setopt($ch, CURLOPT_PROXYUSERPWD, "username:pass"); //username:pass 
+
+    /**
+     * Висит 4 минуты после выкидывает фатальную ошибку
+     * apache работает
+     * 
+     * CURLOPT_CONNECTTIMEOUT apache падает
+     * если убрать PROXY не падает
+     * 
+     */
+    //curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,10);
+
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_HEADER, 1);
+
     $result = curl_exec($ch);
     curl_close($ch);
+
+
     $message = $result ?? "";
     if (isset($message)) {
       http_response_code(200);
