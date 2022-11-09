@@ -16,7 +16,7 @@ export default function RHFRadioGroup({ name, options, ...other }) {
       control={control}
       render={({ field, fieldState: { error } }) => (
         <div>
-          <fieldset {...field} {...other} className="space-y-4 mt-4" key={name} >
+          <fieldset {...field} {...other} className="space-y-4 mt-4" name={name} >
             {options.map((option, index) => (
               <div key={option.value} className="flex items-center">
                 <input className='focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-400'
