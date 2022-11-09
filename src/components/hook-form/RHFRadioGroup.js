@@ -18,11 +18,11 @@ export default function RHFRadioGroup({ name, options, ...other }) {
         <div>
           <fieldset {...field} {...other} className="space-y-4 mt-4" name={name} >
             {options.map((option, index) => (
-              <div key={option.value} className="flex items-center">
+              <div key={`${name}-${option.value}`} className="flex items-center">
                 <input className='focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-400'
-                       type='radio' id={`${name}${option.value}`}
-                       name={`${name}${option.value}`} value={option.value} />
-                <label className="ml-3 block text-sm font-medium text-gray-700" htmlFor={`${name}${option.value}`}>{option.label}</label>
+                       type='radio' id={`${name}-${option.value}`}
+                       name={`${name}`} value={option.value} />
+                <label className="ml-3 block text-sm font-medium text-gray-700" htmlFor={`${name}-${option.value}`}>{option.label}</label>
               </div>
             ))}
           </fieldset>

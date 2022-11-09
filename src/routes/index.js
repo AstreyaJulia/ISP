@@ -126,6 +126,22 @@ export default function Router() {
           ),
         },
         {
+          path: 'no-last-events',
+          element: (
+              <RoleBasedGuard accessibleProfessions={[1, 2, 3, 9]}>
+                <NoLastEvents all="false" />
+              </RoleBasedGuard>
+          ),
+        },
+        {
+          path: 'no-last-events-all',
+          element: (
+              <RoleBasedGuard accessibleProfessions={[1, 2, 6, null]}>
+                <NoLastEvents all="true" />
+              </RoleBasedGuard>
+          ),
+        },
+        {
           path: 'calendar',
           element: <Calendar />,
         },
@@ -281,8 +297,10 @@ export default function Router() {
 const Home = Loadable(lazy(() => import('../pages/Home'))); // Главная
 const LinksCatalog = Loadable(lazy(() => import('../pages/LinksCatalog'))); // Каталог ссылок
 const Finished = Loadable(lazy(() => import('../pages/cases/Finished'))); // Оконченные дела
-const Publication = Loadable(lazy(() => import('../pages/cases/Publication'))); // Контроль публикации СА (для судьи)
+const Publication = Loadable(lazy(() => import('../pages/cases/Publication'))); // Контроль публикации СА
 const Process = Loadable(lazy(() => import('../pages/cases/Process'))); // Каталог ссылок
+const NoLastEvents = Loadable(lazy(() => import('../pages/cases/NoLastEvents'))); // Не отмеченные дела
+
 const Calendar = Loadable(lazy(() => import('../pages/Calendar'))); // Дела в производстве
 const Phonebook = Loadable(lazy(() => import('../pages/Phonebook'))); // Телефонный справочник
 const Stats = Loadable(lazy(() => import('../pages/Stats'))); // Каталог ссылок
