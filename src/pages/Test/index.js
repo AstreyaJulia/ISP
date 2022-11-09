@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import ReactApexChart from 'react-apexcharts';
-import { yupResolver } from '@hookform/resolvers/yup';
+import {yupResolver} from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-import { useForm } from 'react-hook-form';
+import {useForm} from 'react-hook-form';
 
 import BasicPage from '../pagesLayouts/BasicPage';
 import PageHeader from '../../components/PageHeader';
-import { fNumber } from '../../utils/formatNumber';
-import { BaseChartOptions } from '../../components/ApexCharts/chartsSettings';
+import {fNumber} from '../../utils/formatNumber';
+import {BaseChartOptions} from '../../components/ApexCharts/chartsSettings';
 import WidgetUsersBirthdays from '../../components/WidgetUsersBirthdays';
 import TextEditor from '../../components/TextEditor';
 import Card from '../../components/Card';
-import { testSteps1 } from '../../@mock/SampleData';
-import { FormProvider } from '../../components/hook-form';
+import {testSteps1} from '../../@mock/SampleData';
+import {FormProvider} from '../../components/hook-form';
 import LoadingButton from '../../components/LoadingButton';
-import { classNames } from '../../utils/classNames';
+import {classNames} from '../../utils/classNames';
 
 const CHART_DATA = [4344, 5435, 1443, 4443];
 
@@ -74,27 +74,27 @@ const Test = () => {
   } = methods;
 
   const makeQuestion = (question) =>
-    <div key={question.id} className='p-3 flex flex-col rounded-md bg-slate-100'>
-      <p className="text-base font-medium text-gray-900">{question.question}</p>
-      <legend className="sr-only">{question.question}</legend>
+    <div key={question.value} className='p-3 flex flex-col rounded-md bg-slate-100'>
+      <p className="text-base font-medium text-gray-900">{question.label}</p>
+      <legend className="sr-only">{question.label}</legend>
       {question.type === 'single' ?
-        <fieldset className="space-y-4 mt-4" id={question.id} >
+        <fieldset className="space-y-4 mt-4" id={question.value} >
           {question.answers.map((answer) => (
-            <div key={answer.id} className="flex items-center">
+            <div key={`${question.value}${answer.value}`} className="flex items-center">
               <input className='focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-400'
-                     type='radio' id={`${question.id}${answer.id}`}
-                     name={question.id} value={answer.id} />
-              <label className="ml-3 block text-sm font-medium text-gray-700" htmlFor={`${question.id}${answer.id}`}>{answer.answer}</label>
+                     type='radio' id={`${question.value}${answer.value}`}
+                     name={question.value} value={answer.value} />
+              <label className="ml-3 block text-sm font-medium text-gray-700" htmlFor={`${question.value}${answer.value}`}>{answer.label}</label>
             </div>
           ))}
         </fieldset>
-        : <fieldset id={question.id} className="space-y-4 mt-4">
+        : <fieldset id={question.value} className="space-y-4 mt-4">
           {question.answers.map((answer) =>
-            <div key={answer.id} className="flex items-center">
+            <div key={`${question.value}${answer.value}`} className="flex items-center">
               <input className='focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-400 rounded'
-                type='checkbox' id={`${question.id}${answer.id}`}
-                     name={answer.id} value={answer.id} />
-              <label className="ml-3 block text-sm font-medium text-gray-700" htmlFor={`${question.id}${answer.id}`}>{answer.answer}</label>
+                type='checkbox' id={`${question.value}${answer.value}`}
+                     name={answer.value} value={answer.value} />
+              <label className="ml-3 block text-sm font-medium text-gray-700" htmlFor={`${question.value}${answer.value}`}>{answer.label}</label>
             </div>)
           }
         </fieldset>}

@@ -1472,15 +1472,15 @@ export const demoSteps = [
 ];
 
 export const testSteps1 = [
-  {'id': '1', 'question': 'Регулярные выражения чувствительны к регистру?', 'answers': [{'id': '1', 'answer': 'Нет'}, {'id': '2', 'answer': 'Да'}], 'type': 'single' },
-  {'id': '2', 'question': 'Как выглядит набор букв для селектора \\w, если переписать его в квадратных скобках?', 'answers': [{'id': '1', 'answer': '[a-z0-9_]'}, {'id': 2, 'answer': '[a-zA-Z0-9_]'}, {'id': 3, 'answer': '[a-zA-Zа-яА-Я0-9_]'}], 'type': 'single' },
-  {'id': '3', 'question': 'Как правильно записать «не число»?', 'answers': [{'id': 1, 'answer': '\\D'}, {'id': '2', 'answer': '^[0-9]'}, {'id': 3, 'answer': '[^0-9]'}], 'type': 'multi' },
+  {'value': '1', 'label': 'Регулярные выражения чувствительны к регистру?', 'answers': [{'value': '1', 'label': 'Нет'}, {'value': '2', 'label': 'Да'}], 'type': 'single' },
+  {'value': '2', 'label': 'Как выглядит набор букв для селектора \\w, если переписать его в квадратных скобках?', 'answers': [{'value': '1', 'label': '[a-z0-9_]'}, {'value': '2', 'label': '[a-zA-Z0-9_]'}, {'valued': '3', 'label': '[a-zA-Zа-яА-Я0-9_]'}], 'type': 'single' },
+  {'value': '3', 'label': 'Как правильно записать «не число»?', 'answers': [{'value': '1', 'label': '\\D'}, {'value': '2', 'label': '^[0-9]'}, {'value': '3', 'label': '[^0-9]'}], 'type': 'multi' },
 ]
 
 export const testSteps1answers = {
-  1: {answer: '2'},
-  2: {answer: '2'},
-  3: {answer: '1, 3'},
+  1: {'answer': '2'},
+  2: {'answer': '2'},
+  3: {'answer': '1, 3'},
 }
 
 
