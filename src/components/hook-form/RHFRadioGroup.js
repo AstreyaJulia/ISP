@@ -4,8 +4,7 @@ import React from 'react';
 
 RHFRadioGroup.propTypes = {
   name: PropTypes.string,
-  options: PropTypes.arrayOf(PropTypes.string),
-  getOptionLabel: PropTypes.arrayOf(PropTypes.string),
+  options: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default function RHFRadioGroup({ name, options, ...other }) {
@@ -29,7 +28,7 @@ export default function RHFRadioGroup({ name, options, ...other }) {
           </fieldset>
 
           {!!error && (
-            <div>
+            <div className='text-sm text-red-600 mt-2'>
               {error.message}
             </div>
           )}

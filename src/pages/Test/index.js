@@ -12,7 +12,7 @@ import WidgetUsersBirthdays from '../../components/WidgetUsersBirthdays';
 import TextEditor from '../../components/TextEditor';
 import Card from '../../components/Card';
 import {testSteps1} from '../../@mock/SampleData';
-import {FormProvider} from '../../components/hook-form';
+import {FormProvider, RHFRadioGroup} from '../../components/hook-form';
 import LoadingButton from '../../components/LoadingButton';
 import {classNames} from '../../utils/classNames';
 
@@ -78,16 +78,7 @@ const Test = () => {
       <p className="text-base font-medium text-gray-900">{question.label}</p>
       <legend className="sr-only">{question.label}</legend>
       {question.type === 'single' ?
-        <fieldset className="space-y-4 mt-4" id={question.value} >
-          {question.answers.map((answer) => (
-            <div key={`${question.value}${answer.value}`} className="flex items-center">
-              <input className='focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-400'
-                     type='radio' id={`${question.value}${answer.value}`}
-                     name={question.value} value={answer.value} />
-              <label className="ml-3 block text-sm font-medium text-gray-700" htmlFor={`${question.value}${answer.value}`}>{answer.label}</label>
-            </div>
-          ))}
-        </fieldset>
+          <RHFRadioGroup name={question.value} options={question.answers} />
         : <fieldset id={question.value} className="space-y-4 mt-4">
           {question.answers.map((answer) =>
             <div key={`${question.value}${answer.value}`} className="flex items-center">
