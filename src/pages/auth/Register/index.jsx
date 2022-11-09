@@ -166,7 +166,7 @@ const Register = () => {
                     isSubmitting
                       ? 'bg-slate-600 hover:bg-slate-600 focus:ring-offset-0'
                       : 'bg-indigo-600 hover:bg-indigo-700 focus:ring-offset-2 focus:ring-indigo-500',
-                    'text-sm font-medium text-white focus:outline-none mt-3'
+                    'w-full text-sm font-medium text-white focus:outline-none'
                   )}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
