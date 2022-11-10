@@ -4,7 +4,11 @@ import BasicPage from '../../pagesLayouts/BasicPage';
 import PageHeader from '../../../components/PageHeader';
 import CasesOverPeriod from '../../../components/DataTable/CasesOverPeriod';
 import { useDispatch, useSelector } from '../../../store';
-import { getAllOverPeriodCases, getJudgeOverPeriodCases } from '../../../store/slices/cases/overperiod';
+import {
+    getAllOverPeriodCases,
+    getJudgeOverPeriodCases,
+    resetAllOverPeriodCases, resetJudgeOverPeriodCases
+} from '../../../store/slices/cases/overperiod';
 
 const Finished = ({ all }) => {
   const dispatch = useDispatch();
@@ -13,6 +17,9 @@ const Finished = ({ all }) => {
 
   useEffect(() => {
     dispatch(all === 'true' ? getAllOverPeriodCases() : getJudgeOverPeriodCases());
+      return () => {
+          dispatch(all === 'true' ? resetAllOverPeriodCases() : resetJudgeOverPeriodCases());
+      };
     // eslint-disable-next-line
   }, [dispatch]);
 

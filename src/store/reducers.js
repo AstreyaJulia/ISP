@@ -9,6 +9,7 @@ import weather from './slices/weather';
 import search from './slices/search';
 import linkscatalog from './slices/linkscatalog';
 import nolastevents from './slices/cases/nolastevents';
+import casescategory from './slices/casescategory';
 
 const rootPersistConfig = {
   key: 'root',
@@ -27,6 +28,7 @@ const appReducer = combineReducers({
   search,
   linkscatalog,
   nolastevents,
+  casescategory,
 });
 
 const rootReducer = (state, action) => {

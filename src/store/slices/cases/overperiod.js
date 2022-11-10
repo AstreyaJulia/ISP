@@ -70,3 +70,19 @@ export function getAllOverPeriodCases() {
     }
   };
 }
+
+export function resetJudgeOverPeriodCases() {
+  dispatch(slice.actions.getJudgeOverPeriodSuccess([]));
+
+  return {
+    type: 'RESET_JOVERPERIOD',
+  };
+}
+
+export function resetAllOverPeriodCases() {
+  dispatch(slice.actions.getAllOverSuccess([]));
+
+  return {
+    type: 'RESET_ALLOVERPERIOD',
+  };
+}

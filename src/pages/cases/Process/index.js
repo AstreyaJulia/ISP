@@ -4,7 +4,11 @@ import BasicPage from '../../pagesLayouts/BasicPage';
 import PageHeader from '../../../components/PageHeader';
 import Processed from '../../../components/DataTable/Processed';
 import { useDispatch, useSelector } from '../../../store';
-import { getAllProcessedCases, getJudgeProcessedCases } from '../../../store/slices/cases/processed';
+import {
+    getAllProcessedCases,
+    getJudgeProcessedCases, resetAllProcessedCases,
+    resetJudgeProcessedCases
+} from '../../../store/slices/cases/processed';
 
 const Process = ({ all }) => {
   const breadcrumbs = [
@@ -23,6 +27,9 @@ const Process = ({ all }) => {
 
   useEffect(() => {
     dispatch(all === 'true' ? getAllProcessedCases() : getJudgeProcessedCases());
+      return () => {
+          dispatch(all === 'true' ? resetAllProcessedCases() : resetJudgeProcessedCases());
+      }
     // eslint-disable-next-line
   }, [dispatch]);
 

@@ -70,3 +70,19 @@ export function getAllProcessedCases() {
     }
   };
 }
+
+export function resetJudgeProcessedCases() {
+  dispatch(slice.actions.getJudgeProcessedSuccess([]));
+
+  return {
+    type: 'RESET_JPROCESS',
+  };
+}
+
+export function resetAllProcessedCases() {
+  dispatch(slice.actions.getAllProcessedSuccess([]));
+
+  return {
+    type: 'RESET_ALLPROCESS',
+  };
+}

@@ -8,6 +8,7 @@ import UserWelcomeWidget from './widgets/UserWelcomeWidget';
 import { WidgetWeather } from '../../components/WidgetWeather';
 import { useDispatch, useSelector } from '../../store';
 import { getCurrentWeather } from '../../store/slices/weather';
+import NoLastEvents from "./widgets/NoLastEvents";
 
 const Home = () => {
   /** Состояние пользователя */
@@ -25,6 +26,7 @@ const Home = () => {
             <CasesOverPeriodWidget user={user ?? {}} />
             <NoPublicatedActs user={user ?? {}} />
             <ProcessedWidget user={user ?? {}} />
+            <NoLastEvents user={user ?? {}} />
           </div>
         </div>
         <div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import { PDFViewer } from '@react-pdf/renderer';
 import DataTableCore from '../DataTableCore';
@@ -6,13 +6,34 @@ import DataTableToolBar from '../DataTableCore/DataTableToolBar';
 import CategoryListFile from './CategoryListFile';
 import PdfModal from '../../PdfModal';
 
-const CategoryDataTable = ({ rows }) => {
-  const columns = Object.keys(rows[0]);
+const CategoryDataTable = ({ data, isLoading, type }) => {
+  const [rows, setRows] = useState(data);
+  const columns = Object.keys(data[0] ?? []);
   const [currentPage, setCurrentPage] = useState(0); // текущая страница
   const [modalOpened, setModalOpened] = useState(false);
 
+  const typesSettings = {
+    gcases: {
+      search: 'Поиск по категориям гражданских и административных дел',
+      id: 'g-category',
+      title: 'Категории гражданских и административных дел',
+      sortCol: columns[3]
+    },
+    mcases: {
+      search: 'Поиск по категориям материалов',
+      id: 'm-category',
+      title: 'Категории материалов',
+      sortCol: columns[0]
+    }
+  }
+
+  useEffect(() => {
+    setRows(data);
+    // eslint-disable-next-line
+  }, [isLoading]);
+
   const filter = (rows, query) => {
-    const findQuery = rows.filter((row) =>
+    const findQuery = rows?.filter((row) =>
       query !== ''
         ? row.NAME.toLowerCase().indexOf(query.toLowerCase()) > -1 && row.PREFIX !== ''
         : row.NAME.toLowerCase().indexOf(query.toLowerCase()) > -1
@@ -63,12 +84,12 @@ const CategoryDataTable = ({ rows }) => {
       rows={rows}
       currentPage={currentPage}
       setCurrentPage={setCurrentPage}
-      tableID="cases-over-period"
-      isLoading="false"
+      tableID={typesSettings[type].id}
+      isLoading={isLoading}
       columns={columns}
       itemsContainerClassNames=""
-      initSortColumn={columns[3]}
-      placeholder="Поиск по категориям гражданских и административных дел"
+      initSortColumn={typesSettings[type].sortCol}
+      placeholder={typesSettings[type].search}
       filterCallback={filter}
       sortCallback={null}
       makeItem={null}
@@ -106,7 +127,7 @@ const CategoryDataTable = ({ rows }) => {
       </DataTableToolBar>
       <PdfModal onModalClose={handleModalClosed} open={modalOpened} setOpen={setModalOpened}>
         <PDFViewer width="100%" height="100%" style={{ border: 'none' }}>
-          <CategoryListFile list={rows} />
+          <CategoryListFile list={rows} title={typesSettings[type].title} />
         </PDFViewer>
       </PdfModal>
     </DataTableCore>
@@ -115,7 +136,7 @@ const CategoryDataTable = ({ rows }) => {
 
 CategoryDataTable.propTypes = {
   /** Массив элементов  */
-  rows: PropTypes.array.isRequired,
+  data: PropTypes.array.isRequired,
 };
 
 export default CategoryDataTable;

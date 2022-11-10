@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 import BasicPage from '../../pagesLayouts/BasicPage';
 import PageHeader from '../../../components/PageHeader';
 import { useDispatch, useSelector } from '../../../store';
-import {getAllNoLastEventsCases, getJudgeNoLastEventsCases} from "../../../store/slices/cases/nolastevents";
+import {
+    getAllNoLastEventsCases,
+    getJudgeNoLastEventsCases,
+    resetAllNoLastEventsCases, resetJudgeNoLastEventsCases
+} from "../../../store/slices/cases/nolastevents";
 import NoLastEvents from '../../../components/DataTable/NoLastEvents';
 
 const NoLastEventsPage = ({ all }) => {
@@ -13,6 +17,9 @@ const NoLastEventsPage = ({ all }) => {
 
   useEffect(() => {
     dispatch(all === 'true' ? getAllNoLastEventsCases() : getJudgeNoLastEventsCases());
+      return () => {
+          dispatch(all === 'true' ? resetAllNoLastEventsCases() : resetJudgeNoLastEventsCases());
+      }
     // eslint-disable-next-line
   }, [dispatch]);
 

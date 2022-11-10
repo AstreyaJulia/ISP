@@ -171,7 +171,11 @@ export default function Router() {
         },
         {
           path: 'faq/gas/g-category',
-          element: <Gcategory />,
+          element: <Category type='gcases' />,
+        },
+        {
+          path: 'faq/gas/m-category',
+          element: <Category type='mcases' />,
         },
         {
           path: 'admin',
@@ -307,7 +311,7 @@ const Stats = Loadable(lazy(() => import('../pages/Stats'))); // Каталог 
 const Grade = Loadable(lazy(() => import('../pages/Grade'))); // Графики
 const Faq = Loadable(lazy(() => import('../pages/Faq'))); // База знаний
 const Gas = Loadable(lazy(() => import('../pages/Faq/Subpages/Gas'))); // База знаний
-const Gcategory = Loadable(lazy(() => import('../pages/Faq/Subpages/Gcategory'))); // База знаний
+const Category = Loadable(lazy(() => import('../pages/Faq/Subpages/Gcategory'))); // База знаний
 
 const Admin = Loadable(lazy(() => import('../pages/Admin'))); // Админка
 

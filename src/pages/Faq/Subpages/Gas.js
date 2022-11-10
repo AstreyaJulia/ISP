@@ -26,6 +26,14 @@ const Gas = () => {
             Категории гражданских и административных дел
           </h4>
         </Link>
+        <Link
+            to="/faq/gas/m-category"
+            className="bg-white hover:shadow-lg flex flex-col items=center p-5 rounded-md shadow gap-4 border-b-4 border-emerald-500"
+        >
+          <h4 className="text-base font-medium text-gray-700 justify-center text-center">
+            Категории материалов
+          </h4>
+        </Link>
       </div>
     </BasicPage>
   );

@@ -1,12 +1,13 @@
+import React from "react";
 import { Document, Page, Text, View } from '@react-pdf/renderer';
 import PropTypes from 'prop-types';
 import styles from './CategoryListStyle';
 
-export default function CategoryListFile({ list }) {
+export default function CategoryListFile({ list, title }) {
   return (
     <Document>
       <Page size="A4" style={styles.page}>
-        <Text style={[styles.h1, styles.mb8]}>Категории гражданских дел</Text>
+        <Text style={[styles.h1, styles.mb8]}>{title}</Text>
 
         <View style={styles.table}>
           <View style={styles.tableHeader}>
@@ -23,13 +24,14 @@ export default function CategoryListFile({ list }) {
 
           <View style={styles.tableBody}>
             {list.map((item, key) => (
-              <View style={styles.tableRow} key={item.VA_CODE + key}>
+              <View style={styles.tableRow} key={key}>
                 <View style={styles.tableCell_1}>
                   <Text>{item.PREFIX}</Text>
                 </View>
 
                 <View style={styles.tableCell_2}>
-                  <Text>{item.NAME}</Text>
+                  <Text style={styles.boldRowText}>{item.NAME}</Text>
+                  {item.F1 ? <Text  style={styles.smallRowText}>{item.F1}</Text> : ''}
                 </View>
               </View>
             ))}

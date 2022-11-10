@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import WidgetRowCounter from '../../../../components/WidgetRowCounter';
 import { useDispatch, useSelector } from '../../../../store';
-import { getAllProcessedCases } from '../../../../store/slices/cases/processed';
+import {getAllProcessedCases, resetAllProcessedCases} from '../../../../store/slices/cases/processed';
 
 const ProcessedWidgetAll = ({ user }) => {
   /** Должности, которым доступна отрисовка */
@@ -23,6 +23,9 @@ const ProcessedWidgetAll = ({ user }) => {
   /** Обновление данных при отрисовке компонента после загрузки запроса */
   useEffect(() => {
     if (availableUsers.includes(user.professionID)) dispatch(getAllProcessedCases());
+      return () => {
+          dispatch(resetAllProcessedCases());
+      };
     // eslint-disable-next-line
   }, [dispatch]);
 

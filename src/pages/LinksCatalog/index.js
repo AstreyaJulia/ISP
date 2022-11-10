@@ -131,7 +131,7 @@ const LinksCatalog = () => {
                   <div className="flex-shrink-0">
                     <span className="inline-flex items-center justify-center rounded-full h-8 w-8 bg-indigo-500/30">
                       <span className="font-medium leading-none text-sm text-indigo-700 dark:text-indigo-300">
-                        {group.menuindex - 1}
+                        {group.menuindex}
                       </span>
                     </span>
                   </div>

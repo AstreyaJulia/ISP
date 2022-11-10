@@ -4,7 +4,11 @@ import BasicPage from '../../pagesLayouts/BasicPage';
 import PageHeader from '../../../components/PageHeader';
 import PublicationControl from '../../../components/DataTable/PublicationControl';
 import { useDispatch, useSelector } from '../../../store';
-import { getAllActPublicationCases, getJudgeActPublicationCases } from '../../../store/slices/cases/actpublication';
+import {
+  getAllActPublicationCases,
+  getJudgeActPublicationCases,
+  resetAllActPublicationCases, resetJudgeActPublicationCases
+} from '../../../store/slices/cases/actpublication';
 
 const Publication = ({ all }) => {
   const breadcrumbs = [
@@ -30,6 +34,9 @@ const Publication = ({ all }) => {
 
   useEffect(() => {
     dispatch(all === 'true' ? getAllActPublicationCases() : getJudgeActPublicationCases());
+    return () => {
+      dispatch(all === 'true' ? resetAllActPublicationCases() : resetJudgeActPublicationCases());
+    }
     // eslint-disable-next-line
   }, [dispatch]);
 

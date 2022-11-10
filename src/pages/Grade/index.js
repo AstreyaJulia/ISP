@@ -5,6 +5,7 @@ import useAuth from '../../hooks/useAuth';
 import CasesOverPeriodWidgetAll from './widgets/CasesOverPeriodWidgetAll';
 import NoPublicatedActsAll from './widgets/NoPublicatedActsAll';
 import ProcessedWidgetAll from './widgets/ProcessedWidgetAll';
+import NoLastEventsAll from "./widgets/NoLastEventsAll";
 
 const Grade = () => {
   /** Состояние пользователя */
@@ -23,6 +24,7 @@ const Grade = () => {
           <CasesOverPeriodWidgetAll user={user ?? {}} />
           <NoPublicatedActsAll user={user ?? {}} />
           <ProcessedWidgetAll user={user ?? {}} />
+          <NoLastEventsAll user={user ?? {}} />
         </div>
       </div>
     </BasicPage>

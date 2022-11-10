@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import WidgetRowCounter from '../../../../components/WidgetRowCounter';
 import { useDispatch, useSelector } from '../../../../store';
-import { getAllActPublicationCases } from '../../../../store/slices/cases/actpublication';
+import {getAllActPublicationCases, resetAllActPublicationCases} from '../../../../store/slices/cases/actpublication';
 
 const NoPublicatedActsAll = ({ user }) => {
   /** Должности, которым доступна отрисовка */
@@ -23,6 +23,9 @@ const NoPublicatedActsAll = ({ user }) => {
   /** Обновление данных при отрисовке компонента после загрузки запроса */
   useEffect(() => {
     if (availableUsers.includes(user.professionID)) dispatch(getAllActPublicationCases());
+      return () => {
+          dispatch(resetAllActPublicationCases());
+      };
     // eslint-disable-next-line
   }, [dispatch]);
 

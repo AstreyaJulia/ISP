@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import WidgetRowCounter from '../../../../components/WidgetRowCounter';
 import { useDispatch, useSelector } from '../../../../store';
-import { getAllOverPeriodCases } from '../../../../store/slices/cases/overperiod';
+import {getAllOverPeriodCases, resetAllOverPeriodCases} from '../../../../store/slices/cases/overperiod';
 
 const CasesOverPeriodWidgetAll = ({ user }) => {
   /** Должности, которым доступна отрисовка */
@@ -23,6 +23,9 @@ const CasesOverPeriodWidgetAll = ({ user }) => {
   /** Обновление данных при отрисовке компонента после загрузки запроса */
   useEffect(() => {
     if (availableUsers.includes(user.professionID)) dispatch(getAllOverPeriodCases());
+      return () => {
+          dispatch(resetAllOverPeriodCases());
+      };
     // eslint-disable-next-line
   }, [dispatch]);
 

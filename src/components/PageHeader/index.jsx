@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { classNames } from '../../utils/classNames';
+import Typography from "../Typography";
 
 /** Заголовок содержимого страницы, "хлебные крошки"
  * @param pages - объект для навигации:
@@ -33,9 +34,7 @@ const PageHeader = ({ pages, classname, header, children }) => (
       <div className={classNames('md:flex md:items-center', header ? 'md:justify-between' : 'md:justify-end')}>
         {header ? (
           <div className="flex-1 min-w-0">
-            <h2 className="text-base font-bold leading-7 text-gray-700 dark:text-gray-300 sm:text-2xl sm:truncate">
-              {header}
-            </h2>
+            <Typography variant='h4'>{header}</Typography>
           </div>
         ) : (
           ''

@@ -2,7 +2,10 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import WidgetRowCounter from '../../../../components/WidgetRowCounter';
 import { useDispatch, useSelector } from '../../../../store';
-import { getJudgeActPublicationCases } from '../../../../store/slices/cases/actpublication';
+import {
+    getJudgeActPublicationCases,
+    resetJudgeActPublicationCases
+} from '../../../../store/slices/cases/actpublication';
 
 const NoPublicatedActs = ({ user }) => {
   /** Должности, которым доступна отрисовка */
@@ -23,6 +26,9 @@ const NoPublicatedActs = ({ user }) => {
   /** Обновление данных при отрисовке компонента после загрузки запроса */
   useEffect(() => {
     if (availableUsers.includes(user.professionID)) dispatch(getJudgeActPublicationCases());
+      return () => {
+          dispatch(resetJudgeActPublicationCases());
+      };
     // eslint-disable-next-line
   }, [dispatch]);
 

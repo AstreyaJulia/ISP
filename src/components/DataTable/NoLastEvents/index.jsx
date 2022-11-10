@@ -21,21 +21,6 @@ const NoLastEvents = ({ data, isLoading }) => {
     // eslint-disable-next-line
   }, [isLoading]);
 
-  const getCaseLastEventColor = (date) => {
-    if (date === 'null' || date === null) return 'indigo';
-    if (compareDesc(new Date(), parse(date, 'dd.MM.yyyy', new Date(), { locale: ru })) === -1) return 'red';
-
-    const { days, months } = intervalToDuration({
-      start: new Date(),
-      end: parse(date, 'dd.MM.yyyy', new Date(), { locale: ru }),
-    });
-    const daysCount = months > 0 ? (months * 30) + days : days;
-
-    if (daysCount <= 1) return 'green';
-    if (daysCount > 1 && daysCount < 7) return 'yellow';
-    return 'red';
-  };
-
   const makeItem = (item, key, query) => (
     <CaseListCard key={key} item={item} query={query}>
       <p className="font-medium text-xs text-slate-600 dark:text-slate-200 flex flex-wrap justify-start items-center text-left mb-1">
@@ -44,7 +29,7 @@ const NoLastEvents = ({ data, isLoading }) => {
             size="small"
             shape="rounded"
             className="ml-1"
-            color={getCaseLastEventColor(item?.LAST_EVENT_DATE ?? null)}
+            color='indigo'
             item={item.LAST_EVENT_DATE}
         />
       </p>
@@ -54,8 +39,8 @@ const NoLastEvents = ({ data, isLoading }) => {
   const filter = (rows, query, columns) =>
     rows?.filter((row) =>
       columns
-        .slice(2, 7)
-          .filter((item) => !['JUDGE_ID', 'JUDGE_NAME', 'LAST_EVENT_DATE', 'LAST_EVENT_NAME'].includes(item))
+        .slice(1, 8)
+          .filter((item) => item !== 'CASE_ID' && item !== 'JUDGE_ID' && item !== 'JUDGE_NAME' && item !== 'LAST_EVENT_DATE' && item !== 'LAST_EVENT_NAME')
         .some((column) => row[column].toLowerCase().indexOf(query.toLowerCase()) > -1)
     );
 

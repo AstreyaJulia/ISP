@@ -32,7 +32,7 @@ export default function NoLastEventsListFile({ list }) {
 
                                 <View style={styles.tableCell_2}>
                                     <Text style={styles.boldRowText}>{item.PARTS_FIO}</Text>
-                                    <Text style={styles.smallRowText}>`Дата последнего события: ${item.LAST_EVENT_DATE}`</Text>
+                                    <Text style={styles.smallRowText}>Дата последнего события: {item.LAST_EVENT_DATE}</Text>
                                 </View>
                             </View>
                         ))}

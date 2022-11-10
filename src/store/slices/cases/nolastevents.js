@@ -70,3 +70,19 @@ export function getAllNoLastEventsCases() {
         }
     };
 }
+
+export function resetJudgeNoLastEventsCases() {
+    dispatch(slice.actions.getJudgeNoLastEventsSuccess([]));
+
+    return {
+        type: 'RESET_JNOLASTEVENTS',
+    };
+}
+
+export function resetAllNoLastEventsCases() {
+    dispatch(slice.actions.getAllNoLastEventsSuccess([]));
+
+    return {
+        type: 'RESET_ALLJNOLASTEVENTS',
+    };
+}

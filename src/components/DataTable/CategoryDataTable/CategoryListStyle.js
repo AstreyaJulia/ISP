@@ -31,6 +31,8 @@ const styles = StyleSheet.create({
     fontWeight: 700,
   },
   mb8: { marginBottom: 8 },
+  boldRowText: { fontWeight: 700 },
+  smallRowText: { fontSize: 10 },
 
   tableCell_1: { width: '15%' },
   tableCell_2: { paddingRight: 16, display: 'flex', flexWrap: 'wrap', width: '95%' },

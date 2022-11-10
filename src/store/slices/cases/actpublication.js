@@ -70,3 +70,19 @@ export function getAllActPublicationCases() {
     }
   };
 }
+
+export function resetJudgeActPublicationCases() {
+  dispatch(slice.actions.getJudgeActPublicationSuccess([]));
+
+  return {
+    type: 'RESET_JPUBLACTS',
+  };
+}
+
+export function resetAllActPublicationCases() {
+  dispatch(slice.actions.getActPublicationSuccess([]));
+
+  return {
+    type: 'RESET_ALLPUBLACTS',
+  };
+}
