@@ -30,7 +30,7 @@ const Publication = ({ all }) => {
 
   const dispatch = useDispatch();
 
-  const { nopublacts, nopublactsall, nopublactsisLoading } = useSelector((state) => state.actpublication);
+  const { nopublacts, nopublactsall, nopublactsisLoading, nopublactserror } = useSelector((state) => state.actpublication);
 
   useEffect(() => {
     dispatch(all === 'true' ? getAllActPublicationCases() : getJudgeActPublicationCases());
@@ -50,6 +50,7 @@ const Publication = ({ all }) => {
         data={all === 'true' ? nopublactsall : nopublacts ?? []}
         isLoading={nopublactsisLoading}
         all={all}
+        error={nopublactserror}
       />
     </BasicPage>
   );

@@ -7,7 +7,7 @@ import { getInitialsOnly } from '../../../utils/getInitials';
 import { getAvatarColor } from '../../../utils/getAvatarColor';
 import Card from '../../Card';
 
-const UsersList = ({ data, isLoading }) => {
+const UsersList = ({ data, isLoading, error }) => {
   const [rows, setRows] = useState(data ?? []);
   const columns = Object.keys(data[0] ?? []);
   const [currentPage, setCurrentPage] = useState(0); // текущая страница
@@ -99,6 +99,7 @@ const UsersList = ({ data, isLoading }) => {
       setCurrentPage={setCurrentPage}
       tableID="users-list"
       isLoading="false"
+      error={error}
       columns={columns}
       itemsContainerClassNames="grid grid-cols-2 gap-4 bg-slate-100 dark:bg-slate-800 p-4"
       pseudoTableBodyClassNames="py-5"

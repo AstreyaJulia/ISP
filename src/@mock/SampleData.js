@@ -1472,7 +1472,22 @@ export const demoSteps = [
 ];
 
 export const testSteps1 = [
-  {'value': '1', 'label': 'Регулярные выражения чувствительны к регистру?', 'answers': [{'value': '1', 'label': 'Нет'}, {'value': '2', 'label': 'Да'}], 'type': 'single' },
+  {
+    'value': '1',
+    'label': 'Регулярные выражения чувствительны к регистру?',
+    'answers':
+      [
+        {
+          'value': '1',
+          'label': 'Нет'
+        },
+        {
+          'value': '2',
+          'label': 'Да'
+        }
+      ],
+    'type': 'single'
+  },
   {'value': '2', 'label': '<p>Как выглядит набор букв для селектора <code>\\w</code>, если переписать его в квадратных скобках?</p>', 'answers': [{'value': '1', 'label': '<code>[a-z0-9_]</code>'}, {'value': '2', 'label': '<code>[a-zA-Z0-9_]</code>'}, {'value': '3', 'label': '<code>[a-zA-Zа-яА-Я0-9_]</code>'}], 'type': 'single' },
   {'value': '3', 'label': 'Как правильно записать «не число»?', 'answers': [{'value': '1', 'label': '<code>\\D</code>'}, {'value': '2', 'label': '<code>^[0-9]</code>'}, {'value': '3', 'label': '<code>\\[^0-9]</code>'}], 'type': 'multi' },
 ]

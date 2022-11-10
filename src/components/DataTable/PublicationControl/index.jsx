@@ -12,7 +12,7 @@ import DataTableToolBar from '../DataTableCore/DataTableToolBar';
 import PdfModal from '../../PdfModal';
 import PublicationControlListFile from './PublicationControlListFile';
 
-const PublicationControl = ({ data, isLoading, all }) => {
+const PublicationControl = ({ data, isLoading, all, error }) => {
   const [rows, setRows] = useState(data ?? []);
   const columns = Object.keys(data[0] ?? []);
   const [selectedJudge, setSelectedJudge] = useState('All');
@@ -112,6 +112,7 @@ const PublicationControl = ({ data, isLoading, all }) => {
       setCurrentPage={setCurrentPage}
       tableID="act_publication"
       isLoading={isLoading}
+      error={error}
       columns={columns}
       itemsContainerClassNames={isLoading === 'true' ? 'flex w-full' : 'grid grid-cols-2 gap-3'}
       initSortColumn={columns[0]}

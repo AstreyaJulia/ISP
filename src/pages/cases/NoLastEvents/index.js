@@ -13,7 +13,7 @@ import NoLastEvents from '../../../components/DataTable/NoLastEvents';
 const NoLastEventsPage = ({ all }) => {
   const dispatch = useDispatch();
 
-  const { nolastevents, nolasteventsall, nolasteventsisLoading } = useSelector((state) => state.nolastevents);
+  const { nolastevents, nolasteventsall, nolasteventsisLoading, nolasteventserror } = useSelector((state) => state.nolastevents);
 
   useEffect(() => {
     dispatch(all === 'true' ? getAllNoLastEventsCases() : getJudgeNoLastEventsCases());
@@ -46,6 +46,7 @@ const NoLastEventsPage = ({ all }) => {
       <NoLastEvents
         data={all === 'true' ? nolasteventsall : nolastevents ?? []}
         isLoading={nolasteventsisLoading}
+        error={nolasteventserror}
       />
     </BasicPage>
   );

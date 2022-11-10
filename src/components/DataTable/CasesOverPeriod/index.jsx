@@ -10,7 +10,7 @@ import DataTableToolBar from '../DataTableCore/DataTableToolBar';
 import PdfModal from '../../PdfModal';
 import CasesOverPeriodListFile from './CasesOverPeriodListFile';
 
-const CasesOverPeriod = ({ data, isLoading }) => {
+const CasesOverPeriod = ({ data, isLoading, error }) => {
   const [rows, setRows] = useState(data ?? []);
   const columns = Object.keys(data[0] ?? []);
   const [currentPage, setCurrentPage] = useState(0); // текущая страница
@@ -107,6 +107,7 @@ const CasesOverPeriod = ({ data, isLoading }) => {
         setCurrentPage={setCurrentPage}
         tableID="cases-over-period"
         isLoading={isLoading}
+        error={error}
         columns={columns}
         itemsContainerClassNames={isLoading === 'true' ? 'flex w-full' : 'grid grid-cols-2 gap-3'}
         initSortColumn={columns[0]}

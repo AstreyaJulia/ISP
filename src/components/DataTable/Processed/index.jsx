@@ -11,7 +11,7 @@ import DataTableToolBar from '../DataTableCore/DataTableToolBar';
 import Alert from '../../Alert';
 import CaseInfoModal from '../../CaseInfoModal';
 
-const Processed = ({ data, isLoading, all }) => {
+const Processed = ({ data, isLoading, all, error }) => {
   const [rows, setRows] = useState(data ?? []);
   const columns = Object.keys(data[0] ?? []);
   const [selectedFilter, setSelectedFilter] = useState({ JUDGE_NAME: 'All', CASE_STATUS: 'All' });
@@ -215,6 +215,7 @@ const Processed = ({ data, isLoading, all }) => {
         setCurrentPage={setCurrentPage}
         tableID="processed_cases"
         isLoading={isLoading}
+        error={error}
         columns={columns}
         itemsContainerClassNames={isLoading === 'true' ? 'flex w-full' : 'grid grid-cols-2 gap-3'}
         initSortColumn={columns[2]}

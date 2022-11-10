@@ -23,7 +23,7 @@ const Process = ({ all }) => {
 
   const dispatch = useDispatch();
 
-  const { processedcases, processedcasesall, processedisLoading } = useSelector((state) => state.processed);
+  const { processedcases, processedcasesall, processedisLoading, processederror } = useSelector((state) => state.processed);
 
   useEffect(() => {
     dispatch(all === 'true' ? getAllProcessedCases() : getJudgeProcessedCases());
@@ -47,6 +47,7 @@ const Process = ({ all }) => {
         data={all === 'true' ? processedcasesall : processedcases ?? []}
         isLoading={processedisLoading}
         all={all}
+        error={processederror}
       />
     </BasicPage>
   );

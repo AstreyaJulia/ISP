@@ -13,7 +13,7 @@ import {
 const Finished = ({ all }) => {
   const dispatch = useDispatch();
 
-  const { overperiodcases, overperiodcasesall, overperiodisLoading } = useSelector((state) => state.overperiod);
+  const { overperiodcases, overperiodcasesall, overperiodisLoading, overperioderror } = useSelector((state) => state.overperiod);
 
   useEffect(() => {
     dispatch(all === 'true' ? getAllOverPeriodCases() : getJudgeOverPeriodCases());
@@ -45,7 +45,7 @@ const Finished = ({ all }) => {
       />
       <CasesOverPeriod
         data={all === 'true' ? overperiodcasesall : overperiodcases ?? []}
-        isLoading={overperiodisLoading}
+        isLoading={overperiodisLoading} error={overperioderror}
       />
     </BasicPage>
   );

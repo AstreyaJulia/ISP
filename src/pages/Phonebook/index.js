@@ -13,7 +13,7 @@ const Phonebook = () => {
 
   const dispatch = useDispatch();
 
-  const { userList, isLoading } = useSelector((state) => state.phonebook);
+  const { userList, isLoading, error } = useSelector((state) => state.phonebook);
 
   useEffect(() => {
     dispatch(getPhonebookList());
@@ -23,7 +23,7 @@ const Phonebook = () => {
   return (
     <BasicPage title="Сотрудники" className="main-content max-w-6xl mx-auto px-5">
       <PageHeader pages={breadcrumbs} header="Сотрудники" />
-      <UsersList data={userList ?? []} isLoading={isLoading} />
+      <UsersList data={userList ?? []} isLoading={isLoading} error={error} />
     </BasicPage>
   );
 };

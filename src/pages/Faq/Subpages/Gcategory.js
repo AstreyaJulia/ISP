@@ -9,7 +9,7 @@ const Gas = ({type}) => {
 
     const dispatch = useDispatch();
 
-    const {gcategory, mcategory, isLoading} = useSelector((state) => state.casescategory);
+    const {gcategory, mcategory, isLoading, error} = useSelector((state) => state.casescategory);
 
     useEffect(() => {
         dispatch(typesSettings[type].query);
@@ -48,7 +48,7 @@ const Gas = ({type}) => {
     return (
         <BasicPage title={typesSettings[type].name} className="main-content max-w-6xl mx-auto px-5">
             <PageHeader pages={breadcrumbs} header={typesSettings[type].name} />
-            <CategoryDataTable data={typesSettings[type].data} isLoading={isLoading} type={type}/>
+            <CategoryDataTable data={typesSettings[type].data} isLoading={isLoading} type={type} error={error}/>
         </BasicPage>
     );
 };

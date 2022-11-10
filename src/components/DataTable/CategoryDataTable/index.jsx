@@ -6,7 +6,7 @@ import DataTableToolBar from '../DataTableCore/DataTableToolBar';
 import CategoryListFile from './CategoryListFile';
 import PdfModal from '../../PdfModal';
 
-const CategoryDataTable = ({ data, isLoading, type }) => {
+const CategoryDataTable = ({ data, isLoading, type, error }) => {
   const [rows, setRows] = useState(data);
   const columns = Object.keys(data[0] ?? []);
   const [currentPage, setCurrentPage] = useState(0); // текущая страница
@@ -86,6 +86,7 @@ const CategoryDataTable = ({ data, isLoading, type }) => {
       setCurrentPage={setCurrentPage}
       tableID={typesSettings[type].id}
       isLoading={isLoading}
+      error={error}
       columns={columns}
       itemsContainerClassNames=""
       initSortColumn={typesSettings[type].sortCol}

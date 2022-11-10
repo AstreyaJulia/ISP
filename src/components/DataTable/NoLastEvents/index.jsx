@@ -10,7 +10,7 @@ import DataTableToolBar from '../DataTableCore/DataTableToolBar';
 import NoLastEventsListFile from './NoLastEventsListFile';
 import PdfModal from "../../PdfModal";
 
-const NoLastEvents = ({ data, isLoading }) => {
+const NoLastEvents = ({ data, isLoading, error }) => {
   const [rows, setRows] = useState(data ?? []);
   const columns = Object.keys(data[0] ?? []);
   const [currentPage, setCurrentPage] = useState(0); // текущая страница
@@ -61,6 +61,7 @@ const NoLastEvents = ({ data, isLoading }) => {
         setCurrentPage={setCurrentPage}
         tableID="no-last-events"
         isLoading={isLoading}
+        error={error}
         columns={columns}
         itemsContainerClassNames={isLoading === 'true' ? 'flex w-full' : 'grid grid-cols-2 gap-3'}
         initSortColumn={columns[0]}
