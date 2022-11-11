@@ -9,6 +9,7 @@ import {
     getJudgeProcessedCases, resetAllProcessedCases,
     resetJudgeProcessedCases
 } from '../../../store/slices/cases/processed';
+import useAuth from "../../../hooks/useAuth";
 
 const Process = ({ all }) => {
   const breadcrumbs = [
@@ -21,7 +22,15 @@ const Process = ({ all }) => {
     { name: 'Дела, находящиеся в производстве (общий список)', href: '', current: true },
   ];
 
-  const dispatch = useDispatch();
+    /** Состояние пользователя */
+    const { initialize } = useAuth();
+
+    useEffect(() => {
+        initialize();
+        // eslint-disable-next-line
+    }, []);
+
+    const dispatch = useDispatch();
 
   const { processedcases, processedcasesall, processedisLoading, processederror } = useSelector((state) => state.processed);
 

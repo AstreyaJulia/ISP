@@ -9,11 +9,20 @@ import {
     resetAllNoLastEventsCases, resetJudgeNoLastEventsCases
 } from "../../../store/slices/cases/nolastevents";
 import NoLastEvents from '../../../components/DataTable/NoLastEvents';
+import useAuth from "../../../hooks/useAuth";
 
 const NoLastEventsPage = ({ all }) => {
   const dispatch = useDispatch();
 
-  const { nolastevents, nolasteventsall, nolasteventsisLoading, nolasteventserror } = useSelector((state) => state.nolastevents);
+    /** Состояние пользователя */
+    const { initialize } = useAuth();
+
+    useEffect(() => {
+        initialize();
+        // eslint-disable-next-line
+    }, []);
+
+    const { nolastevents, nolasteventsall, nolasteventsisLoading, nolasteventserror } = useSelector((state) => state.nolastevents);
 
   useEffect(() => {
     dispatch(all === 'true' ? getAllNoLastEventsCases() : getJudgeNoLastEventsCases());

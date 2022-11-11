@@ -16,6 +16,7 @@ import { testSteps1, testSteps1answers } from '../../@mock/SampleData';
 import { FormProvider, RHFMultiCheckbox, RHFRadioGroup } from '../../components/hook-form';
 import LoadingButton from '../../components/LoadingButton';
 import { classNames } from '../../utils/classNames';
+import useAuth from "../../hooks/useAuth";
 
 const CHART_DATA = [4344, 5435, 1443, 4443];
 
@@ -23,6 +24,14 @@ const Test = () => {
   const [message, setMessage] = useState('');
 
   const [testResults, setTestResults] = useState(null);
+
+  /** Состояние пользователя */
+  const { initialize } = useAuth();
+
+  useEffect(() => {
+    initialize();
+    // eslint-disable-next-line
+  }, []);
 
   useEffect(() => {
     setTestResults(null);
@@ -215,6 +224,7 @@ const Test = () => {
 
   const {
     handleSubmit,
+      reset,
     formState: { isSubmitting },
   } = methods;
 
@@ -244,11 +254,16 @@ const Test = () => {
       <legend className='sr-only'>{question.label}</legend>
 
       {question.type === 'single' ?
-        <RHFRadioGroup name={question.value} options={question.answers} />
-        : <RHFMultiCheckbox name={question.value} options={question.answers} defaultValue={[]} />}
+        <RHFRadioGroup disabled={testResults !== null} name={question.value} options={question.answers} defaultValue={'0'} />
+        : <RHFMultiCheckbox disabled={testResults !== null} name={question.value} options={question.answers} defaultValue={[]} />}
       { /* eslint-disable-next-line */}
       {testResults !== null ? renderResult(testResults, question) : ''}
     </div>;
+
+  const resetHandle = () => {
+    setTestResults(null)
+    reset();
+  }
 
   const onSubmit = (data) => {
 
@@ -304,11 +319,12 @@ const Test = () => {
 
           <div className='flex items-center gap-5'>
             <LoadingButton
-              type='submit'
+                disabled={testResults !== null}
+                type='submit'
               isLoading={isSubmitting}
-              label='Отправить'
+              label={ testResults !== null ? 'Готово' : 'Отправить'}
               classes={classNames(
-                isSubmitting
+                isSubmitting || testResults !== null
                   ? 'bg-slate-600 hover:bg-slate-600 focus:ring-offset-0'
                   : 'bg-green-600 hover:bg-green-700 focus:ring-offset-2 focus:ring-green-500',
                 'text-sm font-medium mt-5 text-white focus:outline-none',
@@ -321,7 +337,7 @@ const Test = () => {
               </svg>
 
             </LoadingButton>
-            <button type='reset' className='border border-slate-300 mt-5 flex justify-center items-center py-2 px-4 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2'>{testResults !== null ? 'Заново' : 'Сбросить выбранное'}</button>
+            <button type='button' onClick={resetHandle} className='border border-slate-300 mt-5 flex justify-center items-center py-2 px-4 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2'>{testResults !== null ? 'Заново' : 'Сбросить выбранное'}</button>
 
           </div>
 

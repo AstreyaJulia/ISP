@@ -9,11 +9,21 @@ import {
     getJudgeOverPeriodCases,
     resetAllOverPeriodCases, resetJudgeOverPeriodCases
 } from '../../../store/slices/cases/overperiod';
+import useAuth from "../../../hooks/useAuth";
 
 const Finished = ({ all }) => {
   const dispatch = useDispatch();
 
-  const { overperiodcases, overperiodcasesall, overperiodisLoading, overperioderror } = useSelector((state) => state.overperiod);
+    /** Состояние пользователя */
+    const { initialize } = useAuth();
+
+    useEffect(() => {
+        initialize();
+        // eslint-disable-next-line
+    }, []);
+
+
+    const { overperiodcases, overperiodcasesall, overperiodisLoading, overperioderror } = useSelector((state) => state.overperiod);
 
   useEffect(() => {
     dispatch(all === 'true' ? getAllOverPeriodCases() : getJudgeOverPeriodCases());

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import FullCalendar from '@fullcalendar/react';
 import listPlugin from '@fullcalendar/list';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -13,6 +13,7 @@ import { CalendarToolbar } from './CalendarToolbar';
 import { useDispatch, useSelector } from '../../store';
 import { closeModal, openModal } from '../../store/slices/calendar';
 import EventsModal from './EventsModal';
+import useAuth from "../../hooks/useAuth";
 
 /* const selectedEventSelector = (state) => {
   const { events, selectedEventId } = state.calendar;
@@ -29,6 +30,15 @@ const Calendar = () => {
   const [date, setDate] = useState(new Date());
   const [viewDates, setViewDates] = useState({ start: new Date(), end: new Date() });
   const [view, setView] = useState('dayGridMonth');
+
+  /** Состояние пользователя */
+  const { initialize } = useAuth();
+
+  useEffect(() => {
+    initialize();
+    // eslint-disable-next-line
+  }, []);
+
 
   // const selectedEvent = useSelector(selectedEventSelector);
   /*

@@ -4,12 +4,22 @@ import PageHeader from '../../components/PageHeader';
 import UsersList from '../../components/DataTable/UsersList';
 import { useDispatch, useSelector } from '../../store';
 import { getPhonebookList } from '../../store/slices/users';
+import useAuth from "../../hooks/useAuth";
 
 const Phonebook = () => {
+
   const breadcrumbs = [
     { name: 'Информация', href: '', current: false },
     { name: 'Сотрудники', href: '', current: true },
   ];
+
+  /** Состояние пользователя */
+  const { initialize } = useAuth();
+
+  useEffect(() => {
+    initialize();
+    // eslint-disable-next-line
+  }, []);
 
   const dispatch = useDispatch();
 

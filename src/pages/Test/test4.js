@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Disclosure, Menu } from '@headlessui/react';
 import { classNames } from '../../utils/classNames';
 import ContentLayoutWithSidebar from '../pagesLayouts/ContentLayoutWithSidebar';
@@ -7,9 +7,18 @@ import building from '../../assets/images/icons/building.png';
 import floor from '../../assets/images/icons/floor.png';
 import door from '../../assets/images/icons/door.png';
 import desktop from '../../assets/images/icons/desktop.png';
+import useAuth from "../../hooks/useAuth";
 
 const Faq = () => {
   const breadcrumbs = [{ name: 'Инвентаризация', href: '', current: true }];
+
+  /** Состояние пользователя */
+  const { initialize, user } = useAuth();
+
+  useEffect(() => {
+    initialize();
+    // eslint-disable-next-line
+  }, []);
 
   const icons = {
     building,

@@ -1,14 +1,24 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import BasicPage from '../../pagesLayouts/BasicPage';
 import PageHeader from '../../../components/PageHeader';
 import Typography from '../../../components/Typography';
 import Card from '../../../components/Card';
+import useAuth from "../../../hooks/useAuth";
 
 const TypographyPage = () => {
   const breadcrumbs = [
     { name: 'Компоненты', href: '', current: false },
     { name: 'Текстовые стили', href: '', current: true },
   ];
+
+  /** Состояние пользователя */
+  const { initialize } = useAuth();
+
+  useEffect(() => {
+    initialize();
+    // eslint-disable-next-line
+  }, []);
+
 
   return (
     <BasicPage title="Текстовые стили" className="main-content max-w-6xl mx-auto px-5">

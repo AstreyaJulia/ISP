@@ -11,7 +11,14 @@ import {getGroups, getLinks, resetGroups, resetLinks} from '../../store/slices/l
 const breadcrumbs = [{ name: 'Каталог ссылок', href: '#', current: true }];
 
 const LinksCatalog = () => {
-  const { user } = useAuth();
+  /** Состояние пользователя */
+  const { initialize, user } = useAuth();
+
+  useEffect(() => {
+    initialize();
+    // eslint-disable-next-line
+  }, []);
+
 
   /** Стейты */
   const [selectedGroup, setSelectedGroup] = useState(null); // Выбранная группа

@@ -9,6 +9,7 @@ import {
   getJudgeActPublicationCases,
   resetAllActPublicationCases, resetJudgeActPublicationCases
 } from '../../../store/slices/cases/actpublication';
+import useAuth from "../../../hooks/useAuth";
 
 const Publication = ({ all }) => {
   const breadcrumbs = [
@@ -29,6 +30,14 @@ const Publication = ({ all }) => {
   ];
 
   const dispatch = useDispatch();
+
+  /** Состояние пользователя */
+  const { initialize } = useAuth();
+
+  useEffect(() => {
+    initialize();
+    // eslint-disable-next-line
+  }, []);
 
   const { nopublacts, nopublactsall, nopublactsisLoading, nopublactserror } = useSelector((state) => state.actpublication);
 

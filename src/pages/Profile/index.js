@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import BasicPage from '../pagesLayouts/BasicPage';
 import PageHeader from '../../components/PageHeader';
 import { users } from '../../@mock/SampleData';
 import { Avatar } from '../../components/Avatar';
 import { getInitialsOnly } from '../../utils/getInitials';
 import { getAvatarColor } from '../../utils/getAvatarColor';
+import useAuth from "../../hooks/useAuth";
 
 const attachments = [
   { name: 'resume_front_end_developer.pdf', href: '#' },
@@ -14,6 +15,15 @@ const attachments = [
 const Profile = () => {
   const breadcrumbs = [{ name: 'Мой профиль', href: '', current: true }];
   const [user, setUser] = useState(users[2]);
+
+  /** Состояние пользователя */
+  const { initialize } = useAuth();
+
+  useEffect(() => {
+    initialize();
+    // eslint-disable-next-line
+  }, []);
+
 
   return (
     <BasicPage title='Мой профиль' className='main-content max-w-6xl mx-auto px-5'>

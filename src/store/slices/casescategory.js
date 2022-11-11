@@ -51,7 +51,7 @@ export function getGcategory() {
         dispatch(slice.actions.startLoading());
         try {
             const response = await axios.get('/gas-api/categories-civil-cases');
-            dispatch(slice.actions.getGcategorySuccess(response.data));
+            dispatch(slice.actions.getGcategorySuccess(response.data.data));
         } catch (error) {
             dispatch(slice.actions.getGcategorySuccess([]));
             dispatch(slice.actions.hasError(error.message));
@@ -64,7 +64,7 @@ export function getMcategory() {
         dispatch(slice.actions.startLoading());
         try {
             const response = await axios.get('/gas-api/categories-material');
-            dispatch(slice.actions.getMcategorySuccess(response.data));
+            dispatch(slice.actions.getMcategorySuccess(response.data.data));
         } catch (error) {
             dispatch(slice.actions.getMcategorySuccess([]));
             dispatch(slice.actions.hasError(error.message));

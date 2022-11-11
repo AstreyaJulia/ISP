@@ -4,8 +4,17 @@ import PageHeader from '../../../components/PageHeader';
 import CategoryDataTable from '../../../components/DataTable/CategoryDataTable';
 import {useDispatch, useSelector} from "../../../store";
 import {getGcategory, getMcategory, resetGcategory, resetMcategory} from "../../../store/slices/casescategory";
+import useAuth from "../../../hooks/useAuth";
 
 const Gas = ({type}) => {
+
+    /** Состояние пользователя */
+    const { initialize } = useAuth();
+
+    useEffect(() => {
+        initialize();
+        // eslint-disable-next-line
+    }, []);
 
     const dispatch = useDispatch();
 

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
-import { forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 import { APP_NAME } from '../../../config';
 
 const BasicPage = forwardRef(({ children, title = '', meta, ...other }, ref) => (

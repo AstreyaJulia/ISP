@@ -12,7 +12,12 @@ import NoLastEvents from "./widgets/NoLastEvents";
 
 const Home = () => {
   /** Состояние пользователя */
-  const { user } = useAuth();
+  const { initialize, user } = useAuth();
+
+  useEffect(() => {
+    initialize();
+    // eslint-disable-next-line
+  }, []);
 
   const dispatch = useDispatch();
 
