@@ -111,6 +111,7 @@ class Helpers extends Router
     $info = array(
       "data" => [],
       "error" => array(
+        "code" => $responseCode,
         "message" => $mesage,
         "info" => is_string($e) ? $e : $e->getMessage()
       )
