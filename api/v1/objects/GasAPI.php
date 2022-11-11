@@ -70,7 +70,7 @@ class GasAPI
         }
     }
 
-    private function categoriesMaterial() {
-        return $this->helpers::sendGET(array(), API_GAS.'v1/'.$this->helpers->urlData["1"].'.php?');
+    private function categoriesMaterial():array {
+        return $this->helpers::wrap($this->helpers::sendGET(array(), API_GAS.'v1/'.$this->helpers->urlData["1"].'.php?'), "data");
     }
 }
