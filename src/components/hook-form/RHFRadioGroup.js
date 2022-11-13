@@ -3,151 +3,95 @@ import { useFormContext, Controller } from 'react-hook-form';
 import React from 'react';
 import Markdown from 'markdown-to-jsx';
 import { classNames } from '../../utils/classNames';
+import { mdOptions } from './inputsMdSettings';
 
 RHFRadioGroup.propTypes = {
   name: PropTypes.string,
   options: PropTypes.arrayOf(PropTypes.object),
 };
 
-export default function RHFRadioGroup({ name, options, defaultValue, ...other }) {
+export default function RHFRadioGroup({ name, options, defaultValue, size, color, ...other }) {
   const { control } = useFormContext();
 
-  const mdOptions = {
-    wrapper: 'article',
-    overrides: {
-      h1: {
-        props: {
-          className: 'xl:text-5xl lg:text-4xl sm:text-3xl font-bold',
+  const inputOptions = {
+    sizes: {
+      3: {
+        classNames: {
+          input: 'h-3 w-3 mr-3',
+          label: 'text-sm',
+          container: 'space-y-3 mt-3'
         },
       },
-      h2: {
-        props: {
-          className: 'xl:text-4xl lg:text-3xl sm:text-2xl font-bold',
+      4: {
+        classNames: {
+          input: 'h-4 w-4 mr-3',
+          label: 'text-base',
+          container: 'space-y-4 mt-4'
         },
       },
-      h3: {
-        props: {
-          className: 'xl:text-3xl lg:text-2xl sm:text-xl font-bold',
+      5: {
+        classNames: {
+          input: 'h-5 w-5 mr-4',
+          label: 'text-md',
+          container: 'space-y-5 mt-5'
         },
       },
-      h4: {
-        props: {
-          className: 'xl:text-2xl lg:text-xl sm:text-lg font-bold',
-        },
-      },
-      h5: {
-        props: {
-          className: 'xl:text-xl lg:text-lg sm:text-base font-bold',
-        },
-      },
-      h6: {
-        props: {
-          className: 'xl:text-lg lg:text-base sm:text-base font-bold',
-        },
-      },
-      pre: {
-        props: {
-          className: 'flex text-base text-white px-4 py-5 bg-slate-800 rounded-md overflow-x-auto',
-        },
-      },
-      code: {
-        props: {
-          className: 'text-sm px-0.5 text-slate-600 py-0.5 px-1 bg-slate-400/10 rounded-sm border border-slate-300',
-        },
-      },
-      blockquote: {
-        props: {
-          className:
-            'text-base px-5 py-6 border-l-8 border-indigo-500 dark:border-indigo-600 bg-indigo-500/20 rounded-md my-5',
-        },
-      },
-      a: {
-        props: {
-          className: 'underline font-medium text-indigo-600 dark:text-indigo-500',
-        },
-      },
-      ul: {
-        props: {
-          className: 'my-5 pl-6 list-disc',
-        },
-      },
-      ol: {
-        props: {
-          className: 'my-5 pl-6',
-        },
-      },
-      li: {
-        props: {
-          className: 'my-2',
-        },
-      },
-      details: {
-        props: {
-          className: 'my-5 p-4 bg-red-600/20 rounded-md',
-        },
-      },
-      summary: {
-        props: {
-          className: 'text-red-700 hover:cursor-pointer',
-        },
-      },
-      caption: {
-        props: {
-          className: 'p-2 text-left',
-        },
-      },
-      table: {
-        props: {
-          className: 'border-2 border-gray-300 dark:border-gray-700',
-        },
-      },
-      td: {
-        props: {
-          className: 'border border-gray-300 dark:border-gray-700 py-1 px-2',
-        },
-      },
-      th: {
-        props: {
-          className: 'border border-gray-300 dark:border-gray-700 py-1 px-2',
-        },
-      },
-      form: {
-        props: {
-          className: 'py-1 px-2',
-        },
-      },
-      label: {
-        props: {
-          className: 'py-1 px-2',
-        },
-      },
-      legend: {
-        props: {
-          className: 'py-1',
-        },
-      },
-      hgroup: {
-        props: {
-          className: 'pl-3 border-l-8 border-cyan-500 dark:border-cyan-600 my-6',
-        },
-      },
-      hr: {
-        props: {
-          className: 'border-gray-300 dark:border-gray-700 my-3',
-        },
-      },
-      mark: {
-        props: {
-          className: 'bg-amber-500 dark:bg-amber-600',
-        },
-      },
-      rt: {
-        props: {
-          className: 'text-xs',
+      6: {
+        classNames: {
+          input: 'h-6 w-6 mr-4',
+          label: 'text-xl',
+          container: 'space-y-6 mt-6'
         },
       },
     },
-  }
+    colors: {
+      orange: {
+        classNames: {
+          input: 'focus:ring-orange-500 text-orange-600',
+        },
+      },
+      yellow: {
+        classNames: {
+          input: 'focus:ring-yellow-500 text-yellow-600',
+        },
+      },
+      lime: {
+        classNames: {
+          input: 'focus:ring-lime-500 text-lime-600',
+        },
+      },
+      emerald: {
+        classNames: {
+          input: 'focus:ring-emerald-500 text-emerald-600',
+        },
+      },
+      teal: {
+        classNames: {
+          input: 'focus:ring-teal-500 text-teal-600',
+        },
+      },
+      cyan: {
+        classNames: {
+          input: 'focus:ring-cyan-500 text-cyan-600',
+        },
+      },
+      blue: {
+        classNames: {
+          input: 'focus:ring-blue-500 text-blue-600',
+        },
+      },
+      indigo: {
+        classNames: {
+          input: 'focus:ring-indigo-500 text-indigo-600',
+        },
+      },
+      pink: {
+        classNames: {
+          input: 'focus:ring-pink-500 text-pink-600',
+        },
+      },
+    },
+  };
 
   return (
     <Controller
@@ -163,15 +107,15 @@ export default function RHFRadioGroup({ name, options, defaultValue, ...other })
 
         return (
             <div>
-              <fieldset {...other} className='space-y-4 mt-4' name={name}>
+              <fieldset {...other} className={inputOptions.sizes[size].classNames.container} name={name}>
                 {options.map((option, index) => (
                     <div key={`${name}-${option.value}`} className='flex items-center'>
-                      <input {...field} className={classNames('h-4 w-4', error ? 'focus:ring-red-500 text-red-600 border-red-400' : 'focus:ring-indigo-500 text-indigo-600 border-gray-400 disabled:border-gray-200')}
+                      <input {...field} className={classNames(inputOptions.sizes[size].classNames.input, error ? 'focus:ring-red-500 text-red-600 border-red-400' : inputOptions.colors[color].classNames.input, 'border-gray-400 disabled:border-gray-200 disabled:checked:border-0')}
                              onChange={(evt) => field.onChange(onSelected(evt, option))}
                              type='radio' id={`${name}-${option.value}`}
                              checked={field.value === option.value}
                              name={`${name}`} value={option.value} />
-                      <label className='ml-3 block text-sm font-medium text-gray-700' htmlFor={`${name}-${option.value}`}>
+                      <label className={inputOptions.sizes[size].classNames.label} htmlFor={`${name}-${option.value}`}>
                         <Markdown
                             options={{ ...mdOptions }}
                         >
