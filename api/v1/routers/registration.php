@@ -16,7 +16,7 @@ function route($helpers) {
           "data" => array(
             "id" => $helpers->id,
             "sudo" => $helpers->sudo,
-            "membership" => $helpers->membership
+            "professionID" => $helpers->professionID
           )
         );
 

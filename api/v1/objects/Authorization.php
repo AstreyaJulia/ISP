@@ -78,7 +78,7 @@
         if (count($this->helpers->getUser($this->login)) === 1 and password_verify($this->password, $this->helpers->getUser($this->login)["0"]->password)) {
           $this->helpers->setId($this->helpers->getUser($this->login)["0"]->id);
           $this->helpers->setSudo($this->helpers->getUser($this->login)["0"]->sudo);
-          $this->helpers->setMembership($this->helpers->getUser($this->login)["0"]->membership);
+          $this->helpers->setProfessionID($this->helpers->getUser($this->login)["0"]->professionID);
 
           $this->helpers->assignValues();
 
