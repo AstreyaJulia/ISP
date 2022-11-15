@@ -2,18 +2,17 @@ import React, { useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
-import { getLoginFromName } from '../../utils/createLogin';
-import Toast, { toastStyles } from '../../components/Toast';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import toast from 'react-hot-toast';
+import Toast, { toastStyles } from '../Toast';
+import { getLoginFromName } from '../../utils/createLogin';
 import { FormProvider, RHFTextField } from '../hook-form';
 import Card from '../Card';
 import Badge from '../Badge';
 import Typography from '../Typography';
 
 const UserCreateEditForm = ({ isEdit, currentUser }) => {
-
   const navigate = useNavigate();
 
   const [prof, setProf] = useState(currentUser?.profession || '');
@@ -81,7 +80,7 @@ const UserCreateEditForm = ({ isEdit, currentUser }) => {
       sudo: currentUser?.sudo || '0',
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [currentUser],
+    [currentUser]
   );
 
   const methods = useForm({
@@ -114,12 +113,12 @@ const UserCreateEditForm = ({ isEdit, currentUser }) => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
       reset();
-      toast((t) => <Toast t={t} message={!isEdit ? 'Успешно добавлено!' : 'Успешно обновлено!'} type='success' />, {
+      toast((t) => <Toast t={t} message={!isEdit ? 'Успешно добавлено!' : 'Успешно обновлено!'} type="success" />, {
         className: toastStyles,
       });
       navigate('/admin/users');
     } catch (error) {
-      toast((t) => <Toast t={t} message={error} type='error' />, { className: toastStyles });
+      toast((t) => <Toast t={t} message={error} type="error" />, { className: toastStyles });
       console.error(error);
     }
   };
@@ -127,18 +126,21 @@ const UserCreateEditForm = ({ isEdit, currentUser }) => {
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Card>
-
         <div>
           {isEdit && (
-            <Badge size='large' shape='rounded' item={values.active === '0' ? 'Не активен' : 'Активен'}
-                   color={values.active === '0' ? 'red' : 'green'} />
+            <Badge
+              size="large"
+              shape="rounded"
+              item={values.active === '0' ? 'Не активен' : 'Активен'}
+              color={values.active === '0' ? 'red' : 'green'}
+            />
           )}
-          {isEdit && values.sudo === "1" &&
-            <Badge size='large' shape='rounded' item='Админ'
-                   color='cyan' className='ml-3' />}
+          {isEdit && values.sudo === '1' && (
+            <Badge size="large" shape="rounded" item="Админ" color="cyan" className="ml-3" />
+          )}
         </div>
 
-        <RHFTextField name='username' placeholder='Фамилия_ИО' label='Логин' value={log} />
+        <RHFTextField name="username" placeholder="Фамилия_ИО" label="Логин" value={log} />
         <button
           type="button"
           onClick={generateLogin}
@@ -147,7 +149,9 @@ const UserCreateEditForm = ({ isEdit, currentUser }) => {
           <span>Генерировать логин</span>
         </button>
 
-        <Typography classname='mb-3' variant='caption'>Заполните поле "Полное имя", чтобы сгенерировать логин автоматически</Typography>
+        <Typography classname="mb-3" variant="caption">
+          Заполните поле "Полное имя", чтобы сгенерировать логин автоматически
+        </Typography>
 
         <Typography variant="subtitle2">Заблокирован</Typography>
         <Typography variant="body2">Включите, чтобы заблокировать аккаунт</Typography>

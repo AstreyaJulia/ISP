@@ -1,8 +1,8 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { Disclosure } from '@headlessui/react';
 import { classNames } from '../../utils/classNames';
 import ContentLayoutWithSidebar from '../pagesLayouts/ContentLayoutWithSidebar';
-import useAuth from "../../hooks/useAuth";
+import useAuth from '../../hooks/useAuth';
 
 const Faq = () => {
   const breadcrumbs = [{ name: 'База знаний', href: '', current: true }];

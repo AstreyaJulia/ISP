@@ -43,9 +43,10 @@ export function getCurrentWeather() {
     dispatch(slice.actions.currentWeatherStartLoading());
     try {
       const response = await axios({
-        method: "get",
+        method: 'get',
         url: '/weather',
-        timeout: 100});
+        timeout: 100,
+      });
       dispatch(slice.actions.getCurrentWeatherSuccess(response.data));
     } catch (error) {
       dispatch(slice.actions.getCurrentWeatherSuccess({}));

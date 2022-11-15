@@ -191,6 +191,7 @@ PublicationControl.propTypes = {
   data: PropTypes.array.isRequired,
   isLoading: PropTypes.string.isRequired,
   all: PropTypes.string.isRequired,
+  error: PropTypes.string
 };
 
 export default PublicationControl;

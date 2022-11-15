@@ -47,7 +47,7 @@ AvatarBasic.propTypes = {
   name: PropTypes.string.isRequired,
   avatar: PropTypes.string.isRequired,
   /** Размер аватара */
-  size: PropTypes.oneOf(['6', '8', '10', '12', '14', '16', '18','20']).isRequired,
+  size: PropTypes.oneOf(['6', '8', '10', '12', '14', '16', '18', '20']).isRequired,
   /**  Форма аватара */
   shape: PropTypes.oneOf(['square', 'roundedMD', 'roundedLG', 'circle']).isRequired,
   /** Доп. класс для аватара */

@@ -5,31 +5,33 @@ import PageHeader from '../../../components/PageHeader';
 import CasesOverPeriod from '../../../components/DataTable/CasesOverPeriod';
 import { useDispatch, useSelector } from '../../../store';
 import {
-    getAllOverPeriodCases,
-    getJudgeOverPeriodCases,
-    resetAllOverPeriodCases, resetJudgeOverPeriodCases
+  getAllOverPeriodCases,
+  getJudgeOverPeriodCases,
+  resetAllOverPeriodCases,
+  resetJudgeOverPeriodCases,
 } from '../../../store/slices/cases/overperiod';
-import useAuth from "../../../hooks/useAuth";
+import useAuth from '../../../hooks/useAuth';
 
 const Finished = ({ all }) => {
   const dispatch = useDispatch();
 
-    /** Состояние пользователя */
-    const { initialize } = useAuth();
+  /** Состояние пользователя */
+  const { initialize } = useAuth();
 
-    useEffect(() => {
-        initialize();
-        // eslint-disable-next-line
-    }, []);
+  useEffect(() => {
+    initialize();
+    // eslint-disable-next-line
+  }, []);
 
-
-    const { overperiodcases, overperiodcasesall, overperiodisLoading, overperioderror } = useSelector((state) => state.overperiod);
+  const { overperiodcases, overperiodcasesall, overperiodisLoading, overperioderror } = useSelector(
+    (state) => state.overperiod
+  );
 
   useEffect(() => {
     dispatch(all === 'true' ? getAllOverPeriodCases() : getJudgeOverPeriodCases());
-      return () => {
-          dispatch(all === 'true' ? resetAllOverPeriodCases() : resetJudgeOverPeriodCases());
-      };
+    return () => {
+      dispatch(all === 'true' ? resetAllOverPeriodCases() : resetJudgeOverPeriodCases());
+    };
     // eslint-disable-next-line
   }, [dispatch]);
 
@@ -55,7 +57,8 @@ const Finished = ({ all }) => {
       />
       <CasesOverPeriod
         data={all === 'true' ? overperiodcasesall : overperiodcases ?? []}
-        isLoading={overperiodisLoading} error={overperioderror}
+        isLoading={overperiodisLoading}
+        error={overperioderror}
       />
     </BasicPage>
   );

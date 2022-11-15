@@ -5,10 +5,7 @@ import useAuth from '../../hooks/useAuth';
 import NoPublicatedActs from './widgets/NoPublicatedActs';
 import ProcessedWidget from './widgets/ProcessedWidget';
 import UserWelcomeWidget from './widgets/UserWelcomeWidget';
-import { WidgetWeather } from '../../components/WidgetWeather';
-import { useDispatch, useSelector } from '../../store';
-import { getCurrentWeather } from '../../store/slices/weather';
-import NoLastEvents from "./widgets/NoLastEvents";
+import NoLastEvents from './widgets/NoLastEvents';
 
 const Home = () => {
   /** Состояние пользователя */
@@ -18,8 +15,6 @@ const Home = () => {
     initialize();
     // eslint-disable-next-line
   }, []);
-
-  const dispatch = useDispatch();
 
   return (
     <BasicPage title="Главная" className="main-content mx-auto px-5">
@@ -38,10 +33,7 @@ const Home = () => {
           <div className="flex flex-col gap-4">{/* 2-я колонка */}</div>
         </div>
         <div>
-          <div className="flex flex-col gap-4">
-            {/* 3-я колонка */}
-
-          </div>
+          <div className="flex flex-col gap-4">{/* 3-я колонка */}</div>
         </div>
       </div>
     </BasicPage>

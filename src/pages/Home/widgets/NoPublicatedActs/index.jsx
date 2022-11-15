@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import WidgetRowCounter from '../../../../components/WidgetRowCounter';
 import { useDispatch, useSelector } from '../../../../store';
 import {
-    getJudgeActPublicationCases,
-    resetJudgeActPublicationCases
+  getJudgeActPublicationCases,
+  resetJudgeActPublicationCases,
 } from '../../../../store/slices/cases/actpublication';
 
 const NoPublicatedActs = ({ user }) => {
@@ -26,9 +26,9 @@ const NoPublicatedActs = ({ user }) => {
   /** Обновление данных при отрисовке компонента после загрузки запроса */
   useEffect(() => {
     if (availableUsers.includes(user.professionID)) dispatch(getJudgeActPublicationCases());
-      return () => {
-          dispatch(resetJudgeActPublicationCases());
-      };
+    return () => {
+      dispatch(resetJudgeActPublicationCases());
+    };
     // eslint-disable-next-line
   }, [dispatch]);
 

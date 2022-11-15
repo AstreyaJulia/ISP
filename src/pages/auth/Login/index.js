@@ -138,17 +138,27 @@ const Login = () => {
       </div>
       <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:pr-20 xl:pr-40">
         <div className="mx-auto w-full max-w-sm lg:w-96">
-
-          <Alert alertType='info' title="Используйте выданный вам логин и заданный вами пароль для входа" >
-            <p>Если вы входите впервые, и у вас нет пароля, задайте пароль, пройдя по ссылке "У меня нет пароля / Пароль был сброшен"</p>
+          <Alert alertType="info" title="Используйте выданный вам логин и заданный вами пароль для входа">
+            <p>
+              Если вы входите впервые, и у вас нет пароля, задайте пароль, пройдя по ссылке "У меня нет пароля / Пароль
+              был сброшен"
+            </p>
           </Alert>
 
           <div className="mt-8">
             <div className="mt-6">
               <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
                 <div className="flex flex-col">
-                  <RHFTextField name="login" label={<Typography variant="label">Имя пользователя</Typography>} placeholder="Ivanov_II" />
-                  <RHFPasswordHideShow name="password" label={<Typography variant="label">Пароль</Typography>} placeholder="Пароль" />
+                  <RHFTextField
+                    name="login"
+                    label={<Typography variant="label">Имя пользователя</Typography>}
+                    placeholder="Ivanov_II"
+                  />
+                  <RHFPasswordHideShow
+                    name="password"
+                    label={<Typography variant="label">Пароль</Typography>}
+                    placeholder="Пароль"
+                  />
                 </div>
 
                 <div className="flex items-center justify-end mb-5">

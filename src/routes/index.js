@@ -128,17 +128,17 @@ export default function Router() {
         {
           path: 'no-last-events',
           element: (
-              <RoleBasedGuard accessibleProfessions={[1, 2, 3, 9]}>
-                <NoLastEvents all="false" />
-              </RoleBasedGuard>
+            <RoleBasedGuard accessibleProfessions={[1, 2, 3, 9]}>
+              <NoLastEvents all="false" />
+            </RoleBasedGuard>
           ),
         },
         {
           path: 'no-last-events-all',
           element: (
-              <RoleBasedGuard accessibleProfessions={[1, 2, 6, null]}>
-                <NoLastEvents all="true" />
-              </RoleBasedGuard>
+            <RoleBasedGuard accessibleProfessions={[1, 2, 6, null]}>
+              <NoLastEvents all="true" />
+            </RoleBasedGuard>
           ),
         },
         {
@@ -171,11 +171,11 @@ export default function Router() {
         },
         {
           path: 'faq/gas/g-category',
-          element: <Category type='gcases' />,
+          element: <Category type="gcases" />,
         },
         {
           path: 'faq/gas/m-category',
-          element: <Category type='mcases' />,
+          element: <Category type="mcases" />,
         },
         {
           path: 'admin',
@@ -226,28 +226,32 @@ export default function Router() {
               <Colors />
             </RoleBasedGuard>
           ),
-        },        {
+        },
+        {
           path: 'doc/components/typography',
           element: (
             <RoleBasedGuard accessibleRoles={[1]}>
               <Typography />
             </RoleBasedGuard>
           ),
-        },{
+        },
+        {
           path: 'doc/components/shadows',
           element: (
             <RoleBasedGuard accessibleRoles={[1]}>
               <Shadows />
             </RoleBasedGuard>
           ),
-        },{
+        },
+        {
           path: 'doc/components/grid',
           element: (
             <RoleBasedGuard accessibleRoles={[1]}>
               <Grid />
             </RoleBasedGuard>
           ),
-        },{
+        },
+        {
           path: 'doc/components/icons',
           element: (
             <RoleBasedGuard accessibleRoles={[1]}>

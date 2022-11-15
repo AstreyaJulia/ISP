@@ -14,7 +14,7 @@ export default function RHFTextField({ name, label, placeholder, ...other }) {
         <div>
           {label ? (
             <label htmlFor={name} className="flex flex-col">
-              <span className="sr-only"/>
+              <span className="sr-only" />
               {label}
             </label>
           ) : (

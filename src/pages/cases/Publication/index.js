@@ -7,9 +7,10 @@ import { useDispatch, useSelector } from '../../../store';
 import {
   getAllActPublicationCases,
   getJudgeActPublicationCases,
-  resetAllActPublicationCases, resetJudgeActPublicationCases
+  resetAllActPublicationCases,
+  resetJudgeActPublicationCases,
 } from '../../../store/slices/cases/actpublication';
-import useAuth from "../../../hooks/useAuth";
+import useAuth from '../../../hooks/useAuth';
 
 const Publication = ({ all }) => {
   const breadcrumbs = [
@@ -39,13 +40,15 @@ const Publication = ({ all }) => {
     // eslint-disable-next-line
   }, []);
 
-  const { nopublacts, nopublactsall, nopublactsisLoading, nopublactserror } = useSelector((state) => state.actpublication);
+  const { nopublacts, nopublactsall, nopublactsisLoading, nopublactserror } = useSelector(
+    (state) => state.actpublication
+  );
 
   useEffect(() => {
     dispatch(all === 'true' ? getAllActPublicationCases() : getJudgeActPublicationCases());
     return () => {
       dispatch(all === 'true' ? resetAllActPublicationCases() : resetJudgeActPublicationCases());
-    }
+    };
     // eslint-disable-next-line
   }, [dispatch]);
 

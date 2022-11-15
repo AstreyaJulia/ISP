@@ -8,7 +8,7 @@ import { BaseChartOptions } from '../../components/ApexCharts/chartsSettings';
 import WidgetUsersBirthdays from '../../components/WidgetUsersBirthdays';
 import TextEditor from '../../components/TextEditor';
 import Card from '../../components/Card';
-import useAuth from "../../hooks/useAuth";
+import useAuth from '../../hooks/useAuth';
 import Quiz from '../../components/Courses/Course/Quiz';
 import { testSteps1, testSteps1answers } from '../../@mock/SampleData';
 
@@ -58,28 +58,27 @@ const Test = () => {
   ];
 
   return (
-    <BasicPage title='Тестовая страница' className='main-content max-w-6xl mx-auto px-5'>
-      <PageHeader pages={breadcrumbs} header='Тестовая страница' />
-      <Card classname='px-4 pb-4 overflow-visible mt-4'>
+    <BasicPage title="Тестовая страница" className="main-content max-w-6xl mx-auto px-5">
+      <PageHeader pages={breadcrumbs} header="Тестовая страница" />
+      <Card classname="px-4 pb-4 overflow-visible mt-4">
         <TextEditor
-          id='compose-mail'
+          id="compose-mail"
           value={message}
           onChange={handleChangeMessage}
-          placeholder='Напишите что-нибудь...'
+          placeholder="Напишите что-нибудь..."
         />
       </Card>
 
-      <div className='grid grid-cols-2 mt-4 gap-4' />
+      <div className="grid grid-cols-2 mt-4 gap-4" />
       <div>
-        <ReactApexChart type='pie' series={CHART_DATA} options={chartOptions} height={280} />
+        <ReactApexChart type="pie" series={CHART_DATA} options={chartOptions} height={280} />
       </div>
 
-      <div className='grid grid-cols-2 mt-4 gap-4'>
+      <div className="grid grid-cols-2 mt-4 gap-4">
         <WidgetUsersBirthdays birthdays={birthdays} />
       </div>
 
       <Quiz answers={testSteps1answers} steps={testSteps1} />
-
     </BasicPage>
   );
 };

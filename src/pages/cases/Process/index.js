@@ -5,11 +5,12 @@ import PageHeader from '../../../components/PageHeader';
 import Processed from '../../../components/DataTable/Processed';
 import { useDispatch, useSelector } from '../../../store';
 import {
-    getAllProcessedCases,
-    getJudgeProcessedCases, resetAllProcessedCases,
-    resetJudgeProcessedCases
+  getAllProcessedCases,
+  getJudgeProcessedCases,
+  resetAllProcessedCases,
+  resetJudgeProcessedCases,
 } from '../../../store/slices/cases/processed';
-import useAuth from "../../../hooks/useAuth";
+import useAuth from '../../../hooks/useAuth';
 
 const Process = ({ all }) => {
   const breadcrumbs = [
@@ -22,23 +23,25 @@ const Process = ({ all }) => {
     { name: 'Дела, находящиеся в производстве (общий список)', href: '', current: true },
   ];
 
-    /** Состояние пользователя */
-    const { initialize } = useAuth();
+  /** Состояние пользователя */
+  const { initialize } = useAuth();
 
-    useEffect(() => {
-        initialize();
-        // eslint-disable-next-line
-    }, []);
+  useEffect(() => {
+    initialize();
+    // eslint-disable-next-line
+  }, []);
 
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  const { processedcases, processedcasesall, processedisLoading, processederror } = useSelector((state) => state.processed);
+  const { processedcases, processedcasesall, processedisLoading, processederror } = useSelector(
+    (state) => state.processed
+  );
 
   useEffect(() => {
     dispatch(all === 'true' ? getAllProcessedCases() : getJudgeProcessedCases());
-      return () => {
-          dispatch(all === 'true' ? resetAllProcessedCases() : resetJudgeProcessedCases());
-      }
+    return () => {
+      dispatch(all === 'true' ? resetAllProcessedCases() : resetJudgeProcessedCases());
+    };
     // eslint-disable-next-line
   }, [dispatch]);
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import { Document, Page, Text, View } from '@react-pdf/renderer';
 import PropTypes from 'prop-types';
 import styles from './CategoryListStyle';
@@ -31,7 +31,7 @@ export default function CategoryListFile({ list, title }) {
 
                 <View style={styles.tableCell_2}>
                   <Text style={styles.boldRowText}>{item.NAME}</Text>
-                  {item.F1 ? <Text  style={styles.smallRowText}>{item.F1}</Text> : ''}
+                  {item.F1 ? <Text style={styles.smallRowText}>{item.F1}</Text> : ''}
                 </View>
               </View>
             ))}
@@ -44,4 +44,5 @@ export default function CategoryListFile({ list, title }) {
 
 CategoryListFile.propTypes = {
   list: PropTypes.array.isRequired,
+  title: PropTypes.string.isRequired
 };

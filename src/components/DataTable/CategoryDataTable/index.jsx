@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { PDFViewer } from '@react-pdf/renderer';
 import DataTableCore from '../DataTableCore';
@@ -17,15 +17,15 @@ const CategoryDataTable = ({ data, isLoading, type, error }) => {
       search: 'Поиск по категориям гражданских и административных дел',
       id: 'g-category',
       title: 'Категории гражданских и административных дел',
-      sortCol: columns[3]
+      sortCol: columns[3],
     },
     mcases: {
       search: 'Поиск по категориям материалов',
       id: 'm-category',
       title: 'Категории материалов',
-      sortCol: columns[0]
-    }
-  }
+      sortCol: columns[0],
+    },
+  };
 
   useEffect(() => {
     setRows(data);
@@ -138,6 +138,9 @@ const CategoryDataTable = ({ data, isLoading, type, error }) => {
 CategoryDataTable.propTypes = {
   /** Массив элементов  */
   data: PropTypes.array.isRequired,
+  isLoading: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  error: PropTypes.string,
 };
 
 export default CategoryDataTable;

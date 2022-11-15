@@ -11,7 +11,7 @@ const initialState = {
   errorGroups: null,
   errorLinks: null,
   groups: [],
-  links: []
+  links: [],
 };
 
 const slice = createSlice({
@@ -60,7 +60,6 @@ const slice = createSlice({
 export default slice.reducer;
 
 export function getGroups() {
-
   return async () => {
     dispatch(slice.actions.startGroupsLoading());
     try {
@@ -73,7 +72,6 @@ export function getGroups() {
 }
 
 export function getLinks(id) {
-
   return async () => {
     dispatch(slice.actions.startLinksLoading());
     try {

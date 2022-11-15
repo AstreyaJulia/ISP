@@ -111,9 +111,11 @@ const Alert = ({ title, alertType, children, containerClassName }) => {
           ) : (
             ''
           )}
-          {children &&
-            <div className={classNames(title ? 'mt-2' : '', 'text-sm', alertTypes[alertType].textColor)}>{children}</div>
-          }
+          {children && (
+            <div className={classNames(title ? 'mt-2' : '', 'text-sm', alertTypes[alertType].textColor)}>
+              {children}
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -117,6 +117,7 @@ UsersList.propTypes = {
   /** Данные */
   data: PropTypes.array.isRequired,
   isLoading: PropTypes.string,
+  error: PropTypes.string
 };
 
 export default UsersList;

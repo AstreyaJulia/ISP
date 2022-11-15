@@ -43,8 +43,7 @@ export const mdOptions = {
     },
     blockquote: {
       props: {
-        className:
-          'px-5 py-6 border-l-8 border-indigo-500 dark:border-indigo-600 bg-indigo-500/20 rounded-md my-5',
+        className: 'px-5 py-6 border-l-8 border-indigo-500 dark:border-indigo-600 bg-indigo-500/20 rounded-md my-5',
       },
     },
     a: {

@@ -1,21 +1,20 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Markdown from 'markdown-to-jsx';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { demoSteps } from '../../@mock/SampleData';
-import useAuth from "../../hooks/useAuth";
+import useAuth from '../../hooks/useAuth';
 
 const Faq = () => {
   const [activeStep, setActiveStep] = useState(3);
 
   /** Состояние пользователя */
-  const { initialize, user } = useAuth();
+  const { initialize } = useAuth();
 
   useEffect(() => {
     initialize();
     // eslint-disable-next-line
   }, []);
-
 
   const getStepIcon = (stepId, currentStepId) => {
     if (parseInt(currentStepId, 10) > parseInt(stepId, 10)) {

@@ -180,6 +180,7 @@ CasesOverPeriod.propTypes = {
   data: PropTypes.array.isRequired,
   /** Состояние получения данных */
   isLoading: PropTypes.string.isRequired,
+  error: PropTypes.string,
 };
 
 export default CasesOverPeriod;

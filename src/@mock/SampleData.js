@@ -4,7 +4,6 @@ import avatar3 from './avatars/3.png';
 import avatar4 from './avatars/4.png';
 import avatar5 from './avatars/5.png';
 
-
 /** Пользователи, для локального тестирования
  * @type {[{profession: string, birthday: string, role: string, address: string, color: string, gender: string, ip: string, facebook: string, work_phone: string, instagram: string, avatar: string, site1: string, site2: string, odnoklassniki: string, mobile_phone: string, vkontakte: string, id: string, sudo: string, fullname: string, judge: string, place: string, cabinet: string, email: string, username: string},{profession: string, birthday: string, role: string, address: string, color: string, gender: string, ip: string, facebook: string, work_phone: string, instagram: string, avatar: string, site1: string, site2: string, odnoklassniki: string, mobile_phone: string, vkontakte: string, id: string, sudo: string, fullname: string, judge: string, place: string, cabinet: string, email: string, username: string},{profession: string, birthday: string, role: string, address: string, color: string, gender: string, ip: string, facebook: string, work_phone: string, instagram: string, avatar: string, site1: string, site2: string, odnoklassniki: string, mobile_phone: string, vkontakte: string, id: string, sudo: string, fullname: string, judge: string, place: string, cabinet: string, email: string, username: string},{profession: string, birthday: string, role: string, address: string, color: string, gender: string, ip: string, facebook: string, work_phone: string, instagram: string, avatar: string, site1: string, site2: string, odnoklassniki: string, mobile_phone: string, vkontakte: string, id: string, sudo: string, fullname: string, judge: string, place: string, cabinet: string, email: string, username: string},{profession: string, birthday: string, role: string, address: string, color: string, gender: string, ip: string, facebook: string, work_phone: string, instagram: string, avatar: string, site1: string, site2: string, odnoklassniki: string, mobile_phone: string, vkontakte: string, id: string, sudo: string, fullname: string, judge: string, place: string, cabinet: string, email: string, username: string},null]}
  */
@@ -1473,31 +1472,47 @@ export const demoSteps = [
 
 export const testSteps1 = [
   {
-    'value': '1',
-    'label': 'Регулярные выражения чувствительны к регистру?',
-    'answers':
-      [
-        {
-          'value': '1',
-          'label': 'Нет'
-        },
-        {
-          'value': '2',
-          'label': 'Да'
-        }
-      ],
-    'type': 'single'
+    value: '1',
+    label: 'Регулярные выражения чувствительны к регистру?',
+    answers: [
+      {
+        value: '1',
+        label: 'Нет',
+      },
+      {
+        value: '2',
+        label: 'Да',
+      },
+    ],
+    type: 'single',
   },
-  {'value': '2', 'label': '<p>Как выглядит набор букв для селектора <code>\\w</code>, если переписать его в квадратных скобках?</p>', 'answers': [{'value': '1', 'label': '<code>[a-z0-9_]</code>'}, {'value': '2', 'label': '<code>[a-zA-Z0-9_]</code>'}, {'value': '3', 'label': '<code>[a-zA-Zа-яА-Я0-9_]</code>'}], 'type': 'single' },
-  {'value': '3', 'label': 'Как правильно записать «не число»?', 'answers': [{'value': '1', 'label': '<code>\\D</code>'}, {'value': '2', 'label': '<code>^[0-9]</code>'}, {'value': '3', 'label': '<code>\\[^0-9]</code>'}], 'type': 'multi' },
-]
+  {
+    value: '2',
+    label: '<p>Как выглядит набор букв для селектора <code>\\w</code>, если переписать его в квадратных скобках?</p>',
+    answers: [
+      { value: '1', label: '<code>[a-z0-9_]</code>' },
+      { value: '2', label: '<code>[a-zA-Z0-9_]</code>' },
+      { value: '3', label: '<code>[a-zA-Zа-яА-Я0-9_]</code>' },
+    ],
+    type: 'single',
+  },
+  {
+    value: '3',
+    label: 'Как правильно записать «не число»?',
+    answers: [
+      { value: '1', label: '<code>\\D</code>' },
+      { value: '2', label: '<code>^[0-9]</code>' },
+      { value: '3', label: '<code>\\[^0-9]</code>' },
+    ],
+    type: 'multi',
+  },
+];
 
 export const testSteps1answers = {
   1: '2',
   2: '2',
   3: ['1', '3'],
-}
-
+};
 
 export const courtTree = [
   {

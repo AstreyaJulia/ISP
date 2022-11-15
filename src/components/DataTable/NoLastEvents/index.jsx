@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { PDFViewer } from '@react-pdf/renderer';
-import {compareDesc, intervalToDuration, parse} from "date-fns";
-import ru from "date-fns/locale/ru";
 import DataTableCore from '../DataTableCore';
 import Badge from '../../Badge';
 import CaseListCard from '../../CaseListCard';
 import DataTableToolBar from '../DataTableCore/DataTableToolBar';
 import NoLastEventsListFile from './NoLastEventsListFile';
-import PdfModal from "../../PdfModal";
+import PdfModal from '../../PdfModal';
 
 const NoLastEvents = ({ data, isLoading, error }) => {
   const [rows, setRows] = useState(data ?? []);
@@ -25,13 +23,7 @@ const NoLastEvents = ({ data, isLoading, error }) => {
     <CaseListCard key={key} item={item} query={query}>
       <p className="font-medium text-xs text-slate-600 dark:text-slate-200 flex flex-wrap justify-start items-center text-left mb-1">
         Посл.событие:
-        <Badge
-            size="small"
-            shape="rounded"
-            className="ml-1"
-            color='indigo'
-            item={item.LAST_EVENT_DATE}
-        />
+        <Badge size="small" shape="rounded" className="ml-1" color="indigo" item={item.LAST_EVENT_DATE} />
       </p>
     </CaseListCard>
   );
@@ -40,7 +32,14 @@ const NoLastEvents = ({ data, isLoading, error }) => {
     rows?.filter((row) =>
       columns
         .slice(1, 8)
-          .filter((item) => item !== 'CASE_ID' && item !== 'JUDGE_ID' && item !== 'JUDGE_NAME' && item !== 'LAST_EVENT_DATE' && item !== 'LAST_EVENT_NAME')
+        .filter(
+          (item) =>
+            item !== 'CASE_ID' &&
+            item !== 'JUDGE_ID' &&
+            item !== 'JUDGE_NAME' &&
+            item !== 'LAST_EVENT_DATE' &&
+            item !== 'LAST_EVENT_NAME'
+        )
         .some((column) => row[column].toLowerCase().indexOf(query.toLowerCase()) > -1)
     );
 
@@ -116,6 +115,7 @@ NoLastEvents.propTypes = {
   data: PropTypes.array.isRequired,
   /** Состояние получения данных */
   isLoading: PropTypes.string.isRequired,
+  error: PropTypes.string
 };
 
 export default NoLastEvents;

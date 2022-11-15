@@ -61,7 +61,7 @@ const Processed = ({ data, isLoading, all, error }) => {
       start: new Date(),
       end: parse(date, 'dd.MM.yyyy', new Date(), { locale: ru }),
     });
-    const daysCount = months > 0 ? (months * 30) + days : days;
+    const daysCount = months > 0 ? months * 30 + days : days;
 
     if (daysCount <= 7) return 'red';
     if (daysCount > 7 && daysCount < 14) return 'yellow';
@@ -76,7 +76,7 @@ const Processed = ({ data, isLoading, all, error }) => {
       start: new Date(),
       end: parse(date, 'dd.MM.yyyy', new Date(), { locale: ru }),
     });
-    const daysCount = months > 0 ? (months * 30) + days : days;
+    const daysCount = months > 0 ? months * 30 + days : days;
 
     if (daysCount <= 1) return 'red';
     if (daysCount > 1 && daysCount < 7) return 'yellow';
@@ -366,6 +366,7 @@ Processed.propTypes = {
   data: PropTypes.array.isRequired,
   isLoading: PropTypes.string.isRequired,
   all: PropTypes.string.isRequired,
+  error: PropTypes.string
 };
 
 export default Processed;

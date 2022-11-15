@@ -1,9 +1,9 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import BasicPage from '../../pagesLayouts/BasicPage';
 import PageHeader from '../../../components/PageHeader';
-import useAuth from "../../../hooks/useAuth";
+import useAuth from '../../../hooks/useAuth';
 
 const Gas = () => {
   const breadcrumbs = [
@@ -23,7 +23,6 @@ const Gas = () => {
     // eslint-disable-next-line
   }, []);
 
-
   return (
     <BasicPage title="Подсистемы ГАС Правосудие" className="main-content max-w-6xl mx-auto px-5">
       <PageHeader pages={breadcrumbs} header="Подсистемы ГАС Правосудие" />
@@ -37,8 +36,8 @@ const Gas = () => {
           </h4>
         </Link>
         <Link
-            to="/faq/gas/m-category"
-            className="bg-white dark:bg-slate-900 hover:shadow-lg flex flex-col items=center p-5 rounded-md shadow gap-4 border-b-4 border-emerald-500"
+          to="/faq/gas/m-category"
+          className="bg-white dark:bg-slate-900 hover:shadow-lg flex flex-col items=center p-5 rounded-md shadow gap-4 border-b-4 border-emerald-500"
         >
           <h4 className="text-md font-bold text-gray-700 dark:text-gray-200 justify-center text-center">
             Категории материалов

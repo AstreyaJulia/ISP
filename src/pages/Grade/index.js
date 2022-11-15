@@ -1,14 +1,13 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import BasicPage from '../pagesLayouts/BasicPage';
 import PageHeader from '../../components/PageHeader';
 import useAuth from '../../hooks/useAuth';
 import CasesOverPeriodWidgetAll from './widgets/CasesOverPeriodWidgetAll';
 import NoPublicatedActsAll from './widgets/NoPublicatedActsAll';
 import ProcessedWidgetAll from './widgets/ProcessedWidgetAll';
-import NoLastEventsAll from "./widgets/NoLastEventsAll";
+import NoLastEventsAll from './widgets/NoLastEventsAll';
 
 const Grade = () => {
-
   /** Состояние пользователя */
   const { initialize, user } = useAuth();
 
@@ -16,7 +15,6 @@ const Grade = () => {
     initialize();
     // eslint-disable-next-line
   }, []);
-
 
   const breadcrumbs = [
     { name: 'Статистика', href: '', current: false },
