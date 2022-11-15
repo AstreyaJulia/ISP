@@ -1,7 +1,8 @@
 <?php
 
 // Роутинг, основная функция
-function route($helpers) {
+function route($helpers) {}
+
   include_once 'config/jwt.php';
   $registrationClass = new Api\Objects\Registration($helpers);
   // POST
@@ -32,4 +33,3 @@ function route($helpers) {
         $helpers::isErrorInfo(400, "invalid_router", "router not found");
         break;
     }
-}

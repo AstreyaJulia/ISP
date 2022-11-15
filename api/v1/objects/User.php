@@ -111,8 +111,7 @@
               FROM sdc_users
               LEFT JOIN sdc_user_attributes AS UserAttributes ON UserAttributes.internalKey=sdc_users.id
               WHERE sdc_users.username = ?";
-
-      return $this->db->run($sql,[$login])->fetchAll(\PDO::FETCH_CLASS);
+      return $this->db->run($sql,[$login])->fetch(\PDO::FETCH_LAZY);
     }
 
     /**
