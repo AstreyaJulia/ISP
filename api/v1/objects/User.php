@@ -47,9 +47,9 @@
 
         public function secureJWT ($jwt, $key) {
             $decoded = $this->classJWT::decode($jwt, $key, array('HS256'));
-            $this->id = (int)$decoded->data->id;
-            $this->sudo = (int)$decoded->data->sudo;
-            $this->professionID = (int)$decoded->data->professionID;
+            $this->id = $decoded->data->id;
+            $this->sudo = $decoded->data->sudo;
+            $this->professionID = $decoded->data->professionID;
             return $decoded;
         }
 
