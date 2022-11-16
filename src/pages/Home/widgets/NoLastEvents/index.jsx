@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import WidgetRowCounter from '../../../../components/WidgetRowCounter';
 import { useDispatch, useSelector } from '../../../../store';
 import { getJudgeNoLastEventsCases, resetJudgeNoLastEventsCases } from '../../../../store/slices/cases/nolastevents';
+import useAuth from '../../../../hooks/useAuth';
 
-const NoLastEvents = ({ user }) => {
+const NoLastEvents = () => {
   /** Должности, которым доступна отрисовка */
   const availableUsers = [1, 2, 3, 9];
   /* [
@@ -15,13 +16,14 @@ const NoLastEvents = ({ user }) => {
       ] */
 
   const dispatch = useDispatch();
+  const { user } = useAuth();
 
   /** Стейты данных */
   const { nolastevents, nolasteventsisLoading, nolasteventserror } = useSelector((state) => state.nolastevents);
 
   /** Обновление данных при отрисовке компонента после загрузки запроса */
   useEffect(() => {
-    if (availableUsers.includes(user.professionID)) dispatch(getJudgeNoLastEventsCases());
+    if (availableUsers.includes(user?.professionID)) dispatch(getJudgeNoLastEventsCases());
     return () => {
       dispatch(resetJudgeNoLastEventsCases());
     };
@@ -36,7 +38,7 @@ const NoLastEvents = ({ user }) => {
         color="yellow"
         link="/no-last-events"
         error={nolasteventserror}
-        title="нет движения более 1 дня"
+        title=", по которым нет движения более 1 дня"
         counter={{
           single: 'Дела',
           multi: 'Дел',

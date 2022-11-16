@@ -137,7 +137,7 @@ const Register = () => {
       </div>
       <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:pr-20 xl:pr-40">
         <div className="mx-auto w-full max-w-sm lg:w-96">
-          <Alert alertType="info" title="Установите пароль, используя выданный вам логин">
+          <Alert alertType="info" title="Установите пароль, используя выданное вам имя пользователя">
             <p>Пароль и подтверждение пароля должны полностью совпадать. Других ограничений для пароля нет.</p>
           </Alert>
 

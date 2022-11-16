@@ -35,7 +35,7 @@ const NoLastEventsAll = ({ user }) => {
         color="yellow"
         link="/no-last-events-all"
         error={nolasteventserror}
-        title="нет движения более 1 дня"
+        title=", по которым нет движения более 1 дня"
         counter={{
           single: 'Дела',
           multi: 'Дел',

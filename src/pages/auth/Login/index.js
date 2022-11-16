@@ -138,11 +138,14 @@ const Login = () => {
       </div>
       <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:pr-20 xl:pr-40">
         <div className="mx-auto w-full max-w-sm lg:w-96">
-          <Alert alertType="info" title="Используйте выданный вам логин и заданный вами пароль для входа">
+          <Alert alertType="info" title="Используйте выданное вам имя пользователя и заданный вами пароль для входа">
             <p>
               Если вы входите впервые, и у вас нет пароля, задайте пароль, пройдя по ссылке "У меня нет пароля / Пароль
               был сброшен"
             </p>
+          </Alert>
+          <Alert alertType="error" title="Имя пользователя чувствительно к регистру" containerClassName='mt-3'>
+            <p>"Ivanov_II" и "ivanov_ii" - разные имена.</p>
           </Alert>
 
           <div className="mt-8">

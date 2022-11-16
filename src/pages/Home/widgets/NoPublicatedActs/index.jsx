@@ -6,8 +6,9 @@ import {
   getJudgeActPublicationCases,
   resetJudgeActPublicationCases,
 } from '../../../../store/slices/cases/actpublication';
+import useAuth from '../../../../hooks/useAuth';
 
-const NoPublicatedActs = ({ user }) => {
+const NoPublicatedActs = () => {
   /** Должности, которым доступна отрисовка */
   const availableUsers = [1, 2, 3, 6, 7];
   /* [
@@ -18,6 +19,7 @@ const NoPublicatedActs = ({ user }) => {
     {id: 7, profession: 'Помощник судьи', group: 25},
     ] */
 
+  const { user } = useAuth();
   const dispatch = useDispatch();
 
   /** Стейты данных */
@@ -25,7 +27,7 @@ const NoPublicatedActs = ({ user }) => {
 
   /** Обновление данных при отрисовке компонента после загрузки запроса */
   useEffect(() => {
-    if (availableUsers.includes(user.professionID)) dispatch(getJudgeActPublicationCases());
+    if (availableUsers.includes(user?.professionID)) dispatch(getJudgeActPublicationCases());
     return () => {
       dispatch(resetJudgeActPublicationCases());
     };

@@ -343,34 +343,6 @@ const Header = ({ setMenuVisibility }) => {
                   <Menu.Item>
                     {({ active }) => (
                       <Link
-                        to={PATH_PROFILE}
-                        className={classNames(
-                          active ? 'bg-gray-100 dark:bg-gray-700' : '',
-                          'block px-4 py-2 text-sm text-gray-700 dark:text-gray-400'
-                        )}
-                      >
-                        Мой профиль
-                      </Link>
-                    )}
-                  </Menu.Item>
-                  <Menu.Item>
-                    {({ active }) => (
-                      <Link
-                        to={PATH_SETTINGS}
-                        className={classNames(
-                          active ? 'bg-gray-100 dark:bg-gray-700' : '',
-                          'block px-4 py-2 text-sm text-gray-700 dark:text-gray-400'
-                        )}
-                      >
-                        Настройки
-                      </Link>
-                    )}
-                  </Menu.Item>
-                </div>
-                <div className="py-1">
-                  <Menu.Item>
-                    {({ active }) => (
-                      <Link
                         to={PATH_AUTH.login}
                         onClick={() => {
                           dispatch(logout);

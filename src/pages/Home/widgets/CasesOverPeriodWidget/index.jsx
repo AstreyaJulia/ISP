@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import WidgetRowCounter from '../../../../components/WidgetRowCounter';
 import { useDispatch, useSelector } from '../../../../store';
 import { getJudgeOverPeriodCases, resetJudgeOverPeriodCases } from '../../../../store/slices/cases/overperiod';
+import useAuth from '../../../../hooks/useAuth';
 
-const CasesOverPeriodWidget = ({ user }) => {
+const CasesOverPeriodWidget = () => {
   /** Должности, которым доступна отрисовка */
   const availableUsers = [1, 2, 3, 6, 7];
   /* [
@@ -16,13 +17,14 @@ const CasesOverPeriodWidget = ({ user }) => {
       ] */
 
   const dispatch = useDispatch();
+  const { user } = useAuth();
 
   /** Стейты данных */
   const { overperiodcases, overperiodisLoading, overperioderror } = useSelector((state) => state.overperiod);
 
   /** Обновление данных при отрисовке компонента после загрузки запроса */
   useEffect(() => {
-    if (availableUsers.includes(user.professionID)) dispatch(getJudgeOverPeriodCases());
+    if (availableUsers.includes(user?.professionID)) dispatch(getJudgeOverPeriodCases());
     return () => {
       dispatch(resetJudgeOverPeriodCases());
     };

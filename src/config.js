@@ -341,7 +341,7 @@ export const navigation = [
       </svg>
     ),
     alias: '/calendar',
-    accessibleRoles: [0, 1],
+    accessibleRoles: [1],
   },
   {
     id: '8',
