@@ -53,7 +53,7 @@ class Registration
   public function verifyLogin()
   {
     try {
-      if ($this->userAttributes === false) {
+      if ($this->login !== $this->userAttributes->username) {
         throw new \Exception("Введите действующий логин");
       }
     } catch (\Exception $e) {

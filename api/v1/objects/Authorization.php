@@ -41,7 +41,7 @@ class Authorization
   public function verifyLogin()
   {
     try {
-      if ($this->userAttributes === false) {
+      if ($this->login !== $this->userAttributes->username) {
         throw new \Exception("Введите действующий логин");
       }
     } catch (\Exception $e) {
@@ -67,7 +67,7 @@ class Authorization
   public function verifyPassword()
   {
     try {
-      if ($this->login === $this->userAttributes->username and password_verify($this->password, $this->userAttributes->password)) {
+      if (password_verify($this->password, $this->userAttributes->password)) {
         $this->helpers->setId($this->userAttributes->id);
         $this->helpers->setSudo($this->userAttributes->sudo);
         $this->helpers->setProfessionID($this->userAttributes->professionID);
