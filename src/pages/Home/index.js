@@ -6,13 +6,35 @@ import NoPublicatedActs from './widgets/NoPublicatedActs';
 import ProcessedWidget from './widgets/ProcessedWidget';
 import UserWelcomeWidget from './widgets/UserWelcomeWidget';
 import NoLastEvents from './widgets/NoLastEvents';
+import { useDispatch, useSelector } from '../../store';
+import { WidgetWeather } from './widgets/WidgetWeather';
+import { getCurrentWeather } from '../../store/slices/weather';
+import { getBirthdaysList } from '../../store/slices/users';
+import WidgetUsersBirthdays from './widgets/WidgetUsersBirthdays';
 
 const Home = () => {
   /** Состояние пользователя */
   const { initialize, user } = useAuth();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     initialize();
+    // eslint-disable-next-line
+  }, []);
+
+  const { currentWeather, currentIsLoading, currentError } = useSelector((state) => state.weather);
+  const { usersBirthdays, isLoading, error } = useSelector((state) => state.phonebook);
+
+  useEffect(() => {
+    dispatch(getCurrentWeather());
+    dispatch(getBirthdaysList());
+    // eslint-disable-next-line
+  }, [dispatch]);
+
+  useEffect(() => {
+    setInterval(() => {
+      dispatch(getCurrentWeather());
+    }, 300000);
     // eslint-disable-next-line
   }, []);
 
@@ -33,7 +55,18 @@ const Home = () => {
           <div className="flex flex-col gap-4">{/* 2-я колонка */}</div>
         </div>
         <div>
-          <div className="flex flex-col gap-4">{/* 3-я колонка */}</div>
+          <div className="flex flex-col gap-4">
+
+            {/* 3-я колонка */}
+            <WidgetWeather
+              currentWeather={currentWeather}
+              currentIsLoading={currentIsLoading}
+              currentError={currentError}
+            />
+
+            <WidgetUsersBirthdays birthdays={usersBirthdays ?? []} error={error} />
+
+          </div>
         </div>
       </div>
     </BasicPage>

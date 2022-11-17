@@ -7,23 +7,29 @@ import CaseListCard from '../../CaseListCard';
 import DataTableToolBar from '../DataTableCore/DataTableToolBar';
 import NoLastEventsListFile from './NoLastEventsListFile';
 import PdfModal from '../../PdfModal';
+import { getInitials } from '../../../utils/getInitials';
+import { getUniqueArrayValuesByKey } from '../../../utils/getArrayValuesByKey';
 
-const NoLastEvents = ({ data, isLoading, error }) => {
+const NoLastEvents = ({ data, isLoading, error, all }) => {
   const [rows, setRows] = useState(data ?? []);
   const columns = Object.keys(data[0] ?? []);
+  const [selectedFilter, setSelectedFilter] = useState({ JUDGE_NAME: 'All' });
+  const [judgesList, setJudgesList] = useState([]);
   const [currentPage, setCurrentPage] = useState(0); // текущая страница
   const [modalPDFOpened, setModalPDFOpened] = useState(false);
 
   useEffect(() => {
     setRows(data);
+    setJudgesList(getUniqueArrayValuesByKey(data ?? [], 'JUDGE_NAME').sort((a, b) => a.localeCompare(b)));
     // eslint-disable-next-line
   }, [isLoading]);
 
   const makeItem = (item, key, query) => (
     <CaseListCard key={key} item={item} query={query}>
-      <p className="font-medium text-xs text-slate-600 dark:text-slate-200 flex flex-wrap justify-start items-center text-left mb-1">
+      <p
+        className="font-medium text-xs text-slate-600 dark:text-slate-200 flex flex-wrap justify-start items-center text-left mb-1">
         Посл.событие:
-        <Badge size="small" shape="rounded" className="ml-1" color="indigo" item={item.LAST_EVENT_DATE} />
+        <Badge size="small" shape="rounded" className="ml-1" color="indigo" item={item.LAST_EVENT_DATE}/>
       </p>
     </CaseListCard>
   );
@@ -38,9 +44,9 @@ const NoLastEvents = ({ data, isLoading, error }) => {
             item !== 'JUDGE_ID' &&
             item !== 'JUDGE_NAME' &&
             item !== 'LAST_EVENT_DATE' &&
-            item !== 'LAST_EVENT_NAME'
+            item !== 'LAST_EVENT_NAME',
         )
-        .some((column) => row[column].toLowerCase().indexOf(query.toLowerCase()) > -1)
+        .some((column) => row[column].toLowerCase().indexOf(query.toLowerCase()) > -1),
     );
 
   const handlePDFModalClosed = () => {
@@ -49,6 +55,36 @@ const NoLastEvents = ({ data, isLoading, error }) => {
 
   const handlePDFModalOpen = () => {
     setModalPDFOpened(true);
+  };
+
+  /** Фильтрует targetArray по массиву значений filters
+   * @param targetArray
+   * @param filters
+   * @returns {*}
+   */
+  const selectFilterFunction = (targetArray, filters) => {
+    const filterKeys = Object.keys(filters);
+
+    return targetArray.filter((row) =>
+      filterKeys.every((key) =>
+        filters[key] !== 'All'
+          ? row[key].toLowerCase().indexOf(filters[key].toLowerCase()) > -1
+          : row[key].toLowerCase().indexOf(filters[key].toLowerCase()) === -1,
+      ),
+    );
+  };
+
+  selectFilterFunction.PropTypes = {
+    targetArray: PropTypes.array.isRequired,
+    filters: PropTypes.array.isRequired,
+  };
+
+  const filterSelectChangeHandler = (evt) => {
+    const { value, id } = evt.target;
+    const tempFilter = { ...selectedFilter, [id]: value };
+    setSelectedFilter({ ...selectedFilter, [id]: value });
+    setCurrentPage(0);
+    setRows(selectFilterFunction(data, tempFilter));
   };
 
   return (
@@ -72,7 +108,32 @@ const NoLastEvents = ({ data, isLoading, error }) => {
       >
         <DataTableToolBar className="mt-3">
           <div className="flex items-center justify-between w-full">
-            <div />
+            {all === 'true' ? (
+              <div className="flex items-center ml-3 justify-start">
+                <label
+                  htmlFor="JUDGE_NAME"
+                  className="shrink-0 block text-sm font-medium text-slate-700 dark:text-slate-300 mr-2"
+                >
+                  Судья:
+                </label>
+                <select
+                  id="JUDGE_NAME"
+                  name="JUDGE_NAME"
+                  defaultValue={selectedFilter.JUDGE_NAME}
+                  onChange={filterSelectChangeHandler}
+                  className="grow-0 mt-1 block pl-3 pr-10 py-2 text-base bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                >
+                  <option value="All">Все</option>
+                  {judgesList.map((judge, key) => (
+                    <option key={judge + key} value={judge}>
+                      {getInitials(judge)}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            ) : (
+              <div/>
+            )}
 
             {/* PDF */}
             <div className="flex items-center gap-2">
@@ -102,7 +163,7 @@ const NoLastEvents = ({ data, isLoading, error }) => {
         </DataTableToolBar>
         <PdfModal onModalClose={handlePDFModalClosed} open={modalPDFOpened} setOpen={setModalPDFOpened}>
           <PDFViewer width="100%" height="100%" style={{ border: 'none' }}>
-            <NoLastEventsListFile list={rows} />
+            <NoLastEventsListFile list={rows}/>
           </PDFViewer>
         </PdfModal>
       </DataTableCore>
@@ -115,7 +176,7 @@ NoLastEvents.propTypes = {
   data: PropTypes.array.isRequired,
   /** Состояние получения данных */
   isLoading: PropTypes.string.isRequired,
-  error: PropTypes.string
+  error: PropTypes.string,
 };
 
 export default NoLastEvents;

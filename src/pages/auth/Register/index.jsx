@@ -25,9 +25,9 @@ const Register = () => {
   });
 
   const defaultValues = {
-    login: 'chainik',
-    password: 'qwer',
-    passrep: 'qwer',
+    login: '',
+    password: '',
+    passrep: '',
   };
 
   const methods = useForm({

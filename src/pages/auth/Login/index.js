@@ -26,8 +26,8 @@ const Login = () => {
   });
 
   const defaultValues = {
-    login: 'chainik',
-    password: 'qwer',
+    login: '',
+    password: '',
   };
 
   const methods = useForm({

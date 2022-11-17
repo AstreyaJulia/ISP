@@ -5,7 +5,7 @@ import BasicPage from '../pagesLayouts/BasicPage';
 import PageHeader from '../../components/PageHeader';
 import { fNumber } from '../../utils/formatNumber';
 import { BaseChartOptions } from '../../components/ApexCharts/chartsSettings';
-import WidgetUsersBirthdays from '../../components/WidgetUsersBirthdays';
+import WidgetUsersBirthdays from '../Home/widgets/WidgetUsersBirthdays';
 import TextEditor from '../../components/TextEditor';
 import Card from '../../components/Card';
 import useAuth from '../../hooks/useAuth';

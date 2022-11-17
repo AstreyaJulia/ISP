@@ -9,6 +9,7 @@ const initialState = {
   isLoading: 'false',
   error: null,
   userList: [],
+  usersBirthdays: []
 };
 
 const slice = createSlice({
@@ -32,6 +33,12 @@ const slice = createSlice({
       state.isLoading = 'false';
       state.userList = action.payload;
     },
+
+    // Получение списка др
+    getBirthdaysSuccess(state, action) {
+      state.isLoading = 'false';
+      state.usersBirthdays = action.payload;
+    },
   },
 });
 
@@ -50,3 +57,17 @@ export function getPhonebookList() {
     }
   };
 }
+
+export function getBirthdaysList() {
+  return async () => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const response = await axios.get('/users/birthday');
+      dispatch(slice.actions.getBirthdaysSuccess(response.data.data));
+    } catch (error) {
+      dispatch(slice.actions.getBirthdaysSuccess([]));
+      dispatch(slice.actions.hasError(error.message));
+    }
+  };
+}
+

@@ -34,8 +34,8 @@ export default function RHFPasswordHideShow({ name, label, placeholder, ...other
                 className={classNames(
                   'block bg-gray-50 dark:bg-gray-800 w-full pr-10 focus:outline-none sm:text-sm rounded-none rounded-l-md',
                   error
-                    ? 'border-red-300 text-red-900 placeholder-red-300 focus:ring-red-500 focus:border-red-500'
-                    : 'border-slate-300 text-gray-900 placeholder-gray-300 focus:ring-indigo-500 focus:border-indigo-500'
+                    ? 'border-red-500 text-red-900 placeholder-red-400 focus:ring-red-500 focus:border-red-500'
+                    : 'border-slate-300 text-gray-900 placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500'
                 )}
                 placeholder={placeholder}
                 aria-invalid={!!error}
@@ -49,7 +49,7 @@ export default function RHFPasswordHideShow({ name, label, placeholder, ...other
               className={classNames(
                 '-ml-px relative inline-flex items-center space-x-2 px-4 py-2 border text-sm font-medium rounded-r-md bg-gray-50 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500',
                 error
-                  ? 'text-red-500 hover:bg-red-100 text-red-700 border-red-300'
+                  ? 'text-red-500 hover:bg-red-100 text-red-700 border-red-500'
                   : 'text-gray-400 hover:bg-gray-100 text-gray-700 border-gray-300'
               )}
             >

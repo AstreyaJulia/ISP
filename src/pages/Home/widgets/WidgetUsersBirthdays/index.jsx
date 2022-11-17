@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Card from '../Card';
-import { Avatar } from '../Avatar';
-import { getInitialsOnly } from '../../utils/getInitials';
-import { getAvatarColor } from '../../utils/getAvatarColor';
-import { getAmount } from '../../utils/getAmount';
+import Card from '../../../../components/Card';
+import { Avatar } from '../../../../components/Avatar';
+import { getInitialsOnly } from '../../../../utils/getInitials';
+import { getAvatarColor } from '../../../../utils/getAvatarColor';
+import { getAmount } from '../../../../utils/getAmount';
 
-const WidgetUsersBirthdays = ({ birthdays }) => (
-  <Card classname="p-4 flex flex-col gap-4">
-    <p className="text-sm font-medium uppercase text-gray-500 dark:text-gray-600 mb-3">Дни рождения сегодня</p>
-    {birthdays.map((item, key) => (
-      <div key={key} className="flex border-l-4 border-indigo-500 dark:border-indigo-600 px-3 py-2 items-center">
+const WidgetUsersBirthdays = ({ birthdays, error }) => (
+  <Card classname="p-4 flex flex-col">
+    <p className="text-sm font-medium uppercase text-gray-500 dark:text-gray-400 mb-3">Дни рождения сегодня</p>
+    {!error && birthdays?.length > 0 ? birthdays?.map((item, key) => (
+      <div key={key} className="flex px-3 py-3 items-center">
         <Avatar size="10" shape="circle" name={getInitialsOnly(item.fullname)} color={getAvatarColor(item.fullname)} />
         <div className="flex flex-col ml-4">
           <p className="text-base font-medium text-gray-800 dark:text-gray-300 mb-1">{item.fullname}</p>
@@ -34,7 +34,7 @@ const WidgetUsersBirthdays = ({ birthdays }) => (
           </p>
         </div>
       </div>
-    ))}
+    )) : <p className="text-base font-medium text-gray-400 dark:text-gray-600 mb-1 text-center">Сегодня нет дней рождения</p> }
   </Card>
 );
 

@@ -1,29 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import clearday from '../../assets/images/weather/clear-day.svg';
-import cloudy from '../../assets/images/weather/cloudy.svg';
-import drizzle from '../../assets/images/weather/drizzle.svg';
-import dust from '../../assets/images/weather/dust.svg';
-import dustWind from '../../assets/images/weather/dust-wind.svg';
-import cloudsExtreme from '../../assets/images/weather/extreme.svg';
-import drizzleExtreme from '../../assets/images/weather/extreme-drizzle.svg';
-import sleetExtreme from '../../assets/images/weather/extreme-sleet.svg';
-import snowExtreme from '../../assets/images/weather/extreme-snow.svg';
-import rainExtreme from '../../assets/images/weather/extreme-rain.svg';
-import fog from '../../assets/images/weather/fog.svg';
-import hurricane from '../../assets/images/weather/hurricane.svg';
-import mist from '../../assets/images/weather/mist.svg';
-import overcast from '../../assets/images/weather/overcast.svg';
-import partlycloudy from '../../assets/images/weather/partly-cloudy-day.svg';
-import rain from '../../assets/images/weather/rain.svg';
-import sleet from '../../assets/images/weather/sleet.svg';
-import smoke from '../../assets/images/weather/smoke.svg';
-import snow from '../../assets/images/weather/snow.svg';
-import thunderstorms from '../../assets/images/weather/thunderstorms.svg';
-import thunderstormsExtreme from '../../assets/images/weather/thunderstorms-extreme.svg';
-import thunderstormsRainExtreme from '../../assets/images/weather/thunderstorms-extreme-rain.svg';
-import thunderstormsRain from '../../assets/images/weather/thunderstorms-rain.svg';
-import wind from '../../assets/images/weather/wind.svg';
+import clearday from '../../../../assets/images/weather/clear-day.svg';
+import cloudy from '../../../../assets/images/weather/cloudy.svg';
+import drizzle from '../../../../assets/images/weather/drizzle.svg';
+import dust from '../../../../assets/images/weather/dust.svg';
+import dustWind from '../../../../assets/images/weather/dust-wind.svg';
+import cloudsExtreme from '../../../../assets/images/weather/extreme.svg';
+import drizzleExtreme from '../../../../assets/images/weather/extreme-drizzle.svg';
+import sleetExtreme from '../../../../assets/images/weather/extreme-sleet.svg';
+import snowExtreme from '../../../../assets/images/weather/extreme-snow.svg';
+import rainExtreme from '../../../../assets/images/weather/extreme-rain.svg';
+import fog from '../../../../assets/images/weather/fog.svg';
+import hurricane from '../../../../assets/images/weather/hurricane.svg';
+import mist from '../../../../assets/images/weather/mist.svg';
+import overcast from '../../../../assets/images/weather/overcast.svg';
+import partlycloudy from '../../../../assets/images/weather/partly-cloudy-day.svg';
+import rain from '../../../../assets/images/weather/rain.svg';
+import sleet from '../../../../assets/images/weather/sleet.svg';
+import smoke from '../../../../assets/images/weather/smoke.svg';
+import snow from '../../../../assets/images/weather/snow.svg';
+import thunderstorms from '../../../../assets/images/weather/thunderstorms.svg';
+import thunderstormsExtreme from '../../../../assets/images/weather/thunderstorms-extreme.svg';
+import thunderstormsRainExtreme from '../../../../assets/images/weather/thunderstorms-extreme-rain.svg';
+import thunderstormsRain from '../../../../assets/images/weather/thunderstorms-rain.svg';
+import wind from '../../../../assets/images/weather/wind.svg';
+import { CITY_NAME } from '../../../../config';
 
 /*
   const { currentWeather, currentIsLoading, currentError } = useSelector((state) => state.weather);
@@ -134,7 +135,7 @@ export const WidgetWeather = ({ currentWeather, currentIsLoading, currentError }
                   d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
                 />
               </svg>
-              <span>{weather?.name}</span>
+              <span>{CITY_NAME}</span>
             </p>
             <p className="font-bold text-2xl text-gray-100 ml-6">
               {Math.ceil(weather?.main?.temp) > 0
@@ -150,9 +151,9 @@ export const WidgetWeather = ({ currentWeather, currentIsLoading, currentError }
 
           <div className="flex flex-col items-end justify-end h-full">
             <img
-              title={weather?.weather[0]?.description}
+              title={weatherStates[weather?.weather[0]?.id].desc}
               src={weatherStates[weather?.weather[0]?.id].icon}
-              alt={weather?.weather[0]?.description}
+              alt={weatherStates[weather?.weather[0]?.id].desc}
               className="w-10 h-20 xl:w-20 xl:h-20 shrink-0 mr-1"
             />
           </div>

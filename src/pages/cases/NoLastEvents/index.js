@@ -69,6 +69,7 @@ const NoLastEventsPage = ({ all }) => {
       <NoLastEvents
         data={all === 'true' ? nolasteventsall : nolastevents ?? []}
         isLoading={nolasteventsisLoading}
+        all={all}
         error={nolasteventserror}
       />
     </BasicPage>

@@ -17,9 +17,9 @@ import { getSearch, resetSearch } from '../../../store/slices/search';
 
 const Header = ({ setMenuVisibility }) => {
   const searchTypes = {
-    users: { selectText: 'Сотрудники', searchText: 'Поиск сотрудников' },
-    inbox: { selectText: 'Входящая почта', searchText: 'Поиск входящей корреспонденции' },
-    outbox: { selectText: 'Исходящая почта', searchText: 'Поиск исходящей корреспонденции' },
+    users: { selectText: 'Сотрудники', searchText: 'Поиск сотрудников по ФИО / номеру телефона' },
+    inbox: { selectText: 'Входящая почта', searchText: 'Поиск по входящей корреспонденции по номеру / Ф.И.О. / содержанию' },
+    outbox: { selectText: 'Исходящая почта', searchText: 'Поиск исходящей корреспондеции по номеру / Ф.И.О. / содержанию' },
   };
 
   const [searchType, changeSearchType] = useState('users');
