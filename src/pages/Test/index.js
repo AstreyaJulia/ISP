@@ -74,10 +74,6 @@ const Test = () => {
         <ReactApexChart type="pie" series={CHART_DATA} options={chartOptions} height={280} />
       </div>
 
-      <div className="grid grid-cols-2 mt-4 gap-4">
-        <WidgetUsersBirthdays birthdays={birthdays} />
-      </div>
-
       <Quiz answers={testSteps1answers} steps={testSteps1} />
     </BasicPage>
   );
