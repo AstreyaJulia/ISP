@@ -39,8 +39,8 @@ const Home = () => {
   }, []);
 
   return (
-    <BasicPage title="Главная" className="main-content mx-auto px-5">
-      <div className="pt-2 flex sm:grid md:grid-cols-2 gap-3 sm:gap-5 xl:gap-7 xl:grid-cols-3">
+    <BasicPage title="Главная" className="main-content max-w-7xl mx-auto px-5">
+      <div className="pt-2 flex flex-col md:grid md:grid-cols-2 gap-3 xl:gap-7 xl:grid-cols-3">
         <div>
           <div className="flex flex-col gap-4">
             {/* 1-я колонка */}

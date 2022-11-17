@@ -3,17 +3,22 @@ import PropTypes from 'prop-types';
 import DataTableCore from '../DataTableCore';
 import { Avatar } from '../../Avatar';
 import { getHighlightedText } from '../../../utils/getHighlightedText';
-import { getInitialsOnly } from '../../../utils/getInitials';
+import { getInitials, getInitialsOnly } from '../../../utils/getInitials';
 import { getAvatarColor } from '../../../utils/getAvatarColor';
 import Card from '../../Card';
+import DataTableToolBar from '../DataTableCore/DataTableToolBar';
+import { getUniqueArrayValuesByKey } from '../../../utils/getArrayValuesByKey';
 
 const UsersList = ({ data, isLoading, error }) => {
   const [rows, setRows] = useState(data ?? []);
   const columns = Object.keys(data[0] ?? []);
   const [currentPage, setCurrentPage] = useState(0); // текущая страница
+  const [selectedFilter, setSelectedFilter] = useState({ professionGroup: 'All' });
+  const [userGroupList, setUserGroupList] = useState([]);
 
   useEffect(() => {
     setRows(data);
+    setUserGroupList(getUniqueArrayValuesByKey(data ?? [], 'professionGroup').sort((a, b) => a.localeCompare(b)));
     // eslint-disable-next-line
   }, [isLoading]);
 
@@ -91,6 +96,36 @@ const UsersList = ({ data, isLoading, error }) => {
       columns.slice(1, 2).some((column) => row[column].toLowerCase().indexOf(query.toLowerCase()) > -1)
     );
 
+  /** Фильтрует targetArray по массиву значений filters
+   * @param targetArray
+   * @param filters
+   * @returns {*}
+   */
+  const selectFilterFunction = (targetArray, filters) => {
+    const filterKeys = Object.keys(filters);
+
+    return targetArray.filter((row) =>
+      filterKeys.every((key) =>
+        filters[key] !== 'All'
+          ? row[key].toLowerCase().indexOf(filters[key].toLowerCase()) > -1
+          : row[key].toLowerCase().indexOf(filters[key].toLowerCase()) === -1
+      )
+    );
+  };
+
+  selectFilterFunction.PropTypes = {
+    targetArray: PropTypes.array.isRequired,
+    filters: PropTypes.array.isRequired,
+  };
+
+  const filterSelectChangeHandler = (evt) => {
+    const { value, id } = evt.target;
+    const tempFilter = { ...selectedFilter, [id]: value };
+    setSelectedFilter({ ...selectedFilter, [id]: value });
+    setCurrentPage(0);
+    setRows(selectFilterFunction(data, tempFilter));
+  };
+
   return (
     <DataTableCore
       classname="mt-5"
@@ -109,7 +144,38 @@ const UsersList = ({ data, isLoading, error }) => {
       sortCallback={null}
       makeItem={makeItem}
       table={{ isTable: 'false', startColumn: null, endColumn: null, columnNames: null, coltosort: [] }}
-    />
+    >
+      <DataTableToolBar className="mt-3">
+        <div className="flex items-center justify-between w-full">
+          <div className="flex items-center gap-3">
+            <div className="flex items-center ml-3 justify-start">
+              <label
+                htmlFor="professionGroup"
+                className="shrink-0 block text-sm font-medium text-slate-700 dark:text-slate-300 mr-2"
+              >
+                Группа:
+              </label>
+              <select
+                id="professionGroup"
+                name="professionGroup"
+                defaultValue={selectedFilter.professionGroup}
+                onChange={filterSelectChangeHandler}
+                className="grow-0 mt-1 block pl-3 pr-10 py-2 text-base bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+              >
+                <option value="All">Все</option>
+                {userGroupList.map((group, key) => (
+                  <option key={group + key} value={group}>
+                    {group}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <div/>
+        </div>
+      </DataTableToolBar>
+
+    </DataTableCore>
   );
 };
 

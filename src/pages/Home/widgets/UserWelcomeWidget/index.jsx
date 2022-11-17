@@ -1,14 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import image from '../../../../assets/images/pages/cosmonaut_rocket_flying.svg';
+import { getInitials } from '../../../../utils/getInitials';
 
 const UserWelcomeWidget = ({ user }) => (
-  <div className="bg-indigo-700 rounded-md w-full flex justify-between relative shadow pr-24">
-    <div className="flex flex-col p-5 gap-2">
-      <p className="text-white font-medium text-base wrap">{user?.fullname}</p>
+  <div className="bg-indigo-700 rounded-md w-full flex justify-between relative shadow pr-20">
+    <div className="flex flex-col py-5 pl-5 gap-2">
+      <p className="text-white font-medium text-base wrap">{getInitials(user?.fullname)}</p>
       <p className="text-indigo-100 font-medium text-sm">{user?.professionName}</p>
     </div>
-    <img src={image} alt="astronaut" className="w-32 shrink-0 absolute bottom-0 right-0" />
+    <img src={image} alt="astronaut" className="w-32 shrink-0 absolute -top-7 right-0" />
     <svg
       className="animate-pulse absolute w-3 h-3 top-2 left-5"
       version="1.0"
