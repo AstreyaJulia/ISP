@@ -64,7 +64,7 @@ const Home = () => {
               currentError={currentError}
             />
 
-            <WidgetUsersBirthdays birthdays={usersBirthdays ?? []} error={error} />
+            {usersBirthdays.length > 0 ? <WidgetUsersBirthdays birthdays={usersBirthdays ?? []} error={error} /> : ''}
 
           </div>
         </div>
