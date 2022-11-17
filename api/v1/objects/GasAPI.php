@@ -57,7 +57,7 @@ class GasAPI
                     $idGAS = $this->helpers->db->run("SELECT UserAttributes.idGAS 
                                             FROM sdc_users
                                             LEFT JOIN sdc_user_attributes AS UserAttributes ON UserAttributes.internalKey=sdc_users.id
-                                            WHERE UserAttributes.idGAS IS NOT NULL AND sdc_users.active = 1")->fetchAll(\PDO::FETCH_COLUMN);
+                                            WHERE UserAttributes.idGAS IS NOT NULL")->fetchAll(\PDO::FETCH_COLUMN);
                 $responseGasAPI = $this->helpers::sendGET(["idJudge" => implode(",", $idGAS)], API_GAS.'v1/'.$urlData["1"].'.php?');
             } elseif(!empty($this->helpers->idGAS) and empty($urlData["2"]) ) {
                 $responseGasAPI = $this->helpers::sendGET(["idJudge" => $this->helpers->idGAS], API_GAS.'v1/'.$urlData["1"].'.php?');
