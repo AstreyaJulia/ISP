@@ -23,13 +23,16 @@ class Users
                     UserAttributes.fullname,
                     ParentUserType.name AS room,
                     Vocation.name AS profession,
+                    VocationGroup.name AS professionGroup,
                     ChildUserType.phone_worck
               FROM `sdc_room` AS ChildUserType
                       LEFT JOIN `sdc_room` AS ParentUserType ON ChildUserType.affiliation = ParentUserType.id
                       LEFT JOIN `sdc_user_attributes` AS UserAttributes on ChildUserType.id = UserAttributes.room
                       LEFT JOIN `sdc_users` AS Users ON UserAttributes.internalKey=Users.id
                       LEFT JOIN `sdc_vocation` AS Vocation ON Vocation.id=UserAttributes.profession
-              WHERE Users.active = 1 and UserAttributes.profession != ''";
+                      LEFT JOIN `sdc_vocation` AS VocationGroup ON VocationGroup.id=Vocation.parent_id
+              WHERE Users.active = 1 and UserAttributes.profession != ''
+              ORDER BY UserAttributes.fullname ASC";
     return $this->helpers->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
   }
 
