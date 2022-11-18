@@ -128,21 +128,21 @@ const Processed = ({ data, isLoading, all, error }) => {
       />
       {item?.MOTIONLES_DATE !== '' ? (
         <p className="font-medium text-xs text-slate-600 dark:text-slate-200 flex flex-wrap justify-start items-center text-left mb-1">
-          {item?.MOTIONLES_DATE}
+          Ост. б/движ.: {item?.MOTIONLES_DATE}
         </p>
       ) : (
         ''
       )}
       {item?.STOP_DATE !== '' ? (
         <p className="font-medium text-xs text-slate-600 dark:text-slate-200 flex flex-wrap justify-start items-center text-left mb-1">
-          Ост. б/движ.: {item?.STOP_DATE}
+          Приост.: {item?.STOP_DATE}
         </p>
       ) : (
         ''
       )}
       {item?.DATE_UNTIL !== '' ? (
         <p className="font-medium text-xs text-slate-600 dark:text-slate-200 flex flex-wrap justify-start items-center text-left mb-1">
-          До:
+          Контр. дата:
           <Badge
             size="small"
             shape="rounded"
