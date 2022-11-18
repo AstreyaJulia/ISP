@@ -11,7 +11,6 @@ import {
   resetJudgeOverPeriodCases,
 } from '../../../store/slices/cases/overperiod';
 import useAuth from '../../../hooks/useAuth';
-import NoLastEvents from '../../../components/DataTable/NoLastEvents';
 
 const Finished = ({ all }) => {
   const dispatch = useDispatch();

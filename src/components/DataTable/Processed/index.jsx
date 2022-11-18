@@ -135,7 +135,7 @@ const Processed = ({ data, isLoading, all, error }) => {
       )}
       {item?.STOP_DATE !== '' ? (
         <p className="font-medium text-xs text-slate-600 dark:text-slate-200 flex flex-wrap justify-start items-center text-left mb-1">
-          {item?.STOP_DATE}
+          Ост. б/движ.: {item?.STOP_DATE}
         </p>
       ) : (
         ''

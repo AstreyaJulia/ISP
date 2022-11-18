@@ -154,7 +154,7 @@ export const WidgetWeather = ({ currentWeather, currentIsLoading, currentError }
               title={weatherStates[weather?.weather[0]?.id].desc}
               src={weatherStates[weather?.weather[0]?.id].icon}
               alt={weatherStates[weather?.weather[0]?.id].desc}
-              className="w-10 h-20 md:w-20 md:h-20 shrink-0"
+              className="w-10 h-20 md:w-20 md:h-20 shrink-0 z-100"
             />
           </div>
 
