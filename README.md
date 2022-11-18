@@ -92,3 +92,17 @@ PASSWORD=
 # API-ключ Open Weather
 OPEN_WEATHER_API_KEY=1234567890
 ```
+
+В корне билда создать файл '.htaccess' с содержанием:
+
+```text
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /subdirectory
+RewriteRule ^index\.html$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-l
+RewriteRule . /index.html [L]
+</IfModule>
+```
