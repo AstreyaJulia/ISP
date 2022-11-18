@@ -46,6 +46,14 @@ class Authorization
   public function verifyLogin()
   {
     try {
+      if ($this->login !== $this->userAttributes->username) {
+        throw new \Exception("Введите действующий логин");
+      }
+    } catch (\Exception $e) {
+      $this->helpers::isErrorInfo(401, "Логин не найден", $e);
+    }
+
+    try {
       if ($this->userAttributes->active === 0) {
         throw new \Exception("Обратитесь к системному администратору");
       }
