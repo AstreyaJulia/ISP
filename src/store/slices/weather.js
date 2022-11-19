@@ -17,7 +17,7 @@ const initialState = {
  */
 // const OPEN_WEATHER_API_CURRENT = 'https://api.openweathermap.org/data/2.5/weather';
 const OPEN_WEATHER_API_CURRENT = 'https://openweathermap.org/data/2.5/weather';
-const OPEN_WEATHER_API_FORECAST = 'https://api.openweathermap.org/data/2.5/forecast';
+// const OPEN_WEATHER_API_FORECAST = 'https://openweathermap.org/data/2.5/forecast';
 
 /* const getParams = {
   lat: CITY_LAT,

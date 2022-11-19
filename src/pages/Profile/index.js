@@ -14,7 +14,7 @@ const attachments = [
 
 const Profile = () => {
   const breadcrumbs = [{ name: 'Мой профиль', href: '', current: true }];
-  const [user, setUser] = useState(users[2]);
+  const [user] = useState(users[2]);
 
   /** Состояние пользователя */
   const { initialize } = useAuth();

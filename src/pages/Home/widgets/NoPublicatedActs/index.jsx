@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import WidgetRowCounter from '../../../../components/WidgetRowCounter';
 import { useDispatch, useSelector } from '../../../../store';
 import {
@@ -34,7 +33,7 @@ const NoPublicatedActs = () => {
     // eslint-disable-next-line
   }, [dispatch]);
 
-  if (availableUsers.includes(user.professionID)) {
+  if (availableUsers.includes(user?.professionID)) {
     return (
       <WidgetRowCounter
         isLoading={nopublactsisLoading}
@@ -53,10 +52,6 @@ const NoPublicatedActs = () => {
   }
 
   return null;
-};
-
-NoPublicatedActs.propTypes = {
-  user: PropTypes.object.isRequired,
 };
 
 export default NoPublicatedActs;

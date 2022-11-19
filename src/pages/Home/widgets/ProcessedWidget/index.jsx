@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import WidgetRowCounter from '../../../../components/WidgetRowCounter';
 import { useDispatch, useSelector } from '../../../../store';
 import { getJudgeProcessedCases, resetJudgeProcessedCases } from '../../../../store/slices/cases/processed';
@@ -31,7 +30,7 @@ const ProcessedWidget = () => {
     // eslint-disable-next-line
   }, [dispatch]);
 
-  if (availableUsers.includes(user.professionID)) {
+  if (availableUsers.includes(user?.professionID)) {
     return (
       <WidgetRowCounter
         isLoading={processedisLoading}
@@ -50,10 +49,6 @@ const ProcessedWidget = () => {
   }
 
   return null;
-};
-
-ProcessedWidget.propTypes = {
-  user: PropTypes.object.isRequired,
 };
 
 export default ProcessedWidget;

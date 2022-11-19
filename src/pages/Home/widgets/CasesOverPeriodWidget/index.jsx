@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import WidgetRowCounter from '../../../../components/WidgetRowCounter';
 import { useDispatch, useSelector } from '../../../../store';
 import { getJudgeOverPeriodCases, resetJudgeOverPeriodCases } from '../../../../store/slices/cases/overperiod';
@@ -31,7 +30,7 @@ const CasesOverPeriodWidget = () => {
     // eslint-disable-next-line
   }, [dispatch]);
 
-  if (availableUsers.includes(user.professionID)) {
+  if (availableUsers.includes(user?.professionID)) {
     return (
       <WidgetRowCounter
         isLoading={overperiodisLoading}
@@ -50,10 +49,6 @@ const CasesOverPeriodWidget = () => {
   }
 
   return null;
-};
-
-CasesOverPeriodWidget.propTypes = {
-  user: PropTypes.object.isRequired,
 };
 
 export default CasesOverPeriodWidget;

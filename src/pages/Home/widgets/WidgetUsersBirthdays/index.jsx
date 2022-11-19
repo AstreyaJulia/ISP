@@ -40,6 +40,7 @@ const WidgetUsersBirthdays = ({ birthdays, error }) => (
 
 WidgetUsersBirthdays.propTypes = {
   birthdays: PropTypes.array.isRequired,
+  error: PropTypes.object
 };
 
 export default WidgetUsersBirthdays;

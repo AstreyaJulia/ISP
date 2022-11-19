@@ -177,6 +177,7 @@ NoLastEvents.propTypes = {
   /** Состояние получения данных */
   isLoading: PropTypes.string.isRequired,
   error: PropTypes.string,
+  all: PropTypes.string
 };
 
 export default NoLastEvents;

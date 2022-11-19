@@ -8,7 +8,7 @@ import { Avatar } from '../../../components/Avatar';
 import Toast, { toastStyles } from '../../../components/Toast';
 import useAuth from '../../../hooks/useAuth';
 import { classNames } from '../../../utils/classNames';
-import { PATH_AUTH, PATH_PROFILE, PATH_SETTINGS } from '../../../routes/paths';
+import { PATH_AUTH } from '../../../routes/paths';
 import SearchResults from './SearchResults';
 import { getInitialsOnly } from '../../../utils/getInitials';
 import { getAvatarColor } from '../../../utils/getAvatarColor';

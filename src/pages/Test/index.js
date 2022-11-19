@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
+import * as Yup from 'yup';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 import BasicPage from '../pagesLayouts/BasicPage';
 import PageHeader from '../../components/PageHeader';
 import { fNumber } from '../../utils/formatNumber';
 import { BaseChartOptions } from '../../components/ApexCharts/chartsSettings';
-import WidgetUsersBirthdays from '../Home/widgets/WidgetUsersBirthdays';
 import TextEditor from '../../components/TextEditor';
 import Card from '../../components/Card';
 import useAuth from '../../hooks/useAuth';
 import Quiz from '../../components/Courses/Course/Quiz';
 import { testSteps1, testSteps1answers } from '../../@mock/SampleData';
+import { FormProvider, RHFSelect } from '../../components/hook-form';
 
 const CHART_DATA = [4344, 5435, 1443, 4443];
 
@@ -51,15 +54,39 @@ const Test = () => {
     },
   };
 
-  const birthdays = [
-    { fullname: 'Иванов Иван Иванович', age: '30' },
-    { fullname: 'Смирнова Светлана Сергеевна', age: '41' },
-    { fullname: 'Петров Петр Петрович', age: '45' },
-  ];
+  const options = [
+    { value: 'chocolate', label: 'Chocolate' },
+    { value: 'strawberry', label: 'Strawberry' },
+    { value: 'vanilla', label: 'Vanilla' }
+  ]
+
+  const TestSchema = Yup.object().shape({
+    login: Yup.string().required('Логин обязателен для заполнения'),
+  });
+
+  const methods = useForm({
+    resolver: yupResolver(TestSchema)
+  });
+
+  const {
+    handleSubmit,
+  } = methods;
+
+  const onSubmit = async (data) => {
+    console.log(data)
+  };
+
 
   return (
     <BasicPage title="Тестовая страница" className="main-content max-w-6xl mx-auto px-5">
       <PageHeader pages={breadcrumbs} header="Тестовая страница" />
+      <Card classname="p-4 mt-4">
+        <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+
+        <RHFSelect name='select' options={options} />
+
+        </FormProvider>
+      </Card>
       <Card classname="px-4 pb-4 overflow-visible mt-4">
         <TextEditor
           id="compose-mail"

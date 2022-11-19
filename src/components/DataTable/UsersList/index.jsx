@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import DataTableCore from '../DataTableCore';
 import { Avatar } from '../../Avatar';
 import { getHighlightedText } from '../../../utils/getHighlightedText';
-import { getInitials, getInitialsOnly } from '../../../utils/getInitials';
+import { getInitialsOnly } from '../../../utils/getInitials';
 import { getAvatarColor } from '../../../utils/getAvatarColor';
 import Card from '../../Card';
 import DataTableToolBar from '../DataTableCore/DataTableToolBar';

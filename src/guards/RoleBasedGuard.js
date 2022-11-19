@@ -15,8 +15,8 @@ export default function RoleBasedGuard({ accessibleRoles, accessibleProfessions,
   const { user } = useAuth();
 
   if (
-    (accessibleRoles && !accessibleRoles.includes(user.sudo)) ||
-    (accessibleProfessions && !accessibleProfessions.includes(user.professionID))
+    (accessibleRoles && !accessibleRoles.includes(user?.sudo)) ||
+    (accessibleProfessions && !accessibleProfessions.includes(user?.professionID))
   ) {
     return (
       <div className="p-4">

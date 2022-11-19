@@ -15,7 +15,7 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.response.use(
   (response) => response,
-  (error) => Promise.reject((error.response && error.response.data.error) || 'Что-то пошло не так')
+  (error) => Promise.reject((error.response && error.response.data.error) || 'Неизвестная ошибка')
 );
 
 export default axiosInstance;

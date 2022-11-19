@@ -14,7 +14,7 @@ import WidgetUsersBirthdays from './widgets/WidgetUsersBirthdays';
 
 const Home = () => {
   /** Состояние пользователя */
-  const { initialize, user } = useAuth();
+  const { initialize } = useAuth();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const Home = () => {
   }, []);
 
   const { currentWeather, currentIsLoading, currentError } = useSelector((state) => state.weather);
-  const { usersBirthdays, isLoading, error } = useSelector((state) => state.phonebook);
+  const { usersBirthdays, error } = useSelector((state) => state.phonebook);
 
   useEffect(() => {
     dispatch(getCurrentWeather());
@@ -44,11 +44,11 @@ const Home = () => {
         <div>
           <div className="flex flex-col gap-4">
             {/* 1-я колонка */}
-            <UserWelcomeWidget user={user ?? {}} />
-            <CasesOverPeriodWidget user={user ?? {}} />
-            <NoPublicatedActs user={user ?? {}} />
-            <ProcessedWidget user={user ?? {}} />
-            <NoLastEvents user={user ?? {}} />
+            <UserWelcomeWidget />
+            <CasesOverPeriodWidget />
+            <NoPublicatedActs />
+            <ProcessedWidget />
+            <NoLastEvents />
           </div>
         </div>
         <div>
