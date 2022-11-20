@@ -99,8 +99,8 @@ export function RHFCheckbox({ name, option, ...other }) {
             className={classNames(
               'h-4 w-4 rounded',
               error
-                ? 'focus:ring-red-500 text-red-600 border-red-400'
-                : 'focus:ring-indigo-500 text-indigo-600 border-gray-400'
+                ? 'focus:ring-red-500 text-red-600 border-red-400 dark:border-red-600'
+                : 'focus:ring-indigo-500 text-indigo-600 border-gray-400 dark:border-gray-600'
             )}
             type="checkbox"
             id={name}
@@ -148,7 +148,7 @@ export function RHFMultiCheckbox({ name, options, defaultValue, disabled, size, 
                       inputOptions.sizes[size].classNames.input,
                       'rounded',
                       error
-                        ? 'focus:ring-red-500 text-red-600 border-red-400'
+                        ? 'focus:ring-red-500 text-red-600 border-red-400 dark:text-red-400 dark:border-red-600'
                         : inputOptions.colors[color].classNames.input,
                       'border-gray-400 disabled:border-gray-200 disabled:checked:border-0'
                     )}
@@ -166,7 +166,7 @@ export function RHFMultiCheckbox({ name, options, defaultValue, disabled, size, 
               ))}
             </fieldset>
 
-            {!!error && <div className="text-sm text-red-600 mt-2">{error.message}</div>}
+            {!!error && <div className="text-sm text-red-600 dark:text-red-400 mt-2">{error.message}</div>}
           </div>
         );
       }}

@@ -2,11 +2,9 @@ import React, { useEffect } from 'react';
 import WidgetRowCounter from '../../../../components/WidgetRowCounter';
 import { useDispatch, useSelector } from '../../../../store';
 import { getJudgeNoLastEventsCases, resetJudgeNoLastEventsCases } from '../../../../store/slices/cases/nolastevents';
-import useAuth from '../../../../hooks/useAuth';
 
 const NoLastEvents = () => {
   /** Должности, которым доступна отрисовка */
-  const availableUsers = [1, 2, 3, 9];
   /* [
         {id: 1, profession: 'Председатель', group: 24},
         {id: 2, profession: 'Заместитель председателя', group: 24},
@@ -15,39 +13,34 @@ const NoLastEvents = () => {
       ] */
 
   const dispatch = useDispatch();
-  const { user } = useAuth();
 
   /** Стейты данных */
   const { nolastevents, nolasteventsisLoading, nolasteventserror } = useSelector((state) => state.nolastevents);
 
   /** Обновление данных при отрисовке компонента после загрузки запроса */
   useEffect(() => {
-    if (availableUsers.includes(user?.professionID)) dispatch(getJudgeNoLastEventsCases());
+    dispatch(getJudgeNoLastEventsCases());
     return () => {
       dispatch(resetJudgeNoLastEventsCases());
     };
     // eslint-disable-next-line
   }, [dispatch]);
 
-  if (availableUsers.includes(user?.professionID)) {
-    return (
-      <WidgetRowCounter
-        isLoading={nolasteventsisLoading}
-        rows={nolastevents}
-        color="yellow"
-        link="/no-last-events"
-        error={nolasteventserror}
-        title=", по которым нет движения более 1 дня"
-        counter={{
-          single: 'Дела',
-          multi: 'Дел',
-          count: 'Дел',
-        }}
-      />
-    );
-  }
-
-  return null;
+  return (
+    <WidgetRowCounter
+      isLoading={nolasteventsisLoading}
+      rows={nolastevents}
+      color="yellow"
+      link="/no-last-events"
+      error={nolasteventserror}
+      title=", по которым нет движения более 1 дня"
+      counter={{
+        single: 'Дела',
+        multi: 'Дел',
+        count: 'Дел',
+      }}
+    />
+  );
 };
 
 export default NoLastEvents;

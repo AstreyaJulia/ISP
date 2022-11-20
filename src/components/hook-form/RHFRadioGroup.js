@@ -39,47 +39,47 @@ const inputOptions = {
   colors: {
     orange: {
       classNames: {
-        input: 'focus:ring-orange-500 text-orange-600',
+        input: 'focus:ring-orange-500 text-orange-600 dark:text-orange-400',
       },
     },
     yellow: {
       classNames: {
-        input: 'focus:ring-yellow-500 text-yellow-600',
+        input: 'focus:ring-yellow-500 text-yellow-600 dark:text-yellow-400',
       },
     },
     lime: {
       classNames: {
-        input: 'focus:ring-lime-500 text-lime-600',
+        input: 'focus:ring-lime-500 text-lime-600 dark:text-lime-400',
       },
     },
     emerald: {
       classNames: {
-        input: 'focus:ring-emerald-500 text-emerald-600',
+        input: 'focus:ring-emerald-500 text-emerald-600 dark:text-emerald-400',
       },
     },
     teal: {
       classNames: {
-        input: 'focus:ring-teal-500 text-teal-600',
+        input: 'focus:ring-teal-500 text-teal-600 dark:text-teal-400',
       },
     },
     cyan: {
       classNames: {
-        input: 'focus:ring-cyan-500 text-cyan-600',
+        input: 'focus:ring-cyan-500 text-cyan-600 dark:text-cyan-400',
       },
     },
     blue: {
       classNames: {
-        input: 'focus:ring-blue-500 text-blue-600',
+        input: 'focus:ring-blue-500 text-blue-600 dark:text-blue-400',
       },
     },
     indigo: {
       classNames: {
-        input: 'focus:ring-indigo-500 text-indigo-600',
+        input: 'focus:ring-indigo-500 text-indigo-600 dark:text-indigo-400',
       },
     },
     pink: {
       classNames: {
-        input: 'focus:ring-pink-500 text-pink-600',
+        input: 'focus:ring-pink-500 text-pink-600 dark:text-pink-400',
       },
     },
   },
@@ -108,9 +108,9 @@ export default function RHFRadioGroup({ name, options, defaultValue, size, color
                     className={classNames(
                       inputOptions.sizes[size].classNames.input,
                       error
-                        ? 'focus:ring-red-500 text-red-600 border-red-400'
+                        ? 'focus:ring-red-500 text-red-600 border-red-400 dark:border-red-600'
                         : inputOptions.colors[color].classNames.input,
-                      'border-gray-400 disabled:border-gray-200 disabled:checked:border-0'
+                      'border-gray-400 dark:border-gray-600 disabled:border-gray-200 disabled:checked:border-0'
                     )}
                     onChange={(evt) => field.onChange(onSelected(evt, option))}
                     type="radio"
@@ -126,7 +126,7 @@ export default function RHFRadioGroup({ name, options, defaultValue, size, color
               ))}
             </fieldset>
 
-            {!!error && <div className="text-sm text-red-600 mt-2">{error.message}</div>}
+            {!!error && <div className="text-sm text-red-600 dark:text-red-400 mt-2">{error.message}</div>}
           </div>
         );
       }}

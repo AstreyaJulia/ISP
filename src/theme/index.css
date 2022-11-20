@@ -9,6 +9,7 @@
 @import './modules/apexcharts.css';
 @import './modules/fullcalendar.css';
 @import './modules/quill.css';
+@import './modules/react-select.css';
 
 /** Tailwind  */
 @tailwind base;
@@ -49,6 +50,7 @@ q::before {
   content: '';
 }
 
+/** Блоки кода */
 code {
   @apply text-white px-4 py-5 bg-slate-800 rounded-md overflow-x-auto;
 }

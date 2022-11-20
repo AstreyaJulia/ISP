@@ -49,8 +49,8 @@ export default function RHFPasswordHideShow({ name, label, placeholder, ...other
               className={classNames(
                 '-ml-px relative inline-flex items-center space-x-2 px-4 py-2 border text-sm font-medium rounded-r-md bg-gray-50 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500',
                 error
-                  ? 'text-red-500 hover:bg-red-100 text-red-700 border-red-500'
-                  : 'text-gray-400 hover:bg-gray-100 text-gray-700 border-gray-300'
+                  ? 'text-red-500 focus:ring-red-500 hover:bg-red-100 dark:text-red-700 border-red-500'
+                  : 'text-gray-400 hover:bg-gray-100 dark:text-gray-700 border-gray-300'
               )}
             >
               {inputVisibility === false ? (
@@ -104,7 +104,7 @@ export default function RHFPasswordHideShow({ name, label, placeholder, ...other
             )}
           </div>
 
-          <p className="mt-1 text-sm text-red-600 h-5 mb-2" id={`${name}-error`}>
+          <p className="mt-1 text-sm text-red-600 dark:text-red-400 h-5 mb-2" id={`${name}-error`}>
             {error?.message || ''}
           </p>
         </div>

@@ -2,11 +2,9 @@ import React, { useEffect } from 'react';
 import WidgetRowCounter from '../../../../components/WidgetRowCounter';
 import { useDispatch, useSelector } from '../../../../store';
 import { getJudgeOverPeriodCases, resetJudgeOverPeriodCases } from '../../../../store/slices/cases/overperiod';
-import useAuth from '../../../../hooks/useAuth';
 
 const CasesOverPeriodWidget = () => {
   /** Должности, которым доступна отрисовка */
-  const availableUsers = [1, 2, 3, 6, 7];
   /* [
       {id: 1, profession: 'Председатель', group: 24},
       {id: 2, profession: 'Заместитель председателя', group: 24},
@@ -16,39 +14,35 @@ const CasesOverPeriodWidget = () => {
       ] */
 
   const dispatch = useDispatch();
-  const { user } = useAuth();
 
   /** Стейты данных */
   const { overperiodcases, overperiodisLoading, overperioderror } = useSelector((state) => state.overperiod);
 
   /** Обновление данных при отрисовке компонента после загрузки запроса */
   useEffect(() => {
-    if (availableUsers.includes(user?.professionID)) dispatch(getJudgeOverPeriodCases());
+    dispatch(getJudgeOverPeriodCases());
     return () => {
       dispatch(resetJudgeOverPeriodCases());
     };
     // eslint-disable-next-line
   }, [dispatch]);
 
-  if (availableUsers.includes(user?.professionID)) {
-    return (
-      <WidgetRowCounter
-        isLoading={overperiodisLoading}
-        rows={overperiodcases}
-        color="red"
-        error={overperioderror}
-        link="/over-period"
-        title="с нарушением срока"
-        counter={{
-          single: 'Дело',
-          multi: 'Дела',
-          count: 'Дел',
-        }}
-      />
-    );
-  }
+  return (
+    <WidgetRowCounter
+      isLoading={overperiodisLoading}
+      rows={overperiodcases}
+      color="red"
+      error={overperioderror}
+      link="/over-period"
+      title="с нарушением срока"
+      counter={{
+        single: 'Дело',
+        multi: 'Дела',
+        count: 'Дел',
+      }}
+    />
+  );
 
-  return null;
 };
 
 export default CasesOverPeriodWidget;

@@ -13,7 +13,8 @@ import Card from '../../components/Card';
 import useAuth from '../../hooks/useAuth';
 import Quiz from '../../components/Courses/Course/Quiz';
 import { testSteps1, testSteps1answers } from '../../@mock/SampleData';
-import { FormProvider, RHFSelect } from '../../components/hook-form';
+import { FormProvider } from '../../components/hook-form';
+import ReactSelect from '../../components/ReactSelect';
 
 const CHART_DATA = [4344, 5435, 1443, 4443];
 
@@ -54,10 +55,11 @@ const Test = () => {
     },
   };
 
+  /* icon - текст или svg */
   const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' }
+    { value: 'apple', label: 'Apple', icon: '🍎', selectID: 'select' },
+    { value: 'strawberry', label: 'Strawberry', icon: '🍓', selectID: 'select' },
+    { value: 'cherry', label: 'Cherry', icon: '🍒', selectID: 'select' }
   ]
 
   const TestSchema = Yup.object().shape({
@@ -76,6 +78,10 @@ const Test = () => {
     console.log(data)
   };
 
+  const onChange = (data) => {
+    console.log(data)
+  };
+
 
   return (
     <BasicPage title="Тестовая страница" className="main-content max-w-6xl mx-auto px-5">
@@ -83,11 +89,11 @@ const Test = () => {
       <Card classname="p-4 mt-4">
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
 
-        <RHFSelect name='select' options={options} />
+          <ReactSelect options={options} defaultValue='null' onChange={(evt) =>onChange(evt)}  />
 
         </FormProvider>
       </Card>
-      <Card classname="px-4 pb-4 overflow-visible mt-4">
+      <Card classname="px-4 pb-4 mt-4">
         <TextEditor
           id="compose-mail"
           value={message}

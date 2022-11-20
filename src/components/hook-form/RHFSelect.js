@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import { useFormContext, Controller } from 'react-hook-form';
-import Select from 'react-select'
+import ReactSelect from '../ReactSelect';
 
-export default function RHFSelect({ name, options, ...other }) {
+export default function RHFSelect({ name, options, placeholder, isMulti, defaultValue }) {
   const { control } = useFormContext();
 
   return (
@@ -10,7 +10,7 @@ export default function RHFSelect({ name, options, ...other }) {
       name={name}
       control={control}
       render={({ field, fieldState: { error } }) => (
-        <Select {...field} options={options} {...other} />
+        <ReactSelect other={field} isMulti={isMulti} options={options} placeholder={placeholder} defaultValue={defaultValue} onChange={null} />
       )}
     />
   );
@@ -19,4 +19,7 @@ export default function RHFSelect({ name, options, ...other }) {
 RHFSelect.propTypes = {
   options: PropTypes.array,
   name: PropTypes.string,
+  placeholder: PropTypes.string,
+  isMulti: PropTypes.string,
+  defaultValue: PropTypes.string,
 };

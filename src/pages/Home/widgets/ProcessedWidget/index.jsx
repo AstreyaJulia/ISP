@@ -2,11 +2,9 @@ import React, { useEffect } from 'react';
 import WidgetRowCounter from '../../../../components/WidgetRowCounter';
 import { useDispatch, useSelector } from '../../../../store';
 import { getJudgeProcessedCases, resetJudgeProcessedCases } from '../../../../store/slices/cases/processed';
-import useAuth from '../../../../hooks/useAuth';
 
 const ProcessedWidget = () => {
   /** Должности, которым доступна отрисовка */
-  const availableUsers = [1, 2, 3, 6, 7];
   /* [
     {id: 1, profession: 'Председатель', group: 24},
     {id: 2, profession: 'Заместитель председателя', group: 24},
@@ -16,39 +14,35 @@ const ProcessedWidget = () => {
     ] */
 
   const dispatch = useDispatch();
-  const { user } = useAuth();
 
   /** Стейты данных */
   const { processedcases, processedisLoading, processederror } = useSelector((state) => state.processed);
 
   /** Обновление данных при отрисовке компонента после загрузки запроса */
   useEffect(() => {
-    if (availableUsers.includes(user?.professionID)) dispatch(getJudgeProcessedCases());
+    dispatch(getJudgeProcessedCases());
     return () => {
       dispatch(resetJudgeProcessedCases());
     };
     // eslint-disable-next-line
   }, [dispatch]);
 
-  if (availableUsers.includes(user?.professionID)) {
-    return (
-      <WidgetRowCounter
-        isLoading={processedisLoading}
-        rows={processedcases}
-        color="green"
-        link="/process"
-        error={processederror}
-        title="в производстве"
-        counter={{
-          single: 'Дело',
-          multi: 'Дела',
-          count: 'Дел',
-        }}
-      />
-    );
-  }
+  return (
+    <WidgetRowCounter
+      isLoading={processedisLoading}
+      rows={processedcases}
+      color="green"
+      link="/process"
+      error={processederror}
+      title="в производстве"
+      counter={{
+        single: 'Дело',
+        multi: 'Дела',
+        count: 'Дел',
+      }}
+    />
+  );
 
-  return null;
 };
 
 export default ProcessedWidget;

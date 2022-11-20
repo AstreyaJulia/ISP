@@ -14,7 +14,7 @@ import WidgetUsersBirthdays from './widgets/WidgetUsersBirthdays';
 
 const Home = () => {
   /** Состояние пользователя */
-  const { initialize } = useAuth();
+  const { initialize, user } = useAuth();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -45,10 +45,10 @@ const Home = () => {
           <div className="flex flex-col gap-4">
             {/* 1-я колонка */}
             <UserWelcomeWidget />
-            <CasesOverPeriodWidget />
-            <NoPublicatedActs />
-            <ProcessedWidget />
-            <NoLastEvents />
+            {[1, 2, 3, 6, 7].includes(user?.professionID) ? <CasesOverPeriodWidget /> : ""}
+            {[1, 2, 3, 6, 7].includes(user?.professionID) ? <NoPublicatedActs /> : ""}
+            {[1, 2, 3, 6, 7].includes(user?.professionID) ? <ProcessedWidget /> : ""}
+            {[1, 2, 3, 9].includes(user?.professionID) ? <NoLastEvents /> : ""}
           </div>
         </div>
         <div>

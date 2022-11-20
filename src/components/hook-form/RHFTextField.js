@@ -29,7 +29,7 @@ export default function RHFTextField({ name, label, placeholder, ...other }) {
               className={classNames(
                 'block bg-gray-50 dark:bg-gray-800 w-full pr-10 focus:outline-none sm:text-sm rounded-md',
                 error
-                  ? 'border-red-500 text-red-900 placeholder-red-400 focus:ring-red-500 focus:border-red-500'
+                  ? 'border-red-500 dark:border-red-600 text-red-900 dark:text-red-50 placeholder-red-400 dark:placeholder-red-400 focus:ring-red-500 focus:border-red-500'
                   : 'border-slate-300 text-gray-900 placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500'
               )}
               placeholder={placeholder}
@@ -56,7 +56,7 @@ export default function RHFTextField({ name, label, placeholder, ...other }) {
               ''
             )}
           </div>
-          <p className="mt-1 text-sm text-red-600 h-5 mb-2" id={`${name}-error`}>
+          <p className="mt-1 text-sm text-red-600 dark:text-red-400 h-5 mb-2" id={`${name}-error`}>
             {error?.message || ''}
           </p>
         </div>
