@@ -119,7 +119,7 @@ export function RHFCheckbox({ name, option, ...other }) {
 RHFCheckbox.propTypes = {
   name: PropTypes.string,
   option: PropTypes.string,
-  other: PropTypes.object
+  other: PropTypes.object,
 };
 
 export function RHFMultiCheckbox({ name, options, defaultValue, disabled, size, color, ...other }) {
@@ -181,5 +181,5 @@ RHFMultiCheckbox.propTypes = {
   disabled: PropTypes.bool,
   size: PropTypes.oneOf(['3', '4', '5', '6']),
   color: PropTypes.oneOf(['orange', 'yellow', 'lime', 'emerald', 'teal', 'cyan', 'blue', 'indigo', 'pink']),
-  other: PropTypes.object
+  other: PropTypes.object,
 };

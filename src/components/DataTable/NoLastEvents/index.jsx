@@ -26,10 +26,9 @@ const NoLastEvents = ({ data, isLoading, error, all }) => {
 
   const makeItem = (item, key, query) => (
     <CaseListCard key={key} item={item} query={query}>
-      <p
-        className="font-medium text-xs text-slate-600 dark:text-slate-200 flex flex-wrap justify-start items-center text-left mb-1">
+      <p className="font-medium text-xs text-slate-600 dark:text-slate-200 flex flex-wrap justify-start items-center text-left mb-1">
         Посл.событие:
-        <Badge size="small" shape="rounded" className="ml-1" color="indigo" item={item.LAST_EVENT_DATE}/>
+        <Badge size="small" shape="rounded" className="ml-1" color="indigo" item={item.LAST_EVENT_DATE} />
       </p>
     </CaseListCard>
   );
@@ -44,9 +43,9 @@ const NoLastEvents = ({ data, isLoading, error, all }) => {
             item !== 'JUDGE_ID' &&
             item !== 'JUDGE_NAME' &&
             item !== 'LAST_EVENT_DATE' &&
-            item !== 'LAST_EVENT_NAME',
+            item !== 'LAST_EVENT_NAME'
         )
-        .some((column) => row[column].toLowerCase().indexOf(query.toLowerCase()) > -1),
+        .some((column) => row[column].toLowerCase().indexOf(query.toLowerCase()) > -1)
     );
 
   const handlePDFModalClosed = () => {
@@ -69,8 +68,8 @@ const NoLastEvents = ({ data, isLoading, error, all }) => {
       filterKeys.every((key) =>
         filters[key] !== 'All'
           ? row[key].toLowerCase().indexOf(filters[key].toLowerCase()) > -1
-          : row[key].toLowerCase().indexOf(filters[key].toLowerCase()) === -1,
-      ),
+          : row[key].toLowerCase().indexOf(filters[key].toLowerCase()) === -1
+      )
     );
   };
 
@@ -132,7 +131,7 @@ const NoLastEvents = ({ data, isLoading, error, all }) => {
                 </select>
               </div>
             ) : (
-              <div/>
+              <div />
             )}
 
             {/* PDF */}
@@ -163,7 +162,7 @@ const NoLastEvents = ({ data, isLoading, error, all }) => {
         </DataTableToolBar>
         <PdfModal onModalClose={handlePDFModalClosed} open={modalPDFOpened} setOpen={setModalPDFOpened}>
           <PDFViewer width="100%" height="100%" style={{ border: 'none' }}>
-            <NoLastEventsListFile list={rows}/>
+            <NoLastEventsListFile list={rows} />
           </PDFViewer>
         </PdfModal>
       </DataTableCore>
@@ -177,7 +176,7 @@ NoLastEvents.propTypes = {
   /** Состояние получения данных */
   isLoading: PropTypes.string.isRequired,
   error: PropTypes.string,
-  all: PropTypes.string
+  all: PropTypes.string,
 };
 
 export default NoLastEvents;

@@ -42,7 +42,6 @@ const CasesOverPeriodWidget = () => {
       }}
     />
   );
-
 };
 
 export default CasesOverPeriodWidget;

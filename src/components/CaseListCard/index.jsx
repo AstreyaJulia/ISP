@@ -13,7 +13,7 @@ const CaseListCard = ({ item, query, children, link, handleOnDblclick }) => {
     setIsCopied('true');
     setTimeout(() => {
       setIsCopied('false');
-    }, 1500)
+    }, 1500);
   };
 
   return (
@@ -34,8 +34,10 @@ const CaseListCard = ({ item, query, children, link, handleOnDblclick }) => {
                 classname="mr-2"
               />
               <span className="line-clamp-1 min-w-min w-40">{getHighlightedText(item?.CASE_NUMBER, query)}</span>
-              <CopyToClipboard text={`${item?.CASE_NUMBER}, ${item?.JUDGE_NAME}, ${item?.PARTS_FIO}`}
-                               onCopy={() => handleInfoCopy()}>
+              <CopyToClipboard
+                text={`${item?.CASE_NUMBER}, ${item?.JUDGE_NAME}, ${item?.PARTS_FIO}`}
+                onCopy={() => handleInfoCopy()}
+              >
                 <button
                   className="relative bg-transparent border-0 ml-1 p-1 shrink-0"
                   type="button"
@@ -73,7 +75,6 @@ const CaseListCard = ({ item, query, children, link, handleOnDblclick }) => {
                     </svg>
                   )}
                 </button>
-
               </CopyToClipboard>
             </p>
             <span className="text-xs text-indigo-700 dark:text-indigo-300 mb-2">{getInitials(item?.JUDGE_NAME)}</span>

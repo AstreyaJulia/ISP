@@ -8,7 +8,7 @@ import {
 
 const NoPublicatedActs = () => {
   /** Должности, которым доступна отрисовка */
- /* [
+  /* [
     {id: 1, profession: 'Председатель', group: 24},
     {id: 2, profession: 'Заместитель председателя', group: 24},
     {id: 3, profession: 'Судья', group: 24},
@@ -16,7 +16,7 @@ const NoPublicatedActs = () => {
     {id: 7, profession: 'Помощник судьи', group: 25},
     ] */
 
-const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   /** Стейты данных */
   const { nopublacts, nopublactsisLoading, nopublactserror } = useSelector((state) => state.actpublication);
@@ -45,7 +45,6 @@ const dispatch = useDispatch();
       }}
     />
   );
-
 };
 
 export default NoPublicatedActs;

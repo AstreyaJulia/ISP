@@ -42,7 +42,6 @@ const ProcessedWidget = () => {
       }}
     />
   );
-
 };
 
 export default ProcessedWidget;

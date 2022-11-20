@@ -94,9 +94,8 @@ export default function RHFRadioGroup({ name, options, defaultValue, size, color
       control={control}
       defaultValue={defaultValue}
       render={({ field, fieldState: { error } }) => {
-
         // eslint-disable-next-line
-        const onSelected = (evt, option) => field.value = option.value
+        const onSelected = (evt, option) => (field.value = option.value);
 
         return (
           <div>

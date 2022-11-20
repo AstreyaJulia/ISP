@@ -7,9 +7,7 @@ export default function ProcessedListFile({ list }) {
   return (
     <Document>
       <Page size="A4" style={styles.page}>
-        <Text style={[styles.h1, styles.mb8]}>
-          Дела, находящиеся в производстве
-        </Text>
+        <Text style={[styles.h1, styles.mb8]}>Дела, находящиеся в производстве</Text>
 
         <View style={styles.table}>
           <View style={styles.tableHeader}>
@@ -34,11 +32,19 @@ export default function ProcessedListFile({ list }) {
 
                 <View style={styles.tableCell_2}>
                   <Text>{item.PARTS_FIO}</Text>
-                  {item?.INFO ? <Text style={styles.smallRowText}>Рассм. до: {item?.INFO?.slice(
-                    item?.INFO?.toLowerCase().lastIndexOf('Д.б. рассм./изг.реш. в оконч.форме до:'.toLowerCase()) + 39,
-                    item?.INFO?.toLowerCase().lastIndexOf('Д.б. рассм./изг.реш. в оконч.форме до:'.toLowerCase()) + 49
-                  ) ?? null
-                  }</Text> : ''}
+                  {item?.INFO ? (
+                    <Text style={styles.smallRowText}>
+                      Рассм. до:{' '}
+                      {item?.INFO?.slice(
+                        item?.INFO?.toLowerCase().lastIndexOf('Д.б. рассм./изг.реш. в оконч.форме до:'.toLowerCase()) +
+                          39,
+                        item?.INFO?.toLowerCase().lastIndexOf('Д.б. рассм./изг.реш. в оконч.форме до:'.toLowerCase()) +
+                          49
+                      ) ?? null}
+                    </Text>
+                  ) : (
+                    ''
+                  )}
                 </View>
               </View>
             ))}

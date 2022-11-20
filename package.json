@@ -16,10 +16,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "clean": "yarn autoclean --force",
+    "clean": "yarn cache clean",
     "lint": "eslint --ext .js,.jsx ./src",
     "lint:fix": "eslint --fix --ext .js,.jsx ./src",
-    "update modules": "yarn upgrade",
+    "update modules": "yarn up",
+    "upgrade modules": "yarn upgrade-interactive",
     "outdated modules": "yarn outdated",
     "start:prod": "serve -s build -l 3000"
   },

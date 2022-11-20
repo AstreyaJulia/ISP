@@ -288,7 +288,6 @@ const Processed = ({ data, isLoading, all, error }) => {
                   ))}
                 </select>
               </div>
-
             </div>
             {/* PDF */}
             <div className="flex items-center gap-2">
@@ -318,7 +317,7 @@ const Processed = ({ data, isLoading, all, error }) => {
         </DataTableToolBar>
         <PdfModal onModalClose={handlePDFModalClosed} open={modalPDFOpened} setOpen={setModalPDFOpened}>
           <PDFViewer width="100%" height="100%" style={{ border: 'none' }}>
-            <ProcessedListFile list={rows}/>
+            <ProcessedListFile list={rows} />
           </PDFViewer>
         </PdfModal>
       </DataTableCore>
@@ -412,7 +411,7 @@ Processed.propTypes = {
   data: PropTypes.array.isRequired,
   isLoading: PropTypes.string.isRequired,
   all: PropTypes.string.isRequired,
-  error: PropTypes.string
+  error: PropTypes.string,
 };
 
 export default Processed;

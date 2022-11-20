@@ -44,5 +44,5 @@ export default function CategoryListFile({ list, title }) {
 
 CategoryListFile.propTypes = {
   list: PropTypes.array.isRequired,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
 };

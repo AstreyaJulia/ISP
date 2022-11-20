@@ -144,7 +144,7 @@ const Login = () => {
               был сброшен"
             </p>
           </Alert>
-          <Alert alertType="error" title="Имя пользователя чувствительно к регистру" containerClassName='mt-3'>
+          <Alert alertType="error" title="Имя пользователя чувствительно к регистру" containerClassName="mt-3">
             <p>"Ivanov_II" и "ivanov_ii" - разные имена.</p>
           </Alert>
 

@@ -45,10 +45,10 @@ const Home = () => {
           <div className="flex flex-col gap-4">
             {/* 1-я колонка */}
             <UserWelcomeWidget />
-            {[1, 2, 3, 6, 7].includes(user?.professionID) ? <CasesOverPeriodWidget /> : ""}
-            {[1, 2, 3, 6, 7].includes(user?.professionID) ? <NoPublicatedActs /> : ""}
-            {[1, 2, 3, 6, 7].includes(user?.professionID) ? <ProcessedWidget /> : ""}
-            {[1, 2, 3, 9].includes(user?.professionID) ? <NoLastEvents /> : ""}
+            {[1, 2, 3, 6, 7].includes(user?.professionID) ? <CasesOverPeriodWidget /> : ''}
+            {[1, 2, 3, 6, 7].includes(user?.professionID) ? <NoPublicatedActs /> : ''}
+            {[1, 2, 3, 6, 7].includes(user?.professionID) ? <ProcessedWidget /> : ''}
+            {[1, 2, 3, 9].includes(user?.professionID) ? <NoLastEvents /> : ''}
           </div>
         </div>
         <div>
@@ -56,7 +56,6 @@ const Home = () => {
         </div>
         <div>
           <div className="flex flex-col gap-4">
-
             {/* 3-я колонка */}
             <WidgetWeather
               currentWeather={currentWeather}
@@ -65,7 +64,6 @@ const Home = () => {
             />
 
             {usersBirthdays.length > 0 ? <WidgetUsersBirthdays birthdays={usersBirthdays ?? []} error={error} /> : ''}
-
           </div>
         </div>
       </div>

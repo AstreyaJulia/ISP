@@ -15,6 +15,7 @@ import Quiz from '../../components/Courses/Course/Quiz';
 import { testSteps1, testSteps1answers } from '../../@mock/SampleData';
 import { FormProvider } from '../../components/hook-form';
 import ReactSelect from '../../components/ReactSelect';
+import { makeOptionsFromArray } from '../../components/ReactSelect/makeOptions';
 
 const CHART_DATA = [4344, 5435, 1443, 4443];
 
@@ -59,38 +60,35 @@ const Test = () => {
   const options = [
     { value: 'apple', label: 'Apple', icon: '🍎', selectID: 'select' },
     { value: 'strawberry', label: 'Strawberry', icon: '🍓', selectID: 'select' },
-    { value: 'cherry', label: 'Cherry', icon: '🍒', selectID: 'select' }
-  ]
+    { value: 'cherry', label: 'Cherry', icon: '🍒', selectID: 'select' },
+  ];
+
+  const optionsTest = ['apple', 'strawberry', 'cherry'];
 
   const TestSchema = Yup.object().shape({
     login: Yup.string().required('Логин обязателен для заполнения'),
   });
 
   const methods = useForm({
-    resolver: yupResolver(TestSchema)
+    resolver: yupResolver(TestSchema),
   });
 
-  const {
-    handleSubmit,
-  } = methods;
+  const { handleSubmit } = methods;
 
   const onSubmit = async (data) => {
-    console.log(data)
+    console.log(data);
   };
 
   const onChange = (data) => {
-    console.log(data)
+    console.log(data);
   };
-
 
   return (
     <BasicPage title="Тестовая страница" className="main-content max-w-6xl mx-auto px-5">
       <PageHeader pages={breadcrumbs} header="Тестовая страница" />
       <Card classname="p-4 mt-4">
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-
-          <ReactSelect options={options} defaultValue='null' onChange={(evt) =>onChange(evt)}  />
-
+          <ReactSelect options={makeOptionsFromArray(optionsTest, ['Яблоко', 'Клубника', 'Вишня'], 'select', ['🍎', '🍓', '🍒'])} defaultValue="null" onChange={(evt) => onChange(evt)} />
         </FormProvider>
       </Card>
       <Card classname="px-4 pb-4 mt-4">

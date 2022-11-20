@@ -10,7 +10,14 @@ export default function RHFSelect({ name, options, placeholder, isMulti, default
       name={name}
       control={control}
       render={({ field, fieldState: { error } }) => (
-        <ReactSelect other={field} isMulti={isMulti} options={options} placeholder={placeholder} defaultValue={defaultValue} onChange={null} />
+        <ReactSelect
+          other={field}
+          isMulti={isMulti}
+          options={options}
+          placeholder={placeholder}
+          defaultValue={defaultValue}
+          onChange={null}
+        />
       )}
     />
   );

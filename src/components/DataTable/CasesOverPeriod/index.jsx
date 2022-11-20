@@ -93,8 +93,8 @@ const CasesOverPeriod = ({ data, isLoading, error, all }) => {
       filterKeys.every((key) =>
         filters[key] !== 'All'
           ? row[key].toLowerCase().indexOf(filters[key].toLowerCase()) > -1
-          : row[key].toLowerCase().indexOf(filters[key].toLowerCase()) === -1,
-      ),
+          : row[key].toLowerCase().indexOf(filters[key].toLowerCase()) === -1
+      )
     );
   };
 
@@ -178,7 +178,7 @@ const CasesOverPeriod = ({ data, isLoading, error, all }) => {
                 </select>
               </div>
             ) : (
-              <div/>
+              <div />
             )}
             {/* PDF */}
             <div className="flex items-center gap-2">
@@ -240,7 +240,7 @@ CasesOverPeriod.propTypes = {
   /** Состояние получения данных */
   isLoading: PropTypes.string.isRequired,
   error: PropTypes.string,
-  all: PropTypes.string
+  all: PropTypes.string,
 };
 
 export default CasesOverPeriod;

@@ -9,7 +9,7 @@ const initialState = {
   isLoading: 'false',
   error: null,
   userList: [],
-  usersBirthdays: []
+  usersBirthdays: [],
 };
 
 const slice = createSlice({
@@ -70,4 +70,3 @@ export function getBirthdaysList() {
     }
   };
 }
-

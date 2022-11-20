@@ -171,10 +171,9 @@ const UsersList = ({ data, isLoading, error }) => {
               </select>
             </div>
           </div>
-          <div/>
+          <div />
         </div>
       </DataTableToolBar>
-
     </DataTableCore>
   );
 };
@@ -183,7 +182,7 @@ UsersList.propTypes = {
   /** Данные */
   data: PropTypes.array.isRequired,
   isLoading: PropTypes.string,
-  error: PropTypes.string
+  error: PropTypes.string,
 };
 
 export default UsersList;
