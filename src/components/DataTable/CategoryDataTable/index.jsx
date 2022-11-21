@@ -50,10 +50,13 @@ const CategoryDataTable = ({ data, isLoading, type, error }) => {
       array: PropTypes.array.isRequired,
     };
 
-    if (query === '') {
+    if (query === '' && type === 'gcases') {
       return findParents(findQuery);
     }
-    return findParents(findQuery);
+    if (type === 'gcases') {
+      return findParents(findQuery)
+    }
+    return findQuery
   };
 
   filter.propTypes = {
