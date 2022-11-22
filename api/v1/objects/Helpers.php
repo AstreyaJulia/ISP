@@ -68,7 +68,8 @@ class Helpers extends Router
       'gas-api',
       'weather',
       'categories-civil-cases',
-      'categories-material'
+      'categories-material',
+      'staff'
     ));
   }
 
