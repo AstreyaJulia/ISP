@@ -43,19 +43,36 @@ class Staff
     }
 
     /**
-     * Список сотрудников
+     * Свойства сотрудника
+     * 
+     * @param int $params id сотрудника
+     * 
+     * @return array
      */
     public function staffProperty(int $params): array
     {
-        $sql = "SELECT *,
+        $sql = "SELECT
                     sdc_users.id,
                     sdc_users.username,
-                    sdc_user_attributes.fullname,
-                    DATE_FORMAT(sdc_user_attributes.dob, '%d.%m.%Y') AS dob,
-                    sdc_vocation.name AS profession,
-                    ChildUserType.ip,
+                    IF(sdc_users.password = '','0','1') AS setPass,
                     sdc_users.active,
-                    sdc_users.sudo
+                    sdc_users.sudo,
+                    sdc_user_attributes.idGAS,
+                    sdc_user_attributes.fullname,
+                    sdc_user_attributes.gender,
+                    sdc_vocation.name AS profession,
+                    DATE_FORMAT(sdc_user_attributes.dob, '%d.%m.%Y') AS dob,
+                    sdc_user_attributes.email,
+                    ChildUserType.phone_worck AS phoneWorck,
+                    sdc_user_attributes.mobilephone,
+                    sdc_user_attributes.address,
+                    sdc_user_attributes.website,
+                    sdc_user_attributes.comment,
+                    ChildUserType.ip,
+                    ChildUserType.id AS workplaceID,
+                    ChildUserType.name AS workplace,
+                    ParentUserType.name AS room,
+                    ParentUserType.alarm_button
                 FROM sdc_users
                 LEFT JOIN sdc_user_attributes ON sdc_user_attributes.internalKey=sdc_users.id
                 LEFT JOIN sdc_room AS ChildUserType ON ChildUserType.id=sdc_user_attributes.room
@@ -67,6 +84,20 @@ class Staff
     }
 
     /**
+     * 
+     * Проверяем вторую часть запроса
+     * 
+     */
+    private function requestReview()
+    {
+
+        return match ($this->helpers->urlData[1]) {
+            "workplace" => "свободные рабочие места",
+            $this->helpers->urlData[1] => $this->staffProperty($this->helpers->urlData[1])
+        };
+    }
+
+    /**
      * Обрабатываем приходящие GET-запросы. 
      */
     private function metodGET()
@@ -75,13 +106,12 @@ class Staff
             return $this->helpers->wrap(
                 match (count($this->helpers->urlData)) {
                     1 => $this->staffList(),
-                    2 => $this->staffProperty($this->helpers->urlData[1])
+                    2 => $this->requestReview()
                 }, "data"
             );
         } catch (\Error | \Exception | \UnhandledMatchError $e) {
             $this->helpers->isErrorInfo(400, "Ошибка в переданных параметрах", $e->getMessage());
         }
-        
     }
 
     /**
