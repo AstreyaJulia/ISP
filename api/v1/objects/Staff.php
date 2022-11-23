@@ -24,6 +24,7 @@ class Staff
                     sdc_user_attributes.fullname,
                     DATE_FORMAT(sdc_user_attributes.dob, '%d.%m.%Y') AS dob,
                     sdc_vocation.name AS profession,
+                    ChildUserAttributesType.fullname AS affiliationJudge,
                     CONCAT
                     (
                         COALESCE(ParentUserType.name, 'нет кабинета'), ', ', 
@@ -34,6 +35,7 @@ class Staff
                     sdc_users.sudo
                 FROM sdc_users
                 LEFT JOIN sdc_user_attributes ON sdc_user_attributes.internalKey=sdc_users.id
+                LEFT JOIN sdc_user_attributes AS ChildUserAttributesType ON ChildUserAttributesType.id = sdc_user_attributes.affiliation
                 LEFT JOIN sdc_room AS ChildUserType ON ChildUserType.id=sdc_user_attributes.room
                 LEFT JOIN sdc_room AS ParentUserType ON ParentUserType.id=ChildUserType.affiliation 
                 LEFT JOIN sdc_vocation ON sdc_vocation.id = sdc_user_attributes.profession
@@ -61,6 +63,7 @@ class Staff
                     sdc_user_attributes.fullname,
                     sdc_user_attributes.gender,
                     sdc_vocation.name AS profession,
+                    ChildUserAttributesType.fullname AS affiliationJudge,
                     DATE_FORMAT(sdc_user_attributes.dob, '%d.%m.%Y') AS dob,
                     sdc_user_attributes.email,
                     ChildUserType.phone_worck AS phoneWorck,
@@ -75,6 +78,7 @@ class Staff
                     ParentUserType.alarm_button
                 FROM sdc_users
                 LEFT JOIN sdc_user_attributes ON sdc_user_attributes.internalKey=sdc_users.id
+                LEFT JOIN sdc_user_attributes AS ChildUserAttributesType ON ChildUserAttributesType.id = sdc_user_attributes.affiliation
                 LEFT JOIN sdc_room AS ChildUserType ON ChildUserType.id=sdc_user_attributes.room
                 LEFT JOIN sdc_room AS ParentUserType ON ParentUserType.id=ChildUserType.affiliation 
                 LEFT JOIN sdc_vocation ON sdc_vocation.id = sdc_user_attributes.profession
@@ -85,14 +89,32 @@ class Staff
 
     /**
      * 
+     * Свободные рабочие места
+     * 
+     * @return array
+     */
+    private function freeDesktop():array
+    {
+        $sql = "SELECT
+                    ChildUserType.id,
+                    CONCAT (ParentUserType.name, ' / ', ChildUserType.name) AS name 
+                FROM `sdc_room` AS ChildUserType
+                LEFT JOIN `sdc_room` AS ParentUserType ON ChildUserType.affiliation = ParentUserType.id
+                LEFT JOIN sdc_user_attributes ON sdc_user_attributes.room=ChildUserType.id
+                WHERE ChildUserType.icon ='desktop' AND sdc_user_attributes.room IS NULL
+                ORDER BY ParentUserType.name ASC";
+        return $this->helpers->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * 
      * Проверяем вторую часть запроса
      * 
      */
     private function requestReview()
     {
-
         return match ($this->helpers->urlData[1]) {
-            "workplace" => "свободные рабочие места",
+            "workplace" => $this->freeDesktop(),
             $this->helpers->urlData[1] => $this->staffProperty($this->helpers->urlData[1])
         };
     }
@@ -100,7 +122,7 @@ class Staff
     /**
      * Обрабатываем приходящие GET-запросы. 
      */
-    private function metodGET()
+    private function metodGET(): array
     {
         try {
             return $this->helpers->wrap(
