@@ -59,23 +59,23 @@ class Staff
                     IF(sdc_users.password = '','0','1') AS setPass,
                     sdc_users.active,
                     sdc_users.sudo,
-                    sdc_user_attributes.idGAS,
+                    IF(ISNULL(sdc_user_attributes.idGAS),'', sdc_user_attributes.idGAS) AS idGAS,
                     sdc_user_attributes.fullname,
                     sdc_user_attributes.gender,
                     sdc_vocation.name AS profession,
-                    ChildUserAttributesType.fullname AS affiliationJudge,
+                    IF(ISNULL(ChildUserAttributesType.fullname),'',ChildUserAttributesType.fullname) AS affiliationJudge,
                     DATE_FORMAT(sdc_user_attributes.dob, '%d.%m.%Y') AS dob,
                     sdc_user_attributes.email,
-                    ChildUserType.phone_worck AS phoneWorck,
+                    IF(ISNULL(ChildUserType.phone_worck),'', ChildUserType.phone_worck) AS phoneWorck,
                     sdc_user_attributes.mobilephone,
                     sdc_user_attributes.address,
                     sdc_user_attributes.website,
                     sdc_user_attributes.comment,
                     IF(ISNULL(ChildUserType.ip),'',ChildUserType.ip) AS ip,
-                    ChildUserType.id AS workplaceID,
-                    ChildUserType.name AS workplace,
-                    ParentUserType.name AS room,
-                    ParentUserType.alarm_button
+                    IF(ISNULL(ChildUserType.id),'',ChildUserType.id) AS workplaceID,
+                    IF(ISNULL(ChildUserType.name),'',ChildUserType.name) AS workplace,
+                    IF(ISNULL(ParentUserType.name),'',ParentUserType.name) AS room,
+                    IF(ISNULL(ParentUserType.alarm_button),'',ParentUserType.alarm_button) AS alarmButton
                 FROM sdc_users
                 LEFT JOIN sdc_user_attributes ON sdc_user_attributes.internalKey=sdc_users.id
                 LEFT JOIN sdc_user_attributes AS ChildUserAttributesType ON ChildUserAttributesType.id = sdc_user_attributes.affiliation
@@ -110,8 +110,10 @@ class Staff
      * 
      * Проверяем вторую часть запроса
      * 
+     * @return array
+     * 
      */
-    private function requestReview()
+    private function requestReview(): array
     {
         return match ($this->helpers->urlData[1]) {
             "workplace" => $this->freeDesktop(),
@@ -144,7 +146,7 @@ class Staff
         $this->helpers::headlinesPOST();
     }
 
-    public function responseStaff()
+    public function responseStaff(): void
     {
         match ($this->helpers->getMethod()) {
             "GET" => $this->helpers->getJsonEncode($this->metodGET()),
