@@ -24,13 +24,13 @@ class Staff
                     sdc_user_attributes.fullname,
                     DATE_FORMAT(sdc_user_attributes.dob, '%d.%m.%Y') AS dob,
                     sdc_vocation.name AS profession,
-                    ChildUserAttributesType.fullname AS affiliationJudge,
+                    IF(ISNULL(ChildUserAttributesType.fullname),'',ChildUserAttributesType.fullname) AS affiliationJudge,
                     CONCAT
                     (
                         COALESCE(ParentUserType.name, 'нет кабинета'), ', ', 
                         COALESCE(ChildUserType.name, 'нет рабочего места')
                     ) AS workplace,
-                    ChildUserType.ip,
+                    IF(ISNULL(ChildUserType.ip),'',ChildUserType.ip) AS ip,
                     sdc_users.active,
                     sdc_users.sudo
                 FROM sdc_users
@@ -71,7 +71,7 @@ class Staff
                     sdc_user_attributes.address,
                     sdc_user_attributes.website,
                     sdc_user_attributes.comment,
-                    ChildUserType.ip,
+                    IF(ISNULL(ChildUserType.ip),'',ChildUserType.ip) AS ip,
                     ChildUserType.id AS workplaceID,
                     ChildUserType.name AS workplace,
                     ParentUserType.name AS room,
