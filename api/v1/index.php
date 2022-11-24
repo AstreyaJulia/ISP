@@ -34,9 +34,6 @@
     // Подключаем файл-роутер
     include_once "routers/".$helpers->router.".php";
 
-    // Запускаем главную функцию
-    route($helpers);
-
   } else {
     // Выбрасываем ошибку
     $helpers::isErrorInfo(400, "invalid_router", "router not found");

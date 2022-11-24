@@ -1,8 +1,5 @@
 <?php
 
-// Роутинг, основная функция
-function route($helpers) {}
-
   include_once 'config/jwt.php';
   $registrationClass = new Api\Objects\Registration($helpers);
   // POST

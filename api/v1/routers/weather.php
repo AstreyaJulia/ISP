@@ -11,9 +11,6 @@ $params = array(
 
 $weather->weatherForecast($params, $OPEN_WEATHER_API_CURRENT);
 
-// Роутинг, основная функция
-function route($helpers) {}
-
 /*
 $opts = array(
     'socket' => array(

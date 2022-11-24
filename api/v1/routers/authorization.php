@@ -1,8 +1,5 @@
 <?php
 
-// Роутинг, основная функция
-function route($helpers) {}
-
   include_once 'config/jwt.php';
   $authorizationClass = new Api\Objects\Authorization($helpers);
   // POST
