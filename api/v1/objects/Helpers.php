@@ -10,7 +10,7 @@ class Helpers extends Router
    * символы Unicode, (по умолчанию они кодируются как \uXXXX). Использует
    * пробельные символы в возвращаемых данных для их форматирования.
    */
-  public static function getJsonEncode(array|string|bool|int $data):void
+  public static function getJsonEncode(array|string|bool|int $data): void
   {
     echo json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
   }
@@ -22,7 +22,7 @@ class Helpers extends Router
    * @param string $name имя ключа массива
    * 
    */
-  public static function wrap(mixed $data, string $name):array
+  public static function wrap(mixed $data, string $name): array
   {
     $showing[$name] = $data;
     return $showing;
@@ -106,7 +106,7 @@ class Helpers extends Router
    * Сообщение об ошибке.
    *
    */
-  public static function isErrorInfo(int $responseCode, string $mesage, object|string $e):string
+  public static function isErrorInfo(int $responseCode, string $mesage, object|string $e): string
   {
 
     $info = array(
@@ -131,7 +131,7 @@ class Helpers extends Router
    * @param string $host_api адрес на который отправляем запрос
    * 
    */
-  public static function sendGET(array $params, string $host_api):array
+  public static function sendGET(array $params, string $host_api): array
   {
     // собираем адрес и параметры запроса
     $url = $host_api . http_build_query($params);
@@ -154,6 +154,62 @@ class Helpers extends Router
   }
 
   /**
+   * Асинхронная отправка данных методом $_GET
+   * 
+   * @param array $params массив с параметрами key => value
+   * @param array $nodes массив адресов на которые отправляем запросы
+   * 
+   */
+  public static function sendGETmulti(array $params, array $nodes): array
+  {
+    $node_count = count($nodes);
+
+    $curl_arr = array();
+    $master = curl_multi_init();
+
+    for ($i = 0; $i < $node_count; $i++) {
+      $url = $nodes[$i];
+      $curl_arr[$i] = curl_init($url);
+      curl_setopt($curl_arr[$i], CURLOPT_RETURNTRANSFER, true);
+      curl_setopt($curl_arr[$i], CURLOPT_CONNECTTIMEOUT, 1);
+      curl_multi_add_handle($master, $curl_arr[$i]);
+    }
+
+    do {
+      curl_multi_exec($master, $running);
+    } while ($running > 0);
+
+
+    for ($i = 0; $i < $node_count; $i++) {
+      $results[] = curl_multi_getcontent($curl_arr[$i]);
+    }
+    print_r($results);
+
+
+
+
+    // собираем адрес и параметры запроса
+    $url = $nodes . http_build_query($params);
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    //ожидание при попытке подключения, секунд (0 - бесконечно)
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
+
+    $result = curl_exec($ch);
+    $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+    $message = json_decode($result) ?? array();
+    if (in_array($httpcode, [0, 504])) {
+      $message = self::isErrorInfo(501, "ГАС недоступен", "Обратитесь к администратору");
+    } else {
+      http_response_code($httpcode);
+      $message;
+    }
+    return $message;
+  }
+
+
+  /**
    * Отправка данных методом $_GET через прокси
    * 
    * @param array $params массив с параметрами key => value
@@ -162,13 +218,13 @@ class Helpers extends Router
    * @param int $port порт proxy-сервера
    * 
    */
-  public function sendGETtoProxy(array $params, string $host, string $proxy = '10.67.254.42', int $port = 3128):string|bool 
+  public function sendGETtoProxy(array $params, string $host, string $proxy = '10.67.254.42', int $port = 3128): string|bool
   {
     $url = $host . http_build_query($params);;
 
     $ch = curl_init($url);
-    
-    curl_setopt($ch, CURLOPT_URL,$url);
+
+    curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_PROXY, $proxy);
     curl_setopt($ch, CURLOPT_PROXYPORT, $port);
 
@@ -194,7 +250,7 @@ class Helpers extends Router
     if (isset($message)) {
       http_response_code(200);
       $message;
-    } else {    
+    } else {
       $message = self::isErrorInfo(501, "weather не доступна", "Обратитесь к администратору");
     }
     return $message;
