@@ -13,12 +13,12 @@ class GasAPI
         $this->helpers = $helpers;
     }
 
-    public function Links() {
+    public function Links(): array {
         return match($this->helpers->urlData["1"]) {
             'deadlines' => array (
-                            API_GAS.'v1/deadlines/deadlines-adm.php?',
-                            "deadlines-u1",
-                            "deadlines-adm"
+                            API_GAS."v1/deadlines/u1.php?",
+                            API_GAS."v1/deadlines/adm.php?",
+                            API_GAS."v1/deadlines/g1.php?"
                             )
         };
     }
@@ -69,9 +69,9 @@ class GasAPI
                                             FROM sdc_users
                                             LEFT JOIN sdc_user_attributes AS UserAttributes ON UserAttributes.internalKey=sdc_users.id
                                             WHERE UserAttributes.idGAS IS NOT NULL")->fetchAll(\PDO::FETCH_COLUMN);
-                $responseGasAPI = $this->helpers::sendGET(["idJudge" => implode(",", $idGAS)], API_GAS.'v1/'.$urlData["1"].'/'.$this->Links().'.php?');
+                $responseGasAPI = $this->helpers::sendGETmulti(["idJudge" => implode(",", $idGAS)], $this->Links());
             } elseif(!empty($this->helpers->idGAS) and empty($urlData["2"]) ) {
-                $responseGasAPI = $this->helpers::sendGET(["idJudge" => $this->helpers->idGAS], API_GAS.'v1/'.$urlData["1"].'/'.$this->Links().'.php?');
+                $responseGasAPI = $this->helpers::sendGETmulti(["idJudge" => $this->helpers->idGAS], $this->Links());
             } else {
                 throw new \Exception("Недостаточно прав");
             }

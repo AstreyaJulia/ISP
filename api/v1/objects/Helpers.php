@@ -160,7 +160,7 @@ class Helpers extends Router
    * @param array $nodes массив адресов на которые отправляем запросы
    * 
    */
-  public static function sendGETmulti(array $params, array $nodes): array
+  public static function sendGETmulti(array $params, array $nodes)
   {
     $node_count = count($nodes);
 
@@ -168,7 +168,7 @@ class Helpers extends Router
     $master = curl_multi_init();
 
     for ($i = 0; $i < $node_count; $i++) {
-      $url = $nodes[$i];
+      $url = $nodes[$i] . http_build_query($params);
       $curl_arr[$i] = curl_init($url);
       curl_setopt($curl_arr[$i], CURLOPT_RETURNTRANSFER, true);
       curl_setopt($curl_arr[$i], CURLOPT_CONNECTTIMEOUT, 1);
@@ -178,15 +178,20 @@ class Helpers extends Router
     do {
       curl_multi_exec($master, $running);
     } while ($running > 0);
-
+    //$httpcode = curl_getinfo($master, CURLINFO_HTTP_CODE);
+    $httpcode = curl_multi_init();
+    var_dump($httpcode);
 
     for ($i = 0; $i < $node_count; $i++) {
-      $results[] = curl_multi_getcontent($curl_arr[$i]);
+      $results[] = json_decode(curl_multi_getcontent($curl_arr[$i]));
     }
-    print_r($results);
+    $resultss = array_merge( $results[0], $results[1], $results[2]);
+    $result = $resultss ?? array();
+
+    return $result;
 
 
-
+/*
 
     // собираем адрес и параметры запроса
     $url = $nodes . http_build_query($params);
@@ -206,6 +211,7 @@ class Helpers extends Router
       $message;
     }
     return $message;
+*/
   }
 
 
