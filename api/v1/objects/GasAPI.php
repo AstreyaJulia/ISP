@@ -16,10 +16,18 @@ class GasAPI
     public function Links(): array {
         return match($this->helpers->urlData["1"]) {
             'deadlines' => array (
-                            API_GAS."v1/deadlines/u1.php?",
-                            API_GAS."v1/deadlines/adm.php?",
-                            API_GAS."v1/deadlines/g1.php?"
-                            )
+                API_GAS."v1/deadlines/g1.php?",
+                API_GAS."v1/deadlines/u1.php?",
+                API_GAS."v1/deadlines/adm.php?"
+            ),
+            'sudact' => array(
+                API_GAS."v1/sudact/adm.php?",
+                API_GAS."v1/sudact/adm1.php?",
+                API_GAS."v1/sudact/g1.php?",
+                API_GAS."v1/sudact/u1-ap.php?",
+                API_GAS."v1/sudact/u1-ruling.php?",
+                API_GAS."v1/sudact/u1-sentence.php?"
+            )
         };
     }
 
@@ -38,8 +46,7 @@ class GasAPI
                 throw new \Exception("Не задан маршрут до ресурса");
             }
             match ($this->helpers->urlData["1"]) {
-                'deadlines' => $this->helpers->getJsonEncode($this->prepareQuery($this->helpers->urlData)),
-                'sudact', 'materials-production', 'no-last-events' => $this->helpers->getJsonEncode($this->prepareQuery($this->helpers->urlData)),
+                'deadlines', 'sudact', 'materials-production', 'no-last-events' => $this->helpers->getJsonEncode($this->prepareQuery($this->helpers->urlData)),
                 'categories-civil-cases', 'categories-material' => $this->helpers->getJsonEncode($this->categoriesMaterial())
             };
         } catch (\UnhandledMatchError | \Exception $e) {

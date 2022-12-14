@@ -153,6 +153,15 @@ class Helpers extends Router
     return $message;
   }
 
+
+  public function forArrayMege($count) {
+    $string = "";
+    foreach (range(0, $count - 1) as $number) {
+      $string .= "$"."results[".$number."],";
+    }
+    $output = rtrim($string, ",");
+    return (object)$output ;
+  }
   /**
    * Асинхронная отправка данных методом $_GET
    * 
@@ -176,42 +185,24 @@ class Helpers extends Router
     }
 
     do {
-      curl_multi_exec($master, $running);
-    } while ($running > 0);
-    //$httpcode = curl_getinfo($master, CURLINFO_HTTP_CODE);
-    $httpcode = curl_multi_init();
-    var_dump($httpcode);
+      curl_multi_exec($master,$running);
+    } while($running > 0);
 
     for ($i = 0; $i < $node_count; $i++) {
-      $results[] = json_decode(curl_multi_getcontent($curl_arr[$i]));
+      $httpcode = curl_getinfo($curl_arr[$i], CURLINFO_HTTP_CODE);
+      if (in_array($httpcode, [0, 504])) {
+        $result = self::isErrorInfo(501, "ГАС недоступен", "Обратитесь к администратору");
+      } else {
+        curl_multi_remove_handle($master, $curl_arr[$i]);
+        $results[] = json_decode(curl_multi_getcontent($curl_arr[$i]));
+      }
     }
-    $resultss = array_merge( $results[0], $results[1], $results[2]);
-    $result = $resultss ?? array();
+    curl_multi_close($master);
+    http_response_code(200);
+    $result = array_merge(...$results) ?? array();
 
     return $result;
-
-
-/*
-
-    // собираем адрес и параметры запроса
-    $url = $nodes . http_build_query($params);
-    $ch = curl_init($url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    //ожидание при попытке подключения, секунд (0 - бесконечно)
-    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
-
-    $result = curl_exec($ch);
-    $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    curl_close($ch);
-    $message = json_decode($result) ?? array();
-    if (in_array($httpcode, [0, 504])) {
-      $message = self::isErrorInfo(501, "ГАС недоступен", "Обратитесь к администратору");
-    } else {
-      http_response_code($httpcode);
-      $message;
-    }
-    return $message;
-*/
+    
   }
 
 
