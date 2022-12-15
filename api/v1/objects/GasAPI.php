@@ -13,20 +13,28 @@ class GasAPI
         $this->helpers = $helpers;
     }
 
-    public function Links(): array {
-        return match($this->helpers->urlData["1"]) {
-            'deadlines' => array (
-                API_GAS."v1/deadlines/g1.php?",
-                API_GAS."v1/deadlines/u1.php?",
-                API_GAS."v1/deadlines/adm.php?"
+    public function Links(): array
+    {
+        return match ($this->helpers->urlData["1"]) {
+            'deadlines' => array(
+                API_GAS . "v1/deadlines/g1.php?",
+                API_GAS . "v1/deadlines/u1.php?",
+                API_GAS . "v1/deadlines/adm.php?"
             ),
             'sudact' => array(
-                API_GAS."v1/sudact/adm.php?",
-                API_GAS."v1/sudact/adm1.php?",
-                API_GAS."v1/sudact/g1.php?",
-                API_GAS."v1/sudact/u1-ap.php?",
-                API_GAS."v1/sudact/u1-ruling.php?",
-                API_GAS."v1/sudact/u1-sentence.php?"
+                API_GAS . "v1/sudact/adm.php?",
+                API_GAS . "v1/sudact/adm1.php?",
+                API_GAS . "v1/sudact/g1.php?",
+                API_GAS . "v1/sudact/u1-ap.php?",
+                API_GAS . "v1/sudact/u1-ruling.php?",
+                API_GAS . "v1/sudact/u1-sentence.php?"
+            ),
+            'materials-production' => array(
+                API_GAS . "v1/materials-production/g1.php?",
+                API_GAS . "v1/materials-production/m.php?",
+                API_GAS . "v1/materials-production/adm.php?",
+                API_GAS . "v1/materials-production/adm1.php?",
+                API_GAS . "v1/materials-production/u1.php?"
             )
         };
     }
@@ -63,21 +71,23 @@ class GasAPI
      * администраторы ресурса имеют доступ
      * к просмотру дел всех судей
      */
-    private function prepareQuery(array $urlData):array|string
+    private function prepareQuery(array $urlData): array|string
     {
         try {
             if (empty($this->helpers->idGAS or $this->helpers->sudo === 1)) {
                 throw new \Exception("Недостаточно прав");
             }
 
-            if (!empty($urlData["2"]) and $urlData["2"] === "all" and
-                (in_array($this->helpers->professionID, [1,2,6]) or $this->helpers->sudo === 1)) {
-                    $idGAS = $this->helpers->db->run("SELECT UserAttributes.idGAS 
+            if (
+                !empty($urlData["2"]) and $urlData["2"] === "all" and
+                (in_array($this->helpers->professionID, [1, 2, 6]) or $this->helpers->sudo === 1)
+            ) {
+                $idGAS = $this->helpers->db->run("SELECT UserAttributes.idGAS 
                                             FROM sdc_users
                                             LEFT JOIN sdc_user_attributes AS UserAttributes ON UserAttributes.internalKey=sdc_users.id
                                             WHERE UserAttributes.idGAS IS NOT NULL")->fetchAll(\PDO::FETCH_COLUMN);
                 $responseGasAPI = $this->helpers::sendGETmulti(["idJudge" => implode(",", $idGAS)], $this->Links());
-            } elseif(!empty($this->helpers->idGAS) and empty($urlData["2"]) ) {
+            } elseif (!empty($this->helpers->idGAS) and empty($urlData["2"])) {
                 $responseGasAPI = $this->helpers::sendGETmulti(["idJudge" => $this->helpers->idGAS], $this->Links());
             } else {
                 throw new \Exception("Недостаточно прав");
@@ -88,7 +98,8 @@ class GasAPI
         }
     }
 
-    private function categoriesMaterial():array {
-        return $this->helpers::wrap($this->helpers::sendGET(array(), API_GAS.'v1/'.$this->helpers->urlData["1"].'.php?'), "data");
+    private function categoriesMaterial(): array
+    {
+        return $this->helpers::wrap($this->helpers::sendGET(array(), API_GAS . 'v1/' . $this->helpers->urlData["1"] . '.php?'), "data");
     }
 }
