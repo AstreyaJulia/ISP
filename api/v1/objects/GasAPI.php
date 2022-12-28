@@ -17,9 +17,9 @@ class GasAPI
     {
         return match ($this->helpers->urlData["1"]) {
             'deadlines' => array(
+                API_GAS . "v1/deadlines/adm.php?",
                 API_GAS . "v1/deadlines/g1.php?",
-                API_GAS . "v1/deadlines/u1.php?",
-                API_GAS . "v1/deadlines/adm.php?"
+                API_GAS . "v1/deadlines/u1.php?"
             ),
             'sudact' => array(
                 API_GAS . "v1/sudact/adm.php?",
@@ -30,11 +30,23 @@ class GasAPI
                 API_GAS . "v1/sudact/u1-sentence.php?"
             ),
             'materials-production' => array(
-                API_GAS . "v1/materials-production/g1.php?",
-                API_GAS . "v1/materials-production/m.php?",
                 API_GAS . "v1/materials-production/adm.php?",
                 API_GAS . "v1/materials-production/adm1.php?",
+                API_GAS . "v1/materials-production/g1.php?",
+                API_GAS . "v1/materials-production/m.php?",
                 API_GAS . "v1/materials-production/u1.php?"
+            ),
+            'no-last-events' => array(
+                API_GAS . "v1/no-last-events/adm-marked-days-ago.php?",
+                API_GAS . "v1/no-last-events/adm-more-5-days-ago.php?",
+                API_GAS . "v1/no-last-events/adm1-marked-days-ago.php?",
+                API_GAS . "v1/no-last-events/adm1-more-5-days-ago.php?",
+                API_GAS . "v1/no-last-events/g1-transferred-production-4-days-ago.php?",
+                API_GAS . "v1/no-last-events/g1-without-transferred-production.php?",
+                API_GAS . "v1/no-last-events/m-transferred-production-10-days-ago.php?",
+                API_GAS . "v1/no-last-events/m-without-transferred-production.php?",
+                API_GAS . "v1/no-last-events/u1-transferred-production-7-days-ago.php?",
+                API_GAS . "v1/no-last-events/u1-without-transferred-production.php?"
             )
         };
     }
