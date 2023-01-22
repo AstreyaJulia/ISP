@@ -4,6 +4,7 @@ import React from 'react';
 import Markdown from 'markdown-to-jsx';
 import { classNames } from '../../utils/classNames';
 import { mdOptions } from './inputsMdSettings';
+import ValidationError from './ValidationError';
 
 const inputOptions = {
   sizes: {
@@ -93,21 +94,21 @@ export function RHFCheckbox({ name, option, ...other }) {
       name={name}
       control={control}
       render={({ field, fieldState: { error } }) => (
-        <div className="flex items-center" {...other}>
+        <div className='flex items-center' {...other}>
           <input
             {...field}
             className={classNames(
               'h-4 w-4 rounded',
               error
                 ? 'focus:ring-red-500 text-red-600 border-red-400 dark:border-red-600'
-                : 'focus:ring-indigo-500 text-indigo-600 border-gray-400 dark:border-gray-600'
+                : 'focus:ring-indigo-500 text-indigo-600 border-gray-400 dark:border-gray-600',
             )}
-            type="checkbox"
+            type='checkbox'
             id={name}
             name={name}
             checked={field.value}
           />
-          <label className="ml-3 block text-sm font-medium text-gray-700" htmlFor={name}>
+          <label className='ml-3 block text-sm font-medium text-gray-700' htmlFor={name}>
             {option}
           </label>
         </div>
@@ -140,7 +141,7 @@ export function RHFMultiCheckbox({ name, options, defaultValue, disabled, size, 
           <div>
             <fieldset className={inputOptions.sizes[size].classNames.container} name={name}>
               {options.map((option) => (
-                <div key={`${name}-${option.value}`} className="flex items-center" {...other}>
+                <div key={`${name}-${option.value}`} className='flex items-center' {...other}>
                   <input
                     {...field}
                     onChange={(evt) => field.onChange(onSelected(evt, option))}
@@ -150,10 +151,10 @@ export function RHFMultiCheckbox({ name, options, defaultValue, disabled, size, 
                       error
                         ? 'focus:ring-red-500 text-red-600 border-red-400 dark:text-red-400 dark:border-red-600'
                         : inputOptions.colors[color].classNames.input,
-                      'border-gray-400 disabled:border-gray-200 disabled:checked:border-0'
+                      'border-slate-300 dark:border-slate-600 disabled:border-gray-200 disabled:checked:border-0',
                     )}
                     checked={field.value.includes(option.value)}
-                    type="checkbox"
+                    type='checkbox'
                     id={`${name}-${option.value}`}
                     disabled={disabled}
                     name={`${name}`}
@@ -166,7 +167,8 @@ export function RHFMultiCheckbox({ name, options, defaultValue, disabled, size, 
               ))}
             </fieldset>
 
-            {!!error && <div className="text-sm text-red-600 dark:text-red-400 mt-2">{error.message}</div>}
+            <ValidationError error={error} name={name} />
+
           </div>
         );
       }}

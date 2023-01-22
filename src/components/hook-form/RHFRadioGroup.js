@@ -4,6 +4,7 @@ import React from 'react';
 import Markdown from 'markdown-to-jsx';
 import { classNames } from '../../utils/classNames';
 import { mdOptions } from './inputsMdSettings';
+import ValidationError from './ValidationError';
 
 const inputOptions = {
   sizes: {
@@ -125,7 +126,8 @@ export default function RHFRadioGroup({ name, options, defaultValue, size, color
               ))}
             </fieldset>
 
-            {!!error && <div className="text-sm text-red-600 dark:text-red-400 mt-2">{error.message}</div>}
+            <ValidationError error={error} name={name} />
+
           </div>
         );
       }}

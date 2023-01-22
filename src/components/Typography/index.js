@@ -90,7 +90,7 @@ const Typography = ({ variant, classname, children, ...other }) => {
     subtitle1: {
       element: (
         <p
-          className={classNames('text-base font-medium text-gray-900 dark:text-gray-white', classname || '')}
+          className={classNames('text-base font-medium text-gray-900 dark:text-white', classname || '')}
           {...other}
         >
           {children}
@@ -99,7 +99,7 @@ const Typography = ({ variant, classname, children, ...other }) => {
     },
     subtitle2: {
       element: (
-        <p className={classNames('text-sm font-medium text-gray-900 dark:text-gray-white', classname || '')} {...other}>
+        <p className={classNames('text-sm font-medium text-gray-900 dark:text-white', classname || '')} {...other}>
           {children}
         </p>
       ),

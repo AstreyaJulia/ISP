@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Card from '../../Card';
 import { classNames } from '../../../utils/classNames';
 import { getHighlightedText } from '../../../utils/getHighlightedText';
+import Alert from '../../Alert';
 
 const DataTableCore = ({
   header,
@@ -154,7 +155,7 @@ const DataTableCore = ({
                 <button
                   onClick={searchQueryClearHandler}
                   title="Очистить строку поиска"
-                  className="mr-3 p-1 rounded-full text-slate-500 dark:text-slate-400 dark:hover:text-slate-300 hover:text-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 hover:text-indigo-600"
+                  className="mr-3 p-1 rounded-full text-slate-500 dark:text-slate-400 dark:hover:text-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 hover:text-indigo-600"
                   type="button"
                 >
                   <svg
@@ -362,9 +363,9 @@ const DataTableCore = ({
               <tr>
                 <td
                   colSpan={columns.slice(startColumn, endColumn).length}
-                  className="text-center text-red-700 dark:text-red-300  py-6"
+                  className="text-center text-red-700 dark:text-red-300 flex justify-center items-center"
                 >
-                  {error || 'Неизвестная ошибка'}
+                  <Alert alertType='error' title={error || 'Неизвестная ошибка'} />
                 </td>
               </tr>
             ) : (
@@ -404,8 +405,8 @@ const DataTableCore = ({
               </p>
             )}
             {error !== null ? (
-              <p className="flex justify-center items-center text-red-700 dark:text-red-300 text-sm py-5 col-span-full">
-                {error || 'Неизвестная ошибка'}
+              <p className="flex justify-center items-center text-red-700 dark:text-red-300 text-sm col-span-full">
+                <Alert alertType='error' title={error || 'Неизвестная ошибка'}/>
               </p>
             ) : (
               ''

@@ -154,12 +154,12 @@ const Login = () => {
                 <div className="flex flex-col">
                   <RHFTextField
                     name="login"
-                    label={<Typography variant="label">Имя пользователя</Typography>}
+                    label={<Typography variant="label" classname='mb-1'>Имя пользователя</Typography>}
                     placeholder="Ivanov_II"
                   />
                   <RHFPasswordHideShow
                     name="password"
-                    label={<Typography variant="label">Пароль</Typography>}
+                    label={<Typography variant="label" classname='mb-1'>Пароль</Typography>}
                     placeholder="Пароль"
                   />
                 </div>

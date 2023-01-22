@@ -4,12 +4,14 @@
 /** npm модули */
 @import '~react-perfect-scrollbar/dist/css/styles.css';
 @import '~react-quill/dist/quill.snow.css';
+@import '~react-datepicker/dist/react-datepicker.css';
 
 /** Кастомные стили для npm модулей */
 @import './modules/apexcharts.css';
 @import './modules/fullcalendar.css';
 @import './modules/quill.css';
 @import './modules/react-select.css';
+@import './modules/react-datepicker.css';
 
 /** Tailwind  */
 @tailwind base;

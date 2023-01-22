@@ -1,8 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Select, { components } from 'react-select';
+import useAuth from '../../hooks/useAuth';
+import { tailwindColorsConfig } from '../../utils/getTailwindconfig';
 
-const ReactSelect = ({ isMulti, options, placeholder, defaultValue, onChange, error, ...other }) => {
+const ReactSelect = ({ isMulti, options, placeholder, defaultValue, onChange, onFocus, noOptionsMessage, error, ...other }) => {
+
+  const { theme } = useAuth();
+
   /* Индикатор селекта */
   const DropdownIndicator = (props) => {
     return (
@@ -57,7 +62,7 @@ const ReactSelect = ({ isMulti, options, placeholder, defaultValue, onChange, er
     return (
       <div className="flex items-center justify-center flex w-full items-center bg-slate-100 dark:bg-slate-800 rounded-md">
         <components.NoOptionsMessage {...props}>
-          <span className="text-gray-600 dark:text-gray-400 font-medium text-sm">Результатов не найдено</span>
+          <span className="text-gray-600 dark:text-gray-400 font-medium text-sm">{noOptionsMessage || 'Результатов не найдено'}</span>
         </components.NoOptionsMessage>
       </div>
     );
@@ -89,10 +94,34 @@ const ReactSelect = ({ isMulti, options, placeholder, defaultValue, onChange, er
       </components.MultiValueRemove>
     );
   };
+
+  /* Кнопка удаления для плашки мультиселекта */
+  const ClearIndicator = (props) => {
+    return (
+      <components.ClearIndicator {...props}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+          className="text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 w-6 h-6"
+        >
+          <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+        </svg>
+      </components.ClearIndicator>
+    );
+  };
   return (
     <div>
       <Select
+        onFocus={() => onFocus()}
         styles={{
+          control: (base) => ({
+            ...base,
+            backgroundColor: theme === 1 ? tailwindColorsConfig.theme.colors.gray['50'] : tailwindColorsConfig.theme.colors.gray['800'],
+            borderColor: theme === 1 ? tailwindColorsConfig.theme.colors.slate['300'] : tailwindColorsConfig.theme.colors.slate['600'],
+            color: theme === 1 ? tailwindColorsConfig.theme.colors.slate['300'] : tailwindColorsConfig.theme.colors.slate['600'],
+            '::placeholder': theme === 1 ? tailwindColorsConfig.theme.colors.slate['300'] : tailwindColorsConfig.theme.colors.slate['600'],
+          }),
           option: (base) => ({
             ...base,
             padding: `0`,
@@ -130,13 +159,15 @@ const ReactSelect = ({ isMulti, options, placeholder, defaultValue, onChange, er
           MultiValueLabel,
           Option,
           MultiValueRemove,
+          ClearIndicator
         }}
         formatOptionLabel={formatOptionLabel}
         classNamePrefix={error ? 'react-select2-error react-select2' : 'react-select2'}
-        placeholder={placeholder || isMulti === 'true' ? 'Выберите одно или несколько значений' : 'Выберите значение'}
+        placeholder={placeholder || (isMulti === 'true' ? 'Выберите одно или несколько значений' : 'Выберите значение')}
         options={options}
         defaultValue={defaultValue}
         onChange={(evt) => onChange(evt)}
+        isClearable={'true'}
         {...other}
       />
       {!!error && <div className="text-sm text-red-600 dark:text-red-400 mt-2">{error.message}</div>}

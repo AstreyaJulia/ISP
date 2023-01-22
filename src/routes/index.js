@@ -78,7 +78,7 @@ export default function Router() {
           path: 'over-period',
           element: (
             <RoleBasedGuard accessibleProfessions={[1, 2, 3, 6, 7, 9]}>
-              <Finished all="false" />
+              <Finished all='false' />
             </RoleBasedGuard>
           ),
         },
@@ -87,7 +87,7 @@ export default function Router() {
           path: 'over-period-all',
           element: (
             <RoleBasedGuard accessibleProfessions={[1, 2, 4, 5, 6, null]}>
-              <Finished all="true" />
+              <Finished all='true' />
             </RoleBasedGuard>
           ),
         },
@@ -95,7 +95,7 @@ export default function Router() {
           path: 'publication',
           element: (
             <RoleBasedGuard accessibleProfessions={[1, 2, 3, 6, 7]}>
-              <Publication all="false" />
+              <Publication all='false' />
             </RoleBasedGuard>
           ),
         },
@@ -104,7 +104,7 @@ export default function Router() {
           path: 'publication-all',
           element: (
             <RoleBasedGuard accessibleProfessions={[1, 2, 4, 5, 6, null]}>
-              <Publication all="true" />
+              <Publication all='true' />
             </RoleBasedGuard>
           ),
         },
@@ -112,7 +112,7 @@ export default function Router() {
           path: 'process',
           element: (
             <RoleBasedGuard accessibleProfessions={[1, 2, 3, 6, 7, 9]}>
-              <Process all="false" />
+              <Process all='false' />
             </RoleBasedGuard>
           ),
         },
@@ -121,7 +121,7 @@ export default function Router() {
           path: 'process-all',
           element: (
             <RoleBasedGuard accessibleProfessions={[1, 2, 4, 5, 6, null]}>
-              <Process all="true" />
+              <Process all='true' />
             </RoleBasedGuard>
           ),
         },
@@ -129,7 +129,7 @@ export default function Router() {
           path: 'no-last-events',
           element: (
             <RoleBasedGuard accessibleProfessions={[1, 2, 3, 9]}>
-              <NoLastEvents all="false" />
+              <NoLastEvents all='false' />
             </RoleBasedGuard>
           ),
         },
@@ -137,7 +137,7 @@ export default function Router() {
           path: 'no-last-events-all',
           element: (
             <RoleBasedGuard accessibleProfessions={[1, 2, 6, null]}>
-              <NoLastEvents all="true" />
+              <NoLastEvents all='true' />
             </RoleBasedGuard>
           ),
         },
@@ -171,17 +171,39 @@ export default function Router() {
         },
         {
           path: 'faq/gas/g-category',
-          element: <Category type="gcases" />,
+          element: <Category type='gcases' />,
         },
         {
           path: 'faq/gas/m-category',
-          element: <Category type="mcases" />,
+          element: <Category type='mcases' />,
         },
         {
           path: 'admin',
           element: (
             <RoleBasedGuard accessibleRoles={[1]}>
               <Admin />
+            </RoleBasedGuard>
+          ),
+        },
+        {
+          path: 'admin/users',
+          element: (
+            <RoleBasedGuard accessibleRoles={[1]}>
+              <UsersAdmin />
+            </RoleBasedGuard>
+          ),
+        }, {
+          path: 'admin/users/:id/edit',
+          element: (
+            <RoleBasedGuard accessibleRoles={[1]}>
+              <UserEdit />
+            </RoleBasedGuard>
+          ),
+        }, {
+          path: 'admin/users/new',
+          element: (
+            <RoleBasedGuard accessibleRoles={[1]}>
+              <UserEdit />
             </RoleBasedGuard>
           ),
         },
@@ -294,10 +316,10 @@ export default function Router() {
       children: [
         { path: '500', element: <Page500 /> },
         { path: '404', element: <NotFound /> },
-        { path: '*', element: <Navigate to="/404" replace /> },
+        { path: '*', element: <Navigate to='/404' replace /> },
       ],
     },
-    { path: '*', element: <Navigate to="/404" replace /> },
+    { path: '*', element: <Navigate to='/404' replace /> },
   ]);
 }
 
@@ -317,7 +339,9 @@ const Faq = Loadable(lazy(() => import('../pages/Faq'))); // База знани
 const Gas = Loadable(lazy(() => import('../pages/Faq/Subpages/Gas'))); // База знаний
 const Category = Loadable(lazy(() => import('../pages/Faq/Subpages/Gcategory'))); // База знаний
 
-const Admin = Loadable(lazy(() => import('../pages/Admin'))); // Админка
+const Admin = Loadable(lazy(() => import('../pages/Admin'))); // Админка дашбоард
+const UsersAdmin = Loadable(lazy(() => import('../pages/Admin/Users'))); // Управление пользователями
+const UserEdit = Loadable(lazy(() => import('../pages/Admin/UserEdit'))); // Добавление / редактирование пользователя
 
 const Profile = Loadable(lazy(() => import('../pages/Profile'))); // Профиль
 const Settings = Loadable(lazy(() => import('../pages/Settings'))); // Настройки

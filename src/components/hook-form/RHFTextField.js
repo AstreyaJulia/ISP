@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Controller, useFormContext } from 'react-hook-form';
 import { classNames } from '../../utils/classNames';
+import ValidationError from './ValidationError';
 
 export default function RHFTextField({ name, label, placeholder, ...other }) {
   const { control } = useFormContext();
@@ -30,7 +31,7 @@ export default function RHFTextField({ name, label, placeholder, ...other }) {
                 'block bg-gray-50 dark:bg-gray-800 w-full pr-10 focus:outline-none sm:text-sm rounded-md',
                 error
                   ? 'border-red-500 dark:border-red-600 text-red-900 dark:text-red-50 placeholder-red-400 dark:placeholder-red-400 focus:ring-red-500 focus:border-red-500'
-                  : 'border-slate-300 text-gray-900 placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500'
+                  : 'border-slate-300 dark:border-slate-600 text-gray-900 placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500'
               )}
               placeholder={placeholder}
               aria-invalid={!!error}
@@ -56,9 +57,9 @@ export default function RHFTextField({ name, label, placeholder, ...other }) {
               ''
             )}
           </div>
-          <p className="mt-1 text-sm text-red-600 dark:text-red-400 h-5 mb-2" id={`${name}-error`}>
-            {error?.message || ''}
-          </p>
+
+          <ValidationError error={error} name={name} />
+
         </div>
       )}
     />

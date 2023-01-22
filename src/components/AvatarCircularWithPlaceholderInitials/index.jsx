@@ -51,36 +51,36 @@ export const AvatarCircularWithPlaceholderInitials = ({ size, classname, name, i
    */
   const AvatarColor = {
     red: {
-      bg: 'bg-red-500/30',
-      text: 'text-red-700 dark:text-red-300',
+      bg: 'bg-red-500/25',
+      text: 'text-red-700 fill-red-700 dark:text-red-300',
     },
     orange: {
-      bg: 'bg-orange-500/30',
-      text: 'text-orange-700 dark:text-orange-300',
+      bg: 'bg-orange-500/25',
+      text: 'text-orange-700 fill-orange-700 dark:text-orange-300',
     },
     yellow: {
-      bg: 'bg-yellow-500/30',
-      text: 'text-yellow-700 dark:text-yellow-300',
+      bg: 'bg-yellow-500/25',
+      text: 'text-yellow-700 fill-yellow-700 dark:text-yellow-300',
     },
     green: {
-      bg: 'bg-green-500/30',
-      text: 'text-green-700 dark:text-green-300',
+      bg: 'bg-green-500/25',
+      text: 'text-green-700 fill-green-700 dark:text-green-300',
     },
     cyan: {
-      bg: 'bg-cyan-500/30',
-      text: 'text-cyan-700 dark:text-cyan-300',
+      bg: 'bg-cyan-500/25',
+      text: 'text-cyan-700 fill-cyan-700 dark:text-cyan-300',
     },
     blue: {
-      bg: 'bg-blue-500/30',
-      text: 'text-blue-700 dark:text-blue-300',
+      bg: 'bg-blue-500/25',
+      text: 'text-blue-700 fill-blue-700 dark:text-blue-300',
     },
     indigo: {
-      bg: 'bg-indigo-500/30',
-      text: 'text-indigo-700 dark:text-indigo-300',
+      bg: 'bg-indigo-500/25',
+      text: 'text-indigo-700 fill-indigo-700 dark:text-indigo-300',
     },
     pink: {
-      bg: 'bg-pink-500/30',
-      text: 'text-pink-700 dark:text-pink-300',
+      bg: 'bg-pink-500/25',
+      text: 'text-pink-700 fill-pink-700 dark:text-pink-300',
     },
   };
 
