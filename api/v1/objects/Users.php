@@ -37,6 +37,49 @@ class Users
   }
 
   /**
+   * 
+   * Список должностей или групп
+   * 
+   * @return object
+   * 
+   */
+  public function VocationOrGroup()
+  {
+    $param = match ($this->helpers->urlData[1]) {
+      "vocation" => "IS NOT NULL",
+      "group" => "IS NULL"
+    };
+
+    $sql = "SELECT
+                id,
+                name AS label
+            FROM sdc_vocation
+            WHERE parent_id $param";
+    return $this->helpers->db->run($sql)->fetchAll(\PDO::FETCH_CLASS);
+  }
+
+  /**
+   * 
+   * Список сотрудников по группам
+   * 
+   * @return object
+   * 
+   */
+  public function usersGroup()
+  {
+    $param = $this->helpers->urlData[1];
+
+    $sql = "SELECT
+                id,
+                name AS label
+            FROM sdc_vocation
+            WHERE parent_id $param";
+    return $this->helpers->db->run($sql)->fetchAll(\PDO::FETCH_CLASS);
+  }
+
+
+
+  /**
    * Обрабатываем приходящие GET-запросы. 
    */
   private function metodGET()
@@ -75,12 +118,12 @@ class Users
                 $this->helpers->getJsonEncode($output);
                 break;
               }
-            case "asistant": {
-                $this->helpers::isErrorInfo(200, "Нету", "Список помощников в разработке");
+            case "vocation": {
+                $this->helpers->getJsonEncode($this->VocationOrGroup());
                 break;
               }
-            case "secretary": {
-                $this->helpers::isErrorInfo(200, "Нету", "Список секретарей с.з. в разработке");
+            case "group": {
+                $this->helpers->getJsonEncode($this->VocationOrGroup());
                 break;
               }
             default:
@@ -90,6 +133,10 @@ class Users
           }
           break;
         }
+      case 3: {
+        echo "сотрудники по группам";
+        break;
+      }
       default:
         // если переданы лишние параметры выбрасываем ошибку
         $this->helpers::isErrorInfo(400, "invalid_router", "router not found");
