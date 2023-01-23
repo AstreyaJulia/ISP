@@ -97,7 +97,7 @@ class Staff
     {
         $sql = "SELECT
                     ChildUserType.id,
-                    CONCAT (ParentUserType.name, ' / ', ChildUserType.name) AS name 
+                    CONCAT (ParentUserType.name, ' / ', ChildUserType.name) AS label 
                 FROM `sdc_room` AS ChildUserType
                 LEFT JOIN `sdc_room` AS ParentUserType ON ChildUserType.affiliation = ParentUserType.id
                 LEFT JOIN sdc_user_attributes ON sdc_user_attributes.room=ChildUserType.id
