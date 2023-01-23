@@ -43,7 +43,12 @@ function cors(): void
 {
 
 // Массив разрешенных адресов клиентов
-$allowed_origins = ["localhost:3000", "http://localhost:3000", "http://localhost:3030", "https://localhost:3000", "localhost:3030", "http://isp", "https://isp", "http://bdev", "https://bdev", "http://fdevsp", "https://fdev", "http://192.168.2.2:3000"];
+$allowed_origins = ["localhost:3000",
+                    "localhost:3030",
+                    "http://localhost:3000",
+                    "http://localhost:3030",
+                    "http://isp",
+                    "http://192.168.2.2:3000"];
 
 // Из заголовка запроса получаем заголовок origin */
     $request_origin = $_SERVER['HTTP_ORIGIN'] ?? null;
