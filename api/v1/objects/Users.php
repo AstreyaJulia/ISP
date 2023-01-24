@@ -71,7 +71,7 @@ class Users
     $param = $this->helpers->urlData[2];
 
     if ( filter_var($param, FILTER_VALIDATE_INT) === false ) {
-      $this->helpers::isErrorInfo(400, "Неверные параметры", "Ожидаю целое число. Нолучаю: $param");
+      $this->helpers::isErrorInfo(400, "Неверные параметры", "Ожидаю целое число. Получаю: $param");
     }
 
     $sql = "SELECT
@@ -126,11 +126,11 @@ class Users
                 break;
               }
             case "vocation": {
-                $this->helpers->getJsonEncode($this->VocationOrGroup());
+                $this->helpers->getJsonEncode($this->helpers->wrap($this->VocationOrGroup(), "data"));
                 break;
               }
             case "group": {
-                $this->helpers->getJsonEncode($this->VocationOrGroup());
+                $this->helpers->getJsonEncode($this->helpers->wrap($this->VocationOrGroup(), "data"));
                 break;
               }
             default:
@@ -141,7 +141,7 @@ class Users
           break;
         }
       case 3: {
-        $this->helpers->getJsonEncode($this->usersGroup());
+        $this->helpers->getJsonEncode($this->helpers->wrap($this->usersGroup(), "data"));
         break;
       }
       default:
