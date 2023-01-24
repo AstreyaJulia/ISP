@@ -178,13 +178,13 @@ const UserEdit = () => {
             'id': item.id,
             'value': item.id,
             'label': item.label,
-            'selectID': 'room',
+            'selectID': 'profession',
           };
         });
 
         /* Получаем список должностей, очищаем, обрабатываем и пишем в стейт */
         setProfessionsOptions([]);
-        setProfessionsOptions(roomsOptions);
+        setProfessionsOptions(professionsOptions);
       })
       .catch((err) => {
         const error = err.message && err.info ? `${err.message}: ${err.info}` : err.toString();

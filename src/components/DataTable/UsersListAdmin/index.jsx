@@ -291,8 +291,8 @@ const UsersListAdmin = ({ data, isLoading, error }) => {
       table={{ isTable: 'false', startColumn: null, endColumn: null, columnNames: null, coltosort: [] }}
     >
       <DataTableToolBar className='mt-3'>
-        <div className='flex items-center justify-between w-full'>
-          <div className='flex items-center gap-3'>
+        <div className='flex items-center justify-between w-full  flex-wrap'>
+          <div className='flex items-center gap-2'>
             <div className='flex items-center ml-3 justify-start'>
               <label
                 htmlFor='active'
