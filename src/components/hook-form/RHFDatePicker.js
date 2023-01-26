@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Controller, useFormContext } from 'react-hook-form';
 import DatePicker, { registerLocale } from "react-datepicker";
+import { parse } from 'date-fns';
 import ru from "date-fns/locale/ru";
 import { classNames } from '../../utils/classNames';
 import ValidationError from './ValidationError';
@@ -27,7 +28,7 @@ export default function RHFDatePicker({ name, label, placeholder, ...other }) {
           )}
           <div className='mt-1 relative'>
             <DatePicker
-              selected={field.value}
+              selected={field?.value ? parse(field?.value, 'dd.MM.yyyy', new Date(), { locale: ru }) : null}
               dateFormat="dd.MM.yyyy"
               onChange={field.onChange}
               locale="ru"
