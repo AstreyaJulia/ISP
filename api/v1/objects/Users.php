@@ -45,7 +45,7 @@ class Users
    */
   public function VocationOrGroup()
   {
-    $param = match ($this->helpers->urlData[1]) {
+    $param = match ($this->helpers->urlData[0]) {
       "vocation" => "IS NOT NULL",
       "group" => "IS NULL"
     };
@@ -93,7 +93,7 @@ class Users
   {
     switch (count($this->helpers->urlData)) {
         // GET /users
-      case 1: {
+      case 0: {
           // если запрос без параметров отдаём полный список
 
           // установим код ответа - 200 OK
@@ -103,9 +103,9 @@ class Users
           break;
         }
         // GET /users/parameter
-      case 2: {
+      case 1: {
           // если запрос с параметрами отдаём запрашиваемую запись
-          switch ($this->helpers->urlData[1]) {
+          switch ($this->helpers->urlData[0]) {
             case "login-data": {
                 $userLoginData["data"] = [
                   "id" => $this->helpers->id,
@@ -140,7 +140,7 @@ class Users
           }
           break;
         }
-      case 3: {
+      case 2: {
         $this->helpers->getJsonEncode($this->helpers->wrap($this->usersGroup(), "data"));
         break;
       }
@@ -158,7 +158,7 @@ class Users
   {
     $this->helpers::headlinesPOST();
 
-    switch ($this->helpers->urlData[1] ?? false) {
+    switch ($this->helpers->urlData[0] ?? false) {
       case 'login-data': {
 
           $param = $this->helpers->formData ? implode(array_keys($this->helpers->formData)) : false;

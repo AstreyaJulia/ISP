@@ -84,8 +84,10 @@
 
       $this->method = $_SERVER['REQUEST_METHOD'];
       $formData = $this->receiveFormData();
+      
+      $this->router = $urls[0];
+      array_shift($urls);
       $this->urlData = $urls;
-      $this->router = $this->urlData[0];
       $this->formData = $formData;
     }
 

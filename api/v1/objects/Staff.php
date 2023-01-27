@@ -115,9 +115,9 @@ class Staff
      */
     private function requestReview(): array
     {
-        return match ($this->helpers->urlData[1]) {
+        return match ($this->helpers->urlData[0]) {
             "workplace" => $this->freeDesktop(),
-            $this->helpers->urlData[1] => $this->staffProperty($this->helpers->urlData[1])
+            $this->helpers->urlData[0] => $this->staffProperty($this->helpers->urlData[0])
         };
     }
 
@@ -129,8 +129,8 @@ class Staff
         try {
             return $this->helpers->wrap(
                 match (count($this->helpers->urlData)) {
-                    1 => $this->staffList(),
-                    2 => $this->requestReview()
+                    0 => $this->staffList(),
+                    1 => $this->requestReview()
                 }, "data"
             );
         } catch (\Error | \Exception | \UnhandledMatchError $e) {
