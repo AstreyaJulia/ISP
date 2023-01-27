@@ -68,7 +68,7 @@ class Users
   public function usersGroup()
   {
     
-    $param = $this->helpers->urlData[2];
+    $param = $this->helpers->urlData[1];
 
     if ( filter_var($param, FILTER_VALIDATE_INT) === false ) {
       $this->helpers::isErrorInfo(400, "Неверные параметры", "Ожидаю целое число. Получаю: $param");
