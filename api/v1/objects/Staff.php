@@ -56,7 +56,7 @@ class Staff
         $sql = "SELECT
                     sdc_users.id,
                     sdc_users.username,
-                    IF(sdc_users.password = '','0','1') AS setPass,
+                    IF(sdc_users.password = '',0, 1) AS setPass,
                     sdc_users.active,
                     sdc_users.sudo,
                     IF(ISNULL(sdc_user_attributes.idGAS),'', sdc_user_attributes.idGAS) AS idGAS,
