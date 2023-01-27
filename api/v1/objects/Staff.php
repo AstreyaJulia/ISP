@@ -139,18 +139,37 @@ class Staff
     }
 
     /**
+     * Добавление нового пользователя
+     */
+    private function addUser() {
+
+    }
+
+    /**
+     * Проверяем переданный код профессии
+     */
+    private function validateProfession() {
+        
+
+    }
+
+    /**
      * Обрабатываем приходящие POST-запросы. 
      */
     private function metodPOST()
     {
         $this->helpers::headlinesPOST();
+        //получаем id вставленной записи. Если запрос не выполнен вернёт 0. Используется после запроса INSERT
+        //$LAST_ID = $db->pdo->lastInsertId();
+
+        return $this->helpers->wrap($this->helpers->formData["profession"], "data");
     }
 
     public function responseStaff(): void
     {
         match ($this->helpers->getMethod()) {
             "GET" => $this->helpers->getJsonEncode($this->metodGET()),
-            "POST" => $this->metodPOST()
+            "POST" => $this->helpers->getJsonEncode($this->metodPOST())
         };
     }
 }
