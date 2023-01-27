@@ -10,7 +10,7 @@ class Helpers extends Router
    * символы Unicode, (по умолчанию они кодируются как \uXXXX). Использует
    * пробельные символы в возвращаемых данных для их форматирования.
    */
-  public static function getJsonEncode(object|array|string|bool|int $data):void
+  public static function getJsonEncode(mixed $data):void
   {
     echo json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
   }
