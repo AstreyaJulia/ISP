@@ -5,7 +5,7 @@ import { Switch } from '@headlessui/react'
 import ValidationError from './ValidationError';
 import Typography from '../Typography';
 
-export default function RHFSwitch({ name, label, color, defaultValue, enabledLabel, disabledLabel, checkedValue }) {
+export default function RHFSwitch({ name, label, color, defaultValue, enabledLabel, disabledLabel, checkedValue, onChange }) {
   const { control } = useFormContext();
 
   const inputOptions = {
@@ -95,7 +95,7 @@ export default function RHFSwitch({ name, label, color, defaultValue, enabledLab
       defaultValue={defaultValue}
       render={({ field, fieldState: { error } }) => {
 // eslint-disable-next-line
-        const onSelected = (evt) => (evt ? field.value = 1 : field.value = 0);
+
         return (
           <div>
             {label ? (
@@ -111,7 +111,7 @@ export default function RHFSwitch({ name, label, color, defaultValue, enabledLab
                 <Switch
                   {...field}
                   checked={field.value.toString() === checkedValue.toString()}
-                  onChange={(evt) => field.onChange(onSelected(evt))}
+                  onChange={(evt) => onChange(evt)}
                   className={`${
                     field.value.toString() === checkedValue.toString() ? inputOptions.colors[color].classNames.input : 'bg-gray-200 dark:bg-gray-700'
                   } relative inline-flex h-6 w-11 items-center rounded-full shadow-sm`}

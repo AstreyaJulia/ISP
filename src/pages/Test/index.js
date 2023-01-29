@@ -13,9 +13,6 @@ import Card from '../../components/Card';
 import useAuth from '../../hooks/useAuth';
 import Quiz from '../../components/Courses/Course/Quiz';
 import { testSteps1, testSteps1answers, stat, yearConferenceStat } from '../../@mock/SampleData';
-import { FormProvider } from '../../components/hook-form';
-import ReactSelect from '../../components/ReactSelect';
-import { makeOptionsFromArray } from '../../components/ReactSelect/makeOptions';
 import Typography from '../../components/Typography';
 import TrendindingIcon from '../../components/TrendindingIcon';
 
@@ -103,13 +100,6 @@ const Test = () => {
   return (
     <BasicPage title='Тестовая страница' className='main-content max-w-6xl mx-auto px-5'>
       <PageHeader pages={breadcrumbs} header='Тестовая страница' />
-      <Card classname='p-4 mt-4'>
-        <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-          <ReactSelect
-            options={makeOptionsFromArray(optionsTest, ['Яблоко', 'Клубника', 'Вишня'], 'select', ['🍎', '🍓', '🍒'])}
-            defaultValue='null' onChange={(evt) => onChange(evt)} />
-        </FormProvider>
-      </Card>
       <Card classname='px-4 pb-4 mt-4'>
         <TextEditor
           id='compose-mail'

@@ -17,7 +17,7 @@ import {
 } from '../hook-form';
 import Card from '../Card';
 import Typography from '../Typography';
-import { makeOptionsFromArray } from '../ReactSelect/makeOptions';
+import { makeOptionsFromArray } from '../hook-form/makeOptions';
 import BasicButton from '../BasicButton';
 import LoadingButton from '../LoadingButton';
 import { classNames } from '../../utils/classNames';
@@ -32,10 +32,11 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
 
   const [loadingProfessions, setLoadingProfessions] = useState(false);
   const [professionsOptions, setProfessionsOptions] = useState([]);
-  const [profession, setProfession] = useState(0);
 
-  const profIdOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
-  const profLabelsOptions = ['Председатель', 'Заместитель председателя', 'Судья', 'Начальник отдела', 'Заместитель начальника отдела', 'Помощник председателя суда', 'Помощник судьи', 'Консультант', 'Секретарь судебного заседания', 'Главный специалист', 'Ведущий специалист', 'Секретарь суда', 'Специалист', 'Старший специалист 1 разряда', 'Старший специалист 2 разряда', 'Старший специалист 3 разряда', 'Специалист 1 разряда', 'Специалист 2 разряда', 'Специалист 3 разряда', 'Администратор', 'Рабочий 1 разряд', 'Рабочий 2 разряд', 'Рабочий 3 разряд'];
+  const [loadingJudges, setLoadingJudges,] = useState(false);
+  const [judgesOptions, setJudgesOptions] = useState([]);
+
+  const [profession, setProfession] = useState(0);
 
   const genders = [{
     value: 2, label: 'Женский',
@@ -64,20 +65,20 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
 
   const defaultValues = useMemo(
     () => ({
-      active: currentUser?.active || 1,
-      sudo: currentUser?.sudo || 0,
-      username: currentUser?.username || '',
-      fullname: currentUser?.fullname || '',
-      gender: currentUser?.gender || 0,
-      dob: currentUser?.dob || '',
-      mobilephone: currentUser?.mobilephone || '',
-      email: currentUser?.email || '',
-      profession: currentUser?.profession || '',
-      room: `${currentUser?.room} / ${currentUser?.workplace}`  || '',
-      address: currentUser?.address || '',
-      comment: currentUser?.comment || '',
-      website: currentUser?.website || '',
-      affiliation: currentUser?.affiliationJudge || '',
+      active: currentUser?.active ?? 1,
+      sudo: currentUser?.sudo ?? 0,
+      username: currentUser?.username ?? '',
+      fullname: currentUser?.fullname ?? '',
+      gender: currentUser?.gender ?? 0,
+      dob: currentUser?.dob ?? '',
+      mobilephone: currentUser?.mobilephone ?? '',
+      email: currentUser?.email ?? '',
+      profession: currentUser?.profession ?? '',
+      room: parseInt(currentUser?.workplaceID, 10) ?? null,
+      address: currentUser?.address ?? '',
+      comment: currentUser?.comment ?? '',
+      website: currentUser?.website ?? '',
+      affiliation: currentUser?.affiliationJudge ?? '',
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentUser],
@@ -97,6 +98,10 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
   } = methods;
 
   useEffect(() => {
+    getRoomsSelect();
+    getProfessionsSelect();
+    getJudgesSelect();
+
     if (isEdit && currentUser) {
       reset(defaultValues);
     }
@@ -140,11 +145,30 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
     setValue('room', data?.value || '');
   };
 
+  const onChangeActive = (data) => {
+    setValue('active', data ? 1 : 0);
+    if (!data) {
+      setValue('room', '');
+    }
+  };
+
+  const onChangeSudo = (data) => {
+    setValue('sudo', data ? 1 : 0);
+  };
+
   const getRoomsSelect = async () => {
     await axios
       .get('/staff/workplace')
       .then((res) => {
         const roomslist = res.data.data;
+        if (currentUser?.workplaceID) {
+          roomslist.push({
+            'id': parseInt(currentUser.workplaceID, 10),
+            'value': parseInt(currentUser.workplaceID, 10),
+            'label': `${currentUser.room} / ${currentUser.workplace}`,
+            'selectID': 'room',
+          });
+        }
         const roomsOptions = roomslist.map((item) => {
           return {
             'id': item.id,
@@ -194,6 +218,33 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
       });
   };
 
+  const getJudgesSelect = async () => {
+    await axios
+      .get('/users/group/24')
+      .then((res) => {
+        const jugdeslist = res.data.data;
+        const jugdesOptions = jugdeslist.map((item) => {
+          return {
+            'id': item.id,
+            'value': item.id,
+            'label': item.label,
+            'selectID': 'affiliation',
+          };
+        });
+
+        /* Получаем список должностей, очищаем, обрабатываем и пишем в стейт */
+        setJudgesOptions([]);
+        setJudgesOptions(jugdesOptions);
+      })
+      .catch((err) => {
+        const error = err.message && err.info ? `${err.message}: ${err.info}` : err.toString();
+        if (err.code.toString() === '401') {
+          setSession(null);
+        }
+        toast((t) => <Toast t={t} message={error} type='error' />, { className: toastStyles });
+      });
+  };
+
   const onFocusRooms = async () => {
     setLoadingRooms(true);
     await getRoomsSelect().then(() => setLoadingRooms(false));
@@ -202,6 +253,11 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
   const onFocusProfession = async () => {
     setLoadingProfessions(true);
     await getProfessionsSelect().then(() => setLoadingProfessions(false));
+  };
+
+  const onFocusJudges = async () => {
+    setLoadingJudges(true);
+    await getJudgesSelect().then(() => setLoadingJudges(false));
   };
 
   const generateLogin = () => {
@@ -222,9 +278,9 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
               <Typography variant='subtitle1' classname='mb-2'>Аккаунт</Typography>
               <span />
               <RHFSwitch name='active' enabledLabel='Активен' disabledLabel='Заблокирован' color='emerald'
-                         checkedValue={1} />
+                         checkedValue={1} onChange={(evt) => onChangeActive(evt)}  />
               <RHFSwitch name='sudo' enabledLabel='Администратор' disabledLabel='Пользователь' color='indigo'
-                         checkedValue={1} />
+                         checkedValue={1} onChange={(evt) => onChangeSudo(evt)} />
             </div>
             <RHFTextField name='username' placeholder='Имя пользователя'
                           label={<Typography variant='label' classname='mb-1'>Имя пользователя</Typography>} />
@@ -251,9 +307,10 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
               {profession.toString() === '6' || profession.toString() === '7' || profession.toString() === '9' ?
                 <RHFSelect name='affiliation'
                            onChange={(evt) => onChangeAffiliation(evt)}
-                           onFocus={() => null}
+                           onFocus={() => onFocusJudges()}
+                           noOptionsMessage={loadingJudges ? 'Загрузка...' : 'Результатов не найдено'}
                            placeholder='Выберите судью'
-                           options={makeOptionsFromArray(profIdOptions, profLabelsOptions, 'affiliation', [])}
+                           options={judgesOptions}
                            label={<Typography variant='label' classname='mb-1'>Принадлежность
                              судье</Typography>} /> : null}
             </div>
@@ -304,8 +361,6 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
                 </div>
 
               </div>
-
-
             </div>
           </Card>
 

@@ -1,9 +1,12 @@
 import React from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import PropTypes from 'prop-types';
+import { sub } from 'date-fns';
 import { getAmount } from '../../../utils/getAmount';
 import { classNames } from '../../../utils/classNames';
 import { getHighlightedText } from '../../../utils/getHighlightedText';
+import { fDate } from '../../../utils/formatTime';
+
 
 const SearchResults = ({ show, query, searchQueryClose, searchType, searchresults, isLoading }) => {
   const searchTypesSettings = {
@@ -185,6 +188,9 @@ const SearchResults = ({ show, query, searchQueryClose, searchType, searchresult
               <>
                 <span>Результаты поиска:</span>
                 <span className="ml-2">"{query}"</span>
+                {searchType === 'inbox' || searchType === 'outbox' ? <span>, {fDate(sub(new Date(), {
+                  days: 80,
+                }))} - {fDate(new Date())} (старые письма - внизу)</span> : null}
               </>
             ) : (
               <span>Введите поисковой запрос</span>

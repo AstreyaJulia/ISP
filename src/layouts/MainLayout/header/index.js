@@ -40,7 +40,7 @@ const Header = ({ setMenuVisibility }) => {
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       // Send Axios request here
-      if (searchQuery.length < 3) {
+      if (searchQuery.length < 3 && parseInt(searchQuery, 10).toString().length < 1) {
         dispatch(resetSearch());
       } else {
         dispatch(getSearch(searchType, searchQuery));
