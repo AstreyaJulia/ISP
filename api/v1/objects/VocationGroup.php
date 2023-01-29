@@ -2,7 +2,7 @@
 
 namespace Api\Objects;
 /**
- * sdfsdf
+ * Должности и группы
  */
 class VocationGroup
 {
@@ -19,12 +19,14 @@ class VocationGroup
    * 
    * Список должностей или групп
    * 
-   * @return object
+   * @param string $value (vocation|group)
+   * 
+   * @return array
    * 
    */
-  public function vocationOrGroup()
+  public function vocationOrGroup($value)
   {
-    $param = match ($this->helpers->urlData[0]) {
+    $param = match ($value) {
       "vocation" => "IS NOT NULL",
       "group" => "IS NULL"
     };
@@ -34,20 +36,20 @@ class VocationGroup
                 name AS label
             FROM sdc_vocation
             WHERE parent_id $param";
-    return $this->helpers->db->run($sql)->fetchAll(\PDO::FETCH_CLASS);
+    return $this->helpers->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
   }
 
   /**
    * 
    * Список сотрудников по группам
    * 
-   * @return object
+   * @param $param номер группы
+   * 
+   * @return array
    * 
    */
-  public function usersGroup()
+  public function usersGroup(int $param):array
   {
-    
-    $param = $this->helpers->urlData[1];
 
     if ( filter_var($param, FILTER_VALIDATE_INT) === false ) {
       $this->helpers::isErrorInfo(400, "Неверные параметры", "Ожидаю целое число. Получаю: $param");
@@ -60,8 +62,7 @@ class VocationGroup
             LEFT JOIN sdc_vocation AS vocation ON vocation.id = userAttr.profession
             LEFT JOIN sdc_users AS users ON users.id = userAttr.internalKey 
             WHERE vocation.parent_id = :param AND users.active = 1";
-    return $this->helpers->db->run($sql,[$param])->fetchAll(\PDO::FETCH_CLASS);
+    return $this->helpers->db->run($sql,[$param])->fetchAll(\PDO::FETCH_ASSOC);
   }
-
 
 }

@@ -1,16 +1,23 @@
 <?php
 
 namespace Api\Objects;
-
+use DateTime;
+/**
+ * Работающие, уволенные сотрудники. Создание,
+ * редактирование пофиля сотрудника 
+ */
 class Staff
 {
 
     protected Helpers $helpers;
+    protected VocationGroup $vocationGroup;
 
     public function __construct(
-        Helpers $helpers = new \Api\Objects\Helpers()
+        Helpers $helpers = new \Api\Objects\Helpers(),
+        VocationGroup $vocationGroup = new \Api\Objects\VocationGroup()
     ) {
         $this->helpers = $helpers;
+        $this->vocationGroup = $vocationGroup;
     }
 
     /**
@@ -131,27 +138,99 @@ class Staff
                 match (count($this->helpers->urlData)) {
                     0 => $this->staffList(),
                     1 => $this->requestReview()
-                }, "data"
-            );
+                }, "data");
         } catch (\Error | \Exception | \UnhandledMatchError $e) {
             $this->helpers->isErrorInfo(400, "Ошибка в переданных параметрах", $e->getMessage());
         }
     }
 
     /**
-     * Добавление нового пользователя
+     * Проверка должности
      */
-    private function addUser() {
+    private function addUserValidateVocation()
+    {
+        $profession = $this->helpers->formData["profession"];
+        if ( filter_var($profession, FILTER_VALIDATE_INT) === false ) {
+            $this->helpers::isErrorInfo(400, "Неверные параметры", "Ожидаю в profession целое число. Получаю: $profession");
+        }
 
+        if (!$this->helpers->isExistsById("sdc_vocation", $profession)) {
+            $this->helpers::isErrorInfo(400, "Неверные параметры", "Должности с id: $profession не существует");
+        }
     }
 
     /**
-     * Проверяем переданный код профессии
+     * Проверка рабочего метса
      */
-    private function validateProfession() {
-        
+    private function addUserValidateWorkplace()
+    {
+        $param = $this->helpers->formData["room"];
+        if ( filter_var($param, FILTER_VALIDATE_INT) === false ) {
+            $this->helpers::isErrorInfo(400, "Неверные параметры", "Ожидаю в room целое число. Получаю: $param");
+        }
 
+        if($this->helpers->searchAssociativeArray($param, $this->freeDesktop(), "id") === false){
+            $this->helpers::isErrorInfo(400, "Неверные параметры", "Рабочее место с id: $param не существует либо занято");
+        };
     }
+
+    /**
+     * Проверка гендорной принадлежности
+     */
+    private function addUserValidateGender()
+    {
+        $param = $this->helpers->formData["gender"];
+        if ( filter_var($param, FILTER_VALIDATE_INT) === false ) {
+            $this->helpers::isErrorInfo(400, "Неверные параметры", "Ожидаю в gender целое число. Получаю: $param");
+        }
+    }
+
+    /**
+     * Проверка даты рождения
+     */
+    private function addUserValidateDob()
+    {
+
+        $param = $this->helpers->formData["dob"];
+        $format = "d.m.Y";
+        
+        $d = DateTime::createFromFormat($format, $param);
+
+        if (!($d && $d->format($format) === $param)) {
+            $this->helpers::isErrorInfo(400, "Неверные параметры", "Ожидаю в dob в формате ДД.ММ.ГГГГ Получаю: $param");
+          }
+    }
+
+    /**
+     * Проверка принадлежности к судье
+     * секрктари с.з. id = 9,
+     * помошник судьи id = 7,
+     * помошник председателя = 6
+     */
+    private function addUserValidateAffiliation()
+    {
+        $profession = $this->helpers->formData["profession"];
+        $affiliation = $this->helpers->formData["affiliation"];
+        if(in_array($profession, [6,7,9])){
+            if ( filter_var($affiliation, FILTER_VALIDATE_INT) === false ) {
+                $this->helpers::isErrorInfo(400, "Неверные параметры", "Ожидаю в affiliation целое число. Получаю: $affiliation");
+            }
+            if ($this->helpers->searchAssociativeArray($this->helpers->formData["affiliation"], $this->vocationGroup->usersGroup(24), "id") === false) {
+                $this->helpers::isErrorInfo(400, "Неверные параметры", "Судьи с id: {$this->helpers->formData['affiliation']} не существует");
+            }
+        }
+    }
+
+    /**
+     * Добавление нового пользователя
+     */
+    private function addUser()
+    {
+        //получаем id вставленной записи. Если запрос не выполнен вернёт 0. Используется после запроса INSERT
+        //$LAST_ID = $db->pdo->lastInsertId();
+    }
+
+    
 
     /**
      * Обрабатываем приходящие POST-запросы. 
@@ -159,10 +238,17 @@ class Staff
     private function metodPOST()
     {
         $this->helpers::headlinesPOST();
-        //получаем id вставленной записи. Если запрос не выполнен вернёт 0. Используется после запроса INSERT
-        //$LAST_ID = $db->pdo->lastInsertId();
+        $this->addUserValidateGender();
+        $this->addUserValidateDob();
+        $this->addUserValidateVocation();
+        $this->addUserValidateAffiliation();
+        $this->addUserValidateWorkplace();
 
-        return $this->helpers->wrap($this->helpers->formData["profession"], "data");
+        return $this->helpers->wrap("разрешаю добавить запись", "data");
+
+        //var_dump(empty($this->helpers->formData["profession"]));
+        //return $this->helpers->formData["profession"];
+        //return $this->helpers->wrap($this->validateProfession(), "data");
     }
 
     public function responseStaff(): void
