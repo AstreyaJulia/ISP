@@ -28,34 +28,6 @@ class Helpers extends Router
     return $showing;
   }
 
-  /**
-   * Проверка прав пользователя
-   *
-   * @return Exception
-   */
-  public function validateSudo()
-  {
-    if (!$this->sudo === 1) {
-      throw new \Exception("Недостаточно прав");
-    }
-  }
-
-  /**
-   * Проверка наличия idGAS
-   *
-   * @return Exception
-   */
-  public function validateIdGAS()
-  {
-    try {
-      if (!$this->idGAS) {
-        throw new \Exception("Недостаточно прав для просмотра данного ресурса");
-      }
-    } catch (\Exception $e) {
-      self::isErrorInfo(200, "Доступ закрыт.", $e);
-    }
-  }
-
   // Проверка роутера на валидность
   public function isValidRouter($router)
   {
@@ -73,14 +45,37 @@ class Helpers extends Router
     ));
   }
 
-  // Проверяем существует ли запись
-  public function isExistsById($table, $id)
+  /**
+   * Проверяем существует ли запись
+   * 
+   * @param string $table имя таблицы в которой ищем
+   * @param int $id номер записи для поиска
+   * 
+   * @return bool
+   * 
+   */ 
+  public function isExistsById(string $table, int $id): bool
   {
 
-    $sql = "SELECT COUNT(id) FROM $table WHERE id = ?";
-    $row = $this->db->run($sql, [$id])->fetchColumn();
+      $sql = "SELECT COUNT(id) FROM $table WHERE id = ?";
+      $row = $this->db->run($sql, [$id])->fetchColumn();
 
-    return $row === 1;
+      return $row === 1;
+
+  }
+
+    /**
+   * Поиск по ассоциативному массиву
+   * 
+   * @param mixed $value искомое значение
+   * @param array $array массив в котором ищем
+   * @param string $key ключ массива в котором ищем
+   * 
+   * @return int ключ первого найденного элемента в противном случае false
+   */
+  public function searchAssociativeArray(mixed $value, array $array, string $key)
+  {
+      return array_search($value, array_column($array, $key));
   }
 
   /**
