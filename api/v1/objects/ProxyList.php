@@ -49,7 +49,7 @@ class ProxyList
     public function proxyLink(): array
     {
         try {
-            $this->idGroup = $this->helpers->urlData["2"] ?? "";
+            $this->idGroup = $this->helpers->urlData["1"] ?? "";
         } catch (\Error $e) {
             $this->helpers->isErrorInfo(400, "Ошибка в переданных данных", $e);
         }
@@ -72,10 +72,10 @@ class ProxyList
     public function responseProxyList()
     {
         try {
-            if (empty($this->helpers->urlData["1"])) {
+            if (empty($this->helpers->urlData["0"])) {
                 throw new \Exception("Не задан маршрут до ресурса");
             }
-            match ($this->helpers->urlData["1"]) {
+            match ($this->helpers->urlData["0"]) {
                 'group',  => $this->helpers->getJsonEncode($this->helpers->wrap($this->proxyGroup(), "data")),
                 'group-link', => $this->helpers->getJsonEncode($this->helpers->wrap($this->proxyLink(), "data"))
             };
