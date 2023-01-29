@@ -28,7 +28,7 @@
     public readonly array|NULL $formData;
 
     /**
-     * Тело запроса:
+     * Тело запроса из адресной строки:
      *
      * @var array
      */
@@ -36,7 +36,6 @@
 
     /**
      * Роутер для подключения
-     * 0 элемент $formData
      *
      * @var string
      */
