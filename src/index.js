@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider as ReduxProvider } from 'react-redux';
 import { PersistGate } from 'redux-persist/lib/integration/react';
 import { Toaster } from 'react-hot-toast';
+import { Notifications } from 'react-push-notification';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
@@ -18,6 +19,7 @@ root.render(
       <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
           <Toaster position="top-right" toastOptions={{ className: 'react-hot-toast' }} />
+          <Notifications />
           <App />
         </BrowserRouter>
       </PersistGate>
