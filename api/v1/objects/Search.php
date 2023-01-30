@@ -76,7 +76,7 @@
 
           http_response_code(200);
 
-          $searchInbox["data"] = $this->helpers::sendGET($this->paramsSearch(), API_GAS."v1/".$this->helpers->router."/".$this->helpers->urlData["1"].".php?");
+          $searchInbox["data"] = $this->helpers::sendGET($this->paramsSearch(), API_GAS."v1/".$this->helpers->router."/".$this->helpers->urlData["0"].".php?");
 
           return $this->helpers->getJsonEncode($searchInbox);
 
