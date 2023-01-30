@@ -37,6 +37,7 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
   const [judgesOptions, setJudgesOptions] = useState([]);
 
   const [profession, setProfession] = useState(0);
+  const [judgeSelectShow, setJudgeSelectShow] = useState(false);
 
   const genders = [{
     value: 2, label: 'Женский',
@@ -73,12 +74,12 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
       dob: currentUser?.dob ?? '',
       mobilephone: currentUser?.mobilephone ?? '',
       email: currentUser?.email ?? '',
-      profession: currentUser?.profession ?? '',
+      profession: currentUser?.professionID ?? '',
       room: parseInt(currentUser?.workplaceID, 10) ?? null,
       address: currentUser?.address ?? '',
       comment: currentUser?.comment ?? '',
       website: currentUser?.website ?? '',
-      affiliation: currentUser?.affiliationJudge ?? '',
+      affiliation: parseInt(currentUser?.affiliationJudgeID, 10) ?? '',
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentUser],
@@ -100,6 +101,7 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
   useEffect(() => {
     getRoomsSelect();
     getProfessionsSelect();
+    professionCheck();
     getJudgesSelect();
 
     if (isEdit && currentUser) {
@@ -128,10 +130,19 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
     }
   };
 
+  const professionCheck = () => {
+    if (currentUser?.professionID?.toString() === '6' || currentUser?.professionID?.toString() === '7' || currentUser?.professionID?.toString() === '9') {
+      setJudgeSelectShow(true)
+    }
+  }
+
   const onChangeProfession = (data) => {
     /* Очистка значения принадлежности если профессия не соответствует */
     if (profession.toString() !== '6' || profession.toString() !== '7' || profession.toString() !== '9') {
       setValue('affiliation', null);
+      setJudgeSelectShow(false)
+    } else {
+      setJudgeSelectShow(true)
     }
     setValue('profession', data?.value || '');
     setProfession(data?.value || 0);
@@ -304,7 +315,7 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
                          placeholder='Выберите должность'
                          options={professionsOptions}
                          label={<Typography variant='label' classname='mb-1'>Должность</Typography>} />
-              {profession.toString() === '6' || profession.toString() === '7' || profession.toString() === '9' ?
+              {judgeSelectShow ?
                 <RHFSelect name='affiliation'
                            onChange={(evt) => onChangeAffiliation(evt)}
                            onFocus={() => onFocusJudges()}
