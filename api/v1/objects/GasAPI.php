@@ -24,10 +24,10 @@ class GasAPI
     public function responseGasAPI()
     {
         try {
-            if (empty($this->helpers->urlData["1"])) {
+            if (empty($this->helpers->urlData["0"])) {
                 throw new \Exception("Не задан маршрут до ресурса");
             }
-            match ($this->helpers->urlData["1"]) {
+            match ($this->helpers->urlData["0"]) {
                 'sudact', 'deadlines', 'materials-production', 'no-last-events' => $this->helpers->getJsonEncode($this->prepareQuery($this->helpers->urlData)),
                 'categories-civil-cases', 'categories-material' => $this->helpers->getJsonEncode($this->categoriesMaterial())
             };
@@ -52,15 +52,15 @@ class GasAPI
                 throw new \Exception("Недостаточно прав");
             }
 
-            if (!empty($urlData["2"]) and $urlData["2"] === "all" and
+            if (!empty($urlData["1"]) and $urlData["1"] === "all" and
                 (in_array($this->helpers->professionID, [1,2,6]) or $this->helpers->sudo === 1)) {
                     $idGAS = $this->helpers->db->run("SELECT UserAttributes.idGAS 
                                             FROM sdc_users
                                             LEFT JOIN sdc_user_attributes AS UserAttributes ON UserAttributes.internalKey=sdc_users.id
                                             WHERE UserAttributes.idGAS IS NOT NULL")->fetchAll(\PDO::FETCH_COLUMN);
-                $responseGasAPI = $this->helpers::sendGET(["idJudge" => implode(",", $idGAS)], API_GAS.'v1/'.$urlData["1"].'.php?');
-            } elseif(!empty($this->helpers->idGAS) and empty($urlData["2"]) ) {
-                $responseGasAPI = $this->helpers::sendGET(["idJudge" => $this->helpers->idGAS], API_GAS.'v1/'.$urlData["1"].'.php?');
+                $responseGasAPI = $this->helpers::sendGET(["idJudge" => implode(",", $idGAS)], API_GAS.'v1/'.$urlData["0"].'.php?');
+            } elseif(!empty($this->helpers->idGAS) and empty($urlData["1"]) ) {
+                $responseGasAPI = $this->helpers::sendGET(["idJudge" => $this->helpers->idGAS], API_GAS.'v1/'.$urlData["0"].'.php?');
             } else {
                 throw new \Exception("Недостаточно прав");
             }
@@ -71,6 +71,6 @@ class GasAPI
     }
 
     private function categoriesMaterial():array {
-        return $this->helpers::wrap($this->helpers::sendGET(array(), API_GAS.'v1/'.$this->helpers->urlData["1"].'.php?'), "data");
+        return $this->helpers::wrap($this->helpers::sendGET(array(), API_GAS.'v1/'.$this->helpers->urlData["0"].'.php?'), "data");
     }
 }
