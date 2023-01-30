@@ -17,7 +17,6 @@ import {
 } from '../hook-form';
 import Card from '../Card';
 import Typography from '../Typography';
-import { makeOptionsFromArray } from '../hook-form/makeOptions';
 import BasicButton from '../BasicButton';
 import LoadingButton from '../LoadingButton';
 import { classNames } from '../../utils/classNames';
@@ -37,7 +36,6 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
   const [judgesOptions, setJudgesOptions] = useState([]);
 
   const [profession, setProfession] = useState(0);
-  const [judgeSelectShow, setJudgeSelectShow] = useState(false);
 
   const genders = [{
     value: 2, label: 'Женский',
@@ -98,10 +96,11 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
     formState: { isSubmitting },
   } = methods;
 
+  const values = getValues();
+
   useEffect(() => {
     getRoomsSelect();
     getProfessionsSelect();
-    professionCheck();
     getJudgesSelect();
 
     if (isEdit && currentUser) {
@@ -130,19 +129,10 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
     }
   };
 
-  const professionCheck = () => {
-    if (currentUser?.professionID?.toString() === '6' || currentUser?.professionID?.toString() === '7' || currentUser?.professionID?.toString() === '9') {
-      setJudgeSelectShow(true)
-    }
-  }
-
   const onChangeProfession = (data) => {
     /* Очистка значения принадлежности если профессия не соответствует */
     if (profession.toString() !== '6' || profession.toString() !== '7' || profession.toString() !== '9') {
       setValue('affiliation', null);
-      setJudgeSelectShow(false)
-    } else {
-      setJudgeSelectShow(true)
     }
     setValue('profession', data?.value || '');
     setProfession(data?.value || 0);
@@ -272,7 +262,7 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
   };
 
   const generateLogin = () => {
-    const values = getValues();
+
     console.log(values);
     if (values.fullname.toString() !== '') {
       setValue('username', getLoginFromName(values.fullname).toString());
@@ -315,7 +305,7 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
                          placeholder='Выберите должность'
                          options={professionsOptions}
                          label={<Typography variant='label' classname='mb-1'>Должность</Typography>} />
-              {judgeSelectShow ?
+              {values.profession.toString() === '6' || values.profession.toString() === '7' || values.profession.toString() === '9' ?
                 <RHFSelect name='affiliation'
                            onChange={(evt) => onChangeAffiliation(evt)}
                            onFocus={() => onFocusJudges()}
