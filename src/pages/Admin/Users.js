@@ -4,9 +4,13 @@ import PageHeader from '../../components/PageHeader';
 import useAuth from '../../hooks/useAuth';
 import UsersListAdmin from '../../components/DataTable/UsersListAdmin';
 import { usersAdminList } from '../../@mock/users_admin';
+import { useDispatch, useSelector } from '../../store';
+import { getStaffList } from '../../store/slices/staff';
 
 const UsersAdmin = () => {
   const breadcrumbs = [{ name: 'Управление пользователями', href: '', current: true }];
+
+  const dispatch = useDispatch();
 
   /** Состояние пользователя */
   const { initialize } = useAuth();
@@ -16,10 +20,17 @@ const UsersAdmin = () => {
     // eslint-disable-next-line
   }, []);
 
+  const { staffList, isLoading, error } = useSelector((state) => state.staff);
+
+  useEffect(() => {
+    dispatch(getStaffList());
+    // eslint-disable-next-line
+  }, [dispatch]);
+
   return (
     <BasicPage title="Управление пользователями" className="max-w-6xl mx-auto px-5">
       <PageHeader pages={breadcrumbs} header="Управление пользователями" />
-      <UsersListAdmin error={null} isLoading='false' data={usersAdminList} />
+      <UsersListAdmin error={error} isLoading={isLoading} data={staffList ?? []} />
     </BasicPage>
   );
 };

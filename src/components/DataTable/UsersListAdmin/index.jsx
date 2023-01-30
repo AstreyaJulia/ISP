@@ -14,24 +14,24 @@ import DataTableCore from '../DataTableCore';
 import DataTableToolBar from '../DataTableCore/DataTableToolBar';
 import Badge from '../../Badge';
 import { classNames } from '../../../utils/classNames';
-import { getAmount } from '../../../utils/getAmount';
 import BasicButton from '../../BasicButton';
 
 const UsersListAdmin = ({ data, isLoading, error }) => {
   const [rows, setRows] = useState(data ?? []);
   const columns = Object.keys(data[0] ?? []);
   const [currentPage, setCurrentPage] = useState(0); // текущая страница
-  const [selectedFilter, setSelectedFilter] = useState({ active: 'All', sudo: 'All', profession: 'All' });
-  const [userStatusList, setUserStatusList] = useState([]);
+  const [selectedFilter, setSelectedFilter] = useState({ active: 1, sudo: 'All', profession: 'All' });
+  const [userStatusList, setUserStatusList] = useState([1]);
   const [userSudoList, setUserSudoList] = useState([]);
   const [userProfessionList, setUserProfessionList] = useState([]);
   const [copied, setIsCopied] = useState('false');
 
   useEffect(() => {
     setRows(data);
-    setUserStatusList(getUniqueArrayValuesByKey(data ?? [], 'active'));
-    setUserSudoList(getUniqueArrayValuesByKey(data ?? [], 'sudo'));
-    setUserProfessionList(getUniqueArrayValuesByKey(data ?? [], 'profession'));
+    setUserStatusList(getUniqueArrayValuesByKey(data ?? [], 'active').sort());
+    setUserSudoList(getUniqueArrayValuesByKey(data ?? [], 'sudo').sort());
+    setUserProfessionList(getUniqueArrayValuesByKey(data ?? [], 'profession').sort().filter(profession => profession));
+    setSelectedFilter({ ...selectedFilter, 'active': 1 });
     // eslint-disable-next-line
   }, [isLoading]);
 
@@ -55,8 +55,8 @@ const UsersListAdmin = ({ data, isLoading, error }) => {
       <div className='flex gap-5 items-center'>
         <Avatar
           size='8'
-          name={getInitialsOnly(item?.fullname)}
-          color={getAvatarColor(item?.fullname)}
+          name={getInitialsOnly(item?.fullname ? item?.fullname : item?.username)}
+          color={item?.fullname ? getAvatarColor(item?.fullname) : 'indigo'}
           shape='circle'
           classname='mr-1'
         />
@@ -75,23 +75,12 @@ const UsersListAdmin = ({ data, isLoading, error }) => {
         <div className='flex flex-col items-start'>
           <p
             className='font-medium text-base text-slate-600 dark:text-slate-400 flex flex-wrap w-96'>
-            {getHighlightedText(item?.fullname, query)}
+            {item?.fullname ? getHighlightedText(item?.fullname, query) : null}
           </p>
           <p
             className='text-sm text-indigo-700 dark:text-indigo-400 flex flex-wrap'>
             <span>{item?.profession}</span>
             {item?.affiliationJudge ? <span>: {getInitials(item?.affiliationJudge)}</span> : ''}
-          </p>
-        </div>
-
-        <div className='flex flex-col items-start'>
-          <p
-            className='font-medium text-sm text-slate-600 dark:text-slate-400 flex flex-wrap w-20'>
-            {getHighlightedText(item?.dob, query)}
-          </p>
-          <p
-            className='font-medium text-sm text-slate-600 dark:text-slate-400 flex flex-wrap w-20'>
-            {getAge(item?.dob)} {getAmount(getAge(item?.dob), { single: 'год', multi: 'года', count: 'лет' })}
           </p>
         </div>
 

@@ -73,7 +73,7 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
       mobilephone: currentUser?.mobilephone ?? '',
       email: currentUser?.email ?? '',
       professionID: currentUser?.professionID ?? '',
-      workplaceID: parseInt(currentUser?.workplaceID, 10) ?? null,
+      workplaceID: parseInt(currentUser?.workplaceID, 10) ?? '',
       address: currentUser?.address ?? '',
       comment: currentUser?.comment ?? '',
       website: currentUser?.website ?? '',
@@ -374,7 +374,7 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
           type='submit'
           isLoading={isSubmitting}
           label='Сохранить'
-          classes={classNames(isSubmitting ? 'bg-slate-600 hover:bg-slate-600 focus:ring-offset-0' : 'bg-green-600 hover:bg-green-700 focus:ring-offset-2 focus:ring-green-500', 'text-sm font-medium mt-5 text-white focus:outline-none')}
+          classes={classNames(isSubmitting ? 'bg-slate-600 hover:bg-slate-600 focus:ring-offset-0' : 'bg-green-600 hover:bg-green-700 focus:ring-offset-2 focus:ring-green-500', 'w-40 text-sm font-medium mt-5 text-white focus:outline-none')}
         >
           <svg
             xmlns='http://www.w3.org/2000/svg'
