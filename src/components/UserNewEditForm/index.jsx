@@ -54,12 +54,12 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
     dob: Yup.date().typeError('Дата рождения в неправильном формате').required('Дата рождения обязательна для заполнения'),
     mobilephone: Yup.string().nullable().default(null).transform(value => value === '' ? null : value).matches(/^79[0-9]{9}$/, 'Номер телефона в неправильном формате'),
     email: Yup.string().nullable().default(null).transform(value => value === '' ? null : value).matches(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, 'Адрес электронной почты в неправильном формате'),
-    profession: Yup.number(),
-    room: Yup.number(),
+    professionID: Yup.number(),
+    workplaceID: Yup.number(),
     address: Yup.string(),
     comment: Yup.string(),
     website: Yup.string(),
-    affiliation: Yup.string(),
+    affiliationJudgeID: Yup.string(),
   });
 
   const defaultValues = useMemo(
@@ -72,12 +72,12 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
       dob: currentUser?.dob ?? '',
       mobilephone: currentUser?.mobilephone ?? '',
       email: currentUser?.email ?? '',
-      profession: currentUser?.professionID ?? '',
-      room: parseInt(currentUser?.workplaceID, 10) ?? null,
+      professionID: currentUser?.professionID ?? '',
+      workplaceID: parseInt(currentUser?.workplaceID, 10) ?? null,
       address: currentUser?.address ?? '',
       comment: currentUser?.comment ?? '',
       website: currentUser?.website ?? '',
-      affiliation: parseInt(currentUser?.affiliationJudgeID, 10) ?? '',
+      affiliationJudgeID: parseInt(currentUser?.affiliationJudgeID, 10) ?? '',
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentUser],
@@ -132,24 +132,24 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
   const onChangeProfession = (data) => {
     /* Очистка значения принадлежности если профессия не соответствует */
     if (profession.toString() !== '6' || profession.toString() !== '7' || profession.toString() !== '9') {
-      setValue('affiliation', null);
+      setValue('affiliationJudgeID', '');
     }
-    setValue('profession', data?.value || '');
+    setValue('professionID', data?.value || '');
     setProfession(data?.value || 0);
   };
 
   const onChangeAffiliation = (data) => {
-    setValue('affiliation', data?.value || '');
+    setValue('affiliationJudgeID', data?.value || '');
   };
 
   const onChangeRoom = (data) => {
-    setValue('room', data?.value || '');
+    setValue('workplaceID', data?.value || '');
   };
 
   const onChangeActive = (data) => {
     setValue('active', data ? 1 : 0);
     if (!data) {
-      setValue('room', '');
+      setValue('workplaceID', '');
     }
   };
 
@@ -167,7 +167,7 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
             'id': parseInt(currentUser.workplaceID, 10),
             'value': parseInt(currentUser.workplaceID, 10),
             'label': `${currentUser.room} / ${currentUser.workplace}`,
-            'selectID': 'room',
+            'selectID': 'workplaceID',
           });
         }
         const roomsOptions = roomslist.map((item) => {
@@ -175,7 +175,7 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
             'id': item.id,
             'value': item.id,
             'label': item.label,
-            'selectID': 'room',
+            'selectID': 'workplaceID',
           };
         });
 
@@ -202,7 +202,7 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
             'id': item.id,
             'value': item.id,
             'label': item.label,
-            'selectID': 'profession',
+            'selectID': 'professionID',
           };
         });
 
@@ -229,7 +229,7 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
             'id': item.id,
             'value': item.id,
             'label': item.label,
-            'selectID': 'affiliation',
+            'selectID': 'affiliationJudgeID',
           };
         });
 
@@ -298,15 +298,15 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
             </div>
             <Typography variant='subtitle1' classname='mb-2'>Сведения о работе</Typography>
             <div className='grid md:grid-cols-2 gap-5'>
-              <RHFSelect name='profession'
+              <RHFSelect name='professionID'
                          onChange={(evt) => onChangeProfession(evt)}
                          onFocus={() => onFocusProfession()}
                          noOptionsMessage={loadingProfessions ? 'Загрузка...' : 'Результатов не найдено'}
                          placeholder='Выберите должность'
                          options={professionsOptions}
                          label={<Typography variant='label' classname='mb-1'>Должность</Typography>} />
-              {values.profession.toString() === '6' || values.profession.toString() === '7' || values.profession.toString() === '9' ?
-                <RHFSelect name='affiliation'
+              {values.professionID.toString() === '6' || values.professionID.toString() === '7' || values.professionID.toString() === '9' ?
+                <RHFSelect name='affiliationJudgeID'
                            onChange={(evt) => onChangeAffiliation(evt)}
                            onFocus={() => onFocusJudges()}
                            noOptionsMessage={loadingJudges ? 'Загрузка...' : 'Результатов не найдено'}
@@ -316,7 +316,7 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
                              судье</Typography>} /> : null}
             </div>
             <div className='grid md:grid-cols-2 gap-5'>
-              <RHFSelect name='room'
+              <RHFSelect name='workplaceID'
                          placeholder='Выберите рабочее место'
                          onChange={(evt) => onChangeRoom(evt)}
                          onFocus={() => onFocusRooms()}
