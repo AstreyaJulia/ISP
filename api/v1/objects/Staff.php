@@ -69,7 +69,9 @@ class Staff
                     IF(ISNULL(sdc_user_attributes.idGAS),'', sdc_user_attributes.idGAS) AS idGAS,
                     sdc_user_attributes.fullname,
                     sdc_user_attributes.gender,
-                    sdc_vocation.name AS profession,
+                    sdc_vocation.id AS professionID,
+                    sdc_vocation.name AS professionName,
+                    IF(ISNULL(ChildUserAttributesType.id),'',ChildUserAttributesType.id) AS affiliationJudgeID,
                     IF(ISNULL(ChildUserAttributesType.fullname),'',ChildUserAttributesType.fullname) AS affiliationJudge,
                     DATE_FORMAT(sdc_user_attributes.dob, '%d.%m.%Y') AS dob,
                     sdc_user_attributes.email,
@@ -198,7 +200,7 @@ class Staff
 
         if (!($d && $d->format($format) === $param)) {
             $this->helpers::isErrorInfo(400, "Неверные параметры", "Ожидаю в dob в формате ДД.ММ.ГГГГ Получаю: $param");
-          }
+        }
     }
 
     /**
