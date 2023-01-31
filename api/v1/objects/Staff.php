@@ -19,8 +19,8 @@ class Staff
     ) {
         $this->helpers = $helpers;
         $this->vocationGroup = $vocationGroup;
-        $this->sudo = $this->helpers->validateINT($this->helpers->formData["sudo"] ?? "", "sudo");
-        $this->active = $this->helpers->validateINT($this->helpers->formData["active"] ?? "", "active");
+        $this->sudo = $this->helpers->formData["sudo"] ?? "";
+        $this->active = $this->helpers->formData["active"] ?? "";
     }
 
     /**
@@ -230,8 +230,8 @@ class Staff
         //Добавляем запись в таблицу sdc_users
         $paramUser = [
             "username" => $this->helpers->formData["username"],
-            "active" => $this->active,
-            "sudo" => $this->sudo,
+            "active" => $this->helpers->validateINT($this->active, "active"),
+            "sudo" => $this->helpers->validateINT($this->sudo, "sudo"),
         ];
 
         $sqlUser = "INSERT INTO `sdc_users` (`username`, `active`, `sudo`) VALUES (:username, :active, :sudo)";
@@ -273,7 +273,7 @@ class Staff
         $this->addUserValidateVocation();
         $this->addUserValidateAffiliation();
         $this->addUserValidateWorkplace();
-        var_dump($this->active);
+
         $this->addUser();
 
         return $this->helpers->wrap("разрешаю и добавляю запись", "data");
