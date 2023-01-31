@@ -64,7 +64,7 @@ class Helpers extends Router
 
   }
 
-    /**
+  /**
    * Поиск по ассоциативному массиву
    * 
    * @param mixed $value искомое значение
@@ -76,6 +76,22 @@ class Helpers extends Router
   public function searchAssociativeArray(mixed $value, array $array, string $key)
   {
       return array_search($value, array_column($array, $key));
+  }
+
+  /**
+   * Проверка на целое число
+   * 
+   * @param mixed $value проверяемое значение
+   * @param string $name наименование поля для вывода ошибки
+   * 
+   * @return int isErrorInfo() со значением переданного параметра, либо $value
+   */
+  public function validateINT(mixed $value, string $name):int
+  {
+    if ( filter_var($value, FILTER_VALIDATE_INT) === false ) {
+      self::isErrorInfo(400, "Неверные параметры", "Ожидаю в $name целое число. Получаю: $value");
+    }
+    return $value;
   }
 
   /**
