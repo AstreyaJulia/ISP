@@ -10,7 +10,7 @@ import desktop from '../../assets/images/icons/desktop.png';
 import useAuth from '../../hooks/useAuth';
 
 const Faq = () => {
-  const breadcrumbs = [{ name: 'Инвентаризация', href: '', current: true }];
+  const breadcrumbs = [{ name: 'Управление рабочими местами', href: '', current: true }];
 
   /** Состояние пользователя */
   const { initialize } = useAuth();
@@ -43,7 +43,7 @@ const Faq = () => {
               >
                 <div className="rounded-l-md flex grow items-center">
                   <div className="flex flex-col items-start grow">
-                    <div className="text-sm flex items-center justify-start text-left mb-1 w-full">
+                    <div className="text-sm flex items-center justify-start text-left w-full">
                       {open ? (
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -76,10 +76,7 @@ const Faq = () => {
                         </svg>
                       )}
                       <div
-                        className={classNames(
-                          open ? 'border-indigo-300' : 'border-slate-300',
-                          'border rounded-md flex grow items-center p-2 gap-2'
-                        )}
+                        className='flex grow items-center p-1 gap-2'
                       >
                         <img src={icons[item.icon]} alt="Значок" className="h-4 w-4" />
                         <span className="flex flex-wrap items-center">{item.title}</span>
@@ -123,14 +120,14 @@ const Faq = () => {
                   <div className="px-1 py-1">
                     <Menu.Item>
                       {({ active }) => (
-                        <button
-                          type="button"
-                          className={`${
-                            active ? 'bg-indigo-500 text-white' : 'text-gray-900 dark:text-gray-100'
-                          } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                        >
-                          Удалить
-                        </button>
+                          <button
+                              type='button'
+                              className={`${
+                                  active ? 'bg-red-500 text-white' : 'text-gray-900 dark:text-gray-100'
+                              } group flex w-full items-center rounded-md p-2 py-2 text-sm`}
+                          >
+                            Удалить
+                          </button>
                       )}
                     </Menu.Item>
                   </div>
@@ -138,11 +135,11 @@ const Faq = () => {
               </Menu>
             </div>
 
-            <Disclosure.Panel className={classNames(`ml-${count + 1}`, 'text-gray-500 my-1')}>
+            <Disclosure.Panel className={classNames(`ml-${count + 1}`, 'text-gray-500')}>
               {item.children?.length > 0 ? (
                 item.children.map((item, key) => sidebarLink(item, key, count))
               ) : (
-                <p className="border rounded-md flex grow items-center p-2 border-slate-300 text-sm w-full rounded-md shrink-0 gap-2">
+                <p className="flex grow items-center p-1 text-sm w-full shrink-0 gap-2 cursor-pointer">
                   <img src={icons[item.icon]} alt="Значок" className="h-4 w-4 mt-1" />
                   <span>{item.title}</span>
                 </p>
@@ -156,9 +153,9 @@ const Faq = () => {
         <p
           title={item.subtitle !== '' ? `${item.title} ${item.subtitle}` : item.title}
           key={key}
-          className="border rounded-md flex grow items-center p-2 border-slate-300 text-sm justify-start text-left mb-1 text-slate-800 dark:text-slate-200 gap-2"
+          className="flex grow items-center p-2 text-sm justify-start text-left mb-1 text-slate-800 dark:text-slate-200 gap-2"
         >
-          <img src={icons[item.icon]} alt="Значок" className="h-4 w-4 mt-1" />
+          <img src={icons[item.icon]} alt="Значок" className="h-4 w-4" />
           <span>
             {item.title} {item.subtitle}
           </span>
@@ -198,14 +195,14 @@ const Faq = () => {
             <div className="px-1 py-1">
               <Menu.Item>
                 {({ active }) => (
-                  <button
-                    type="button"
-                    className={`${
-                      active ? 'bg-indigo-500 text-white' : 'text-gray-900 dark:text-gray-100'
-                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                  >
-                    Удалить
-                  </button>
+                    <button
+                        type='button'
+                        className={`${
+                            active ? 'bg-red-500 text-white' : 'text-gray-900 dark:text-gray-100'
+                        } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                    >
+                      Удалить
+                    </button>
                 )}
               </Menu.Item>
             </div>
@@ -220,7 +217,7 @@ const Faq = () => {
       boxed="true"
       title="База знаний"
       breadcrumbs={breadcrumbs}
-      header="База знаний"
+      header="Управление рабочими местами"
       sidebarSize="medium"
       fullHeight="true"
     >

@@ -23,6 +23,7 @@ import { classNames } from '../../utils/classNames';
 
 import axios from '../../utils/axios';
 import { getLoginFromName } from '../../utils/createLogin';
+import {formatDate} from "../../utils/formatTime";
 
 export default function UserNewEditForm({ isEdit, currentUser }) {
 
@@ -68,7 +69,7 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
       sudo: currentUser?.sudo ?? 0,
       username: currentUser?.username ?? '',
       fullname: currentUser?.fullname ?? '',
-      gender: currentUser?.gender ?? 0,
+      gender: currentUser?.gender ?? '',
       dob: currentUser?.dob ?? '',
       mobilephone: currentUser?.mobilephone ?? '',
       email: currentUser?.email ?? '',
@@ -112,10 +113,13 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEdit, currentUser]);
 
+
   const onSubmit = async () => {
+    const values = getValues();
+    setValue('dob', formatDate(values.dob))
     try {
       /* Сохранение пользователя */
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      await axios.post(`/staff`, values);
       reset();
       toast((t) => <Toast t={t} message={!isEdit ? 'Пользователь создан!' : 'Успешно обновлено!'}
                           type='success' />, { className: toastStyles });
@@ -262,6 +266,7 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
   };
 
   const generateLogin = () => {
+    const values = getValues();
 
     console.log(values);
     if (values.fullname.toString() !== '') {
