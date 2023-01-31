@@ -151,7 +151,7 @@ class Staff
      */
     private function addUserValidateVocation()
     {
-        $profession = $this->helpers->formData["profession"];
+        $profession = $this->helpers->formData["professionID"];
         if ( filter_var($profession, FILTER_VALIDATE_INT) === false ) {
             $this->helpers::isErrorInfo(400, "Неверные параметры", "Ожидаю в profession целое число. Получаю: $profession");
         }
@@ -166,7 +166,7 @@ class Staff
      */
     private function addUserValidateWorkplace()
     {
-        $param = $this->helpers->formData["room"];
+        $param = $this->helpers->formData["workplaceID"];
         if ( filter_var($param, FILTER_VALIDATE_INT) === false ) {
             $this->helpers::isErrorInfo(400, "Неверные параметры", "Ожидаю в room целое число. Получаю: $param");
         }
@@ -194,12 +194,12 @@ class Staff
     {
 
         $param = $this->helpers->formData["dob"];
-        $format = "d.m.Y";
+        $format = "Y-m-d\TH:i:s.000\Z";
         
         $d = DateTime::createFromFormat($format, $param);
 
         if (!($d && $d->format($format) === $param)) {
-            $this->helpers::isErrorInfo(400, "Неверные параметры", "Ожидаю в dob в формате ДД.ММ.ГГГГ Получаю: $param");
+            $this->helpers::isErrorInfo(400, "Неверные параметры", "Ожидаю в dob в формате Y-m-d\TH:i:s.000\Z Получаю: $param");
         }
     }
 
@@ -211,14 +211,14 @@ class Staff
      */
     private function addUserValidateAffiliation()
     {
-        $profession = $this->helpers->formData["profession"];
-        $affiliation = $this->helpers->formData["affiliation"];
+        $profession = $this->helpers->formData["professionID"];
+        $affiliation = $this->helpers->formData["affiliationJudgeID"];
         if(in_array($profession, [6,7,9])){
             if ( filter_var($affiliation, FILTER_VALIDATE_INT) === false ) {
                 $this->helpers::isErrorInfo(400, "Неверные параметры", "Ожидаю в affiliation целое число. Получаю: $affiliation");
             }
-            if ($this->helpers->searchAssociativeArray($this->helpers->formData["affiliation"], $this->vocationGroup->usersGroup(24), "id") === false) {
-                $this->helpers::isErrorInfo(400, "Неверные параметры", "Судьи с id: {$this->helpers->formData['affiliation']} не существует");
+            if ($this->helpers->searchAssociativeArray($affiliation, $this->vocationGroup->usersGroup(24), "id") === false) {
+                $this->helpers::isErrorInfo(400, "Неверные параметры", "Судьи с id: $affiliation не существует");
             }
         }
     }
@@ -228,8 +228,37 @@ class Staff
      */
     private function addUser()
     {
-        //получаем id вставленной записи. Если запрос не выполнен вернёт 0. Используется после запроса INSERT
-        //$LAST_ID = $db->pdo->lastInsertId();
+        //Добавляем запись в таблицу sdc_users
+        $paramUser = [
+            "username" => $this->helpers->formData["username"],
+            "active" => $this->helpers->formData["active"],
+            "sudo" => $this->helpers->formData["sudo"],
+        ];
+
+        $sqlUser = "INSERT INTO `sdc_users` (`username`, `active`, `sudo`) VALUES (:username, :active, :sudo)";
+        $this->helpers->db->run($sqlUser, $paramUser);
+
+        $LAST_ID = $this->helpers->db->pdo->lastInsertId() ?? $this->helpers::isErrorInfo(400, "Произошла ошибка", "Запись не добавлена");
+
+        //Добавляем запись в таблицу sdc_user_attributes
+        $paramAttr = [
+            "internalKey" => $LAST_ID,
+            "idGAS" => $this->helpers->formData["idGAS"] ?? null,
+            "fullname" => $this->helpers->formData["fullname"],
+            "gender" => $this->helpers->formData["gender"],
+            "dob" => date("Y-m-d", strtotime($this->helpers->formData["dob"])),
+            "email" => $this->helpers->formData["email"],
+            "mobilephone" => $this->helpers->formData["mobilephone"],
+            "address" => $this->helpers->formData["address"],
+            "comment" => $this->helpers->formData["comment"],
+            "website" => $this->helpers->formData["website"],
+            "profession" => $this->helpers->formData["professionID"],
+            "affiliation" => (int)$this->helpers->formData["affiliationJudgeID"],
+            "room" => $this->helpers->formData["workplaceID"]
+        ];
+        
+	    $sqlAttr = "INSERT INTO `sdc_user_attributes` (`internalKey`, `idGAS`, `fullname`, `gender`, `dob`, `email`, `mobilephone`, `address`, `comment`, `website`, `profession`, `affiliation`, `room`) VALUES (:internalKey, :idGAS, :fullname, :gender, :dob, :email, :mobilephone, :address, :comment, :website, :profession, :affiliation, :room)";
+	    $this->helpers->db->run($sqlAttr, $paramAttr);
     }
 
     
@@ -245,12 +274,11 @@ class Staff
         $this->addUserValidateVocation();
         $this->addUserValidateAffiliation();
         $this->addUserValidateWorkplace();
+        
+        $this->addUser();
 
-        return $this->helpers->wrap("разрешаю добавить запись", "data");
+        return $this->helpers->wrap("разрешаю и добавляю запись", "data");
 
-        //var_dump(empty($this->helpers->formData["profession"]));
-        //return $this->helpers->formData["profession"];
-        //return $this->helpers->wrap($this->validateProfession(), "data");
     }
 
     public function responseStaff(): void
