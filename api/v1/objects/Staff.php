@@ -8,7 +8,8 @@ use DateTime;
  */
 class Staff
 {
-
+    private $sudo;
+    private $active;
     protected Helpers $helpers;
     protected VocationGroup $vocationGroup;
 
@@ -18,6 +19,8 @@ class Staff
     ) {
         $this->helpers = $helpers;
         $this->vocationGroup = $vocationGroup;
+        $this->sudo = $this->helpers->validateINT($this->helpers->formData["sudo"] ?? "", "sudo");
+        $this->active = $this->helpers->validateINT($this->helpers->formData["active"] ?? "", "active");
     }
 
     /**
@@ -151,10 +154,8 @@ class Staff
      */
     private function addUserValidateVocation()
     {
-        $profession = $this->helpers->formData["professionID"];
-        if ( filter_var($profession, FILTER_VALIDATE_INT) === false ) {
-            $this->helpers::isErrorInfo(400, "Неверные параметры", "Ожидаю в profession целое число. Получаю: $profession");
-        }
+        $profession = $this->helpers->formData["professionID"] ?? "";
+        $this->helpers->validateINT($profession, "professionID");
 
         if (!$this->helpers->isExistsById("sdc_vocation", $profession)) {
             $this->helpers::isErrorInfo(400, "Неверные параметры", "Должности с id: $profession не существует");
@@ -166,10 +167,8 @@ class Staff
      */
     private function addUserValidateWorkplace()
     {
-        $param = $this->helpers->formData["workplaceID"];
-        if ( filter_var($param, FILTER_VALIDATE_INT) === false ) {
-            $this->helpers::isErrorInfo(400, "Неверные параметры", "Ожидаю в room целое число. Получаю: $param");
-        }
+        $param = $this->helpers->formData["workplaceID"] ?? "";
+        $this->helpers->validateINT($param, "workplaceID");
 
         if($this->helpers->searchAssociativeArray($param, $this->freeDesktop(), "id") === false){
             $this->helpers::isErrorInfo(400, "Неверные параметры", "Рабочее место с id: $param не существует либо занято");
@@ -181,7 +180,7 @@ class Staff
      */
     private function addUserValidateGender()
     {
-        $param = $this->helpers->formData["gender"];
+        $param = $this->helpers->formData["gender"] ?? "";
         if ( filter_var($param, FILTER_VALIDATE_INT) === false ) {
             $this->helpers::isErrorInfo(400, "Неверные параметры", "Ожидаю в gender целое число. Получаю: $param");
         }
@@ -193,7 +192,7 @@ class Staff
     private function addUserValidateDob()
     {
 
-        $param = $this->helpers->formData["dob"];
+        $param = $this->helpers->formData["dob" ?? ""];
         $format = "Y-m-d\TH:i:s.000\Z";
         
         $d = DateTime::createFromFormat($format, $param);
@@ -211,8 +210,8 @@ class Staff
      */
     private function addUserValidateAffiliation()
     {
-        $profession = $this->helpers->formData["professionID"];
-        $affiliation = $this->helpers->formData["affiliationJudgeID"];
+        $profession = $this->helpers->formData["professionID"] ?? "";
+        $affiliation = $this->helpers->formData["affiliationJudgeID"] ?? "";
         if(in_array($profession, [6,7,9])){
             if ( filter_var($affiliation, FILTER_VALIDATE_INT) === false ) {
                 $this->helpers::isErrorInfo(400, "Неверные параметры", "Ожидаю в affiliation целое число. Получаю: $affiliation");
@@ -231,8 +230,8 @@ class Staff
         //Добавляем запись в таблицу sdc_users
         $paramUser = [
             "username" => $this->helpers->formData["username"],
-            "active" => $this->helpers->formData["active"],
-            "sudo" => $this->helpers->formData["sudo"],
+            "active" => $this->active,
+            "sudo" => $this->sudo,
         ];
 
         $sqlUser = "INSERT INTO `sdc_users` (`username`, `active`, `sudo`) VALUES (:username, :active, :sudo)";
@@ -274,7 +273,7 @@ class Staff
         $this->addUserValidateVocation();
         $this->addUserValidateAffiliation();
         $this->addUserValidateWorkplace();
-        
+        var_dump($this->active);
         $this->addUser();
 
         return $this->helpers->wrap("разрешаю и добавляю запись", "data");
