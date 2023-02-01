@@ -1,0 +1,12 @@
+{
+  "67RS0007": {
+    "city_name": "Сафоново",
+    "court_name": "Сафоновский районный суд",
+    "open_weather_city_id": 499452
+  },
+  "67RS0011": {
+    "city_name": "Дорогобуж",
+    "court_name": "Дорогобужский районный суд",
+    "open_weather_city_id": 565202
+  }
+}

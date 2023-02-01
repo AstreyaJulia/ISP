@@ -1,4 +1,5 @@
 import React from 'react';
+import courtsConfig from './courtsSettings.json'
 
 /** Хост API из .ENV
  * @type {string}
@@ -9,20 +10,20 @@ export const APP_NAME = 'ИСП'; /** Название приложения */
 
 /** Бесплатный ключ получить тут https://openweathermap.org/price */
 export const OPEN_WEATHER_API_KEY =
-  process.env.REACT_APP_OPEN_WEATHER_API_KEY || ''; /** API-ключ Open Weather из .ENV */
+  process.env.REACT_APP_OPEN_WEATHER_API_KEY || '439d4b804bc8187953eb36d2a8c26a02'; /** API-ключ Open Weather из .ENV, если не указан - ключ open weather с сайта */
 
 /** Название города для погоды */
-export const CITY_NAME = 'Сафоново';
+export const CITY_NAME = courtsConfig[process.env.REACT_APP_OPEN_WEATHER_COURT_CODE].city_name || '';
 
 /** ID города openweather */
-export const CITY_OPEN_WEATHER_ID = 499452;
+export const CITY_OPEN_WEATHER_ID = courtsConfig[process.env.REACT_APP_OPEN_WEATHER_COURT_CODE].open_weather_city_id || '';
 
 /** Координаты города. Искать кликом на карту https://yandex.ru/maps/ и нажав на название улицы или места, слева в меню будут показаны координаты  */
 // export const CITY_LAT = '55.10';
 // export const CITY_LON = '33.24';
 
 /** Название суда и область */
-export const COURT_NAME = 'Сафоновский районный суд';
+export const COURT_NAME = courtsConfig[process.env.REACT_APP_OPEN_WEATHER_COURT_CODE].court_name || '';
 export const COURT_REGION = 'Смоленская область'; // Не используется
 
 /** Настройки для картотек
