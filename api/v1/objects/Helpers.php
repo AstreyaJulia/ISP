@@ -95,6 +95,20 @@ class Helpers extends Router
   }
 
   /**
+   * Проверка на существоваение значения
+   * 
+   * @param mixed $value проверяемое значение
+   * @param string $name наименование поля для вывода ошибки
+   * 
+   * @return int isErrorInfo() со значением переданного параметра, либо $value
+   */
+  public function validateExist(mixed $value, string $name):mixed
+  {
+    empty($value) ? self::isErrorInfo(400, "Неверные параметы", "Ожидаю $name. Получаю $value"): $value;
+    return $value;
+  }
+
+  /**
    * Необходимые заголовки
    */
   public static function headlinesGET()
@@ -115,16 +129,22 @@ class Helpers extends Router
 
   /**
    * Сообщение об ошибке.
+   * 
+   * @param int $responseCode код состояния HTTP
+   * @param string $message заголовок ошибки
+   * @param object|string $e описание ошибки 
+   * 
+   * @return string JSON-представление данных
    *
    */
-  public static function isErrorInfo(int $responseCode, string $mesage, object|string $e):string
+  public static function isErrorInfo(int $responseCode, string $message, object|string $e):string
   {
 
     $info = array(
       "data" => [],
       "error" => array(
         "code" => $responseCode,
-        "message" => $mesage,
+        "message" => $message,
         "info" => is_string($e) ? $e : $e->getMessage()
       )
     );
