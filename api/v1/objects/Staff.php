@@ -27,13 +27,15 @@ class Staff
     private function freeDesktop():array
     {
         $sql = "SELECT
-                    ChildUserType.id,
-                    CONCAT (ParentUserType.name, ' / ', ChildUserType.name) AS label 
-                FROM `sdc_room` AS ChildUserType
-                LEFT JOIN `sdc_room` AS ParentUserType ON ChildUserType.affiliation = ParentUserType.id
-                LEFT JOIN sdc_user_attributes ON sdc_user_attributes.room=ChildUserType.id
-                WHERE ChildUserType.icon ='desktop' AND sdc_user_attributes.room IS NULL
-                ORDER BY ParentUserType.name ASC";
+                    DesktopType.id,
+                    CONCAT (BildingType.name, ' / ', DoorType.name, ' / ', DesktopType.name) AS label
+                FROM `sdc_room` AS DesktopType
+                    LEFT JOIN `sdc_room` AS DoorType ON DesktopType.affiliation = DoorType.id
+                    LEFT JOIN `sdc_room` AS FloorType ON DoorType.affiliation = FloorType.id
+                    LEFT JOIN `sdc_room` AS BildingType ON FloorType.affiliation = BildingType.id
+                    LEFT JOIN sdc_user_attributes ON sdc_user_attributes.room=DesktopType.id
+                WHERE DesktopType.icon ='desktop' AND sdc_user_attributes.room IS NULL
+                ORDER BY BildingType.name ASC";
         return $this->helpers->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
     }
 
@@ -51,17 +53,20 @@ class Staff
                     IF(ISNULL(ChildUserAttributesType.fullname),'',ChildUserAttributesType.fullname) AS affiliationJudge,
                     CONCAT
                     (
-                        COALESCE(ParentUserType.name, 'нет кабинета'), ', ', 
-                        COALESCE(ChildUserType.name, 'нет рабочего места')
+                        COALESCE(BildingType.name, 'Нет здания'), ', ',
+                        COALESCE(DoorType.name, 'нет кабинета'), ', ',
+                        COALESCE(DesktopType.name, 'нет рабочего места')
                     ) AS workplace,
-                    IF(ISNULL(ChildUserType.ip),'',ChildUserType.ip) AS ip,
+                    IF(ISNULL(DesktopType.ip),'',DesktopType.ip) AS ip,
                     sdc_users.active,
                     sdc_users.sudo
                 FROM sdc_users
                 LEFT JOIN sdc_user_attributes ON sdc_user_attributes.internalKey=sdc_users.id
                 LEFT JOIN sdc_user_attributes AS ChildUserAttributesType ON ChildUserAttributesType.id = sdc_user_attributes.affiliation
-                LEFT JOIN sdc_room AS ChildUserType ON ChildUserType.id=sdc_user_attributes.room
-                LEFT JOIN sdc_room AS ParentUserType ON ParentUserType.id=ChildUserType.affiliation 
+                LEFT JOIN sdc_room AS DesktopType ON DesktopType.id=sdc_user_attributes.room
+                LEFT JOIN sdc_room AS DoorType ON DoorType.id=DesktopType.affiliation
+                LEFT JOIN sdc_room AS FloorType ON DoorType.affiliation = FloorType.id
+                LEFT JOIN sdc_room AS BildingType ON FloorType.affiliation = BildingType.id
                 LEFT JOIN sdc_vocation ON sdc_vocation.id = sdc_user_attributes.profession
                 WHERE sdc_users.id != 1
                 ORDER BY sdc_user_attributes.fullname ASC";
@@ -87,26 +92,26 @@ class Staff
                     sdc_user_attributes.fullname,
                     sdc_user_attributes.gender,
                     sdc_vocation.id AS professionID,
-                    sdc_vocation.name AS professionName,
                     IF(ISNULL(ChildUserAttributesType.id),'',ChildUserAttributesType.id) AS affiliationJudgeID,
-                    IF(ISNULL(ChildUserAttributesType.fullname),'',ChildUserAttributesType.fullname) AS affiliationJudge,
                     DATE_FORMAT(sdc_user_attributes.dob, '%d.%m.%Y') AS dob,
                     sdc_user_attributes.email,
-                    IF(ISNULL(ChildUserType.phone_worck),'', ChildUserType.phone_worck) AS phoneWorck,
                     sdc_user_attributes.mobilephone,
                     sdc_user_attributes.address,
                     sdc_user_attributes.website,
                     sdc_user_attributes.comment,
-                    IF(ISNULL(ChildUserType.ip),'',ChildUserType.ip) AS ip,
-                    IF(ISNULL(ChildUserType.id),'',ChildUserType.id) AS workplaceID,
-                    IF(ISNULL(ChildUserType.name),'',ChildUserType.name) AS workplace,
-                    IF(ISNULL(ParentUserType.name),'',ParentUserType.name) AS room,
-                    IF(ISNULL(ParentUserType.alarm_button),'',ParentUserType.alarm_button) AS alarmButton
+                    IF(ISNULL(DesktopType.id),'',DesktopType.id) AS workplaceID,
+                    CONCAT (
+                        IF(ISNULL(BildingType.name),'',BildingType.name), ' / ',
+                        IF(ISNULL(DoorType.name),'',DoorType.name), ' / ',
+                        IF(ISNULL(DesktopType.name),'',DesktopType.name)
+                    ) AS workplace
                 FROM sdc_users
                 LEFT JOIN sdc_user_attributes ON sdc_user_attributes.internalKey=sdc_users.id
                 LEFT JOIN sdc_user_attributes AS ChildUserAttributesType ON ChildUserAttributesType.id = sdc_user_attributes.affiliation
-                LEFT JOIN sdc_room AS ChildUserType ON ChildUserType.id=sdc_user_attributes.room
-                LEFT JOIN sdc_room AS ParentUserType ON ParentUserType.id=ChildUserType.affiliation 
+                LEFT JOIN sdc_room AS DesktopType ON DesktopType.id=sdc_user_attributes.room
+                LEFT JOIN sdc_room AS DoorType ON DoorType.id=DesktopType.affiliation
+                LEFT JOIN sdc_room AS FloorType ON DoorType.affiliation = FloorType.id
+                LEFT JOIN sdc_room AS BildingType ON FloorType.affiliation = BildingType.id
                 LEFT JOIN sdc_vocation ON sdc_vocation.id = sdc_user_attributes.profession
                 WHERE sdc_users.id != 1 AND sdc_users.id = ?
                 ORDER BY sdc_user_attributes.fullname ASC";
