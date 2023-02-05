@@ -21,14 +21,14 @@ export default function RHFTextField({ name, label, placeholder, ...other }) {
           ) : (
             ''
           )}
-          <div className="mt-1 relative rounded-md shadow-sm">
+          <div className="mt-1 relative">
             <input
               {...field}
               type="text"
               name={name}
               id={name}
               className={classNames(
-                'block bg-gray-50 dark:bg-gray-800 w-full pr-10 focus:outline-none sm:text-sm rounded-md',
+                'shadow-sm block bg-gray-50 dark:bg-gray-800 w-full pr-10 focus:outline-none sm:text-sm rounded-md',
                 error
                   ? 'border-red-500 dark:border-red-600 text-red-900 dark:text-red-50 placeholder-red-400 dark:placeholder-red-400 focus:ring-red-500 focus:border-red-500'
                   : 'border-slate-300 dark:border-slate-600 text-gray-900 placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500'

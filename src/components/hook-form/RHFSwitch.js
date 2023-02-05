@@ -5,7 +5,7 @@ import { Switch } from '@headlessui/react'
 import ValidationError from './ValidationError';
 import Typography from '../Typography';
 
-export default function RHFSwitch({ name, label, color, defaultValue, enabledLabel, disabledLabel, checkedValue, onChange }) {
+export default function RHFSwitch({ name, label, color, defaultValue, enabledLabel, disabledLabel, checkedValue, onChange, className }) {
   const { control } = useFormContext();
 
   const inputOptions = {
@@ -97,7 +97,7 @@ export default function RHFSwitch({ name, label, color, defaultValue, enabledLab
 // eslint-disable-next-line
 
         return (
-          <div>
+          <div className={className || ''}>
             {label ? (
               <label htmlFor={name} className="flex flex-col">
                 <span className="sr-only" />
@@ -106,7 +106,7 @@ export default function RHFSwitch({ name, label, color, defaultValue, enabledLab
             ) : (
               ''
             )}
-            <div className="mt-1">
+            <div>
               <div className='flex items-center gap-3'>
                 <Switch
                   {...field}

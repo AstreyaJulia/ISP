@@ -16,11 +16,7 @@ export default function RHFSelect({ name, label, options, placeholder, isMulti, 
     return (
       <components.DropdownIndicator {...props}>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-          <path
-            fillRule="evenodd"
-            d="M11.47 4.72a.75.75 0 011.06 0l3.75 3.75a.75.75 0 01-1.06 1.06L12 6.31 8.78 9.53a.75.75 0 01-1.06-1.06l3.75-3.75zm-3.75 9.75a.75.75 0 011.06 0L12 17.69l3.22-3.22a.75.75 0 111.06 1.06l-3.75 3.75a.75.75 0 01-1.06 0l-3.75-3.75a.75.75 0 010-1.06z"
-            clipRule="evenodd"
-          />
+          <path d="M24 24H0V0h24v24z" fill="none" opacity=".87"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6-1.41-1.41z"/>
         </svg>
       </components.DropdownIndicator>
     );
@@ -106,7 +102,7 @@ export default function RHFSelect({ name, label, options, placeholder, isMulti, 
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
           fill="currentColor"
-          className="text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 w-6 h-6"
+          className="text-gray-400 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-400 w-5 h-5"
         >
           <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
         </svg>
@@ -138,20 +134,39 @@ export default function RHFSelect({ name, label, options, placeholder, isMulti, 
                 styles={{
                   control: (base) => ({
                     ...base,
+                    padding: `0`,
+                    borderRadius: '0.375rem',
                     backgroundColor: theme === 1 ? tailwindColorsConfig.theme.colors.gray['50'] : tailwindColorsConfig.theme.colors.gray['800'],
                     borderColor: theme === 1 ? tailwindColorsConfig.theme.colors.slate['300'] : tailwindColorsConfig.theme.colors.slate['600'],
                     color: theme === 1 ? tailwindColorsConfig.theme.colors.slate['300'] : tailwindColorsConfig.theme.colors.slate['600'],
                     '::placeholder': theme === 1 ? tailwindColorsConfig.theme.colors.slate['300'] : tailwindColorsConfig.theme.colors.slate['600'],
                   }),
+                  container: (base) => ({
+                    ...base,
+                    margin: `0`,
+                    }),
+                  clearIndicator: (base) => ({
+                    ...base,
+                    padding: `0 4px 0 8px`,
+                  }),
+                  dropdownIndicator: (base) => ({
+                    ...base,
+                    padding: `0 8px 0 4px`,
+                  }),
+                  valueContainer: (base) => ({
+                    ...base,
+                    borderRadius: '0.375rem'
+                  }),
                   option: (base) => ({
                     ...base,
                     padding: `0`,
                     margin: `0`,
-                    borderRadius: '0.375rem',
                   }),
                   input: (base) => ({
                     ...base,
                     outlineRadius: '0.375rem',
+                    padding: `0`,
+                    margin: `0`,
                   }),
                   multiValue: (base) => ({
                     ...base,

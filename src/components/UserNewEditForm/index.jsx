@@ -24,6 +24,7 @@ import { classNames } from '../../utils/classNames';
 import axios from '../../utils/axios';
 import { getLoginFromName } from '../../utils/createLogin';
 import {formatDate} from "../../utils/formatTime";
+import Badge from '../Badge';
 
 export default function UserNewEditForm({ isEdit, currentUser }) {
 
@@ -50,6 +51,7 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
     active: Yup.number(),
     sudo: Yup.number(),
     username: Yup.string().required('Имя пользователя обязательно для заполнения'),
+    idGAS: Yup.string(),
     fullname: Yup.string().required('Фамилия, имя, отчество обязательны для заполнения'),
     gender: Yup.number().required('Пол обязателен для заполнения'),
     dob: Yup.date().typeError('Дата рождения в неправильном формате').required('Дата рождения обязательна для заполнения'),
@@ -68,6 +70,7 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
       active: currentUser?.active ?? 1,
       sudo: currentUser?.sudo ?? 0,
       username: currentUser?.username ?? '',
+      idGAS: currentUser?.idGAS ?? '',
       fullname: currentUser?.fullname ?? '',
       gender: currentUser?.gender ?? '',
       dob: currentUser?.dob ?? '',
@@ -280,13 +283,19 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
       <div className='grid md:grid-cols-4 gap-7 p-3'>
         <Card classname='p-5 mt-4 col-span-3'>
           <div className='flex flex-col gap-4'>
-            <div className='grid md:grid-cols-4 gap-5'>
-              <Typography variant='subtitle1' classname='mb-2'>Аккаунт</Typography>
-              <span />
-              <RHFSwitch name='active' enabledLabel='Активен' disabledLabel='Заблокирован' color='emerald'
-                         checkedValue={1} onChange={(evt) => onChangeActive(evt)}  />
-              <RHFSwitch name='sudo' enabledLabel='Администратор' disabledLabel='Пользователь' color='indigo'
-                         checkedValue={1} onChange={(evt) => onChangeSudo(evt)} />
+            <div className='flex items-start justify-between gap-5'>
+              <div className='flex gap-5'>
+                <Typography variant='subtitle1'>Аккаунт</Typography>
+                <Badge className='w-40' size='small' color={currentUser?.setPass === 1 ? 'green' : 'yellow'} item={currentUser?.setPass === 1 ? 'Пароль установлен' : 'Пароль не установлен'} shape='rounded' />
+              </div>
+               <div className='flex gap-3'>
+
+                <RHFSwitch className='w-44' name='active' enabledLabel='Активен' disabledLabel='Заблокирован' color='emerald'
+                           checkedValue={1} onChange={(evt) => onChangeActive(evt)}  />
+                <RHFSwitch className='w-44' name='sudo' enabledLabel='Администратор' disabledLabel='Пользователь' color='indigo'
+                           checkedValue={1} onChange={(evt) => onChangeSudo(evt)} />
+              </div>
+
             </div>
             <RHFTextField name='username' placeholder='Имя пользователя'
                           label={<Typography variant='label' classname='mb-1'>Имя пользователя</Typography>} />
@@ -328,6 +337,9 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
                          noOptionsMessage={loadingRooms ? 'Загрузка...' : 'Результатов не найдено'}
                          options={roomsOptions}
                          label={<Typography variant='label' classname='mb-1'>Рабочее место</Typography>} />
+              <RHFTextField name='idGAS'
+                            label={<Typography variant='label' classname='mb-1'>ID в ПИ СДП</Typography>}
+                            placeholder='' />
             </div>
 
             <Typography variant='subtitle1' classname='mb-2'>Контакты</Typography>

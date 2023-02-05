@@ -208,6 +208,14 @@ export default function Router() {
           ),
         },
         {
+          path: 'admin/workplaces',
+          element: (
+            <RoleBasedGuard accessibleRoles={[1]}>
+              <Workplaces />
+            </RoleBasedGuard>
+          ),
+        },
+        {
           path: 'settings',
           element: <Settings />,
         },
@@ -229,14 +237,6 @@ export default function Router() {
           element: (
             <RoleBasedGuard accessibleRoles={[1]}>
               <Test2 />
-            </RoleBasedGuard>
-          ),
-        },
-        {
-          path: 'test4',
-          element: (
-            <RoleBasedGuard accessibleRoles={[1]}>
-              <Test4 />
             </RoleBasedGuard>
           ),
         },
@@ -342,6 +342,7 @@ const Category = Loadable(lazy(() => import('../pages/Faq/Subpages/Gcategory')))
 const Admin = Loadable(lazy(() => import('../pages/Admin'))); // Админка дашбоард
 const UsersAdmin = Loadable(lazy(() => import('../pages/Admin/Users'))); // Управление пользователями
 const UserEdit = Loadable(lazy(() => import('../pages/Admin/UserEdit'))); // Добавление / редактирование пользователя
+const Workplaces = Loadable(lazy(() => import('../pages/Admin/Workplaces'))); // Рабочие места
 
 const Profile = Loadable(lazy(() => import('../pages/Profile'))); // Профиль
 const Settings = Loadable(lazy(() => import('../pages/Settings'))); // Настройки
@@ -355,7 +356,7 @@ const NotFound = Loadable(lazy(() => import('../pages/errors/Page404'))); // С�
 const Test = Loadable(lazy(() => import('../pages/Test')));
 const Test2 = Loadable(lazy(() => import('../pages/Test/test2')));
 const Test3 = Loadable(lazy(() => import('../pages/Test/test3')));
-const Test4 = Loadable(lazy(() => import('../pages/Test/test4')));
+
 // Компоненты
 const Colors = Loadable(lazy(() => import('../pages/Documentation/Components/Colors')));
 const Grid = Loadable(lazy(() => import('../pages/Documentation/Components/Grid')));

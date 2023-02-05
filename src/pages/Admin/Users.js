@@ -3,7 +3,6 @@ import BasicPage from '../pagesLayouts/BasicPage';
 import PageHeader from '../../components/PageHeader';
 import useAuth from '../../hooks/useAuth';
 import UsersListAdmin from '../../components/DataTable/UsersListAdmin';
-import { usersAdminList } from '../../@mock/users_admin';
 import { useDispatch, useSelector } from '../../store';
 import { getStaffList } from '../../store/slices/staff';
 

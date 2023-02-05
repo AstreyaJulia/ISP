@@ -486,496 +486,6 @@ export const events = [
   },
 ];
 
-/** Группы каталога ссылок
- * @type {{"0": {name: string, id: string}, "1": {name: string, id: string}, "2": {name: string, id: string}}}
- */
-export const proxyListGroups = {
-  0: { id: '1', name: 'Сервисы' },
-  1: { id: '2', name: 'Судебная система, госслужба, адвокаты, нотариусы' },
-  2: { id: '3', name: 'Органы государственной власти' },
-};
-
-/** Элементы групп каталога ссылок
- * @type {{"0": {children: {"0": {name: string, link: string, id: number}, "1": {name: string, link: string, id: number}}, groupID: string}, "1": {children: {"0": {name: string, link: string, id: number}, "1": {name: string, link: string, id: number}}, groupID: string}, "2": {children: {"0": {name: string, link: string, id: number}, "1": {name: string, link: string, id: number}}, groupID: string}}}
- */
-export const proxyListLinks = {
-  0: {
-    groupID: '1',
-    children: {
-      0: { id: 1, name: 'Почта - кабинет отправителя', link: 'https://otpravka.pochta.ru/' },
-      1: { id: 2, name: 'Отслеживание почтовых отправлений', link: 'https://www.pochta.ru/tracking' },
-    },
-  },
-  1: {
-    groupID: '2',
-    children: {
-      0: { id: 1, name: 'Смоленский областной суд', link: 'https://oblsud.sml.sudrf.ru/' },
-      1: { id: 2, name: 'Второй кассационный суд', link: 'https://2kas.sudrf.ru/' },
-    },
-  },
-  2: {
-    groupID: '3',
-    children: {
-      0: { id: 1, name: 'МВД', link: 'https://xn--b1aew.xn--p1ai/' },
-      1: { id: 2, name: 'Муниципальное образование Сафоново', link: 'https://safonovo-admin.ru/' },
-    },
-  },
-};
-
-export const usersCat = [
-  {
-    color: 'indigo',
-    name: 'Судьи',
-  },
-  {
-    color: 'green',
-    name: 'Помощники судей',
-  },
-  {
-    color: 'cyan',
-    name: 'Секретари судебных заседаний',
-  },
-  {
-    color: 'yellow',
-    name: 'Канцелярия',
-  },
-];
-
-export const usersSearchResults = [
-  {
-    fullname: 'Иванов Иван Иванович',
-    room: 'Каб. 7',
-    phone: '5-13-27',
-    profession: 'Помощник судьи Иванова И.И.',
-  },
-  {
-    fullname: 'Иванов Иван Иванович',
-    room: 'Каб. 7',
-    phone: '5-13-27',
-    profession: 'Помощник судьи Иванова И.И.',
-  },
-  {
-    fullname: 'Иванов Иван Иванович',
-    room: 'Каб. 7',
-    phone: '5-13-27',
-    profession: 'Помощник судьи Иванова И.И.',
-  },
-  {
-    fullname: 'Иванов Иван Иванович',
-    room: 'Каб. 7',
-    phone: '5-13-27',
-    profession: 'Помощник судьи Иванова И.И.',
-  },
-  { fullname: 'Иванов Иван Иванович', room: 'Каб. 7', phone: '5-13-27', profession: 'Помощник судьи Иванова И.И.' },
-];
-
-export const inboxSearchResults = [
-  {
-    number: '123',
-    content: 'Ходатайство без участия',
-    sender: 'Администрация Барановского с/п',
-    type: 'Электронная почта',
-    sendto: 'Иванов И.И.',
-  },
-  {
-    number: '124',
-    content: 'Ходатайство без участия',
-    sender: 'Администрация Барановского с/п',
-    type: 'Почта',
-    sendto: 'Иванов И.И.',
-  },
-];
-
-export const outboxSearchResults = [
-  {
-    number: '123',
-    content: 'Извещение на 12.05.2022',
-    sender: 'Иванов И.И.',
-    type: 'Разноска',
-    address: 'Сафоново, Красногвардейская, д.41',
-    sendto: 'Петров П.П.',
-  },
-  {
-    number: '123',
-    content: 'Извещение на 12.05.2022',
-    sender: 'Иванов И.И.',
-    type: 'Почта',
-    address: 'Сафоново, Красногвардейская, д.41',
-    sendto: 'Петров П.П.',
-  },
-];
-
-export const UsersList = [
-  {
-    id: '3',
-    fullname: 'Соловьёв Вадим Геннадьевич',
-    profession: 'Председатель',
-    room: 'Кабинет 1 ',
-    phone: '4-12-02',
-    group: '1',
-  },
-  {
-    id: '4',
-    fullname: 'Басурова Елена Евгеньевна',
-    profession: 'Судья',
-    room: 'Кабинет 10',
-    phone: '2-28-78',
-    group: '1',
-  },
-  {
-    id: '5',
-    fullname: 'Зуева Елена Вячеславовна',
-    profession: 'Секретарь судебного заседания',
-    room: 'Кабинет 11',
-    phone: '2-28-78',
-    group: '1',
-  },
-  {
-    id: '6',
-    fullname: 'Сальникова Екатерина Геннадьевна',
-    profession: 'Помощник судьи',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '7',
-    fullname: 'Тимофеева Ирина Ивановна',
-    profession: 'Секретарь судебного заседания',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '8',
-    fullname: 'Ковеченкова Юлия Николаевна',
-    profession: 'Помощник судьи',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '9',
-    fullname: 'Павлова Ольга Олеговна',
-    profession: 'Судья',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '10',
-    fullname: 'Мильченко Евгения Александровна',
-    profession: 'Судья',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '11',
-    fullname: 'Орешкова Елена Олеговна',
-    profession: 'Помощник судьи',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '12',
-    fullname: 'Бирюкова Елена Владимировна',
-    profession: 'Помощник судьи',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '13',
-    fullname: 'Воропаева Татьяна Викторовна',
-    profession: 'Секретарь судебного заседания',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '14',
-    fullname: 'Костенкова Наталья Александровна',
-    profession: 'Секретарь судебного заседания',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '15',
-    fullname: 'Пшеничникова Анастасия Вячеславовна',
-    profession: 'Секретарь судебного заседания',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '16',
-    fullname: 'Фроленкова Глафира Владимировна',
-    profession: 'Секретарь судебного заседания',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '17',
-    fullname: 'Панкова Ксения Васильевна',
-    profession: 'Секретарь судебного заседания',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '18',
-    fullname: 'Ракчеева Ольга Викторовна',
-    profession: 'Помощник судьи',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '19',
-    fullname: 'Штукина Светлана Евгеньевна',
-    profession: 'Судья',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '20',
-    fullname: 'Малючкова Евгения Николаевна',
-    profession: 'Начальник отдела',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '21',
-    fullname: 'Осипова Анна Валерьевна',
-    profession: 'Консультант',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '22',
-    fullname: 'Березовская Наталья Васильевна',
-    profession: 'Специалист 1 разряда',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '23',
-    fullname: 'Касьянова Светлана Викторовна',
-    profession: 'Рабочий, 2 разряд',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '24',
-    fullname: 'Лобанова Екатерина Владимировна',
-    profession: 'Секретарь суда',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '25',
-    fullname: 'Мешкова Виктория Олеговна',
-    profession: 'Старший специалист 3 разряда',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '26',
-    fullname: 'Николаева Инга Игоревна',
-    profession: 'Старший специалист 2 разряда',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '27',
-    fullname: 'Прокофьева Марина Викторовна',
-    profession: 'Ведущий специалист',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '28',
-    fullname: 'Умеренкова Елена Владимировна',
-    profession: 'Заместитель начальника отдела',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '29',
-    fullname: 'Степанец Виктория Сергеевна',
-    profession: 'Секретарь суда',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '30',
-    fullname: 'Тарасова Майя Александровна',
-    profession: 'Судья',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '31',
-    fullname: 'Алексеева Наталья Юрьевна',
-    profession: 'Помощник судьи',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '32',
-    fullname: 'Сабанцев Михаил Михайлович',
-    profession: 'Судья',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '33',
-    fullname: 'Герасимова Наталья Владимировна',
-    profession: 'Помощник судьи',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '34',
-    fullname: 'Мельничук Елена Владимировна',
-    profession: 'Судья',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '35',
-    fullname: 'Кривчук Вера Алексеевна',
-    profession: 'Судья',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '36',
-    fullname: 'Дроздов Сергей Алексеевич',
-    profession: 'Судья',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '37',
-    fullname: 'Семенова Марина Николаевна',
-    profession: 'Помощник судьи',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '38',
-    fullname: 'Миренкова Юлия Николаевна',
-    profession: 'Помощник судьи',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '39',
-    fullname: 'Асеев Максим Сергеевич',
-    profession: 'Судья',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '40',
-    fullname: 'Горбачева Анна Викторовна',
-    profession: 'Секретарь судебного заседания',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '41',
-    fullname: 'Новичкова Анна Сергеевна',
-    profession: 'Помощник председателя суда',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '42',
-    fullname: 'Полуэктова Светлана Анатольевна',
-    profession: 'Секретарь судебного заседания',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '43',
-    fullname: 'Морозова Юлия Алексеевна',
-    profession: 'Помощник судьи',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '44',
-    fullname: 'Кайченкова Елена Анатольевна',
-    profession: 'Секретарь судебного заседания',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '45',
-    fullname: 'Хоменкова Юлия Анатольевна',
-    profession: 'Секретарь судебного заседания',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '46',
-    fullname: 'Чернов Роман Александрович',
-    profession: 'Консультант',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '47',
-    fullname: 'Латышева Юлия Александровна',
-    profession: 'Консультант',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-  {
-    id: '48',
-    fullname: 'Богачёв Сергей Станиславович',
-    profession: 'Администратор',
-    room: 'Кабинет № 8',
-    phone: '5-13-28',
-    group: '1',
-  },
-];
-
 export const demoSteps = [
   {
     id: '0',
@@ -1615,6 +1125,70 @@ export const courtTree = [
   },
 ];
 
+export const devicesTree = [
+  {
+    id: '1',
+    brand: 'Kraftway',
+    model: 'Credo KC-51',
+    icon: 'computercase',
+    may_parent: 'true',
+    children: [
+      {
+        id: '2',
+        brand: 'Kraftway',
+        model: 'KWH-77',
+        icon: 'motherboard',
+        may_parent: 'true',
+        children: [
+          {
+            id: '3',
+            brand: 'Intel',
+            model: 'Pentium G2020',
+            icon: 'processor',
+            may_parent: 'true',
+            children: [
+              {
+                id: '4',
+                brand: 'CoolerMaster',
+                model: '',
+                icon: 'cooler',
+                may_parent: 'false',
+              }
+            ],
+          },
+          {
+            id: '5',
+            brand: 'Kingston',
+            model: 'DDR III',
+            icon: 'memory',
+            may_parent: 'false',
+          },
+          {
+            id: '6',
+            brand: 'Kingston',
+            model: 'DDR III',
+            icon: 'memory',
+            may_parent: 'false',
+          },
+          {
+            id: '7',
+            brand: 'WesternDigital',
+            model: 'Caviar Blue 500Gb',
+            icon: 'drive',
+            may_parent: 'false',
+          },
+          {
+            id: '8',
+            brand: 'Блок питания',
+            model: '',
+            icon: 'powersupply',
+            may_parent: 'false',
+          },
+        ],
+      },
+    ],
+  },
+];
 export const stat = [
   {
     title: 'Население Сафоново',

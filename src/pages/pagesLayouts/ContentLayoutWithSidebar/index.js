@@ -63,7 +63,7 @@ export default function ContentLayoutWithSidebar({
             {/* Сюда можно тоже вставить разметку, например, кнопки */}
           </PageHeader>
           <div
-            className={classNames(' flex-grow w-full flex relative rounded-lg mt-5', boxed ? 'max-w-6xl mx-auto' : '')}
+            className={classNames(' shadow-sm flex-grow w-full flex relative rounded-lg mt-5', boxed ? 'max-w-6xl mx-auto' : '')}
           >
             {/* Дочерние компоненты */}
             {children}
@@ -107,7 +107,7 @@ const Body = ({ children, color }) => {
           <div
             className={classNames(
               'flex-1 z-0 border border-gray-200 dark:border-gray-600 rounded-lg lg:rounded-l-none lg:border-l-0',
-              color === 'white' ? 'bg-white dark:bg-gray-900' : 'bg-gray-100 dark:bg-gray-800'
+              color === 'white' ? 'bg-white dark:bg-gray-900' : 'bg-gray-50 dark:bg-gray-800'
             )}
           >
             {children}

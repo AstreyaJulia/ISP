@@ -27,7 +27,7 @@ const Badge = ({ size, color, item, shape, className }) => {
   return (
     <span
       className={classNames(
-        'inline-flex items-center font-medium',
+        'inline-flex items-center justify-center font-medium',
         BadgeSize[size],
         BadgeColor[color],
         BadgeShapes[shape],
