@@ -10,14 +10,6 @@ class Staff
 {
     use StaffValidate;
 
-    protected Helpers $helpers;
-
-    public function __construct(
-        Helpers $helpers = new \Api\Objects\Helpers(),
-    ) {
-        $this->helpers = $helpers;
-    }
-
     /**
      * 
      * Свободные рабочие места
@@ -197,16 +189,15 @@ class Staff
     {
         $this->helpers::headlinesPOST();
         $this->helpers->validateExist($this->helpers->formData["username"] ?? "", "username");
-        $this->sudo($this->helpers->formData["sudo"] ?? "");
+        $this->sudo();
         $this->active();
-        $this->idGAS($this->helpers->formData["idGAS"] ?? "");
         $this->helpers->validateExist($this->helpers->formData["fullname"] ?? "", "fullname");
-        $this->gender($this->helpers->formData["gender"] ?? "");
-
-
-        $this->addUserValidateDob();
-        $this->addUserValidateVocation();
-        $this->addUserValidateAffiliation();
+        $this->gender();
+        $this->vocation();
+        $this->idGAS();
+        $this->affiliation();
+        $this->dob();
+        
         $this->addUserValidateWorkplace();
 
         $this->addUser();
