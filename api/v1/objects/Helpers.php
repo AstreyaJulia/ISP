@@ -104,7 +104,7 @@ class Helpers extends Router
    */
   public function validateExist(mixed $value, string $name):mixed
   {
-    empty($value) ? self::isErrorInfo(400, "Неверные параметы", "Ожидаю $name. Получаю $value"): $value;
+    strlen($value) === 0 ? self::isErrorInfo(400, "Неверные параметы", "Ожидаю $name. Получаю $value"): $value;
     return $value;
   }
 

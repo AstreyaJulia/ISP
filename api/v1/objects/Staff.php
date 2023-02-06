@@ -1,7 +1,7 @@
 <?php
 
 namespace Api\Objects;
-use DateTime;
+
 /**
  * Работающие, уволенные сотрудники. Создание,
  * редактирование пофиля сотрудника 
@@ -198,7 +198,12 @@ class Staff
         $this->helpers::headlinesPOST();
         $this->helpers->validateExist($this->helpers->formData["username"] ?? "", "username");
         $this->sudo($this->helpers->formData["sudo"] ?? "");
-        $this->addUserValidateGender();
+        $this->active();
+        $this->idGAS($this->helpers->formData["idGAS"] ?? "");
+        $this->helpers->validateExist($this->helpers->formData["fullname"] ?? "", "fullname");
+        $this->gender($this->helpers->formData["gender"] ?? "");
+
+
         $this->addUserValidateDob();
         $this->addUserValidateVocation();
         $this->addUserValidateAffiliation();

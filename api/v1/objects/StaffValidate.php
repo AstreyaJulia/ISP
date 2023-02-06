@@ -18,13 +18,46 @@ trait StaffValidate
         $this->vocationGroup = $vocationGroup;
     }
 
-
     /**
      * проверяем sudo
      */
     private function sudo($param){
-        $this->helpers->validateExist($param, "sudo");
-        $this->helpers->validateINT($param, "sudo");
+        if(!in_array($param, [0,1])){
+            $this->helpers->isErrorInfo(401, "Неверные параметы", "Ожидаю в sudo 0 или 1");
+        } 
+    }
+
+    /**
+     * проверяем active
+     */
+    private function active(){
+        $param = $this->helpers->formData["active"] ?? "";
+        if(!in_array($param, [0,1])){
+            $this->helpers->isErrorInfo(401, "Неверные параметы", "Ожидаю в active 0 или 1");
+        }
+        return $param;
+    }
+
+    /**
+     * Проверяем idGAS. Запролняется только для
+     * председателя - 1, заместителя председателя - 2, судьи - 3
+     */
+    private function idGAS($param){
+        if(in_array($this->helpers->formData["professionID"], [1,2,3])){
+            $this->helpers->validateINT($param, "idGAS");
+        }elseif (strlen($param) !== 0) {
+            $this->helpers->isErrorInfo(401, "Неверные параметы", "idGAS должен быть пустым");
+        }
+    }
+
+    /**
+     * проверяем принадлежность к полу
+     * 0 - Ж или 1 - М
+     */
+    private function gender($param){
+        if(!in_array($param, [0,1])){
+            $this->helpers->isErrorInfo(401, "Неверные параметы", "Ожидаю в gender 0 - Ж или 1 - М");
+        } 
     }
 
     /**
@@ -51,17 +84,6 @@ trait StaffValidate
         if($this->helpers->searchAssociativeArray($param, $this->freeDesktop(), "id") === false){
             $this->helpers::isErrorInfo(400, "Неверные параметры", "Рабочее место с id: $param не существует либо занято");
         };
-    }
-
-    /**
-     * Проверка гендорной принадлежности
-     */
-    private function addUserValidateGender()
-    {
-        $param = $this->helpers->formData["gender"] ?? "";
-        if ( filter_var($param, FILTER_VALIDATE_INT) === false ) {
-            $this->helpers::isErrorInfo(400, "Неверные параметры", "Ожидаю в gender целое число. Получаю: $param");
-        }
     }
 
     /**
