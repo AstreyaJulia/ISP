@@ -173,7 +173,7 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
           roomslist.push({
             'id': parseInt(currentUser.workplaceID, 10),
             'value': parseInt(currentUser.workplaceID, 10),
-            'label': `${currentUser.room} / ${currentUser.workplace}`,
+            'label': currentUser.workplace,
             'selectID': 'workplaceID',
           });
         }
