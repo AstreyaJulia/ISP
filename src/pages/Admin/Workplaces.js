@@ -573,7 +573,7 @@ const Workplaces = () => {
                             active ? 'bg-gray-100 text-gray-900 dark:text-gray-100' : 'text-gray-900 dark:text-gray-100'
                           } group flex w-full items-center rounded-md p-2 py-2 text-sm`}
                         >
-                          <img src={buildingAdd} alt='Значок' className='h-4 w-4 mr-1' />
+                          <img src={buildingAdd} alt='Значок' className='h-4 w-4 mr-2' />
                           Здание
                         </button>
                       )}
@@ -588,7 +588,7 @@ const Workplaces = () => {
                             active ? 'bg-gray-100 text-gray-900 dark:text-gray-100' : 'text-gray-900 dark:text-gray-100'
                           } group flex w-full items-center rounded-md p-2 py-2 text-sm`}
                         >
-                          <img src={floorAdd} alt='Значок' className='h-4 w-4 mr-1' />
+                          <img src={floorAdd} alt='Значок' className='h-4 w-4 mr-2' />
                           Этаж
                         </button>
                       )}
@@ -604,7 +604,7 @@ const Workplaces = () => {
                             active ? 'bg-gray-100 text-gray-900 dark:text-gray-100' : 'text-gray-900 dark:text-gray-100'
                           } group flex w-full items-center rounded-md p-2 py-2 text-sm`}
                         >
-                          <img src={doorAdd} alt='Значок' className='h-4 w-4 mr-1' />
+                          <img src={doorAdd} alt='Значок' className='h-4 w-4 mr-2' />
                           Помещение
                         </button>
                       )}

@@ -12,44 +12,39 @@ export default function RHFSelect({ name, label, options, placeholder, isMulti, 
   const { theme } = useAuth();
 
   /* Индикатор селекта */
-  const DropdownIndicator = (props) => {
-    return (
+  const DropdownIndicator = (props) => (
       <components.DropdownIndicator {...props}>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-          <path d="M24 24H0V0h24v24z" fill="none" opacity=".87"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6-1.41-1.41z"/>
+        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' className='w-6 h-6'>
+          <path d='M24 24H0V0h24v24z' fill='none' opacity='.87' />
+          <path d='M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6-1.41-1.41z' />
         </svg>
       </components.DropdownIndicator>
     );
-  };
 
   /* Плейсхолдер */
-  const Placeholder = (props) => {
-    return (
+  const Placeholder = (props) => (
       <components.Placeholder {...props}>
-        <span className="text-sm text-gray-600 dark:text-gray-400">{props.children}</span>
+        <span className='text-sm text-gray-600 dark:text-gray-400'>{props.children}</span>
       </components.Placeholder>
     );
-  };
 
   /* Меню */
-  const MenuList = (props) => {
-    return (
+  const MenuList = (props) => (
       <components.MenuList {...props}>
-        <div className="px-1.5 py-0.5 flex flex-col gap-1.5">{props.children}</div>
+        <div className='px-1.5 py-0.5 flex flex-col gap-1.5'>{props.children}</div>
       </components.MenuList>
     );
-  };
 
   /* Элемент меню */
   const Option = (props) => (
     <components.Option {...props}>
-      <div className="px-3 py-2">{props.children}</div>
+      <div className='px-3 py-2'>{props.children}</div>
     </components.Option>
   );
 
   /* Форматтер элемента меню */
   const formatOptionLabel = ({ label, icon, customAbbreviation }) => (
-    <div className="flex items-center group flex w-full items-center text-sm gap-2 w-full h-full">
+    <div className='flex items-center group flex w-full items-center text-sm gap-2 w-full h-full'>
       {icon ? <span>{icon}</span> : ''}
       <span>{label}</span>
       {customAbbreviation}
@@ -57,58 +52,55 @@ export default function RHFSelect({ name, label, options, placeholder, isMulti, 
   );
 
   /* Нет вариантов в фильтре */
-  const NoOptionsMessage = (props) => {
-    return (
-      <div className="flex items-center justify-center flex w-full items-center bg-slate-100 dark:bg-slate-800 rounded-md">
+  const NoOptionsMessage = (props) => (
+      <div
+        className='flex items-center justify-center flex w-full items-center bg-slate-100 dark:bg-slate-800 rounded-md'>
         <components.NoOptionsMessage {...props}>
-          <span className="text-gray-600 dark:text-gray-400 font-medium text-sm">{noOptionsMessage || 'Результатов не найдено'}</span>
+          <span
+            className='text-gray-600 dark:text-gray-400 font-medium text-sm'>{noOptionsMessage || 'Результатов не найдено'}</span>
         </components.NoOptionsMessage>
       </div>
     );
-  };
 
   /* Метка для мульти-селекта */
-  const MultiValueLabel = (props) => {
-    return (
+  const MultiValueLabel = (props) => (
       <components.MultiValueLabel {...props}>
-        <span className="flex items-center bg-slate-200 dark:bg-slate-700 text-gray-500 dark:text-gray-400 rounded-l-md p-1">
+        <span
+          className='flex items-center bg-slate-200 dark:bg-slate-700 text-gray-500 dark:text-gray-400 rounded-l-md p-1'>
           {props.children}
         </span>
       </components.MultiValueLabel>
     );
-  };
 
   /* Кнопка удаления для плашки мультиселекта */
-  const MultiValueRemove = (props) => {
-    return (
+  const MultiValueRemove = (props) => (
       <components.MultiValueRemove {...props}>
         <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-          className="text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 w-4 h-4"
+          xmlns='http://www.w3.org/2000/svg'
+          viewBox='0 0 20 20'
+          fill='currentColor'
+          className='text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 w-4 h-4'
         >
-          <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+          <path
+            d='M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z' />
         </svg>
       </components.MultiValueRemove>
     );
-  };
 
   /* Кнопка удаления для плашки мультиселекта */
-  const ClearIndicator = (props) => {
-    return (
+  const ClearIndicator = (props) => (
       <components.ClearIndicator {...props}>
         <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-          className="text-gray-400 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-400 w-5 h-5"
+          xmlns='http://www.w3.org/2000/svg'
+          viewBox='0 0 20 20'
+          fill='currentColor'
+          className='text-gray-400 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-400 w-5 h-5'
         >
-          <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+          <path
+            d='M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z' />
         </svg>
       </components.ClearIndicator>
     );
-  };
 
   return (
     <Controller
@@ -118,14 +110,14 @@ export default function RHFSelect({ name, label, options, placeholder, isMulti, 
       render={({ field: { value, ref }, fieldState: { error } }) => (
         <div>
           {label ? (
-            <label htmlFor={name} className="flex flex-col">
-              <span className="sr-only" />
+            <label htmlFor={name} className='flex flex-col'>
+              <span className='sr-only' />
               {label}
             </label>
           ) : (
             ''
           )}
-          <div className="mt-1 relative rounded-md shadow-sm">
+          <div className='mt-1 relative rounded-md shadow-sm'>
             <div>
               <Select
                 inputRef={ref}
@@ -144,7 +136,7 @@ export default function RHFSelect({ name, label, options, placeholder, isMulti, 
                   container: (base) => ({
                     ...base,
                     margin: `0`,
-                    }),
+                  }),
                   clearIndicator: (base) => ({
                     ...base,
                     padding: `0 4px 0 8px`,
@@ -155,7 +147,7 @@ export default function RHFSelect({ name, label, options, placeholder, isMulti, 
                   }),
                   valueContainer: (base) => ({
                     ...base,
-                    borderRadius: '0.375rem'
+                    borderRadius: '0.375rem',
                   }),
                   option: (base) => ({
                     ...base,
@@ -195,7 +187,7 @@ export default function RHFSelect({ name, label, options, placeholder, isMulti, 
                   MultiValueLabel,
                   Option,
                   MultiValueRemove,
-                  ClearIndicator
+                  ClearIndicator,
                 }}
                 formatOptionLabel={formatOptionLabel}
                 classNamePrefix={error ? 'react-select2-error react-select2' : 'react-select2'}
@@ -204,20 +196,20 @@ export default function RHFSelect({ name, label, options, placeholder, isMulti, 
                 onChange={(evt) => onChange(evt)}
                 isClearable={'true'}
               />
-              {!!error && <div className="text-sm text-red-600 dark:text-red-400 mt-2">{error.message}</div>}
+              {!!error && <div className='text-sm text-red-600 dark:text-red-400 mt-2'>{error.message}</div>}
             </div>
             {error ? (
-              <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+              <div className='absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none'>
                 <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className="h-5 w-5 text-red-500"
+                  xmlns='http://www.w3.org/2000/svg'
+                  viewBox='0 0 24 24'
+                  fill='currentColor'
+                  className='h-5 w-5 text-red-500'
                 >
                   <path
-                    fillRule="evenodd"
-                    d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z"
-                    clipRule="evenodd"
+                    fillRule='evenodd'
+                    d='M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z'
+                    clipRule='evenodd'
                   />
                 </svg>
               </div>

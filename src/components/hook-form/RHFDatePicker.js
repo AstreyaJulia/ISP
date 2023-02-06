@@ -26,9 +26,7 @@ export default function RHFDatePicker({name, label, placeholder, inputFormat,  .
         <Controller
             name={name}
             control={control}
-            render={({field, fieldState: {error}}) => {
-
-                return (
+            render={({field, fieldState: {error}}) => (
                     <div>
                         {label ? (
                             <label htmlFor={name} className="flex flex-col">
@@ -78,9 +76,7 @@ export default function RHFDatePicker({name, label, placeholder, inputFormat,  .
                         <ValidationError error={error} name={name}/>
 
                     </div>
-                )
-
-            }}
+                )}
         />
     );
 }

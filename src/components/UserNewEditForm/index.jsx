@@ -177,14 +177,12 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
             'selectID': 'workplaceID',
           });
         }
-        const roomsOptions = roomslist.map((item) => {
-          return {
+        const roomsOptions = roomslist.map((item) => ({
             'id': item.id,
             'value': item.id,
             'label': item.label,
             'selectID': 'workplaceID',
-          };
-        });
+          }));
 
         /* Получаем список рабочих мест, очищаем, обрабатываем и пишем в стейт */
         setRoomsOptions([]);
@@ -204,14 +202,12 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
       .get('/users/vocation')
       .then((res) => {
         const professionslist = res.data.data;
-        const professionsOptions = professionslist.map((item) => {
-          return {
+        const professionsOptions = professionslist.map((item) => ({
             'id': item.id,
             'value': item.id,
             'label': item.label,
             'selectID': 'professionID',
-          };
-        });
+          }));
 
         /* Получаем список должностей, очищаем, обрабатываем и пишем в стейт */
         setProfessionsOptions([]);
@@ -231,14 +227,12 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
       .get('/users/group/24')
       .then((res) => {
         const jugdeslist = res.data.data;
-        const jugdesOptions = jugdeslist.map((item) => {
-          return {
+        const jugdesOptions = jugdeslist.map((item) => ({
             'id': item.id,
             'value': item.id,
             'label': item.label,
             'selectID': 'affiliationJudgeID',
-          };
-        });
+          }));
 
         /* Получаем список должностей, очищаем, обрабатываем и пишем в стейт */
         setJudgesOptions([]);

@@ -12,9 +12,7 @@ export default function RHFGenderRadioGroup({ name, label, options, defaultValue
     name={name}
     control={control}
     defaultValue={defaultValue}
-    render={({ field, fieldState: { error } }) => {
-
-      return (<div>
+    render={({ field, fieldState: { error } }) => (<div>
         {label ? (<label htmlFor={name} className='flex flex-col'>
           <span className='sr-only' />
           {label}
@@ -53,8 +51,7 @@ export default function RHFGenderRadioGroup({ name, label, options, defaultValue
 
         <ValidationError error={error} name={name} />
 
-      </div>);
-    }}
+      </div>)}
   />);
 }
 

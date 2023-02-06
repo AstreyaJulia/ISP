@@ -93,10 +93,10 @@ export default function RHFSwitch({ name, label, color, defaultValue, enabledLab
       name={name}
       control={control}
       defaultValue={defaultValue}
-      render={({ field, fieldState: { error } }) => {
+      render={({ field, fieldState: { error } }) => 
 // eslint-disable-next-line
 
-        return (
+         (
           <div className={className || ''}>
             {label ? (
               <label htmlFor={name} className="flex flex-col">
@@ -147,8 +147,8 @@ export default function RHFSwitch({ name, label, color, defaultValue, enabledLab
             <ValidationError error={error} name={name} />
           </div>
 
-        );
-      }}
+        )
+      }
     />
   );
 }
