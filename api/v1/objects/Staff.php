@@ -145,64 +145,79 @@ class Staff
     /**
      * Добавление нового пользователя
      */
-    private function addUser()
+    private function addUser($paramUser, $paramAttr)
     {
-        //Добавляем запись в таблицу sdc_users
-        $paramUser = [
-            "username" => $this->helpers->formData["username"],
-            "active" => $this->helpers->formData["active"],
-            "sudo" => $this->helpers->formData["sudo"],
-        ];
 
         $sqlUser = "INSERT INTO `sdc_users` (`username`, `active`, `sudo`) VALUES (:username, :active, :sudo)";
         $this->helpers->db->run($sqlUser, $paramUser);
 
         $LAST_ID = $this->helpers->db->pdo->lastInsertId() ?? $this->helpers::isErrorInfo(400, "Произошла ошибка", "Запись не добавлена");
 
+        $paramAttr = array_merge(["internalKey" => $LAST_ID], $paramAttr);
+
         //Добавляем запись в таблицу sdc_user_attributes
-        $paramAttr = [
-            "internalKey" => $LAST_ID,
-            "idGAS" => $this->helpers->formData["idGAS"] ?? null,
-            "fullname" => $this->helpers->formData["fullname"],
-            "gender" => $this->helpers->formData["gender"],
-            "dob" => date("Y-m-d", strtotime($this->helpers->formData["dob"])),
-            "email" => $this->helpers->formData["email"],
-            "mobilephone" => $this->helpers->formData["mobilephone"],
-            "address" => $this->helpers->formData["address"],
-            "comment" => $this->helpers->formData["comment"],
-            "website" => $this->helpers->formData["website"],
-            "profession" => $this->helpers->formData["professionID"],
-            "affiliation" => (int)$this->helpers->formData["affiliationJudgeID"],
-            "room" => $this->helpers->formData["workplaceID"]
-        ];
-        
 	    $sqlAttr = "INSERT INTO `sdc_user_attributes` (`internalKey`, `idGAS`, `fullname`, `gender`, `dob`, `email`, `mobilephone`, `address`, `comment`, `website`, `profession`, `affiliation`, `room`) VALUES (:internalKey, :idGAS, :fullname, :gender, :dob, :email, :mobilephone, :address, :comment, :website, :profession, :affiliation, :room)";
 	    $this->helpers->db->run($sqlAttr, $paramAttr);
+
+        $sql = "SELECT
+                    atributes.internalKey,
+                    users.username,
+                    atributes.fullname 
+                FROM sdc_user_attributes AS atributes
+                LEFT JOIN sdc_users AS users ON users.id=atributes.internalKey
+                WHERE atributes.internalKey = ?";
+        $row = $this->helpers->db->run($sql, [$LAST_ID])->fetch(\PDO::FETCH_ASSOC);
+
+        if ($row["username"] !== $paramUser["username"]) {
+            $this->helpers::isErrorInfo(400, "Произошла ошибка", "Што-то пошло не так");
+        }
+        http_response_code(201);
+        return $this->helpers->wrap($row, "data");
     }
 
-    
+    /**
+     * Проверяем параметры для добавления записи в таблицу
+     * sdc_users
+     */
+    private function validateUsersTable() {
+        return array (
+            "username" => $this->username(),
+            "active" => $this->active(),
+            "sudo" => $this->sudo()
+        );
+    }
 
+    /**
+     * Проверяем параметры для добавления записи в таблицу
+     * sdc_user_attributes
+     */
+    private function validateUsersAttributesTable() {
+        return array (
+                "idGAS" => $this->idGAS(),
+                "fullname" => $this->helpers->validateExist($this->helpers->formData["fullname"] ?? "", "fullname"),
+                "gender" => $this->gender(),
+                "dob" => $this->dob(),
+                "email" => $this->helpers->formData["email"] ?? "",
+                "mobilephone" => $this->helpers->formData["mobilephone"] ?? "",
+                "address" => $this->helpers->formData["address"] ?? "",
+                "comment" => $this->helpers->formData["comment"] ?? "",
+                "website" => $this->helpers->formData["website"] ?? "",
+                "profession" => $this->vocation(),
+                "affiliation" => $this->affiliation(),
+                "room" => $this->workplace()
+        );
+    }
+    
     /**
      * Обрабатываем приходящие POST-запросы. 
      */
     private function metodPOST()
     {
         $this->helpers::headlinesPOST();
-        $this->helpers->validateExist($this->helpers->formData["username"] ?? "", "username");
-        $this->sudo();
-        $this->active();
-        $this->helpers->validateExist($this->helpers->formData["fullname"] ?? "", "fullname");
-        $this->gender();
-        $this->vocation();
-        $this->idGAS();
-        $this->affiliation();
-        $this->dob();
-        
-        $this->addUserValidateWorkplace();
+        $this->validateUsersTable();
+        $this->validateUsersAttributesTable();
 
-        $this->addUser();
-
-        return $this->helpers->wrap("разрешаю и добавляю запись", "data");
+        return $this->addUser($this->validateUsersTable(), $this->validateUsersAttributesTable());
 
     }
 

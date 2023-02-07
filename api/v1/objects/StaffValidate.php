@@ -19,19 +19,36 @@ trait StaffValidate
     }
 
     /**
+     * Проверяем username
+     * Недопускаются одинаковые username
+     */
+    private function username(){
+        $param = $this->helpers->formData["username"] ?? "";
+        $this->helpers->validateExist($param, "username");
+        $sql = "SELECT COUNT(id) FROM sdc_users WHERE username = ?";
+        $row = $this->helpers->db->run($sql, [$param])->fetchColumn();
+        if($row === 1){
+            $this->helpers->isErrorInfo(400, "Неверные параметы", "Пользователь $param присутствует в базе");
+        }
+        return $param;
+    }
+
+    /**
      * проверяем sudo
      */
     private function sudo(){
         $param = $this->helpers->formData["sudo"] ?? "";
         if(!in_array($param, [0,1])){
             $this->helpers->isErrorInfo(400, "Неверные параметы", "Ожидаю в sudo 0 или 1");
-        } 
+        }
+        return $param;
     }
 
     /**
      * проверяем active
      */
-    private function active(){
+    private function active():int
+    {
         $param = $this->helpers->formData["active"] ?? "";
         if(!in_array($param, [0,1])){
             $this->helpers->isErrorInfo(400, "Неверные параметы", "Ожидаю в active 0 или 1");
@@ -43,13 +60,15 @@ trait StaffValidate
      * Проверяем idGAS. Запролняется только для
      * председателя - 1, заместителя председателя - 2, судьи - 3
      */
-    private function idGAS(){
-        $param = $this->helpers->formData["idGAS"] ?? "";
+    private function idGAS()
+    {
+        $param = !empty($this->helpers->formData["idGAS"]) ? $this->helpers->formData["idGAS"]: NULL;
         if(in_array($this->helpers->formData["professionID"], [1,2,3])){
             $this->helpers->validateINT($param, "idGAS");
-        }elseif (strlen($param) !== 0) {
+        }elseif (!empty($param)) {
             $this->helpers->isErrorInfo(400, "Неверные параметы", "idGAS должен быть пустым");
         }
+        return $param;
     }
 
     /**
@@ -60,7 +79,8 @@ trait StaffValidate
         $param = $this->helpers->formData["gender"] ?? "";
         if(!in_array($param, [0,1])){
             $this->helpers->isErrorInfo(400, "Неверные параметы", "Ожидаю в gender целое число. 0 - Ж или 1 - М");
-        } 
+        }
+        return $param;
     }
 
     /**
@@ -68,15 +88,16 @@ trait StaffValidate
      */
     private function vocation()
     {
-        $profession = $this->helpers->formData["professionID"] ?? "";
-        $this->helpers->validateINT($profession, "professionID");
+        $param = !empty($this->helpers->formData["professionID"]) ? $this->helpers->formData["professionID"]: NULL;
+        $this->helpers->validateINT($param, "professionID");
 
         $sql = "SELECT COUNT(id) FROM sdc_vocation WHERE id = ? AND parent_id IS NOT NULL";
-        $row = $this->helpers->db->run($sql, [$profession])->fetchColumn();
+        $row = $this->helpers->db->run($sql, [$param])->fetchColumn();
 
         if ($row !== 1) {
-            $this->helpers::isErrorInfo(400, "Неверные параметры", "Должности с id: $profession не существует");
+            $this->helpers::isErrorInfo(400, "Неверные параметры", "Должности с id: $param не существует");
         }
+        return $param;
     }
 
     /**
@@ -86,18 +107,18 @@ trait StaffValidate
      * помошник председателя = 6
      * В противном случае affiliationJudgeID не заполняется
      */
-    private function affiliation():void
+    private function affiliation()
     {
-        $profession = $this->helpers->formData["professionID"] ?? "";
-        $affiliation = $this->helpers->formData["affiliationJudgeID"] ?? "";
-        if(in_array($profession, [6,7,9])){
-            $this->helpers->validateINT($affiliation, "affiliationJudgeID");
-            if ($this->helpers->searchAssociativeArray($affiliation, $this->vocationGroup->usersGroup(24), "id") === false) {
-                $this->helpers::isErrorInfo(400, "Неверные параметры", "Судьи с id: $affiliation не существует");
+        $param = !empty($this->helpers->formData["affiliationJudgeID"]) ? $this->helpers->formData["affiliationJudgeID"]: NULL;
+        if(in_array($this->vocation(), [6,7,9])){
+            $this->helpers->validateINT($param, "affiliationJudgeID");
+            if ($this->helpers->searchAssociativeArray($param, $this->vocationGroup->usersGroup(24), "id") === false) {
+                $this->helpers::isErrorInfo(400, "Неверные параметры", "Судьи с id: $param не существует");
             }
-        } elseif(strlen($affiliation) !== 0) {
+        } elseif(!empty($param)) {
             $this->helpers->isErrorInfo(400, "Неверные параметы", "affiliationJudgeID должен быть пустым");
         }
+        return $param;
     }
 
     /**
@@ -113,26 +134,25 @@ trait StaffValidate
         if (!($d && $d->format($format) === $param)) {
             $this->helpers::isErrorInfo(400, "Неверные параметры", "Ожидаю dob в формате Y-m-d\TH:i:s.000\Z Получаю: $param");
         }
+
+        return $d->format("Y-m-d");
     }
-
-
-
 
     /**
      * Проверка рабочего метса
      */
-    private function addUserValidateWorkplace()
+    private function workplace()
     {
-        $param = $this->helpers->formData["workplaceID"] ?? "";
-        $this->helpers->validateINT($param, "workplaceID");
+        $param = !empty($this->helpers->formData["workplaceID"]) ? $this->helpers->formData["workplaceID"]: NULL;
+        if($this->active() === 1) {
+            $this->helpers->validateINT($param, "workplaceID");
 
-        if($this->helpers->searchAssociativeArray($param, $this->freeDesktop(), "id") === false){
-            $this->helpers::isErrorInfo(400, "Неверные параметры", "Рабочее место с id: $param не существует либо занято");
-        };
+            if($this->helpers->searchAssociativeArray($param, $this->freeDesktop(), "id") === false){
+                $this->helpers::isErrorInfo(400, "Неверные параметры", "Рабочее место с id: $param не существует либо занято");
+            };
+        } elseif (!empty($param)) {
+            $this->helpers::isErrorInfo(400, "Неверные параметры", "Рабочее место должно быть путсым");
+        }
+        return $param;
     }
-
-
-
-    
-
 }
