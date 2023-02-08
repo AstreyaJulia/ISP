@@ -22,14 +22,40 @@ trait StaffValidate
      * Проверяем username
      * Недопускаются одинаковые username
      */
+    private function id(){
+
+        $param = $this->helpers->formData["id"] ?? "";
+
+        $this->helpers->validateINT($param, "id");
+
+        $sql = "SELECT
+                    COUNT(atributes.id)
+                FROM sdc_users AS users
+                LEFT JOIN sdc_user_attributes AS atributes ON atributes.internalKey = users.id
+                WHERE users.id = ?";
+        $row = $this->helpers->db->run($sql, [$param])->fetchColumn();
+        if($row !== 1){
+            $this->helpers->isErrorInfo(400, "Неверные параметы", "Пользователь с id $param отсутствует в базе");
+        }
+        return $param;
+    }
+
+    /**
+     * Проверяем username
+     * Недопускаются одинаковые username
+     */
     private function username(){
+
+        $sqlCondition = $this->helpers->getMethod() === "PATCH" ? "  AND id != ".$this->helpers->formData["id"]: "";
         $param = $this->helpers->formData["username"] ?? "";
+
         $this->helpers->validateExist($param, "username");
-        $sql = "SELECT COUNT(id) FROM sdc_users WHERE username = ?";
+        $sql = "SELECT COUNT(id) FROM sdc_users WHERE username = ?$sqlCondition";
         $row = $this->helpers->db->run($sql, [$param])->fetchColumn();
         if($row === 1){
             $this->helpers->isErrorInfo(400, "Неверные параметы", "Пользователь $param присутствует в базе");
         }
+
         return $param;
     }
 

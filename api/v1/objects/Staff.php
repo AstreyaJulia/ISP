@@ -176,6 +176,25 @@ class Staff
     }
 
     /**
+     * Добавление нового пользователя
+     */
+    private function updUser($paramUser, $paramAttr)
+    {
+
+        $sqlUser = "UPDATE sdc_users SET username = :username, active = :active, sudo = :sudo WHERE id = :id";
+        $this->helpers->db->run($sqlUser, $paramUser);
+
+        //Добавляем запись в таблицу sdc_user_attributes
+	    $sqlAttr = "UPDATE sdc_user_attributes
+        SET idGAS = :idGAS, fullname = :fullname, gender = :gender, dob = :dob, email = :email, mobilephone = :mobilephone, address = :address, comment = :comment, website = :website, profession = :profession, affiliation = :affiliation, room = :room
+        WHERE internalKey = :internalKey";
+	    $this->helpers->db->run($sqlAttr, $paramAttr);
+
+        http_response_code(200);
+        return $this->helpers->wrap(["info" => "запись изменена", "id"=> $paramUser["id"], "username"=> $paramUser["username"], "fullname"=> $paramAttr["fullname"], ], "data");
+    }
+
+    /**
      * Проверяем параметры для добавления записи в таблицу
      * sdc_users
      */
@@ -207,7 +226,7 @@ class Staff
                 "room" => $this->workplace()
         );
     }
-    
+
     /**
      * Обрабатываем приходящие POST-запросы. 
      */
@@ -221,11 +240,27 @@ class Staff
 
     }
 
+    /**
+     * Обрабатываем приходящие PATCH-запросы. 
+     */
+    private function metodPATCH()
+    {
+        $this->helpers::headlinesPOST();
+        $this->id();
+        $this->validateUsersTable();
+        $this->validateUsersAttributesTable();
+
+        return $this->updUser(array_merge(["id" => $this->id()], $this->validateUsersTable()), array_merge(["internalKey" => $this->id()], $this->validateUsersAttributesTable()));
+
+    }
+
     public function responseStaff(): void
     {
         match ($this->helpers->getMethod()) {
             "GET" => $this->helpers->getJsonEncode($this->metodGET()),
-            "POST" => $this->helpers->getJsonEncode($this->metodPOST())
+            //"POST" => $this->helpers->getJsonEncode($this->metodPOST()),
+            "PATCH" => $this->helpers->getJsonEncode($this->metodPATCH()),
+            default => $this->helpers->isErrorInfo(401, "Ошибка в запросе", "Метод не реализован")
         };
     }
 }
