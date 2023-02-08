@@ -3,6 +3,14 @@ import PropTypes from 'prop-types';
 import { Avatar } from '../Avatar';
 import { classNames } from '../../utils/classNames';
 
+/** Значок показывающий тенденцию. Рост, падение или неизменность
+ *
+ * @param value1 - начальное значение
+ * @param value2 - конечное значение
+ * @param size - размер
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const TrendindingIcon = ({ value1, value2, size }) => {
 
   const getTendency = () => {

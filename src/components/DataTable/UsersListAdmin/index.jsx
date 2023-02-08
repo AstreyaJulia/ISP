@@ -84,7 +84,7 @@ const UsersListAdmin = ({ data, isLoading, error }) => {
         </div>
 
         <div className='flex flex-col items-start justify-center'>
-          {item?.workplace !== 'нет кабинета, нет рабочего места' ? <p
+          {item?.workplace !== 'Нет здания, нет кабинета, нет рабочего места' ? <p
             className='text-sm text-slate-800 dark:text-slate-200 flex items-center'>
             <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' className='w-4 h-4 text-slate-400 mr-2'>
               <path fill='currentColor'

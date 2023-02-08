@@ -70,35 +70,6 @@ const Test = () => {
       categories: [2021, 2022],
     },
   };
-
-
-  /* icon - текст или svg */
-  const options = [
-    { value: 'apple', label: 'Apple', icon: '🍎', selectID: 'select' },
-    { value: 'strawberry', label: 'Strawberry', icon: '🍓', selectID: 'select' },
-    { value: 'cherry', label: 'Cherry', icon: '🍒', selectID: 'select' },
-  ];
-
-  const optionsTest = ['apple', 'strawberry', 'cherry'];
-
-  const TestSchema = Yup.object().shape({
-    login: Yup.string().required('Логин обязателен для заполнения'),
-  });
-
-  const methods = useForm({
-    resolver: yupResolver(TestSchema),
-  });
-
-  const { handleSubmit } = methods;
-
-  const onSubmit = async (data) => {
-    console.log(data);
-  };
-
-  const onChange = (data) => {
-    console.log(data);
-  };
-
   const notificationTest = () => {
     addNotification({
       title: 'Warning',
@@ -127,24 +98,8 @@ const Test = () => {
 
       {stat.map((chart, key) => <Card key={key} classname='p-4 pb-4 mt-4'>
         <Typography variant='subtitle1'>{chart.title}</Typography>
-        <TrendindingIcon size='6' value1={10} value2={12} />
-        <TrendindingIcon size='8' value1={10} value2={10} />
-        <TrendindingIcon size='10' value1={10} value2={1} />
-        <TrendindingIcon size='12' value1={10} value2={12} />
-        <TrendindingIcon size='14' value1={10} value2={12} />
-        <TrendindingIcon size='16' value1={10} value2={12} />
-        <TrendindingIcon size='20' value1={10} value2={12} />
-
         <ReactApexChart type='line' series={chart.data} options={chart1Options} height={280} />
       </Card>)}
-
-
-      <div className='grid grid-cols-2 mt-4 gap-4'>
-        <Card classname='p-4 mt-4'>
-          <Typography variant='subtitle1'>Остаток нерассмотренных гражданских дел на начало года</Typography>
-          <ReactApexChart type="bar" series={yearConferenceStat.data.G1_YEAR_START_OSTATOK_ALL} options={chart2Options} height={364} />
-        </Card>
-      </div>
 
       <Quiz answers={testSteps1answers} steps={testSteps1} />
     </BasicPage>
