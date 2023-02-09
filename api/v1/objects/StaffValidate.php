@@ -173,7 +173,17 @@ trait StaffValidate
         if($this->active() === 1) {
             $this->helpers->validateINT($param, "workplaceID");
 
-            if($this->helpers->searchAssociativeArray($param, $this->freeDesktop(), "id") === false){
+            $desktop = $this->freeDesktop();
+
+            if ($this->helpers->getMethod() === "PATCH") {
+                $sql = "SELECT
+                            room AS id,
+                            fullname AS label
+                        FROM sdc_user_attributes WHERE id = :id AND room = :room";
+                $desktop[] = $this->helpers->db->run($sql, ["id" => $this->id(), "room" => $param])->fetch(\PDO::FETCH_LAZY);
+            }
+
+            if($this->helpers->searchAssociativeArray($param, $desktop, "id") === false){
                 $this->helpers::isErrorInfo(400, "Неверные параметры", "Рабочее место с id: $param не существует либо занято");
             };
         } elseif (!empty($param)) {

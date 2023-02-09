@@ -260,7 +260,7 @@ class Staff
     {
         match ($this->helpers->getMethod()) {
             "GET" => $this->helpers->getJsonEncode($this->metodGET()),
-            //"POST" => $this->helpers->getJsonEncode($this->metodPOST()),
+            "POST" => $this->helpers->getJsonEncode($this->metodPOST()),
             "PATCH" => $this->helpers->getJsonEncode($this->metodPATCH()),
             default => $this->helpers->isErrorInfo(401, "Ошибка в запросе", "Метод не реализован")
         };
