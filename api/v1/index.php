@@ -72,7 +72,7 @@ $allowed_origins = ["localhost:3000",
 
 // Предзапрос OPTIONS
     if ( isset( $_SERVER['REQUEST_METHOD'] ) && $_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-        header( 'Access-Control-Allow-Methods: GET, POST, OPTIONS' );
+        header( 'Access-Control-Allow-Methods: GET, POST, PATCH, OPTIONS' );
         // {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']} на строке ниже можно заменить на access-control-allow-headers,access-control-allow-origin,content-type
         header( "Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
         header( 'Access-Control-Max-Age: 86400');
