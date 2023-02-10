@@ -3,6 +3,7 @@ import avatar2 from './avatars/2.png';
 import avatar3 from './avatars/3.png';
 import avatar4 from './avatars/4.png';
 import avatar5 from './avatars/5.png';
+import {tailwindColorsConfig} from "../utils/getTailwindconfig";
 
 /** Пользователи, для локального тестирования
  * @type {[{profession: string, birthday: string, role: string, address: string, color: string, gender: string, ip: string, facebook: string, work_phone: string, instagram: string, avatar: string, site1: string, site2: string, odnoklassniki: string, mobile_phone: string, vkontakte: string, id: string, sudo: string, fullname: string, judge: string, place: string, cabinet: string, email: string, username: string},{profession: string, birthday: string, role: string, address: string, color: string, gender: string, ip: string, facebook: string, work_phone: string, instagram: string, avatar: string, site1: string, site2: string, odnoklassniki: string, mobile_phone: string, vkontakte: string, id: string, sudo: string, fullname: string, judge: string, place: string, cabinet: string, email: string, username: string},{profession: string, birthday: string, role: string, address: string, color: string, gender: string, ip: string, facebook: string, work_phone: string, instagram: string, avatar: string, site1: string, site2: string, odnoklassniki: string, mobile_phone: string, vkontakte: string, id: string, sudo: string, fullname: string, judge: string, place: string, cabinet: string, email: string, username: string},{profession: string, birthday: string, role: string, address: string, color: string, gender: string, ip: string, facebook: string, work_phone: string, instagram: string, avatar: string, site1: string, site2: string, odnoklassniki: string, mobile_phone: string, vkontakte: string, id: string, sudo: string, fullname: string, judge: string, place: string, cabinet: string, email: string, username: string},{profession: string, birthday: string, role: string, address: string, color: string, gender: string, ip: string, facebook: string, work_phone: string, instagram: string, avatar: string, site1: string, site2: string, odnoklassniki: string, mobile_phone: string, vkontakte: string, id: string, sudo: string, fullname: string, judge: string, place: string, cabinet: string, email: string, username: string},null]}
@@ -1195,6 +1196,9 @@ export const stat = [
     data: [
       { name: 'Население Сафоново', data: [43500, 46100, 45273, 44444, 43845, 43477, 43145, 42707, 42147, 41510, 41138, 40537, 39883] },
     ],
+    colors: [
+      tailwindColorsConfig.theme.colors.gray['500'],
+    ],
   },
 
   /* Данные: https://города-россия.рф/sity_id.php?id=394 */
@@ -1203,12 +1207,18 @@ export const stat = [
     data: [
       { name: 'Население Смоленской области', data: [993018, 982887, 980482, 975188, 967896, 964791, 958630, 953201, 949348, 942363, 934889, 921127] },
     ],
+    colors: [
+      tailwindColorsConfig.theme.colors.gray['500'],
+    ],
   },
 
   {
     title: 'Трудоспособное население Смоленской области',
     data: [
       { name: 'Трудоспособное население Смоленской области', data: [633809, 596862, 627128, 625958, 593611, 615842, 607983, 586273, 598980, 587725, 587237] },
+    ],
+    colors: [
+      tailwindColorsConfig.theme.colors.gray['500'],
     ],
   },
 
@@ -1217,6 +1227,9 @@ export const stat = [
     data: [
       { name: 'Количество безработных в Смоленской области, тыс. человек', data: [40.8, 41.5, 30.9, 28.1, 26.9, 32.8, 31.4, 29.8, 26.2, 25.3, 25.3] },
     ],
+    colors: [
+      tailwindColorsConfig.theme.colors.gray['500'],
+    ],
   },
 
   {
@@ -1224,12 +1237,18 @@ export const stat = [
     data: [
       { name: 'Исходящая почта', data: [11610, 29513, 28845, 30240, 23662, 36230, 41202, 37862, 36211, 36859, 34827, 38381, 36570] },
     ],
+    colors: [
+      tailwindColorsConfig.theme.colors.indigo['500'],
+    ],
   },
 
   {
     title: 'Исходящая эл. почта',
     data: [
       { name: 'Исходящая эл. почта', data: ['', '', '', '', '', '', '', '', '', 1810, 3170, 3959, 3847] },
+    ],
+    colors: [
+      tailwindColorsConfig.theme.colors.indigo['500'],
     ],
   },
 
@@ -1239,6 +1258,9 @@ export const stat = [
     data: [
       { name: 'Входящая почта', data: [4147, 9372, 12395, 12226, 11378, 11481, 11418, 12372, 11721, 11917, 12308, 15209, 15592] },
     ],
+    colors: [
+      tailwindColorsConfig.theme.colors.emerald['500'],
+    ],
   },
 
   {
@@ -1246,19 +1268,28 @@ export const stat = [
     data: [
       { name: 'Входящая эл. почта', data: ['', '', '', '', '', '', '', '', '', 6489, 8384, 10450, 10954] },
     ],
+    colors: [
+      tailwindColorsConfig.theme.colors.emerald['500'],
+    ],
   },
 
   {
     title: 'Обращения, без исковых, поданные через Электронное правосудие',
     data: [
-      { name: 'Обращения, без исковых', data: ['', '', '', '', '', '', '', '', 87, 230, 423, 624, ''] },
+      { name: 'Обращения, без исковых', data: ['', '', '', '', '', '', '', '', 87, 230, 423, 624, 628] },
+    ],
+    colors: [
+      tailwindColorsConfig.theme.colors.indigo['500'],
     ],
   },
 
   {
     title: 'Исковые заявления, поданные через Электронное правосудие',
     data: [
-      { name: 'Исковые заявления', data: ['', '', '', '', '', '', '', '', 21, 43, 35, 128, ''] },
+      { name: 'Исковые заявления', data: ['', '', '', '', '', '', '', '', 21, 43, 35, 128, 344] },
+    ],
+    colors: [
+      tailwindColorsConfig.theme.colors.purple['500'],
     ],
   },
 
@@ -1267,12 +1298,17 @@ export const stat = [
     data: [
       { name: 'Рассмотрено уголовных дел по 1 инстанции', data: [275, 366, 364, 294, 360, 373, 254, 214, 282, 251, 240, 297, 302] },
     ],
+    colors: [
+      tailwindColorsConfig.theme.colors.amber['500'],
+    ],
   },
 
   {
     title: 'Рассмотрено по 1 инстанции уголовных дел (область)',
     data: [
       { name: 'Рассмотрено уголовных дел по 1 инстанции (область)', data: [4124, 4038, 3696, 3257, 3799, 3563, 3210, 2217, 3061, 3626, 3713, 3636, 4174] },
+    ],    colors: [
+      tailwindColorsConfig.theme.colors.amber['500'],
     ],
   },
 
@@ -1281,12 +1317,18 @@ export const stat = [
     data: [
       { name: 'Рассмотрено уголовных дел по апелляционной инстанции', data: [15, 30, 17, 17, 13, 8, 14, 9, 9, 6, 13, 9, 12] },
     ],
+    colors: [
+      tailwindColorsConfig.theme.colors.teal['500'],
+    ],
   },
 
   {
     title: 'Рассмотрено по 1 инстанции гражданских дел',
     data: [
       { name: 'Рассмотрено гражданских дел по 1 инстанции', data: [1777, 1935, 2108, 2892, 2784, 2593, 2454, 2145, 1785, 1388, 1587, 1893, 1533] },
+    ],
+    colors: [
+      tailwindColorsConfig.theme.colors.red['500'],
     ],
   },
 
@@ -1295,12 +1337,17 @@ export const stat = [
     data: [
       { name: 'Рассмотрено по 1 инстанции гражданских дел (область)', data: [30095, 28470, 31392, 32393, 34753, 33232, 31409, 21203, 24391, 18543, 23220, 24205, 23589 ] },
     ],
+    colors: [
+      tailwindColorsConfig.theme.colors.red['500'],
+    ],
   },
 
   {
     title: 'Рассмотрено по по апелляционной гражданских дел',
     data: [
       { name: 'Рассмотрено гражданских дел по по апелляционной', data: [45, 62, 43, 60, 58, 57, 42, 35, 51, 68, 58, 49, 25] },
+    ],    colors: [
+      tailwindColorsConfig.theme.colors.orange['500'],
     ],
   },
 
@@ -1309,12 +1356,18 @@ export const stat = [
     data: [
       { name: 'Рассмотрено дел об административных правонарушениях', data: [30, 25, 33, 1096, 1044, 844, 817, 882, 695, 467, 382, 1157, 1082] },
     ],
+    colors: [
+      tailwindColorsConfig.theme.colors.blue['500'],
+    ],
   },
 
   {
     title: 'Рассмотрено дел об административных правонарушениях (область)',
     data: [
-      { name: 'Рассмотрено дел об административных правонарушениях (область)', data: [1487, 1334, 1315, 6150, 5856, 5316, 5080, 5352, 5232, 4805, 6768, 12829] },
+      { name: 'Рассмотрено дел об административных правонарушениях (область)', data: [1487, 1334, 1315, 6150, 5856, 5316, 5080, 5352, 5232, 4805, 6768, 12829, 9947] },
+    ],
+    colors: [
+      tailwindColorsConfig.theme.colors.blue['500'],
     ],
   },
 
@@ -1322,6 +1375,19 @@ export const stat = [
     title: 'Рассмотрено жалоб по делам об административных правонарушениях',
     data: [
       { name: 'Рассмотрено жалоб по делам об административных правонарушениях', data: ["", "", "", "", 166, 204, 205, 198, 145, 138, 123, 96, 118] },
+    ],
+    colors: [
+      tailwindColorsConfig.theme.colors.teal['500'],
+    ],
+  },
+
+  {
+    title: 'Материалы в порядке уг. производства, всего',
+    data: [
+      { name: 'Материалы в порядке уг. производства, всего', data: [545, 3440, 2634, 1662, 1232, 1852, 1926, 1604, 2216, 1564, 1494, 1157, 972] },
+    ],
+    colors: [
+      tailwindColorsConfig.theme.colors.cyan['500'],
     ],
   },
 ]

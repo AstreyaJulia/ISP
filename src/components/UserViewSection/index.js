@@ -2,7 +2,7 @@ import {Avatar} from "../Avatar";
 import {getInitials, getInitialsOnly} from "../../utils/getInitials";
 import {getAvatarColor} from "../../utils/getAvatarColor";
 import Badge from "../Badge";
-import {getHighlightedText} from "../../utils/getHighlightedText";
+
 
 export default function UserViewSection({ currentUser }) {
 
@@ -15,7 +15,7 @@ export default function UserViewSection({ currentUser }) {
                         <div className="relative">
                             <Avatar
                                 size='16'
-                                name={getInitialsOnly(currentUser?.fullname ? currentUser?.fullname : currentUser?.username)}
+                                name={currentUser?.fullname ? getInitialsOnly(currentUser?.fullname ? currentUser?.fullname : currentUser?.username) : 'Пользователь'}
                                 color={currentUser?.fullname ? getAvatarColor(currentUser?.fullname) : 'indigo'}
                                 shape='circle'
                             />
@@ -25,8 +25,8 @@ export default function UserViewSection({ currentUser }) {
                     <div>
                         <h1 className="text-2xl font-bold text-gray-900">{currentUser?.fullname}</h1>
                         <p className="text-sm font-medium text-gray-500">
-                            {currentUser?.profession}{' '}
-                            {currentUser?.affiliationJudge ? <span className="text-gray-900">: {getInitials(currentUser?.affiliationJudge)}</span> : ''}
+                            {currentUser?.professionName}{' '}
+                            {currentUser?.affiliationJudgeName ? <span className="text-gray-900">: {getInitials(currentUser?.affiliationJudgeName)}</span> : ''}
                         </p>
                     </div>
                 </div>
@@ -46,8 +46,8 @@ export default function UserViewSection({ currentUser }) {
                                     <div className="sm:col-span-1"/>
                                     <div className="sm:col-span-1">
                                         <dt className="text-sm font-medium text-gray-500">Должность</dt>
-                                        <dd className="mt-1 text-sm text-gray-900">{currentUser?.profession}{' '}
-                                            {currentUser?.affiliationJudge ? <span className="text-gray-900">: {getInitials(currentUser?.affiliationJudge)}</span> : ''}</dd>
+                                        <dd className="mt-1 text-sm text-gray-900">{currentUser?.professionName}{' '}
+                                            {currentUser?.affiliationJudgeName ? <span className="text-gray-900">: {getInitials(currentUser?.affiliationJudgeName)}</span> : ''}</dd>
                                     </div>
                                     <div className="sm:col-span-1">
                                         <dt className="text-sm font-medium text-gray-500">Рабочее место</dt>
@@ -89,13 +89,13 @@ export default function UserViewSection({ currentUser }) {
                                 {currentUser?.username}
                             </h2>
                             <div className='flex gap-2'>
-                                <Badge item={currentUser?.setPass.toString() === '0' ? 'Пароль не установлен' : 'Пароль установлен'} size='small' color={currentUser?.setPass.toString() === '0' ? 'yellow' : 'green'} shape='rounded' />
+                                <Badge item={currentUser?.setPass?.toString() === '0' ? 'Пароль не установлен' : 'Пароль установлен'} size='small' color={currentUser?.setPass?.toString() === '0' ? 'yellow' : 'green'} shape='rounded' />
                                 </div>
                         </div>
                         <div className='flex gap-2 px-4 py-5 '>
 
-                            <Badge item={currentUser?.active.toString() === '0' ? 'Заблокирован' : 'Активен'} size='small' color={currentUser?.active.toString() === '0' ? 'red' : 'green'} shape='rounded' />
-                            <Badge item={currentUser?.sudo.toString() === '0' ? 'Пользователь' : 'Администратор'} size='small' color={currentUser?.sudo.toString() === '0' ? 'indigo' : 'cyan'} shape='rounded' />
+                            <Badge item={currentUser?.active?.toString() === '0' ? 'Заблокирован' : 'Активен'} size='small' color={currentUser?.active?.toString() === '0' ? 'red' : 'green'} shape='rounded' />
+                            <Badge item={currentUser?.sudo?.toString() === '0' ? 'Пользователь' : 'Администратор'} size='small' color={currentUser?.sudo?.toString() === '0' ? 'indigo' : 'cyan'} shape='rounded' />
                         </div>
                         <div className="px-4 py-5 flex flex-col justify-stretch">
                             <button

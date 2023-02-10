@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
-import * as Yup from 'yup';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
 import addNotification from 'react-push-notification';
 
 import BasicPage from '../pagesLayouts/BasicPage';
@@ -15,8 +12,8 @@ import useAuth from '../../hooks/useAuth';
 import Quiz from '../../components/Courses/Course/Quiz';
 import { testSteps1, testSteps1answers, stat, yearConferenceStat } from '../../@mock/SampleData';
 import Typography from '../../components/Typography';
-import TrendindingIcon from '../../components/TrendindingIcon';
 import BasicButton from '../../components/BasicButton';
+import {tailwindColorsConfig} from "../../utils/getTailwindconfig";
 
 const CHART_DATA = [4344, 5435, 1443, 4443];
 
@@ -64,12 +61,6 @@ const Test = () => {
     },
   };
 
-  const chart2Options = {
-    ...BaseChartOptions(),
-    xaxis: {
-      categories: [2021, 2022],
-    },
-  };
   const notificationTest = () => {
     addNotification({
       title: 'Warning',
@@ -98,7 +89,16 @@ const Test = () => {
 
       {stat.map((chart, key) => <Card key={key} classname='p-4 pb-4 mt-4'>
         <Typography variant='subtitle1'>{chart.title}</Typography>
-        <ReactApexChart type='line' series={chart.data} options={chart1Options} height={280} />
+        <ReactApexChart type='line' series={chart.data} options={{
+          ...chart1Options, colors: chart.colors || [
+          tailwindColorsConfig.theme.colors.indigo['500'],
+          tailwindColorsConfig.theme.colors.amber['500'],
+          tailwindColorsConfig.theme.colors.emerald['500'],
+          tailwindColorsConfig.theme.colors.rose['500'],
+          tailwindColorsConfig.theme.colors.violet['500'],
+          tailwindColorsConfig.theme.colors.cyan['500'],
+          ]
+        }} height={280} />
       </Card>)}
 
       <Quiz answers={testSteps1answers} steps={testSteps1} />

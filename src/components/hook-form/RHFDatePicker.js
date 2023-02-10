@@ -26,7 +26,7 @@ export default function RHFDatePicker({name, label, placeholder, inputFormat,  .
         <Controller
             name={name}
             control={control}
-            render={({field, fieldState: {error}}) => (
+            render={({field: {value, onChange, ref}, fieldState: {error}}) => (
                     <div>
                         {label ? (
                             <label htmlFor={name} className="flex flex-col">
@@ -38,9 +38,9 @@ export default function RHFDatePicker({name, label, placeholder, inputFormat,  .
                         )}
                         <div className='mt-1 relative'>
                             <DatePicker
-                                selected={getDate(field?.value)}
+                                selected={getDate(value)}
                                 dateFormat="dd.MM.yyyy"
-                                onChange={field.onChange}
+                                onChange={onChange}
                                 locale="ru"
                                 className={classNames(
                                     'relative bg-gray-50 dark:bg-gray-800 pr-10 focus:outline-none sm:text-sm rounded-md shadow-sm',
@@ -50,7 +50,6 @@ export default function RHFDatePicker({name, label, placeholder, inputFormat,  .
                                 )}
                                 placeholderText={placeholder}
                                 todayButton="Сегодня"
-                                {...field}
                                 {...other}
                             />
                             {error ? (

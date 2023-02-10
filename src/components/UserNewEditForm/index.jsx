@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import {isDate, parse} from "date-fns";
 import Toast, { toastStyles } from '../Toast';
 import { setSession } from '../../utils/jwt';
 import {
@@ -25,6 +26,7 @@ import axios from '../../utils/axios';
 import { getLoginFromName } from '../../utils/createLogin';
 import {formatDate} from "../../utils/formatTime";
 import Badge from '../Badge';
+
 
 export default function UserNewEditForm({ isEdit, currentUser }) {
 
@@ -54,7 +56,15 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
     idGAS: Yup.string(),
     fullname: Yup.string().required('Фамилия, имя, отчество обязательны для заполнения'),
     gender: Yup.number().required('Пол обязателен для заполнения'),
-    dob: Yup.date().typeError('Дата рождения в неправильном формате').required('Дата рождения обязательна для заполнения'),
+    dob: Yup.date()
+        .transform(value => {
+      if (value !== '' && !isDate(value)) {
+        return parse(value, 'dd.MM.yyyy', new Date())
+      } if (value !== '' && isDate(value)) {
+        return value
+      }
+      return null
+    }).required('Дата рождения обязательна для заполнения'),
     mobilephone: Yup.string().nullable().default(null).transform(value => value === '' ? null : value).matches(/^79[0-9]{9}$/, 'Номер телефона в неправильном формате'),
     email: Yup.string().nullable().default(null).transform(value => value === '' ? null : value).matches(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, 'Адрес электронной почты в неправильном формате'),
     professionID: Yup.number(),
@@ -119,10 +129,14 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
 
   const onSubmit = async () => {
     const values = getValues();
-    setValue('dob', formatDate(values.dob))
+    console.log(values)
     try {
+      if (!isEdit) {
+        await axios.post(`/staff`, values);
+      } else {
+        await axios.patch(`/staff`, {...values, id: currentUser.id});
+      }
       /* Сохранение пользователя */
-      await axios.post(`/staff`, values);
       reset();
       toast((t) => <Toast t={t} message={!isEdit ? 'Пользователь создан!' : 'Успешно обновлено!'}
                           type='success' />, { className: toastStyles });
@@ -264,8 +278,6 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
 
   const generateLogin = () => {
     const values = getValues();
-
-    console.log(values);
     if (values.fullname.toString() !== '') {
       setValue('username', getLoginFromName(values.fullname).toString());
     }
