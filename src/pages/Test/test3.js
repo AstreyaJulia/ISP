@@ -35,7 +35,7 @@ const Faq = () => {
     }
     if (parseInt(currentStepId, 10) < parseInt(stepId, 10)) {
       return (
-        <span className="shrink-0 bg-slate-400 h-8 w-8 rounded-full flex items-center justify-center">
+        <span className="shrink-0 bg-gray-400 h-8 w-8 rounded-full flex items-center justify-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -114,7 +114,7 @@ const Faq = () => {
         aria-labelledby="primary-heading"
         className="relative min-w-0 flex-1 full-height-course flex flex-col lg:order-last mb-14 "
       >
-        <div className="bg-white dark:bg-slate-900 m-6 min-w-0 flex-1 flex flex-col overflow-y-auto lg:order-last 2xl:max-w-5xl 2xl:mx-auto">
+        <div className="bg-white dark:bg-gray-900 m-6 min-w-0 flex-1 flex flex-col overflow-y-auto lg:order-last 2xl:max-w-5xl 2xl:mx-auto">
           <PerfectScrollbar className="main-course-content ps__show" options={{ wheelPropagation: false }}>
             <div className="h-full p-6">
               <Markdown
@@ -153,7 +153,7 @@ const Faq = () => {
                     },
                     code: {
                       props: {
-                        className: 'flex text-base my-5 text-white px-4 py-5 bg-slate-800 rounded-md overflow-x-auto',
+                        className: 'flex text-base my-5 text-white px-4 py-5 bg-gray-800 rounded-md overflow-x-auto',
                       },
                     },
                     blockquote: {
@@ -285,7 +285,7 @@ const Faq = () => {
 
       {/* Secondary column (hidden on smaller screens) */}
       <aside className="ml-5 hidden lg:block lg:flex-shrink-0 lg:order-first">
-        <div className="h-full relative flex flex-col w-80 border-x border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900 overflow-y-auto">
+        <div className="h-full relative flex flex-col w-80 border-x border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 overflow-y-auto">
           <nav className="ml-2 mt-1" aria-label="Назад">
             <Link to={-1} className="flex items-center text-sm font-medium text-indigo-500 dark:text-indigo-400 p-2">
               <svg

@@ -148,6 +148,11 @@ export default function Router() {
                 {
                     path: 'phonebook',
                     element: <Phonebook/>,
+                }, {
+                    path: 'phonebook/:id/view',
+                    element: (
+                      <UserView user />
+                    ),
                 },
                 {
                     path: 'stats',

@@ -34,14 +34,14 @@ export const CalendarToolbar = ({ date, view, onToday, onNextDate, onPrevDate, o
       <button
         type="button"
         onClick={onToday}
-        className="mr-2 cursor-pointer text-gray-700 dark:text-gray-300 focus:outline-none border border-slate-300 dark:border-gray-700 shadow rounded-md py-2 px-4 flex items-center text-sm font-medium hover:bg-slate-100"
+        className="mr-2 cursor-pointer text-gray-700 dark:text-gray-300 focus:outline-none border border-gray-300 dark:border-gray-700 shadow rounded-md py-2 px-4 flex items-center text-sm font-medium hover:bg-gray-100"
       >
         Сегодня
       </button>
       <button
         type="button"
         onClick={onPrevDate}
-        className="cursor-pointer text-gray-700 dark:text-gray-300 focus:outline-none rounded-full p-2 flex items-center justify-center text-base hover:bg-slate-100"
+        className="cursor-pointer text-gray-700 dark:text-gray-300 focus:outline-none rounded-full p-2 flex items-center justify-center text-base hover:bg-gray-100"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -57,7 +57,7 @@ export const CalendarToolbar = ({ date, view, onToday, onNextDate, onPrevDate, o
       <button
         type="button"
         onClick={onNextDate}
-        className="cursor-pointer text-gray-700 dark:text-gray-300 focus:outline-none rounded-full p-2 flex items-center justify-center text-base hover:bg-slate-100"
+        className="cursor-pointer text-gray-700 dark:text-gray-300 focus:outline-none rounded-full p-2 flex items-center justify-center text-base hover:bg-gray-100"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -91,7 +91,7 @@ export const CalendarToolbar = ({ date, view, onToday, onNextDate, onPrevDate, o
           name="view_option"
           defaultValue={view}
           onChange={(evt) => onChangeView(evt.target.value)}
-          className="shadow grow-0 mt-1 block pl-3 pr-10 py-2 text-base bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+          className="shadow grow-0 mt-1 block pl-3 pr-10 py-2 text-base bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
         >
           {VIEW_OPTIONS.map((option) => (
             <option key={option.label} value={option.value}>

@@ -8,6 +8,7 @@ import { getAvatarColor } from '../../../utils/getAvatarColor';
 import Card from '../../Card';
 import DataTableToolBar from '../DataTableCore/DataTableToolBar';
 import { getUniqueArrayValuesByKey } from '../../../utils/getArrayValuesByKey';
+import { classNames } from '../../../utils/classNames';
 
 const UsersList = ({ data, isLoading, error }) => {
   const [rows, setRows] = useState(data ?? []);
@@ -25,22 +26,25 @@ const UsersList = ({ data, isLoading, error }) => {
   const makeItem = (item, key, query) => (
     <Card classname="p-4" key={item?.id}>
       <div className="flex items-center gap-3">
-        <Avatar
-          size="16"
-          name={getInitialsOnly(item?.fullname)}
-          color={getAvatarColor(item?.fullname)}
-          shape="circle"
-          classname="mr-4"
-        />
+        <a href={`/phonebook/${item?.id}/view`} >
+          <Avatar
+            size="16"
+            name={getInitialsOnly(item?.fullname)}
+            color={getAvatarColor(item?.fullname)}
+            shape="circle"
+            classname={classNames('mr-4 hover:ring-2', `hover:ring-indigo-500/30`)}
+          />
+        </a>
+
         <div className="flex flex-col items-start">
-          <p className="font-medium text-base text-slate-800 dark:text-slate-200 flex flex-wrap justify-start items-center text-left">
+          <a href={`/phonebook/${item?.id}/view`} className="hover:underline hover:underline-offset-2 font-medium text-base text-gray-800 dark:text-gray-200 flex flex-wrap justify-start items-center text-left">
             {getHighlightedText(item?.fullname, query)}
-          </p>
+          </a>
           <p className="text-sm text-indigo-700 dark:text-indigo-300 flex flex-wrap justify-start items-center text-left">
             {item?.profession}
           </p>
           <div className="flex items-center w-full gap-7 mt-3">
-            <p className="flex items-center font-medium text-sm text-slate-600 dark:text-slate-400 flex justify-start items-center text-left">
+            <p className="flex items-center font-medium text-sm text-gray-600 dark:text-gray-400 flex justify-start items-center text-left">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -58,7 +62,7 @@ const UsersList = ({ data, isLoading, error }) => {
               <span className="ml-2">{item?.room}</span>
             </p>
             {item?.phone_worck !== '' ? (
-              <p className="flex items-center font-medium text-sm text-slate-600 dark:text-slate-400 flex justify-start items-center text-left">
+              <p className="flex items-center font-medium text-sm text-gray-600 dark:text-gray-400 flex justify-start items-center text-left">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -136,7 +140,7 @@ const UsersList = ({ data, isLoading, error }) => {
       isLoading="false"
       error={error}
       columns={columns}
-      itemsContainerClassNames="grid grid-cols-2 gap-4 bg-slate-100 dark:bg-slate-800 p-4"
+      itemsContainerClassNames="grid grid-cols-2 gap-4 bg-gray-100 dark:bg-gray-800 p-4"
       pseudoTableBodyClassNames="py-5"
       initSortColumn={columns[1]}
       placeholder="Поиск сотрудников по ФИО"
@@ -151,7 +155,7 @@ const UsersList = ({ data, isLoading, error }) => {
             <div className="flex items-center ml-3 justify-start">
               <label
                 htmlFor="professionGroup"
-                className="shrink-0 block text-sm font-medium text-slate-700 dark:text-slate-300 mr-2"
+                className="shrink-0 block text-sm font-medium text-gray-700 dark:text-gray-300 mr-2"
               >
                 Группа:
               </label>
@@ -160,7 +164,7 @@ const UsersList = ({ data, isLoading, error }) => {
                 name="professionGroup"
                 defaultValue={selectedFilter.professionGroup}
                 onChange={filterSelectChangeHandler}
-                className="grow-0 mt-1 block pl-3 pr-10 py-2 text-base bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                className="grow-0 mt-1 block pl-3 pr-10 py-2 text-base bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
               >
                 <option value="All">Все</option>
                 {userGroupList.map((group, key) => (

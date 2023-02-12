@@ -25,7 +25,7 @@ export default function RHFPasswordHideShow({ name, label, placeholder, ...other
             ''
           )}
 
-          <div className="mt-1 flex relative rounded-md shadow-sm">
+          <div className="flex relative rounded-lg shadow-sm">
             <div className="relative flex items-stretch flex-grow focus-within:z-10">
               <input
                 {...field}
@@ -33,9 +33,9 @@ export default function RHFPasswordHideShow({ name, label, placeholder, ...other
                 name={name}
                 id={name}
                 className={classNames(
-                  'block bg-gray-50 dark:bg-gray-800 w-full pr-10 focus:outline-none sm:text-sm rounded-none rounded-l-md',
+                  'block bg-gray-100 dark:bg-gray-800 w-full focus:outline-none sm:text-sm rounded-none rounded-l-md',
                   error
-                    ? 'border-red-500 text-red-900 placeholder-red-400 focus:ring-red-500 focus:border-red-500'
+                    ? 'pr-10 border-red-500 text-red-900 placeholder-red-400 focus:ring-red-500 focus:border-red-500'
                     : 'border-slate-300 dark:border-slate-600 text-gray-900 placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500'
                 )}
                 placeholder={placeholder}

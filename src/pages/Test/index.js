@@ -81,14 +81,14 @@ const Test = () => {
           onChange={handleChangeMessage}
           placeholder='Напишите что-нибудь...'
         />
-        <BasicButton size='medium' label='Уведомление' onClick={notificationTest}/>
+        <BasicButton size='medium' onClick={notificationTest} variant='basic'>Уведомление</BasicButton>
       </Card>
       <Card classname='px-4 pb-4 mt-4'>
         <ReactApexChart type='pie' series={CHART_DATA} options={chartOptions} height={280} />
       </Card>
 
-      {stat.map((chart, key) => <Card key={key} classname='p-4 pb-4 mt-4'>
-        <Typography variant='subtitle1'>{chart.title}</Typography>
+      {stat.map((chart, key) => <Card key={key} classname='p-5 mt-4'>
+        <Typography classname='mb-5' variant='h6'>{chart.title}</Typography>
         <ReactApexChart type='line' series={chart.data} options={{
           ...chart1Options, colors: chart.colors || [
           tailwindColorsConfig.theme.colors.indigo['500'],

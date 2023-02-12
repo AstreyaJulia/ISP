@@ -8,12 +8,12 @@ export function BaseChartOptions() {
   return {
     // Цвета графиков
     colors: [
-      tailwindColorsConfig.theme.colors.indigo['500'],
-      tailwindColorsConfig.theme.colors.amber['500'],
-      tailwindColorsConfig.theme.colors.emerald['500'],
-      tailwindColorsConfig.theme.colors.rose['500'],
-      tailwindColorsConfig.theme.colors.violet['500'],
-      tailwindColorsConfig.theme.colors.cyan['500'],
+      theme.toString() === '1' ? tailwindColorsConfig.theme.colors.indigo['500'] : tailwindColorsConfig.theme.colors.indigo['400'],
+      theme.toString() === '1' ? tailwindColorsConfig.theme.colors.amber['500'] : tailwindColorsConfig.theme.colors.amber['400'],
+      theme.toString() === '1' ? tailwindColorsConfig.theme.colors.emerald['500'] : tailwindColorsConfig.theme.colors.emerald['400'],
+      theme.toString() === '1' ? tailwindColorsConfig.theme.colors.rose['500'] : tailwindColorsConfig.theme.colors.rose['400'],
+      theme.toString() === '1' ? tailwindColorsConfig.theme.colors.violet['500'] : tailwindColorsConfig.theme.colors.violet['400'],
+      theme.toString() === '1' ? tailwindColorsConfig.theme.colors.cyan['500'] : tailwindColorsConfig.theme.colors.cyan['400'],
     ],
 
     // График
@@ -21,7 +21,7 @@ export function BaseChartOptions() {
       toolbar: { show: false },
       zoom: { enabled: false },
       // animations: { enabled: false },
-      foreColor: tailwindColorsConfig.theme.colors.gray['600'],
+      foreColor: theme.toString() === '1' ? tailwindColorsConfig.theme.colors.gray['500'] : tailwindColorsConfig.theme.colors.gray['400'],
       fontFamily:
         "'OpenSans', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji', 'sans-serif'",
     },
@@ -67,19 +67,25 @@ export function BaseChartOptions() {
     // Сетка
     grid: {
       strokeDashArray: 3,
-      borderColor: tailwindColorsConfig.theme.colors.slate['300'],
+      borderColor: theme.toString() === '1' ? tailwindColorsConfig.theme.colors.slate['300'] : tailwindColorsConfig.theme.colors.slate['600'],
+      position: 'back',
+      xaxis: {
+        lines: {
+          show: false
+        }
+      },
     },
 
     // Xaxis
     xaxis: {
-      axisBorder: { show: false },
+      axisBorder: { show: false, height: 0 },
       axisTicks: { show: false },
     },
 
     // Маркеры
     markers: {
       size: 0,
-      strokeColors: tailwindColorsConfig.theme.colors.white,
+      strokeColors: theme.toString() === '1' ? tailwindColorsConfig.theme.colors.white : tailwindColorsConfig.theme.colors.gray['900'],
     },
 
     // Подсказки

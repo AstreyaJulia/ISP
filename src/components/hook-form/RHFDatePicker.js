@@ -1,87 +1,94 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Controller, useFormContext} from 'react-hook-form';
-import DatePicker, {registerLocale} from "react-datepicker";
-import {isDate, parse} from 'date-fns';
-import ru from "date-fns/locale/ru";
-import {classNames} from '../../utils/classNames';
-import ValidationError from './ValidationError';
-import {formatDate} from "../../utils/formatTime";
+import { Controller, useFormContext } from 'react-hook-form';
+import DatePicker, { registerLocale } from 'react-datepicker';
+import { isDate, parse } from 'date-fns';
+import ru from 'date-fns/locale/ru';
+import { Tooltip } from 'react-tooltip';
+import { classNames } from '../../utils/classNames';
+import { formatDate } from '../../utils/formatTime';
 
-registerLocale("ru", ru);
+registerLocale('ru', ru);
 
-export default function RHFDatePicker({name, label, placeholder, inputFormat,  ...other}) {
-    const {control} = useFormContext();
+export default function RHFDatePicker({ name, label, placeholder, inputFormat, direction, ...other }) {
+  const { control } = useFormContext();
 
-    const getDate = (date) => {
-        if (date !== '' && !isDate(date)) {
-            return parse(date, 'dd.MM.yyyy', new Date())
-        } if (date !== '' && isDate(date)) {
-            return date
-        }
-        return null
+  const getDate = (date) => {
+    if (date !== '' && !isDate(date)) {
+      return parse(date, 'dd.MM.yyyy', new Date());
     }
+    if (date !== '' && isDate(date)) {
+      return date;
+    }
+    return null;
+  };
 
-    return (
-        <Controller
-            name={name}
-            control={control}
-            render={({field: {value, onChange, ref}, fieldState: {error}}) => (
-                    <div>
-                        {label ? (
-                            <label htmlFor={name} className="flex flex-col">
-                                <span className="sr-only"/>
-                                {label}
-                            </label>
-                        ) : (
-                            ''
-                        )}
-                        <div className='mt-1 relative'>
-                            <DatePicker
-                                selected={getDate(value)}
-                                dateFormat="dd.MM.yyyy"
-                                onChange={onChange}
-                                locale="ru"
-                                className={classNames(
-                                    'relative bg-gray-50 dark:bg-gray-800 pr-10 focus:outline-none sm:text-sm rounded-md shadow-sm',
-                                    error
-                                        ? 'border-red-500 dark:border-red-600 text-red-900 dark:text-red-50 placeholder-red-400 dark:placeholder-red-400 focus:ring-red-500 focus:border-red-500'
-                                        : 'border-slate-300 dark:border-slate-600 text-gray-900 dark:text-gray-400 placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500'
-                                )}
-                                placeholderText={placeholder}
-                                todayButton="Сегодня"
-                                {...other}
-                            />
-                            {error ? (
-                                <div className="absolute inset-y-0 right-8 flex items-center pointer-events-none">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 24 24"
-                                        fill="currentColor"
-                                        className="h-5 w-5 text-red-500"
-                                    >
-                                        <path
-                                            fillRule="evenodd"
-                                            d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z"
-                                            clipRule="evenodd"
-                                        />
-                                    </svg>
-                                </div>
-                            ) : (
-                                ''
-                            )}
-                        </div>
+  return (
+    <Controller
+      name={name}
+      control={control}
+      render={({ field: { value, onChange, ref }, fieldState: { error } }) => (
+        <div className={classNames('flex', direction === 'row' ? 'items-center justify-end grow-0' : 'flex-col', label ? 'gap-4' : '')}>
+          {label ? (
+            <label htmlFor={name} className='text-right w-52 flex flex-col shrink-0 text-base font-medium text-gray-700 dark:text-gray-200'>
+              {label}
+            </label>
+          ) : (
+            ''
+          )}
+          <div id={name} className='relative'>
+            <DatePicker
+              selected={getDate(value)}
+              dateFormat='dd.MM.yyyy'
+              onChange={onChange}
+              locale='ru'
+              className={classNames(
+                'relative bg-gray-100 dark:bg-gray-800 focus:outline-none text-base rounded-lg shadow-sm',
+                error
+                  ? 'pr-10 border-red-500 dark:border-red-600 text-red-900 dark:text-red-50 placeholder-red-400 dark:placeholder-red-400 focus:ring-red-500 focus:border-red-500'
+                  : 'border-slate-300 dark:border-slate-600 text-gray-900 dark:text-gray-400 placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500',
+              )}
+              placeholderText={placeholder}
+              todayButton='Сегодня'
+              {...other}
+            />
+            {error ? (
+              <div className='absolute inset-y-0 right-8 flex items-center pointer-events-none'>
 
-                        <ValidationError error={error} name={name}/>
+                <Tooltip anchorId={name} content={error?.message} place="top" />
 
-                    </div>
-                )}
-        />
-    );
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  viewBox='0 0 24 24'
+                  fill='currentColor'
+                  className='h-5 w-5 text-red-500'
+                >
+                  <path
+                    fillRule='evenodd'
+                    d='M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z'
+                    clipRule='evenodd'
+                  />
+                </svg>
+              </div>
+            ) : (
+              ''
+            )}
+          </div>
+
+        </div>
+      )}
+    />
+  );
 }
 
 RHFDatePicker.propTypes = {
-    name: PropTypes.string,
-    label: PropTypes.node,
-    placeholder: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string,
+  placeholder: PropTypes.string.isRequired,
+  direction: PropTypes.oneOf(['row', 'column']),
+};
+
+RHFDatePicker.defaultProps = {
+  label: null,
+  direction: 'row',
 };

@@ -7,10 +7,10 @@ FormProvider.propTypes = {
   onSubmit: PropTypes.func,
 };
 
-export default function FormProvider({ children, onSubmit, methods }) {
+export default function FormProvider({ children, onSubmit, methods, ...props }) {
   return (
     <Form {...methods}>
-      <form onSubmit={onSubmit}>{children}</form>
+      <form onSubmit={onSubmit} className={props.className ? props.className : ''}>{children}</form>
     </Form>
   );
 }

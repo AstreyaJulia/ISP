@@ -26,7 +26,7 @@ const NoLastEvents = ({ data, isLoading, error, all }) => {
 
   const makeItem = (item, key, query) => (
     <CaseListCard key={key} item={item} query={query}>
-      <p className="font-medium text-xs text-slate-600 dark:text-slate-200 flex flex-wrap justify-start items-center text-left mb-1">
+      <p className="font-medium text-xs text-gray-600 dark:text-gray-200 flex flex-wrap justify-start items-center text-left mb-1">
         Посл.событие:
         <Badge size="small" shape="rounded" className="ml-1" color="indigo" item={item.LAST_EVENT_DATE} />
       </p>
@@ -111,7 +111,7 @@ const NoLastEvents = ({ data, isLoading, error, all }) => {
               <div className="flex items-center ml-3 justify-start">
                 <label
                   htmlFor="JUDGE_NAME"
-                  className="shrink-0 block text-sm font-medium text-slate-700 dark:text-slate-300 mr-2"
+                  className="shrink-0 block text-sm font-medium text-gray-700 dark:text-gray-300 mr-2"
                 >
                   Судья:
                 </label>
@@ -120,7 +120,7 @@ const NoLastEvents = ({ data, isLoading, error, all }) => {
                   name="JUDGE_NAME"
                   defaultValue={selectedFilter.JUDGE_NAME}
                   onChange={filterSelectChangeHandler}
-                  className="grow-0 mt-1 block pl-3 pr-10 py-2 text-base bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                  className="grow-0 mt-1 block pl-3 pr-10 py-2 text-base bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
                 >
                   <option value="All">Все</option>
                   {judgesList.map((judge, key) => (
@@ -140,7 +140,7 @@ const NoLastEvents = ({ data, isLoading, error, all }) => {
                 type="button"
                 title="Печать"
                 onClick={handlePDFModalOpen}
-                className="bg-transparent border-0 rounded-full hover:bg-slate-300/30 p-2 text-gray-500 dark:text-gray-400"
+                className="bg-transparent border-0 rounded-full hover:bg-gray-300/30 p-2 text-gray-500 dark:text-gray-400"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

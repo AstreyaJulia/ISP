@@ -1,27 +1,27 @@
 .react-datepicker__year-read-view--down-arrow,
 .react-datepicker__month-read-view--down-arrow,
 .react-datepicker__month-year-read-view--down-arrow, .react-datepicker__navigation-icon::before {
-    @apply border-slate-300 dark:border-slate-600
+    @apply border-gray-300 dark:border-gray-600
 }
 
 .react-datepicker-popper[data-placement^=top] .react-datepicker__triangle::before, .react-datepicker-popper[data-placement^=bottom] .react-datepicker__triangle::before {
-    @apply border-b-white dark:border-b-slate-900
+    @apply border-b-white dark:border-b-gray-900
 }
 
 .react-datepicker-popper[data-placement^=bottom] .react-datepicker__triangle::before, .react-datepicker-popper[data-placement^=bottom] .react-datepicker__triangle::after {
-    @apply border-b-white dark:border-b-slate-900
+    @apply border-b-white dark:border-b-gray-900
 }
 
 .react-datepicker-popper[data-placement^=bottom] .react-datepicker__triangle::before {
-    @apply border-b-slate-300 dark:border-b-slate-600
+    @apply border-b-gray-300 dark:border-b-gray-600
 }
 
 .react-datepicker-popper[data-placement^=top] .react-datepicker__triangle::before, .react-datepicker-popper[data-placement^=top] .react-datepicker__triangle::after {
-    @apply border-t-slate-300 dark:border-t-slate-600
+    @apply border-t-gray-300 dark:border-t-gray-600
 }
 
 .react-datepicker-popper[data-placement^=top] .react-datepicker__triangle::before {
-    @apply border-t-slate-300 dark:border-t-slate-600
+    @apply border-t-gray-300 dark:border-t-gray-600
 }
 
 .react-datepicker {
@@ -33,7 +33,7 @@
 }
 
 .react-datepicker__header {
-    @apply bg-white dark:bg-gray-900 border-b-slate-300 dark:border-b-slate-600
+    @apply bg-white dark:bg-gray-900 border-b-gray-300 dark:border-b-gray-600
 }
 
 .react-datepicker__current-month,
@@ -43,15 +43,15 @@
 }
 
 .react-datepicker__navigation:hover *::before {
-    @apply border-t-slate-300 dark:border-t-slate-600
+    @apply border-t-gray-300 dark:border-t-gray-600
 }
 
 .react-datepicker__time-container {
-    @apply border-l-slate-300 dark:border-l-slate-600
+    @apply border-l-gray-300 dark:border-l-gray-600
 }
 
 .react-datepicker__time-container--with-today-button {
-    @apply border-slate-300 dark:border-slate-600
+    @apply border-gray-300 dark:border-gray-600
 }
 
 .react-datepicker__time-container .react-datepicker__time {
@@ -59,7 +59,7 @@
 }
 
 .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item:hover {
-    @apply bg-slate-100 dark:bg-slate-800
+    @apply bg-gray-100 dark:bg-gray-800
 }
 
 .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item--selected {
@@ -281,7 +281,7 @@
 }
 
 .react-datepicker__today-button {
-    @apply border-t-slate-300 dark:border-t-slate-600 bg-slate-200 dark:bg-slate-800
+    @apply border-t-gray-300 dark:border-t-gray-600 bg-gray-200 dark:bg-gray-800
 }
 
 .react-datepicker__portal {

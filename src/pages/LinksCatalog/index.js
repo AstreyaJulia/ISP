@@ -75,7 +75,7 @@ const LinksCatalog = () => {
               <>
                 <Link
                   to="group/new"
-                  className="inline-flex items-center justify-center bg-white dark:bg-slate-900 border border-gray-300 rounded-md shadow-sm leading-4 font-medium text-gray-700 dark:text-gray-300 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:border-gray-600 dark:hover:bg-slate-700 px-4 py-2 text-sm mr-3"
+                  className="inline-flex items-center justify-center bg-white dark:bg-gray-900 border border-gray-300 rounded-md shadow-sm leading-4 font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:border-gray-600 dark:hover:bg-gray-700 px-4 py-2 text-sm mr-3"
                 >
                   Добавить группу
                 </Link>
@@ -149,7 +149,7 @@ const LinksCatalog = () => {
                     role="link"
                     tabIndex={group.id}
                     className={[
-                      'flex-grow rounded-lg border border-gray-300 dark:border-gray-700 bg-white hover:cursor-pointer dark:bg-slate-900 p-3 shadow-sm flex items-center space-x-3 hover:border-gray-400 dark:hover:border-gray-600',
+                      'flex-grow rounded-lg border border-gray-300 dark:border-gray-700 bg-white hover:cursor-pointer dark:bg-gray-900 p-3 shadow-sm flex items-center space-x-3 hover:border-gray-400 dark:hover:border-gray-600',
                       group.id - 1 === selectedGroup ? 'ring-2 ring-indigo-500 bg-indigo-100 border-gray-400' : '',
                     ].join(' ')}
                   >
@@ -170,7 +170,7 @@ const LinksCatalog = () => {
                     <Menu as="div" className="relative">
                       <Menu.Button>
                         <div className="flex-shrink-0 px-2">
-                          <div className="w-8 h-8 bg-white dark:bg-slate-800 inline-flex items-center justify-center text-gray-400 rounded-full bg-transparent hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                          <div className="w-8 h-8 bg-white dark:bg-gray-800 inline-flex items-center justify-center text-gray-400 rounded-full bg-transparent hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                             <span className="sr-only">Открыть меню</span>
                             <svg
                               className="w-5 h-5"
@@ -184,7 +184,7 @@ const LinksCatalog = () => {
                           </div>
                         </div>
                       </Menu.Button>
-                      <Menu.Items className="absolute right-0 z-50 mt-2 w-40 origin-top-right divide-y divide-gray-100 dark:divide-gray-700 rounded-md bg-white dark:bg-slate-900 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <Menu.Items className="absolute right-0 z-50 mt-2 w-40 origin-top-right divide-y divide-gray-100 dark:divide-gray-700 rounded-md bg-white dark:bg-gray-900 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <div className="px-1 py-1 ">
                           <Menu.Item>
                             {({ active }) => (
@@ -232,7 +232,7 @@ const LinksCatalog = () => {
               <>
                 <Link
                   to="link/new"
-                  className="inline-flex items-center justify-center bg-white dark:bg-slate-900 border border-gray-300 rounded-md shadow-sm leading-4 font-medium text-gray-700 dark:text-gray-300 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:border-gray-600 dark:hover:bg-slate-700 px-4 py-2 text-sm"
+                  className="inline-flex items-center justify-center bg-white dark:bg-gray-900 border border-gray-300 rounded-md shadow-sm leading-4 font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:border-gray-600 dark:hover:bg-gray-700 px-4 py-2 text-sm"
                 >
                   Добавить ссылку
                 </Link>
@@ -246,7 +246,7 @@ const LinksCatalog = () => {
                   <a href={link.href} target="_blank" rel="noreferrer" className="flex items-center flex-grow">
                     <div
                       className={[
-                        'rounded-lg flex-grow border border-gray-300 dark:border-gray-700 bg-white dark:bg-slate-900 p-3 shadow-sm flex items-center space-x-3 hover:border-gray-400 dark:hover:border-gray-600',
+                        'rounded-lg flex-grow border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 p-3 shadow-sm flex items-center space-x-3 hover:border-gray-400 dark:hover:border-gray-600',
                       ].join(' ')}
                     >
                       <div className="flex-shrink-0">
@@ -267,7 +267,7 @@ const LinksCatalog = () => {
                     <Menu as="div" className="relative">
                       <Menu.Button>
                         <div className="flex-shrink-0 px-2">
-                          <div className="w-8 h-8 bg-white dark:bg-slate-900 inline-flex items-center justify-center text-gray-400 rounded-full bg-transparent hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                          <div className="w-8 h-8 bg-white dark:bg-gray-900 inline-flex items-center justify-center text-gray-400 rounded-full bg-transparent hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                             <span className="sr-only">Открыть меню</span>
                             <svg
                               className="w-5 h-5"
@@ -281,7 +281,7 @@ const LinksCatalog = () => {
                           </div>
                         </div>
                       </Menu.Button>
-                      <Menu.Items className="absolute right-0 z-50 mt-2 w-40 origin-top-right divide-y divide-gray-100 dark:divide-gray-700 rounded-md bg-white dark:bg-slate-900 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <Menu.Items className="absolute right-0 z-50 mt-2 w-40 origin-top-right divide-y divide-gray-100 dark:divide-gray-700 rounded-md bg-white dark:bg-gray-900 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <div className="px-1 py-1 ">
                           <Menu.Item>
                             {({ active }) => (

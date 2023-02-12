@@ -20,6 +20,14 @@ const Colors = () => {
   return (
     <BasicPage title="Цвета" className="main-content max-w-6xl mx-auto px-5">
       <PageHeader pages={breadcrumbs} header="Цвета" />
+      <table>
+        <tbody>
+        <tr>
+          <td>bg-white</td>
+          <td>dark:bg-gray-900</td>
+        </tr>
+        </tbody>
+      </table>
     </BasicPage>
   );
 };

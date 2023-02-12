@@ -14,12 +14,12 @@ const SearchResults = ({ show, query, searchQueryClose, searchType, searchresult
       element: (item, query) => (
         <a
           key={item.fullname}
-          className="flex flex-col border border-transparent border-b-slate-300 border-dashed py-2 hover:cursor-pointer hover:bg-emerald-50 dark:hover:bg-emerald-800/70 hover:border-emerald-300 hover:border hover:rounded-md p-2"
+          className="flex flex-col border border-transparent border-b-gray-300 border-dashed py-2 hover:cursor-pointer hover:bg-emerald-50 dark:hover:bg-emerald-800/70 hover:border-emerald-300 hover:border hover:rounded-md p-2"
         >
-          <p className="text-sm font-bold text-slate-800 dark:text-slate-200">
+          <p className="text-sm font-bold text-gray-800 dark:text-gray-200">
             {getHighlightedText(item.fullname, query)}
           </p>
-          <p className="flex items-center text-sm text-slate-600 dark:text-slate-400">
+          <p className="flex items-center text-sm text-gray-600 dark:text-gray-400">
             <span>{item.profession}</span>
             <span className="mx-2">•</span>
             <span>{item.room}</span>
@@ -33,10 +33,10 @@ const SearchResults = ({ show, query, searchQueryClose, searchType, searchresult
       element: (item, query) => (
         <a
           key={item.DELO_CORRESP_NUM}
-          className="flex flex-col border border-transparent border-b-slate-300 border-dashed py-2 hover:cursor-pointer hover:bg-emerald-50 dark:hover:bg-emerald-800/70 hover:border-emerald-300 hover:border hover:rounded-md p-2"
+          className="flex flex-col border border-transparent border-b-gray-300 border-dashed py-2 hover:cursor-pointer hover:bg-emerald-50 dark:hover:bg-emerald-800/70 hover:border-emerald-300 hover:border hover:rounded-md p-2"
         >
           <div className="flex flex-col">
-            <p className="text-sm font-bold  text-slate-800 dark:text-slate-200 mb-1">
+            <p className="text-sm font-bold  text-gray-800 dark:text-gray-200 mb-1">
               <span className="inline-flex items-center font-medium px-2.5 py-0.5 text-xs bg-cyan-500/30 text-cyan-700 dark:text-cyan-300 rounded-md">
                 <span className="mr-1">Вх. №:</span>
                 {getHighlightedText(item.DELO_CORRESP_NUM, query)}
@@ -46,7 +46,7 @@ const SearchResults = ({ show, query, searchQueryClose, searchType, searchresult
               </span>
               <span className="ml-2">{getHighlightedText(item.CORRESP_MSG_ANNOTATION, query)}</span>
             </p>
-            <p className="flex items-center text-sm text-slate-600 dark:text-slate-400">
+            <p className="flex items-center text-sm text-gray-600 dark:text-gray-400">
               {item.MESSAGE_TYPE === 'Электронная почта' ? (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -98,10 +98,10 @@ const SearchResults = ({ show, query, searchQueryClose, searchType, searchresult
       element: (item, query) => (
         <a
           key={item.DELO_SEND_NUM}
-          className="flex flex-col border border-transparent border-b-slate-300 border-dashed py-2 hover:cursor-pointer hover:bg-emerald-50 dark:hover:bg-emerald-800/70 hover:border-emerald-300 hover:border hover:rounded-md p-2"
+          className="flex flex-col border border-transparent border-b-gray-300 border-dashed py-2 hover:cursor-pointer hover:bg-emerald-50 dark:hover:bg-emerald-800/70 hover:border-emerald-300 hover:border hover:rounded-md p-2"
         >
           <div className="flex flex-col">
-            <p className="text-sm font-bold  text-slate-800 dark:text-slate-200 mb-1">
+            <p className="text-sm font-bold  text-gray-800 dark:text-gray-200 mb-1">
               <span className="inline-flex items-center font-medium px-2.5 py-0.5 text-xs bg-indigo-500/30 text-indigo-700 dark:text-indigo-300 rounded-md">
                 <span className="mr-1">Исх. №:</span>
                 {getHighlightedText(item.DELO_SEND_NUM, query)}
@@ -111,7 +111,7 @@ const SearchResults = ({ show, query, searchQueryClose, searchType, searchresult
               </span>
               <span className="ml-2">{getHighlightedText(item.SEND_MSG_ANNOTATION, query)}</span>
             </p>
-            <p className="flex items-center text-sm text-slate-600 dark:text-slate-400">
+            <p className="flex items-center text-sm text-gray-600 dark:text-gray-400">
               {
                 // eslint-disable-next-line
                 item.MESSAGE_TYPE === 'Разноска' ? (
@@ -180,10 +180,10 @@ const SearchResults = ({ show, query, searchQueryClose, searchType, searchresult
   };
 
   return show ? (
-    <div className="absolute inset-y-full right-0 flex flex-col bg-white dark:bg-slate-900 rounded-md w-full h-min max-h-96 mt-4 border border-slate-300 dark:border-slate-700 shadow-xl p-3">
+    <div className="absolute inset-y-full right-0 flex flex-col bg-white dark:bg-gray-900 rounded-md w-full h-min max-h-96 mt-4 border border-gray-300 dark:border-gray-700 shadow-xl p-3">
       <div className="w-full flex items-center">
         <div className="bg-indigo-100 dark:bg-indigo-800 rounded-md p-3 flex items-center justify-between grow">
-          <p className="uppercase font-bold text-xs text-slate-600 dark:text-slate-400 dark:text-slate-300/80 wrap">
+          <p className="uppercase font-bold text-xs text-gray-600 dark:text-gray-400 dark:text-gray-300/80 wrap">
             {query !== '' ? (
               <>
                 <span>Результаты поиска:</span>
@@ -246,8 +246,8 @@ const SearchResults = ({ show, query, searchQueryClose, searchType, searchresult
       </div>
       {query !== '' && isLoading === 'false' ? (
         <div className="w-full flex items-center mt-3 pr-3">
-          <div className="bg-slate-100 dark:bg-slate-800/80 rounded-md p-3 flex items-center justify-between grow">
-            <p className="uppercase font-bold text-xs text-slate-600 dark:text-slate-400 dark:text-slate-300 wrap">
+          <div className="bg-gray-100 dark:bg-gray-800/80 rounded-md p-3 flex items-center justify-between grow">
+            <p className="uppercase font-bold text-xs text-gray-600 dark:text-gray-400 dark:text-gray-300 wrap">
               {searchresults.length > 0 && query !== '' ? (
                 <>
                   <span>

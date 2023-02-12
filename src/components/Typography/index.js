@@ -58,7 +58,7 @@ const Typography = ({ variant, classname, children, ...other }) => {
       element: (
         <h5
           className={classNames(
-            'xl:text-xl lg:text-lg sm:text-base font-bold text-gray-900 dark:text-white',
+            'xl:text-xl lg:text-lg sm:text-base font-medium text-gray-900 dark:text-white',
             classname || ''
           )}
           {...other}
@@ -120,7 +120,7 @@ const Typography = ({ variant, classname, children, ...other }) => {
     },
     label: {
       element: (
-        <p className={classNames('text-sm font-medium text-gray-700 dark:text-gray-200', classname || '')} {...other}>
+        <p className={classNames('text-base font-medium text-gray-700 dark:text-gray-200', classname || '')} {...other}>
           {children}
         </p>
       ),

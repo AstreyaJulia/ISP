@@ -22,7 +22,7 @@ const Faq = () => {
       <div className="grid grid-cols-4 gap-3 mt-5">
         <Link
           to="/faq/gas"
-          className="bg-white dark:bg-slate-900 hover:shadow-lg flex flex-col items=center p-5 rounded-md shadow gap-4 border-b-4 border-emerald-500"
+          className="bg-white dark:bg-gray-900 hover:shadow-lg flex flex-col items=center p-5 rounded-md shadow gap-4 border-b-4 border-emerald-500"
         >
           <h4 className="text-xl font-bold text-gray-700 dark:text-gray-200 justify-center text-center">
             Подсистемы ГАС Правосудие

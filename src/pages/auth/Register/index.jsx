@@ -173,9 +173,10 @@ const Register = () => {
                   type="submit"
                   isLoading={isSubmitting}
                   label="Установить пароль"
-                  classes={classNames(
+                  size='medium'
+                  className={classNames(
                     isSubmitting
-                      ? 'bg-slate-600 hover:bg-slate-600 focus:ring-offset-0'
+                      ? 'bg-gray-600 hover:bg-gray-600 focus:ring-offset-0'
                       : 'bg-indigo-600 hover:bg-indigo-700 focus:ring-offset-2 focus:ring-indigo-500',
                     'w-full text-sm font-medium text-white focus:outline-none'
                   )}

@@ -47,12 +47,12 @@ const Quiz = ({ steps, answers }) => {
       },
       pre: {
         props: {
-          className: 'flex text-white px-4 py-5 bg-slate-800 rounded-md overflow-x-auto',
+          className: 'flex text-white px-4 py-5 bg-gray-800 rounded-md overflow-x-auto',
         },
       },
       code: {
         props: {
-          className: 'px-0.5 text-slate-600 py-0.5 px-1 bg-slate-400/10 rounded-sm border border-slate-300',
+          className: 'px-0.5 text-gray-600 py-0.5 px-1 bg-gray-400/10 rounded-sm border border-gray-300',
         },
       },
       blockquote: {
@@ -203,7 +203,7 @@ const Quiz = ({ steps, answers }) => {
   };
 
   const makeQuestion = (question) => (
-    <div key={question.value} className="px-5 py-4 flex flex-col rounded-md bg-slate-100 dark:bg-slate-800">
+    <div key={question.value} className="px-5 py-4 flex flex-col rounded-md bg-gray-100 dark:bg-gray-800">
       <div className="text-md font-medium text-gray-900">
         <Markdown options={{ ...mdOptions }}>{question.label}</Markdown>
       </div>
@@ -270,11 +270,12 @@ const Quiz = ({ steps, answers }) => {
           <LoadingButton
             disabled={testResults !== null}
             type="submit"
+            size='medium'
             isLoading={isSubmitting}
             label={testResults !== null ? 'Готово' : 'Отправить'}
-            classes={classNames(
+            className={classNames(
               isSubmitting || testResults !== null
-                ? 'bg-slate-600 hover:bg-slate-600 focus:ring-offset-0'
+                ? 'bg-gray-600 hover:bg-gray-600 focus:ring-offset-0'
                 : 'bg-green-600 hover:bg-green-700 focus:ring-offset-2 focus:ring-green-500',
               'text-sm font-medium mt-5 text-white focus:outline-none'
             )}
@@ -297,7 +298,7 @@ const Quiz = ({ steps, answers }) => {
           <button
             type="button"
             onClick={resetHandle}
-            className="border border-slate-300 mt-5 flex justify-center items-center py-2 px-4 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2"
+            className="border border-gray-300 mt-5 flex justify-center items-center py-2 px-4 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2"
           >
             {testResults !== null ? 'Заново' : 'Сбросить выбранное'}
           </button>

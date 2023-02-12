@@ -104,7 +104,7 @@
 }
 
 .ql-snow .ql-picker.ql-expanded .ql-picker-label .ql-stroke {
-  @apply stroke-gray-300 dark:stroke-gray-600 hover:bg-slate-500/10;
+  @apply stroke-gray-300 dark:stroke-gray-600 hover:bg-gray-500/10;
 }
 
 .ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-label {
@@ -132,7 +132,7 @@
 }
 
 .ql-container.ql-snow .ql-editor {
-  @apply border border-slate-300 dark:border-slate-600 rounded-md mt-1 p-3 placeholder-gray-600 dark:placeholder-gray-400 focus:outline-none focus:text-gray-900 dark:focus:text-gray-400 focus:placeholder-gray-300 dark:placeholder-gray-400 dark:focus:placeholder-gray-700 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm;
+  @apply border border-gray-300 dark:border-gray-600 rounded-md mt-1 p-3 placeholder-gray-600 dark:placeholder-gray-400 focus:outline-none focus:text-gray-900 dark:focus:text-gray-400 focus:placeholder-gray-300 dark:placeholder-gray-400 dark:focus:placeholder-gray-700 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm;
 }
 
 .ql-snow .ql-picker.ql-header .ql-picker-item[data-value='1']::before {
@@ -184,7 +184,7 @@
 }
 
 .ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options {
-  @apply bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-300 rounded-md shadow p-2 flex flex-col gap-2 z-50;
+  @apply bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-300 rounded-md shadow p-2 flex flex-col gap-2 z-50;
 }
 
 .ql-snow.ql-toolbar button:hover,
@@ -201,7 +201,7 @@
 .ql-snow .ql-toolbar .ql-picker-item:hover,
 .ql-snow.ql-toolbar .ql-picker-item.ql-selected,
 .ql-snow .ql-toolbar .ql-picker-item.ql-selected {
-  @apply hover:text-indigo-500 hover:bg-slate-500/10 hover:rounded-md;
+  @apply hover:text-indigo-500 hover:bg-gray-500/10 hover:rounded-md;
 }
 
 .ql-editor.ql-blank::before {
@@ -264,7 +264,7 @@
 }
 
 .ql-snow .ql-editor pre.ql-syntax {
-  @apply text-base my-5 text-white px-4 py-5 bg-slate-800 rounded-md overflow-x-auto;
+  @apply text-base my-5 text-white px-4 py-5 bg-gray-800 rounded-md overflow-x-auto;
 }
 
 .ql-snow .ql-editor blockquote {
@@ -288,7 +288,7 @@
 }
 
 .ql-snow .ql-tooltip {
-  @apply bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 shadow rounded-md;
+  @apply bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 shadow rounded-md;
 }
 
 .ql-snow .ql-tooltip.ql-editing a.ql-action::after {
@@ -296,7 +296,7 @@
 }
 
 .ql-snow .ql-tooltip input[type='text'] {
-  @apply border border-slate-300 dark:border-slate-600 rounded-md p-3 placeholder-gray-600 dark:placeholder-gray-400 focus:outline-none focus:text-gray-900 dark:focus:text-gray-400 focus:placeholder-gray-300 dark:placeholder-gray-400 dark:focus:placeholder-gray-700 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm;
+  @apply border border-gray-300 dark:border-gray-600 rounded-md p-3 placeholder-gray-600 dark:placeholder-gray-400 focus:outline-none focus:text-gray-900 dark:focus:text-gray-400 focus:placeholder-gray-300 dark:placeholder-gray-400 dark:focus:placeholder-gray-700 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm;
 }
 
 .ql-snow.ql-toolbar button,
@@ -311,7 +311,7 @@
 
 .ql-snow.ql-toolbar button,
 .ql-snow .ql-toolbar button {
-  @apply rounded-md hover:bg-slate-500/10;
+  @apply rounded-md hover:bg-gray-500/10;
 }
 
 .ql-editor .ql-align-center {

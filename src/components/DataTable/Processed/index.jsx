@@ -98,7 +98,7 @@ const Processed = ({ data, isLoading, all, error }) => {
   const makeItem = (item, key, query) => (
     <CaseListCard key={key} item={item} query={query} handleOnDblclick={(evt) => handleCardDoubleClick(evt, item)}>
       {item.INFO.toLowerCase().includes('Д.б. рассм./изг.реш. в оконч.форме до'.toLowerCase()) ? (
-        <p className="font-medium text-xs text-slate-600 dark:text-slate-200 flex flex-wrap justify-start items-center text-left mb-1">
+        <p className="font-medium text-xs text-gray-600 dark:text-gray-200 flex flex-wrap justify-start items-center text-left mb-1">
           Рассм. до:{' '}
           <Badge
             size="small"
@@ -127,21 +127,21 @@ const Processed = ({ data, isLoading, all, error }) => {
         item={getStatusSettings(item?.CASE_STATUS, 'title')}
       />
       {item?.MOTIONLES_DATE !== '' ? (
-        <p className="font-medium text-xs text-slate-600 dark:text-slate-200 flex flex-wrap justify-start items-center text-left mb-1">
+        <p className="font-medium text-xs text-gray-600 dark:text-gray-200 flex flex-wrap justify-start items-center text-left mb-1">
           Ост. б/движ.: {item?.MOTIONLES_DATE}
         </p>
       ) : (
         ''
       )}
       {item?.STOP_DATE !== '' ? (
-        <p className="font-medium text-xs text-slate-600 dark:text-slate-200 flex flex-wrap justify-start items-center text-left mb-1">
+        <p className="font-medium text-xs text-gray-600 dark:text-gray-200 flex flex-wrap justify-start items-center text-left mb-1">
           Приост.: {item?.STOP_DATE}
         </p>
       ) : (
         ''
       )}
       {item?.DATE_UNTIL !== '' ? (
-        <p className="font-medium text-xs text-slate-600 dark:text-slate-200 flex flex-wrap justify-start items-center text-left mb-1">
+        <p className="font-medium text-xs text-gray-600 dark:text-gray-200 flex flex-wrap justify-start items-center text-left mb-1">
           Контр. дата:
           <Badge
             size="small"
@@ -244,7 +244,7 @@ const Processed = ({ data, isLoading, all, error }) => {
                 <div className="flex items-center ml-3 justify-start">
                   <label
                     htmlFor="JUDGE_NAME"
-                    className="shrink-0 block text-sm font-medium text-slate-700 dark:text-slate-300 mr-2"
+                    className="shrink-0 block text-sm font-medium text-gray-700 dark:text-gray-300 mr-2"
                   >
                     Судья:
                   </label>
@@ -253,7 +253,7 @@ const Processed = ({ data, isLoading, all, error }) => {
                     name="JUDGE_NAME"
                     defaultValue={selectedFilter.JUDGE_NAME}
                     onChange={filterSelectChangeHandler}
-                    className="grow-0 mt-1 block pl-3 pr-10 py-2 text-base bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                    className="grow-0 mt-1 block pl-3 pr-10 py-2 text-base bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
                   >
                     <option value="All">Все</option>
                     {judgesList.map((judge, key) => (
@@ -269,7 +269,7 @@ const Processed = ({ data, isLoading, all, error }) => {
               <div className="flex items-center ml-3 justify-start">
                 <label
                   htmlFor="CASE_STATUS"
-                  className="shrink-0 block text-sm font-medium text-slate-700 dark:text-slate-300 mr-2"
+                  className="shrink-0 block text-sm font-medium text-gray-700 dark:text-gray-300 mr-2"
                 >
                   Статус:
                 </label>
@@ -278,7 +278,7 @@ const Processed = ({ data, isLoading, all, error }) => {
                   name="CASE_STATUS"
                   defaultValue={selectedFilter.CASE_STATUS}
                   onChange={filterSelectChangeHandler}
-                  className="grow-0 mt-1 block pl-3 pr-10 py-2 text-base bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                  className="grow-0 mt-1 block pl-3 pr-10 py-2 text-base bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
                 >
                   <option value="All">Все</option>
                   {statusList.map((status, key) => (
@@ -295,7 +295,7 @@ const Processed = ({ data, isLoading, all, error }) => {
                 type="button"
                 title="Печать"
                 onClick={handlePDFModalOpen}
-                className="bg-transparent border-0 rounded-full hover:bg-slate-300/30 p-2 text-gray-500 dark:text-gray-400"
+                className="bg-transparent border-0 rounded-full hover:bg-gray-300/30 p-2 text-gray-500 dark:text-gray-400"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -333,19 +333,19 @@ const Processed = ({ data, isLoading, all, error }) => {
           />
           <div className="flex items-center gap-2 mb-5">
             {selectedCase?.MOTIONLES_DATE !== '' ? (
-              <p className="text-slate-700 dark:text-slate-300 text-sm">
+              <p className="text-gray-700 dark:text-gray-300 text-sm">
                 Ост. б./движ.: {selectedCase?.MOTIONLES_DATE}
               </p>
             ) : (
               ''
             )}
             {selectedCase?.STOP_DATE !== '' ? (
-              <p className="text-slate-700 dark:text-slate-300 text-sm">Приост.: {selectedCase?.STOP_DATE}</p>
+              <p className="text-gray-700 dark:text-gray-300 text-sm">Приост.: {selectedCase?.STOP_DATE}</p>
             ) : (
               ''
             )}
             {selectedCase?.DATE_UNTIL !== '' ? (
-              <p className="text-slate-700 dark:text-slate-300 text-sm">
+              <p className="text-gray-700 dark:text-gray-300 text-sm">
                 до:
                 <Badge
                   size="small"
@@ -360,7 +360,7 @@ const Processed = ({ data, isLoading, all, error }) => {
             )}
           </div>
           {selectedCase.INFO?.toLowerCase().includes('Д.б. рассм./изг.реш. в оконч.форме до'.toLowerCase()) ? (
-            <p className="text-slate-700 dark:text-slate-300 text-sm mb-5">
+            <p className="text-gray-700 dark:text-gray-300 text-sm mb-5">
               Срок рассм. до:{' '}
               <Badge
                 size="small"
@@ -387,19 +387,19 @@ const Processed = ({ data, isLoading, all, error }) => {
           ) : (
             ''
           )}
-          <p className="text-slate-600 dark:text-slate-400 text-sm font-bold mb-2">Стороны лица/по делу:</p>
-          <p className="text-slate-700 dark:text-slate-300 text-sm mb-5">{selectedCase.PARTS_FIO}</p>
-          <p className="text-slate-600 dark:text-slate-400 text-sm font-bold mb-2">Категория / статья:</p>
-          <p className="text-slate-700 dark:text-slate-300 text-sm mb-5">{selectedCase.CAT}</p>
-          <p className="text-slate-600 dark:text-slate-400 text-sm font-bold mb-2">Информация:</p>
+          <p className="text-gray-600 dark:text-gray-400 text-sm font-bold mb-2">Стороны лица/по делу:</p>
+          <p className="text-gray-700 dark:text-gray-300 text-sm mb-5">{selectedCase.PARTS_FIO}</p>
+          <p className="text-gray-600 dark:text-gray-400 text-sm font-bold mb-2">Категория / статья:</p>
+          <p className="text-gray-700 dark:text-gray-300 text-sm mb-5">{selectedCase.CAT}</p>
+          <p className="text-gray-600 dark:text-gray-400 text-sm font-bold mb-2">Информация:</p>
           {selectedCase.INFO?.length > 0 && selectedCase.INFO !== 'null' ? (
             selectedCase.INFO.split(';').map((item, key) => (
-              <p key={key} className="text-slate-700 dark:text-slate-300 text-sm">
+              <p key={key} className="text-gray-700 dark:text-gray-300 text-sm">
                 {item};
               </p>
             ))
           ) : (
-            <p className="text-slate-700 dark:text-slate-300 text-sm">Нет информации</p>
+            <p className="text-gray-700 dark:text-gray-300 text-sm">Нет информации</p>
           )}
         </div>
       </CaseInfoModal>

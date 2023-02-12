@@ -19,18 +19,16 @@ export default function RoleBasedGuard({ accessibleRoles, accessibleProfessions,
     (accessibleProfessions && !accessibleProfessions.includes(user?.professionID))
   ) {
     return (
-      <div className="p-4">
+      <div className="p-4 max-w-3xl mx-auto">
         <Alert alertType="error" title="Доступ запрещён">
           <p>У вас нет прав доступа к этой странице</p>
         </Alert>
-        <div className="mt-10 flex space-x-3 sm:border-l sm:border-transparent sm:pl-6 justify-center">
-          <Link
-            to="/home"
-            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
-            На главную
-          </Link>
-        </div>
+        <Link
+          to="/home"
+          className="mt-10 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        >
+          На главную
+        </Link>
       </div>
     );
   }

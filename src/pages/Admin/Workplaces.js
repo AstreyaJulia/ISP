@@ -60,7 +60,7 @@ const Workplaces = () => {
           <>
             <div className='flex items-center w-full justify-between'>
               <Disclosure.Button
-                className='pl-2 flex items-center shrink-0 my-1 grow text-slate-800 dark:text-slate-200'
+                className='pl-2 flex items-center shrink-0 my-1 grow text-gray-800 dark:text-gray-200'
               >
                 <div className='rounded-l-md flex grow items-center'>
                   <div className='flex flex-col items-start grow'>
@@ -230,7 +230,7 @@ const Workplaces = () => {
         <p
           title={item.subtitle !== '' ? `${item.title} ${item.subtitle}` : item.title}
           key={key}
-          className='flex grow items-center p-2 text-sm justify-start text-left mb-1 text-slate-800 dark:text-slate-200 gap-2'
+          className='flex grow items-center p-2 text-sm justify-start text-left mb-1 text-gray-800 dark:text-gray-200 gap-2'
         >
           <img src={icons[item.icon]} alt='Значок' className='h-4 w-4' />
           <span>
@@ -301,7 +301,7 @@ const Workplaces = () => {
           <>
             <div className='flex items-center w-full justify-between'>
               <Disclosure.Button
-                className='pl-2 flex items-center shrink-0 my-1 grow text-slate-800 dark:text-slate-200'
+                className='pl-2 flex items-center shrink-0 my-1 grow text-gray-800 dark:text-gray-200'
               >
                 <div className='rounded-l-md flex grow items-center'>
                   <div className='flex flex-col items-start grow'>
@@ -470,7 +470,7 @@ const Workplaces = () => {
       <div className={classNames(`pl-${count + 3}`, 'flex items-center w-full justify-between')}>
         <p
           key={key}
-          className='flex grow items-center p-2 text-sm justify-start text-left mb-1 text-slate-800 dark:text-slate-200 gap-2'
+          className='flex grow items-center p-2 text-sm justify-start text-left mb-1 text-gray-800 dark:text-gray-200 gap-2'
         >
           <img src={icons[item.icon]} alt='Значок' className='h-4 w-4' />
           <span>

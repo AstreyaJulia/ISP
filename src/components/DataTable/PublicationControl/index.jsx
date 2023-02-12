@@ -49,7 +49,7 @@ const PublicationControl = ({ data, isLoading, all, error }) => {
   const makeItem = (item, key, query) => (
     <CaseListCard key={key} item={item} query={query}>
       {item?.DATE_UNTILL !== null ? (
-        <p className="font-medium text-xs text-slate-800 dark:text-slate-200 flex flex-wrap line-clamp-1 justify-start items-center text-left mb-1">
+        <p className="font-medium text-xs text-gray-800 dark:text-gray-200 flex flex-wrap line-clamp-1 justify-start items-center text-left mb-1">
           До:
           <Badge
             size="small"
@@ -62,10 +62,10 @@ const PublicationControl = ({ data, isLoading, all, error }) => {
       ) : (
         <Badge size="small" shape="rounded" color="indigo" item="Не вступило" />
       )}
-      <p className="font-medium text-xs text-slate-600 dark:text-slate-200 flex flex-wrap justify-start items-center text-left mb-1">
+      <p className="font-medium text-xs text-gray-600 dark:text-gray-200 flex flex-wrap justify-start items-center text-left mb-1">
         Рассм.: {item?.VERDICT_DATE}
       </p>
-      <p className="font-medium text-xs text-slate-600 dark:text-slate-200 flex flex-wrap justify-start items-center text-left mb-1">
+      <p className="font-medium text-xs text-gray-600 dark:text-gray-200 flex flex-wrap justify-start items-center text-left mb-1">
         {item?.PUBLICATION_STATUS}
       </p>
     </CaseListCard>
@@ -128,7 +128,7 @@ const PublicationControl = ({ data, isLoading, all, error }) => {
             <div className="flex items-center ml-3 justify-start">
               <label
                 htmlFor="judges"
-                className="shrink-0 block text-sm font-medium text-slate-700 dark:text-slate-300 mr-2"
+                className="shrink-0 block text-sm font-medium text-gray-700 dark:text-gray-300 mr-2"
               >
                 Судья:
               </label>
@@ -137,7 +137,7 @@ const PublicationControl = ({ data, isLoading, all, error }) => {
                 name="judges"
                 defaultValue={selectedJudge}
                 onChange={judgeSelectChangeHandler}
-                className="grow-0 mt-1 block pl-3 pr-10 py-2 text-base bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                className="grow-0 mt-1 block pl-3 pr-10 py-2 text-base bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
               >
                 <option value="All">Все</option>
                 {judgesList.map((judge, key) => (
@@ -157,7 +157,7 @@ const PublicationControl = ({ data, isLoading, all, error }) => {
               type="button"
               title="Печать"
               onClick={handlePDFModalOpen}
-              className="bg-transparent border-0 rounded-full hover:bg-slate-300/30 p-2 text-gray-500 dark:text-gray-400"
+              className="bg-transparent border-0 rounded-full hover:bg-gray-300/30 p-2 text-gray-500 dark:text-gray-400"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

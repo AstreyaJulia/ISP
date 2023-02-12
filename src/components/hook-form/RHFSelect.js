@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useFormContext, Controller } from 'react-hook-form';
 import Select, { components } from 'react-select';
-import ValidationError from './ValidationError';
+import { Tooltip } from 'react-tooltip';
 import useAuth from '../../hooks/useAuth';
 import { tailwindColorsConfig } from '../../utils/getTailwindconfig';
+import { classNames } from '../../utils/classNames';
 
-export default function RHFSelect({ name, label, options, placeholder, isMulti, onChange, onFocus, noOptionsMessage }) {
+export default function RHFSelect({ name, label, options, placeholder, isMulti, onChange, onFocus, noOptionsMessage, direction }) {
   const { control } = useFormContext();
 
   const { theme } = useAuth();
@@ -24,7 +25,7 @@ export default function RHFSelect({ name, label, options, placeholder, isMulti, 
   /* Плейсхолдер */
   const Placeholder = (props) => (
       <components.Placeholder {...props}>
-        <span className='text-sm text-gray-600 dark:text-gray-400'>{props.children}</span>
+        <span className='text-base text-gray-600 dark:text-gray-400'>{props.children}</span>
       </components.Placeholder>
     );
 
@@ -44,7 +45,7 @@ export default function RHFSelect({ name, label, options, placeholder, isMulti, 
 
   /* Форматтер элемента меню */
   const formatOptionLabel = ({ label, icon, customAbbreviation }) => (
-    <div className='flex items-center group flex w-full items-center text-sm gap-2 w-full h-full'>
+    <div className='flex items-center group flex w-full items-center text-base gap-2 w-full h-full'>
       {icon ? <span>{icon}</span> : ''}
       <span>{label}</span>
       {customAbbreviation}
@@ -57,7 +58,7 @@ export default function RHFSelect({ name, label, options, placeholder, isMulti, 
         className='flex items-center justify-center flex w-full items-center bg-slate-100 dark:bg-slate-800 rounded-md'>
         <components.NoOptionsMessage {...props}>
           <span
-            className='text-gray-600 dark:text-gray-400 font-medium text-sm'>{noOptionsMessage || 'Результатов не найдено'}</span>
+            className='text-gray-600 dark:text-gray-400 font-medium text-base'>{noOptionsMessage || 'Результатов не найдено'}</span>
         </components.NoOptionsMessage>
       </div>
     );
@@ -108,98 +109,101 @@ export default function RHFSelect({ name, label, options, placeholder, isMulti, 
       control={control}
       defaultValue={options.map(c => c.value)}
       render={({ field: { value, ref }, fieldState: { error } }) => (
-        <div>
+        <div className={classNames('flex w-full', direction === 'row' ? 'items-center justify-end' : 'flex-col', label ? 'gap-4' : '')}>
+
           {label ? (
-            <label htmlFor={name} className='flex flex-col'>
-              <span className='sr-only' />
+            <label htmlFor={name} className='text-right w-52 flex flex-col shrink-0 text-base font-medium text-gray-700 dark:text-gray-200'>
               {label}
             </label>
           ) : (
             ''
           )}
-          <div className='mt-1 relative rounded-md shadow-sm'>
-            <div>
-              <Select
-                inputRef={ref}
-                onFocus={() => onFocus()}
-                value={isMulti ? options.filter(c => value.includes(c.value)) : options.find(c => c.value === value)}
-                styles={{
-                  control: (base) => ({
-                    ...base,
-                    padding: `0`,
-                    borderRadius: '0.375rem',
-                    backgroundColor: theme === 1 ? tailwindColorsConfig.theme.colors.gray['50'] : tailwindColorsConfig.theme.colors.gray['800'],
-                    borderColor: theme === 1 ? tailwindColorsConfig.theme.colors.slate['300'] : tailwindColorsConfig.theme.colors.slate['600'],
-                    color: theme === 1 ? tailwindColorsConfig.theme.colors.slate['300'] : tailwindColorsConfig.theme.colors.slate['600'],
-                    '::placeholder': theme === 1 ? tailwindColorsConfig.theme.colors.slate['300'] : tailwindColorsConfig.theme.colors.slate['600'],
-                  }),
-                  container: (base) => ({
-                    ...base,
-                    margin: `0`,
-                  }),
-                  clearIndicator: (base) => ({
-                    ...base,
-                    padding: `0 4px 0 8px`,
-                  }),
-                  dropdownIndicator: (base) => ({
-                    ...base,
-                    padding: `0 8px 0 4px`,
-                  }),
-                  valueContainer: (base) => ({
-                    ...base,
-                    borderRadius: '0.375rem',
-                  }),
-                  option: (base) => ({
-                    ...base,
-                    padding: `0`,
-                    margin: `0`,
-                  }),
-                  input: (base) => ({
-                    ...base,
-                    outlineRadius: '0.375rem',
-                    padding: `0`,
-                    margin: `0`,
-                  }),
-                  multiValue: (base) => ({
-                    ...base,
-                    padding: '0',
-                    borderRadius: '0.375rem',
-                  }),
-                  multiValueRemove: (base) => ({
-                    ...base,
-                    padding: '0 3px',
-                    backgroundColor: 'none',
-                  }),
-                  multiValueLabel: (base) => ({
-                    ...base,
-                    padding: '0',
-                    backgroundColor: 'none',
-                    borderRadius: '0',
-                    color: 'currentcolor',
-                  }),
-                }}
-                isMulti={isMulti}
-                components={{
-                  DropdownIndicator,
-                  Placeholder,
-                  MenuList,
-                  NoOptionsMessage,
-                  MultiValueLabel,
-                  Option,
-                  MultiValueRemove,
-                  ClearIndicator,
-                }}
-                formatOptionLabel={formatOptionLabel}
-                classNamePrefix={error ? 'react-select2-error react-select2' : 'react-select2'}
-                placeholder={placeholder || (isMulti === 'true' ? 'Выберите одно или несколько значений' : 'Выберите значение')}
-                options={options}
-                onChange={(evt) => onChange(evt)}
-                isClearable={'true'}
-              />
-              {!!error && <div className='text-sm text-red-600 dark:text-red-400 mt-2'>{error.message}</div>}
-            </div>
+          <div className='relative rounded-md shadow-sm w-full'>
+            <Select
+              id={name}
+              inputRef={ref}
+              onFocus={() => onFocus()}
+              value={isMulti ? options.filter(c => value.includes(c.value)) : options.find(c => c.value === value)}
+              styles={{
+                control: (base) => ({
+                  ...base,
+                  padding: `0`,
+                  borderRadius: '0.5rem',
+                  backgroundColor: theme === 1 ? tailwindColorsConfig.theme.colors.gray['100'] : tailwindColorsConfig.theme.colors.gray['800'],
+                  borderColor: theme === 1 ? tailwindColorsConfig.theme.colors.slate['300'] : tailwindColorsConfig.theme.colors.slate['600'],
+                  color: theme === 1 ? tailwindColorsConfig.theme.colors.slate['300'] : tailwindColorsConfig.theme.colors.slate['600'],
+                  '::placeholder': theme === 1 ? tailwindColorsConfig.theme.colors.slate['300'] : tailwindColorsConfig.theme.colors.slate['600'],
+                }),
+                container: (base) => ({
+                  ...base,
+                  margin: `0`,
+                  width: '100%',
+                }),
+                clearIndicator: (base) => ({
+                  ...base,
+                  padding: `0 4px 0 8px`,
+                }),
+                dropdownIndicator: (base) => ({
+                  ...base,
+                  padding: `0 8px 0 4px`,
+                }),
+                valueContainer: (base) => ({
+                  ...base,
+                  borderRadius: '0.5rem',
+                  padding: `8px 12px`,
+                }),
+                option: (base) => ({
+                  ...base,
+                  padding: `0`,
+                  margin: `0`,
+                }),
+                input: (base) => ({
+                  ...base,
+                  outlineRadius: '0.5rem',
+                  padding: `0`,
+                  margin: `0`,
+                }),
+                multiValue: (base) => ({
+                  ...base,
+                  padding: '0',
+                  borderRadius: '0.5rem',
+                }),
+                multiValueRemove: (base) => ({
+                  ...base,
+                  padding: '0 3px',
+                  backgroundColor: 'none',
+                }),
+                multiValueLabel: (base) => ({
+                  ...base,
+                  padding: '0',
+                  backgroundColor: 'none',
+                  borderRadius: '0',
+                  color: 'currentcolor',
+                }),
+              }}
+              isMulti={isMulti}
+              components={{
+                DropdownIndicator,
+                Placeholder,
+                MenuList,
+                NoOptionsMessage,
+                MultiValueLabel,
+                Option,
+                MultiValueRemove,
+                ClearIndicator,
+              }}
+              formatOptionLabel={formatOptionLabel}
+              classNamePrefix={error ? 'react-select2-error react-select2' : 'react-select2'}
+              placeholder={placeholder || (isMulti === 'true' ? 'Выберите одно или несколько значений' : 'Выберите значение')}
+              options={options}
+              onChange={(evt) => onChange(evt)}
+              isClearable={'true'}
+            />
             {error ? (
-              <div className='absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none'>
+              <div className='absolute inset-y-0 right-8 flex items-center pointer-events-none'>
+
+                <Tooltip anchorId={name} content={error?.message} place="top" />
+
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   viewBox='0 0 24 24'
@@ -217,7 +221,6 @@ export default function RHFSelect({ name, label, options, placeholder, isMulti, 
               ''
             )}
           </div>
-          <ValidationError error={error} name={name} />
         </div>
       )}
     />
@@ -229,5 +232,12 @@ RHFSelect.propTypes = {
   name: PropTypes.string,
   placeholder: PropTypes.string,
   isMulti: PropTypes.string,
+  label: PropTypes.string,
   defaultValue: PropTypes.string,
+  direction: PropTypes.oneOf(['row', 'column']),
+};
+
+RHFSelect.defaultProps = {
+  label: null,
+  direction: 'row',
 };

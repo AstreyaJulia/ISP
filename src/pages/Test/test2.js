@@ -47,10 +47,10 @@ const Faq = () => {
           <>
             <Disclosure.Button
               className={classNames(
-                'mt-2 py-3 pl-2 w-full flex items-center rounded-md shrink-0 w-full hover:bg-slate-200',
+                'mt-2 py-3 pl-2 w-full flex items-center rounded-md shrink-0 w-full hover:bg-gray-200',
                 open
                   ? 'bg-indigo-100 text-indigo-800 dark:bg-indigo-700/30 dark:text-indigo-200'
-                  : 'bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-200'
+                  : 'bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-200'
               )}
             >
               <div className="flex grow items-center">
@@ -66,7 +66,7 @@ const Faq = () => {
                 viewBox="0 0 24 24"
                 strokeWidth={3}
                 stroke="currentColor"
-                className={classNames(open ? 'rotate-90 transform fill-slate-600' : '', 'w-3 h-3 mx-3 shrink-0')}
+                className={classNames(open ? 'rotate-90 transform fill-gray-600' : '', 'w-3 h-3 mx-3 shrink-0')}
               >
                 <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
               </svg>
@@ -75,7 +75,7 @@ const Faq = () => {
               {item.children?.length > 0 ? (
                 item.children.map((item, key) => sidebarLink(item, key, count))
               ) : (
-                <p className="font-medium text-sm mt-2 py-3 pl-2 w-full flex items-center rounded-md shrink-0 w-full hover:bg-slate-200">
+                <p className="font-medium text-sm mt-2 py-3 pl-2 w-full flex items-center rounded-md shrink-0 w-full hover:bg-gray-200">
                   {item.title}
                 </p>
               )}
@@ -86,7 +86,7 @@ const Faq = () => {
     ) : (
       <p
         key={key}
-        className="hover:cursor-pointer text-slate-800 font-medium text-sm mt-2 py-3 pl-2 w-full flex items-center rounded-md shrink-0 w-full hover:bg-slate-200"
+        className="hover:cursor-pointer text-gray-800 font-medium text-sm mt-2 py-3 pl-2 w-full flex items-center rounded-md shrink-0 w-full hover:bg-gray-200"
       >
         {item.title}
       </p>

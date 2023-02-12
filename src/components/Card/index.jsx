@@ -5,7 +5,7 @@ import { classNames } from '../../utils/classNames';
 const Card = ({ children, classname }) => (
   <div
     className={classNames(
-      'bg-white dark:bg-slate-900 overflow-hidden shadow rounded-lg overflow-visible',
+      'bg-white dark:bg-gray-900 overflow-hidden shadow-md rounded-lg overflow-visible',
       classname || ''
     )}
   >

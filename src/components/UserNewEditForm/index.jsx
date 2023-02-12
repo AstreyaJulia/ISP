@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import {isDate, parse} from "date-fns";
+import { isDate, parse } from 'date-fns';
 import Toast, { toastStyles } from '../Toast';
 import { setSession } from '../../utils/jwt';
 import {
@@ -24,7 +24,7 @@ import { classNames } from '../../utils/classNames';
 
 import axios from '../../utils/axios';
 import { getLoginFromName } from '../../utils/createLogin';
-import {formatDate} from "../../utils/formatTime";
+import { formatDate } from '../../utils/formatTime';
 import Badge from '../Badge';
 
 
@@ -36,7 +36,7 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
   const [loadingProfessions, setLoadingProfessions] = useState(false);
   const [professionsOptions, setProfessionsOptions] = useState([]);
 
-  const [loadingJudges, setLoadingJudges,] = useState(false);
+  const [loadingJudges, setLoadingJudges] = useState(false);
   const [judgesOptions, setJudgesOptions] = useState([]);
 
   const [profession, setProfession] = useState(0);
@@ -57,14 +57,15 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
     fullname: Yup.string().required('Фамилия, имя, отчество обязательны для заполнения'),
     gender: Yup.number().required('Пол обязателен для заполнения'),
     dob: Yup.date()
-        .transform(value => {
-      if (value !== '' && !isDate(value)) {
-        return parse(value, 'dd.MM.yyyy', new Date())
-      } if (value !== '' && isDate(value)) {
-        return value
-      }
-      return null
-    }).required('Дата рождения обязательна для заполнения'),
+      .transform(value => {
+        if (value !== '' && !isDate(value)) {
+          return parse(value, 'dd.MM.yyyy', new Date());
+        }
+        if (value !== '' && isDate(value)) {
+          return value;
+        }
+        return null;
+      }).required('Дата рождения обязательна для заполнения'),
     mobilephone: Yup.string().nullable().default(null).transform(value => value === '' ? null : value).matches(/^79[0-9]{9}$/, 'Номер телефона в неправильном формате'),
     email: Yup.string().nullable().default(null).transform(value => value === '' ? null : value).matches(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, 'Адрес электронной почты в неправильном формате'),
     professionID: Yup.number(),
@@ -129,12 +130,12 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
 
   const onSubmit = async () => {
     const values = getValues();
-    console.log(values)
+    console.log(values);
     try {
       if (!isEdit) {
         await axios.post(`/staff`, values);
       } else {
-        await axios.patch(`/staff`, {...values, id: currentUser.id});
+        await axios.patch(`/staff`, { ...values, id: currentUser.id });
       }
       /* Сохранение пользователя */
       reset();
@@ -192,11 +193,11 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
           });
         }
         const roomsOptions = roomslist.map((item) => ({
-            'id': item.id,
-            'value': item.id,
-            'label': item.label,
-            'selectID': 'workplaceID',
-          }));
+          'id': item.id,
+          'value': item.id,
+          'label': item.label,
+          'selectID': 'workplaceID',
+        }));
 
         /* Получаем список рабочих мест, очищаем, обрабатываем и пишем в стейт */
         setRoomsOptions([]);
@@ -217,11 +218,11 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
       .then((res) => {
         const professionslist = res.data.data;
         const professionsOptions = professionslist.map((item) => ({
-            'id': item.id,
-            'value': item.id,
-            'label': item.label,
-            'selectID': 'professionID',
-          }));
+          'id': item.id,
+          'value': item.id,
+          'label': item.label,
+          'selectID': 'professionID',
+        }));
 
         /* Получаем список должностей, очищаем, обрабатываем и пишем в стейт */
         setProfessionsOptions([]);
@@ -242,11 +243,11 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
       .then((res) => {
         const jugdeslist = res.data.data;
         const jugdesOptions = jugdeslist.map((item) => ({
-            'id': item.id,
-            'value': item.id,
-            'label': item.label,
-            'selectID': 'affiliationJudgeID',
-          }));
+          'id': item.id,
+          'value': item.id,
+          'label': item.label,
+          'selectID': 'affiliationJudgeID',
+        }));
 
         /* Получаем список должностей, очищаем, обрабатываем и пишем в стейт */
         setJudgesOptions([]);
@@ -284,137 +285,143 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
   };
 
   return (
-    <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+    <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)} className='max-w-3xl mx-auto'>
 
-      <div className='grid md:grid-cols-4 gap-7 p-3'>
-        <Card classname='p-5 mt-4 col-span-3'>
-          <div className='flex flex-col gap-4'>
-            <div className='flex items-start justify-between gap-5'>
-              <div className='flex gap-5'>
-                <Typography variant='subtitle1'>Аккаунт</Typography>
-                <Badge className='w-40' size='small' color={currentUser?.setPass === 1 ? 'green' : 'yellow'} item={currentUser?.setPass === 1 ? 'Пароль установлен' : 'Пароль не установлен'} shape='rounded' />
-              </div>
-               <div className='flex gap-3'>
+      <div className='p-3'>
+        <Card classname='p-6 col-span-3 mt-6'>
+          <div className='flex flex-col gap-3 items-start'>
+            <div className='flex items-center gap-5 mb-3'>
+              <div className='w-52 text-right' />
 
-                <RHFSwitch className='w-44' name='active' enabledLabel='Активен' disabledLabel='Заблокирован' color='emerald'
-                           checkedValue={1} onChange={(evt) => onChangeActive(evt)}  />
-                <RHFSwitch className='w-44' name='sudo' enabledLabel='Администратор' disabledLabel='Пользователь' color='indigo'
+              <div className='flex gap-3 justify-end w-full'>
+                <RHFSwitch className='w-44' name='active' enabledLabel='Активен' disabledLabel='Заблокирован'
+                           color='emerald'
+                           checkedValue={1} onChange={(evt) => onChangeActive(evt)} />
+                <RHFSwitch className='w-44' name='sudo' enabledLabel='Администратор' disabledLabel='Пользователь'
+                           color='indigo'
                            checkedValue={1} onChange={(evt) => onChangeSudo(evt)} />
               </div>
 
             </div>
-            <RHFTextField name='username' placeholder='Имя пользователя'
-                          label={<Typography variant='label' classname='mb-1'>Имя пользователя</Typography>} />
-            <Typography variant='subtitle1' classname='mb-2'>Персональные данные</Typography>
-            <RHFTextField name='fullname' placeholder='Фамилия, имя, отчество'
-                          label={<Typography variant='label' classname='mb-1'>Фамилия, имя, отчество</Typography>} />
-            <div className='grid md:grid-cols-3 gap-5'>
-              <RHFDatePicker name='dob' placeholder='Дата рождения'
-                             label={<Typography variant='label' classname='mb-1'>Дата рождения</Typography>} />
-              <div>
-                <RHFGenderRadioGroup name='gender' defaultValue={genders[0].value} options={genders}
-                                     label={<Typography variant='label' classname='mb-1'>Пол</Typography>} />
-              </div>
+            <Typography variant='h5' classname='mb-2'>Персональные данные</Typography>
+
+            <RHFTextField name='fullname' placeholder='Фамилия, имя, отчество' label='Фамилия, имя, отчество' />
+
+            <div className='flex items-center gap-5 mb-5'>
+              <RHFDatePicker name='dob' placeholder='Дата рождения' label='Дата рождения' />
+              <RHFGenderRadioGroup name='gender' defaultValue={genders[0].value} options={genders} />
             </div>
-            <Typography variant='subtitle1' classname='mb-2'>Сведения о работе</Typography>
-            <div className='grid md:grid-cols-2 gap-5'>
+
+            <Typography variant='h5' classname='mb-2'>Аккаунт</Typography>
+
+            <div className='flex w-full gap-5'>
+              <RHFTextField name='username' placeholder='Имя пользователя' label='Имя пользователя' />
+              <BasicButton size='medium' onClick={generateLogin} className='w-60'
+                           variant='basic'>Генерировать</BasicButton>
+            </div>
+
+            <div className='flex w-full justify-between gap-5 h-10 mb-5'>
+              <div className='flex gap-5 items-center'>
+                <div className='w-52 text-right' />
+                <Badge size='small' color={currentUser?.setPass === 1 ? 'green' : 'yellow'}
+                       item={currentUser?.setPass === 1 ? <>
+                         <svg
+                           xmlns='http://www.w3.org/2000/svg'
+                           viewBox='0 0 24 24'
+                           fill='currentColor'
+                           className='h-3 w-3 text-green-600 mr-1'
+                         >
+                           <path
+                             d='M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z' />
+                         </svg>
+                         <span className='flex'>Пароль установлен</span></> : <>
+                         <svg
+                           xmlns='http://www.w3.org/2000/svg'
+                           viewBox='0 0 24 24'
+                           fill='currentColor'
+                           className='h-3 w-3 text-yellow-600 mr-1'
+                         >
+                           <path
+                             d='M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z' />
+                         </svg>
+                         <span className='flex'>Пароль не установлен</span></>}
+                       shape='rounded' />
+              </div>
+
+              {isEdit && currentUser?.setPass === 1 ? <>
+                <BasicButton size='medium' className='w-44' variant='basic'>Сбросить пароль</BasicButton>
+              </> : ''}
+            </div>
+
+
+            <Typography variant='h5' classname='mb-2'>Сведения о работе</Typography>
+
+            <div className='flex items-center gap-5 w-full'>
               <RHFSelect name='professionID'
                          onChange={(evt) => onChangeProfession(evt)}
                          onFocus={() => onFocusProfession()}
                          noOptionsMessage={loadingProfessions ? 'Загрузка...' : 'Результатов не найдено'}
                          placeholder='Выберите должность'
                          options={professionsOptions}
-                         label={<Typography variant='label' classname='mb-1'>Должность</Typography>} />
-              {values.professionID.toString() === '6' || values.professionID.toString() === '7' || values.professionID.toString() === '9' ?
-                <RHFSelect name='affiliationJudgeID'
-                           onChange={(evt) => onChangeAffiliation(evt)}
-                           onFocus={() => onFocusJudges()}
-                           noOptionsMessage={loadingJudges ? 'Загрузка...' : 'Результатов не найдено'}
-                           placeholder='Выберите судью'
-                           options={judgesOptions}
-                           label={<Typography variant='label' classname='mb-1'>Принадлежность
-                             судье</Typography>} /> : null}
-            </div>
-            <div className='grid md:grid-cols-2 gap-5'>
-              <RHFSelect name='workplaceID'
-                         placeholder='Выберите рабочее место'
-                         onChange={(evt) => onChangeRoom(evt)}
-                         onFocus={() => onFocusRooms()}
-                         noOptionsMessage={loadingRooms ? 'Загрузка...' : 'Результатов не найдено'}
-                         options={roomsOptions}
-                         label={<Typography variant='label' classname='mb-1'>Рабочее место</Typography>} />
-              <RHFTextField name='idGAS'
-                            label={<Typography variant='label' classname='mb-1'>ID в ПИ СДП</Typography>}
-                            placeholder='' />
-            </div>
+                         label='Должность' />
 
-            <Typography variant='subtitle1' classname='mb-2'>Контакты</Typography>
-            <div className='grid md:grid-cols-2 gap-5'>
-              <RHFTextField name='mobilephone'
-                            label={<Typography variant='label' classname='mb-1'>Номер мобильного</Typography>}
-                            placeholder='79xxxxxxxxx' />
-              <RHFTextField name='email'
-                            label={<Typography variant='label' classname='mb-1'>Адрес электронной почты</Typography>}
-                            placeholder='sample@sample.com' />
-            </div>
-            <RHFTextareaField name='address' label={<Typography variant='label' classname='mb-1'>Адрес</Typography>}
-                              placeholder='Адрес' rows={2} />
-            <Typography variant='subtitle1' classname='mb-2'>Прочее</Typography>
-            <RHFTextareaField name='website' label={<Typography variant='label' classname='mb-1'>Ссылки на социальные
-              сети</Typography>} placeholder='Ссылки на социальные сети' rows={5} />
-            <RHFTextareaField name='comment'
-                              label={<Typography variant='label' classname='mb-1'>Комментарий</Typography>}
-                              placeholder='Комментарий' rows={7} />
-          </div>
-        </Card>
-
-        <div>
-          <Card classname='p-5 mt-4'>
-            <div className='flex flex-col gap-4'>
-              <div className='flex flex-col gap-7'>
-                <div>
-                  <Typography variant='label' classname='mb-2'>Сгенерировать имя пользователя из ФИО</Typography>
-                  <BasicButton size='medium' label='Генерировать' onClick={generateLogin} />
-                </div>
-
-                <div>
-                  {isEdit ? <>
-                    <Typography variant='label' classname='mb-2'>Сбросить пароль пользователя</Typography>
-                    <BasicButton size='medium' label='Сбросить' />
-                  </> : ''}
-                </div>
-
+              <div className='flex shrink-0 w-40'>
+                <RHFTextField name='idGAS' placeholder='ID в ПИ "СДП"' />
               </div>
             </div>
-          </Card>
 
-        </div>
+            {values.professionID.toString() === '6' || values.professionID.toString() === '7' || values.professionID.toString() === '9' ?
+              <RHFSelect name='affiliationJudgeID'
+                         onChange={(evt) => onChangeAffiliation(evt)}
+                         onFocus={() => onFocusJudges()}
+                         noOptionsMessage={loadingJudges ? 'Загрузка...' : 'Результатов не найдено'}
+                         placeholder='Выберите судью'
+                         options={judgesOptions}
+                         label='Принадлежность
+                           судье' /> : null}
 
+            <RHFSelect name='workplaceID'
+                       placeholder='Выберите рабочее место'
+                       onChange={(evt) => onChangeRoom(evt)}
+                       onFocus={() => onFocusRooms()}
+                       noOptionsMessage={loadingRooms ? 'Загрузка...' : 'Результатов не найдено'}
+                       options={roomsOptions}
+                       label='Рабочее место' />
+
+            <Typography variant='h5' classname='mb-2'>Контакты</Typography>
+
+            <RHFTextField name='mobilephone'
+                          label='Номер мобильного'
+                          placeholder='79xxxxxxxxx' />
+            <RHFTextField name='email'
+                          label='Адрес эл. почты'
+                          placeholder='sample@sample.com' />
+
+            <RHFTextareaField name='address' label='Адрес'
+                              placeholder='Адрес' rows={2} />
+            <Typography variant='h5' classname='mb-2'>Прочее</Typography>
+            <RHFTextareaField name='website' label='Ссылки на соц.
+              сети' placeholder='Ссылки на социальные сети' rows={5} />
+            <RHFTextareaField name='comment'
+                              label='Комментарий'
+                              placeholder='Комментарий' rows={7} />
+          </div>
+
+          <div className='flex items-center justify-end gap-5 mt-5'>
+
+            <BasicButton size='medium' type='reset' variant='ghost' onClick={() => {reset(); navigate('/admin/users')}}
+                         disabled={isSubmitting}>Отмена
+            </BasicButton>
+
+            <BasicButton size='medium' type='submit' variant='primary'
+                         disabled={isSubmitting}>{isSubmitting ? 'Сохранение ...' : 'Сохранить'}
+            </BasicButton>
+
+          </div>
+
+        </Card>
       </div>
 
-      <div className='flex items-center gap-5 p-3'>
-        <LoadingButton
-          type='submit'
-          isLoading={isSubmitting}
-          label='Сохранить'
-          classes={classNames(isSubmitting ? 'bg-slate-600 hover:bg-slate-600 focus:ring-offset-0' : 'bg-green-600 hover:bg-green-700 focus:ring-offset-2 focus:ring-green-500', 'w-40 text-sm font-medium mt-5 text-white focus:outline-none')}
-        >
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            fill='none'
-            viewBox='0 0 24 24'
-            strokeWidth={1.5}
-            stroke='currentColor'
-            className='w-6 h-6'
-          >
-            <path
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              d='M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z'
-            />
-          </svg>
-        </LoadingButton>
-      </div>
 
     </FormProvider>
   );

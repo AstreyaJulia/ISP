@@ -113,9 +113,9 @@ const DataTableCore = ({
       <div>
         {/* Заголовок */}
         {header ? (
-          <div className="px-5 py-4 flex flex-col gap-1 border-b-2 border-slate-200 dark:border-slate-700">
-            {header ? <p className="font-medium text-xl text-slate-800 dark:text-slate-200">header</p> : ''}
-            {subheader ? <p className="font-medium text-base text-slate-500 dark:text-slate-500">subheader</p> : ''}
+          <div className="px-5 py-4 flex flex-col gap-1 border-b-2 border-gray-200 dark:border-gray-700">
+            {header ? <p className="font-medium text-xl text-gray-800 dark:text-gray-200">header</p> : ''}
+            {subheader ? <p className="font-medium text-base text-gray-500 dark:text-gray-500">subheader</p> : ''}
           </div>
         ) : (
           ''
@@ -132,7 +132,7 @@ const DataTableCore = ({
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="currentColor"
-                className="h-5 w-5 text-slate-400 dark:text-slate-500"
+                className="h-5 w-5 text-gray-400 dark:text-gray-500"
               >
                 <path
                   fillRule="evenodd"
@@ -146,7 +146,7 @@ const DataTableCore = ({
               name={tableID}
               value={query}
               onChange={(evt) => searchQueryChangeHandler(evt)}
-              className="block w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-md py-2 pl-10 pr-2 text-sm placeholder-slate-600 focus:outline-none focus:text-slate-900 dark:focus:text-slate-400 focus:placeholder-slate-300 dark:placeholder-slate-400 dark:focus:placeholder-slate-700 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              className="block w-full bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-md py-2 pl-10 pr-2 text-sm placeholder-gray-600 focus:outline-none focus:text-gray-900 dark:focus:text-gray-400 focus:placeholder-gray-300 dark:placeholder-gray-400 dark:focus:placeholder-gray-700 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               placeholder={placeholder}
               type="search"
             />
@@ -155,7 +155,7 @@ const DataTableCore = ({
                 <button
                   onClick={searchQueryClearHandler}
                   title="Очистить строку поиска"
-                  className="mr-3 p-1 rounded-full text-slate-500 dark:text-slate-400 dark:hover:text-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 hover:text-indigo-600"
+                  className="mr-3 p-1 rounded-full text-gray-500 dark:text-gray-400 dark:hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 hover:text-indigo-600"
                   type="button"
                 >
                   <svg
@@ -181,14 +181,14 @@ const DataTableCore = ({
           <div className="flex items-center ml-4">
             <label
               htmlFor="rowsperpage"
-              className="shrink-0 block text-sm font-medium text-slate-700 dark:text-slate-300 mr-2"
+              className="shrink-0 block text-sm font-medium text-gray-700 dark:text-gray-300 mr-2"
             >
               Строк:
             </label>
             <select
               id="rowsperpage"
               name="rowsperpage"
-              className="mt-1 block w-full pl-3 pr-10 py-2 text-base bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+              className="mt-1 block w-full pl-3 pr-10 py-2 text-base bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
               defaultValue={elementsPerPage}
               onChange={elementsPerPageChangeHandler}
             >
@@ -206,8 +206,8 @@ const DataTableCore = ({
               onClick={prevPage}
               disabled={currentPage === 0 || sortFilter().length === 0}
               className={classNames(
-                'bg-white dark:bg-slate-900 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 p-3 lg:rounded-md lg:hover:bg-slate-50 dark:lg:hover:bg-slate-800',
-                currentPage === 0 ? 'text-slate-300 dark:text-slate-700' : 'text-slate-600 dark:text-slate-300'
+                'bg-white dark:bg-gray-900 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 p-3 lg:rounded-md lg:hover:bg-gray-50 dark:lg:hover:bg-gray-800',
+                currentPage === 0 ? 'text-gray-300 dark:text-gray-700' : 'text-gray-600 dark:text-gray-300'
               )}
             >
               <svg
@@ -227,10 +227,10 @@ const DataTableCore = ({
               onClick={nextPage}
               disabled={sortFilter().length / elementsPerPage - 1 <= currentPage || sortFilter().length === 0}
               className={classNames(
-                'bg-white dark:bg-slate-900 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 p-3 lg:rounded-md lg:hover:bg-slate-50 dark:lg:hover:bg-slate-800',
+                'bg-white dark:bg-gray-900 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 p-3 lg:rounded-md lg:hover:bg-gray-50 dark:lg:hover:bg-gray-800',
                 sortFilter().length / elementsPerPage - 1 <= currentPage
-                  ? 'text-slate-300 dark:text-slate-700'
-                  : 'text-slate-600 dark:text-slate-300'
+                  ? 'text-gray-300 dark:text-gray-700'
+                  : 'text-gray-600 dark:text-gray-300'
               )}
             >
               <svg
@@ -257,11 +257,11 @@ const DataTableCore = ({
           <tbody>
             <tr className="rounded-md">
               {columns.slice(startColumn, endColumn).map((column, key) => (
-                <th key={key} className="pr-3 py-3 text-left bg-slate-100 dark:bg-slate-800">
+                <th key={key} className="pr-3 py-3 text-left bg-gray-100 dark:bg-gray-800">
                   <div className="flex items-center gap-2">
                     <span
                       className={classNames(
-                        'h-5 text-slate-600 dark:text-slate-300 text-sm uppercase pl-4 border-slate-300 dark:border-slate-600 flex',
+                        'h-5 text-gray-600 dark:text-gray-300 text-sm uppercase pl-4 border-gray-300 dark:border-slate-600 flex',
                         key === 0 ? '' : 'border-l-2'
                       )}
                     >
