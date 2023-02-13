@@ -40,7 +40,7 @@ class Staff
                     sdc_users.id,
                     sdc_users.username,
                     sdc_user_attributes.fullname,
-                    DATE_FORMAT(sdc_user_attributes.dob, '%d.%m.%Y') AS dob,
+                    DATE_FORMAT(sdc_user_attributes.dob, '%Y-%m-%d\T%H:%i:%s') AS dob,
                     sdc_vocation.name AS profession,
                     IF(ISNULL(ChildUserAttributesType.fullname),'',ChildUserAttributesType.fullname) AS affiliationJudge,
                     CONCAT
@@ -87,7 +87,7 @@ class Staff
                     sdc_vocation.name AS professionName,
                     IF(ISNULL(ChildUserAttributesType.id),'',ChildUserAttributesType.id) AS affiliationJudgeID,
                     IF(ISNULL(ChildUserAttributesType.fullname),'',ChildUserAttributesType.fullname) AS affiliationJudgeName,
-                    DATE_FORMAT(sdc_user_attributes.dob, '%d.%m.%Y') AS dob,
+                    DATE_FORMAT(sdc_user_attributes.dob, '%Y-%m-%d\T%H:%i:%s') AS dob,
                     sdc_user_attributes.email,
                     sdc_user_attributes.mobilephone,
                     sdc_user_attributes.address,
@@ -147,8 +147,10 @@ class Staff
     /**
      * Добавление нового пользователя
      */
-    private function addUser($paramUser, $paramAttr)
+    private function addUser()
     {
+        $paramUser = $this->validateUsersTable();
+        $paramAttr = $this->validateUsersAttributesTable();
 
         $sqlUser = "INSERT INTO `sdc_users` (`username`, `active`, `sudo`) VALUES (:username, :active, :sudo)";
         $this->helpers->db->run($sqlUser, $paramUser);
@@ -178,10 +180,12 @@ class Staff
     }
 
     /**
-     * Добавление нового пользователя
+     * Изменение данных пользователя
      */
-    private function updUser($paramUser, $paramAttr)
+    private function updUser()
     {
+        $paramUser = array_merge(["id" => $this->id()], $this->validateUsersTable());
+        $paramAttr = array_merge(["internalKey" => $this->id()], $this->validateUsersAttributesTable());
 
         $sqlUser = "UPDATE sdc_users SET username = :username, active = :active, sudo = :sudo WHERE id = :id";
         $this->helpers->db->run($sqlUser, $paramUser);
@@ -194,6 +198,32 @@ class Staff
 
         http_response_code(200);
         return $this->helpers->wrap(["info" => "запись изменена", "id"=> $paramUser["id"], "username"=> $paramUser["username"], "fullname"=> $paramAttr["fullname"], ], "data");
+    }
+
+    /**
+     * Удаление пароля пользователя
+     */
+    private function resetPass()
+    {
+        $sql = "UPDATE sdc_users SET password = ''  WHERE id = ?";
+        $this->helpers->db->run($sql, [$this->id()]);
+
+        http_response_code(200);
+        return $this->helpers->wrap(["info" => "пароль удалён"], "data");
+    }
+
+    /**
+     * Блокировка пользователя
+     */
+    private function blockUser()
+    {
+        $sql = "UPDATE sdc_users SET active = 0  WHERE id = ?";
+        $this->helpers->db->run($sql, [$this->id()]);
+        $sql = "UPDATE sdc_user_attributes SET room = NULL  WHERE internalKey = ?";
+        $this->helpers->db->run($sql, [$this->id()]);
+
+        http_response_code(200);
+        return $this->helpers->wrap(["info" => "Пользователь заблокирован"], "data");
     }
 
     /**
@@ -235,11 +265,8 @@ class Staff
     private function metodPOST()
     {
         $this->helpers::headlinesPOST();
-        $this->validateUsersTable();
-        $this->validateUsersAttributesTable();
 
-        return $this->addUser($this->validateUsersTable(), $this->validateUsersAttributesTable());
-
+        return $this->addUser();
     }
 
     /**
@@ -248,11 +275,12 @@ class Staff
     private function metodPATCH()
     {
         $this->helpers::headlinesPOST();
-        $this->id();
-        $this->validateUsersTable();
-        $this->validateUsersAttributesTable();
-
-        return $this->updUser(array_merge(["id" => $this->id()], $this->validateUsersTable()), array_merge(["internalKey" => $this->id()], $this->validateUsersAttributesTable()));
+        return match ($this->helpers->urlData[0] ?? "") {
+            "resetpass" => $this->resetPass(),
+            "blockuser" => $this->blockUser(),
+            "" => $this->updUser(),
+            default => $this->helpers->isErrorInfo(401, "Ошибка в запросе", "Метод не реализован")
+        };
 
     }
 
