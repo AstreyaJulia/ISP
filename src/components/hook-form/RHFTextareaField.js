@@ -32,7 +32,7 @@ export default function RHFTextareaField({ name, label, placeholder, rows, direc
                 'block bg-gray-100 dark:bg-gray-800 w-full py-2 px-3 focus:outline-none text-base rounded-lg',
                 error
                   ? 'pr-10 border-red-500 dark:border-red-600 text-red-900 dark:text-red-50 placeholder-red-400 dark:placeholder-red-400 focus:ring-red-500 focus:border-red-500'
-                  : 'border-slate-300 dark:border-slate-600 text-gray-900 placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500'
+                  : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-gray-900 placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500'
               )}
               placeholder={placeholder}
               aria-invalid={!!error}

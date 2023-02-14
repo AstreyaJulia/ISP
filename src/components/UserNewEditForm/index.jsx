@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { isDate, parse } from 'date-fns';
+import {isDate, parse, parseISO} from 'date-fns';
 import Toast, { toastStyles } from '../Toast';
 import { setSession } from '../../utils/jwt';
 import {
@@ -59,7 +59,7 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
     dob: Yup.date()
       .transform(value => {
         if (value !== '' && !isDate(value)) {
-          return parse(value, 'dd.MM.yyyy', new Date());
+          return parseISO(value);
         }
         if (value !== '' && isDate(value)) {
           return value;
@@ -279,6 +279,8 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
 
   const generateLogin = () => {
     const values = getValues();
+
+    console.log(values);
     if (values.fullname.toString() !== '') {
       setValue('username', getLoginFromName(values.fullname).toString());
     }

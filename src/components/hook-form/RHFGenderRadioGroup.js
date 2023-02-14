@@ -14,7 +14,11 @@ export default function RHFGenderRadioGroup({ name, label, options, defaultValue
     defaultValue={defaultValue}
     render={({ field, fieldState: { error } }) => (
       <div
-        className={classNames('flex w-full', direction === 'row' ? 'items-center justify-end' : 'flex-col', label ? 'gap-4' : '')}>
+        className={classNames('relative flex w-full pr-10 py-1 pl-3 rounded-lg border',
+            error
+                ? 'border-red-500 dark:border-red-600'
+                : 'border-transparent',
+            direction === 'row' ? 'items-center justify-end' : 'flex-col', label ? 'gap-4' : '')}>
 
         {label ? (
           <label htmlFor={name}
@@ -53,7 +57,7 @@ export default function RHFGenderRadioGroup({ name, label, options, defaultValue
           </RadioGroup>
         </div>
         {error ? (
-          <div className='absolute inset-y-0 right-8 flex items-center pointer-events-none'>
+          <div className='absolute inset-y-0 right-2 flex items-center pointer-events-none'>
 
             <Tooltip anchorId={name} content={error?.message} place='top' />
 

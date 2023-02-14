@@ -36,7 +36,7 @@ export default function RHFPasswordHideShow({ name, label, placeholder, ...other
                   'block bg-gray-100 dark:bg-gray-800 w-full focus:outline-none sm:text-sm rounded-none rounded-l-md',
                   error
                     ? 'pr-10 border-red-500 text-red-900 placeholder-red-400 focus:ring-red-500 focus:border-red-500'
-                    : 'border-slate-300 dark:border-slate-600 text-gray-900 placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500'
+                    : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-gray-900 placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500'
                 )}
                 placeholder={placeholder}
                 aria-invalid={!!error}
