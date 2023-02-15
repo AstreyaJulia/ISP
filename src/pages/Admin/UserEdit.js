@@ -52,7 +52,7 @@ const UserEdit = () => {
                className='max-w-6xl mx-auto px-5'>
       <PageHeader pages={!isEdit ? breadcrumbs : breadcrumbsEdit}
                   header={!isEdit ? 'Добавить пользователя' : 'Редактирование пользователя'} />
-      <UserNewEditForm isEdit={isEdit} currentUser={currentUser ?? []} />
+      <UserNewEditForm isEdit={isEdit} currentUser={currentUser ?? []} getFunc={getUser} />
     </BasicPage>);
 };
 

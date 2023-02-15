@@ -46,7 +46,7 @@ const UserView = ({ user }) => {
     <BasicPage title={currentUser.fullname ?? 'Пользователь'}
                className='max-w-6xl mx-auto px-5'>
       <PageHeader pages={breadcrumbs} />
-      <UserViewSection currentUser={currentUser ?? []} />
+      <UserViewSection currentUser={currentUser ?? []} getFunc={getUser} />
     </BasicPage>);
 };
 

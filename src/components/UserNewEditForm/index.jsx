@@ -28,7 +28,7 @@ import { formatDate } from '../../utils/formatTime';
 import Badge from '../Badge';
 
 
-export default function UserNewEditForm({ isEdit, currentUser }) {
+export default function UserNewEditForm({ isEdit, currentUser, getFunc }) {
 
   const [loadingRooms, setLoadingRooms] = useState(false);
   const [roomsOptions, setRoomsOptions] = useState([]);
@@ -286,6 +286,23 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
     }
   };
 
+  const resetUserPass = async (userId) => {
+    await axios
+        .patch('/staff/resetpass', {'id': userId})
+        .then((res) => {
+          const message = res.data.data.info;
+          toast((t) => <Toast t={t} message={message} type='success' />, { className: toastStyles });
+          getFunc();
+        })
+        .catch((err) => {
+          const error = err.message && err.info ? `${err.message}: ${err.info}` : err.toString();
+          if (err.code.toString() === '401') {
+            setSession(null);
+          }
+          toast((t) => <Toast t={t} message={error} type='error' />, { className: toastStyles });
+        });
+  }
+
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)} className='max-w-3xl mx-auto'>
 
@@ -351,7 +368,7 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
               </div>
 
               {isEdit && currentUser?.setPass === 1 ? <>
-                <BasicButton size='medium' className='w-44' variant='basic'>Сбросить пароль</BasicButton>
+                <BasicButton size='medium' className='w-44' variant='basic' onClick={() => resetUserPass(currentUser?.id)}>Сбросить пароль</BasicButton>
               </> : ''}
             </div>
 

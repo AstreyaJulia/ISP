@@ -8,12 +8,13 @@ import { getHighlightedText } from '../../../utils/getHighlightedText';
 import { fDate } from '../../../utils/formatTime';
 
 
-const SearchResults = ({ show, query, searchQueryClose, searchType, searchresults, isLoading }) => {
+const SearchResults = ({ show, query, searchQueryClose, searchType, searchresults, isLoading, error }) => {
   const searchTypesSettings = {
     users: {
       element: (item, query) => (
         <a
           key={item.fullname}
+          href={`/admin/users/${item?.id}/view`}
           className="flex flex-col border border-transparent border-b-gray-300 border-dashed py-2 hover:cursor-pointer hover:bg-emerald-50 dark:hover:bg-emerald-800/70 hover:border-emerald-300 hover:border hover:rounded-md p-2"
         >
           <p className="text-sm font-bold text-gray-800 dark:text-gray-200">
@@ -248,7 +249,7 @@ const SearchResults = ({ show, query, searchQueryClose, searchType, searchresult
         <div className="w-full flex items-center mt-3 pr-3">
           <div className="bg-gray-100 dark:bg-gray-800/80 rounded-md p-3 flex items-center justify-between grow">
             <p className="uppercase font-bold text-xs text-gray-600 dark:text-gray-400 dark:text-gray-300 wrap">
-              {searchresults.length > 0 && query !== '' ? (
+              {searchresults.length > 0 && query !== '' && !error ? (
                 <>
                   <span>
                     {getAmount(searchresults.length, {
