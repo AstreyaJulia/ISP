@@ -21,18 +21,18 @@
      */
     private function searchUsers($param) {
       $sql = "SELECT
-      Users.id,
-      UserAttributes.fullname,
-      CONCAT (BildingType.name, ' / ', DoorType.name) AS room,
-      Vocation.name AS profession,
-      DesktopType.phone_worck
-FROM `sdc_room` AS DesktopType
-      LEFT JOIN `sdc_room` AS DoorType ON DesktopType.affiliation = DoorType.id
-      LEFT JOIN sdc_room AS FloorType ON DoorType.affiliation = FloorType.id
-      LEFT JOIN sdc_room AS BildingType ON FloorType.affiliation = BildingType.id
-      LEFT JOIN `sdc_user_attributes` AS UserAttributes on DesktopType.id = UserAttributes.room
-      LEFT JOIN `sdc_users` AS Users ON UserAttributes.internalKey=Users.id
-      LEFT JOIN `sdc_vocation` AS Vocation ON Vocation.id=UserAttributes.profession
+                    Users.id,
+                    UserAttributes.fullname,
+                    CONCAT (BildingType.name, ' / ', DoorType.name) AS room,
+                    Vocation.name AS profession,
+                    DesktopType.phone_worck
+              FROM `sdc_room` AS DesktopType
+                    LEFT JOIN `sdc_room` AS DoorType ON DesktopType.affiliation = DoorType.id
+                    LEFT JOIN sdc_room AS FloorType ON DoorType.affiliation = FloorType.id
+                    LEFT JOIN sdc_room AS BildingType ON FloorType.affiliation = BildingType.id
+                    LEFT JOIN `sdc_user_attributes` AS UserAttributes on DesktopType.id = UserAttributes.room
+                    LEFT JOIN `sdc_users` AS Users ON UserAttributes.internalKey=Users.id
+                    LEFT JOIN `sdc_vocation` AS Vocation ON Vocation.id=UserAttributes.profession
               WHERE Users.active = 1 and UserAttributes.profession != '' AND (UserAttributes.fullname LIKE ? or DesktopType.phone_worck LIKE ?)";
       return $this->helpers->db->run($sql, ["%$param%", "%$param%"])->fetchAll(\PDO::FETCH_CLASS);
     }

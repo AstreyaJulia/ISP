@@ -41,7 +41,8 @@ class Helpers extends Router
       'weather',
       'categories-civil-cases',
       'categories-material',
-      'staff'
+      'staff',
+      'buildingstructure'
     ));
   }
 
