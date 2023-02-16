@@ -1,3 +1,7 @@
+.fc .fc-bg-event {
+  @apply flex flex-col justify-end items-end
+}
+
 .fc .fc-bg-event.fc-event-indigo {
   @apply bg-indigo-500/40 border-0;
 }

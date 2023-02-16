@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { isDate, parse } from 'date-fns';
+import {isDate, parse, parseISO} from 'date-fns';
 import Toast, { toastStyles } from '../Toast';
 import { setSession } from '../../utils/jwt';
 import {
@@ -28,7 +28,7 @@ import { formatDate } from '../../utils/formatTime';
 import Badge from '../Badge';
 
 
-export default function UserNewEditForm({ isEdit, currentUser }) {
+export default function UserNewEditForm({ isEdit, currentUser, getFunc }) {
 
   const [loadingRooms, setLoadingRooms] = useState(false);
   const [roomsOptions, setRoomsOptions] = useState([]);
@@ -59,7 +59,7 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
     dob: Yup.date()
       .transform(value => {
         if (value !== '' && !isDate(value)) {
-          return parse(value, 'dd.MM.yyyy', new Date());
+          return parseISO(value);
         }
         if (value !== '' && isDate(value)) {
           return value;
@@ -279,10 +279,29 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
 
   const generateLogin = () => {
     const values = getValues();
+
+    console.log(values);
     if (values.fullname.toString() !== '') {
       setValue('username', getLoginFromName(values.fullname).toString());
     }
   };
+
+  const resetUserPass = async (userId) => {
+    await axios
+        .patch('/staff/resetpass', {'id': userId})
+        .then((res) => {
+          const message = res.data.data.info;
+          toast((t) => <Toast t={t} message={message} type='success' />, { className: toastStyles });
+          getFunc();
+        })
+        .catch((err) => {
+          const error = err.message && err.info ? `${err.message}: ${err.info}` : err.toString();
+          if (err.code.toString() === '401') {
+            setSession(null);
+          }
+          toast((t) => <Toast t={t} message={error} type='error' />, { className: toastStyles });
+        });
+  }
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)} className='max-w-3xl mx-auto'>
@@ -349,7 +368,7 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
               </div>
 
               {isEdit && currentUser?.setPass === 1 ? <>
-                <BasicButton size='medium' className='w-44' variant='basic'>Сбросить пароль</BasicButton>
+                <BasicButton size='medium' className='w-44' variant='basic' onClick={() => resetUserPass(currentUser?.id)}>Сбросить пароль</BasicButton>
               </> : ''}
             </div>
 

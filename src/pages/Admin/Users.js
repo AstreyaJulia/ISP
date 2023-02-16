@@ -26,10 +26,12 @@ const UsersAdmin = () => {
     // eslint-disable-next-line
   }, [dispatch]);
 
+  const getUsersList = () => dispatch(getStaffList());
+
   return (
     <BasicPage title="Управление пользователями" className="max-w-6xl mx-auto px-5">
       <PageHeader pages={breadcrumbs} header="Управление пользователями" />
-      <UsersListAdmin error={error} isLoading={isLoading} data={staffList ?? []} />
+      <UsersListAdmin error={error} isLoading={isLoading} data={staffList ?? []} getFunc={getUsersList} />
     </BasicPage>
   );
 };

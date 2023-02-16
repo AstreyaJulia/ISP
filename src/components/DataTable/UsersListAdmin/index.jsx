@@ -4,6 +4,8 @@ import { intervalToDuration, parse } from 'date-fns';
 import ru from 'date-fns/locale/ru';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Menu } from '@headlessui/react';
+import toast from "react-hot-toast";
+
 import { getUniqueArrayValuesByKey } from '../../../utils/getArrayValuesByKey';
 import Card from '../../Card';
 import { Avatar } from '../../Avatar';
@@ -14,8 +16,11 @@ import DataTableCore from '../DataTableCore';
 import DataTableToolBar from '../DataTableCore/DataTableToolBar';
 import Badge from '../../Badge';
 import { classNames } from '../../../utils/classNames';
+import axios from "../../../utils/axios";
+import Toast, {toastStyles} from "../../Toast";
+import {setSession} from "../../../utils/jwt";
 
-const UsersListAdmin = ({ data, isLoading, error }) => {
+const UsersListAdmin = ({ data, isLoading, error, getFunc }) => {
   const [rows, setRows] = useState(data ?? []);
   const columns = Object.keys(data[0] ?? []);
   const [currentPage, setCurrentPage] = useState(0); // текущая страница
@@ -41,13 +46,23 @@ const UsersListAdmin = ({ data, isLoading, error }) => {
     }, 1500);
   };
 
-  const getAge = (date) => {
-    const { years } = intervalToDuration({
-      start: parse(date, 'dd.MM.yyyy', new Date(), { locale: ru }),
-      end: new Date(),
-    });
-    return years;
-  };
+  const blockUser = async (userId) => {
+    await axios
+        .patch('/staff/blockuser', {'id': userId})
+        .then((res) => {
+          const message = res.data.data.info;
+          toast((t) => <Toast t={t} message={message} type='success' />, { className: toastStyles });
+          getFunc();
+        })
+        .catch((err) => {
+          const error = err.message && err.info ? `${err.message}: ${err.info}` : err.toString();
+          if (err.code.toString() === '401') {
+            setSession(null);
+          }
+          toast((t) => <Toast t={t} message={error} type='error' />, { className: toastStyles });
+        });
+  }
+
 
   const makeItem = (item, key, query) => (
     <Card classname='p-4 flex justify-between items-center' key={item?.id}>
@@ -192,6 +207,7 @@ const UsersListAdmin = ({ data, isLoading, error }) => {
               {({ active }) => (
                 <button
                   type='button'
+                  onClick={() => blockUser(item?.id)}
                   className={`${
                     active ? 'bg-gray-100 text-gray-900 dark:text-gray-100' : 'text-gray-900 dark:text-gray-100'
                   } group flex w-full items-center rounded-md p-2 py-2 text-sm`}
@@ -202,7 +218,7 @@ const UsersListAdmin = ({ data, isLoading, error }) => {
                     <path
                       d='M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1zM18 7H6v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z' />
                   </svg>
-                  Удалить
+                  Заблокировать
                 </button>
               )}
             </Menu.Item>
