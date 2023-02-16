@@ -112,7 +112,7 @@ export default function RHFSelect({ name, label, options, placeholder, isMulti, 
         <div className={classNames('flex w-full', direction === 'row' ? 'items-center justify-end' : 'flex-col', label ? 'gap-4' : '')}>
 
           {label ? (
-            <label htmlFor={name} className='text-right w-52 flex flex-col shrink-0 text-base font-medium text-gray-700 dark:text-gray-200'>
+            <label htmlFor={name} className={classNames('flex flex-col shrink-0 text-base font-medium text-gray-700 dark:text-gray-200', direction === 'row' ? 'text-right w-52' : 'w-full')} >
               {label}
             </label>
           ) : (
@@ -232,7 +232,7 @@ RHFSelect.propTypes = {
   name: PropTypes.string,
   placeholder: PropTypes.string,
   isMulti: PropTypes.string,
-  label: PropTypes.string,
+  label: PropTypes.node,
   defaultValue: PropTypes.string,
   direction: PropTypes.oneOf(['row', 'column']),
 };

@@ -16,7 +16,7 @@ export default function RHFTextareaField({ name, label, placeholder, rows, direc
         <div className={classNames('flex w-full', direction === 'row' ? 'justify-end' : 'flex-col', label ? 'gap-4' : '')}>
 
           {label ? (
-            <label htmlFor={name} className='text-right w-52 flex flex-col shrink-0 text-base font-medium text-gray-700 dark:text-gray-200'>
+            <label htmlFor={name} className={classNames('flex flex-col shrink-0 text-base font-medium text-gray-700 dark:text-gray-200', direction === 'row' ? 'text-right w-52' : 'w-full')} >
               {label}
             </label>
           ) : (
@@ -71,7 +71,7 @@ export default function RHFTextareaField({ name, label, placeholder, rows, direc
 RHFTextareaField.propTypes = {
   rows: PropTypes.number,
   name: PropTypes.string.isRequired,
-  label: PropTypes.string,
+  label: PropTypes.node,
   placeholder: PropTypes.string.isRequired,
   direction: PropTypes.oneOf(['row', 'column']),
 };

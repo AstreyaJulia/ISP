@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { classNames } from '../../utils/classNames';
+import BasicButton from '../BasicButton';
 
-const LoadingButton = ({ isLoading, className, children, label, type, size, ...other }) => {
+const LoadingButton = ({ isLoading, className, children, label, type, size, variant, onClick, shape, ...props }) => {
 
   const sizes = {
     small: 'py-1 px-2 text-sm',
@@ -11,16 +12,8 @@ const LoadingButton = ({ isLoading, className, children, label, type, size, ...o
   };
 
   return (
-    <button
-      type={type === 'submit' ? 'submit' : 'button'}
-      disabled={isLoading}
-      {...other}
-      className={classNames(
-        className || '',
-        sizes[size],
-        'flex justify-center items-center border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2'
-      )}
-    >
+    <BasicButton size={size} className={className} variant={variant} onClick={onClick} shape={shape}
+                 type={type} disabled={isLoading} {...props}>
       {!isLoading ? (
         <>
           {children}
@@ -46,8 +39,8 @@ const LoadingButton = ({ isLoading, className, children, label, type, size, ...o
           <path d="M2 12C2 6.47715 6.47715 2 12 2V5C8.13401 5 5 8.13401 5 12H2Z" fill="currentColor" />
         </svg>
       )}
-    </button>
-  )
+    </BasicButton>
+  );
 
 };
 

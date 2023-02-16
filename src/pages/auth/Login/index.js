@@ -151,20 +151,22 @@ const Login = () => {
           <div className="mt-8">
             <div className="mt-6">
               <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-                <div className="flex flex-col">
+                <div className="flex flex-col gap-5">
                   <RHFTextField
                     name="login"
-                    label={<Typography variant="label" classname='mb-1'>Имя пользователя</Typography>}
+                    direction='column'
+                    label={<p>Имя пользователя<span className='text-red-600'> *</span></p>}
                     placeholder="Ivanov_II"
                   />
                   <RHFPasswordHideShow
                     name="password"
-                    label={<Typography variant="label" classname='mb-1'>Пароль</Typography>}
+                    direction='column'
+                    label={<p>Пароль<span className='text-red-600'> *</span></p>}
                     placeholder="Пароль"
                   />
                 </div>
 
-                <div className="flex items-center justify-end mb-5">
+                <div className="flex items-center justify-end mb-5 mt-2">
                   <div className="text-sm">
                     <Link to="/auth/register" className="font-medium text-indigo-600 hover:text-indigo-500">
                       У меня нет пароля / Пароль был сброшен
@@ -172,16 +174,11 @@ const Login = () => {
                   </div>
                 </div>
                 <LoadingButton
-                  type="submit"
+                  type="submit" variant={isSubmitting ? 'basic' : 'primary'}
                   isLoading={isSubmitting}
                   label="Войти"
                   size='medium'
-                  className={classNames(
-                    isSubmitting
-                      ? 'bg-gray-600 hover:bg-gray-600 focus:ring-offset-0'
-                      : 'bg-indigo-600 hover:bg-indigo-700 focus:ring-offset-2 focus:ring-indigo-500',
-                    'w-full text-sm font-medium text-white focus:outline-none'
-                  )}
+                  className='w-full'
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path
