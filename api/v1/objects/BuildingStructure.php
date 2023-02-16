@@ -37,10 +37,12 @@ class BuildingStructure
     }
 
     $sql = "SELECT
-              id,
-              name
-            FROM sdc_room
-            WHERE affiliation $param";
+              mother.id,
+              mother.name,
+              IF(ISNULL(children.id),'false', 'true') AS childNodes
+            FROM sdc_room AS mother
+            LEFT JOIN sdc_room AS children ON children.affiliation = mother.id
+            WHERE mother.affiliation $param GROUP BY mother.id";
     return $this->helpers->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
   }
 
