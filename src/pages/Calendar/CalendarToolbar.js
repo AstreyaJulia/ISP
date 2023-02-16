@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { fDate, monthYear } from '../../utils/formatTime';
 import { classNames } from '../../utils/classNames';
+import BasicButton from '../../components/BasicButton';
 
 const VIEW_OPTIONS = [
   {
@@ -31,13 +32,7 @@ const viewTitle = (view, date, start, end) => {
 export const CalendarToolbar = ({ date, view, onToday, onNextDate, onPrevDate, onChangeView, onAddEvent, dates }) => (
   <div className="flex items-center justify-between  p-4">
     <div className="flex items-center gap-2 justify-center">
-      <button
-        type="button"
-        onClick={onToday}
-        className="mr-2 cursor-pointer text-gray-700 dark:text-gray-300 focus:outline-none border border-gray-300 dark:border-gray-700 shadow rounded-md py-2 px-4 flex items-center text-sm font-medium hover:bg-gray-100"
-      >
-        Сегодня
-      </button>
+      <BasicButton variant='basic' shape='rounded' onClick={onToday} size='medium' type='button' >Сегодня</BasicButton>
       <button
         type="button"
         onClick={onPrevDate}
@@ -82,6 +77,7 @@ export const CalendarToolbar = ({ date, view, onToday, onNextDate, onPrevDate, o
     </div>
 
     <div className="flex items-center gap-6">
+
       <div className="flex items-center ml-3 justify-start">
         <label htmlFor="view_option" className="sr-only">
           Вид:
@@ -91,7 +87,7 @@ export const CalendarToolbar = ({ date, view, onToday, onNextDate, onPrevDate, o
           name="view_option"
           defaultValue={view}
           onChange={(evt) => onChangeView(evt.target.value)}
-          className="shadow grow-0 mt-1 block pl-3 pr-10 py-2 text-base bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+          className="shadow-sm grow-0 block pl-3 pr-10 py-2 text-base bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md"
         >
           {VIEW_OPTIONS.map((option) => (
             <option key={option.label} value={option.value}>
@@ -102,13 +98,7 @@ export const CalendarToolbar = ({ date, view, onToday, onNextDate, onPrevDate, o
       </div>
 
       <div className="pl-6 border-l border-gray-400 dark:border-gray-600">
-        <button
-          type="button"
-          onClick={onAddEvent}
-          className="cursor-pointer text-white shadow border border-indigo-600 bg-indigo-600 dark:bg-indigo-700 dark:border-indigo-700 focus:outline-none border rounded-md py-2 px-4 flex items-center justify-center text-sm font-medium"
-        >
-          <span>Добавить</span>
-        </button>
+        <BasicButton variant='primary' shape='rounded' onClick={onAddEvent} size='medium' type='button' >Добавить</BasicButton>
       </div>
     </div>
   </div>
