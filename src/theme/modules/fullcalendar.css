@@ -361,7 +361,7 @@
 
 .calendar-module .fc-event-time,
 .calendar-module .fc-daygrid-block-event .fc-event-time {
-  @apply text-gray-800 font-bold text-sm;
+  @apply text-gray-800 font-bold text-sm flex shrink-0;
 }
 
 .calendar-module .fc-event-indigo .fc-event-time {
