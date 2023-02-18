@@ -4,7 +4,7 @@ namespace Api\Objects;
 
 use Firebase\JWT\JWT;
 
-class User
+abstract class User
 {
 
   public readonly int $id;

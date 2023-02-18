@@ -1,7 +1,9 @@
 <?php
   namespace Api\Objects;
 
-  class Router extends User {
+use Exception;
+
+  abstract class Router extends User {
 
     /**
      * Ключ jwt переданный в запросе содержит:
@@ -52,15 +54,29 @@
      * @return array
      */
     public function receiveFormData():array {
-      if ($this->method === 'GET') {
-        $data = $_GET;
-      } else {
-        $data = json_decode(file_get_contents('php://input'), JSON_OBJECT_AS_ARRAY);
+      try {
+        if ($this->method === 'GET') {
+          $data = $_GET;
+        } else {
+          $data = json_decode(file_get_contents('php://input'), JSON_OBJECT_AS_ARRAY);
+        }
+  
+        unset($data['q']);
+  
+        return $data;
+
+      } catch (\Error $e) {
+          http_response_code(401);
+          echo json_encode(array(
+            "data" =>[],
+            "error" => array(
+              "code" => 401,
+              "message" => "Ошибка в теле запроса",
+              "info" => $e->getMessage()
+            )), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+            die();
       }
-
-      unset($data['q']);
-
-      return $data;
+      
     }
 
     /**
