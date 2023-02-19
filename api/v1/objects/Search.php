@@ -3,14 +3,7 @@
   use DateTime;
 	class Search {
 
-		protected Helpers $helpers;
-
-    public function __construct(
-      Helpers $helpers = new \Api\Objects\Helpers()
-    ) {
-      $this->helpers = $helpers;
-    }
-
+    use Objects;
     /**
      * Поиск сотрудников по ФИО или номеров телефонов
      *
@@ -59,7 +52,7 @@
           $searchUsers["error"] = ["message" => "По вашему запросу ничего не найдено", "info" => "Not Found"];
         }
 
-        $this->helpers->getJsonEncode($searchUsers);
+        return $searchUsers;
       } catch (\Exception $e) {
         $this->helpers::isErrorInfo(400, "Ошибка в переданных параметрах", $e);
       }      
@@ -124,5 +117,14 @@
           "endDate" => $endDate->format('Y-m-d'),
           "query" => $queryString
       );
+    }
+
+    private function metodGET(){
+      return match ($this->helpers->urlData[0] ?? "") {
+        "users" => $this->routUsers(),
+        "inbox" => $this->correspondence(),
+        "outbox" => $this->correspondence(),
+        default => $this->helpers->isErrorInfo(400, "Ошибка в переданных данных", "Не задан маршрут до ресурса")
+      };
     }
 	}

@@ -7,14 +7,7 @@ namespace Api\Objects;
  */
 class BuildingStructure
 {
-
-  protected Helpers $helpers;
-
-  public function __construct(
-    Helpers $helpers = new \Api\Objects\Helpers()
-  ) {
-    $this->helpers = $helpers;
-  }
+  use Objects;
 
   /**
    * 
@@ -54,11 +47,4 @@ class BuildingStructure
       return $this->helpers->wrap($this->cabinetList(), "data");
   }
 
-  public function response(): void
-    {
-        match ($this->helpers->getMethod()) {
-            "GET" => $this->helpers->getJsonEncode($this->metodGET()),
-            default => $this->helpers->isErrorInfo(401, "Ошибка в запросе", "Метод не реализован")
-        };
-    }
 }

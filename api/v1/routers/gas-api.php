@@ -2,5 +2,5 @@
 
 $gasAPI = new \Api\Objects\GasAPI($helpers);
 
-$gasAPI->responseGasAPI();
+$gasAPI->response();
 

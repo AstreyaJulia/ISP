@@ -8,7 +8,9 @@ namespace Api\Objects;
  */
 class Staff
 {
-    use StaffValidate;
+    use StaffValidate, Objects {
+        StaffValidate::__construct insteadof Objects;
+    }
 
     /**
      * 
@@ -281,16 +283,6 @@ class Staff
             "" => $this->updUser(),
             default => $this->helpers->isErrorInfo(401, "Ошибка в запросе", "Метод не реализован")
         };
-
     }
 
-    public function responseStaff(): void
-    {
-        match ($this->helpers->getMethod()) {
-            "GET" => $this->helpers->getJsonEncode($this->metodGET()),
-            "POST" => $this->helpers->getJsonEncode($this->metodPOST()),
-            "PATCH" => $this->helpers->getJsonEncode($this->metodPATCH()),
-            default => $this->helpers->isErrorInfo(401, "Ошибка в запросе", "Метод не реализован")
-        };
-    }
 }

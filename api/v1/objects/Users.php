@@ -4,13 +4,10 @@ namespace Api\Objects;
 
 class Users
 {
-
-  protected Helpers $helpers;
-  protected VocationGroup $vocationGroup;
-
+  use Objects;
   public function __construct(
-    Helpers $helpers = new \Api\Objects\Helpers(),
-    VocationGroup $vocationGroup = new \Api\Objects\VocationGroup()
+    protected Helpers $helpers = new \Api\Objects\Helpers(),
+    protected VocationGroup $vocationGroup = new \Api\Objects\VocationGroup()
   ) {
     $this->helpers = $helpers;
     $this->vocationGroup = $vocationGroup;
@@ -54,7 +51,7 @@ class Users
           // установим код ответа - 200 OK
           http_response_code(200);
           // вывод в json-формате
-          $this->helpers::getJsonEncode($this->helpers::wrap($this->userList(), "data"));
+          return $this->helpers::wrap($this->userList(), "data");
           break;
         }
         // GET /users/parameter
@@ -72,20 +69,20 @@ class Users
                   "sidebar" => $this->helpers->sidebar,
                   "theme" => $this->helpers->theme
                 ];
-                $this->helpers->getJsonEncode($userLoginData);
+                return $userLoginData;
                 break;
               }
             case "birthday": {
                 $output["data"] = !empty($this->helpers->getBirthday()) ? $this->helpers->getBirthday() : $this->helpers::isErrorInfo(200, "Нет данных", "Сегодня дней рождений нет");
-                $this->helpers->getJsonEncode($output);
+                return $output;
                 break;
               }
             case "vocation": {
-                $this->helpers->getJsonEncode($this->helpers->wrap($this->vocationGroup->VocationOrGroup($this->helpers->urlData[0]), "data"));
+                return $this->helpers->wrap($this->vocationGroup->VocationOrGroup($this->helpers->urlData[0]), "data");
                 break;
               }
             case "group": {
-                $this->helpers->getJsonEncode($this->helpers->wrap($this->vocationGroup->VocationOrGroup($this->helpers->urlData[0]), "data"));
+                return $this->helpers->wrap($this->vocationGroup->VocationOrGroup($this->helpers->urlData[0]), "data");
                 break;
               }
             default:
@@ -96,7 +93,7 @@ class Users
           break;
         }
       case 2: {
-        $this->helpers->getJsonEncode($this->helpers->wrap($this->vocationGroup->usersGroup($this->helpers->urlData[1]), "data"));
+        return $this->helpers->wrap($this->vocationGroup->usersGroup($this->helpers->urlData[1]), "data");
         break;
       }
       default:
@@ -137,11 +134,4 @@ class Users
     }
   }
 
-  public function responseUsers()
-  {
-    match ($this->helpers->getMethod()) {
-      "GET" => $this->metodGET(),
-      "POST" => $this->metodPOST()
-    };
-  }
 }

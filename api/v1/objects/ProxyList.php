@@ -4,8 +4,7 @@ namespace Api\Objects;
 
 class ProxyList
 {
-
-    protected Helpers $helpers;
+    use Objects;
 
     protected $id;
     protected $menuindex;
@@ -13,13 +12,6 @@ class ProxyList
     protected $href;
     protected $name_href;
     protected $proxy_href;
-
-    public function __construct(
-        Helpers $helpers = new \Api\Objects\Helpers(),
-        //protected DB $db = new \Api\Objects\DB(DB_NAME, DB_USER, DB_PASS, DB_HOST)
-    ) {
-        $this->helpers = $helpers;
-    }
 
     /**
      * Группы ссылок
@@ -69,18 +61,12 @@ class ProxyList
         return $this->helpers->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function responseProxyList()
+    private function metodGET(): array
     {
-        try {
-            if (empty($this->helpers->urlData["0"])) {
-                throw new \Exception("Не задан маршрут до ресурса");
-            }
-            match ($this->helpers->urlData["0"]) {
-                'group',  => $this->helpers->getJsonEncode($this->helpers->wrap($this->proxyGroup(), "data")),
-                'group-link', => $this->helpers->getJsonEncode($this->helpers->wrap($this->proxyLink(), "data"))
-            };
-        } catch (\UnhandledMatchError | \Exception $e) {
-            $this->helpers->isErrorInfo(400, "Ошибка в переданных данных", $e);
-        }
+        return match ($this->helpers->urlData["0"] ?? "") {
+            'group',  => $this->helpers->wrap($this->proxyGroup(), "data"),
+            'group-link', => $this->helpers->wrap($this->proxyLink(), "data"),
+            default => $this->helpers->isErrorInfo(400, "Ошибка в переданных данных", "Не задан маршрут до ресурса")
+        };
     }
 }

@@ -4,15 +4,7 @@ namespace Api\Objects;
 
 class GasAPI
 {
-
-    protected Helpers $helpers;
-
-    public function __construct(
-        Helpers $helpers = new \Api\Objects\Helpers()
-    ) {
-        $this->helpers = $helpers;
-    }
-
+    use Objects;
     /**
      * @deadlines  нарушение сроков рассмотения
      * @sudact не опубликованные судебные акты
@@ -21,19 +13,13 @@ class GasAPI
      * @categories-material - категории материалов
      * @categories-civil-cases - категории гражданских дел
      */
-    public function responseGasAPI()
+    public function metodGET(): array
     {
-        try {
-            if (empty($this->helpers->urlData["0"])) {
-                throw new \Exception("Не задан маршрут до ресурса");
-            }
-            match ($this->helpers->urlData["0"]) {
-                'sudact', 'deadlines', 'materials-production', 'no-last-events' => $this->helpers->getJsonEncode($this->prepareQuery($this->helpers->urlData)),
-                'categories-civil-cases', 'categories-material' => $this->helpers->getJsonEncode($this->categoriesMaterial())
-            };
-        } catch (\UnhandledMatchError | \Exception $e) {
-            $this->helpers->isErrorInfo(400, "Ошибка в переданных данных", $e);
-        }
+        return match ($this->helpers->urlData["0"] ?? "") {
+            'sudact', 'deadlines', 'materials-production', 'no-last-events' => $this->prepareQuery($this->helpers->urlData),
+            'categories-civil-cases', 'categories-material' => $this->categoriesMaterial(),
+            default => $this->helpers->isErrorInfo(400, "Ошибка в переданных данных", "Не задан маршрут до ресурса")
+        };
     }
 
     /**
