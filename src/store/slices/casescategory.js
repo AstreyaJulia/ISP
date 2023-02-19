@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from '../../utils/axios';
 import { dispatch } from '../index';
+import apiErrorHelper from '../../utils/apiErrorHelper';
 
 /** Начальное состояние
  * @type {{isLoading: string, cases: *[], error: null}}
@@ -52,6 +53,7 @@ export function getGcategory() {
       const response = await axios.get('/gas-api/categories-civil-cases');
       dispatch(slice.actions.getGcategorySuccess(response.data.data));
     } catch (error) {
+      apiErrorHelper(error)
       dispatch(slice.actions.getGcategorySuccess([]));
       dispatch(slice.actions.hasError(error.message));
     }
@@ -65,6 +67,7 @@ export function getMcategory() {
       const response = await axios.get('/gas-api/categories-material');
       dispatch(slice.actions.getMcategorySuccess(response.data.data));
     } catch (error) {
+      apiErrorHelper(error)
       dispatch(slice.actions.getMcategorySuccess([]));
       dispatch(slice.actions.hasError(error.message));
     }

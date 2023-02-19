@@ -3,6 +3,7 @@ import { sub } from 'date-fns';
 import axios from '../../utils/axios';
 import { dispatch } from '../index';
 import { formatYyyyMmDdDate } from '../../utils/formatTime';
+import apiErrorHelper from '../../utils/apiErrorHelper';
 
 /** Начальное состояние
  * @type {{isLoading: string, error: null, sea: []}}
@@ -70,6 +71,7 @@ export function getSearch(type, query) {
       dispatch(slice.actions.getSearchSuccess([]));
       dispatch(slice.actions.getSearchSuccess(response.data.data));
     } catch (error) {
+      apiErrorHelper(error)
       dispatch(slice.actions.getSearchSuccess([]));
       dispatch(slice.actions.hasError(error.message));
     }

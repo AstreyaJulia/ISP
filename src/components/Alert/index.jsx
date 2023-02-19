@@ -2,21 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { classNames } from '../../utils/classNames';
 
-/** Алерт (сообщения с заголовком и текстом)
- * @param title - заголовок
- * @param alertType - тип
- * @param children
- * @param containerClassName
- * @returns {JSX.Element}
- * @constructor
- */
+/** Сообщение с заголовком и текстом */
 const Alert = ({ title, alertType, children, containerClassName }) => {
   const alertTypes = {
     error: {
-      containerColor: 'bg-red-200 dark:bg-red-600/30',
+      containerColor: 'bg-red-100 dark:bg-red-600/30',
       icon: (
         <svg
-          className="h-5 w-5 fill-red-500"
+          className="h-6 w-6 fill-red-500"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           height="24px"
@@ -36,10 +29,10 @@ const Alert = ({ title, alertType, children, containerClassName }) => {
       textColor: 'text-red-700 dark:text-red-300',
     },
     warning: {
-      containerColor: 'bg-yellow-200 dark:bg-yellow-600/30',
+      containerColor: 'bg-yellow-100 dark:bg-yellow-500/30',
       icon: (
         <svg
-          className="h-5 w-5 fill-yellow-500"
+          className="h-6 w-6 fill-yellow-500"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           height="24px"
@@ -56,10 +49,10 @@ const Alert = ({ title, alertType, children, containerClassName }) => {
       textColor: 'text-yellow-700 dark:text-yellow-300',
     },
     success: {
-      containerColor: 'bg-green-200 dark:bg-green-600/30',
+      containerColor: 'bg-green-100 dark:bg-green-600/30',
       icon: (
         <svg
-          className="h-5 w-5 fill-green-500"
+          className="h-6 w-6 fill-green-500"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           height="24px"
@@ -79,13 +72,13 @@ const Alert = ({ title, alertType, children, containerClassName }) => {
       textColor: 'text-green-700 dark:text-green-300',
     },
     info: {
-      containerColor: 'bg-blue-200 dark:bg-blue-600/30',
+      containerColor: 'bg-blue-100 dark:bg-blue-600/30',
       icon: (
         <svg
+          className="h-6 w-6 fill-blue-500"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="currentColor"
-          className="h-5 w-5 text-blue-500"
         >
           <path
             fillRule="evenodd"
@@ -103,9 +96,9 @@ const Alert = ({ title, alertType, children, containerClassName }) => {
     <div className={classNames('rounded-md p-4', alertTypes[alertType].containerColor, containerClassName ?? '')}>
       <div className="flex">
         <div className="flex-shrink-0">{alertTypes[alertType].icon}</div>
-        <div className="ml-3">
+        <div className="ml-5">
           {title ? (
-            <h3 className={classNames('text-sm font-medium', title ? alertTypes[alertType].titleColor : '')}>
+            <h3 className={classNames('text-md font-medium', title ? alertTypes[alertType].titleColor : '')}>
               {title}
             </h3>
           ) : (

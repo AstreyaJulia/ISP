@@ -1,6 +1,9 @@
 import "../src/theme/index.css";
 import "../public/fonts/index.css";
-import { tailwindColorsConfig } from '../src/utils/getTailwindconfig';
+import tailwindColors from 'tailwindcss/colors';
+import { DEFAULT_THEME, withTailwindTheme } from './withTailwindTheme.decorator';
+
+export const decorators = [withTailwindTheme];
 
 export const parameters = {
   actions: {argTypesRegex: "^on[A-Z].*"},
@@ -14,17 +17,39 @@ export const parameters = {
     default: 'White',
     values: [
       {
-        name: 'Slate',
-        value: tailwindColorsConfig.theme.colors.white,
+        name: 'Card Light Theme',
+        value: tailwindColors.white,
       },
       {
-        name: 'Dark Slate',
-        value: tailwindColorsConfig.theme.colors.slate['800'],
+        name: 'Gray Card Light Theme',
+        value: tailwindColors.gray['100'],
+      },
+      {
+        name: 'Card Dark Theme',
+        value: tailwindColors.gray['900'],
+      },
+      {
+        name: 'Gray Card Dark Theme',
+        value: tailwindColors.gray['800'],
       },
     ],
   },
-  viewMode: 'docs',
-  previewTabs: {
-    canvas: {hidden: true},
+
+};
+
+export const globalTypes = {
+  theme: {
+    name: 'Theme',
+    description: 'Global theme for components',
+    toolbar: {
+      icon: 'paintbrush',
+      // Array of plain string values or MenuItem shape
+      items: [
+        { value: 'light', title: 'Light', left: '🌞' },
+        { value: 'dark', title: 'Dark', left: '🌛' },
+      ],
+      // Change title based on selected value
+      dynamicTitle: true,
+    },
   },
 };

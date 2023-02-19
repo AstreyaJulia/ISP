@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { dispatch } from '../index';
 import axios from '../../utils/axios';
+import apiErrorHelper from '../../utils/apiErrorHelper';
 
 const initialState = {
   isLoading: false,
@@ -91,6 +92,7 @@ export function getEvents() {
       const response = await axios.get('/calendar/events');
       dispatch(slice.actions.getEventsSuccess(response.data.events));
     } catch (error) {
+      apiErrorHelper(error)
       dispatch(slice.actions.hasError(error));
     }
   };
@@ -103,6 +105,7 @@ export function createEvent(newEvent) {
       const response = await axios.post('/calendar/events/new', newEvent);
       dispatch(slice.actions.createEventSuccess(response.data.event));
     } catch (error) {
+      apiErrorHelper(error)
       dispatch(slice.actions.hasError(error));
     }
   };
@@ -118,6 +121,7 @@ export function updateEvent(eventId, updateEvent) {
       });
       dispatch(slice.actions.updateEventSuccess(response.data.event));
     } catch (error) {
+      apiErrorHelper(error)
       dispatch(slice.actions.hasError(error));
     }
   };
@@ -130,6 +134,7 @@ export function deleteEvent(eventId) {
       await axios.post('/calendar/events/delete', { eventId });
       dispatch(slice.actions.deleteEventSuccess({ eventId }));
     } catch (error) {
+      apiErrorHelper(error)
       dispatch(slice.actions.hasError(error));
     }
   };

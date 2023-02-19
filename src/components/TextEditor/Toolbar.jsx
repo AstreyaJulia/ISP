@@ -97,7 +97,7 @@ const Toolbar = ({ id, isSimple, classname }) => (
       </div>
     )}
 
-    <div className="ql-formats px-2 border-l border-slate-300 dark:border-slate-600 gap-1">
+    <div className={classNames("ql-formats border-slate-300 dark:border-slate-600 gap-1", !isSimple ? 'border-l px-2' : 'pr-2')}>
       <button type="button" className="ql-bold" title="Жирный" />
       <button type="button" className="ql-italic" title="Курсив" />
       <button type="button" className="ql-underline" title="Подчёркнутый" />

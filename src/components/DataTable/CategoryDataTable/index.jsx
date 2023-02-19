@@ -99,7 +99,7 @@ const CategoryDataTable = ({ data, isLoading, type, error }) => {
       makeItem={null}
       table={{ isTable: 'true', startColumn: 0, endColumn: 2, columnNames: tableGrColumns, coltosort: [] }}
     >
-      <DataTableToolBar className="mt-3">
+      <DataTableToolBar className="mt-3" isLoading={isLoading} error={error}>
         <div className="flex items-center justify-between w-full">
           <div />
 

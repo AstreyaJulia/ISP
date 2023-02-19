@@ -122,7 +122,7 @@ const PublicationControl = ({ data, isLoading, all, error }) => {
       makeItem={makeItem}
       table={{ isTable: 'false', startColumn: null, endColumn: null, columnNames: null, coltosort: [] }}
     >
-      <DataTableToolBar className="mt-3">
+      <DataTableToolBar className="mt-3" isLoading={isLoading} error={error}>
         <div className="flex items-center justify-between w-full">
           {all === 'true' ? (
             <div className="flex items-center ml-3 justify-start">

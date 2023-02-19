@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from '../../utils/axios';
 import { dispatch } from '../index';
+import apiErrorHelper from '../../utils/apiErrorHelper';
 
 /** Начальное состояние
  * @type {{isLoading: string, userList: [], error: null}}
@@ -52,6 +53,7 @@ export function getPhonebookList() {
       const response = await axios.get('/users');
       dispatch(slice.actions.getPhonebookSuccess(response.data.data));
     } catch (error) {
+      apiErrorHelper(error)
       dispatch(slice.actions.getPhonebookSuccess([]));
       dispatch(slice.actions.hasError(error.message));
     }
@@ -65,6 +67,7 @@ export function getBirthdaysList() {
       const response = await axios.get('/users/birthday');
       dispatch(slice.actions.getBirthdaysSuccess(response.data.data));
     } catch (error) {
+      apiErrorHelper(error)
       dispatch(slice.actions.getBirthdaysSuccess([]));
       dispatch(slice.actions.hasError(error.message));
     }

@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { dispatch } from '../index';
 import { CITY_OPEN_WEATHER_ID, OPEN_WEATHER_API_KEY } from '../../config';
+import apiErrorHelper from '../../utils/apiErrorHelper';
 
 /** Начальное состояние
  * @type {{currentError: null, currentWeather: {}, currentIsLoading: string}}
@@ -70,6 +71,7 @@ export function getCurrentWeather() {
       });
       dispatch(slice.actions.getCurrentWeatherSuccess(response.data));
     } catch (error) {
+      apiErrorHelper(error)
       dispatch(slice.actions.getCurrentWeatherSuccess({}));
       dispatch(slice.actions.currentWeatherHasError(error.message));
     }

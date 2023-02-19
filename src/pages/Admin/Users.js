@@ -26,7 +26,7 @@ const UsersAdmin = () => {
     // eslint-disable-next-line
   }, [dispatch]);
 
-  const getUsersList = () => dispatch(getStaffList());
+  const getUsersList = async () => dispatch(getStaffList());
 
   return (
     <BasicPage title="Управление пользователями" className="max-w-6xl mx-auto px-5">

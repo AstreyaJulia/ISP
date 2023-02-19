@@ -6,8 +6,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import Markdown from 'markdown-to-jsx';
 import Card from '../../../Card';
 import LoadingButton from '../../../LoadingButton';
-import { classNames } from '../../../../utils/classNames';
 import { FormProvider, RHFMultiCheckbox, RHFRadioGroup } from '../../../hook-form';
+import BasicButton from '../../../BasicButton';
 
 const Quiz = ({ steps, answers }) => {
   const [testResults, setTestResults] = useState(null);
@@ -203,7 +203,7 @@ const Quiz = ({ steps, answers }) => {
   };
 
   const makeQuestion = (question) => (
-    <div key={question.value} className="px-5 py-4 flex flex-col rounded-md bg-gray-100 dark:bg-gray-800">
+    <Card key={question.value} classname='px-5 py-4 flex flex-col' variant='grayShadowless' >
       <div className="text-md font-medium text-gray-900">
         <Markdown options={{ ...mdOptions }}>{question.label}</Markdown>
       </div>
@@ -230,8 +230,8 @@ const Quiz = ({ steps, answers }) => {
       )}
       {/* eslint-disable-next-line */}
       {testResults !== null ? renderResult(testResults, question) : ''}
-    </div>
-  );
+    </Card>
+  )
 
   const resetHandle = () => {
     setTestResults(null);
@@ -266,19 +266,14 @@ const Quiz = ({ steps, answers }) => {
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col gap-5">{steps.map((question) => makeQuestion(question))}</div>
 
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-5 mt-5">
           <LoadingButton
             disabled={testResults !== null}
             type="submit"
             size='medium'
             isLoading={isSubmitting}
+            variant='primary'
             label={testResults !== null ? 'Готово' : 'Отправить'}
-            className={classNames(
-              isSubmitting || testResults !== null
-                ? 'bg-gray-600 hover:bg-gray-600 focus:ring-offset-0'
-                : 'bg-green-600 hover:bg-green-700 focus:ring-offset-2 focus:ring-green-500',
-              'text-sm font-medium mt-5 text-white focus:outline-none'
-            )}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -295,13 +290,11 @@ const Quiz = ({ steps, answers }) => {
               />
             </svg>
           </LoadingButton>
-          <button
-            type="button"
-            onClick={resetHandle}
-            className="border border-gray-300 mt-5 flex justify-center items-center py-2 px-4 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2"
-          >
+
+          <BasicButton onClick={resetHandle} type="button" shape='rounded' size='medium' variant='basic'>
             {testResults !== null ? 'Заново' : 'Сбросить выбранное'}
-          </button>
+          </BasicButton>
+
         </div>
       </FormProvider>
     </Card>

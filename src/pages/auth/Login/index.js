@@ -5,15 +5,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import rocket from '../../../assets/images/pages/cosmonaut-rocket.svg';
 import cloud1 from '../../../assets/images/pages/cloud1.svg';
-
 import { setSession } from '../../../utils/jwt';
 import useAuth from '../../../hooks/useAuth';
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
 import BasicPage from '../../pagesLayouts/BasicPage';
 import LoadingButton from '../../../components/LoadingButton';
-import { classNames } from '../../../utils/classNames';
 import { FormProvider, RHFPasswordHideShow, RHFTextField } from '../../../components/hook-form';
-import Typography from '../../../components/Typography';
 import Alert from '../../../components/Alert';
 
 const Login = () => {

@@ -42,9 +42,8 @@ const UserEdit = () => {
 
   useEffect(() => {
     initialize();
-    // eslint-disable-next-line
     getUser()
-    // установить стейт профессии
+    // eslint-disable-next-line
   }, []);
 
   return (

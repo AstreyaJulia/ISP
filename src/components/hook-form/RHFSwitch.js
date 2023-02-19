@@ -5,7 +5,7 @@ import { Switch } from '@headlessui/react'
 import { Tooltip } from 'react-tooltip';
 import Typography from '../Typography';
 
-export default function RHFSwitch({ name, label, color, defaultValue, enabledLabel, disabledLabel, checkedValue, onChange, className }) {
+export default function RHFSwitch({ name, label, color, defaultValue, enabledLabel, disabledLabel, checkedValue, onChange, classnames }) {
   const { control } = useFormContext();
 
   const inputOptions = {
@@ -97,7 +97,7 @@ export default function RHFSwitch({ name, label, color, defaultValue, enabledLab
 // eslint-disable-next-line
 
          (
-          <div className={className || ''}>
+          <div className={classnames || ''}>
             {label ? (
               <label htmlFor={name} className="flex flex-col">
                 <span className="sr-only" />
@@ -161,4 +161,10 @@ RHFSwitch.propTypes = {
   defaultValue: PropTypes.string,
   size: PropTypes.oneOf(['3', '4', '5', '6']),
   color: PropTypes.oneOf(['orange', 'yellow', 'lime', 'emerald', 'teal', 'cyan', 'blue', 'indigo', 'pink']),
+  label: PropTypes.node,
+  enabledLabel: PropTypes.node,
+  disabledLabel: PropTypes.node,
+  checkedValue: PropTypes.object,
+  onChange: PropTypes.func,
+  classnames: PropTypes.string
 };

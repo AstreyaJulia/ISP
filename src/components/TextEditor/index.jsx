@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactQuill from 'react-quill';
-
 import Toolbar, { customHrHandler, formats, redoChange, undoChange } from './Toolbar';
 
 const TextEditor = ({ id = 'editor-quill', value, onChange, simple = false, helperText, ...other }) => {

@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import {isDate, parse, parseISO} from 'date-fns';
+import {isDate, parseISO} from 'date-fns';
 import Toast, { toastStyles } from '../Toast';
 import { setSession } from '../../utils/jwt';
 import {
@@ -24,7 +24,6 @@ import { classNames } from '../../utils/classNames';
 
 import axios from '../../utils/axios';
 import { getLoginFromName } from '../../utils/createLogin';
-import { formatDate } from '../../utils/formatTime';
 import Badge from '../Badge';
 
 
@@ -432,9 +431,8 @@ export default function UserNewEditForm({ isEdit, currentUser, getFunc }) {
                          disabled={isSubmitting}>Отмена
             </BasicButton>
 
-            <BasicButton size='medium' type='submit' variant='primary'
-                         disabled={isSubmitting}>{isSubmitting ? 'Сохранение ...' : 'Сохранить'}
-            </BasicButton>
+            <LoadingButton size='medium' type='submit' variant='primary'
+                           disabled={isSubmitting} loadingLabel='Сохранение ...' label='Сохранить' />
 
           </div>
 

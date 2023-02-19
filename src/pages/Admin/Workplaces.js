@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Disclosure, Menu, Tab } from '@headlessui/react';
+import { Disclosure, Menu } from '@headlessui/react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { classNames } from '../../utils/classNames';
 import ContentLayoutWithSidebar from '../pagesLayouts/ContentLayoutWithSidebar';
@@ -28,9 +28,6 @@ const Workplaces = () => {
   /** Состояние пользователя */
   const { initialize } = useAuth();
   const [selectedTab, setSelectedTab] = useState('devices');
-  const [selectedWorkplace, setSelectedWorkplace] = useState();
-  const [selectedDevice, setSelectedDevice] = useState();
-  const [selectedSoftware, setSelectedSoftware] = useState();
 
   useEffect(() => {
     initialize();

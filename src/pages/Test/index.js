@@ -9,8 +9,7 @@ import { BaseChartOptions } from '../../components/ApexCharts/chartsSettings';
 import TextEditor from '../../components/TextEditor';
 import Card from '../../components/Card';
 import useAuth from '../../hooks/useAuth';
-import Quiz from '../../components/Courses/Course/Quiz';
-import { testSteps1, testSteps1answers, stat, yearConferenceStat } from '../../@mock/SampleData';
+import { stat } from '../../@mock/SampleData';
 import Typography from '../../components/Typography';
 import BasicButton from '../../components/BasicButton';
 import {tailwindColorsConfig} from "../../utils/getTailwindconfig";
@@ -101,7 +100,6 @@ const Test = () => {
         }} height={280} />
       </Card>)}
 
-      <Quiz answers={testSteps1answers} steps={testSteps1} />
     </BasicPage>
   );
 };

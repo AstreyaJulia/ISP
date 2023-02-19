@@ -80,7 +80,7 @@ const Sidebar = ({ menuData, menuVisibility, setMenuVisibility }) => {
                     <Avatar
                       size="10"
                       avatar={logo}
-                      shape="roundedMD"
+                      shape="rounded"
                       classname="border border-gray-300 dark:border-gray-600 shadow"
                       name={COURT_NAME}
                     />
@@ -135,7 +135,7 @@ const Sidebar = ({ menuData, menuVisibility, setMenuVisibility }) => {
                 <Avatar
                   size="10"
                   avatar={logo}
-                  shape="roundedMD"
+                  shape="rounded"
                   classname="border border-gray-300 dark:border-gray-600 shadow"
                   name={COURT_NAME}
                 />

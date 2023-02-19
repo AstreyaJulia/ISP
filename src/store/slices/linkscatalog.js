@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from '../../utils/axios';
 import { dispatch } from '../index';
+import apiErrorHelper from '../../utils/apiErrorHelper';
 
 /** Начальное состояние
  * @type {{isLoading: string, error: null, sea: []}}
@@ -66,6 +67,7 @@ export function getGroups() {
       const response = await axios.get(`/proxylist/group`);
       dispatch(slice.actions.getGroupsSuccess(response.data.data));
     } catch (error) {
+      apiErrorHelper(error)
       dispatch(slice.actions.hasGroupsError(error.message));
     }
   };
@@ -78,6 +80,7 @@ export function getLinks(id) {
       const response = await axios.get(`/proxylist/group-link/${id}`);
       dispatch(slice.actions.getLinksSuccess(response.data.data));
     } catch (error) {
+      apiErrorHelper(error)
       dispatch(slice.actions.hasLinksError(error.message));
     }
   };

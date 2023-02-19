@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Avatar } from '../Avatar';
-import { classNames } from '../../utils/classNames';
 
 /** Значок показывающий тенденцию. Рост, падение или неизменность
  *
@@ -11,7 +10,7 @@ import { classNames } from '../../utils/classNames';
  * @returns {JSX.Element}
  * @constructor
  */
-const TrendindingIcon = ({ value1, value2, size }) => {
+const TrendingIcon = ({ value1, value2, size }) => {
 
   const getTendency = () => {
     if (value1 < value2) {
@@ -71,9 +70,11 @@ const TrendindingIcon = ({ value1, value2, size }) => {
   return <Avatar icon={icon[getTendency()]} name='' shape='circle' size={size} color={color[getTendency()]} />;
 };
 
-TrendindingIcon.propTypes = {
+TrendingIcon.propTypes = {
   /** React Prop Types */
-  prop: PropTypes.string,
+  value1: PropTypes.number.isRequired,
+  value2: PropTypes.number.isRequired,
+  size: PropTypes.oneOf(['6', '8', '10', '12', '14', '16', '20']).isRequired,
 };
 
-export default TrendindingIcon;
+export default TrendingIcon;

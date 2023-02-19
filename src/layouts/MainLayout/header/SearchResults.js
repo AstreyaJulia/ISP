@@ -289,6 +289,7 @@ SearchResults.propTypes = {
   searchType: PropTypes.string.isRequired,
   searchresults: PropTypes.array,
   isLoading: PropTypes.string,
+  error: PropTypes.object
 };
 
 export default SearchResults;
