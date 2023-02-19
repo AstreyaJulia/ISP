@@ -20,7 +20,6 @@ import Card from '../Card';
 import Typography from '../Typography';
 import BasicButton from '../BasicButton';
 import LoadingButton from '../LoadingButton';
-import { classNames } from '../../utils/classNames';
 
 import axios from '../../utils/axios';
 import { getLoginFromName } from '../../utils/createLogin';

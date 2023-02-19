@@ -32,7 +32,7 @@ const CasesOverPeriodWidgetAll = ({ user }) => {
   if (availableUsers.includes(user.professionID)) {
     return (
       <WidgetRowCounter
-        isLoading={overperiodisLoading}
+        isLoading={overperiodisLoading.toString() === 'true'}
         rows={overperiodcasesall}
         color="red"
         error={overperioderror}

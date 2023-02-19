@@ -160,7 +160,7 @@ const MenuGroup = ({
               openClassCondition(item.id),
               groupActive.includes(item.id) || groupOpen.includes(item.id) || currentActiveGroup.includes(item.id)
                 ? 'bg-gray-200 dark:bg-gray-800 text-gray-500 dark:text-gray-400 flex'
-                : 'flex text-gray-500 dark:text-gray-400 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700',
+                : 'flex text-gray-600 dark:text-gray-400 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700',
               'group flex items-center py-3 text-base leading-6 rounded-md  w-full hover:cursor-pointer',
               sidebar?.toString() === '0' ? 'justify-end' : 'px-2 justify-between'
             )}

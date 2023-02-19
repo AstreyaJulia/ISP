@@ -15,7 +15,6 @@ export const _WidgetRowCounter = Template.bind({});
 _WidgetRowCounter.args = {
   rows: [1, 2, 3, 4, 5, 6, 7],
   isLoading: 'false',
-  error: null,
   title: 'в производстве',
   counter: {
     single: 'Дело',

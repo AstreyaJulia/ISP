@@ -32,7 +32,7 @@ const ProcessedWidgetAll = ({ user }) => {
   if (availableUsers.includes(user.professionID)) {
     return (
       <WidgetRowCounter
-        isLoading={processedisLoading}
+        isLoading={processedisLoading.toString() === 'true'}
         rows={processedcasesall}
         color="green"
         link="/process-all"

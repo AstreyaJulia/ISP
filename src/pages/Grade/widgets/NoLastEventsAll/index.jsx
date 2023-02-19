@@ -30,7 +30,7 @@ const NoLastEventsAll = ({ user }) => {
   if (availableUsers.includes(user.professionID)) {
     return (
       <WidgetRowCounter
-        isLoading={nolasteventsisLoading}
+        isLoading={nolasteventsisLoading.toString() === 'true'}
         rows={nolasteventsall}
         color="yellow"
         link="/no-last-events-all"

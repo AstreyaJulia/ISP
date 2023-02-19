@@ -32,7 +32,7 @@ const NoPublicatedActsAll = ({ user }) => {
   if (availableUsers.includes(user.professionID)) {
     return (
       <WidgetRowCounter
-        isLoading={nopublactsisLoading}
+        isLoading={nopublactsisLoading.toString() === 'true'}
         rows={nopublactsall}
         color="indigo"
         link="/publication-all"
