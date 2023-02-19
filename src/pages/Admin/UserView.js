@@ -41,5 +41,5 @@ const UserView = ({ user }) => {
 export default UserView;
 
 UserView.propTypes = {
-  user: PropTypes.object
+  user: PropTypes.bool
 };

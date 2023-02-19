@@ -52,9 +52,15 @@ const LinksCatalog = () => {
   }, [dispatch]);
 
   const groupsMenuItems = [
-    {title: 'Редактировать', icon: null, func: (id) => navigate(`/info/proxy-list/group/${id}/edit`), divider: false},
-    {title: '', icon: null, func: () => null, divider: true},
-    {title: 'Удалить', icon: null, func: () => openModalHandle(), divider: false}
+    {title: 'Редактировать', disabled: false, icon: null, func: (id) => navigate(`/info/proxy-list/group/${id}/edit`), divider: false},
+    {title: '', disabled: false, icon: null, func: () => null, divider: true},
+    {title: 'Удалить', disabled: false, icon: null, func: () => openModalHandle(), divider: false}
+  ]
+
+  const linksMenuItems = [
+    {title: 'Редактировать', disabled: false, icon: null, func: (id) => navigate(`/info/proxy-list/link/${id}/edit`), divider: false},
+    {title: '', disabled: false, icon: null, func: () => null, divider: true},
+    {title: 'Удалить', disabled: false, icon: null, func: () => openModalHandle(), divider: false}
   ]
 
   const handleKeyDown = (evt) => {
@@ -214,60 +220,9 @@ const LinksCatalog = () => {
                       </div>
                     </div>
                   </a>
-                  {user.sudo === 1 ? (
-                    <Menu as='div' className='relative'>
-                      <Menu.Button>
-                        <div className='flex-shrink-0 px-2'>
-                          <div
-                            className='w-8 h-8 bg-white dark:bg-gray-900 inline-flex items-center justify-center text-gray-400 rounded-full bg-transparent hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'>
-                            <span className='sr-only'>Открыть меню</span>
-                            <svg
-                              className='w-5 h-5'
-                              xmlns='http://www.w3.org/2000/svg'
-                              viewBox='0 0 20 20'
-                              fill='currentColor'
-                              aria-hidden='true'
-                            >
-                              <path
-                                d='M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z' />
-                            </svg>
-                          </div>
-                        </div>
-                      </Menu.Button>
-                      <Menu.Items
-                        className='absolute right-0 z-50 mt-2 w-40 origin-top-right divide-y divide-gray-100 dark:divide-gray-700 rounded-md bg-white dark:bg-gray-900 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
-                        <div className='px-1 py-1 '>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <a
-                                href={`/info/proxy-list/group/${link.id}/edit`}
-                                className={`${
-                                  active ? 'bg-indigo-500 text-white' : 'text-gray-900 dark:text-gray-100'
-                                } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                              >
-                                Редактировать
-                              </a>
-                            )}
-                          </Menu.Item>
-                        </div>
-                        <div className='px-1 py-1'>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <button
-                                type='button'
-                                onClick={openModalHandle}
-                                className={`${
-                                  active ? 'bg-indigo-500 text-white' : 'text-gray-900 dark:text-gray-100'
-                                } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                              >
-                                Удалить
-                              </button>
-                            )}
-                          </Menu.Item>
-                        </div>
-                      </Menu.Items>
-                    </Menu>
-                  ) : null}
+                  {user.sudo === 1 ?
+                      <ElementsDropdown menuItems={linksMenuItems} />
+                   : null}
                 </div>
               ))
             ) : (

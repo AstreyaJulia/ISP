@@ -18,6 +18,7 @@ import axios from '../../../utils/axios';
 import Toast, { toastStyles } from '../../Toast';
 import { setSession } from '../../../utils/jwt';
 import BasicButton from '../../BasicButton';
+import ElementsDropdown from '../../ElementsDropdown';
 
 
 const UsersListAdmin = ({ data, isLoading, error, getFunc }) => {
@@ -32,7 +33,7 @@ const UsersListAdmin = ({ data, isLoading, error, getFunc }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setRows(data);
+    setRows(data ?? []);
     setUserStatusList(getUniqueArrayValuesByKey(data ?? [], 'active').sort());
     setUserSudoList(getUniqueArrayValuesByKey(data ?? [], 'sudo').sort());
     setUserProfessionList(getUniqueArrayValuesByKey(data ?? [], 'profession').sort().filter(profession => profession));
@@ -64,7 +65,43 @@ const UsersListAdmin = ({ data, isLoading, error, getFunc }) => {
   };
 
 
-  const makeItem = (item, key, query) => (<Card classname='p-4 flex justify-between items-center' key={item?.id}>
+  const makeItem = (item, key, query) => {
+
+    const userMenuItems = [
+      {
+        title: 'Редактировать',
+        icon: <svg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 0 24 24' width='24px'
+                   fill='currentColor' className='h-4 w-4 mr-2'>
+          <path d='M0 0h24v24H0V0z' fill='none' />
+          <path
+            d='M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z' />
+        </svg>,
+        func: () => navigate(`/admin/users/${item?.id}/edit`),
+        disabled: false,
+        divider: false,
+      },
+      {
+        title: '',
+        icon: null,
+        func: () => null,
+        disabled: false,
+        divider: true,
+      },
+      {
+        title: 'Заблокировать',
+        icon: <svg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 0 24 24' width='24px'
+                   fill='currentColor' className='h-4 w-4 mr-2'>
+          <path d='M0 0h24v24H0V0z' fill='none' />
+          <path
+            d='M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1zM18 7H6v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z' />
+        </svg>,
+        func: () => blockUser(item?.id),
+        disabled: item?.active === 0,
+        divider: false,
+      },
+    ];
+
+    return (<Card classname='p-4 flex justify-between items-center' key={item?.id}>
       <div className='flex gap-5 items-center'>
         <a href={`/admin/users/${item?.id}/view`}>
           <Avatar
@@ -133,86 +170,29 @@ const UsersListAdmin = ({ data, isLoading, error, getFunc }) => {
                     <path
                       d='M20.998,14H3.002A2.002,2.002,0,0,0,1,16.002v5.996A2.002,2.002,0,0,0,3.002,24H20.998A2.002,2.002,0,0,0,23,21.998V16.002A2.002,2.002,0,0,0,20.998,14ZM9.25146,22.00537h-1.5v-6h1.5Zm6.99708-3.51074a1.47326,1.47326,0,0,1-1.5,1.5h-2v2h-1.5v-6h3.5a1.47326,1.47326,0,0,1,1.5,1.5Z' />
                   </svg>) : (<svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    fill='none'
-                    viewBox='0 0 24 24'
-                    strokeWidth={1.5}
-                    stroke='currentColor'
-                    className='w-5 h-5 text-green-500'
-                  >
-                    <path
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      d='M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z'
-                    />
-                  </svg>)}
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  strokeWidth={1.5}
+                  stroke='currentColor'
+                  className='w-5 h-5 text-green-500'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    d='M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z'
+                  />
+                </svg>)}
               </button>
             </CopyToClipboard>
             <span>{item?.ip}</span>
           </p> : ''}
         </div>
       </div>
-      <Menu as='div' className='relative'>
-        <Menu.Button>
-          <div className='flex-shrink-0 px-2'>
-            <div
-              className='w-8 h-8 bg-white dark:bg-gray-800 inline-flex items-center justify-center text-gray-400 rounded-full bg-transparent hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'>
-              <span className='sr-only'>Открыть меню</span>
-              <svg
-                className='w-5 h-5'
-                xmlns='http://www.w3.org/2000/svg'
-                viewBox='0 0 20 20'
-                fill='currentColor'
-                aria-hidden='true'
-              >
-                <path
-                  d='M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z' />
-              </svg>
-            </div>
-          </div>
-        </Menu.Button>
-        <Menu.Items
-          className='absolute right-0 z-50 mt-2 w-40 origin-top-right divide-y divide-gray-100 dark:divide-gray-700 rounded-md bg-white dark:bg-gray-900 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
-          <div className='px-1 py-1 '>
-
-            <Menu.Item>
-              {({ active }) => (<a
-                  href={`/admin/users/${item?.id}/edit`}
-                  className={`${active ? 'bg-gray-100 text-gray-900 dark:text-gray-100' : 'text-gray-900 dark:text-gray-100'} group flex w-full items-center rounded-md p-2 py-2 text-sm`}
-                >
-                  <svg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 0 24 24' width='24px'
-                       fill='currentColor' className='h-4 w-4 text-gray-500 dark:text-gray-600 mr-2'>
-                    <path d='M0 0h24v24H0V0z' fill='none' />
-                    <path
-                      d='M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z' />
-                  </svg>
-                  Редактировать
-                </a>)}
-            </Menu.Item>
-
-          </div>
-
-          <div className='px-1 py-1'>
-
-            <Menu.Item>
-              {({ active }) => (<button
-                  type='button'
-                  onClick={() => blockUser(item?.id)}
-                  className={`${active ? 'bg-gray-100 text-gray-900 dark:text-gray-100' : 'text-gray-900 dark:text-gray-100'} group flex w-full items-center rounded-md p-2 py-2 text-sm`}
-                >
-                  <svg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 0 24 24' width='24px'
-                       fill='currentColor' className='h-4 w-4 text-gray-500 dark:text-gray-600 mr-2'>
-                    <path d='M0 0h24v24H0V0z' fill='none' />
-                    <path
-                      d='M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1zM18 7H6v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z' />
-                  </svg>
-                  Заблокировать
-                </button>)}
-            </Menu.Item>
-          </div>
-        </Menu.Items>
-      </Menu>
+      <ElementsDropdown menuItems={userMenuItems} />
     </Card>);
+
+  };
 
   makeItem.propTypes = {
     /** Данные */
@@ -229,8 +209,25 @@ const UsersListAdmin = ({ data, isLoading, error, getFunc }) => {
   const selectFilterFunction = (targetArray, filters) => {
     const filterKeys = Object.keys(filters);
 
-    return targetArray.filter((row) => filterKeys.every((key) => filters[key] !== 'All' ? row[key].toString().toLowerCase().indexOf(filters[key].toLowerCase()) > -1 : row[key].toString().toLowerCase().indexOf(filters[key].toLowerCase()) === -1));
+    return targetArray.filter((row) => filterKeys.every((key) => filters[key] !== 'All' ? row[key].toString().toLowerCase().indexOf(filters[key].toString().toLowerCase()) > -1 : row[key].toString().toLowerCase().indexOf(filters[key].toString().toLowerCase()) === -1));
   };
+
+  /* const selectFilterFunction = (targetArray, filters) => {
+    const filterKeys = Object.keys(filters);
+
+    targetArray.filter((row) => filterKeys.every((key) => {
+
+      if (filters[key] !== 'All') {
+        return row[key].toString().toLowerCase().indexOf(filters[key].toLowerCase()) > -1
+      }
+
+      if (!isNaN(filters[key]) || !isNaN(parseInt(filters[key]))) {
+        return row[key].toString().toLowerCase().indexOf(filters[key].toLowerCase()) === -1
+      }
+        return row[key].indexOf(filters[key]) === -1
+    })
+    )
+  }; */
 
   selectFilterFunction.PropTypes = {
     targetArray: PropTypes.array.isRequired, filters: PropTypes.array.isRequired,
@@ -253,95 +250,96 @@ const UsersListAdmin = ({ data, isLoading, error, getFunc }) => {
   };
 
   return (<DataTableCore
-      classname='mt-5'
-      rows={rows}
-      currentPage={currentPage}
-      setCurrentPage={setCurrentPage}
-      tableID='admin-users-list'
-      isLoading={isLoading}
-      error={error}
-      columns={columns}
-      itemsContainerClassNames='flex flex-col gap-4 bg-gray-100 dark:bg-gray-800 p-4'
-      pseudoTableBodyClassNames='py-5'
-      initSortColumn={columns[1]}
-      placeholder='Поиск сотрудников по ФИО, ДР, должности, АРМ, IP'
-      filterCallback={filter}
-      sortCallback={null}
-      makeItem={makeItem}
-      table={{ isTable: 'false', startColumn: null, endColumn: null, columnNames: null, coltosort: [] }}
-    >
-      <DataTableToolBar className='mt-3' isLoading={isLoading} error={error}>
-        <div className='flex items-center justify-between w-full  flex-wrap'>
-          <div className='flex items-center gap-2'>
-            <div className='flex items-center ml-3 justify-start'>
-              <label
-                htmlFor='active'
-                className='shrink-0 block text-sm font-medium text-gray-700 dark:text-gray-300 mr-2'
-              >
-                Статус:
-              </label>
-              <select
-                id='active'
-                name='active'
-                defaultValue={selectedFilter.active}
-                onChange={filterSelectChangeHandler}
-                className='grow-0 mt-1 block pl-3 pr-10 py-2 text-base bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md'
-              >
-                <option value='All'>Все</option>
-                {userStatusList.map((status, key) => (<option key={status + key} value={status}>
-                    {statusLabels[status]}
-                  </option>))}
-              </select>
-            </div>
-            <div className='flex items-center ml-3 justify-start'>
-              <label
-                htmlFor='sudo'
-                className='shrink-0 block text-sm font-medium text-gray-700 dark:text-gray-300 mr-2'
-              >
-                Права:
-              </label>
-              <select
-                id='sudo'
-                name='sudo'
-                defaultValue={selectedFilter.sudo}
-                onChange={filterSelectChangeHandler}
-                className='grow-0 mt-1 block pl-3 pr-10 py-2 text-base bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md'
-              >
-                <option value='All'>Все</option>
-                {userSudoList.map((status, key) => (<option key={status + key} value={status}>
-                    {sudoLabels[status]}
-                  </option>))}
-              </select>
-            </div>
-            <div className='flex items-center ml-3 justify-start'>
-              <label
-                htmlFor='profession'
-                className='shrink-0 block text-sm font-medium text-gray-700 dark:text-gray-300 mr-2'
-              >
-                Должность:
-              </label>
-              <select
-                id='profession'
-                name='profession'
-                defaultValue={selectedFilter.profession}
-                onChange={filterSelectChangeHandler}
-                className='grow-0 mt-1 block pl-3 pr-10 py-2 text-base bg-white dark:bg-gray-900 border-gray-300 dark:border-slate-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md'
-              >
-                <option value='All'>Все</option>
-                {userProfessionList.map((profession, key) => (<option key={profession + key} value={profession}>
-                    {profession}
-                  </option>))}
-              </select>
-            </div>
+    classname='mt-5'
+    rows={rows}
+    currentPage={currentPage}
+    setCurrentPage={setCurrentPage}
+    tableID='admin-users-list'
+    isLoading={isLoading}
+    error={error}
+    columns={columns}
+    itemsContainerClassNames='flex flex-col gap-4 bg-gray-100 dark:bg-gray-800 p-4'
+    pseudoTableBodyClassNames='py-5'
+    initSortColumn={columns[1]}
+    placeholder='Поиск сотрудников по ФИО, ДР, должности, АРМ, IP'
+    filterCallback={filter}
+    sortCallback={null}
+    makeItem={makeItem}
+    table={{ isTable: 'false', startColumn: null, endColumn: null, columnNames: null, coltosort: [] }}
+  >
+    <DataTableToolBar className='mt-3' isLoading={isLoading} error={error}>
+      <div className='flex items-center justify-between w-full  flex-wrap'>
+        <div className='flex items-center gap-2'>
+          <div className='flex items-center ml-3 justify-start'>
+            <label
+              htmlFor='active'
+              className='shrink-0 block text-sm font-medium text-gray-700 dark:text-gray-300 mr-2'
+            >
+              Статус:
+            </label>
+            <select
+              id='active'
+              name='active'
+              defaultValue={selectedFilter.active}
+              onChange={filterSelectChangeHandler}
+              className='grow-0 mt-1 block pl-3 pr-10 py-2 text-base bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md'
+            >
+              <option value='All'>Все</option>
+              {userStatusList.map((status, key) => (<option key={status + key} value={status}>
+                {statusLabels[status]}
+              </option>))}
+            </select>
+          </div>
+          <div className='flex items-center ml-3 justify-start'>
+            <label
+              htmlFor='sudo'
+              className='shrink-0 block text-sm font-medium text-gray-700 dark:text-gray-300 mr-2'
+            >
+              Права:
+            </label>
+            <select
+              id='sudo'
+              name='sudo'
+              defaultValue={selectedFilter.sudo}
+              onChange={filterSelectChangeHandler}
+              className='grow-0 mt-1 block pl-3 pr-10 py-2 text-base bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md'
+            >
+              <option value='All'>Все</option>
+              {userSudoList.map((status, key) => (<option key={status + key} value={status}>
+                {sudoLabels[status]}
+              </option>))}
+            </select>
+          </div>
+          <div className='flex items-center ml-3 justify-start'>
+            <label
+              htmlFor='profession'
+              className='shrink-0 block text-sm font-medium text-gray-700 dark:text-gray-300 mr-2'
+            >
+              Должность:
+            </label>
+            <select
+              id='profession'
+              name='profession'
+              defaultValue={selectedFilter.profession}
+              onChange={filterSelectChangeHandler}
+              className='grow-0 mt-1 block pl-3 pr-10 py-2 text-base bg-white dark:bg-gray-900 border-gray-300 dark:border-slate-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md'
+            >
+              <option value='All'>Все</option>
+              {userProfessionList.map((profession, key) => (<option key={profession + key} value={profession}>
+                {profession}
+              </option>))}
+            </select>
+          </div>
 
-          </div>
-          <div
-          >
-            <BasicButton onClick={() => navigate('/admin/users/new')} type='button' size='medium' variant='primary'>Добавить</BasicButton>
-          </div>
         </div>
-      </DataTableToolBar>
-    </DataTableCore>);
+        <div
+        >
+          <BasicButton onClick={() => navigate('/admin/users/new')} type='button' size='medium'
+                       variant='primary'>Добавить</BasicButton>
+        </div>
+      </div>
+    </DataTableToolBar>
+  </DataTableCore>);
 
 };
 

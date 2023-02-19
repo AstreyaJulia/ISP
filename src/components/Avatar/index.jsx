@@ -138,7 +138,7 @@ Avatar.propTypes = {
   /** Доп. класс для аватара */
   classname: PropTypes.string,
   /** Значок вместо букв */
-  icon: PropTypes.object,
+  icon: PropTypes.node,
 };
 
 Avatar.defaultProps = {

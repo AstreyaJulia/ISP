@@ -24,14 +24,19 @@ const ElementsDropdown = ({ menuItems }) => {
       </div>
     </Menu.Button>
     <Menu.Items
-      className='absolute right-0 z-50 mt-2 w-48 origin-top-right rounded-md bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
-      {menuItems.map((menuItem) =>
-        <div className={menuItem.divider === false ? 'p-1.5' : ''}>
+      className='absolute right-0 z-50 mt-2 w-48 origin-top-right rounded-md bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
+      {menuItems.map((menuItem, key) =>
+        <div key={key} className={menuItem.divider === false ? 'p-1' : ''}>
         <Menu.Item>
         {({ active }) => (
-          menuItem.divider === false ? <button type='button' onClick={menuItem.func} className={classNames(active ? 'bg-indigo-500 text-white' : 'text-gray-900 dark:text-gray-100', 'group flex w-full items-center rounded-md px-2 py-2 text-base')}>
+          menuItem.divider === false ?
+            <button
+              disabled={menuItem.disabled}
+              type='button'
+              onClick={menuItem.func}
+              className={classNames(active ? 'bg-gray-200 dark:bg-gray-700' : '', menuItem.disabled ? 'text-gray-300 dark:text-gray-700' : 'text-gray-900 dark:text-gray-100',  'group flex w-full items-center rounded-md px-2 py-2 text-sm')}>
             {menuItem.icon ? menuItem.icon : ''}{menuItem.title}
-          </button> : <span className='p-0 m-0 flex items-center border-t border-gray-300 dark:border-gray-600'/>
+          </button> : <span className='p-0 m-0 flex items-center border-t border-gray-200 dark:border-gray-700'/>
         )}
       </Menu.Item>
         </div>)}
