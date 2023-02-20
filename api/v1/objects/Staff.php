@@ -63,7 +63,7 @@ class Staff
                 LEFT JOIN sdc_room AS BildingType ON FloorType.affiliation = BildingType.id
                 LEFT JOIN sdc_vocation ON sdc_vocation.id = sdc_user_attributes.profession
                 WHERE sdc_users.id != 1
-                ORDER BY sdc_user_attributes.fullname ASC";
+                ORDER BY sdc_users.active DESC, sdc_user_attributes.fullname ASC";
         return $this->helpers->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
     }
 
