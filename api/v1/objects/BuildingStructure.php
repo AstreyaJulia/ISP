@@ -31,6 +31,7 @@ class BuildingStructure
 
     $sql = "SELECT
               mother.id,
+              mother.icon,
               mother.name,
               IF(ISNULL(children.id),'false', 'true') AS childNodes
             FROM sdc_room AS mother
