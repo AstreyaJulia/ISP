@@ -164,7 +164,7 @@ RHFSwitch.propTypes = {
   label: PropTypes.node,
   enabledLabel: PropTypes.node,
   disabledLabel: PropTypes.node,
-  checkedValue: PropTypes.object,
+  checkedValue: PropTypes.number,
   onChange: PropTypes.func,
   classnames: PropTypes.string
 };

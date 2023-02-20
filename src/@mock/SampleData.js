@@ -861,6 +861,14 @@ export const events = [
     allDay: false,
     calendar: 'yellow',
   },
+  {
+    id: '132',
+    title: 'ВКС ежемесячное совещание председателей',
+    start: '2023-03-10 09:00:00',
+    end: '2023-03-10 09:00:00',
+    allDay: false,
+    calendar: 'yellow',
+  },
 ];
 
 export const demoSteps = [

@@ -8,7 +8,7 @@ export default {
   argTypes: {},
 };
 
-const Template = (args) => <Card variant='default' classname='p-5'><TextEditor {...args} /></Card>;
+const Template = (args) => <Card variant='default' classname='px-5 pb-5 pt-2'><TextEditor {...args} /></Card>;
 
 export const _TextEditor = Template.bind({});
 

@@ -41,11 +41,11 @@ const Badge = ({ size, color, item, shape, className }) => {
 
 Badge.propTypes = {
   /**  Данные */
-  item: PropTypes.node.isRequired,
+  item: PropTypes.node,
   /**  Размер бейджа */
   size: PropTypes.oneOf(['small', 'large']).isRequired,
   /**  Цвет бейджа */
-  color: PropTypes.oneOf(['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'indigo', 'pink']).isRequired,
+  color: PropTypes.oneOf(['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'indigo', 'pink']),
   /**  Форма бейджа */
   shape: PropTypes.oneOf(['rounded', 'circle']).isRequired,
   /** Доп. класс/ы для бейджа */
@@ -54,6 +54,7 @@ Badge.propTypes = {
 
 Badge.defaultProps = {
   className: '',
+  color: 'indigo'
 };
 
 export default Badge;
