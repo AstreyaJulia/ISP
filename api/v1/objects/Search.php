@@ -73,7 +73,7 @@
 
           $searchInbox["data"] = $this->helpers::sendGET($this->paramsSearch(), API_GAS."v1/".$this->helpers->router."/".$this->helpers->urlData["0"].".php?");
 
-          return $this->helpers->getJsonEncode($searchInbox);
+          return $searchInbox;
 
         } catch (\Exception $e) {
 
