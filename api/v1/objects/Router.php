@@ -13,7 +13,7 @@ use Exception;
      *
      * @var string
      */
-    private $jwt;
+    public readonly string $jwt;
 
     /**
      * Метод запроса для доступа к странице
@@ -102,16 +102,6 @@ use Exception;
       array_shift($urls);
       $this->urlData = $urls;
       $this->formData = $formData;
-    }
-
-    /**
-     * get элемент для jwt
-     *
-     * @return string
-     */
-    public function getJWT()
-    {
-      return $this->jwt;
     }
 
   }

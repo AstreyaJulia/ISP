@@ -16,7 +16,7 @@
     // если декодирование выполнено успешно, продолжаем выполнять скрипт
     try {
       // декодирование jwt
-      $helpers->secureJWT($helpers->getJWT(), $key);
+      $helpers->secureJWT($helpers->jwt, $key);
       // сверяем jwt с базой данных
       if (!$helpers->assignValues()) {
         throw new Exception("Ключ не прошёл проверку");
