@@ -117,8 +117,7 @@ class Users
 
           if (in_array($param, ["sidebar", "theme"])) {
             try {
-              $output["data"] = $this->helpers->setUserSettings($param, (int)$this->helpers->formData[$param]);
-              $this->helpers->getJsonEncode($output);
+              return $this->helpers->wrap($this->helpers->setUserSettings($param, (int)$this->helpers->formData[$param]), "data");
             } catch (\PDOException $e) {
               $this->helpers::isErrorInfo(200, "Што-то пошло не так", $e);
             }
