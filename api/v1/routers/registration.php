@@ -3,7 +3,7 @@
   include_once 'config/jwt.php';
   $registrationClass = new Api\Objects\Registration($helpers);
   // POST
-    switch ($helpers->getMethod()) {
+    switch ($helpers->method) {
       case "POST": {
         $registrationClass->routRegistration();
         $token = array(

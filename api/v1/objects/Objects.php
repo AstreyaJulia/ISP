@@ -43,7 +43,7 @@ trait Objects
 
     public function response(): void
     {
-        match ($this->helpers->getMethod()) {
+        match ($this->helpers->method) {
             "GET" => $this->helpers->getJsonEncode($this->metodGET()),
             "POST" => $this->helpers->getJsonEncode($this->metodPOST()),
             "PATCH" => $this->helpers->getJsonEncode($this->metodPATCH()),

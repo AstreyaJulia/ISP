@@ -20,7 +20,7 @@ use Exception;
      *
      * @var string
      */
-    private $method;
+    public readonly string $method;
 
     /**
      * Тело переданного GET, POST, PUT, DELETE запроса
@@ -112,16 +112,6 @@ use Exception;
     public function getJWT()
     {
       return $this->jwt;
-    }
-
-    /**
-     * get элемент для method
-     *
-     * @return string
-     */
-    public function getMethod()
-    {
-      return $this->method;
     }
 
   }

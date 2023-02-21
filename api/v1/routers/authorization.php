@@ -3,7 +3,7 @@
   include_once 'config/jwt.php';
   $authorizationClass = new Api\Objects\Authorization($helpers);
   // POST
-    switch ($helpers->getMethod()) {
+    switch ($helpers->method) {
       // GET /authorization
       case "POST": {
         $authorizationClass->routAuthorization();

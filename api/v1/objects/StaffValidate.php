@@ -46,7 +46,7 @@ trait StaffValidate
      */
     private function username(){
 
-        $sqlCondition = $this->helpers->getMethod() === "PATCH" ? "  AND id != ".$this->helpers->formData["id"]: "";
+        $sqlCondition = $this->helpers->method === "PATCH" ? "  AND id != ".$this->helpers->formData["id"]: "";
         $param = $this->helpers->formData["username"] ?? "";
 
         $this->helpers->validateExist($param, "username");
@@ -175,7 +175,7 @@ trait StaffValidate
 
             $desktop = $this->freeDesktop();
 
-            if ($this->helpers->getMethod() === "PATCH") {
+            if ($this->helpers->method === "PATCH") {
                 $sql = "SELECT
                             room AS id,
                             fullname AS label
