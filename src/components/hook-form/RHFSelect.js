@@ -1,16 +1,23 @@
-import React from 'react';
+import tailwindColors from 'tailwindcss/colors';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useFormContext, Controller } from 'react-hook-form';
 import Select, { components } from 'react-select';
 import { Tooltip } from 'react-tooltip';
 import useAuth from '../../hooks/useAuth';
-import { tailwindColorsConfig } from '../../utils/getTailwindconfig';
 import { classNames } from '../../utils/classNames';
 
 export default function RHFSelect({ name, label, options, placeholder, isMulti, onChange, onFocus, noOptionsMessage, direction }) {
   const { control } = useFormContext();
 
   const { theme } = useAuth();
+
+  const [tempTheme, setTempTheme] = useState(1)
+
+  useEffect(() => {
+    setTempTheme(theme)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [theme]);
 
   /* Индикатор селекта */
   const DropdownIndicator = (props) => (
@@ -129,10 +136,10 @@ export default function RHFSelect({ name, label, options, placeholder, isMulti, 
                   ...base,
                   padding: `0`,
                   borderRadius: '0.5rem',
-                  backgroundColor: theme === 1 ? tailwindColorsConfig.theme.colors.gray['100'] : tailwindColorsConfig.theme.colors.gray['800'],
-                  borderColor: theme === 1 ? tailwindColorsConfig.theme.colors.slate['300'] : tailwindColorsConfig.theme.colors.slate['600'],
-                  color: theme === 1 ? tailwindColorsConfig.theme.colors.slate['300'] : tailwindColorsConfig.theme.colors.slate['600'],
-                  '::placeholder': theme === 1 ? tailwindColorsConfig.theme.colors.slate['300'] : tailwindColorsConfig.theme.colors.slate['600'],
+                  backgroundColor: tempTheme.toString() === '1' ? tailwindColors.gray['100'] : tailwindColors.gray['800'],
+                  borderColor: tempTheme.toString() === '1' ? tailwindColors.slate['300'] : tailwindColors.slate['600'],
+                  color: tempTheme.toString() === '1' ? tailwindColors.slate['300'] : tailwindColors.slate['600'],
+                  '::placeholder': tempTheme.toString() === '1' ? tailwindColors.slate['300'] : tailwindColors.slate['600'],
                 }),
                 container: (base) => ({
                   ...base,

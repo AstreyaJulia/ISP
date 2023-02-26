@@ -20,7 +20,7 @@ const Layout = ({ setMenuVisibility, scrollHandler }) => {
           'main-content animate__fadeIn left-0 text-gray-900 dark:text-gray-200 fixed top-16 right-0 bottom-0 overflow-hidden'
         )}
       >
-        <div onScroll={(evt) => scrollHandler(evt)} className="content-body overflow-y-scroll h-full py-5">
+        <div onScroll={(evt) => scrollHandler(evt)} className="content-body overflow-y-scroll h-full py-8">
           {/* Содержимое страницы */}
           <Outlet />
         </div>

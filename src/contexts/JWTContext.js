@@ -7,7 +7,7 @@ import useLocalStorage from '../hooks/useLocalStorage';
 import Toast, { toastStyles } from '../components/Toast';
 
 const initialState = {
-  theme: null,
+  theme: 1,
   sidebar: 1,
   isAuthenticated: false,
   isInitialized: false,
@@ -94,29 +94,29 @@ function AuthProvider({ children }) {
     sidebar: state.sidebar,
   });
 
-  const getUserData = async () => {
-    await axios
+  const getUserData = async () => axios
       .get('/users/login-data')
       .then((res) => {
         const { fullname, id, sidebar, sudo, theme, username, professionID, professionName } = res.data.data;
+
         dispatch({
           type: 'INITIALIZE',
           payload: {
             isAuthenticated: true,
             user: {
-              id, // ид пользователя в базе
-              username, // Логин
-              fullname, // полное имя
-              professionID, // ID профессии, может быть null
+              id: res?.data?.data?.id, // ид пользователя в базе
+              username: res?.data?.data?.username, // Логин
+              fullname: res?.data?.data?.fullname, // полное имя
+              professionID: res?.data?.data?.professionID, // ID профессии, может быть null
               professionName:
-                professionName === null || professionName.toString() === 'null'
+                res?.data?.data?.professionName === null || res?.data?.data?.professionName.toString() === 'null'
                   ? 'Администратор системы'
-                  : professionName,
-              role: sudo === 1 ? 'Администратор' : 'Пользователь', // Роль, текстовое значение
-              sudo, // Права суперпользователя, 0 - пользователь, 1 - администратор
+                  : res?.data?.data?.professionName,
+              role: res?.data?.data?.sudo === 1 ? 'Администратор' : 'Пользователь', // Роль, текстовое значение
+              sudo: res?.data?.data?.sudo, // Права суперпользователя, 0 - пользователь, 1 - администратор
             },
-            theme, // Тема 0 - темная, 1 - светлая
-            sidebar, // Сайдбар, 1 - широкий, 0 - узкий
+            theme: res?.data?.data?.theme, // Тема 0 - темная, 1 - светлая
+            sidebar: res?.data?.data?.sidebar, // Сайдбар, 1 - широкий, 0 - узкий
           },
         });
       })
@@ -127,7 +127,6 @@ function AuthProvider({ children }) {
         }
         toast((t) => <Toast t={t} message={error} type="error" />, { className: toastStyles });
       });
-  };
 
   const initialize = async () => {
     try {
@@ -180,28 +179,26 @@ function AuthProvider({ children }) {
     element.classList.remove('dark', 'light', 'undefined');
 
     /** Если тема не светлая, добавляем класс темы из store */
-    element.classList.add(classNames[state.theme]);
+    element.classList.add(classNames[state?.theme]);
   }, [state.theme]);
 
   /** Смена темы
    * @param data
    */
-  const onChangeSkin = async (data) => {
-    const response = await axios.post('users/login-data', { theme: data });
-
-    if (response.data.data) {
-      dispatch({
-        type: 'THEME',
-        payload: {
-          theme: response.data.data.theme,
-        },
-      });
-      setSettings({
-        ...settings,
-        theme: response.data.data.theme,
-      });
-    }
-  };
+  const onChangeSkin = async (data) => axios.post('users/login-data', { theme: data }).then((response) => {
+      if (response.data.data) {
+        dispatch({
+          type: 'THEME',
+          payload: {
+            theme: response?.data?.data?.theme,
+          },
+        });
+        setSettings({
+          ...settings,
+          theme: response?.data?.data?.theme,
+        });
+      }
+    });
 
   /** Смена ширины меню
    * @param data

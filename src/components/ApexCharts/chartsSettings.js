@@ -1,4 +1,4 @@
-import { tailwindColorsConfig } from '../../utils/getTailwindconfig';
+import tailwindColors from 'tailwindcss/colors';
 import { pxToRem } from '../../utils/remUtils';
 import useAuth from '../../hooks/useAuth';
 
@@ -8,12 +8,12 @@ export function BaseChartOptions() {
   return {
     // Цвета графиков
     colors: [
-      theme.toString() === '1' ? tailwindColorsConfig.theme.colors.indigo['500'] : tailwindColorsConfig.theme.colors.indigo['400'],
-      theme.toString() === '1' ? tailwindColorsConfig.theme.colors.amber['500'] : tailwindColorsConfig.theme.colors.amber['400'],
-      theme.toString() === '1' ? tailwindColorsConfig.theme.colors.emerald['500'] : tailwindColorsConfig.theme.colors.emerald['400'],
-      theme.toString() === '1' ? tailwindColorsConfig.theme.colors.rose['500'] : tailwindColorsConfig.theme.colors.rose['400'],
-      theme.toString() === '1' ? tailwindColorsConfig.theme.colors.violet['500'] : tailwindColorsConfig.theme.colors.violet['400'],
-      theme.toString() === '1' ? tailwindColorsConfig.theme.colors.cyan['500'] : tailwindColorsConfig.theme.colors.cyan['400'],
+      theme.toString() === '1' ? tailwindColors.indigo['500'] : tailwindColors.indigo['400'],
+      theme.toString() === '1' ? tailwindColors.amber['500'] : tailwindColors.amber['400'],
+      theme.toString() === '1' ? tailwindColors.emerald['500'] : tailwindColors.emerald['400'],
+      theme.toString() === '1' ? tailwindColors.rose['500'] : tailwindColors.rose['400'],
+      theme.toString() === '1' ? tailwindColors.violet['500'] : tailwindColors.violet['400'],
+      theme.toString() === '1' ? tailwindColors.cyan['500'] : tailwindColors.cyan['400'],
     ],
 
     // График
@@ -21,7 +21,7 @@ export function BaseChartOptions() {
       toolbar: { show: false },
       zoom: { enabled: false },
       // animations: { enabled: false },
-      foreColor: theme.toString() === '1' ? tailwindColorsConfig.theme.colors.gray['500'] : tailwindColorsConfig.theme.colors.gray['400'],
+      foreColor: theme.toString() === '1' ? tailwindColors.neutral['500'] : tailwindColors.neutral['400'],
       fontFamily:
         "'OpenSans', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji', 'sans-serif'",
     },
@@ -67,7 +67,7 @@ export function BaseChartOptions() {
     // Сетка
     grid: {
       strokeDashArray: 3,
-      borderColor: theme.toString() === '1' ? tailwindColorsConfig.theme.colors.slate['300'] : tailwindColorsConfig.theme.colors.slate['600'],
+      borderColor: theme.toString() === '1' ? tailwindColors.slate['300'] : tailwindColors.slate['600'],
       position: 'back',
       xaxis: {
         lines: {
@@ -85,7 +85,7 @@ export function BaseChartOptions() {
     // Маркеры
     markers: {
       size: 0,
-      strokeColors: theme.toString() === '1' ? tailwindColorsConfig.theme.colors.white : tailwindColorsConfig.theme.colors.gray['900'],
+      strokeColors: theme.toString() === '1' ? tailwindColors.white : tailwindColors.neutral['900'],
     },
 
     // Подсказки
@@ -108,7 +108,7 @@ export function BaseChartOptions() {
       itemMargin: { horizontal: 12 },
       labels: {
         colors:
-          theme === 1 ? tailwindColorsConfig.theme.colors.gray['600'] : tailwindColorsConfig.theme.colors.gray['300'],
+          theme === 1 ? tailwindColors.neutral['600'] : tailwindColors.neutral['300'],
       },
     },
 
@@ -126,7 +126,7 @@ export function BaseChartOptions() {
             show: true,
             value: {
               offsetY: 8,
-              color: tailwindColorsConfig.theme.colors.indigo['600'],
+              color: tailwindColors.indigo['600'],
               fontSize: pxToRem(24),
               fontWeight: 700,
               lineHeight: 1.5,
@@ -134,7 +134,7 @@ export function BaseChartOptions() {
             total: {
               show: true,
               label: 'Всего',
-              color: tailwindColorsConfig.theme.colors.emerald['600'],
+              color: tailwindColors.emerald['600'],
               fontSize: pxToRem(14),
               fontWeight: 600,
               lineHeight: 22 / 14,
@@ -146,12 +146,12 @@ export function BaseChartOptions() {
       radialBar: {
         track: {
           strokeWidth: '100%',
-          background: tailwindColorsConfig.theme.colors.gray['500'],
+          background: tailwindColors.neutral['500'],
         },
         dataLabels: {
           value: {
             offsetY: 8,
-            color: tailwindColorsConfig.theme.colors.indigo['600'],
+            color: tailwindColors.indigo['600'],
             fontSize: pxToRem(24),
             fontWeight: 700,
             lineHeight: 1.5,
@@ -159,7 +159,7 @@ export function BaseChartOptions() {
           total: {
             show: true,
             label: 'Всего',
-            color: tailwindColorsConfig.theme.colors.emerald['600'],
+            color: tailwindColors.emerald['600'],
             fontSize: pxToRem(14),
             fontWeight: 600,
             lineHeight: 22 / 14,
@@ -170,17 +170,17 @@ export function BaseChartOptions() {
       radar: {
         polygons: {
           fill: { colors: ['transparent'] },
-          strokeColors: tailwindColorsConfig.theme.colors.slate['300'],
-          connectorColors: tailwindColorsConfig.theme.colors.slate['300'],
+          strokeColors: tailwindColors.slate['300'],
+          connectorColors: tailwindColors.slate['300'],
         },
       },
       // polarArea
       polarArea: {
         rings: {
-          strokeColor: tailwindColorsConfig.theme.colors.slate['300'],
+          strokeColor: tailwindColors.slate['300'],
         },
         spokes: {
-          connectorColors: tailwindColorsConfig.theme.colors.slate['300'],
+          connectorColors: tailwindColors.slate['300'],
         },
       },
     },

@@ -47,12 +47,12 @@ const Quiz = ({ steps, answers }) => {
       },
       pre: {
         props: {
-          className: 'flex text-white px-4 py-5 bg-gray-800 rounded-md overflow-x-auto',
+          className: 'flex text-white px-4 py-5 bg-neutral-800 rounded-md overflow-x-auto',
         },
       },
       code: {
         props: {
-          className: 'px-0.5 text-gray-600 py-0.5 px-1 bg-gray-400/10 rounded-sm border border-gray-300',
+          className: 'px-0.5 text-neutral-600 py-0.5 px-1 bg-neutral-400/10 rounded-sm border border-neutral-300',
         },
       },
       blockquote: {
@@ -97,17 +97,17 @@ const Quiz = ({ steps, answers }) => {
       },
       table: {
         props: {
-          className: 'border-2 border-gray-300 dark:border-gray-700',
+          className: 'border-2 border-neutral-300 dark:border-neutral-700',
         },
       },
       td: {
         props: {
-          className: 'border border-gray-300 dark:border-gray-700 py-1 px-2',
+          className: 'border border-neutral-300 dark:border-neutral-700 py-1 px-2',
         },
       },
       th: {
         props: {
-          className: 'border border-gray-300 dark:border-gray-700 py-1 px-2',
+          className: 'border border-neutral-300 dark:border-neutral-700 py-1 px-2',
         },
       },
       form: {
@@ -132,7 +132,7 @@ const Quiz = ({ steps, answers }) => {
       },
       hr: {
         props: {
-          className: 'border-gray-300 dark:border-gray-700 my-3',
+          className: 'border-neutral-300 dark:border-neutral-700 my-3',
         },
       },
       mark: {
@@ -204,7 +204,7 @@ const Quiz = ({ steps, answers }) => {
 
   const makeQuestion = (question) => (
     <Card key={question.value} classname='px-5 py-4 flex flex-col' variant='grayShadowless' >
-      <div className="text-md font-medium text-gray-900">
+      <div className="text-md font-medium text-neutral-900">
         <Markdown options={{ ...mdOptions }}>{question.label}</Markdown>
       </div>
       <legend className="sr-only">{question.label}</legend>

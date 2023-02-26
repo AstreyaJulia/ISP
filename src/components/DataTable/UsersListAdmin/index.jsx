@@ -19,7 +19,7 @@ import Toast, { toastStyles } from '../../Toast';
 import { setSession } from '../../../utils/jwt';
 import BasicButton from '../../BasicButton';
 import ElementsDropdown from '../../ElementsDropdown';
-
+import { PATH_ADMIN } from '../../../routes/paths';
 
 const UsersListAdmin = ({ data, isLoading, error, getFunc }) => {
   const [rows, setRows] = useState(data ?? []);
@@ -76,7 +76,7 @@ const UsersListAdmin = ({ data, isLoading, error, getFunc }) => {
           <path
             d='M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z' />
         </svg>,
-        func: () => navigate(`/admin/users/${item?.id}/edit`),
+        func: () => navigate(PATH_ADMIN.users.client.edit(item?.id)),
         disabled: false,
         divider: false,
       },
@@ -113,26 +113,30 @@ const UsersListAdmin = ({ data, isLoading, error, getFunc }) => {
           />
         </a>
 
-        <div className='flex flex-col items-start justify-center'>
+        <div className='flex flex-col'>
           <a href={`/admin/users/${item?.id}/view`}
-             className='font-medium text-base text-gray-800 dark:text-gray-200 flex flex-wrap w-48 items-center hover:underline hover:underline-offset-2'>
-            <span
-              className={classNames('mr-2 w-3 h-3 rounded-full', item?.active.toString() === '0' ? 'bg-red-400 dark:bg-red-600' : 'bg-green-400 dark:bg-green-600')} />
+             className='text-sm font-medium text-gray-700 dark:text-gray-200 flex flex-wrap w-48 items-center hover:underline hover:underline-offset-2'>
             <span>{getHighlightedText(item?.username, query)}</span>
           </a>
-          {item?.sudo.toString() === '1' ?
-            <Badge item='Администратор' size='small' color='red' shape='rounded' className='ml-5 mt-1' /> : ''}
+          <p className='flex items-center'>
+            <span
+              className={classNames('mr-2 w-3 h-3 rounded-full', item?.active.toString() === '0' ? 'bg-red-400 dark:bg-red-600' : 'bg-green-400 dark:bg-green-600')} />
+            <span
+              className={classNames(item?.sudo.toString() === '1' ? 'text-red-600 dark:text-red-500/30' : 'text-gray-600 dark:text-gray-500/30', 'text-sm')}>{item?.sudo.toString() === '1' ? 'Администратор' : 'Пользователь'}</span>
+          </p>
+
         </div>
 
         <div className='flex flex-col items-start'>
           <p
-            className='font-medium text-base text-gray-600 dark:text-gray-400 flex flex-wrap w-96'>
+            className='text-sm text-gray-900 dark:text-gray-50 flex flex-wrap w-96'>
             {item?.fullname ? getHighlightedText(item?.fullname, query) : null}
           </p>
           <p
-            className='text-sm text-indigo-700 dark:text-indigo-400 flex flex-wrap'>
+            className='text-sm text-gray-500 dark:text-indigo-400 flex flex-wrap'>
             <span>{item?.profession}</span>
-            {item?.affiliationJudge ? <span>: {getInitials(item?.affiliationJudge)}</span> : ''}
+            {item?.affiliationJudge ?
+              <span className='text-gray-900 dark:text-gray-50'>: {getInitials(item?.affiliationJudge)}</span> : ''}
           </p>
         </div>
 
@@ -258,7 +262,7 @@ const UsersListAdmin = ({ data, isLoading, error, getFunc }) => {
     isLoading={isLoading}
     error={error}
     columns={columns}
-    itemsContainerClassNames='flex flex-col gap-4 bg-gray-100 dark:bg-gray-800 p-4'
+    itemsContainerClassNames='flex flex-col gap-3 bg-gray-100 dark:bg-gray-800 p-4'
     pseudoTableBodyClassNames='py-5'
     initSortColumn={columns[1]}
     placeholder='Поиск сотрудников по ФИО, ДР, должности, АРМ, IP'
@@ -334,7 +338,7 @@ const UsersListAdmin = ({ data, isLoading, error, getFunc }) => {
         </div>
         <div
         >
-          <BasicButton onClick={() => navigate('/admin/users/new')} type='button' size='medium'
+          <BasicButton onClick={() => navigate(PATH_ADMIN.users.client.new)} type='button' size='medium'
                        variant='primary'>Добавить</BasicButton>
         </div>
       </div>

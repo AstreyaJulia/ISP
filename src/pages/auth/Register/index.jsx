@@ -48,7 +48,6 @@ const Register = () => {
       try {
         await register(userData.login, userData.password, userData.passrep);
       } catch (error) {
-        console.error(error);
         reset();
         if (isMountedRef.current) {
           setError('afterSubmit', { ...error, message: error.message });

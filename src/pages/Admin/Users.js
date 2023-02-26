@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from '../../store';
 import { getStaffList } from '../../store/slices/staff';
 
 const UsersAdmin = () => {
-  const breadcrumbs = [{ name: 'Управление пользователями', href: '', current: true }];
 
   const dispatch = useDispatch();
 
@@ -29,8 +28,8 @@ const UsersAdmin = () => {
   const getUsersList = async () => dispatch(getStaffList());
 
   return (
-    <BasicPage title="Управление пользователями" className="max-w-6xl mx-auto px-5">
-      <PageHeader pages={breadcrumbs} header="Управление пользователями" />
+    <BasicPage title="Пользователи" className="max-w-6xl mx-auto px-5">
+      <PageHeader header="Пользователи" />
       <UsersListAdmin error={error} isLoading={isLoading} data={staffList ?? []} getFunc={getUsersList} />
     </BasicPage>
   );

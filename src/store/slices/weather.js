@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { dispatch } from '../index';
-import { CITY_OPEN_WEATHER_ID, OPEN_WEATHER_API_KEY } from '../../config';
+import { CITY_LAT, CITY_LON, OPEN_WEATHER_API_KEY } from '../../config';
 import apiErrorHelper from '../../utils/apiErrorHelper';
 
 /** Начальное состояние
@@ -16,21 +16,12 @@ const initialState = {
 /** Адрес Open Weather
  * @type {string}
  */
-// const OPEN_WEATHER_API_CURRENT = 'https://api.openweathermap.org/data/2.5/weather';
-const OPEN_WEATHER_API_CURRENT = 'https://openweathermap.org/data/2.5/weather';
-// const OPEN_WEATHER_API_FORECAST = 'https://openweathermap.org/data/2.5/forecast';
-
-/* const getParams = {
-  lat: CITY_LAT,
-  lon: CITY_LON,
-  appid: OPEN_WEATHER_API_KEY,
-  units: 'metric',
-  lang: 'ru',
-}; */
+const OPEN_WEATHER_API_CURRENT = 'https://openweathermap.org/data/2.5/onecall';
 
 const getParams = {
-  id: CITY_OPEN_WEATHER_ID,
   appid: OPEN_WEATHER_API_KEY,
+  lat: CITY_LAT,
+  lon: CITY_LON,
 };
 
 const slice = createSlice({
@@ -54,6 +45,24 @@ const slice = createSlice({
       state.currentIsLoading = 'false';
       state.currentWeather = action.payload;
     },
+
+    // Начало загрузки прогноза погоды
+    forecastWeatherStartLoading(state) {
+      state.forecastIsLoading = 'true';
+      state.forecastError = null;
+    },
+
+    // Получили ошибку получения прогноза погоды
+    forecastWeatherHasError(state, action) {
+      state.forecastIsLoading = 'false';
+      state.forecastError = action.payload;
+    },
+
+    // Получение прогноза погоды
+    getForecastWeatherSuccess(state, action) {
+      state.forecastIsLoading = 'false';
+      state.forecastWeather = action.payload;
+    },
   },
 });
 
@@ -71,9 +80,10 @@ export function getCurrentWeather() {
       });
       dispatch(slice.actions.getCurrentWeatherSuccess(response.data));
     } catch (error) {
-      apiErrorHelper(error)
+      apiErrorHelper(error);
       dispatch(slice.actions.getCurrentWeatherSuccess({}));
       dispatch(slice.actions.currentWeatherHasError(error.message));
     }
   };
 }
+

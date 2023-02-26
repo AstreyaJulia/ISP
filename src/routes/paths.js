@@ -3,107 +3,290 @@
  * @param sublink
  * @returns {string}
  */
-function path(root, sublink) {
+function pathJoin(root, sublink) {
   return `${root}${sublink}`;
 }
 
 /* Роуты без потомков */
 export const PATH_HOME = '/home'; // Главная
-export const PATH_SETTINGS = '/settings'; // Настройки для пользователя
-export const PATH_PROFILE = '/profile'; // Профиль
+export const PATH_WEATHER = '/weather'; // Прогноз погоды
 
 /** Корневые пути для роутов с дочерними роутами
  * @type {string}
  */
-const ROOTS_CASE = '/case'; // Дела
-const ROOTS_MAIL = '/mail'; // Корреспонденция
 // const ROOTS_NEWS = "/news"; // Новости
-const ROOTS_USERS = '/users'; // Сотрудники
 // const ROOTS_DOCUMENTS = "/documents"; // Документы
-const ROOTS_PLANING = '/planing'; // Планировщик
-const ROOTS_INFO = '/info'; // Информация
 // const ROOTS_COURSES = "/courses"; // Обучение
-// const ROOTS_INVENTARIZATION = "/inventarization"; // Инвентаризация
 // const ROOTS_FEEDBACK = "/feedback"; // Обратная связь
-const ROOTS_ADMIN = '/admin'; // Администрирование
-const ROOTS_AUTH = '/auth'; // Авторизация
-const ROOTS_ERRORS = '/error'; // Ошибки
 
-// Дела
+/* Дела. Картотека */
+const ROOTS_CASE = '/cases'; // Корень модуля "Дела"
 export const PATH_CASE = {
+  accessibleProfessions: [1, 2, 3, 6, 7, 9], // Для отрисовки группы в меню
+
+  /* Списки дел */
   lists: {
-    overPeriod: path(ROOTS_CASE, '/over-period'), // Рассмотренные свыше срока
-    process: path(ROOTS_CASE, '/process'), // В производстве
-    finished: path(ROOTS_CASE, '/finished'), // Оконченные
-    archive: path(ROOTS_CASE, '/archive'), // Архив
+    /* Находящиеся в производстве */
+    process: { // По судье
+      client: pathJoin(ROOTS_CASE, '/process'),
+      accessibleProfessions: [1, 2, 3, 6, 7, 9],
+      accessibleRoles: null,
+      api: {
+        main: null,
+      },
+    },
+
+    processAll: { // По всем судьям
+      client: pathJoin(ROOTS_CASE, '/process/all'),
+      accessibleProfessions: [1, 2, 4, 5, 6, null],
+      accessibleRoles: null,
+      api: {
+        main: null,
+      },
+    },
+
+    /* Рассмотренные свыше срока */
+    overPeriod: { // По судье
+      client: pathJoin(ROOTS_CASE, '/over-period'),
+      accessibleProfessions: [1, 2, 3, 6, 7, 9],
+      accessibleRoles: null,
+      api: {
+        main: null,
+      },
+    },
+
+    overPeriodAll: { // По всем судьям
+      client: pathJoin(ROOTS_CASE, '/over-period/all'),
+      accessibleProfessions: [1, 2, 4, 5, 6, null],
+      accessibleRoles: null,
+      api: {
+        main: null,
+      },
+    },
+
+    /* Не отмечены последние события */
+    noLastEvents: { // По судье
+      client: pathJoin(ROOTS_CASE, '/no-last-events'),
+      accessibleProfessions: [1, 2, 3, 9],
+      accessibleRoles: null,
+      api: {
+        main: null,
+      },
+    },
+    noLastEventsAll: { // По всем судьям
+      client: pathJoin(ROOTS_CASE, '/no-last-events/all'),
+      accessibleProfessions: [1, 2, 6, null],
+      accessibleRoles: null,
+      api: {
+        main: null,
+      },
+    },
   },
   case: {
-    view: (id) => path(ROOTS_CASE, `/case/${id}/view`), // Просмотр данных по делу
+    /* Просмотр данных по делу по ид */
+    view: { // category - картотека дела, id - ид дела в картотеке
+      client: (id, category) => pathJoin(ROOTS_CASE, `/case/view&case=${category}&id=${id}`),
+      accessibleProfessions: null,
+      accessibleRoles: null,
+      api: {
+        main: null,
+      },
+    },
   },
   publication: {
-    list: path(ROOTS_CASE, '/publication'), // Данные по публикации
-    notLoaded: path(ROOTS_CASE, '/publication/not-loaded'), // Неопубликованные
+    /* Подлежащие публикации */
+    neededPublication: { // По судье
+      client: pathJoin(ROOTS_CASE, '/publication/needed-publication'),
+      accessibleProfessions: [1, 2, 3, 6, 7],
+      accessibleRoles: null,
+      api: {
+        main: null,
+      },
+    },
+    neededPublicationAll: { // По всем судьям
+      client: pathJoin(ROOTS_CASE, '/publication/needed-publication/all'),
+      accessibleProfessions: [1, 2, 4, 5, 6, null],
+      accessibleRoles: null,
+      api: {
+        main: null,
+      },
+    },
+
+    /* Данные по публикации */
+    isPublished: { // По судье
+      client: pathJoin(ROOTS_CASE, '/publication/is-published'),
+      accessibleProfessions: [1, 2, 3, 6, 7],
+      accessibleRoles: null,
+      api: {
+        main: null,
+      },
+    },
+    isPublishedAll: { // По всем судьям
+      client: pathJoin(ROOTS_CASE, '/publication/is-published/all'),
+      accessibleProfessions: [1, 2, 4, 5, 6, null],
+      accessibleRoles: null,
+      api: {
+        main: null,
+      },
+    },
   },
 };
 
 // Корреспонденция
+const ROOTS_MAIL = '/mail';
 export const PATH_MAIL = {
-  list: path(ROOTS_MAIL, '/list'), // Список
+  list: pathJoin(ROOTS_MAIL, '/list'), // Список
 };
 
 // Планировщик
+const ROOTS_PLANING = '/planing';
 export const PATH_PLANING = {
-  root: ROOTS_PLANING, // Календарь + задачи
+  root: {  // Календарь + задачи
+    client: ROOTS_PLANING,
+    accessibleProfessions: null,
+    accessibleRoles: [1],
+    api: {
+      main: null,
+    },
+  },
 };
 
 // Информация
+const ROOTS_INFO = '/info';
 export const PATH_INFO = {
-  root: ROOTS_INFO, // Плашки, поиск
-  info: {
-    addressBook: path(ROOTS_INFO, '/address-book'), // Телефоны, адреса
-    proxyList: {
-      list: path(ROOTS_INFO, '/proxy-list'), // Каталог ссылок
-      group: {
-        edit: (id) => path(ROOTS_INFO, `/proxy-list/group/${id}/edit`), // Правка группы администратором
-        new: path(ROOTS_INFO, '/proxy-list/group/new'), // Добавление группы администратором
-      },
-      link: {
-        edit: (id) => path(ROOTS_INFO, `/proxy-list/link/${id}/edit`), // Правка ссылки администратором
-        new: path(ROOTS_INFO, '/proxy-list/link/new'), // Добавление ссылки администратором
+  root: ROOTS_INFO,
+  phoneBook: { // Телефоны, адреса
+    client: pathJoin(ROOTS_INFO, '/phonebook'),
+    accessibleProfessions: null,
+    accessibleRoles: [0, 1],
+    api: {
+      main: null,
+    },
+  },
+  proxyList: {
+    list: { // Каталог ссылок
+      client: pathJoin(ROOTS_INFO, '/proxy-list'),
+      accessibleProfessions: null,
+      accessibleRoles: [0, 1],
+      api: {
+        main: null,
       },
     },
-    faq: path(ROOTS_INFO, '/faq'), // База знаний
+    group: { // Работа с группами каталога ссылок
+      client: {
+        edit: (id) => pathJoin(ROOTS_INFO, `/proxy-list/group/${id}/edit`), // Правка группы администратором
+        new: pathJoin(ROOTS_INFO, '/proxy-list/group/new'), // Добавление группы администратором
+      },
+      accessibleProfessions: null,
+      accessibleRoles: [1],
+      api: {
+        main: null,
+      },
+    },
+    link: { // Работа с ссылками каталога ссылок
+      client: {
+        edit: (id) => pathJoin(ROOTS_INFO, `/proxy-list/link/${id}/edit`), // Правка ссылки администратором
+        new: pathJoin(ROOTS_INFO, '/proxy-list/link/new'), // Добавление ссылки администратором
+      },
+      accessibleProfessions: null,
+      accessibleRoles: [1],
+      api: {
+        main: null,
+      },
+    },
+  },
+  faq: { // База знаний
+    client: {
+      main: pathJoin(ROOTS_INFO, '/faq'),
+      gas: pathJoin(ROOTS_INFO, '/faq/gas'),
+      gCategory: pathJoin(ROOTS_INFO, '/faq/gas/g-category'),
+      mCategory: pathJoin(ROOTS_INFO, '/faq/gas/m-category'),
+    },
+    accessibleProfessions: null,
+    accessibleRoles: [0, 1],
+    api: {
+      main: null,
+    },
   },
 };
 
-// Сотрудники, телефоны суда
+// Статистика, качество работы
+const ROOTS_STAT = '/stat'
+export const PATH_STAT = {
+  grade: {
+    client: pathJoin(ROOTS_STAT, '/grade'),
+    accessibleProfessions: [null, 1, 2, 6],
+    accessibleRoles: null,
+    api: {
+      main: null
+    }
+  },
+  charts: {
+    client: pathJoin(ROOTS_STAT, '/charts'),
+    accessibleProfessions: [null, 1, 2, 6],
+    accessibleRoles: null,
+    api: {
+      main: null
+    }
+  }
+}
+
+// Сотрудник. Профиль, настройки
+const ROOTS_USER = '/user';
 export const PATH_USERS = {
-  list: path(ROOTS_USERS, '/list'), // Список
   user: {
-    root: path(ROOTS_USERS, '/user/profile'), // Профиль пользователя для просмотра, ограниченные данные
+    profile: pathJoin(ROOTS_USER, '/profile'), // Профиль пользователя
+    settings: pathJoin(ROOTS_USER, '/settings'), // Настройки пользователя
   },
 };
 
-// Админка
+// Администрирование
+const ROOTS_ADMIN = '/admin';
 export const PATH_ADMIN = {
-  root: ROOTS_ADMIN,
+  root: {
+    client: ROOTS_ADMIN,
+    accessibleProfessions: null,
+    accessibleRoles: [1],
+    api: {
+      main: null,
+    },
+  },
   users: {
-    list: path(ROOTS_ADMIN, '/users/list'), // Список для администратора
-    new: path(ROOTS_ADMIN, '/users/new'), // Новый пользователь
-    view: (id) => path(ROOTS_ADMIN, `/users/${id}/view`), // Просмотр пользователя администратором, все данные
-    edit: (id) => path(ROOTS_ADMIN, `/users/${id}/edit`), // Правка пользователя администратором
-    demoEdit: path(ROOTS_ADMIN, `/users/1/edit`), // FIXME удалить, демо
+    client: {
+      list: pathJoin(ROOTS_ADMIN, '/users/list'), // Список для администратора
+      new: pathJoin(ROOTS_ADMIN, '/users/new'), // Новый пользователь
+      view: (id) => pathJoin(ROOTS_ADMIN, `/users/${id}/view`), // Просмотр пользователя администратором, все данные
+      edit: (id) => pathJoin(ROOTS_ADMIN, `/users/${id}/edit`), // Правка пользователя администратором
+    },
+    accessibleProfessions: null,
+    accessibleRoles: [1],
+    api: {
+      main: null,
+    },
+  },
+  workplaces: {
+    client: {
+      list: pathJoin(ROOTS_ADMIN, '/workplaces/list'), // Список для администратора
+    },
+    accessibleProfessions: null,
+    accessibleRoles: [1],
+    api: {
+      main: null,
+    },
   },
 };
 
 // Авторизация
+const ROOTS_AUTH = '/auth';
 export const PATH_AUTH = {
-  login: path(ROOTS_AUTH, '/login'), // Вход
-  register: path(ROOTS_AUTH, '/register'), // Регистрация
+  root: ROOTS_AUTH,
+  login: pathJoin(ROOTS_AUTH, '/login'), // Вход
+  register: pathJoin(ROOTS_AUTH, '/register'), // Регистрация
 };
 
 // Ошибки
+const ROOTS_ERRORS = 'error';
 export const PATH_ERRORS = {
-  404: path(ROOTS_ERRORS, '/404'), // Страница не найдена
-  500: path(ROOTS_ERRORS, '/500'), // Ошибка на стороне сервера
+  404: pathJoin(ROOTS_ERRORS, '/404'), // Страница не найдена
+  500: pathJoin(ROOTS_ERRORS, '/500'), // Ошибка на стороне сервера
 };

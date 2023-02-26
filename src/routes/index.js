@@ -5,7 +5,7 @@ import CourseLayout from '../layouts/CourseLayout/index';
 import GuestGuard from '../guards/GuestGuard';
 import AuthGuard from '../guards/AuthGuard';
 import LoadingScreen from '../components/LoadingScreen';
-import {PATH_HOME} from './paths';
+import { PATH_ADMIN, PATH_CASE, PATH_ERRORS, PATH_HOME, PATH_INFO, PATH_PLANING, PATH_STAT, PATH_USERS } from './paths';
 import RoleBasedGuard from '../guards/RoleBasedGuard';
 
 const Loadable = (Component) => (props) =>
@@ -71,82 +71,82 @@ export default function Router() {
             children: [
                 /* FIXME сюда добавлять другие роуты */
                 {
-                    path: 'info/proxy-list',
+                    path: PATH_INFO.proxyList.list.client,
                     element: <LinksCatalog/>,
                 },
                 {
-                    path: 'over-period',
+                    path: PATH_CASE.lists.overPeriod.client,
                     element: (
-                        <RoleBasedGuard accessibleProfessions={[1, 2, 3, 6, 7, 9]}>
+                        <RoleBasedGuard accessibleProfessions={PATH_CASE.lists.overPeriod.accessibleProfessions}>
                             <Finished all='false'/>
                         </RoleBasedGuard>
                     ),
                 },
                 // Все
                 {
-                    path: 'over-period-all',
+                    path: PATH_CASE.lists.overPeriodAll.client,
                     element: (
-                        <RoleBasedGuard accessibleProfessions={[1, 2, 4, 5, 6, null]}>
+                        <RoleBasedGuard accessibleProfessions={PATH_CASE.lists.overPeriodAll.accessibleProfessions}>
                             <Finished all='true'/>
                         </RoleBasedGuard>
                     ),
                 },
                 {
-                    path: 'publication',
+                    path: PATH_CASE.publication.neededPublication.client,
                     element: (
-                        <RoleBasedGuard accessibleProfessions={[1, 2, 3, 6, 7]}>
+                        <RoleBasedGuard accessibleProfessions={PATH_CASE.publication.neededPublication.accessibleProfessions}>
                             <Publication all='false'/>
                         </RoleBasedGuard>
                     ),
                 },
                 // Все
                 {
-                    path: 'publication-all',
+                    path: PATH_CASE.publication.neededPublicationAll.client,
                     element: (
-                        <RoleBasedGuard accessibleProfessions={[1, 2, 4, 5, 6, null]}>
+                        <RoleBasedGuard accessibleProfessions={PATH_CASE.publication.neededPublicationAll.accessibleProfessions}>
                             <Publication all='true'/>
                         </RoleBasedGuard>
                     ),
                 },
                 {
-                    path: 'process',
+                    path: PATH_CASE.lists.process.client,
                     element: (
-                        <RoleBasedGuard accessibleProfessions={[1, 2, 3, 6, 7, 9]}>
+                        <RoleBasedGuard accessibleProfessions={PATH_CASE.lists.process.accessibleProfessions}>
                             <Process all='false'/>
                         </RoleBasedGuard>
                     ),
                 },
                 // Все
                 {
-                    path: 'process-all',
+                    path: PATH_CASE.lists.processAll.client,
                     element: (
-                        <RoleBasedGuard accessibleProfessions={[1, 2, 4, 5, 6, null]}>
+                        <RoleBasedGuard accessibleProfessions={PATH_CASE.lists.processAll.accessibleProfessions}>
                             <Process all='true'/>
                         </RoleBasedGuard>
                     ),
                 },
                 {
-                    path: 'no-last-events',
+                    path: PATH_CASE.lists.noLastEvents.client,
                     element: (
-                        <RoleBasedGuard accessibleProfessions={[1, 2, 3, 9]}>
+                        <RoleBasedGuard accessibleProfessions={PATH_CASE.lists.noLastEvents.accessibleProfessions}>
                             <NoLastEvents all='false'/>
                         </RoleBasedGuard>
                     ),
                 },
                 {
-                    path: 'no-last-events-all',
+                    path: PATH_CASE.lists.noLastEventsAll.client,
                     element: (
-                        <RoleBasedGuard accessibleProfessions={[1, 2, 6, null]}>
+                        <RoleBasedGuard accessibleProfessions={PATH_CASE.lists.noLastEventsAll.accessibleProfessions}>
                             <NoLastEvents all='true'/>
                         </RoleBasedGuard>
                     ),
                 },
                 {
-                    path: 'calendar',
+                    path: PATH_PLANING.root.client,
                     element: <Calendar/>,
                 },
                 {
-                    path: 'phonebook',
+                    path: PATH_INFO.phoneBook.client,
                     element: <Phonebook/>,
                 }, {
                     path: 'phonebook/:id/view',
@@ -155,84 +155,79 @@ export default function Router() {
                     ),
                 },
                 {
-                    path: 'stats',
+                    path: PATH_STAT.charts.client,
                     element: <Stats/>,
                 },
                 {
-                    path: 'grade',
+                    path: PATH_STAT.grade.client,
                     element: (
-                        <RoleBasedGuard accessibleProfessions={[1, 2, 4, 5, 6, 8, null]}>
+                        <RoleBasedGuard accessibleProfessions={PATH_STAT.grade.accessibleProfessions}>
                             <Grade/>
                         </RoleBasedGuard>
                     ),
                 },
                 {
-                    path: 'faq',
+                    path: PATH_INFO.faq.client.main,
                     element: <Faq/>,
                 },
                 {
-                    path: 'faq/gas',
+                    path: PATH_INFO.faq.client.gas,
                     element: <Gas/>,
                 },
                 {
-                    path: 'faq/gas/g-category',
+                    path: PATH_INFO.faq.client.gCategory,
                     element: <Category type='gcases'/>,
                 },
                 {
-                    path: 'faq/gas/m-category',
+                    path: PATH_INFO.faq.client.mCategory,
                     element: <Category type='mcases'/>,
                 },
                 {
-                    path: 'admin',
+                    path: PATH_ADMIN.users.client.list,
                     element: (
-                        <RoleBasedGuard accessibleRoles={[1]}>
-                            <Admin/>
-                        </RoleBasedGuard>
-                    ),
-                },
-                {
-                    path: 'admin/users',
-                    element: (
-                        <RoleBasedGuard accessibleRoles={[1]}>
+                        <RoleBasedGuard accessibleRoles={PATH_ADMIN.users.accessibleRoles}>
                             <UsersAdmin/>
                         </RoleBasedGuard>
                     ),
-                }, {
-                    path: 'admin/users/:id/view',
+                },
+                {
+                    path: PATH_ADMIN.users.client.view(':id'),
                     element: (
-                        <RoleBasedGuard accessibleRoles={[1]}>
+                        <RoleBasedGuard accessibleRoles={PATH_ADMIN.users.accessibleRoles}>
                             <UserView />
                         </RoleBasedGuard>
                     ),
-                }, {
-                    path: 'admin/users/:id/edit',
+                },
+                {
+                    path: PATH_ADMIN.users.client.edit(':id'),
                     element: (
-                        <RoleBasedGuard accessibleRoles={[1]}>
-                            <UserEdit/>
-                        </RoleBasedGuard>
-                    ),
-                }, {
-                    path: 'admin/users/new',
-                    element: (
-                        <RoleBasedGuard accessibleRoles={[1]}>
+                        <RoleBasedGuard accessibleRoles={PATH_ADMIN.users.accessibleRoles}>
                             <UserEdit/>
                         </RoleBasedGuard>
                     ),
                 },
                 {
-                    path: 'admin/workplaces',
+                    path: PATH_ADMIN.users.client.new,
                     element: (
-                        <RoleBasedGuard accessibleRoles={[1]}>
+                        <RoleBasedGuard accessibleRoles={PATH_ADMIN.users.accessibleRoles}>
+                            <UserEdit/>
+                        </RoleBasedGuard>
+                    ),
+                },
+                {
+                    path: PATH_ADMIN.workplaces.client.list,
+                    element: (
+                        <RoleBasedGuard accessibleRoles={PATH_ADMIN.workplaces.accessibleRoles}>
                             <Workplaces/>
                         </RoleBasedGuard>
                     ),
                 },
                 {
-                    path: 'settings',
+                    path: PATH_USERS.user.settings,
                     element: <Settings/>,
                 },
                 {
-                    path: 'profile',
+                    path: PATH_USERS.user.profile,
                     element: <Profile/>,
                 },
 
@@ -249,47 +244,6 @@ export default function Router() {
                     element: (
                         <RoleBasedGuard accessibleRoles={[1]}>
                             <Test2/>
-                        </RoleBasedGuard>
-                    ),
-                },
-                // Документация
-                {
-                    path: 'doc/components/colors',
-                    element: (
-                        <RoleBasedGuard accessibleRoles={[1]}>
-                            <Colors/>
-                        </RoleBasedGuard>
-                    ),
-                },
-                {
-                    path: 'doc/components/typography',
-                    element: (
-                        <RoleBasedGuard accessibleRoles={[1]}>
-                            <Typography/>
-                        </RoleBasedGuard>
-                    ),
-                },
-                {
-                    path: 'doc/components/shadows',
-                    element: (
-                        <RoleBasedGuard accessibleRoles={[1]}>
-                            <Shadows/>
-                        </RoleBasedGuard>
-                    ),
-                },
-                {
-                    path: 'doc/components/grid',
-                    element: (
-                        <RoleBasedGuard accessibleRoles={[1]}>
-                            <Grid/>
-                        </RoleBasedGuard>
-                    ),
-                },
-                {
-                    path: 'doc/components/icons',
-                    element: (
-                        <RoleBasedGuard accessibleRoles={[1]}>
-                            <Icons/>
                         </RoleBasedGuard>
                     ),
                 },
@@ -326,12 +280,12 @@ export default function Router() {
                 </AuthGuard>
             ),
             children: [
-                {path: '500', element: <Page500/>},
-                {path: '404', element: <NotFound/>},
-                {path: '*', element: <Navigate to='/404' replace/>},
+                {path: PATH_ERRORS['500'], element: <Page500/>},
+                {path: PATH_ERRORS['404'], element: <NotFound/>},
+                {path: '*', element: <Navigate to={PATH_ERRORS['404']} replace/>},
             ],
         },
-        {path: '*', element: <Navigate to='/404' replace/>},
+        {path: '*', element: <Navigate to={PATH_ERRORS['404']} replace/>},
     ]);
 }
 
@@ -351,7 +305,6 @@ const Faq = Loadable(lazy(() => import('../pages/Faq'))); // База знани
 const Gas = Loadable(lazy(() => import('../pages/Faq/Subpages/Gas'))); // База знаний
 const Category = Loadable(lazy(() => import('../pages/Faq/Subpages/Gcategory'))); // База знаний
 
-const Admin = Loadable(lazy(() => import('../pages/Admin'))); // Админка дашбоард
 const UsersAdmin = Loadable(lazy(() => import('../pages/Admin/Users'))); // Управление пользователями
 const UserEdit = Loadable(lazy(() => import('../pages/Admin/UserEdit'))); // Добавление / редактирование пользователя
 const UserView = Loadable(lazy(() => import('../pages/Admin/UserView'))); // Просмотр пользователя
@@ -369,10 +322,3 @@ const NotFound = Loadable(lazy(() => import('../pages/errors/Page404'))); // С�
 const Test = Loadable(lazy(() => import('../pages/Test')));
 const Test2 = Loadable(lazy(() => import('../pages/Test/test2')));
 const Test3 = Loadable(lazy(() => import('../pages/Test/test3')));
-
-// Компоненты
-const Colors = Loadable(lazy(() => import('../pages/Documentation/Components/Colors')));
-const Grid = Loadable(lazy(() => import('../pages/Documentation/Components/Grid')));
-const Icons = Loadable(lazy(() => import('../pages/Documentation/Components/Icons')));
-const Shadows = Loadable(lazy(() => import('../pages/Documentation/Components/Shadows')));
-const Typography = Loadable(lazy(() => import('../pages/Documentation/Components/Typography')));

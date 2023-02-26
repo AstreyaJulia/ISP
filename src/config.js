@@ -1,5 +1,6 @@
 import React from 'react';
 import courtsConfig from './courtsSettings.json'
+import { PATH_ADMIN, PATH_CASE, PATH_HOME, PATH_INFO, PATH_PLANING, PATH_STAT } from './routes/paths';
 
 /** Хост API из .ENV
  * @type {string}
@@ -19,8 +20,8 @@ export const CITY_NAME = courtsConfig[process.env.REACT_APP_OPEN_WEATHER_COURT_C
 export const CITY_OPEN_WEATHER_ID = courtsConfig[process.env.REACT_APP_OPEN_WEATHER_COURT_CODE].open_weather_city_id || '';
 
 /** Координаты города. Искать кликом на карту https://yandex.ru/maps/ и нажав на название улицы или места, слева в меню будут показаны координаты  */
-// export const CITY_LAT = '55.10';
-// export const CITY_LON = '33.24';
+export const CITY_LAT = courtsConfig[process.env.REACT_APP_OPEN_WEATHER_COURT_CODE].open_weather_court_lat || '';
+export const CITY_LON = courtsConfig[process.env.REACT_APP_OPEN_WEATHER_COURT_CODE].open_weather_court_lon || '';
 
 /** Название суда и область */
 export const COURT_NAME = courtsConfig[process.env.REACT_APP_OPEN_WEATHER_COURT_CODE].court_name || '';
@@ -114,7 +115,7 @@ export const navigation = [
         <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3" />
       </svg>
     ),
-    alias: '/home',
+    alias: PATH_HOME,
     accessibleRoles: [0, 1],
   },
   {
@@ -127,7 +128,7 @@ export const navigation = [
         <path d="M11 18.5l4-4-4-4-1 1 3 3-3 3zM20 7h-4V5c0-.55-.22-1.05-.59-1.41C15.05 3.22 14.55 3 14 3h-4c-1.1 0-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zM10 5h4v2h-4V5zm10 15H4V9h16v11z" />
       </svg>
     ),
-    accessibleProfessions: [1, 2, 3, 6, 7, 9],
+    accessibleProfessions: PATH_CASE.accessibleProfessions,
     children: [
       {
         id: '3',
@@ -139,8 +140,8 @@ export const navigation = [
             <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zM10 4h4v2h-4V4zm10 15H4V8h16v11z" />
           </svg>
         ),
-        alias: '/process',
-        accessibleProfessions: [1, 2, 3, 6, 7, 9],
+        alias: PATH_CASE.lists.process.client,
+        accessibleProfessions: PATH_CASE.lists.process.accessibleProfessions,
       },
       {
         id: '4',
@@ -175,8 +176,8 @@ export const navigation = [
             </g>
           </svg>
         ),
-        alias: '/over-period',
-        accessibleProfessions: [1, 2, 3, 6, 7, 9],
+        alias: PATH_CASE.lists.overPeriod.client,
+        accessibleProfessions: PATH_CASE.lists.overPeriod.accessibleProfessions,
       },
       {
         id: '5',
@@ -191,8 +192,8 @@ export const navigation = [
             <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zm0 13c-3.79 0-7.17-2.13-8.82-5.5C4.83 8.63 8.21 6.5 12 6.5s7.17 2.13 8.82 5.5c-1.65 3.37-5.03 5.5-8.82 5.5zm0-10c-2.48 0-4.5 2.02-4.5 4.5s2.02 4.5 4.5 4.5 4.5-2.02 4.5-4.5-2.02-4.5-4.5-4.5zm0 7c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
           </svg>
         ),
-        alias: '/publication',
-        accessibleProfessions: [1, 2, 3, 6, 7, 9],
+        alias: PATH_CASE.publication.neededPublication.client,
+        accessibleProfessions: PATH_CASE.publication.neededPublication.accessibleProfessions,
       },
       {
         id: '35',
@@ -220,8 +221,8 @@ export const navigation = [
             </g>
           </svg>
         ),
-        alias: '/no-last-events',
-        accessibleProfessions: [1, 2, 3, 9],
+        alias: PATH_CASE.lists.noLastEvents.client,
+        accessibleProfessions: PATH_CASE.lists.noLastEvents.accessibleProfessions,
       },
     ],
   },
@@ -238,8 +239,8 @@ export const navigation = [
         <path d="M20 6h-8l-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V6h5.17l2 2H20v10zm-6.92-3.96L12.39 17 15 15.47 17.61 17l-.69-2.96 2.3-1.99-3.03-.26L15 9l-1.19 2.79-3.03.26z" />
       </svg>
     ),
-    alias: '/info/proxy-list',
-    accessibleRoles: [0, 1],
+    alias: PATH_INFO.proxyList.list.client,
+    accessibleRoles: PATH_INFO.proxyList.list.accessibleRoles,
   },
   {
     id: '7',
@@ -262,12 +263,13 @@ export const navigation = [
         </g>
       </svg>
     ),
-    alias: '/calendar',
-    accessibleRoles: [1],
+    alias: PATH_PLANING.root.client,
+    accessibleRoles: PATH_PLANING.root.accessibleRoles,
   },
   {
     id: '8',
     pagetitle: 'Информация',
+    accessibleRoles: [0, 1],
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="currentColor">
         <path d="M0 0h24v24H0V0z" fill="none" />
@@ -307,11 +309,10 @@ export const navigation = [
             </g>
           </svg>
         ),
-        alias: '/phonebook',
-        accessibleRoles: [0, 1],
+        alias: PATH_INFO.phoneBook.client,
+        accessibleRoles: PATH_INFO.phoneBook.accessibleRoles,
       },
     ],
-    accessibleRoles: [0, 1],
   },
   {
     id: '10',
@@ -326,7 +327,7 @@ export const navigation = [
         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.86-7-7.93s3.06-7.44 7-7.93v15.86zm2 0V13h6.93c-.45 3.61-3.32 6.48-6.93 6.93zM13 11V4.07c3.61.45 6.48 3.32 6.93 6.93H13z" />
       </svg>
     ),
-    accessibleProfessions: [null, 1, 2, 6],
+    accessibleProfessions: PATH_STAT.charts.accessibleProfessions,
     children: [
       {
         id: '11',
@@ -341,7 +342,7 @@ export const navigation = [
             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.86-7-7.93s3.06-7.44 7-7.93v15.86zm2 0V13h6.93c-.45 3.61-3.32 6.48-6.93 6.93zM13 11V4.07c3.61.45 6.48 3.32 6.93 6.93H13z" />
           </svg>
         ),
-        alias: '/stats',
+        alias: PATH_STAT.charts.client,
       },
       {
         id: '12',
@@ -360,8 +361,8 @@ export const navigation = [
             <path d="M17,7l-5-4l-5,7L3,7v13h18V7H17z M19,16.95l-7-5.45L8,17l-3-2.4V11l2.44,1.83l4.96-6.95L16.3,9H19V16.95z" />
           </svg>
         ),
-        alias: '/grade',
-        accessibleProfessions: [null, 1, 2, 6],
+        alias: PATH_STAT.grade.client,
+        accessibleProfessions: PATH_STAT.grade.accessibleProfessions,
       },
     ],
   },
@@ -417,8 +418,8 @@ export const navigation = [
             </g>
           </svg>
         ),
-        alias: '/faq',
-        accessibleRoles: [0, 1],
+        alias: PATH_INFO.faq.client.main,
+        accessibleRoles: PATH_INFO.faq.accessibleRoles,
       },
     ],
     accessibleRoles: [0, 1],
@@ -456,8 +457,8 @@ export const navigation = [
             <path d="M9 12c1.93 0 3.5-1.57 3.5-3.5S10.93 5 9 5 5.5 6.57 5.5 8.5 7.07 12 9 12zm0-5c.83 0 1.5.67 1.5 1.5S9.83 10 9 10s-1.5-.67-1.5-1.5S8.17 7 9 7zm.05 10H4.77c.99-.5 2.7-1 4.23-1 .11 0 .23.01.34.01.34-.73.93-1.33 1.64-1.81-.73-.13-1.42-.2-1.98-.2-2.34 0-7 1.17-7 3.5V19h7v-1.5c0-.17.02-.34.05-.5zm7.45-2.5c-1.84 0-5.5 1.01-5.5 3V19h11v-1.5c0-1.99-3.66-3-5.5-3zm1.21-1.82c.76-.43 1.29-1.24 1.29-2.18C19 9.12 17.88 8 16.5 8S14 9.12 14 10.5c0 .94.53 1.75 1.29 2.18.36.2.77.32 1.21.32s.85-.12 1.21-.32z" />
           </svg>
         ),
-        alias: '/admin/users',
-        accessibleRoles: [1],
+        alias: PATH_ADMIN.users.client.list,
+        accessibleRoles: PATH_ADMIN.users.accessibleRoles,
       },
       {
         id: '21',
@@ -480,12 +481,13 @@ export const navigation = [
             </g>
           </svg>
         ),
-        alias: '/admin/workplaces',
-        accessibleRoles: [1],
+        alias: PATH_ADMIN.workplaces.client.list,
+        accessibleRoles: PATH_ADMIN.workplaces.accessibleRoles,
       },
     ],
     accessibleRoles: [1],
   },
+
   {
     id: '17',
     pagetitle: 'Тестовые страницы',
@@ -546,132 +548,6 @@ export const navigation = [
           </svg>
         ),
         alias: '/test3',
-        accessibleRoles: [1],
-      },
-
-    ],
-
-    accessibleRoles: [1],
-  },
-  {
-    header: 'Документация',
-    accessibleRoles: [1],
-  },
-  {
-    id: '22',
-    pagetitle: 'Компоненты',
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="currentColor">
-        <path d="M0 0h24v24H0V0z" fill="none" />
-        <path d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z" />
-      </svg>
-    ),
-    children: [
-      {
-        id: '23',
-        pagetitle: 'Цвета',
-        icon: (
-          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="currentColor">
-            <path d="M0 0h24v24H0z" fill="none" />
-            <path
-              d="M12 4c-4.41 0-8 3.59-8 8s3.59 8 8 8c.28 0 .5-.22.5-.5 0-.16-.08-.28-.14-.35-.41-.46-.63-1.05-.63-1.65 0-1.38 1.12-2.5 2.5-2.5H16c2.21 0 4-1.79 4-4 0-3.86-3.59-7-8-7zm-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 10 6.5 10s1.5.67 1.5 1.5S7.33 13 6.5 13zm3-4C8.67 9 8 8.33 8 7.5S8.67 6 9.5 6s1.5.67 1.5 1.5S10.33 9 9.5 9zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 6 14.5 6s1.5.67 1.5 1.5S15.33 9 14.5 9zm4.5 2.5c0 .83-.67 1.5-1.5 1.5s-1.5-.67-1.5-1.5.67-1.5 1.5-1.5 1.5.67 1.5 1.5z"
-              opacity=".3"
-            />
-            <path d="M12 2C6.49 2 2 6.49 2 12s4.49 10 10 10c1.38 0 2.5-1.12 2.5-2.5 0-.61-.23-1.21-.64-1.67-.08-.09-.13-.21-.13-.33 0-.28.22-.5.5-.5H16c3.31 0 6-2.69 6-6 0-4.96-4.49-9-10-9zm4 13h-1.77c-1.38 0-2.5 1.12-2.5 2.5 0 .61.22 1.19.63 1.65.06.07.14.19.14.35 0 .28-.22.5-.5.5-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.14 8 7c0 2.21-1.79 4-4 4z" />
-            <circle cx="6.5" cy="11.5" r="1.5" />
-            <circle cx="9.5" cy="7.5" r="1.5" />
-            <circle cx="14.5" cy="7.5" r="1.5" />
-            <circle cx="17.5" cy="11.5" r="1.5" />
-          </svg>
-        ),
-        alias: '/doc/components/colors',
-        accessibleRoles: [1],
-      },
-      {
-        id: '24',
-        pagetitle: 'Текстовые стили',
-        icon: (
-          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="currentColor">
-            <path d="M0 0h24v24H0V0z" fill="none" />
-            <path
-              d="M4 20h16V4H4v16zm7.07-14.5h1.86l5.11 13h-2.09l-1.14-3H9.17l-1.12 3H5.96l5.11-13zM12 7.98L9.93 13.5h4.14z"
-              opacity=".3"
-            />
-            <path d="M9.17 15.5h5.64l1.14 3h2.09l-5.11-13h-1.86l-5.11 13h2.09l1.12-3zM12 7.98l2.07 5.52H9.93L12 7.98zM20 2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 18H4V4h16v16z" />
-          </svg>
-        ),
-        alias: '/doc/components/typography',
-        accessibleRoles: [1],
-      },
-      {
-        id: '25',
-        pagetitle: 'Тени',
-        icon: (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            enableBackground="new 0 0 24 24"
-            height="24px"
-            viewBox="0 0 24 24"
-            width="24px"
-            fill="currentColor"
-          >
-            <g>
-              <rect fill="none" height="24" width="24" />
-            </g>
-            <g>
-              <g>
-                <path d="M12,22c5.52,0,10-4.48,10-10S17.52,2,12,2S2,6.48,2,12S6.48,22,12,22z M13,4.07c3.94,0.49,7,3.85,7,7.93 s-3.05,7.44-7,7.93V4.07z" />
-              </g>
-            </g>
-          </svg>
-        ),
-        alias: '/doc/components/shadows',
-        accessibleRoles: [1],
-      },
-      {
-        id: '26',
-        pagetitle: 'Сетка',
-        icon: (
-          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="currentColor">
-            <path d="M0 0h24v24H0V0z" fill="none" />
-            <path
-              d="M10 10h4v4h-4zm0 6h4v4h-4zM4 4h4v4H4zm0 6h4v4H4zm0 6h4v4H4zM16 4h4v4h-4zm0 6h4v4h-4zm0 6h4v4h-4zM10 4h4v4h-4z"
-              opacity=".3"
-            />
-            <path d="M20 2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM8 20H4v-4h4v4zm0-6H4v-4h4v4zm0-6H4V4h4v4zm6 12h-4v-4h4v4zm0-6h-4v-4h4v4zm0-6h-4V4h4v4zm6 12h-4v-4h4v4zm0-6h-4v-4h4v4zm0-6h-4V4h4v4z" />
-          </svg>
-        ),
-        alias: '/doc/components/grid',
-        accessibleRoles: [1],
-      },
-      {
-        id: '27',
-        pagetitle: 'Значки',
-        icon: (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            enableBackground="new 0 0 24 24"
-            height="24px"
-            viewBox="0 0 24 24"
-            width="24px"
-            fill="currentColor"
-          >
-            <g>
-              <path d="M0 0h24v24H0V0z" fill="none" />
-              <path d="M0 0h24v24H0V0z" fill="none" />
-            </g>
-            <g>
-              <g>
-                <polygon
-                  opacity=".3"
-                  points="12,15.4 8.24,17.67 9.24,13.39 5.92,10.51 10.3,10.13 12,6.1 13.71,10.14 18.09,10.52 14.77,13.4 15.77,17.68"
-                />
-                <path d="m22 9.24-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03L22 9.24zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z" />
-              </g>
-            </g>
-          </svg>
-        ),
-        alias: '/doc/components/icons',
         accessibleRoles: [1],
       },
     ],

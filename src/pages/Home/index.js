@@ -7,7 +7,7 @@ import ProcessedWidget from './widgets/ProcessedWidget';
 import UserWelcomeWidget from './widgets/UserWelcomeWidget';
 import NoLastEvents from './widgets/NoLastEvents';
 import { useDispatch, useSelector } from '../../store';
-import { WidgetWeather } from './widgets/WidgetWeather';
+import { WidgetWeather } from '../../components/Weather/WidgetWeather';
 import { getCurrentWeather } from '../../store/slices/weather';
 import { getBirthdaysList } from '../../store/slices/users';
 import WidgetUsersBirthdays from './widgets/WidgetUsersBirthdays';
@@ -58,7 +58,7 @@ const Home = () => {
           <div className="flex flex-col gap-4">
             {/* 3-я колонка */}
             <WidgetWeather
-              currentWeather={currentWeather}
+              currentWeather={currentWeather ?? {}}
               currentIsLoading={currentIsLoading}
               currentError={currentError}
             />

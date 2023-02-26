@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { classNames } from '../../utils/classNames';
 import Typography from '../Typography';
+import { PATH_HOME } from '../../routes/paths';
 
 /** Заголовок содержимого страницы, "хлебные крошки"
  * @param pages - объект для навигации:
@@ -13,12 +14,12 @@ import Typography from '../Typography';
  * @returns {JSX.Element}
  * @constructor
  */
-const PageHeader = ({ pages, classname, header, children }) => (
-  <div className={classname}>
-    <nav className="sm:hidden mb-4" aria-label="Назад">
-      <Link to={-1} className="flex items-center text-sm font-medium text-gray-500 dark:text-gray-400 p-2">
+const PageHeader = ({ classname, header, children, backLinkTitle, backLinkUrl }) => (
+  <div className={classNames('flex flex-col gap-2 mb-6', classname)}>
+    <nav className="w-full sm:flex" aria-label={backLinkTitle || "Назад"}>
+      <Link to={backLinkUrl || -1} className="flex items-center text-base font-medium text-neutral-600 dark:text-neutral-300">
         <svg
-          className="flex-shrink-0 -ml-1 mr-1 h-5 w-5 text-gray-400"
+          className="flex-shrink-0 -ml-1 mr-2 h-5 w-5"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
@@ -27,14 +28,14 @@ const PageHeader = ({ pages, classname, header, children }) => (
         >
           <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
         </svg>
-        Назад
+        {backLinkTitle || 'Назад'}
       </Link>
     </nav>
     {header || children ? (
       <div className={classNames('md:flex md:items-center', header ? 'md:justify-between' : 'md:justify-end')}>
         {header ? (
           <div className="flex-1 min-w-0">
-            <Typography variant="h4">{header}</Typography>
+            <Typography variant="h3">{header}</Typography>
           </div>
         ) : (
           ''
@@ -44,34 +45,6 @@ const PageHeader = ({ pages, classname, header, children }) => (
     ) : (
       ''
     )}
-    <nav className={classNames('mt-2 w-full hidden sm:flex')} aria-label="Навигация">
-      <ol className="flex items-center space-x-2">
-        <li>
-          <div>
-            <Link to="/home" className="text-sm font-medium text-gray-500 hover:text-gray-700" title="Главная">
-              <span title="Главная">Главная</span>
-            </Link>
-          </div>
-        </li>
-        {pages.map((page) => (
-          <li key={page.name}>
-            <div className="flex items-center">
-              <span className="mx-2 text-sm font-medium text-gray-300 hover:text-gray-900">/</span>
-              <Link
-                to={page.href}
-                className={classNames(
-                  'ml-2 text-sm font-medium ',
-                  page.current ? 'text-indigo-500 hover:text-indigo-700' : 'text-gray-500 hover:text-gray-700'
-                )}
-                aria-current={page.current ? 'page' : undefined}
-              >
-                {page.name}
-              </Link>
-            </div>
-          </li>
-        ))}
-      </ol>
-    </nav>
   </div>
 );
 

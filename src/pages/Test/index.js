@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
 import addNotification from 'react-push-notification';
-
+import tailwindColors from 'tailwindcss/colors';
 import BasicPage from '../pagesLayouts/BasicPage';
 import PageHeader from '../../components/PageHeader';
 import { fNumber } from '../../utils/formatNumber';
@@ -12,7 +12,7 @@ import useAuth from '../../hooks/useAuth';
 import { stat } from '../../@mock/SampleData';
 import Typography from '../../components/Typography';
 import BasicButton from '../../components/BasicButton';
-import {tailwindColorsConfig} from "../../utils/getTailwindconfig";
+
 
 const CHART_DATA = [4344, 5435, 1443, 4443];
 
@@ -90,12 +90,12 @@ const Test = () => {
         <Typography classname='mb-5' variant='h6'>{chart.title}</Typography>
         <ReactApexChart type='line' series={chart.data} options={{
           ...chart1Options, colors: chart.colors || [
-          tailwindColorsConfig.theme.colors.indigo['500'],
-          tailwindColorsConfig.theme.colors.amber['500'],
-          tailwindColorsConfig.theme.colors.emerald['500'],
-          tailwindColorsConfig.theme.colors.rose['500'],
-          tailwindColorsConfig.theme.colors.violet['500'],
-          tailwindColorsConfig.theme.colors.cyan['500'],
+          tailwindColors.indigo['500'],
+          tailwindColors.amber['500'],
+          tailwindColors.emerald['500'],
+          tailwindColors.rose['500'],
+          tailwindColors.violet['500'],
+          tailwindColors.cyan['500'],
           ]
         }} height={280} />
       </Card>)}

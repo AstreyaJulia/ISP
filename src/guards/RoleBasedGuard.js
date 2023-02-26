@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import React from 'react';
 import useAuth from '../hooks/useAuth';
 import Alert from '../components/Alert';
+import { PATH_HOME } from '../routes/paths';
 
 /**
  * @param accessibleRoles - массив разрешенных ролей
@@ -24,7 +25,7 @@ export default function RoleBasedGuard({ accessibleRoles, accessibleProfessions,
           <p>У вас нет прав доступа к этой странице</p>
         </Alert>
         <Link
-          to="/home"
+          to={PATH_HOME}
           className="mt-10 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >
           На главную

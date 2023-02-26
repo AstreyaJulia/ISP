@@ -6,7 +6,7 @@ const Typography = ({ variant, classname, children, ...other }) => {
       element: (
         <h1
           className={classNames(
-            'xl:text-5xl lg:text-4xl sm:text-3xl font-bold text-gray-900 dark:text-white',
+            'text-4xl xl:text-5xl font-medium text-neutral-800 dark:text-neutral-50',
             classname || ''
           )}
           {...other}
@@ -19,7 +19,7 @@ const Typography = ({ variant, classname, children, ...other }) => {
       element: (
         <h2
           className={classNames(
-            'xl:text-4xl lg:text-3xl sm:text-2xl font-bold text-gray-900 dark:text-white',
+            'text-3xl xl:text-4xl font-medium text-neutral-800 dark:text-neutral-50',
             classname || ''
           )}
           {...other}
@@ -32,7 +32,7 @@ const Typography = ({ variant, classname, children, ...other }) => {
       element: (
         <h3
           className={classNames(
-            'xl:text-3xl lg:text-2xl sm:text-xl font-bold text-gray-900 dark:text-white',
+            'text-2xl xl:text-3xl font-medium text-neutral-800 dark:text-neutral-50',
             classname || ''
           )}
           {...other}
@@ -45,7 +45,7 @@ const Typography = ({ variant, classname, children, ...other }) => {
       element: (
         <h4
           className={classNames(
-            'xl:text-2xl lg:text-xl sm:text-lg font-bold text-gray-900 dark:text-white',
+            'text-xl xl:text-2xl font-medium text-neutral-800 dark:text-neutral-50',
             classname || ''
           )}
           {...other}
@@ -58,7 +58,7 @@ const Typography = ({ variant, classname, children, ...other }) => {
       element: (
         <h5
           className={classNames(
-            'xl:text-xl lg:text-lg sm:text-base font-medium text-gray-900 dark:text-white',
+            'text-lg xl:text-xl font-medium text-neutral-800 dark:text-neutral-50',
             classname || ''
           )}
           {...other}
@@ -71,7 +71,7 @@ const Typography = ({ variant, classname, children, ...other }) => {
       element: (
         <h6
           className={classNames(
-            'xl:text-lg lg:text-base sm:text-base font-bold text-gray-900 dark:text-white',
+            'text-base xl:text-lg font-medium text-neutral-800 dark:text-neutral-50',
             classname || ''
           )}
           {...other}
@@ -82,7 +82,7 @@ const Typography = ({ variant, classname, children, ...other }) => {
     },
     caption: {
       element: (
-        <p className={classNames('text-sm text-gray-500 dark:text-gray-600', classname || '')} {...other}>
+        <p className={classNames('text-sm text-neutral-600 dark:text-neutral-300', classname || '')} {...other}>
           {children}
         </p>
       ),
@@ -90,7 +90,7 @@ const Typography = ({ variant, classname, children, ...other }) => {
     subtitle1: {
       element: (
         <p
-          className={classNames('text-base font-medium text-gray-900 dark:text-white', classname || '')}
+          className={classNames('text-base font-medium text-neutral-800 dark:text-neutral-50', classname || '')}
           {...other}
         >
           {children}
@@ -99,28 +99,28 @@ const Typography = ({ variant, classname, children, ...other }) => {
     },
     subtitle2: {
       element: (
-        <p className={classNames('text-sm font-medium text-gray-900 dark:text-white', classname || '')} {...other}>
+        <p className={classNames('text-sm font-medium text-neutral-800 dark:text-neutral-50', classname || '')} {...other}>
           {children}
         </p>
       ),
     },
     body1: {
       element: (
-        <p className={classNames('text-base font-medium text-gray-500 dark:text-gray-600', classname || '')} {...other}>
+        <p className={classNames('text-base font-medium text-neutral-600 dark:text-neutral-300', classname || '')} {...other}>
           {children}
         </p>
       ),
     },
     body2: {
       element: (
-        <p className={classNames('text-sm font-medium text-gray-500 dark:text-gray-600', classname || '')} {...other}>
+        <p className={classNames('text-sm font-medium text-neutral-600 dark:text-neutral-300', classname || '')} {...other}>
           {children}
         </p>
       ),
     },
     label: {
       element: (
-        <p className={classNames('text-base font-medium text-gray-700 dark:text-gray-200', classname || '')} {...other}>
+        <p className={classNames('text-base font-medium text-neutral-600 dark:text-neutral-300', classname || '')} {...other}>
           {children}
         </p>
       ),

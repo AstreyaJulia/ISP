@@ -3,7 +3,7 @@ import { Disclosure, Menu } from '@headlessui/react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { classNames } from '../../utils/classNames';
 import ContentLayoutWithSidebar from '../pagesLayouts/ContentLayoutWithSidebar';
-import { courtTree, devicesTree } from '../../@mock/SampleData';
+import { devicesTree } from '../../@mock/SampleData';
 import building from '../../assets/images/icons/building.png';
 import buildingAdd from '../../assets/images/icons/building_add.png';
 import floor from '../../assets/images/icons/floor.png';
@@ -21,16 +21,19 @@ import computercase from '../../assets/images/icons/computer_case.png';
 import cooler from '../../assets/images/icons/cooler.png';
 
 import useAuth from '../../hooks/useAuth';
+import axios from '../../utils/axios';
+import apiErrorHelper from '../../utils/apiErrorHelper';
 
 const Workplaces = () => {
-  const breadcrumbs = [{ name: 'Управление рабочими местами', href: '', current: true }];
 
   /** Состояние пользователя */
   const { initialize } = useAuth();
   const [selectedTab, setSelectedTab] = useState('devices');
+  const [courtTree, setCourtTree] = useState([]);
 
   useEffect(() => {
     initialize();
+    getWorkplace();
     // eslint-disable-next-line
   }, []);
 
@@ -47,8 +50,55 @@ const Workplaces = () => {
     computercase,
     cooler,
   };
+  const getWorkplace = async (id) => {
+    await axios
+      .get(id ? `/buildingstructure/${id}` : '/buildingstructure')
+      .then((res) => setCourtTree(res.data.data))
+      .catch((error) => apiErrorHelper(error))
+  }
 
-  const sidebarLink = (item, key, count) => {
+  const renderTree = (item) => {
+    const count = 1;
+
+      if (item?.childNodes) {
+        return (
+          <div key={item?.key}>
+            <button type='button'/>
+            <p>{item?.name}</p>
+          </div>
+        )
+      }
+
+      return (
+        <div key={item?.key}>
+          <p>{item?.name}</p>
+        </div>
+      )
+    }
+
+  const treeItem = (item, key, count) => {
+
+    return (
+      <div key={key}>
+        <p>{item?.name}</p>
+      </div>
+    )
+
+
+  }
+
+  const treeGroup = (item, key, count) => {
+
+    return (
+      <div key={key}>
+        <button type='button'/>
+        <p>{item?.name}</p>
+      </div>
+    )
+  }
+
+
+  /* const sidebarLink = (item, key, count) => {
     count += 1;
 
     return item.children?.length > 0 ? (
@@ -289,6 +339,7 @@ const Workplaces = () => {
     );
   };
 
+  */
   const deviceLink = (item, key, count) => {
     count += 1;
 
@@ -533,7 +584,6 @@ const Workplaces = () => {
     <ContentLayoutWithSidebar
       boxed='true'
       title='Управление рабочими местами'
-      breadcrumbs={breadcrumbs}
       header='Управление рабочими местами'
       sidebarSize='medium'
       fullHeight='true'
@@ -628,7 +678,7 @@ const Workplaces = () => {
             <div
               className='p-1 h-full flex flex-col bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-600 rounded-lg'>
               <PerfectScrollbar options={{ wheelPropagation: false }}>
-                {courtTree.map((item, key) => sidebarLink(item, key, 0))}
+                { courtTree ?? [].map((item) => renderTree(item)) }
               </PerfectScrollbar>
             </div>
           </div>
@@ -666,7 +716,7 @@ const Workplaces = () => {
             <div
               className='p-1 h-full flex flex-col bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-600 rounded-lg'>
               <PerfectScrollbar options={{ wheelPropagation: false }}>
-                {devicesTree.map((item, key) => deviceLink(item, key, 0))}
+                {/* devicesTree.map((item, key) => deviceLink(item, key, 0)) */}
               </PerfectScrollbar>
             </div>
           </div>

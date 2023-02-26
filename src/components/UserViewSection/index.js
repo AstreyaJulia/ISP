@@ -18,9 +18,11 @@ import { setSession } from '../../utils/jwt';
 import LoadingSkeleton from '../LoadingSkeleton';
 import apiErrorHelper from '../../utils/apiErrorHelper';
 import { formatMobileNumber } from '../../utils/formatMobileNumber';
+import { PATH_ADMIN } from '../../routes/paths';
+import { classNames } from '../../utils/classNames';
 
 
-export default function UserViewSection({ currentUser, getFunc, isLoading }) {
+export default function UserViewSection({ currentUser, getFunc, isLoading, error }) {
 
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -54,7 +56,7 @@ export default function UserViewSection({ currentUser, getFunc, isLoading }) {
     return `${years} ${getAmount(parseInt(years, 10), { single: 'год', multi: 'года', count: 'лет' })}`;
   };
 
-  return (<Card classname='max-w-3xl mx-auto p-6 mt-6'>
+  return (!error ? <Card classname='max-w-3xl mx-auto p-6 mt-6'>
     <div className='flex items-center space-x-5 mb-6'>
       <div className='flex-shrink-0'>
         <div className='relative'>
@@ -83,45 +85,47 @@ export default function UserViewSection({ currentUser, getFunc, isLoading }) {
       <LoadingSkeleton />
       <LoadingSkeleton />
       <LoadingSkeleton />
-    </div> : <div className='flex flex-col w-full gap-6'>
-      <div className='flex gap-5 items-center mb-2'>
+    </div> : <div className='flex flex-col w-full gap-3'>
+      <div className='flex gap-3 flex-col mb-5'>
         {isLoading === 'true' ? <>
           <LoadingSkeleton classnames='h-8' />
         </> : <>
-          <h2 id='applicant-information-title' className='text-lg leading-6 font-medium text-gray-900'>
+          <h2 id='applicant-information-title' className='text-lg leading-6 font-medium text-gray-900 flex gap-3 items-center'>
+            {user?.sudo === 1 ?
+              <span
+                className={classNames('w-3 h-3 rounded-full', currentUser?.active?.toString() === '0' ? 'bg-red-400 dark:bg-red-600' : 'bg-green-400 dark:bg-green-600')} />
+              : ''}
             {currentUser?.username}
           </h2>
-          {user?.sudo === 1 ?
-            <Badge item={currentUser?.active?.toString() === '0' ? 'Заблокирован' : 'Активен'} size='small'
-                   color={currentUser?.active?.toString() === '0' ? 'red' : 'green'} shape='rounded' /> : ''}
-          <Badge item={currentUser?.sudo?.toString() === '0' ? 'Пользователь' : 'Администратор'} size='small'
-                 color={currentUser?.sudo?.toString() === '0' ? 'indigo' : 'red'} shape='rounded' />
-
-          {user?.sudo === 1 ? <Badge size='small' color={currentUser?.setPass === 1 ? 'green' : 'yellow'}
-                                     item={currentUser?.setPass === 1 ? <>
-                                       <svg
-                                         xmlns='http://www.w3.org/2000/svg'
-                                         viewBox='0 0 24 24'
-                                         fill='currentColor'
-                                         className='h-3 w-3 text-green-600 mr-1'
-                                       >
-                                         <path
-                                           d='M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z' />
-                                       </svg>
-                                       <span className='flex'>Пароль установлен</span></> : <>
-                                       <svg
-                                         xmlns='http://www.w3.org/2000/svg'
-                                         viewBox='0 0 24 24'
-                                         fill='currentColor'
-                                         className='h-3 w-3 text-yellow-600 mr-1'
-                                       >
-                                         <path
-                                           d='M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z' />
-                                       </svg>
-                                       <span className='flex'>Пароль не установлен</span></>}
-                                     shape='rounded' /> : ''}</>}
-
-
+          {user?.sudo === 1 ? <p className='flex items-center gap-5'>
+            <Badge item={currentUser?.sudo?.toString() === '0' ? 'Пользователь' : 'Администратор'} size='small'
+                   color={currentUser?.sudo?.toString() === '0' ? 'indigo' : 'red'} shape='rounded' />
+            <Badge size='small' color={currentUser?.setPass === 1 ? 'green' : 'yellow'}
+                   item={currentUser?.setPass === 1 ? <>
+                     <svg
+                       xmlns='http://www.w3.org/2000/svg'
+                       viewBox='0 0 24 24'
+                       fill='currentColor'
+                       className='h-3 w-3 text-green-600 mr-1'
+                     >
+                       <path
+                         d='M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z' />
+                     </svg>
+                     <span className='flex'>Пароль установлен</span></> : <>
+                     <svg
+                       xmlns='http://www.w3.org/2000/svg'
+                       viewBox='0 0 24 24'
+                       fill='currentColor'
+                       className='h-3 w-3 text-yellow-600 mr-1'
+                     >
+                       <path
+                         d='M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z' />
+                     </svg>
+                     <span className='flex'>Пароль не установлен</span></>}
+                   shape='rounded' />
+          </p> : ''}
+        </>
+        }
       </div>
       <dl className='grid grid-cols-1 gap-x-2 gap-y-2 sm:grid-cols-2'>
         <div className='flex items-center gap-3'>
@@ -228,7 +232,7 @@ export default function UserViewSection({ currentUser, getFunc, isLoading }) {
 
         {user?.sudo === 1 ? <>
           <BasicButton size='medium' className='w-44' variant='primary' disabled={isLoading === 'true'}
-                       onClick={() => navigate(`/admin/users/${currentUser?.id}/edit`)}>Редактировать</BasicButton>
+                       onClick={() => navigate(PATH_ADMIN.users.client.edit(currentUser?.id))}>Редактировать</BasicButton>
         </> : ''}
 
         {currentUser?.setPass === 1 && user?.sudo === 1 ? <>
@@ -244,5 +248,5 @@ export default function UserViewSection({ currentUser, getFunc, isLoading }) {
 
       </div>
     </div>}
-  </Card>);
+  </Card> : <Alert alertType='error' title={error} />);
 };

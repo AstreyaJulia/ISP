@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Menu } from '@headlessui/react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { makeArrayFromObj } from '../../utils/makeArrayFromObj';
 import ContentLayoutWithSidebar from '../pagesLayouts/ContentLayoutWithSidebar';
 import useAuth from '../../hooks/useAuth';
@@ -9,6 +8,8 @@ import { useDispatch, useSelector } from '../../store';
 import { getGroups, getLinks, resetGroups, resetLinks } from '../../store/slices/linkscatalog';
 import BasicButton from '../../components/BasicButton';
 import ElementsDropdown from '../../components/ElementsDropdown';
+import { PATH_INFO } from '../../routes/paths';
+import LoadingContentSpinner from '../../components/LoadingContentSpinner';
 
 const breadcrumbs = [{ name: 'Каталог ссылок', href: '#', current: true }];
 
@@ -52,13 +53,13 @@ const LinksCatalog = () => {
   }, [dispatch]);
 
   const groupsMenuItems = [
-    {title: 'Редактировать', disabled: false, icon: null, func: (id) => navigate(`/info/proxy-list/group/${id}/edit`), divider: false},
+    {title: 'Редактировать', disabled: false, icon: null, func: (id) => navigate(PATH_INFO.proxyList.group.client.edit(id)), divider: false},
     {title: '', disabled: false, icon: null, func: () => null, divider: true},
     {title: 'Удалить', disabled: false, icon: null, func: () => openModalHandle(), divider: false}
   ]
 
   const linksMenuItems = [
-    {title: 'Редактировать', disabled: false, icon: null, func: (id) => navigate(`/info/proxy-list/link/${id}/edit`), divider: false},
+    {title: 'Редактировать', disabled: false, icon: null, func: (id) => navigate(PATH_INFO.proxyList.link.client.edit(id)), divider: false},
     {title: '', disabled: false, icon: null, func: () => null, divider: true},
     {title: 'Удалить', disabled: false, icon: null, func: () => openModalHandle(), divider: false}
   ]
@@ -87,7 +88,7 @@ const LinksCatalog = () => {
         <div className='p-4 h-full flex flex-col'>
           <div className='mb-4'>
             {user.sudo === 1 ? (
-              <BasicButton size='medium' type='button' onClick={() => navigate('group/new')} variant='primary'>Добавить
+              <BasicButton size='medium' type='button' onClick={() => navigate(PATH_INFO.proxyList.group.client.new)} variant='primary'>Добавить
                 группу</BasicButton>
             ) : null}
           </div>
@@ -130,25 +131,7 @@ const LinksCatalog = () => {
             ) : (
               ''
             )}
-            {isGroupLoading === 'true' ? (
-              <div className='flex flex-col grow justify-center'>
-                <div className='w-full h-full px-6 pt-5 pb-6 flex flex-col items-center justify-center'>
-                  <svg
-                    className='w-12 h-12 animate-spin fill-indigo-600 dark:fill-indigo-300 '
-                    viewBox='0 0 24 24'
-                    xmlns='http://www.w3.org/2000/svg'
-                  >
-                    <path
-                      opacity='0.2'
-                      fillRule='evenodd'
-                      clipRule='evenodd'
-                      d='M12 19C15.866 19 19 15.866 19 12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12C5 15.866 8.13401 19 12 19ZM12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z'
-                    />
-                    <path d='M2 12C2 6.47715 6.47715 2 12 2V5C8.13401 5 5 8.13401 5 12H2Z' />
-                  </svg>
-                </div>
-              </div>
-            ) : (
+            {isGroupLoading === 'true' ? <LoadingContentSpinner classname='w-full h-full px-6 pt-5 pb-6 flex flex-col items-center justify-center' /> : (
               ''
             )}
             {groups.map((group) =>
@@ -192,7 +175,7 @@ const LinksCatalog = () => {
         <div className='p-4 h-full flex flex-col'>
           <div className='mb-4'>
             {user.sudo === 1 ? (
-              <BasicButton size='medium' type='button' onClick={() => navigate('link/new')} variant='primary'>Добавить
+              <BasicButton size='medium' type='button' onClick={() => navigate(PATH_INFO.proxyList.link.client.new)} variant='primary'>Добавить
                 ссылку</BasicButton>
             ) : null}
           </div>
@@ -261,25 +244,7 @@ const LinksCatalog = () => {
             ) : (
               ''
             )}
-            {isLinkLoading === 'true' ? (
-              <div className='flex flex-col grow justify-center'>
-                <div className='w-full h-full px-6 pt-5 pb-6 flex flex-col items-center justify-center'>
-                  <svg
-                    className='w-12 h-12 animate-spin fill-indigo-600 dark:fill-indigo-300 '
-                    viewBox='0 0 24 24'
-                    xmlns='http://www.w3.org/2000/svg'
-                  >
-                    <path
-                      opacity='0.2'
-                      fillRule='evenodd'
-                      clipRule='evenodd'
-                      d='M12 19C15.866 19 19 15.866 19 12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12C5 15.866 8.13401 19 12 19ZM12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z'
-                    />
-                    <path d='M2 12C2 6.47715 6.47715 2 12 2V5C8.13401 5 5 8.13401 5 12H2Z' />
-                  </svg>
-                </div>
-              </div>
-            ) : (
+            {isLinkLoading === 'true' ? <LoadingContentSpinner classname='w-full h-full px-6 pt-5 pb-6 flex flex-col items-center justify-center' /> : (
               ''
             )}
           </div>

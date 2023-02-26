@@ -5,9 +5,9 @@ import { classNames } from '../../utils/classNames';
 const Card = ({ children, variant, classname }) => {
 
   const cardColors = {
-    default: 'shadow bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800',
-    gray: 'shadow bg-gray-100 dark:bg-gray-800 border-gray-100 dark:border-gray-800',
-    grayShadowless: 'bg-gray-100 dark:bg-gray-800 border-gray-100 dark:border-gray-800',
+    default: 'shadow bg-white dark:bg-neutral-900 border-neutral-200 dark:border-neutral-800',
+    gray: 'shadow bg-neutral-100 dark:bg-neutral-800 border-neutral-100 dark:border-neutral-800',
+    grayShadowless: 'bg-neutral-100 dark:bg-neutral-800 border-neutral-100 dark:border-neutral-800',
   }
 
   return (

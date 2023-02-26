@@ -24,6 +24,7 @@ import LoadingButton from '../LoadingButton';
 import axios from '../../utils/axios';
 import { getLoginFromName } from '../../utils/createLogin';
 import Badge from '../Badge';
+import { PATH_ADMIN } from '../../routes/paths';
 
 
 export default function UserNewEditForm({ isEdit, currentUser, getFunc }) {
@@ -139,7 +140,7 @@ export default function UserNewEditForm({ isEdit, currentUser, getFunc }) {
       reset();
       toast((t) => <Toast t={t} message={!isEdit ? 'Пользователь создан!' : 'Успешно обновлено!'}
                           type='success' />, { className: toastStyles });
-      navigate('/admin/users');
+      navigate(-1);
     } catch (err) {
       const error = err.message && err.info ? `${err.message}: ${err.info}` : err.toString();
       if (err.code.toString() === '401') {
@@ -305,7 +306,7 @@ export default function UserNewEditForm({ isEdit, currentUser, getFunc }) {
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)} className='max-w-3xl mx-auto'>
 
       <div className='p-3'>
-        <Card classname='p-6 col-span-3 mt-6'>
+        <Card classname='p-6 col-span-3'>
           <div className='flex flex-col gap-3 items-start'>
             <div className='flex items-center gap-5 mb-3'>
               <div className='w-52 text-right' />
@@ -322,17 +323,17 @@ export default function UserNewEditForm({ isEdit, currentUser, getFunc }) {
             </div>
             <Typography variant='h5' classname='mb-2'>Персональные данные</Typography>
 
-            <RHFTextField name='fullname' placeholder='Фамилия, имя, отчество' label='Фамилия, имя, отчество' />
+            <RHFTextField name='fullname' placeholder='Фамилия, имя, отчество' label={<Typography variant="label">Фамилия, имя, отчество</Typography> } />
 
             <div className='flex items-center gap-5 mb-5'>
-              <RHFDatePicker name='dob' placeholder='Дата рождения' label='Дата рождения' />
+              <RHFDatePicker name='dob' placeholder='Дата рождения' label={<Typography variant="label">Дата рождения</Typography> } />
               <RHFGenderRadioGroup name='gender' defaultValue={genders[0].value} options={genders} />
             </div>
 
             <Typography variant='h5' classname='mb-2'>Аккаунт</Typography>
 
             <div className='flex w-full gap-5'>
-              <RHFTextField name='username' placeholder='Имя пользователя' label='Имя пользователя' />
+              <RHFTextField name='username' placeholder='Имя пользователя' label={<Typography variant="label">Имя пользователя</Typography>} />
               <BasicButton size='medium' onClick={generateLogin} className='w-60'
                            variant='basic'>Генерировать</BasicButton>
             </div>
@@ -426,7 +427,7 @@ export default function UserNewEditForm({ isEdit, currentUser, getFunc }) {
 
           <div className='flex items-center justify-end gap-5 mt-5'>
 
-            <BasicButton size='medium' type='reset' variant='ghost' onClick={() => {reset(); navigate('/admin/users')}}
+            <BasicButton size='medium' type='reset' variant='ghost' onClick={() => {reset(); navigate(-1)}}
                          disabled={isSubmitting}>Отмена
             </BasicButton>
 
