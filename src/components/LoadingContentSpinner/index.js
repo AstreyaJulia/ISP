@@ -1,8 +1,7 @@
 import React from 'react';
 import { classNames } from '../../utils/classNames';
 
-const LoadingContentSpinner = ({ classname }) => {
-  return (
+const LoadingContentSpinner = ({ classname }) => (
     <div
       className={classNames('flex grow flex-col items-center justify-center fill-gray-500 dark:fill-gray-400', classname)}>
       <svg
@@ -20,6 +19,5 @@ const LoadingContentSpinner = ({ classname }) => {
       </svg>
     </div>
   );
-};
 
 export default LoadingContentSpinner;

@@ -76,26 +76,18 @@ const Workplaces = () => {
       )
     }
 
-  const treeItem = (item, key, count) => {
-
-    return (
+  const treeItem = (item, key, count) => (
       <div key={key}>
         <p>{item?.name}</p>
       </div>
     )
 
-
-  }
-
-  const treeGroup = (item, key, count) => {
-
-    return (
+  const treeGroup = (item, key, count) => (
       <div key={key}>
         <button type='button'/>
         <p>{item?.name}</p>
       </div>
     )
-  }
 
 
   /* const sidebarLink = (item, key, count) => {

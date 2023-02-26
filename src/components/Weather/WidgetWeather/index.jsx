@@ -31,9 +31,7 @@ import { classNames } from '../../../utils/classNames';
 
  */
 
-export const WidgetWeather = ({ currentWeather, currentIsLoading, currentError }) => {
-
-  return (
+export const WidgetWeather = ({ currentWeather, currentIsLoading, currentError }) => (
     <div className='flex flex-col bg-gray-500 dark:bg-gray-900 rounded-md shadow-sm'>
       {!currentError ? (
         <>
@@ -200,7 +198,6 @@ export const WidgetWeather = ({ currentWeather, currentIsLoading, currentError }
       </p>}
     </div>
   );
-};
 
 WidgetWeather.propTypes = {
   currentWeather: PropTypes.object,

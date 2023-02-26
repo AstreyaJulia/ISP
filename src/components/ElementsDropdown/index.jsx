@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import { Menu } from '@headlessui/react';
 import { classNames } from '../../utils/classNames';
 
-const ElementsDropdown = ({ menuItems }) => {
-  return (<Menu as='div' className='relative'>
+const ElementsDropdown = ({ menuItems }) => (<Menu as='div' className='relative'>
     <Menu.Button>
       <div className='flex-shrink-0 px-2'>
         <div
@@ -42,6 +41,5 @@ const ElementsDropdown = ({ menuItems }) => {
         </div>)}
     </Menu.Items>
   </Menu>);
-};
 
 export default ElementsDropdown;
