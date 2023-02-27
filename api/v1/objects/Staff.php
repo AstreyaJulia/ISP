@@ -266,9 +266,13 @@ class Staff
      */
     private function metodPOST()
     {
-        $this->helpers::headlinesPOST();
-
-        return $this->addUser();
+        if ($this->helpers->sudo === 1 and $this->helpers->method === "POST") {
+            $this->helpers::headlinesPOST();
+            return $this->addUser();
+        } else {
+            $this->helpers->isErrorInfo(401, "Недостаточно прав", "Отказанов доступе");
+        }
+        
     }
 
     /**
@@ -276,13 +280,18 @@ class Staff
      */
     private function metodPATCH()
     {
-        $this->helpers::headlinesPOST();
-        return match ($this->helpers->urlData[0] ?? "") {
-            "resetpass" => $this->resetPass(),
-            "blockuser" => $this->blockUser(),
-            "" => $this->updUser(),
-            default => $this->helpers->isErrorInfo(401, "Ошибка в запросе", "Метод не реализован")
-        };
+        if ($this->helpers->sudo === 1 and $this->helpers->method === "PATCH") {
+            $this->helpers::headlinesPOST();
+            return match ($this->helpers->urlData[0] ?? "") {
+                "resetpass" => $this->resetPass(),
+                "blockuser" => $this->blockUser(),
+                "" => $this->updUser(),
+                default => $this->helpers->isErrorInfo(401, "Ошибка в запросе", "Метод не реализован")
+            };
+        } else {
+            $this->helpers->isErrorInfo(401, "Недостаточно прав", "Отказанов доступе");
+        }
+        
     }
 
 }
