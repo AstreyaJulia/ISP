@@ -146,10 +146,10 @@ export default function Router() {
                     element: <Calendar/>,
                 },
                 {
-                    path: PATH_INFO.phoneBook.client,
+                    path: PATH_INFO.phoneBook.client.list,
                     element: <Phonebook/>,
                 }, {
-                    path: 'phonebook/:id/view',
+                    path: PATH_INFO.phoneBook.client.view(':id'),
                     element: (
                       <UserView user />
                     ),

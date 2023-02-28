@@ -13,15 +13,6 @@ import {
 import useAuth from '../../../hooks/useAuth';
 
 const Process = ({ all }) => {
-  const breadcrumbs = [
-    { name: 'Делопроизводство', href: '', current: false },
-    { name: 'Дела, находящиеся в производстве (по судье)', href: '', current: true },
-  ];
-
-  const breadcrumbsAll = [
-    { name: 'Качество', href: '/grade', current: false },
-    { name: 'Дела, находящиеся в производстве (общий список)', href: '', current: true },
-  ];
 
   /** Состояние пользователя */
   const { initialize } = useAuth();
@@ -48,7 +39,6 @@ const Process = ({ all }) => {
   return (
     <BasicPage title="Дела, находящиеся в производстве" className="main-content max-w-6xl mx-auto px-5">
       <PageHeader
-        pages={all === 'true' ? breadcrumbsAll : breadcrumbs}
         header={
           all === 'true'
             ? 'Дела, находящиеся в производстве (общий список)'

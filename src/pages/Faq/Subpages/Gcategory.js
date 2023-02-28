@@ -6,6 +6,7 @@ import CategoryDataTable from '../../../components/DataTable/CategoryDataTable';
 import { useDispatch, useSelector } from '../../../store';
 import { getGcategory, getMcategory, resetGcategory, resetMcategory } from '../../../store/slices/casescategory';
 import useAuth from '../../../hooks/useAuth';
+import {PATH_INFO} from "../../../routes/paths";
 
 const Gas = ({ type }) => {
   /** Состояние пользователя */
@@ -34,13 +35,13 @@ const Gas = ({ type }) => {
       data: gcategory ?? [],
       query: getGcategory(),
       name: 'Категории гражданских и административных дел',
-      href: '/faq/gas/g-category',
+      href: PATH_INFO.faq.client.gCategory,
     },
     mcases: {
       data: mcategory ?? [],
       query: getMcategory(),
       name: 'Категории материалов',
-      href: '/faq/gas/m-category',
+      href: PATH_INFO.faq.client.mCategory,
     },
   };
 
@@ -48,7 +49,7 @@ const Gas = ({ type }) => {
     { name: 'База знаний', href: '/faq', current: false },
     {
       name: 'Подсистемы ГАС Правосудие',
-      href: '/faq/gas',
+      href: PATH_INFO.faq.client.gas,
       current: false,
     },
     { name: typesSettings[type].name, href: typesSettings[type].href, current: true },

@@ -35,31 +35,12 @@ const NoLastEventsPage = ({ all }) => {
     // eslint-disable-next-line
   }, [dispatch]);
 
-  const breadcrumbs = [
-    { name: 'Делопроизводство', href: '', current: false },
-    {
-      name: 'Дела, не отмеченным более 5 дней после передачи, более 1 дня кроме переданных судье (по судье)',
-      href: '',
-      current: true,
-    },
-  ];
-
-  const breadcrumbsAll = [
-    { name: 'Качество', href: '/grade', current: false },
-    {
-      name: 'Дела, не отмеченным более 5 дней после передачи, более 1 дня кроме переданных судье (общий список)',
-      href: '',
-      current: true,
-    },
-  ];
-
   return (
     <BasicPage
       title="Дела, не отмеченным более 5 дней после передачи, более 1 дня кроме переданных судье"
       className="main-content max-w-6xl mx-auto px-5"
     >
       <PageHeader
-        pages={all === 'true' ? breadcrumbsAll : breadcrumbs}
         header={
           all === 'true'
             ? 'Дела, не отмеченным более 5 дней после передачи, более 1 дня кроме переданных судье (общий список)'

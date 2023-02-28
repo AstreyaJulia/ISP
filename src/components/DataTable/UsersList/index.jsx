@@ -9,6 +9,7 @@ import Card from '../../Card';
 import DataTableToolBar from '../DataTableCore/DataTableToolBar';
 import { getUniqueArrayValuesByKey } from '../../../utils/getArrayValuesByKey';
 import { classNames } from '../../../utils/classNames';
+import {PATH_INFO} from "../../../routes/paths";
 
 const UsersList = ({ data, isLoading, error }) => {
   const [rows, setRows] = useState(data ?? []);
@@ -26,7 +27,7 @@ const UsersList = ({ data, isLoading, error }) => {
   const makeItem = (item, key, query) => (
     <Card classname="p-4" key={item?.id}>
       <div className="flex items-center gap-3">
-        <a href={`/phonebook/${item?.id}/view`} >
+        <a href={PATH_INFO.phoneBook.client.view(item?.id)} >
           <Avatar
             size="16"
             name={getInitialsOnly(item?.fullname)}
@@ -37,7 +38,7 @@ const UsersList = ({ data, isLoading, error }) => {
         </a>
 
         <div className="flex flex-col items-start">
-          <a href={`/phonebook/${item?.id}/view`} className="hover:underline hover:underline-offset-2 font-medium text-base text-gray-800 dark:text-gray-200 flex flex-wrap justify-start items-center text-left">
+          <a href={PATH_INFO.phoneBook.client.view(item?.id)} className="hover:underline hover:underline-offset-2 font-medium text-base text-gray-800 dark:text-gray-200 flex flex-wrap justify-start items-center text-left">
             {getHighlightedText(item?.fullname, query)}
           </a>
           <p className="text-sm text-indigo-700 dark:text-indigo-300 flex flex-wrap justify-start items-center text-left">

@@ -41,7 +41,7 @@ export default function UserNewEditForm({ isEdit, currentUser, getFunc }) {
   const [profession, setProfession] = useState(0);
 
   const genders = [{
-    value: 2, label: 'Женский',
+    value: 0, label: 'Женский',
   }, {
     value: 1, label: 'Мужской',
   }];
@@ -87,7 +87,7 @@ export default function UserNewEditForm({ isEdit, currentUser, getFunc }) {
       mobilephone: currentUser?.mobilephone ?? '',
       email: currentUser?.email ?? '',
       professionID: currentUser?.professionID ?? '',
-      workplaceID: parseInt(currentUser?.workplaceID, 10) ?? '',
+      workplaceID: parseInt(currentUser?.workplaceID, 10) ?? 0,
       address: currentUser?.address ?? '',
       comment: currentUser?.comment ?? '',
       website: currentUser?.website ?? '',
@@ -164,13 +164,13 @@ export default function UserNewEditForm({ isEdit, currentUser, getFunc }) {
   };
 
   const onChangeRoom = (data) => {
-    setValue('workplaceID', data?.value || '');
+    setValue('workplaceID', data?.value || 0);
   };
 
   const onChangeActive = (data) => {
     setValue('active', data ? 1 : 0);
     if (!data) {
-      setValue('workplaceID', '');
+      setValue('workplaceID', 0);
     }
   };
 
@@ -327,7 +327,7 @@ export default function UserNewEditForm({ isEdit, currentUser, getFunc }) {
 
             <div className='flex items-center gap-5 mb-5'>
               <RHFDatePicker name='dob' placeholder='Дата рождения' label={<Typography variant="label">Дата рождения</Typography> } />
-              <RHFGenderRadioGroup name='gender' defaultValue={genders[0].value} options={genders} />
+              <RHFGenderRadioGroup name='gender' defaultValue={genders[1].value} options={genders} />
             </div>
 
             <Typography variant='h5' classname='mb-2'>Аккаунт</Typography>

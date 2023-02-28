@@ -309,7 +309,7 @@ export const navigation = [
             </g>
           </svg>
         ),
-        alias: PATH_INFO.phoneBook.client,
+        alias: PATH_INFO.phoneBook.client.list,
         accessibleRoles: PATH_INFO.phoneBook.accessibleRoles,
       },
     ],

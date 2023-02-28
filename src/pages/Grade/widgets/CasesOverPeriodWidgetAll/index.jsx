@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import WidgetRowCounter from '../../../../components/WidgetRowCounter';
 import { useDispatch, useSelector } from '../../../../store';
 import { getAllOverPeriodCases, resetAllOverPeriodCases } from '../../../../store/slices/cases/overperiod';
+import {PATH_CASE} from "../../../../routes/paths";
 
 const CasesOverPeriodWidgetAll = ({ user }) => {
   /** Должности, которым доступна отрисовка */
@@ -33,10 +34,10 @@ const CasesOverPeriodWidgetAll = ({ user }) => {
     return (
       <WidgetRowCounter
         isLoading={overperiodisLoading.toString() === 'true'}
-        rows={overperiodcasesall}
+        rows={overperiodcasesall ?? []}
         color="red"
         error={overperioderror}
-        link="/over-period-all"
+        link={PATH_CASE.lists.overPeriodAll.client}
         title="с нарушением срока"
         counter={{
           single: 'Дело',

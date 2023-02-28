@@ -5,7 +5,6 @@ import ContentLayoutWithSidebar from '../pagesLayouts/ContentLayoutWithSidebar';
 import useAuth from '../../hooks/useAuth';
 
 const Faq = () => {
-  const breadcrumbs = [{ name: 'База знаний', href: '', current: true }];
 
   /** Состояние пользователя */
   const { initialize } = useAuth();
@@ -97,7 +96,6 @@ const Faq = () => {
     <ContentLayoutWithSidebar
       boxed="true"
       title="База знаний"
-      breadcrumbs={breadcrumbs}
       header="База знаний"
       sidebarSize="medium"
       fullHeight="true"

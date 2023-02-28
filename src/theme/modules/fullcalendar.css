@@ -7,7 +7,7 @@
 }
 
 .fc .fc-bg-event.fc-event-short {
-    @apply bg-gray-300/40 border-0;
+    @apply bg-gray-400/40 border-0;
 }
 
 .fc .fc-bg-event.fc-event-indigo {

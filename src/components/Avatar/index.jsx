@@ -84,13 +84,13 @@ export const Avatar = ({ size, classname, name, avatar, color, icon, shape, isLo
 
   return (
     isLoading ? <span
-      className={classNames('flex-shrink-0 inline-flex items-center justify-center bg-neutral-500/25 animate-pulse',
+      className={classNames('flex-shrink-0 inline-flex items-center justify-center bg-gray-500/25 animate-pulse',
         AvatarShape[shape],
         AvatarGroupSize[size].size,
         classname || '')}
     >
         <span
-          className={classNames('font-medium leading-none d-flex items-center justify-center text-neutral-700 fill-neutral-700 dark:text-neutral-300',
+          className={classNames('font-medium leading-none d-flex items-center justify-center text-gray-700 fill-gray-700 dark:text-gray-300',
             AvatarGroupSize[size].nameFont)}
         />
       </span> : <>

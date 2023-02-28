@@ -73,10 +73,11 @@ export default function UserViewSection({ currentUser, getFunc, isLoading, error
       <div className='flex flex-col gap-2 w-full'>
         {isLoading === 'true' ? <><LoadingSkeleton classnames='h-8' />
           <LoadingSkeleton /></> : <><h1 className='text-2xl font-medium text-gray-900'>{currentUser?.fullname}</h1>
-          <p className='text-base font-medium text-gray-500'>
-            {currentUser?.professionName}{' '}
-            {currentUser?.affiliationJudgeName ? <span
-              className='text-gray-900'>: {getInitials(currentUser?.affiliationJudgeName)}</span> : ''}
+          <p
+              className='text-sm text-gray-500 dark:text-gray-400 flex flex-wrap'>
+            <span>{currentUser?.profession}</span>
+            {currentUser?.affiliationJudge ?
+                <span className='text-gray-900 dark:text-gray-50'>: {getInitials(currentUser?.affiliationJudge)}</span> : ''}
           </p></>}
       </div>
     </div>
@@ -227,7 +228,7 @@ export default function UserViewSection({ currentUser, getFunc, isLoading, error
         </dd>
       </div> : ''}
       {user?.sudo === 0 ? <Alert alertType='info'
-                                 title='Пожалуйста, не передавайте данные пользователей третьим лицам без их разрешения.' /> : ''}
+                                 title='Пожалуйста, не передавайте данные пользователей третьим лицам без их разрешения.' containerClassName='mt-3' /> : ''}
       <div className='flex items-center justify-end gap-5'>
 
         {user?.sudo === 1 ? <>
@@ -241,7 +242,7 @@ export default function UserViewSection({ currentUser, getFunc, isLoading, error
             пароль</BasicButton>
         </> : ''}
 
-        {user?.sudo === 1 ? <>
+        {user?.sudo === 1 && currentUser?.active?.toString() === '1' ? <>
           <BasicButton size='medium' className='w-44' variant='basic' disabled={isLoading === 'true'}
                        onClick={() => blockUser(currentUser?.id)}>Заблокировать</BasicButton>
         </> : ''}

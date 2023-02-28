@@ -13,6 +13,7 @@ import LoadingButton from '../../../components/LoadingButton';
 import { classNames } from '../../../utils/classNames';
 import Typography from '../../../components/Typography';
 import Alert from '../../../components/Alert';
+import {PATH_AUTH} from "../../../routes/paths";
 
 const Register = () => {
   const { register } = useAuth();
@@ -163,7 +164,7 @@ const Register = () => {
 
                 <div className="flex items-center justify-end mb-5">
                   <div className="text-sm">
-                    <Link to="/auth/login" className="font-medium text-indigo-600 hover:text-indigo-500">
+                    <Link to={PATH_AUTH.login} className="font-medium text-indigo-600 hover:text-indigo-500">
                       У меня уже есть пароль
                     </Link>
                   </div>

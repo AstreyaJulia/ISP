@@ -9,7 +9,6 @@ function pathJoin(root, sublink) {
 
 /* Роуты без потомков */
 export const PATH_HOME = '/home'; // Главная
-export const PATH_WEATHER = '/weather'; // Прогноз погоды
 
 /** Корневые пути для роутов с дочерними роутами
  * @type {string}
@@ -156,7 +155,10 @@ const ROOTS_INFO = '/info';
 export const PATH_INFO = {
   root: ROOTS_INFO,
   phoneBook: { // Телефоны, адреса
-    client: pathJoin(ROOTS_INFO, '/phonebook'),
+    client: {
+        list: pathJoin(ROOTS_INFO, '/phonebook/list'), // Список для пользоввателей
+        view: (id) => pathJoin(ROOTS_INFO, `/phonebook/${id}/view`), // Просмотр пользователя пользователем
+    },
     accessibleProfessions: null,
     accessibleRoles: [0, 1],
     api: {

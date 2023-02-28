@@ -869,6 +869,46 @@ export const events = [
     allDay: false,
     calendar: 'yellow',
   },
+  {
+    id: '133',
+    title: 'Планерка',
+    start: '2023-02-27 09:00:00',
+    end: '2023-02-27 09:00:00',
+    allDay: false,
+    calendar: 'yellow',
+  },
+  {
+    id: '134',
+    title: 'Отпуск Ю',
+    start: '2023-06-05 09:00:00',
+    end: '2023-06-23 23:00:00',
+    allDay: false,
+    calendar: 'cyan',
+  },
+  {
+    id: '135',
+    title: 'Отпуск Ю',
+    start: '2023-08-28 09:00:00',
+    end: '2023-09-22 23:00:00',
+    allDay: false,
+    calendar: 'cyan',
+  },
+  {
+    id: '136',
+    title: 'Отпуск Р',
+    start: '2023-07-17 09:00:00',
+    end: '2023-08-04 23:00:00',
+    allDay: false,
+    calendar: 'cyan',
+  },
+  {
+    id: '137',
+    title: 'Отпуск Р',
+    start: '2023-10-16 09:00:00',
+    end: '2023-11-03 23:00:00',
+    allDay: false,
+    calendar: 'cyan',
+  },
 ];
 
 export const demoSteps = [

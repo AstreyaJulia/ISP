@@ -17,7 +17,7 @@ import { PATH_HOME } from '../../routes/paths';
 const PageHeader = ({ classname, header, children, backLinkTitle, backLinkUrl }) => (
   <div className={classNames('flex flex-col gap-2 mb-6', classname)}>
     <nav className="w-full sm:flex" aria-label={backLinkTitle || "Назад"}>
-      <Link to={backLinkUrl || -1} className="flex items-center text-base font-medium text-neutral-600 dark:text-neutral-300">
+      <Link to={backLinkUrl || -1} className="flex items-center text-base font-medium text-gray-600 dark:text-gray-300">
         <svg
           className="flex-shrink-0 -ml-1 mr-2 h-5 w-5"
           xmlns="http://www.w3.org/2000/svg"

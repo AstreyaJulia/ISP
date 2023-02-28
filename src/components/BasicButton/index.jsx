@@ -13,7 +13,7 @@ const BasicButton = ({ size, onClick, className, children, variant, type, ...pro
   };
 
   const variants = {
-    basic: 'shadow-sm bg-white dark:bg-neutral-900 border-neutral-300 dark:border-neutral-600 hover:border-neutral-400 dark:hover:border-neutral-500 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:ring-indigo-500',
+    basic: 'shadow-sm bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-indigo-500',
     primary: 'shadow-md bg-indigo-600 hover:bg-indigo-700 border-indigo-600 dark:border-indigo-700 text-white focus:ring-offset-2 focus:ring-indigo-500',
     ghost: 'bg-transparent border-transparent text-indigo-500 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-700 focus:ring-indigo-500'
   }

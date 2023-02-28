@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import WidgetRowCounter from '../../../../components/WidgetRowCounter';
 import { useDispatch, useSelector } from '../../../../store';
 import { getJudgeOverPeriodCases, resetJudgeOverPeriodCases } from '../../../../store/slices/cases/overperiod';
+import {PATH_CASE} from "../../../../routes/paths";
 
 const CasesOverPeriodWidget = () => {
   /** Должности, которым доступна отрисовка */
@@ -29,11 +30,11 @@ const CasesOverPeriodWidget = () => {
 
   return (
     <WidgetRowCounter
-      isLoading={overperiodisLoading}
-      rows={overperiodcases}
+      isLoading={overperiodisLoading.toString() === 'true'}
+      rows={overperiodcases ?? []}
       color="red"
       error={overperioderror}
-      link="/over-period"
+      link={PATH_CASE.lists.overPeriod.client}
       title="с нарушением срока"
       counter={{
         single: 'Дело',

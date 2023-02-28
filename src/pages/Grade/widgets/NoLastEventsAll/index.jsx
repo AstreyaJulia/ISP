@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import WidgetRowCounter from '../../../../components/WidgetRowCounter';
 import { useDispatch, useSelector } from '../../../../store';
 import { getAllNoLastEventsCases, resetAllNoLastEventsCases } from '../../../../store/slices/cases/nolastevents';
+import {PATH_CASE} from "../../../../routes/paths";
 
 const NoLastEventsAll = ({ user }) => {
   /** Должности, которым доступна отрисовка */
@@ -33,7 +34,7 @@ const NoLastEventsAll = ({ user }) => {
         isLoading={nolasteventsisLoading.toString() === 'true'}
         rows={nolasteventsall}
         color="yellow"
-        link="/no-last-events-all"
+        link={PATH_CASE.lists.noLastEventsAll.client}
         error={nolasteventserror}
         title=", по которым нет движения более 1 дня"
         counter={{

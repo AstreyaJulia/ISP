@@ -12,6 +12,7 @@ import BasicPage from '../../pagesLayouts/BasicPage';
 import LoadingButton from '../../../components/LoadingButton';
 import { FormProvider, RHFPasswordHideShow, RHFTextField } from '../../../components/hook-form';
 import Alert from '../../../components/Alert';
+import {PATH_AUTH} from "../../../routes/paths";
 
 const Login = () => {
   const { login } = useAuth();
@@ -165,7 +166,7 @@ const Login = () => {
 
                 <div className="flex items-center justify-end mb-5 mt-2">
                   <div className="text-sm">
-                    <Link to="/auth/register" className="font-medium text-indigo-600 hover:text-indigo-500">
+                    <Link to={PATH_AUTH.register} className="font-medium text-indigo-600 hover:text-indigo-500">
                       У меня нет пароля / Пароль был сброшен
                     </Link>
                   </div>

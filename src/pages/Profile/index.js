@@ -13,7 +13,6 @@ const attachments = [
 ];
 
 const Profile = () => {
-  const breadcrumbs = [{ name: 'Мой профиль', href: '', current: true }];
   const [user] = useState(users[2]);
 
   /** Состояние пользователя */
@@ -26,7 +25,7 @@ const Profile = () => {
 
   return (
     <BasicPage title="Мой профиль" className="main-content max-w-6xl mx-auto px-5">
-      <PageHeader pages={breadcrumbs} header="Мой профиль" />
+      <PageHeader header="Мой профиль" />
       <div className="mt-7 max-w-3xl mx-auto px-4 sm:px-6 md:flex md:items-center md:justify-between md:space-x-5 lg:max-w-7xl lg:px-8">
         <div className="flex items-center space-x-5">
           <div className="flex-shrink-0">

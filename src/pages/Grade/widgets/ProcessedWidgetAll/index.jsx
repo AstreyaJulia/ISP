@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import WidgetRowCounter from '../../../../components/WidgetRowCounter';
 import { useDispatch, useSelector } from '../../../../store';
 import { getAllProcessedCases, resetAllProcessedCases } from '../../../../store/slices/cases/processed';
+import {PATH_CASE} from "../../../../routes/paths";
 
 const ProcessedWidgetAll = ({ user }) => {
   /** Должности, которым доступна отрисовка */
@@ -33,9 +34,9 @@ const ProcessedWidgetAll = ({ user }) => {
     return (
       <WidgetRowCounter
         isLoading={processedisLoading.toString() === 'true'}
-        rows={processedcasesall}
+        rows={processedcasesall ?? []}
         color="green"
-        link="/process-all"
+        link={PATH_CASE.lists.processAll.client}
         error={processederror}
         title="в производстве"
         counter={{

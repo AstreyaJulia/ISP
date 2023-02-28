@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import WidgetRowCounter from '../../../../components/WidgetRowCounter';
 import { useDispatch, useSelector } from '../../../../store';
 import { getJudgeProcessedCases, resetJudgeProcessedCases } from '../../../../store/slices/cases/processed';
+import {PATH_CASE} from "../../../../routes/paths";
 
 const ProcessedWidget = () => {
   /** Должности, которым доступна отрисовка */
@@ -29,10 +30,10 @@ const ProcessedWidget = () => {
 
   return (
     <WidgetRowCounter
-      isLoading={processedisLoading}
-      rows={processedcases}
+      isLoading={processedisLoading.toString() === 'true'}
+      rows={processedcases ?? []}
       color="green"
-      link="/process"
+      link={PATH_CASE.lists.process.client}
       error={processederror}
       title="в производстве"
       counter={{

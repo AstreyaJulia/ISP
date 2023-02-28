@@ -35,20 +35,9 @@ const Finished = ({ all }) => {
     // eslint-disable-next-line
   }, [dispatch]);
 
-  const breadcrumbs = [
-    { name: 'Делопроизводство', href: '', current: false },
-    { name: 'Дела, рассмотренные свыше срока (по судье)', href: '', current: true },
-  ];
-
-  const breadcrumbsAll = [
-    { name: 'Качество', href: '/grade', current: false },
-    { name: 'Дела, рассмотренные свыше срока (общий список)', href: '', current: true },
-  ];
-
   return (
     <BasicPage title="Дела, рассмотренные свыше срока" className="main-content max-w-6xl mx-auto px-5">
       <PageHeader
-        pages={all === 'true' ? breadcrumbsAll : breadcrumbs}
         header={
           all === 'true'
             ? 'Дела, рассмотренные свыше срока (общий список)'

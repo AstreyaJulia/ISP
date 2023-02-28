@@ -16,14 +16,9 @@ const Grade = () => {
     // eslint-disable-next-line
   }, []);
 
-  const breadcrumbs = [
-    { name: 'Статистика', href: '', current: false },
-    { name: 'Качество', href: '', current: true },
-  ];
-
   return (
     <BasicPage title="Качество" className="main-content max-w-6xl mx-auto px-5">
-      <PageHeader pages={breadcrumbs} header="Качество" />
+      <PageHeader header="Качество" />
       <div className="grid grid-cols-3 mt-4 gap-4">
         <div className="flex flex-col gap-4">
           <CasesOverPeriodWidgetAll user={user ?? {}} />

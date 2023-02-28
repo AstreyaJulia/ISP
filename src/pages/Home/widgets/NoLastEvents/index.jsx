@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import WidgetRowCounter from '../../../../components/WidgetRowCounter';
 import { useDispatch, useSelector } from '../../../../store';
 import { getJudgeNoLastEventsCases, resetJudgeNoLastEventsCases } from '../../../../store/slices/cases/nolastevents';
+import {PATH_CASE} from "../../../../routes/paths";
 
 const NoLastEvents = () => {
   /** Должности, которым доступна отрисовка */
@@ -28,10 +29,10 @@ const NoLastEvents = () => {
 
   return (
     <WidgetRowCounter
-      isLoading={nolasteventsisLoading}
-      rows={nolastevents}
+      isLoading={nolasteventsisLoading.toString() === 'true'}
+      rows={nolastevents ?? []}
       color="yellow"
-      link="/no-last-events"
+      link={PATH_CASE.lists.noLastEvents.client}
       error={nolasteventserror}
       title=", по которым нет движения более 1 дня"
       counter={{

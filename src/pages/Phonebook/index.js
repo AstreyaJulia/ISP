@@ -7,10 +7,6 @@ import { getPhonebookList } from '../../store/slices/users';
 import useAuth from '../../hooks/useAuth';
 
 const Phonebook = () => {
-  const breadcrumbs = [
-    { name: 'Информация', href: '', current: false },
-    { name: 'Сотрудники', href: '', current: true },
-  ];
 
   /** Состояние пользователя */
   const { initialize } = useAuth();
@@ -31,7 +27,7 @@ const Phonebook = () => {
 
   return (
     <BasicPage title="Сотрудники" className="main-content max-w-6xl mx-auto px-5">
-      <PageHeader pages={breadcrumbs} header="Сотрудники" />
+      <PageHeader header="Сотрудники" />
       <UsersList data={userList ?? []} isLoading={isLoading} error={error} />
     </BasicPage>
   );

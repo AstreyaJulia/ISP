@@ -5,6 +5,7 @@ import {
   getJudgeActPublicationCases,
   resetJudgeActPublicationCases,
 } from '../../../../store/slices/cases/actpublication';
+import {PATH_CASE} from "../../../../routes/paths";
 
 const NoPublicatedActs = () => {
   /** Должности, которым доступна отрисовка */
@@ -32,10 +33,10 @@ const NoPublicatedActs = () => {
 
   return (
     <WidgetRowCounter
-      isLoading={nopublactsisLoading}
-      rows={nopublacts}
+      isLoading={nopublactsisLoading.toString() === 'true'}
+      rows={nopublacts ?? []}
       color="indigo"
-      link="/publication"
+      link={PATH_CASE.publication.neededPublication.client}
       error={nopublactserror}
       title="подлежит публикации"
       counter={{

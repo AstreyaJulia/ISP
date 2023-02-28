@@ -13,22 +13,6 @@ import {
 import useAuth from '../../../hooks/useAuth';
 
 const Publication = ({ all }) => {
-  const breadcrumbs = [
-    { name: 'Делопроизводство', href: '', current: false },
-    {
-      name: 'Публикация судебных актов (по судье)',
-      href: '',
-      current: true,
-    },
-  ];
-  const breadcrumbsAll = [
-    { name: 'Качество', href: '/grade', current: false },
-    {
-      name: 'Публикация судебных актов (общий список)',
-      href: '',
-      current: true,
-    },
-  ];
 
   const dispatch = useDispatch();
 
@@ -55,7 +39,6 @@ const Publication = ({ all }) => {
   return (
     <BasicPage title="Публикация судебных актов" className="main-content max-w-6xl mx-auto px-5">
       <PageHeader
-        pages={all === 'true' ? breadcrumbsAll : breadcrumbs}
         header={all === 'true' ? 'Публикация судебных актов (общий список)' : 'Публикация судебных актов (по судье)'}
       />
       <PublicationControl

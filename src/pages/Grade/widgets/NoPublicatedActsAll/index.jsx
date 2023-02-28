@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import WidgetRowCounter from '../../../../components/WidgetRowCounter';
 import { useDispatch, useSelector } from '../../../../store';
 import { getAllActPublicationCases, resetAllActPublicationCases } from '../../../../store/slices/cases/actpublication';
+import {PATH_CASE} from "../../../../routes/paths";
 
 const NoPublicatedActsAll = ({ user }) => {
   /** Должности, которым доступна отрисовка */
@@ -33,9 +34,9 @@ const NoPublicatedActsAll = ({ user }) => {
     return (
       <WidgetRowCounter
         isLoading={nopublactsisLoading.toString() === 'true'}
-        rows={nopublactsall}
+        rows={nopublactsall ?? []}
         color="indigo"
-        link="/publication-all"
+        link={PATH_CASE.publication.neededPublicationAll.client}
         error={nopublactserror}
         title="подлежит публикации"
         counter={{

@@ -103,7 +103,7 @@ const UsersListAdmin = ({ data, isLoading, error, getFunc }) => {
 
     return (<Card classname='p-4 flex justify-between items-center' key={item?.id}>
       <div className='flex gap-5 items-center'>
-        <a href={`/admin/users/${item?.id}/view`}>
+        <a href={PATH_ADMIN.users.client.view(item?.id)}>
           <Avatar
             size='8'
             name={getInitialsOnly(item?.fullname ? item?.fullname : item?.username)}
@@ -114,7 +114,7 @@ const UsersListAdmin = ({ data, isLoading, error, getFunc }) => {
         </a>
 
         <div className='flex flex-col'>
-          <a href={`/admin/users/${item?.id}/view`}
+          <a href={PATH_ADMIN.users.client.view(item?.id)}
              className='text-sm font-medium text-gray-700 dark:text-gray-200 flex flex-wrap w-48 items-center hover:underline hover:underline-offset-2'>
             <span>{getHighlightedText(item?.username, query)}</span>
           </a>
@@ -133,7 +133,7 @@ const UsersListAdmin = ({ data, isLoading, error, getFunc }) => {
             {item?.fullname ? getHighlightedText(item?.fullname, query) : null}
           </p>
           <p
-            className='text-sm text-gray-500 dark:text-indigo-400 flex flex-wrap'>
+            className='text-sm text-gray-500 dark:text-gray-400 flex flex-wrap'>
             <span>{item?.profession}</span>
             {item?.affiliationJudge ?
               <span className='text-gray-900 dark:text-gray-50'>: {getInitials(item?.affiliationJudge)}</span> : ''}

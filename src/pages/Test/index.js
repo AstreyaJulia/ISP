@@ -31,8 +31,6 @@ const Test = () => {
     setMessage(value);
   };
 
-  const breadcrumbs = [{ name: 'Тестовая страница', href: '', current: true }];
-
   const chartOptions = {
     ...BaseChartOptions(),
 
@@ -72,7 +70,7 @@ const Test = () => {
 
   return (
     <BasicPage title='Тестовая страница' className='main-content max-w-6xl mx-auto px-5'>
-      <PageHeader pages={breadcrumbs} header='Тестовая страница' />
+      <PageHeader header='Тестовая страница' />
       <Card classname='px-4 pb-4 mt-4'>
         <TextEditor
           id='compose-mail'
