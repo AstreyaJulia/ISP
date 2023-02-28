@@ -23,6 +23,7 @@ class Users
                 UserAttributes.fullname,
                 CONCAT (BildingType.name, ' / ', DoorType.name) AS room,
                 Vocation.name AS profession,
+                IF(ISNULL(UserAfiliation.fullname),'',UserAfiliation.fullname) AS affiliationJudgeName,
                 VocationGroup.name AS professionGroup,
                 DesktopType.phone_worck
             FROM `sdc_room` AS DesktopType
@@ -30,6 +31,7 @@ class Users
                   LEFT JOIN `sdc_room` AS FloorType ON DoorType.affiliation = FloorType.id
                   LEFT JOIN `sdc_room` AS BildingType ON FloorType.affiliation = BildingType.id
                   LEFT JOIN `sdc_user_attributes` AS UserAttributes on DesktopType.id = UserAttributes.room
+                  LEFT JOIN `sdc_user_attributes` AS UserAfiliation on UserAfiliation.id = UserAttributes.affiliation
                   LEFT JOIN `sdc_users` AS Users ON UserAttributes.internalKey=Users.id
                   LEFT JOIN `sdc_vocation` AS Vocation ON Vocation.id=UserAttributes.profession
                   LEFT JOIN `sdc_vocation` AS VocationGroup ON VocationGroup.id=Vocation.parent_id
