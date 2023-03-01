@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import DataTableCore from '../DataTableCore';
 import { Avatar } from '../../Avatar';
 import { getHighlightedText } from '../../../utils/getHighlightedText';
-import { getInitialsOnly } from '../../../utils/getInitials';
+import {getInitials, getInitialsOnly} from '../../../utils/getInitials';
 import { getAvatarColor } from '../../../utils/getAvatarColor';
 import Card from '../../Card';
 import DataTableToolBar from '../DataTableCore/DataTableToolBar';
@@ -41,8 +41,11 @@ const UsersList = ({ data, isLoading, error }) => {
           <a href={PATH_INFO.phoneBook.client.view(item?.id)} className="hover:underline hover:underline-offset-2 font-medium text-base text-gray-800 dark:text-gray-200 flex flex-wrap justify-start items-center text-left">
             {getHighlightedText(item?.fullname, query)}
           </a>
-          <p className="text-sm text-indigo-700 dark:text-indigo-300 flex flex-wrap justify-start items-center text-left">
-            {item?.profession}
+          <p
+              className='text-sm text-gray-500 dark:text-gray-400 flex flex-wrap'>
+            <span>{item?.profession}</span>
+            {item?.affiliationJudgeName ?
+                <span className='text-gray-900 dark:text-gray-50'>: {getInitials(item?.affiliationJudgeName)}</span> : ''}
           </p>
           <div className="flex items-center w-full gap-7 mt-3">
             <p className="flex items-center font-medium text-sm text-gray-600 dark:text-gray-400 flex justify-start items-center text-left">
