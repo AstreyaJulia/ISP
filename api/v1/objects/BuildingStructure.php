@@ -78,7 +78,7 @@ class BuildingStructure
       $this->helpers::isErrorInfo(400, "Произошла ошибка", "Што-то пошло не так");
     }
     http_response_code(201);
-    return $this->helpers->wrap($row, "data");
+    return $row;
   }
 
   /**
