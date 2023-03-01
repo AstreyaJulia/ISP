@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import {Disclosure, Menu} from '@headlessui/react';
+import React, { useEffect, useState } from 'react';
+import { Disclosure, Menu } from '@headlessui/react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import {classNames} from '../../utils/classNames';
+import { classNames } from '../../utils/classNames';
 import ContentLayoutWithSidebar from '../pagesLayouts/ContentLayoutWithSidebar';
 import building from '../../assets/images/icons/building.png';
 import buildingAdd from '../../assets/images/icons/building_add.png';
@@ -22,6 +22,7 @@ import cooler from '../../assets/images/icons/cooler.png';
 import useAuth from '../../hooks/useAuth';
 import axios from '../../utils/axios';
 import apiErrorHelper from '../../utils/apiErrorHelper';
+import TreeView from '../../components/TreeView';
 
 const Workplaces = () => {
 
@@ -56,37 +57,13 @@ const Workplaces = () => {
             .catch((error) => apiErrorHelper(error))
     }
 
-    const findNode = (tree, id) => {
-        const result = tree.find(o => o.id === id)
-        if (result) return result
+    const getWorkplaceNode = async (node) => {
 
-        tree.forEach((cm) => {
-            const result = cm.children.find(o => o.id === id)
-            if (result) return result
-        })
-
-    }
-
-    const updateTree = (tree, items, id) => {
-        const node = findNode(tree, id);
-
-        if (node) {
-            node.children = items
-        }
-        console.log(node)
-    }
-
-    const getWorkplaceNode = async (id) => {
-        console.log(id)
-        // return tree.find(item => item.id === id).children = items
-
-        const result = await axios
-            .get(`/buildingstructure/${id}`)
-            // eslint-disable-next-line
-            .then((res) => res.data.data, id)
-            .catch((error) => apiErrorHelper(error))
-
-        updateTree(courtTree, result, id)
+        node.children = await axios
+          .get(`/buildingstructure/${node.id}`)
+          // eslint-disable-next-line
+          .then((res) => res.data.data, node.id)
+          .catch((error) => apiErrorHelper(error))
     }
 
     const sidebarLink = (item, key, count) => {
@@ -594,7 +571,7 @@ const Workplaces = () => {
             boxed='true'
             title='Управление рабочими местами'
             header='Управление рабочими местами'
-            sidebarSize='medium'
+            sidebarSize='large'
             fullHeight='true'
         >
             <ContentLayoutWithSidebar.Sidebar>
@@ -689,7 +666,8 @@ const Workplaces = () => {
                         <div
                             className='p-1 h-full flex flex-col bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-600 rounded-lg gap-2 py-3 px-2'>
                             <PerfectScrollbar options={{wheelPropagation: false}}>
-                                {courtTree?.map((item, key) => sidebarLink(item, item?.id, 1))}
+                                {/* courtTree?.map((item, key) => sidebarLink(item, item?.id, 1)) */}
+                                <TreeView data={courtTree} handleOpen={(id) => getWorkplaceNode(id)} count={0}/>
                             </PerfectScrollbar>
                         </div>
                     </div>
