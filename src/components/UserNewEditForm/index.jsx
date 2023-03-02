@@ -129,7 +129,7 @@ export default function UserNewEditForm({ isEdit, currentUser, getFunc }) {
 
   const onSubmit = async () => {
     const values = getValues();
-    console.log(values);
+
     try {
       if (!isEdit) {
         await axios.post(`/staff`, values);
