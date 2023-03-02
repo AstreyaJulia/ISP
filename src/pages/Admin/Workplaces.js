@@ -108,11 +108,13 @@ const Workplaces = () => {
                                             )}
                                         </Menu.Item>
                                     </div>
-                                    <div className='px-1 py-1'>
+
+                                    {selectedNode && selectedNode.icon === 'building' ? <div className='px-1 py-1'>
                                         <Menu.Item>
                                             {({active}) => (
                                                 <button
                                                     type='button'
+                                                    disabled={!selectedNode || selectedNode.icon !== 'building'}
                                                     className={`${
                                                         active ? 'bg-gray-100 text-gray-900 dark:text-gray-100' : 'text-gray-900 dark:text-gray-100'
                                                     } group flex w-full items-center rounded-md p-2 py-2 text-sm`}
@@ -122,13 +124,14 @@ const Workplaces = () => {
                                                 </button>
                                             )}
                                         </Menu.Item>
-                                    </div>
+                                    </div> : ''}
 
-                                    <div className='px-1 py-1'>
+                                    {selectedNode && selectedNode.icon === 'floor' ? <div className='px-1 py-1'>
                                         <Menu.Item>
                                             {({active}) => (
                                                 <button
                                                     type='button'
+                                                    disabled={!selectedNode || selectedNode.icon !== 'floor'}
                                                     className={`${
                                                         active ? 'bg-gray-100 text-gray-900 dark:text-gray-100' : 'text-gray-900 dark:text-gray-100'
                                                     } group flex w-full items-center rounded-md p-2 py-2 text-sm`}
@@ -138,12 +141,14 @@ const Workplaces = () => {
                                                 </button>
                                             )}
                                         </Menu.Item>
-                                    </div>
-                                    <div className='px-1 py-1'>
+                                    </div> : ''}
+
+                                    {selectedNode && selectedNode.icon === 'door' ? <div className='px-1 py-1'>
                                         <Menu.Item>
                                             {({active}) => (
                                                 <button
                                                     type='button'
+                                                    disabled={!selectedNode || selectedNode.icon !== 'door'}
                                                     className={`${
                                                         active ? 'bg-gray-100 text-gray-900 dark:text-gray-100' : 'text-gray-900 dark:text-gray-100'
                                                     } group flex w-full items-center rounded-md p-2 py-2 text-sm`}
@@ -153,12 +158,13 @@ const Workplaces = () => {
                                                 </button>
                                             )}
                                         </Menu.Item>
-                                    </div>
+                                    </div> : ''}
+
                                 </Menu.Items>
                             </Menu>
                         </div>
                         <div
-                            className='p-1 h-full flex flex-col bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-600 rounded-lg gap-2 py-3 px-2'>
+                            className='h-full flex flex-col bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-600 rounded-lg py-3 px-2'>
                             <PerfectScrollbar options={{wheelPropagation: false}}>
                                 <TreeView data={courtTree} handleOpen={(id) => getWorkplaceNode(id)} count={0}
                                           isLoading={isLoading} error={error} selectedNode={selectedNode} setSelectedNode={(node) => setSelectedNode(node)} handleNameClick={(node) => node}/>
@@ -197,7 +203,7 @@ const Workplaces = () => {
                             </button>
                         </div>
                         <div
-                            className='p-1 h-full flex flex-col bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-600 rounded-lg'>
+                            className='h-full flex flex-col bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-600 rounded-lg py-3 px-2'>
                             <PerfectScrollbar options={{wheelPropagation: false}}>
                                 <TreeView data={devicesTree} handleOpen={(id) => id} count={0} error={error} selectedNode={selectedDeviceNode} setSelectedNode={(node) => setSelectedDeviceNode(node)} handleNameClick={(node) => node} />
                             </PerfectScrollbar>

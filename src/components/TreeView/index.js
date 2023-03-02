@@ -1,7 +1,6 @@
 import TreeNode from './TreeNode';
 
 const TreeView = ({data=[], handleOpen, handleNameClick, count, isLoading, error, selectedNode, setSelectedNode}) => {
-  count += 1;
 
   return (
     <ul>

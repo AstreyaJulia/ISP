@@ -1581,6 +1581,7 @@ export const devicesTree = [
                 model: '',
                 icon: 'cooler',
                 may_parent: 'false',
+                childNodes: 'false',
               }
             ],
           },
@@ -1590,6 +1591,7 @@ export const devicesTree = [
             model: 'DDR III',
             icon: 'memory',
             may_parent: 'false',
+            childNodes: 'false',
           },
           {
             id: '6',
@@ -1597,6 +1599,7 @@ export const devicesTree = [
             model: 'DDR III',
             icon: 'memory',
             may_parent: 'false',
+            childNodes: 'false',
           },
           {
             id: '7',
@@ -1604,6 +1607,7 @@ export const devicesTree = [
             model: 'Caviar Blue 500Gb',
             icon: 'drive',
             may_parent: 'false',
+            childNodes: 'false',
           },
           {
             id: '8',
@@ -1611,6 +1615,7 @@ export const devicesTree = [
             model: '',
             icon: 'powersupply',
             may_parent: 'false',
+            childNodes: 'false',
           },
         ],
       },
