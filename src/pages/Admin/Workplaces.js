@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { Menu } from '@headlessui/react';
+import React, {useEffect, useState} from 'react';
+import {Menu} from '@headlessui/react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { classNames } from '../../utils/classNames';
+import {classNames} from '../../utils/classNames';
 import ContentLayoutWithSidebar from '../pagesLayouts/ContentLayoutWithSidebar';
 import buildingAdd from '../../assets/images/icons/building_add.png';
 import floorAdd from '../../assets/images/icons/floor_add.png';
@@ -20,6 +20,8 @@ const Workplaces = () => {
     const {initialize} = useAuth();
     const [selectedTab, setSelectedTab] = useState('devices');
     const [courtTree, setCourtTree] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         initialize();
@@ -28,19 +30,32 @@ const Workplaces = () => {
     }, []);
 
     const getWorkplaceRoot = async () => {
+        setIsLoading(true)
         await axios
             .get('/buildingstructure')
-            .then((res) => setCourtTree(res.data.data))
-            .catch((error) => apiErrorHelper(error))
+            .then((res) => {
+                setCourtTree(res.data.data)
+                setIsLoading(false)
+            })
+            .catch((error) => {
+                apiErrorHelper(error)
+                setError(error)
+            })
     }
 
     const getWorkplaceNode = async (node) => {
-
-        node.children = await axios
-          .get(`/buildingstructure/${node.id}`)
-          // eslint-disable-next-line
-          .then((res) => res.data.data, node.id)
-          .catch((error) => apiErrorHelper(error))
+        setIsLoading(true)
+        await axios
+            .get(`/buildingstructure/${node.id}`)
+            // eslint-disable-next-line
+            .then((res) => {
+                node.children = res.data.data
+                setIsLoading(false)
+            })
+            .catch((error) => {
+                apiErrorHelper(error)
+                setError(error)
+            })
     }
 
     return (
@@ -143,7 +158,8 @@ const Workplaces = () => {
                         <div
                             className='p-1 h-full flex flex-col bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-600 rounded-lg gap-2 py-3 px-2'>
                             <PerfectScrollbar options={{wheelPropagation: false}}>
-                                <TreeView data={courtTree} handleOpen={(id) => getWorkplaceNode(id)} count={0}/>
+                                <TreeView data={courtTree} handleOpen={(id) => getWorkplaceNode(id)} count={0}
+                                          isLoading={isLoading}/>
                             </PerfectScrollbar>
                         </div>
                     </div>
@@ -181,7 +197,7 @@ const Workplaces = () => {
                         <div
                             className='p-1 h-full flex flex-col bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-600 rounded-lg'>
                             <PerfectScrollbar options={{wheelPropagation: false}}>
-                                <TreeView data={devicesTree} handleOpen={(id) => id} count={0}/>
+                                <TreeView data={devicesTree} handleOpen={(id) => id} count={0} error={error}/>
                             </PerfectScrollbar>
                         </div>
                     </div>

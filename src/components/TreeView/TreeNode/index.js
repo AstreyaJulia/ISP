@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { Menu } from '@headlessui/react';
+import React, {Fragment, useState} from 'react';
+import { Menu, Transition } from '@headlessui/react';
 import TreeView from '../index';
 import { classNames } from '../../../utils/classNames';
 import workplacesTreeIcons from "../workplacesTreeIcons";
 
-const TreeNode = ({ node, handleOpen, handleNameClick, count, isLoading, error }) => {
+const TreeNode = ({ node, handleOpen, handleNameClick, count, isLoading, error, selectedNode }) => {
 
   const { id, children, name, icon, childNodes, brand, model } = node;
   const [open, setOpen] = useState(false);
@@ -53,11 +53,11 @@ const TreeNode = ({ node, handleOpen, handleNameClick, count, isLoading, error }
                 </svg>
               )}
             </button> : ''}
-            <button type='button' className={classNames(childNodes === 'false' ? 'ml-8' : '', 'flex items-center p-2')}>
+            <button type='button' className={classNames(childNodes === 'false' ? 'ml-8' : '', 'flex items-center p-2 text-sm', selectedNode && selectedNode?.id === node?.id ? 'text-indigo-700 dark:text-indigo-300 ml-2' : 'text-gray-700 dark:text-gray-300 ml-2')} onClick={()=> handleNameClick(node)}>
               <img src={workplacesTreeIcons(icon) } alt='Значок'
                    className='h-4 w-4' />
-              {name ? <span className='text-sm text-gray-700 dark:text-gray-300 ml-2'>{name}</span> : ''}
-              {brand || model ? <span className='text-sm text-gray-700 dark:text-gray-300 ml-2'>{brand} {model}</span> : ''}
+              {name ? <span className='ml-2'>{name}</span> : ''}
+              {brand || model ? <span className='ml-2'>{brand} {model}</span> : ''}
             </button>
           </div>
 
@@ -177,7 +177,18 @@ const TreeNode = ({ node, handleOpen, handleNameClick, count, isLoading, error }
           </Menu>
         </div>
 
+        <Transition
+            show={open}
+            enter='transition-opacity ease-linear duration-300'
+            enterFrom='opacity-0'
+            enterTo='opacity-100'
+            leave='transition-opacity ease-linear duration-300'
+            leaveFrom='opacity-100'
+            leaveTo='opacity-0'
+        >
         {open ? <TreeView data={children} count={count + 1} handleOpen={handleOpen} /> : ''}
+          </Transition>
+
       </div>
 
     </>
