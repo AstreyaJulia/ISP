@@ -122,7 +122,7 @@ const UsersListAdmin = ({ data, isLoading, error, getFunc }) => {
             <span
               className={classNames('mr-2 w-3 h-3 rounded-full', item?.active.toString() === '0' ? 'bg-red-400 dark:bg-red-600' : 'bg-green-400 dark:bg-green-600')} />
             <span
-              className={classNames(item?.sudo.toString() === '1' ? 'text-red-600 dark:text-red-500/30' : 'text-gray-600 dark:text-gray-500/30', 'text-sm')}>{item?.sudo.toString() === '1' ? 'Администратор' : 'Пользователь'}</span>
+              className={classNames(item?.sudo.toString() === '1' ? 'text-red-600 dark:text-red-500/30' : 'text-gray-600 dark:text-gray-500', 'text-sm')}>{item?.sudo.toString() === '1' ? 'Администратор' : 'Пользователь'}</span>
           </p>
 
         </div>

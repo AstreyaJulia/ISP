@@ -11,6 +11,7 @@ import linkscatalog from './slices/linkscatalog';
 import nolastevents from './slices/cases/nolastevents';
 import casescategory from './slices/casescategory';
 import staff from './slices/staff';
+import workplaces from './slices/workplaces';
 
 const rootPersistConfig = {
   key: 'root',
@@ -31,6 +32,7 @@ const appReducer = combineReducers({
   nolastevents,
   casescategory,
   staff,
+  workplaces,
 });
 
 const rootReducer = (state, action) => {

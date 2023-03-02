@@ -1,37 +1,12 @@
 import React, { useState } from 'react';
 import { Menu } from '@headlessui/react';
 import TreeView from '../index';
-import building from '../../../assets/images/icons/building.png';
-import floor from '../../../assets/images/icons/floor.png';
-import door from '../../../assets/images/icons/door.png';
-import desktop from '../../../assets/images/icons/desktop.png';
-import powersupply from '../../../assets/images/icons/power-supply.png';
-import drive from '../../../assets/images/icons/drive.png';
-import memory from '../../../assets/images/icons/memory.png';
-import processor from '../../../assets/images/icons/processor.png';
-import motherboard from '../../../assets/images/icons/motherboard.png';
-import computercase from '../../../assets/images/icons/computer_case.png';
-import cooler from '../../../assets/images/icons/cooler.png';
 import { classNames } from '../../../utils/classNames';
+import workplacesTreeIcons from "../workplacesTreeIcons";
 
+const TreeNode = ({ node, handleOpen, handleNameClick, count, isLoading, error }) => {
 
-const icons = {
-  building,
-  floor,
-  door,
-  desktop,
-  powersupply,
-  drive,
-  memory,
-  processor,
-  motherboard,
-  computercase,
-  cooler,
-};
-
-const TreeNode = ({ node, handleOpen, handleNameClick, count }) => {
-
-  const { id, children, name, icon, childNodes } = node;
+  const { id, children, name, icon, childNodes, brand, model } = node;
   const [open, setOpen] = useState(false);
 
   const handleClick = (id) => {
@@ -44,8 +19,8 @@ const TreeNode = ({ node, handleOpen, handleNameClick, count }) => {
       <div className={classNames(count !== 0 ? `pl-${count}` : '', 'flex flex-col')}>
 
         <div className='flex items-center justify-between p-1'>
-          <div className='flex items-center gap-2'>
-            {childNodes === 'true' ? <button type='button' onClick={() => handleClick(node)} className='p-1'>
+          <div className='flex items-center'>
+            {childNodes === 'true' ? <button type='button' onClick={() => handleClick(node)} className='p-2'>
               {open ? (
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
@@ -78,9 +53,12 @@ const TreeNode = ({ node, handleOpen, handleNameClick, count }) => {
                 </svg>
               )}
             </button> : ''}
-            <img src={icons[icon] || door} alt='Значок'
-                 className={classNames(childNodes === 'false' ? 'ml-8' : '', 'h-4 w-4')} />
-            <span className='text-sm text-gray-700'>{name}</span>
+            <button type='button' className={classNames(childNodes === 'false' ? 'ml-8' : '', 'flex items-center p-2')}>
+              <img src={workplacesTreeIcons(icon) } alt='Значок'
+                   className='h-4 w-4' />
+              {name ? <span className='text-sm text-gray-700 dark:text-gray-300 ml-2'>{name}</span> : ''}
+              {brand || model ? <span className='text-sm text-gray-700 dark:text-gray-300 ml-2'>{brand} {model}</span> : ''}
+            </button>
           </div>
 
           <Menu as='div' className='relative'>
@@ -199,7 +177,7 @@ const TreeNode = ({ node, handleOpen, handleNameClick, count }) => {
           </Menu>
         </div>
 
-        {open ? <TreeView data={children ?? []} count={count + 1} handleOpen={handleOpen} /> : ''}
+        {open ? <TreeView data={children} count={count + 1} handleOpen={handleOpen} /> : ''}
       </div>
 
     </>

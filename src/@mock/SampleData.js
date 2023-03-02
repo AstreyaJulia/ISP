@@ -1557,6 +1557,7 @@ export const devicesTree = [
     model: 'Credo KC-51',
     icon: 'computercase',
     may_parent: 'true',
+    childNodes: 'true',
     children: [
       {
         id: '2',
@@ -1564,6 +1565,7 @@ export const devicesTree = [
         model: 'KWH-77',
         icon: 'motherboard',
         may_parent: 'true',
+        childNodes: 'true',
         children: [
           {
             id: '3',
@@ -1571,6 +1573,7 @@ export const devicesTree = [
             model: 'Pentium G2020',
             icon: 'processor',
             may_parent: 'true',
+            childNodes: 'true',
             children: [
               {
                 id: '4',
