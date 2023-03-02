@@ -22,6 +22,8 @@ const Workplaces = () => {
     const [courtTree, setCourtTree] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [selectedNode, setSelectedNode] = useState(null);
+    const [selectedDeviceNode, setSelectedDeviceNode] = useState(null);
 
     useEffect(() => {
         initialize();
@@ -159,7 +161,7 @@ const Workplaces = () => {
                             className='p-1 h-full flex flex-col bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-600 rounded-lg gap-2 py-3 px-2'>
                             <PerfectScrollbar options={{wheelPropagation: false}}>
                                 <TreeView data={courtTree} handleOpen={(id) => getWorkplaceNode(id)} count={0}
-                                          isLoading={isLoading}/>
+                                          isLoading={isLoading} error={error} selectedNode={selectedNode} setSelectedNode={(node) => setSelectedNode(node)} handleNameClick={(node) => node}/>
                             </PerfectScrollbar>
                         </div>
                     </div>
@@ -197,7 +199,7 @@ const Workplaces = () => {
                         <div
                             className='p-1 h-full flex flex-col bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-600 rounded-lg'>
                             <PerfectScrollbar options={{wheelPropagation: false}}>
-                                <TreeView data={devicesTree} handleOpen={(id) => id} count={0} error={error}/>
+                                <TreeView data={devicesTree} handleOpen={(id) => id} count={0} error={error} selectedNode={selectedDeviceNode} setSelectedNode={(node) => setSelectedDeviceNode(node)} handleNameClick={(node) => node} />
                             </PerfectScrollbar>
                         </div>
                     </div>

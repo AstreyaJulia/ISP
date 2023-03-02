@@ -4,14 +4,19 @@ import TreeView from '../index';
 import { classNames } from '../../../utils/classNames';
 import workplacesTreeIcons from "../workplacesTreeIcons";
 
-const TreeNode = ({ node, handleOpen, handleNameClick, count, isLoading, error, selectedNode }) => {
+const TreeNode = ({ node, handleOpen, handleNameClick, count, isLoading, error, selectedNode, setSelectedNode }) => {
 
   const { id, children, name, icon, childNodes, brand, model } = node;
   const [open, setOpen] = useState(false);
 
-  const handleClick = (id) => {
+  const handleClick = (node) => {
     setOpen(!open);
-    if (handleOpen) handleOpen(id);
+    if (handleOpen) handleOpen(node);
+  };
+
+  const handleNameSelectClick = (node) => {
+    setSelectedNode(node);
+    if (handleNameClick) handleNameClick(node);
   };
 
   return (
@@ -53,7 +58,7 @@ const TreeNode = ({ node, handleOpen, handleNameClick, count, isLoading, error, 
                 </svg>
               )}
             </button> : ''}
-            <button type='button' className={classNames(childNodes === 'false' ? 'ml-8' : '', 'flex items-center p-2 text-sm', selectedNode && selectedNode?.id === node?.id ? 'text-indigo-700 dark:text-indigo-300 ml-2' : 'text-gray-700 dark:text-gray-300 ml-2')} onClick={()=> handleNameClick(node)}>
+            <button type='button' className={classNames(childNodes === 'false' ? 'ml-8' : '', 'flex items-center p-2 text-sm', selectedNode && selectedNode?.id === node?.id ? 'text-indigo-700 dark:text-indigo-300 ml-2' : 'text-gray-700 dark:text-gray-300 ml-2')} onClick={()=> handleNameSelectClick(node)}>
               <img src={workplacesTreeIcons(icon) } alt='Значок'
                    className='h-4 w-4' />
               {name ? <span className='ml-2'>{name}</span> : ''}
@@ -186,7 +191,7 @@ const TreeNode = ({ node, handleOpen, handleNameClick, count, isLoading, error, 
             leaveFrom='opacity-100'
             leaveTo='opacity-0'
         >
-        {open ? <TreeView data={children} count={count + 1} handleOpen={handleOpen} /> : ''}
+        {open ? <TreeView data={children} count={count + 1} handleOpen={handleOpen} handleNameClick={handleNameClick} setSelectedNode={setSelectedNode} selectedNode={selectedNode} isLoading={isLoading} error={error} /> : ''}
           </Transition>
 
       </div>
