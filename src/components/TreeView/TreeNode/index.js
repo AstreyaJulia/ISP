@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import TreeView from '../index';
 import { classNames } from '../../../utils/classNames';
-import workplacesTreeIcons from '../workplacesTreeIcons';
+import {workplacesTreeIcons} from '../workplacesTreeIcons';
 
 const TreeNode = ({ node, handleOpen, handleNameClick, count, isLoading, error, selectedNode, setSelectedNode }) => {
 
@@ -37,7 +37,7 @@ const TreeNode = ({ node, handleOpen, handleNameClick, count, isLoading, error, 
                     style={childNodes === 'false' ? { marginLeft: `${36}px` } : { marginLeft: 0 }}
                     className={classNames('flex items-center p-2 text-sm w-full', selectedNode && selectedNode?.id === node?.id ? 'bg-gray-200 text-gray-800 rounded-lg' : 'text-gray-700 dark:text-gray-300')}
                     onClick={() => handleNameSelectClick(node)}>
-              <img src={workplacesTreeIcons(icon)} alt='Значок'
+              <img src={workplacesTreeIcons(icon).icon} alt='Значок'
                    className='h-4 w-4' />
               {name ? <span className='ml-2 px-1'>{name}</span> : ''}
               {brand || model ? <span className='ml-2 px-1'>{brand} {model}</span> : ''}

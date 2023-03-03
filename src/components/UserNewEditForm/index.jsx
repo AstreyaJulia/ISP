@@ -20,11 +20,9 @@ import Card from '../Card';
 import Typography from '../Typography';
 import BasicButton from '../BasicButton';
 import LoadingButton from '../LoadingButton';
-
 import axios from '../../utils/axios';
 import { getLoginFromName } from '../../utils/createLogin';
 import Badge from '../Badge';
-import { PATH_ADMIN } from '../../routes/paths';
 
 
 export default function UserNewEditForm({ isEdit, currentUser, getFunc }) {

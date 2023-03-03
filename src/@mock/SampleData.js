@@ -1555,7 +1555,7 @@ export const devicesTree = [
     id: '1',
     brand: 'Kraftway',
     model: 'Credo KC-51',
-    icon: 'computercase',
+    icon: 'computer-case',
     may_parent: 'true',
     childNodes: 'true',
     children: [
@@ -1613,7 +1613,7 @@ export const devicesTree = [
             id: '8',
             brand: 'Блок питания',
             model: '',
-            icon: 'powersupply',
+            icon: 'power-supply',
             may_parent: 'false',
             childNodes: 'false',
           },

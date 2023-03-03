@@ -32,7 +32,7 @@ LoadingButton.propTypes = {
   isLoading: PropTypes.bool,
   /** Размер кнопки */
   size: PropTypes.oneOf(['small', 'medium', 'large']).isRequired,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   className: PropTypes.string,
   loadingLabel: PropTypes.string,
   label: PropTypes.string,

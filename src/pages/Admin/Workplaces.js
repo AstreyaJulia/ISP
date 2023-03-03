@@ -14,6 +14,7 @@ import apiErrorHelper from '../../utils/apiErrorHelper';
 import TreeView from '../../components/TreeView';
 import { devicesTree } from '../../@mock/SampleData';
 import WorkplaceTreeModal from './WorkPlaceTree/Modal';
+import NewNodeForm from "./WorkPlaceTree/Modal/NewNodeForm";
 
 const Workplaces = () => {
 
@@ -27,7 +28,7 @@ const Workplaces = () => {
   const [selectedDeviceNode, setSelectedDeviceNode] = useState(null);
   const [modalOpened, setModalOpened] = useState(false);
   const [modalTitle, setModalTitle] = useState('');
-  const [modalContent, setModalContent] = useState(null);
+  const [modalIconValue, setModalIconValue] = useState('na');
 
   useEffect(() => {
     initialize();
@@ -103,6 +104,7 @@ const Workplaces = () => {
                           type='button'
                           onClick={() => {
                             setModalTitle('Добавить здание');
+                            setModalIconValue('building')
                             setModalOpened(true);
                           }}
                           className={`${
@@ -123,6 +125,7 @@ const Workplaces = () => {
                           type='button'
                           onClick={() => {
                             setModalTitle('Добавить этаж');
+                            setModalIconValue('floor')
                             setModalOpened(true);
                           }}
                           disabled={!selectedNode || selectedNode.icon !== 'building'}
@@ -144,6 +147,7 @@ const Workplaces = () => {
                           type='button'
                           onClick={() => {
                             setModalTitle('Добавить помещение');
+                            setModalIconValue('door')
                             setModalOpened(true);
                           }}
                           disabled={!selectedNode || selectedNode.icon !== 'floor'}
@@ -165,6 +169,7 @@ const Workplaces = () => {
                           type='button'
                           onClick={() => {
                             setModalTitle('Добавить рабочее место');
+                            setModalIconValue('desktop')
                             setModalOpened(true);
                           }}
                           disabled={!selectedNode || selectedNode.icon !== 'door'}
@@ -234,8 +239,8 @@ const Workplaces = () => {
         </div>
       </ContentLayoutWithSidebar.Body>
       <WorkplaceTreeModal open={modalOpened} setOpen={setModalOpened}
-                          title={modalTitle}>
-          {modalContent}
+                          title={modalTitle} >
+          <NewNodeForm parentNode={selectedNode} currentNode={null} IconValue={modalIconValue}/>
       </WorkplaceTreeModal>
     </ContentLayoutWithSidebar>
 
