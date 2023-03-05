@@ -2,7 +2,9 @@ import React from "react";
 import {Controller, useFormContext} from "react-hook-form";
 import {RadioGroup} from "@headlessui/react";
 import {Tooltip} from "react-tooltip";
+import PerfectScrollbar from 'react-perfect-scrollbar';
 import {classNames} from "../../utils/classNames";
+
 
 export default function RHFRadioGroupWithIcons({name, label, options, defaultValue, direction, ...other}) {
 
@@ -28,8 +30,9 @@ export default function RHFRadioGroupWithIcons({name, label, options, defaultVal
                 <div id={name} className='relative'>
                     <RadioGroup {...other} value={field.value} onChange={field.onChange} {...field}>
                         <RadioGroup.Label className='sr-only'>Выберите</RadioGroup.Label>
-                        <div className='flex'>
-                            <div className='grid grid-cols-12 gap-2'>
+                        <div className={classNames('flex shadow-sm items-center justify-center bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 rounded-lg', options.length > 12 ? 'h-40' : '')}>
+                          <PerfectScrollbar className="ps__show pl-3"  options={{ wheelPropagation: false }}>
+                          <div className='p-3 grid grid-cols-12 gap-2'>
                                 {options.map((option) => (<RadioGroup.Option
                                     key={`${name}-${option.value}`}
                                     value={option.value}
@@ -44,7 +47,7 @@ export default function RHFRadioGroupWithIcons({name, label, options, defaultVal
                                     <span
                                         aria-hidden='true'
                                         title={option.label}
-                                        className={classNames('h-8 w-8 rounded-full flex items-center justify-center')}
+                                        className={classNames('h-7 w-7 rounded-full flex items-center justify-center')}
                                     >
                                     <img src={option.icon} alt={option.icon}
                                          className='h-4 w-4'/>
@@ -52,6 +55,7 @@ export default function RHFRadioGroupWithIcons({name, label, options, defaultVal
                                 </span>
                                 </RadioGroup.Option>))}
                             </div>
+                          </PerfectScrollbar>
                         </div>
 
                     </RadioGroup>

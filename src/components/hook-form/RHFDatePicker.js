@@ -30,7 +30,7 @@ export default function RHFDatePicker({ name, label, placeholder, inputFormat, d
       render={({ field: { value, onChange, ref }, fieldState: { error } }) => (
         <div className={classNames('flex', direction === 'row' ? 'items-center justify-end grow-0' : 'flex-col', label ? 'gap-4' : '')}>
           {label ? (
-            <label htmlFor={name} className={classNames('flex flex-col shrink-0 text-base font-medium text-gray-700 dark:text-gray-200', direction === 'row' ? 'text-right w-52' : 'w-full text-left')} >
+            <label htmlFor={name} className={classNames('flex flex-col shrink-0', direction === 'row' ? 'text-right w-52' : 'w-full text-left')} >
               {label}
             </label>
           ) : (

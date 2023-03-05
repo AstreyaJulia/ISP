@@ -6,7 +6,7 @@ import {workplacesTreeIcons} from '../workplacesTreeIcons';
 
 const TreeNode = ({ node, handleOpen, handleNameClick, count, isLoading, error, selectedNode, setSelectedNode }) => {
 
-  const { id, children, name, icon, childNodes, brand, model } = node;
+  const { id, children, name, icon, childNodes, brand, model, inventNumber, version } = node;
   const [open, setOpen] = useState(false);
 
   const handleClick = (node) => {
@@ -35,12 +35,14 @@ const TreeNode = ({ node, handleOpen, handleNameClick, count, isLoading, error, 
               </button> : ''}
             <button type='button'
                     style={childNodes === 'false' ? { marginLeft: `${36}px` } : { marginLeft: 0 }}
-                    className={classNames('flex items-center p-2 text-sm w-full', selectedNode && selectedNode?.id === node?.id ? 'bg-gray-200 text-gray-800 rounded-lg' : 'text-gray-700 dark:text-gray-300')}
+                    className={classNames('flex items-center p-2 text-sm w-full p-1 gap-3', selectedNode && selectedNode?.id === node?.id ? 'bg-gray-200 text-gray-800 rounded-lg' : 'text-gray-700 dark:text-gray-300')}
                     onClick={() => handleNameSelectClick(node)}>
               <img src={workplacesTreeIcons(icon).icon} alt='Значок'
                    className='h-4 w-4' />
-              {name ? <span className='ml-2 px-1'>{name}</span> : ''}
-              {brand || model ? <span className='ml-2 px-1'>{brand} {model}</span> : ''}
+              {name ? <span>{name}</span> : ''}
+              {brand || model ? <span>{brand} {model}</span> : ''}
+              {inventNumber ? <span>инв. №: {inventNumber}</span> : ''}
+              {version ? <span>{version}</span> : ''}
             </button>
           </div>
 

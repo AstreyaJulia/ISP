@@ -1,20 +1,27 @@
 import * as Yup from 'yup';
 import {useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
-import React, {useEffect, useMemo} from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import toast from "react-hot-toast";
-import {FormProvider, RHFRadioGroupWithIcons, RHFTextField} from "../../../../components/hook-form";
-import Typography from "../../../../components/Typography";
-import {treeIcons} from "../../../../components/TreeView/workplacesTreeIcons";
-import {makeArrayFromObj} from "../../../../utils/makeArrayFromObj";
-import BasicButton from "../../../../components/BasicButton";
-import LoadingButton from "../../../../components/LoadingButton";
-import axios from "../../../../utils/axios";
-import Toast, {toastStyles} from "../../../../components/Toast";
-import {setSession} from "../../../../utils/jwt";
+import {FormProvider, RHFRadioGroupWithIcons, RHFTextField} from "../../../components/hook-form";
+import Typography from "../../../components/Typography";
+import {treeIcons} from "../../../components/TreeView/workplacesTreeIcons";
+import {makeArrayFromObj} from "../../../utils/makeArrayFromObj";
+import BasicButton from "../../../components/BasicButton";
+import LoadingButton from "../../../components/LoadingButton";
+import axios from "../../../utils/axios";
+import Toast, {toastStyles} from "../../../components/Toast";
+import {setSession} from "../../../utils/jwt";
 
 
-export default function NewNodeForm({isEdit, currentNode, getFunc, parentNode, IconValue}) {
+export default function NewNodeForm({isEdit, currentNode, getFunc, parentNode, IconValue, onModalClose}) {
+
+    const iconsSelectOptions = {
+        'building': makeArrayFromObj(treeIcons).slice(1,5),
+        'floor': makeArrayFromObj(treeIcons).slice(5,7),
+        'door': makeArrayFromObj(treeIcons).slice(7,11),
+        'desktop': makeArrayFromObj(treeIcons),
+    }
 
     const NewNodeSchema = Yup.object().shape({
         name: Yup.string().required('Название обязательно для заполнения'),
@@ -23,7 +30,7 @@ export default function NewNodeForm({isEdit, currentNode, getFunc, parentNode, I
 
     const defaultValues = useMemo(
         () => ({
-            name: currentNode?.name ?? 'Узел',
+            name: currentNode?.name ?? '',
             icon: currentNode?.icon ?? IconValue ?? 'na',
         }),
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -60,9 +67,11 @@ export default function NewNodeForm({isEdit, currentNode, getFunc, parentNode, I
         const values = getValues();
 
         try {
-            await axios.post(`/buildingstructure`, { ...values, affiliation: parentNode.id });
+            await axios.post(`/buildingstructure`, { ...values, affiliation: IconValue === "building" ? "" : parentNode.id.toString() });
             /* Сохранение пользователя */
             reset();
+            onModalClose();
+            getFunc()
             toast((t) => <Toast t={t} message={'Успешно добавлено!'}
                                 type='success' />, { className: toastStyles });
         } catch (err) {
@@ -72,20 +81,19 @@ export default function NewNodeForm({isEdit, currentNode, getFunc, parentNode, I
             }
             toast((t) => <Toast t={t} message={error} type='error' />, { className: toastStyles });
         }
-
-        console.log({ ...values, affiliation: parentNode.id })
     };
 
 
     return (
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
             <div className='flex flex-col gap-5 mt-5'>
+                <Typography variant='label' classname='mb-2'>{parentNode.name}</Typography>
                 <RHFTextField name='name' placeholder='Название'
                               label={<Typography variant="label">Название</Typography>} direction='column'/>
                 <RHFRadioGroupWithIcons name='icon'
                                         label={<Typography variant="label" classname='flex'>Значок</Typography>}
                                         defaultValue={IconValue} options={
-                    makeArrayFromObj(treeIcons).map((item, key) => {
+                    iconsSelectOptions[IconValue].map((item, key) => {
                         return {
                             id: key,
                             value: item.value,
@@ -97,7 +105,7 @@ export default function NewNodeForm({isEdit, currentNode, getFunc, parentNode, I
                 }/>
                 <div className='flex items-center justify-end gap-5 mt-5'>
 
-                    <BasicButton size='medium' type='reset' variant='ghost' onClick={() => {reset()}}
+                    <BasicButton size='medium' type='reset' variant='ghost' onClick={() => {reset(); onModalClose();}}
                                  disabled={isSubmitting}>Отмена
                     </BasicButton>
 

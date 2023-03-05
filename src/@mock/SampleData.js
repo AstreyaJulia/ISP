@@ -1558,6 +1558,8 @@ export const devicesTree = [
     icon: 'computer-case',
     may_parent: 'true',
     childNodes: 'true',
+    'serial-number': 'AB123',
+    inventNumber: '013607012',
     children: [
       {
         id: '2',
@@ -1566,6 +1568,8 @@ export const devicesTree = [
         icon: 'motherboard',
         may_parent: 'true',
         childNodes: 'true',
+        'serial-number': '',
+        inventNumber: '',
         children: [
           {
             id: '3',
@@ -1574,6 +1578,8 @@ export const devicesTree = [
             icon: 'processor',
             may_parent: 'true',
             childNodes: 'true',
+            'serial-number': '',
+            inventNumber: '',
             children: [
               {
                 id: '4',
@@ -1582,6 +1588,8 @@ export const devicesTree = [
                 icon: 'cooler',
                 may_parent: 'false',
                 childNodes: 'false',
+                'serial-number': '',
+                inventNumber: '',
               }
             ],
           },
@@ -1592,6 +1600,8 @@ export const devicesTree = [
             icon: 'memory',
             may_parent: 'false',
             childNodes: 'false',
+            'serial-number': '',
+            inventNumber: '',
           },
           {
             id: '6',
@@ -1600,6 +1610,8 @@ export const devicesTree = [
             icon: 'memory',
             may_parent: 'false',
             childNodes: 'false',
+            'serial-number': '',
+            inventNumber: '',
           },
           {
             id: '7',
@@ -1608,6 +1620,8 @@ export const devicesTree = [
             icon: 'drive',
             may_parent: 'false',
             childNodes: 'false',
+            'serial-number': '',
+            inventNumber: '',
           },
           {
             id: '8',
@@ -1616,12 +1630,36 @@ export const devicesTree = [
             icon: 'power-supply',
             may_parent: 'false',
             childNodes: 'false',
+            'serial-number': '',
+            inventNumber: '',
           },
         ],
       },
     ],
   },
 ];
+
+export const softwareTree = [
+  {
+    id: '1',
+    typeID: '1',
+    typeName: 'Операционные системы',
+    name: 'Windows 10',
+    icon: 'windows10',
+    serialNumber: 'ABCD-1234-QWER-TYUI',
+    version: 'x64 Professional'
+  },
+  {
+    id: '2',
+    typeID: '2',
+    typeName: 'Подсистемы ГАС Правосудие',
+    name: 'ПИ "Судебное делопроизводство и статистика"',
+    icon: 'applicationBlock',
+    serialNumber: 'ABCD-1234-QWER-TYUI',
+    version: '36.0.1.3440'
+  },
+]
+
 export const stat = [
   {
     title: 'Население Сафоново',
@@ -1739,6 +1777,16 @@ export const stat = [
     title: 'Рассмотрено по 1 инстанции уголовных дел (область)',
     data: [
       { name: 'Рассмотрено уголовных дел по 1 инстанции (область)', data: [4124, 4038, 3696, 3257, 3799, 3563, 3210, 2217, 3061, 3626, 3713, 3636, 4174] },
+    ],    colors: [
+      tailwindColors.amber['500'],
+    ],
+  },
+
+  // http://www.cdep.ru/?id=79
+  {
+    title: 'Рассмотрено по 1 инстанции уголовных дел (РФ)',
+    data: [
+      { name: 'Рассмотрено уголовных дел по 1 инстанции (область)', data: [1073513, 997334, 941954, 943939, 936525, 962936, 963930, 914965, 885242, 806137, 748955, 769948, ''] },
     ],    colors: [
       tailwindColors.amber['500'],
     ],

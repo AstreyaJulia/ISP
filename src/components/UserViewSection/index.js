@@ -259,7 +259,7 @@ export default function UserViewSection({currentUser, getFunc, isLoading, error}
                 </> : ''}
 
                 {user?.sudo === 1 && currentUser?.active?.toString() === '1' ? <>
-                    <BasicButton size='medium' className='w-44' variant='basic' disabled={isLoading === 'true'}
+                    <BasicButton size='medium' className='w-44' variant='danger' disabled={isLoading === 'true'}
                                  onClick={() => blockUser(currentUser?.id)}>Заблокировать</BasicButton>
                 </> : ''}
 

@@ -114,7 +114,7 @@ const Faq = () => {
         aria-labelledby="primary-heading"
         className="relative min-w-0 flex-1 full-height-course flex flex-col lg:order-last mb-14 "
       >
-        <div className="bg-white dark:bg-gray-900 m-6 min-w-0 flex-1 flex flex-col overflow-y-auto lg:order-last 2xl:max-w-5xl 2xl:mx-auto">
+        <div className="bg-white dark:bg-gray-900 shadow m-6 min-w-0 flex-1 flex flex-col overflow-y-auto lg:order-last 2xl:max-w-5xl 2xl:mx-auto">
           <PerfectScrollbar className="main-course-content ps__show" options={{ wheelPropagation: false }}>
             <div className="h-full p-6">
               <Markdown

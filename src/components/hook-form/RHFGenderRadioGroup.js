@@ -21,7 +21,7 @@ export default function RHFGenderRadioGroup({ name, label, options, defaultValue
             direction === 'row' ? 'items-center justify-end' : 'flex-col', label ? 'gap-4' : '')}>
 
         {label ? (
-          <label htmlFor={name} className={classNames('flex flex-col shrink-0 text-base font-medium text-gray-700 dark:text-gray-200', direction === 'row' ? 'text-right w-52' : 'w-full')} >
+          <label htmlFor={name} className={classNames('flex flex-col shrink-0', direction === 'row' ? 'text-right w-52' : 'w-full')} >
             {label}
           </label>) : ('')}
         <div id={name} className='relative'>
@@ -31,6 +31,7 @@ export default function RHFGenderRadioGroup({ name, label, options, defaultValue
               {options.map((option) => (<RadioGroup.Option
                 key={`${name}-${option.value}`}
                 value={option.value}
+                title={option.label}
                 className={({
                               active,
                               checked,

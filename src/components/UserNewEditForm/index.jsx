@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import {isDate, parseISO} from 'date-fns';
+import { isDate, parseISO } from 'date-fns';
 import Toast, { toastStyles } from '../Toast';
 import { setSession } from '../../utils/jwt';
 import {
@@ -285,20 +285,20 @@ export default function UserNewEditForm({ isEdit, currentUser, getFunc }) {
 
   const resetUserPass = async (userId) => {
     await axios
-        .patch('/staff/resetpass', {'id': userId})
-        .then((res) => {
-          const message = res.data.data.info;
-          toast((t) => <Toast t={t} message={message} type='success' />, { className: toastStyles });
-          getFunc();
-        })
-        .catch((err) => {
-          const error = err.message && err.info ? `${err.message}: ${err.info}` : err.toString();
-          if (err.code.toString() === '401') {
-            setSession(null);
-          }
-          toast((t) => <Toast t={t} message={error} type='error' />, { className: toastStyles });
-        });
-  }
+      .patch('/staff/resetpass', { 'id': userId })
+      .then((res) => {
+        const message = res.data.data.info;
+        toast((t) => <Toast t={t} message={message} type='success' />, { className: toastStyles });
+        getFunc();
+      })
+      .catch((err) => {
+        const error = err.message && err.info ? `${err.message}: ${err.info}` : err.toString();
+        if (err.code.toString() === '401') {
+          setSession(null);
+        }
+        toast((t) => <Toast t={t} message={error} type='error' />, { className: toastStyles });
+      });
+  };
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)} className='max-w-3xl mx-auto'>
@@ -306,39 +306,22 @@ export default function UserNewEditForm({ isEdit, currentUser, getFunc }) {
       <div className='p-3'>
         <Card classname='p-6 col-span-3'>
           <div className='flex flex-col gap-3 items-start'>
-            <div className='flex items-center gap-5 mb-3'>
-              <div className='w-52 text-right' />
 
-              <div className='flex gap-3 justify-end w-full'>
-                <RHFSwitch className='w-44' name='active' enabledLabel='Активен' disabledLabel='Заблокирован'
-                           color='emerald'
-                           checkedValue={1} onChange={(evt) => onChangeActive(evt)} />
-                <RHFSwitch className='w-44' name='sudo' enabledLabel='Администратор' disabledLabel='Пользователь'
-                           color='indigo'
-                           checkedValue={1} onChange={(evt) => onChangeSudo(evt)} />
-              </div>
-
-            </div>
             <Typography variant='h5' classname='mb-2'>Персональные данные</Typography>
 
-            <RHFTextField name='fullname' placeholder='Фамилия, имя, отчество' label={<Typography variant="label">Фамилия, имя, отчество</Typography> } />
+            <RHFTextField name='fullname' placeholder='Фамилия, имя, отчество'
+                          label={<Typography variant='label'>Фамилия, имя, отчество</Typography>} />
 
             <div className='flex items-center gap-5 mb-5'>
-              <RHFDatePicker name='dob' placeholder='Дата рождения' label={<Typography variant="label">Дата рождения</Typography> } />
+              <RHFDatePicker name='dob' placeholder='Дата рождения'
+                             label={<Typography variant='label'>Дата рождения</Typography>} />
               <RHFGenderRadioGroup name='gender' defaultValue={genders[1].value} options={genders} />
             </div>
 
-            <Typography variant='h5' classname='mb-2'>Аккаунт</Typography>
 
-            <div className='flex w-full gap-5'>
-              <RHFTextField name='username' placeholder='Имя пользователя' label={<Typography variant="label">Имя пользователя</Typography>} />
-              <BasicButton size='medium' onClick={generateLogin} className='w-60'
-                           variant='basic'>Генерировать</BasicButton>
-            </div>
-
-            <div className='flex w-full justify-between gap-5 h-10 mb-5'>
+            <div className='flex w-full justify-between gap-5'>
               <div className='flex gap-5 items-center'>
-                <div className='w-52 text-right' />
+                <Typography variant='h5' classname='mb-2 w-52'>Аккаунт</Typography>
                 <Badge size='small' color={currentUser?.setPass === 1 ? 'green' : 'yellow'}
                        item={currentUser?.setPass === 1 ? <>
                          <svg
@@ -365,10 +348,30 @@ export default function UserNewEditForm({ isEdit, currentUser, getFunc }) {
               </div>
 
               {isEdit && currentUser?.setPass === 1 ? <>
-                <BasicButton size='medium' className='w-44' variant='basic' onClick={() => resetUserPass(currentUser?.id)}>Сбросить пароль</BasicButton>
+                <BasicButton size='medium' className='w-44' variant='basic'
+                             onClick={() => resetUserPass(currentUser?.id)}>Сбросить пароль</BasicButton>
               </> : ''}
             </div>
+            <div className='flex w-full gap-5'>
+              <RHFTextField name='username' placeholder='Имя пользователя'
+                            label={<Typography variant='label'>Имя пользователя</Typography>} />
+              <BasicButton size='medium' onClick={generateLogin} className='w-60'
+                           variant='basic'>Генерировать</BasicButton>
+            </div>
 
+            <div className='flex items-center gap-5 my-3'>
+              <div className='w-52 text-right' />
+
+              <div className='flex gap-3 justify-end w-full'>
+                <RHFSwitch className='w-44' name='active' enabledLabel='Активен' disabledLabel='Заблокирован'
+                           color='emerald'
+                           checkedValue={1} onChange={(evt) => onChangeActive(evt)} />
+                <RHFSwitch className='w-44' name='sudo' enabledLabel='Администратор' disabledLabel='Пользователь'
+                           color='indigo'
+                           checkedValue={1} onChange={(evt) => onChangeSudo(evt)} />
+              </div>
+
+            </div>
 
             <Typography variant='h5' classname='mb-2'>Сведения о работе</Typography>
 
@@ -425,11 +428,14 @@ export default function UserNewEditForm({ isEdit, currentUser, getFunc }) {
 
           <div className='flex items-center justify-end gap-5 mt-5'>
 
-            <BasicButton size='medium' type='reset' variant='ghost' onClick={() => {reset(); navigate(-1)}}
+            <BasicButton size='medium' type='reset' variant='ghost' onClick={() => {
+              reset();
+              navigate(-1);
+            }}
                          disabled={isSubmitting}>Отмена
             </BasicButton>
 
-            <LoadingButton size='medium' type='submit' variant='primary'
+            <LoadingButton size='medium' type='submit' variant='success'
                            disabled={isSubmitting} loadingLabel='Сохранение ...' label='Сохранить' />
 
           </div>
