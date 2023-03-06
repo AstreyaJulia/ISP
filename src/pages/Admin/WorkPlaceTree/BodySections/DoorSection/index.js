@@ -34,6 +34,8 @@ const DoorSection = ({ selectedNode }) => {
               <Typography variant='caption' classname='mb-2'>Длина: 4м</Typography>
               <Typography variant='caption' classname='mb-2'>Ширина: 5м</Typography>
               <Typography variant='caption' classname='mb-2'>Площадь: 20 кв.м.</Typography>
+              <Typography variant='caption' classname='mb-2'>Количество окон: 1</Typography>
+              <Typography variant='caption' classname='mb-2'>Количество окон с металлическими решетками: 1</Typography>
               <Typography variant='caption' classname='mb-2'>Высота потолков: 2,4м.</Typography>
               <Typography variant='caption' classname='mb-2'>Заметка: длина - стена с окном. Покрытие пола - линолеум, покрытие стен - обои. </Typography>
               <Typography variant='h6' classname='mb-2'>Примечание</Typography>
