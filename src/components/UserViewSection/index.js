@@ -176,8 +176,8 @@ export default function UserViewSection({currentUser, getFunc, isLoading, error}
                 </dl>
                 : ''}
 
-            {currentUser?.mobilephone !== '' && currentUser?.email !== '' && currentUser?.address !== '' ?
-                <dl className='grid grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-2'>
+            {currentUser?.mobilephone !== '' || currentUser?.email !== '' || currentUser?.address !== '' ?
+                <dl className='grid grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-2 mb-6'>
 
                     {currentUser?.mobilephone ? <div className='flex items-center gap-3'>
                         <dt className='text-sm font-medium text-gray-500'>
@@ -191,7 +191,9 @@ export default function UserViewSection({currentUser, getFunc, isLoading, error}
                                     d='M17 1H7c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2zm0 18H7V5h10v14zM8 6h8v2H8z'/>
                             </svg>
                         </dt>
-                        <dd className='text-sm text-gray-900'>{formatMobileNumber(currentUser?.mobilephone ?? '0000000000')}</dd>
+                        <dd className='text-sm text-gray-900'>
+                            <Typography variant='body2'>{formatMobileNumber(currentUser?.mobilephone ?? '0000000000')}</Typography>
+                            </dd>
                     </div> : ''}
 
                     {currentUser?.email ? <div className='flex items-center gap-3'>
