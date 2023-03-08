@@ -1,12 +1,14 @@
 import { classNames } from '../../utils/classNames';
+import { typographySettings } from '../../config';
 
 const Typography = ({ variant, classname, children, ...other }) => {
-  const typographySettings = {
+
+  const settings = {
     h1: {
       element: (
         <h1
           className={classNames(
-            'text-4xl xl:text-5xl font-medium text-gray-800 dark:text-gray-50',
+            typographySettings.h1,
             classname || ''
           )}
           {...other}
@@ -19,7 +21,7 @@ const Typography = ({ variant, classname, children, ...other }) => {
       element: (
         <h2
           className={classNames(
-            'text-3xl xl:text-4xl font-medium text-gray-800 dark:text-gray-50',
+            typographySettings.h2,
             classname || ''
           )}
           {...other}
@@ -32,7 +34,7 @@ const Typography = ({ variant, classname, children, ...other }) => {
       element: (
         <h3
           className={classNames(
-            'text-2xl xl:text-3xl font-medium text-gray-800 dark:text-gray-50',
+            typographySettings.h3,
             classname || ''
           )}
           {...other}
@@ -45,7 +47,7 @@ const Typography = ({ variant, classname, children, ...other }) => {
       element: (
         <h4
           className={classNames(
-            'text-xl xl:text-2xl font-medium text-gray-800 dark:text-gray-50',
+            typographySettings.h4,
             classname || ''
           )}
           {...other}
@@ -58,7 +60,7 @@ const Typography = ({ variant, classname, children, ...other }) => {
       element: (
         <h5
           className={classNames(
-            'text-lg xl:text-xl font-medium text-gray-800 dark:text-gray-50',
+            typographySettings.h5,
             classname || ''
           )}
           {...other}
@@ -71,7 +73,7 @@ const Typography = ({ variant, classname, children, ...other }) => {
       element: (
         <h6
           className={classNames(
-            'text-base xl:text-lg font-medium text-gray-800 dark:text-gray-50',
+            typographySettings.h6,
             classname || ''
           )}
           {...other}
@@ -82,7 +84,7 @@ const Typography = ({ variant, classname, children, ...other }) => {
     },
     caption: {
       element: (
-        <p className={classNames('text-sm text-gray-600 dark:text-gray-300', classname || '')} {...other}>
+        <p className={classNames(typographySettings.caption1, classname || '')} {...other}>
           {children}
         </p>
       ),
@@ -90,7 +92,7 @@ const Typography = ({ variant, classname, children, ...other }) => {
     subtitle1: {
       element: (
         <p
-          className={classNames('text-base font-medium text-gray-800 dark:text-gray-50', classname || '')}
+          className={classNames(typographySettings.subtitle1, classname || '')}
           {...other}
         >
           {children}
@@ -99,35 +101,35 @@ const Typography = ({ variant, classname, children, ...other }) => {
     },
     subtitle2: {
       element: (
-        <p className={classNames('text-sm font-medium text-gray-800 dark:text-gray-50', classname || '')} {...other}>
+        <p className={classNames(typographySettings.subtitle2, classname || '')} {...other}>
           {children}
         </p>
       ),
     },
     body1: {
       element: (
-        <p className={classNames('text-base font-medium text-gray-600 dark:text-gray-300', classname || '')} {...other}>
+        <p className={classNames(typographySettings.body1, classname || '')} {...other}>
           {children}
         </p>
       ),
     },
     body2: {
       element: (
-        <p className={classNames('text-sm font-medium text-gray-600 dark:text-gray-300', classname || '')} {...other}>
+        <p className={classNames(typographySettings.body2, classname || '')} {...other}>
           {children}
         </p>
       ),
     },
     label: {
       element: (
-        <p className={classNames('text-base font-medium text-gray-600 dark:text-gray-300', classname || '')} {...other}>
+        <p className={classNames(typographySettings.label1, classname || '')} {...other}>
           {children}
         </p>
       ),
     },
   };
 
-  return typographySettings[variant].element;
+  return settings[variant].element;
 };
 
 export default Typography;

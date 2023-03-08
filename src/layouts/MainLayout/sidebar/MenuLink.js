@@ -41,7 +41,7 @@ const MenuLink = ({ item, sidebar }) => {
         <span
           className={classNames(
             sidebar?.toString() === '0' ? '' : 'mr-3',
-            'flex-shrink-0 flex items-center text-2xl relative'
+            'flex-shrink-0 flex items-center text-2xl text-gray-500 relative'
           )}
         >
           {item.icon}

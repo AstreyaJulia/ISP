@@ -914,12 +914,12 @@ export const events = [
 export const demoSteps = [
   {
     id: '0',
-    title: 'Introduction',
+    title: 'Тест Markdown',
     content:
-      '<h1>Introduction</h1>' +
-      "<p>Oh, and here's a great quote from this Wikipedia on [salted duck eggs](https://en.wikipedia.org/wiki/Salted_duck_egg).</p>" +
-      '<blockquote>A salted duck egg is a Chinese preserved food product made by soaking duck' +
-      'This is an example step of the course. You can put anything in here from example codes to videos.</blockquote>' +
+      '<h1>Тест Markdown</h1>' +
+      "<p>Это - ссылка [соленые утинные яйца](https://en.wikipedia.org/wiki/Salted_duck_egg).</p>" +
+      '<blockquote>Это - цитата на' +
+      ' несколько строк текста.</blockquote>' +
       '<code>npm -g install @angular/cli</code>' +
       '<b>Bold</b> <i>Italic3</i>' +
       '<del>Deleted</del> <abbr>Abbreviature</abbr>' +

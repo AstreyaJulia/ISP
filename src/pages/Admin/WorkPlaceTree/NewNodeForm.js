@@ -50,8 +50,6 @@ export default function NewNodeForm({isEdit, currentNode, getFunc, parentNode, I
         formState: {isSubmitting},
     } = methods;
 
-    const values = getValues();
-
     useEffect(() => {
 
         if (isEdit && currentNode) {
@@ -87,7 +85,7 @@ export default function NewNodeForm({isEdit, currentNode, getFunc, parentNode, I
     return (
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
             <div className='flex flex-col gap-5 mt-5'>
-                <Typography variant='label' classname='mb-2'>{parentNode.name}</Typography>
+                {parentNode && parentNode?.name && IconValue !== "building" ? <Typography variant='label' classname='mb-2'>{parentNode?.name}</Typography> : ''}
                 <RHFTextField name='name' placeholder='Название'
                               label={<Typography variant="label">Название</Typography>} direction='column'/>
                 <RHFRadioGroupWithIcons name='icon'

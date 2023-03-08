@@ -396,16 +396,25 @@ const Workplaces = () => {
         <div className='p-2 h-full'>
 
           { /* eslint-disable-next-line */}
-          {selectedNode && selectedNode.icon === 'building' ? <BuildingSection selectedNode={selectedNode} /> : selectedNode && selectedNode.icon === 'floor' ? <FloorSection selectedNode={selectedNode} /> : selectedNode && selectedNode.icon === 'door' ? <DoorSection selectedNode={selectedNode} /> : selectedNode && selectedNode.icon === 'desktop' ? <WorkPlaceSection selectedNode={selectedNode} error={error} devicesTree={devicesTree} /> : ''}
+          {selectedNode && selectedNode.icon === 'building' ?
+            /* eslint-disable-next-line */
+            <BuildingSection selectedNode={selectedNode} /> : selectedNode && selectedNode.icon === 'floor' ?
+               /* eslint-disable-next-line */
+              <FloorSection selectedNode={selectedNode} /> : selectedNode && selectedNode.icon === 'door' ?
+                <DoorSection selectedNode={selectedNode} /> : selectedNode && selectedNode.icon === 'desktop' ?
+                  <WorkPlaceSection selectedNode={selectedNode} error={error} devicesTree={devicesTree} /> : ''}
 
         </div>
       </ContentLayoutWithSidebar.Body>
 
       <Modal size='lg' open={modalNewNodeOpened} setOpen={setModalNewNodeOpened} onModalClose={handleModalClosed}
-             title={modalNewNodeTitle}>
-        <NewNodeForm parentNode={selectedNode} currentNode={null} IconValue={modalNewNodeIconValue}
-                     onModalClose={handleModalClosed}
-                     getFunc={() => selectedNode?.icon === 'building' || !selectedNode ? getWorkplaceRoot() : getWorkplaceNode(selectedNode.id)} />
+             >
+        <Modal.Toolbar title={modalNewNodeTitle} />
+        <Modal.Body>
+          <NewNodeForm parentNode={selectedNode} currentNode={null} IconValue={modalNewNodeIconValue}
+                       onModalClose={handleModalClosed}
+                       getFunc={() => selectedNode?.icon === 'building' || !selectedNode ? getWorkplaceRoot() : getWorkplaceNode(selectedNode.id)} />
+        </Modal.Body>
       </Modal>
 
     </ContentLayoutWithSidebar>

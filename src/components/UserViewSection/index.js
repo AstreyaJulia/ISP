@@ -137,19 +137,14 @@ export default function UserViewSection({currentUser, getFunc, isLoading, error}
                 </>
                 }
             </div>
-            <dl className='grid grid-cols-1 gap-x-2 gap-y-2 sm:grid-cols-2'>
+            <dl className='grid grid-cols-1 gap-3 sm:grid-cols-2'>
                 <div className='flex items-center gap-3'>
-                    <dt className='text-sm font-medium text-gray-500'>
-                        <svg
-                            xmlns='http://www.w3.org/2000/svg'
-                            viewBox='0 0 24 24'
-                            fill='currentColor'
-                            className='h-5 w-5 text-gray-500'
-                        >
-                            <path d='M0 0h24v24H0z' fill='none'/>
-                            <path
-                                d='M12 6c1.11 0 2-.9 2-2 0-.38-.1-.73-.29-1.03L12 0l-1.71 2.97c-.19.3-.29.65-.29 1.03 0 1.1.9 2 2 2zm4.6 9.99l-1.07-1.07-1.08 1.07c-1.3 1.3-3.58 1.31-4.89 0l-1.07-1.07-1.09 1.07C6.75 16.64 5.88 17 4.96 17c-.73 0-1.4-.23-1.96-.61V21c0 .55.45 1 1 1h16c.55 0 1-.45 1-1v-4.61c-.56.38-1.23.61-1.96.61-.92 0-1.79-.36-2.44-1.01zM18 9h-5V7h-2v2H6c-1.66 0-3 1.34-3 3v1.54c0 1.08.88 1.96 1.96 1.96.52 0 1.02-.2 1.38-.57l2.14-2.13 2.13 2.13c.74.74 2.03.74 2.77 0l2.14-2.13 2.13 2.13c.37.37.86.57 1.38.57 1.08 0 1.96-.88 1.96-1.96V12C21 10.34 19.66 9 18 9z'/>
-                        </svg>
+                    <dt className='text-gray-400'>
+                        <svg xmlns='http://www.w3.org/2000/svg'
+                             viewBox='0 0 24 24'
+                             fill='currentColor'
+                             className='h-5 w-5'
+                        ><path d="M12 6c1.11 0 2-.9 2-2 0-.38-.1-.73-.29-1.03L12 0l-1.71 2.97c-.19.3-.29.65-.29 1.03 0 1.1.9 2 2 2zm6 3h-5V7h-2v2H6c-1.66 0-3 1.34-3 3v9c0 .55.45 1 1 1h16c.55 0 1-.45 1-1v-9c0-1.66-1.34-3-3-3zm1 11H5v-3c.9-.01 1.76-.37 2.4-1.01l1.09-1.07 1.07 1.07c1.31 1.31 3.59 1.3 4.89 0l1.08-1.07 1.07 1.07c.64.64 1.5 1 2.4 1.01v3zm0-4.5c-.51-.01-.99-.2-1.35-.57l-2.13-2.13-2.14 2.13c-.74.74-2.03.74-2.77 0L8.48 12.8l-2.14 2.13c-.35.36-.83.56-1.34.57V12c0-.55.45-1 1-1h12c.55 0 1 .45 1 1v3.5z"/></svg>
                     </dt>
                     <dd>
                         <Typography
@@ -160,14 +155,14 @@ export default function UserViewSection({currentUser, getFunc, isLoading, error}
             </dl>
 
             {currentUser?.workplace !== ' /  / ' ?
-                <dl className='grid grid-cols-1 gap-x-2 gap-y-2 sm:grid-cols-2'>
+                <dl className='grid grid-cols-1 gap-3 sm:grid-cols-2'>
                     <div className='flex items-center gap-3 '>
-                        <dt className='text-sm font-medium text-gray-500'>
-                            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'
-                                 className='w-5 h-5 text-slate-500'>
-                                <path fill='currentColor'
-                                      d='M11 3V0H2v14H0v1h7v-5h2V8h5V3h-3zm-5 7H4V8h2v2zm0-3H4V5h2v2zm0-3H4V2h2v2zm3 3H7V5h2v2zm0-3H7V2h2v2zm4 3h-2V5h2v2zm1 4h2v5H8v-5h2V9h4v2z'/>
-                            </svg>
+                        <dt className='text-gray-400'>
+                            <svg xmlns='http://www.w3.org/2000/svg'
+                                 viewBox='0 0 24 24'
+                                 fill='currentColor'
+                                 className='h-5 w-5'
+                            ><g><rect fill="none" height="24" width="24"/></g><g><path d="M2,6v12h2V8h10v10h2v-2h4v2h2V6H2z M20,8v2h-4V8H20z M16,14v-2h4v2H16z"/></g></svg>
                         </dt>
                         <dd>
                             <Typography variant='body2'>{currentUser?.workplace}</Typography>
@@ -177,31 +172,27 @@ export default function UserViewSection({currentUser, getFunc, isLoading, error}
                 : ''}
 
             {currentUser?.mobilephone !== '' || currentUser?.email !== '' || currentUser?.address !== '' ?
-                <dl className='grid grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-2 mb-6'>
+                <dl className='grid grid-cols-1 gap-3 sm:grid-cols-2 mb-6'>
 
                     {currentUser?.mobilephone ? <div className='flex items-center gap-3'>
-                        <dt className='text-sm font-medium text-gray-500'>
+                        <dt className='text-gray-400'>
                             <svg xmlns='http://www.w3.org/2000/svg'
                                  viewBox='0 0 24 24'
                                  fill='currentColor'
-                                 className='h-5 w-5 text-gray-500'
-                            >
-                                <path d='M0 0h24v24H0z' fill='none'/>
-                                <path
-                                    d='M17 1H7c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2zm0 18H7V5h10v14zM8 6h8v2H8z'/>
-                            </svg>
+                                 className='h-5 w-5'
+                            ><path d="M6.54 5c.06.89.21 1.76.45 2.59l-1.2 1.2c-.41-1.2-.67-2.47-.76-3.79h1.51m9.86 12.02c.85.24 1.72.39 2.6.45v1.49c-1.32-.09-2.59-.35-3.8-.75l1.2-1.19M7.5 3H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.49c0-.55-.45-1-1-1-1.24 0-2.45-.2-3.57-.57-.1-.04-.21-.05-.31-.05-.26 0-.51.1-.71.29l-2.2 2.2c-2.83-1.45-5.15-3.76-6.59-6.59l2.2-2.2c.28-.28.36-.67.25-1.02C8.7 6.45 8.5 5.25 8.5 4c0-.55-.45-1-1-1z"/></svg>
                         </dt>
-                        <dd className='text-sm text-gray-900'>
+                        <dd>
                             <Typography variant='body2'>{formatMobileNumber(currentUser?.mobilephone ?? '0000000000')}</Typography>
                             </dd>
                     </div> : ''}
 
                     {currentUser?.email ? <div className='flex items-center gap-3'>
-                        <dt className='text-sm font-medium text-gray-500'>
+                        <dt className='text-gray-400'>
                             <svg xmlns='http://www.w3.org/2000/svg'
                                  viewBox='0 0 24 24'
                                  fill='currentColor'
-                                 className='h-5 w-5 text-gray-500'
+                                 className='h-5 w-5'
                             >
                                 <path d='M0 0h24v24H0z' fill='none'/>
                                 <path
@@ -214,15 +205,12 @@ export default function UserViewSection({currentUser, getFunc, isLoading, error}
                     </div> : ''}
 
                     {currentUser?.address ? <div className='flex items-center gap-3'>
-                        <dt className='text-sm font-medium text-gray-500'>
+                        <dt className='text-gray-400'>
                             <svg xmlns='http://www.w3.org/2000/svg'
                                  viewBox='0 0 24 24'
                                  fill='currentColor'
-                                 className='h-5 w-5 text-gray-500'
-                            >
-                                <path d='M0 0h24v24H0z' fill='none'/>
-                                <path d='M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z'/>
-                            </svg>
+                                 className='h-5 w-5'
+                            ><path d="M12 5.69l5 4.5V18h-2v-6H9v6H7v-7.81l5-4.5M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/></svg>
                         </dt>
                         <dd>
                             <Typography variant='body2'>{currentUser?.address}</Typography>

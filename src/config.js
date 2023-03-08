@@ -94,6 +94,47 @@ export const calendCat = [
   },
 ];
 
+/** Стандартные размеры и настройки текста и заголовков, Markdown
+ * @type {{h1: string, h2: string, h3: string, h4: string}}
+ */
+export const typographySettings = {
+  h1: 'text-4xl xl:text-5xl font-medium text-gray-800 dark:text-gray-50',
+  h2: 'text-3xl xl:text-4xl font-medium text-gray-800 dark:text-gray-50',
+  h3: 'text-2xl xl:text-3xl font-medium text-gray-800 dark:text-gray-50',
+  h4: 'text-xl xl:text-2xl font-medium text-gray-800 dark:text-gray-50',
+  h5: 'text-lg xl:text-xl font-medium text-gray-800 dark:text-gray-50',
+  h6: 'text-base xl:text-lg font-medium text-gray-800 dark:text-gray-50',
+  caption1: 'text-sm text-gray-600 dark:text-gray-300',
+  subtitle1: 'text-base font-medium text-gray-800 dark:text-gray-50',
+  subtitle2: 'text-sm font-medium text-gray-800 dark:text-gray-50',
+  body1: 'text-base font-medium text-gray-600 dark:text-gray-300',
+  body2: 'text-sm font-medium text-gray-600 dark:text-gray-300',
+  label1: 'text-base font-medium text-gray-600 dark:text-gray-300',
+
+  /* Markdown Options */
+  pre: 'flex text-white px-4 py-5 bg-gray-800 rounded-md overflow-x-auto',
+  code: 'px-0.5 text-gray-600 py-0.5 px-1 bg-gray-400/10 rounded-sm border border-gray-300',
+  blockquote: 'px-5 py-6 border-l-8 border-indigo-500 dark:border-indigo-600 bg-indigo-500/20 rounded-md my-5',
+  a: 'underline font-medium text-indigo-600 dark:text-indigo-500',
+  ul: 'my-5 pl-6 list-disc',
+  ol: 'my-5 pl-6',
+  li: 'my-2',
+  details: 'my-5 p-4 bg-red-600/20 rounded-md',
+  summary: 'text-red-700 hover:cursor-pointer',
+  caption: 'p-2 text-left',
+  table: 'border-2 border-gray-300 dark:border-gray-700',
+  td: 'border border-gray-300 dark:border-gray-700 py-1 px-2',
+  th: 'border border-gray-300 dark:border-gray-700 py-1 px-2',
+  form: 'py-1 px-2',
+  label: 'py-1 px-2',
+  legend: 'py-1',
+  hgroup: 'pl-3 border-l-8 border-cyan-500 dark:border-cyan-600 my-6',
+  hr: 'border-gray-300 dark:border-gray-700 my-3',
+  mark: 'bg-amber-500 dark:bg-amber-600',
+  rt: 'text-xs',
+  p: 'text-base',
+}
+
 /** Навигация для сайдбара
  * @type {[{header: string, accessibleRoles: number[]},{icon: JSX.Element, alias: string, id: string, pagetitle: string, accessibleRoles: number[]},{children: [{icon: JSX.Element, alias: string, id: string, pagetitle: string, accessibleProfessions: number[]},{icon: JSX.Element, alias: string, id: string, pagetitle: string, accessibleProfessions: number[]},{icon: JSX.Element, alias: string, id: string, pagetitle: string, accessibleProfessions: number[]}], icon: JSX.Element, id: string, pagetitle: string, accessibleProfessions: number[]},{icon: JSX.Element, alias: string, id: string, pagetitle: string, accessibleRoles: number[]},{icon: JSX.Element, alias: string, id: string, pagetitle: string, accessibleRoles: number[]},null,null,null,null,null,null,null,null]}
  основной набор значков https://fonts.google.com/icons?selected=Material+Icons&icon.style=Two+tone

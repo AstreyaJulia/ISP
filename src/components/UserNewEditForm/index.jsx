@@ -85,7 +85,7 @@ export default function UserNewEditForm({ isEdit, currentUser, getFunc }) {
       mobilephone: currentUser?.mobilephone ?? '',
       email: currentUser?.email ?? '',
       professionID: currentUser?.professionID ?? '',
-      workplaceID: parseInt(currentUser?.workplaceID, 10) ?? 0,
+      workplaceID: currentUser?.workplaceID ===  null ? 0 :parseInt(currentUser?.workplaceID, 10) ?? 0,
       address: currentUser?.address ?? '',
       comment: currentUser?.comment ?? '',
       website: currentUser?.website ?? '',

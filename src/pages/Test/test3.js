@@ -19,56 +19,25 @@ const Faq = () => {
   const getStepIcon = (stepId, currentStepId) => {
     if (parseInt(currentStepId, 10) > parseInt(stepId, 10)) {
       return (
-        <span className="shrink-0 bg-green-500 h-8 w-8 rounded-full flex items-center justify-center">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="h-5 w-5 text-white"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-          </svg>
+        <span className="shrink-0 bg-green-500 h-8 w-8 rounded-full flex items-center justify-center text-white">
+          <svg xmlns='http://www.w3.org/2000/svg'
+               viewBox='0 0 24 24'
+               fill='currentColor'
+               className='h-5 w-5'
+          ><path d="M0 0h24v24H0V0z" fill="none"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
         </span>
       );
     }
     if (parseInt(currentStepId, 10) < parseInt(stepId, 10)) {
       return (
-        <span className="shrink-0 bg-gray-400 h-8 w-8 rounded-full flex items-center justify-center">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="h-5 w-5 text-white"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5"
-            />
-          </svg>
+        <span className="shrink-0 bg-gray-200 h-8 w-8 rounded-full flex items-center justify-center text-gray-700">
+       {parseInt(stepId, 10) + 1}
         </span>
       );
     }
     return (
-      <span className="shrink-0 bg-blue-500 h-8 w-8 rounded-full flex items-center justify-center">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="h-5 w-5 text-white"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
-          />
-        </svg>
+      <span className="shrink-0 bg-blue-500 h-8 w-8 rounded-full flex items-center justify-center text-white">
+       {parseInt(stepId, 10) + 1}
       </span>
     );
   };
@@ -114,41 +83,41 @@ const Faq = () => {
         aria-labelledby="primary-heading"
         className="relative min-w-0 flex-1 full-height-course flex flex-col lg:order-last mb-14 "
       >
-        <div className="bg-white dark:bg-gray-900 shadow m-6 min-w-0 flex-1 flex flex-col overflow-y-auto lg:order-last 2xl:max-w-5xl 2xl:mx-auto">
+        <div className="rounded-lg p-6 bg-white dark:bg-gray-900 shadow m-6 min-w-0 flex-1 flex flex-col overflow-y-auto lg:order-last 2xl:max-w-5xl 2xl:mx-auto">
           <PerfectScrollbar className="main-course-content ps__show" options={{ wheelPropagation: false }}>
-            <div className="h-full p-6">
+            <div className="h-full main-content">
               <Markdown
                 options={{
                   wrapper: 'article',
                   overrides: {
                     h1: {
                       props: {
-                        className: 'xl:text-5xl lg:text-4xl sm:text-3xl font-bold',
+                        className: 'text-4xl xl:text-5xl font-medium text-gray-800 dark:text-gray-50',
                       },
                     },
                     h2: {
                       props: {
-                        className: 'xl:text-4xl lg:text-3xl sm:text-2xl font-bold',
+                        className: 'text-3xl xl:text-4xl font-medium text-gray-800 dark:text-gray-50',
                       },
                     },
                     h3: {
                       props: {
-                        className: 'xl:text-3xl lg:text-2xl sm:text-xl font-bold',
+                        className: 'text-2xl xl:text-3xl font-medium text-gray-800 dark:text-gray-50',
                       },
                     },
                     h4: {
                       props: {
-                        className: 'xl:text-2xl lg:text-xl sm:text-lg font-bold',
+                        className: 'text-xl xl:text-2xl font-medium text-gray-800 dark:text-gray-50',
                       },
                     },
                     h5: {
                       props: {
-                        className: 'xl:text-xl lg:text-lg sm:text-base font-bold',
+                        className: 'text-lg xl:text-xl font-medium text-gray-800 dark:text-gray-50',
                       },
                     },
                     h6: {
                       props: {
-                        className: 'xl:text-lg lg:text-base sm:text-base font-bold',
+                        className: 'text-base xl:text-lg font-medium text-gray-800 dark:text-gray-50',
                       },
                     },
                     code: {
@@ -255,11 +224,14 @@ const Faq = () => {
                   },
                 }}
               >
+
                 {getCourseStep(activeStep).content}
+
               </Markdown>
             </div>
           </PerfectScrollbar>
         </div>
+
         <div className="w-full absolute -bottom-8 right-0 flex items-center justify-center">
           <div className="flex items-center mx-auto justify-center">
             <button
@@ -281,15 +253,16 @@ const Faq = () => {
             </button>
           </div>
         </div>
+
       </section>
 
       {/* Secondary column (hidden on smaller screens) */}
-      <aside className="ml-5 hidden lg:block lg:flex-shrink-0 lg:order-first">
-        <div className="h-full relative flex flex-col w-80 border-x border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 overflow-y-auto">
-          <nav className="ml-2 mt-1" aria-label="Назад">
-            <Link to={-1} className="flex items-center text-sm font-medium text-indigo-500 dark:text-indigo-400 p-2">
+      <aside className="hidden lg:block lg:flex-shrink-0 lg:order-first">
+        <div className="h-full relative flex flex-col w-80 border-r border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 overflow-y-auto">
+          <nav className="p-2 mt-3 ml-3" aria-label="Назад">
+            <Link to={-1} className="flex items-center text-base font-medium text-gray-600 dark:text-gray-300">
               <svg
-                className="flex-shrink-0 -ml-1 mr-1 h-5 w-5 text-gray-400"
+                className="flex-shrink-0 -ml-1 mr-2 h-5 w-5"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -302,7 +275,9 @@ const Faq = () => {
             </Link>
           </nav>
           <p className="px-4 pt-3 flex text-xl text-gray-800 dark:text-gray-200 font-medium">Содержание:</p>
+          <PerfectScrollbar className="main-course-content ps__show" options={{ wheelPropagation: false }}>
           <ul className="-mb-8 px-4 py-6">{demoSteps.map((item, key) => sidebarLink(item, key, 0))}</ul>
+          </PerfectScrollbar>
         </div>
       </aside>
     </main>

@@ -1,134 +1,141 @@
+import { typographySettings } from '../../config';
+
 export const mdOptions = {
   wrapper: 'article',
   overrides: {
     h1: {
       props: {
-        className: 'xl:text-5xl lg:text-4xl sm:text-3xl font-bold',
+        className: typographySettings.h1,
       },
     },
     h2: {
       props: {
-        className: 'xl:text-4xl lg:text-3xl sm:text-2xl font-bold',
+        className: typographySettings.h2,
       },
     },
     h3: {
       props: {
-        className: 'xl:text-3xl lg:text-2xl sm:text-xl font-bold',
+        className: typographySettings.h3,
       },
     },
     h4: {
       props: {
-        className: 'xl:text-2xl lg:text-xl sm:text-lg font-bold',
+        className: typographySettings.h4,
       },
     },
     h5: {
       props: {
-        className: 'xl:text-xl lg:text-lg sm:text-base font-bold',
+        className: typographySettings.h5,
       },
     },
     h6: {
       props: {
-        className: 'xl:text-lg lg:text-base sm:text-base font-bold',
+        className: typographySettings.h6,
       },
     },
     pre: {
       props: {
-        className: 'flex text-white px-4 py-5 bg-slate-800 rounded-md overflow-x-auto',
+        className: typographySettings.pre,
       },
     },
     code: {
       props: {
-        className: 'px-0.5 text-slate-600 py-0.5 px-1 bg-slate-400/10 rounded-sm border border-slate-300',
+        className: typographySettings.code,
       },
     },
     blockquote: {
       props: {
-        className: 'px-5 py-6 border-l-8 border-indigo-500 dark:border-indigo-600 bg-indigo-500/20 rounded-md my-5',
+        className: typographySettings.blockquote,
       },
     },
     a: {
       props: {
-        className: 'underline font-medium text-indigo-600 dark:text-indigo-500',
+        className: typographySettings.a,
       },
     },
     ul: {
       props: {
-        className: 'my-5 pl-6 list-disc',
+        className: typographySettings.ul,
       },
     },
     ol: {
       props: {
-        className: 'my-5 pl-6',
+        className: typographySettings.ol,
       },
     },
     li: {
       props: {
-        className: 'my-2',
+        className: typographySettings.li,
       },
     },
     details: {
       props: {
-        className: 'my-5 p-4 bg-red-600/20 rounded-md',
+        className: typographySettings.details,
       },
     },
     summary: {
       props: {
-        className: 'text-red-700 hover:cursor-pointer',
+        className: typographySettings.summary,
       },
     },
     caption: {
       props: {
-        className: 'p-2 text-left',
+        className: typographySettings.caption,
       },
     },
     table: {
       props: {
-        className: 'border-2 border-gray-300 dark:border-gray-700',
+        className: typographySettings.table,
       },
     },
     td: {
       props: {
-        className: 'border border-gray-300 dark:border-gray-700 py-1 px-2',
+        className: typographySettings.td,
       },
     },
     th: {
       props: {
-        className: 'border border-gray-300 dark:border-gray-700 py-1 px-2',
+        className: typographySettings.th,
       },
     },
     form: {
       props: {
-        className: 'py-1 px-2',
+        className: typographySettings.form,
       },
     },
     label: {
       props: {
-        className: 'py-1 px-2',
+        className: typographySettings.label,
       },
     },
     legend: {
       props: {
-        className: 'py-1',
+        className: typographySettings.legend,
       },
     },
     hgroup: {
       props: {
-        className: 'pl-3 border-l-8 border-cyan-500 dark:border-cyan-600 my-6',
+        className: typographySettings.hgroup,
       },
     },
     hr: {
       props: {
-        className: 'border-gray-300 dark:border-gray-700 my-3',
+        className: typographySettings.hr,
       },
     },
     mark: {
       props: {
-        className: 'bg-amber-500 dark:bg-amber-600',
+        className: typographySettings.mark,
       },
     },
     rt: {
       props: {
-        className: 'text-xs',
+        className: typographySettings.rt,
+      },
+    },
+    p: {
+      props: {
+        className: typographySettings.p,
       },
     },
   },
