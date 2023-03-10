@@ -107,8 +107,8 @@ export const typographySettings = {
   caption1: 'text-sm text-gray-600 dark:text-gray-300',
   subtitle1: 'text-base font-medium text-gray-800 dark:text-gray-50',
   subtitle2: 'text-sm font-medium text-gray-800 dark:text-gray-50',
-  body1: 'text-base font-medium text-gray-600 dark:text-gray-300',
-  body2: 'text-sm font-medium text-gray-600 dark:text-gray-300',
+  body1: 'text-base text-gray-600 dark:text-gray-300',
+  body2: 'text-sm text-gray-600 dark:text-gray-300',
   label1: 'text-base font-medium text-gray-600 dark:text-gray-300',
 
   /* Markdown Options */

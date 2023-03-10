@@ -13,6 +13,7 @@ import Alert from '../../Alert';
 import CaseInfoModal from '../../CaseInfoModal';
 import PdfModal from '../../PdfModal';
 import ProcessedListFile from './ProcessedListFile';
+import Typography from "../../Typography";
 
 const Processed = ({ data, isLoading, all, error }) => {
   const [rows, setRows] = useState(data ?? []);
@@ -322,85 +323,87 @@ const Processed = ({ data, isLoading, all, error }) => {
         </PdfModal>
       </DataTableCore>
 
-      <CaseInfoModal open={modalOpened} setOpen={setModalOpened} onModalClose={handleModalClosed}>
-        <div className="mt-7">
-          <Badge
-            size="small"
-            shape="rounded"
-            className="mb-2"
-            color={getStatusSettings(selectedCase?.CASE_STATUS ?? null, 'color')}
-            item={getStatusSettings(selectedCase?.CASE_STATUS ?? null, 'title')}
-          />
-          <div className="flex items-center gap-2 mb-5">
-            {selectedCase?.MOTIONLES_DATE !== '' ? (
-              <p className="text-gray-700 dark:text-gray-300 text-sm">
-                Ост. б./движ.: {selectedCase?.MOTIONLES_DATE}
-              </p>
-            ) : (
-              ''
-            )}
-            {selectedCase?.STOP_DATE !== '' ? (
-              <p className="text-gray-700 dark:text-gray-300 text-sm">Приост.: {selectedCase?.STOP_DATE}</p>
-            ) : (
-              ''
-            )}
-            {selectedCase?.DATE_UNTIL !== '' ? (
-              <p className="text-gray-700 dark:text-gray-300 text-sm">
-                до:
-                <Badge
-                  size="small"
-                  shape="rounded"
-                  className="ml-1"
-                  color={getCaseUntilColor(selectedCase?.DATE_UNTIL ?? null)}
-                  item={selectedCase?.DATE_UNTIL}
-                />
-              </p>
-            ) : (
-              ''
-            )}
+      <CaseInfoModal open={modalOpened} setOpen={setModalOpened} onModalClose={handleModalClosed} item={selectedCase ?? {}} caseStatus={{
+        color: getStatusSettings(selectedCase?.CASE_STATUS ?? null, 'color'),
+        item: getStatusSettings(selectedCase?.CASE_STATUS ?? null, 'title')
+      }}>
+        <div className="mt-5 flex flex-col gap-4">
+
+          <div className='flex flex-col gap-3'>
+            <Typography variant='h6'>Стороны лица/по делу:</Typography>
+            <Typography variant='body1'>{selectedCase.PARTS_FIO}</Typography>
           </div>
-          {selectedCase.INFO?.toLowerCase().includes('Д.б. рассм./изг.реш. в оконч.форме до'.toLowerCase()) ? (
-            <p className="text-gray-700 dark:text-gray-300 text-sm mb-5">
-              Срок рассм. до:{' '}
-              <Badge
-                size="small"
-                shape="rounded"
-                className="ml-1"
-                color={getCaseUntilColor(
-                  selectedCase?.INFO?.slice(
-                    selectedCase?.INFO?.toLowerCase().lastIndexOf(
-                      'Д.б. рассм./изг.реш. в оконч.форме до:'.toLowerCase()
-                    ) + 39,
-                    selectedCase?.INFO?.toLowerCase().lastIndexOf(
-                      'Д.б. рассм./изг.реш. в оконч.форме до:'.toLowerCase()
-                    ) + 49
-                  ) ?? null
-                )}
-                item={selectedCase.INFO.slice(
-                  selectedCase.INFO.toLowerCase().lastIndexOf('Д.б. рассм./изг.реш. в оконч.форме до:'.toLowerCase()) +
-                    39,
-                  selectedCase.INFO.toLowerCase().lastIndexOf('Д.б. рассм./изг.реш. в оконч.форме до:'.toLowerCase()) +
-                    49
-                )}
-              />
-            </p>
-          ) : (
-            ''
-          )}
-          <p className="text-gray-600 dark:text-gray-400 text-sm font-bold mb-2">Стороны лица/по делу:</p>
-          <p className="text-gray-700 dark:text-gray-300 text-sm mb-5">{selectedCase.PARTS_FIO}</p>
-          <p className="text-gray-600 dark:text-gray-400 text-sm font-bold mb-2">Категория / статья:</p>
-          <p className="text-gray-700 dark:text-gray-300 text-sm mb-5">{selectedCase.CAT}</p>
-          <p className="text-gray-600 dark:text-gray-400 text-sm font-bold mb-2">Информация:</p>
-          {selectedCase.INFO?.length > 0 && selectedCase.INFO !== 'null' ? (
-            selectedCase.INFO.split(';').map((item, key) => (
-              <p key={key} className="text-gray-700 dark:text-gray-300 text-sm">
-                {item};
-              </p>
-            ))
-          ) : (
-            <p className="text-gray-700 dark:text-gray-300 text-sm">Нет информации</p>
-          )}
+
+          <div className='flex flex-col gap-4'>
+            <Typography variant='h6'>Категория / статья:</Typography>
+            <Typography variant='body1'>{selectedCase.CAT}</Typography>
+          </div>
+
+          <div className='flex flex-col'>
+            <Typography variant='h6' classname='mb-2'>Информация:</Typography>
+            <div className="flex items-center gap-2" >
+
+              {selectedCase?.MOTIONLES_DATE !== '' ? (
+                      <Typography variant='body1'>Оставлено без движения: {selectedCase?.MOTIONLES_DATE}</Typography>
+              ) : (
+                  ''
+              )}
+
+              {selectedCase?.STOP_DATE !== '' ? (
+                      <Typography variant='body1' classname='mb-2'>Приостановлено: {selectedCase?.STOP_DATE}</Typography>
+              ) : (
+                  ''
+              )}
+
+              {selectedCase?.DATE_UNTIL !== '' ? (
+                      <div className='flex items-center gap-2'>
+                        <Typography variant='body1' >до:</Typography>
+                        <Badge
+                            size="medium"
+                            shape="rounded"
+                            color={getCaseUntilColor(selectedCase?.DATE_UNTIL ?? null)}
+                            item={selectedCase?.DATE_UNTIL}
+                        />
+                      </div>
+              ) : (
+                  ''
+              )}
+
+            </div>
+            {selectedCase.INFO?.toLowerCase().includes('Д.б. рассм./изг.реш. в оконч.форме до'.toLowerCase()) ? (
+                <div className='flex items-center gap-2'>
+                  <Typography variant='body1' classname='mb-2'>Срок рассмотрения до:</Typography>
+                  <Badge
+                      size="medium"
+                      shape="rounded"
+                      className="mb-2"
+                      color={getCaseUntilColor(
+                          selectedCase?.INFO?.slice(
+                              selectedCase?.INFO?.toLowerCase().lastIndexOf(
+                                  'Д.б. рассм./изг.реш. в оконч.форме до:'.toLowerCase()
+                              ) + 39,
+                              selectedCase?.INFO?.toLowerCase().lastIndexOf(
+                                  'Д.б. рассм./изг.реш. в оконч.форме до:'.toLowerCase()
+                              ) + 49
+                          ) ?? null
+                      )}
+                      item={selectedCase.INFO.slice(
+                          selectedCase.INFO.toLowerCase().lastIndexOf('Д.б. рассм./изг.реш. в оконч.форме до:'.toLowerCase()) +
+                          39,
+                          selectedCase.INFO.toLowerCase().lastIndexOf('Д.б. рассм./изг.реш. в оконч.форме до:'.toLowerCase()) +
+                          49
+                      )}
+                  />
+                </div>) : (
+                ''
+            )}
+            {selectedCase.INFO?.length > 0 && selectedCase.INFO !== 'null' ? (
+                selectedCase.INFO.split(';').map((item, key) => (
+                    <Typography key={key} variant='body1' classname='mb-2'>{item}</Typography>
+                ))
+            ) : ''}
+          </div>
+
         </div>
       </CaseInfoModal>
     </>
