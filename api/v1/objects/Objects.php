@@ -26,7 +26,7 @@ trait Objects
      * 
      * @return string
      */
-    public function metodPOST(): string
+    private function metodPOST(): string
     {
         return $this->helpers->isErrorInfo(401, "Ошибка в запросе", "Метод не реализован");
     }
@@ -36,7 +36,7 @@ trait Objects
      * 
      * @return string
      */
-    public function metodPATCH(): string
+    private function metodPATCH(): string
     {
         return $this->helpers->isErrorInfo(401, "Ошибка в запросе", "Метод не реализован");
     }

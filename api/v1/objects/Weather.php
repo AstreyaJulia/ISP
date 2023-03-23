@@ -43,7 +43,7 @@ class Weather
    * 
    * @return mixed
    */
-  public function metodGET(): mixed
+  private function metodGET(): mixed
   {
     return json_decode($this->weatherForecast());
   }
