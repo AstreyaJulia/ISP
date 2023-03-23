@@ -204,19 +204,11 @@ class Helpers extends Router
     curl_setopt($ch, CURLOPT_PROXY, $proxy);
     curl_setopt($ch, CURLOPT_PROXYPORT, $port);
 
-    /**
-     * Висит 4 минуты после выкидывает фатальную ошибку
-     * apache работает
-     * 
-     * CURLOPT_CONNECTTIMEOUT apache падает
-     * если убрать PROXY не падает
-     * 
-     */
-    //curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,10);
+    curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,10);
 
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_HEADER, 1);
+    curl_setopt($ch, CURLOPT_HEADER, 0); // HTTP-заголовки
 
     $result = curl_exec($ch);
     curl_close($ch);
