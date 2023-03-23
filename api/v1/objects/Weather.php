@@ -27,7 +27,6 @@ class Weather
 
     if ($date > 600) {
       $current = $this->helpers->sendGETtoProxy($params, OPEN_WEATHER_API_CURRENT);
-      var_export(json_decode($current)->lat);
       if (isset(json_decode($current)->lat)) {
         file_put_contents($file, $current, LOCK_EX);
         return $current;
