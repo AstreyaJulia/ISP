@@ -18,19 +18,13 @@ class Factory
   /**
    * 
    */
-  public static function createRoute($route, $helpers)
+  public static function createRouteClass($route, $helpers)
   {
-    if (class_exists('Api\Objects' . $route)) {
-      var_dump($route);
+    if (class_exists($route)) {
       $createdСlass = new $route($helpers);
       return $createdСlass->response();
     } else {
-      var_dump($route);
-      throw new Exception("Не удается найти маршрут");
+      throw new Exception("Не удается найти необходимый класс");
     }
   }
-  /*
-    $route = Factory::createRoute("/Users", $helpers);
-    var_dump($route); 
-   */
 }

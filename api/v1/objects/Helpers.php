@@ -28,24 +28,6 @@ class Helpers extends Router
     return $showing;
   }
 
-  // Проверка роутера на валидность
-  public function isValidRouter($router)
-  {
-    return in_array($router, array(
-      'users',
-      'proxylist',
-      'search',
-      'authorization',
-      'registration',
-      'gas-api',
-      'weather',
-      'categories-civil-cases',
-      'categories-material',
-      'staff',
-      'buildingstructure'
-    ));
-  }
-
   /**
    * Проверяем существует ли запись
    * 

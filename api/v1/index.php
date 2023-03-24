@@ -1,4 +1,5 @@
 <?php declare(strict_types=1);
+
   error_reporting(E_ALL);
   ini_set("display_errors", "on");
 
@@ -29,15 +30,10 @@
     }
   }
   // Проверяем роутер на валидность
-  if ($helpers->isValidRouter($helpers->router)) {
-
-    // Подключаем файл-роутер
-    include_once "routers/".$helpers->router.".php";
-
-  } else {
-    // Выбрасываем ошибку
-    $helpers::isErrorInfo(400, "invalid_router", "router not found");
-  }
+  $route = $helpers->searchAssociativeArray($helpers->router, $helpers->checkRoute(), "route");
+  $keyRoute = $route === false ? $helpers::isErrorInfo(400, "invalid_router", "router not found"): $route;
+  // Подключаем класс соответствующий маршруту
+  Api\Objects\Factory::createRouteClass($helpers->checkRoute()[$keyRoute]["objects"], $helpers);
 
 function cors(): void
 {
