@@ -152,13 +152,12 @@ trait StaffValidate
      */
     private function dob()
     {
-        $param = $this->helpers->formData["dob"] ?? "";
-        $format = "Y-m-d\TH:i:s";
-        
+        $param = ($this->helpers->formData["dob"]) ? str_replace("Z", "+00:00", $this->helpers->formData["dob"]) : "";
+        $format = "Y-m-d\\TH:i:s.vP";
         $d = DateTime::createFromFormat($format, $param);
 
         if (!($d && $d->format($format) === $param)) {
-            $this->helpers::isErrorInfo(400, "Неверные параметры", "Ожидаю dob в формате Y-m-d\TH:i:s Получаю: $param");
+            $this->helpers::isErrorInfo(400, "Неверные параметры", "Ожидаю dob в формате Y-m-d\TH:i:s.vP Получаю: $param");
         }
 
         return $d->format("Y-m-d");
