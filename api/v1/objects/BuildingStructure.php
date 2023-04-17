@@ -3,12 +3,15 @@
 namespace Api\Objects;
 
 use InvalidArgumentException;
+
 /**
  * Здания, кабинеты рабочие места
  */
 class BuildingStructure
 {
-  use Objects;
+  use Objects, BuildingStructureValidate {
+    BuildingStructureValidate::__construct insteadof Objects;
+  }
 
   /**
    * 
@@ -80,63 +83,5 @@ class BuildingStructure
     }
     http_response_code(201);
     return $row;
-  }
-
-  /**
-   * Проверяем приходящий POST-запрос
-   * на добавление записи
-   */
-  private function validateContent(): array
-  {
-    return array (
-      "name" => $this->validateName(),
-      "icon" => $this->validateIcon(),
-      "affiliation" => $this->validateAffiliation()
-    );
-  }
-
-  /**
-   * Праверка принадлежности 
-   */
-  private function validateName(): string
-  {
-    try {
-      if (empty($this->helpers->formData["name"])) {
-        throw new InvalidArgumentException('name должен быть заполнен');
-      }
-    } catch (\InvalidArgumentException $e) {
-      $this->helpers->isErrorInfo(400, "Ошибка в переданных параметрах", $e);
-    }
-    
-    return $this->helpers->formData["name"];
-  }
-
-  /**
-   * Праверка принадлежности 
-   */
-  private function validateIcon(): string
-  {
-    return match ($this->helpers->formData["icon"]) {
-      "building", "floor", "door", "balance", "desktop" => $this->helpers->formData["icon"],
-      default => $this->helpers->isErrorInfo(401, "Неверные параметры", "icon должен принимать одно из значений: building, floor, door, balance, desktop")
-    };
-  }
-
-  /**
-   * Праверка принадлежности 
-   */
-  private function validateAffiliation(): mixed
-  {
-    $param = $this->helpers->formData["affiliation"] ?? $this->helpers->isErrorInfo(400, "Неверные параметры", "не передан параметр affiliation");
-    if ($this->helpers->formData["icon"] === "building" and $param != NULL) {
-      $this->helpers->isErrorInfo(400,  "Неверные параметры", "При добавлении здания affiliation должен быть пустым");
-    }
-    //$this->helpers->validateINT($param, "affiliation");
-
-    return match ($this->helpers->formData["icon"]) {
-      "building" => null,
-      default => $this->helpers->isErrorInfo(401, "Неверные параметры", "affiliation принимает значение которое не получается проверить")
-    };
-
   }
 }
