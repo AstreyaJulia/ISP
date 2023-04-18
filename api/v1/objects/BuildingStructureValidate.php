@@ -45,15 +45,15 @@ trait BuildingStructureValidate
   ) {
     $this->helpers = $helpers;
     try {
-      $this->idBuildingObject = !empty($this->helpers->urlData[0]) ? $this->helpers->urlData[0] : NULL;
+      $this->idBuildingObject = $this->helpers->urlData[0] ?? NULL;
     } catch (\Error $e) {
       $this->helpers::isErrorInfo(400, "Неверные параметры", $e);
     }
 
     if(count($this->helpers->urlData) === 2){
       try {
-        (in_array($this->helpers->urlData[1], $this->paramBuildingObjectArray)) ? "" : throw new \Exception("Ожидаю одно из значений: ".implode(",", $this->paramBuildingObjectArray));
-      } catch (\Exception $e) {
+        (in_array($this->helpers->urlData[1], $this->paramBuildingObjectArray)) ? "" : throw new \InvalidArgumentException("Ожидаю одно из значений: ".implode(",", $this->paramBuildingObjectArray));
+      } catch (\InvalidArgumentException $e) {
         $this->helpers::isErrorInfo(400, "Неверное значение в GET-запросе", $e);
       }
     }

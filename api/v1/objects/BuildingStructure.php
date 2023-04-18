@@ -22,7 +22,7 @@ class BuildingStructure
    */
   public function cabinetList(): array
   {
-    $param = count($this->helpers->urlData) ? "=" . $this->helpers->urlData[0] : " IS NULL";
+    $param = count($this->helpers->urlData) ? "=" . $this->idBuildingObject : " IS NULL";
 
     $sql = "SELECT
               mother.id,
@@ -40,11 +40,11 @@ class BuildingStructure
    */
   private function cabinetListInfo(): array
   {
-    $sql = "SELECT
-              *
-            FROM sdc_room
-            WHERE id = $this->idBuildingObject";
-    return $this->helpers->db->run($sql)->fetch(\PDO::FETCH_ASSOC);
+      $sql = "SELECT
+                *
+              FROM sdc_room
+              WHERE id = $this->idBuildingObject";
+      return $this->helpers->db->run($sql)->fetch(\PDO::FETCH_ASSOC);
   }
 
   /**
