@@ -24,15 +24,6 @@ class BuildingStructure
   {
     $param = count($this->helpers->urlData) ? "=" . $this->helpers->urlData[0] : " IS NULL";
 
-    try {
-      $param = match (count($this->helpers->urlData)) {
-        0 => " IS NULL",
-        1 => "=" . $this->helpers->urlData[0]
-      };
-    } catch (\Error | \Exception | \UnhandledMatchError $e) {
-      $this->helpers->isErrorInfo(400, "Ошибка в переданных параметрах", $e->getMessage());
-    }
-
     $sql = "SELECT
               mother.id,
               mother.icon,
@@ -45,11 +36,27 @@ class BuildingStructure
   }
 
   /**
+   * Информация о здании, объекте здания
+   */
+  private function cabinetListInfo()
+  {
+    $sql = "SELECT
+              *
+            FROM sdc_room
+            WHERE id = $this->idBuildingObject";
+    return $this->helpers->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
+  }
+
+  /**
    * Обрабатываем приходящие GET-запросы. 
    */
   private function metodGET(): array
   {
-    return $this->helpers->wrap($this->cabinetList(), "data");
+    return match (count($this->helpers->urlData)) {
+      0, 1 => $this->cabinetList(),
+      2 =>  $this->cabinetListInfo(),
+      default => $this->helpers->isErrorInfo(400, "Ошибка в GET-запросе", "Неверные параметры")
+    };
   }
 
   /**

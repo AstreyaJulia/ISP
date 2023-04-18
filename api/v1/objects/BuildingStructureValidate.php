@@ -13,23 +13,51 @@ trait BuildingStructureValidate
    * Иконки для здания
    */
   private array $iconBilding = ["building", "buildingMedium", "buildingSmall", "subbuilding"];
+
   /**
    * Иконки для этажей, лестниц
    */
   private array $iconFloor = ["floor", "stairs"];
+
   /**
    * Иконки для кабинетов, залов с.з., совещательных комнат и т.д.
    */
   private array $iconDoor = ["door", "hammer", "balance", "toilet"];
+
   /**
    * Иконки для рабочего места
    */
   private array $iconDesktop = ["desktop"];
 
+  /**
+   * id элемента из структуры здания
+   */
+  private int|NULL $idBuildingObject;
+
+  /**
+   * реализованные параметры для отображения дополнительной
+   * информации выбранного элемента здания
+   */
+  private array $paramBuildingObjectArray = ["info"];
+
   public function __construct(
     protected Helpers $helpers = new \Api\Objects\Helpers()
   ) {
     $this->helpers = $helpers;
+    try {
+      $this->idBuildingObject = !empty($this->helpers->urlData[0]) ? $this->helpers->urlData[0] : NULL;
+    } catch (\Error $e) {
+      $this->helpers::isErrorInfo(400, "Неверные параметры", $e);
+    }
+
+    if(count($this->helpers->urlData) === 2){
+      try {
+        (in_array($this->helpers->urlData[1], $this->paramBuildingObjectArray)) ? "" : throw new \Exception("Ожидаю одно из значений: ".implode(",", $this->paramBuildingObjectArray));
+      } catch (\Exception $e) {
+        $this->helpers::isErrorInfo(400, "Неверное значение в GET-запросе", $e);
+      }
+    }
+    
   }
 
   /**
