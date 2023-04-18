@@ -44,7 +44,7 @@ class BuildingStructure
               *
             FROM sdc_room
             WHERE id = $this->idBuildingObject";
-    return $this->helpers->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
+    return $this->helpers->db->run($sql)->fetch(\PDO::FETCH_ASSOC);
   }
 
   /**
