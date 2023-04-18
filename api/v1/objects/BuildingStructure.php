@@ -38,7 +38,7 @@ class BuildingStructure
   /**
    * Информация о здании, объекте здания
    */
-  private function cabinetListInfo()
+  private function cabinetListInfo(): array
   {
     $sql = "SELECT
               *
@@ -53,8 +53,8 @@ class BuildingStructure
   private function metodGET(): array
   {
     return match (count($this->helpers->urlData)) {
-      0, 1 => $this->cabinetList(),
-      2 =>  $this->cabinetListInfo(),
+      0, 1 => $this->helpers->wrap($this->cabinetList(), "data"),
+      2 =>  $this->helpers->wrap($this->cabinetListInfo(), "data"),
       default => $this->helpers->isErrorInfo(400, "Ошибка в GET-запросе", "Неверные параметры")
     };
   }
