@@ -89,7 +89,7 @@ class Staff
                     sdc_vocation.name AS professionName,
                     IF(ISNULL(ChildUserAttributesType.id),'',ChildUserAttributesType.id) AS affiliationJudgeID,
                     IF(ISNULL(ChildUserAttributesType.fullname),'',ChildUserAttributesType.fullname) AS affiliationJudgeName,
-                    DATE_FORMAT(sdc_user_attributes.dob, '%Y-%m-%d\T%H:%i:%s') AS dob,
+                    DATE_FORMAT(sdc_user_attributes.dob, '%Y-%m-%d\T%H:%i:%s.000Z') AS dob,
                     sdc_user_attributes.email,
                     sdc_user_attributes.mobilephone,
                     sdc_user_attributes.address,
