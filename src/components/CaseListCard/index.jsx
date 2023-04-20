@@ -79,7 +79,7 @@ const CaseListCard = ({ item, query, children, link, handleOnDblclick }) => {
             </p>
             <span className='text-sm text-indigo-700 dark:text-indigo-300'>{getInitials(item?.JUDGE_NAME)}</span>
             <p
-              className='mt-1 text-base text-gray-700 dark:text-gray-300 flex flex-wrap line-clamp-1 justify-start items-center text-left'>
+              className='mt-1 text-base text-gray-700 dark:text-gray-300 flex-wrap line-clamp-2 justify-start items-center text-left'>
               {getHighlightedText(item?.PARTS_FIO, query)}
             </p>
           </div>

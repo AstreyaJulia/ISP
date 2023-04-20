@@ -1,7 +1,6 @@
 import {Dialog, Transition} from '@headlessui/react';
 import React, {Fragment, useRef} from 'react';
 import {classNames} from '../../utils/classNames';
-import {typographySettings} from "../../config";
 import Typography from "../Typography";
 
 /** Контекст для передачи в дочерние компоненты
@@ -90,7 +89,7 @@ const Body = ({children}) => <div className='w-full'>
     {children}
 </div>;
 
-const Toolbar = ({children, title = null, subtitle = null, icon = null, titleVariant = ''}) => <div
+const Toolbar = ({children, title = null, subtitle = null, icon = null, titleVariant = 'h5'}) => <div
     className='flex flex-col'>
 
     <div className='flex items-center gap-2'>

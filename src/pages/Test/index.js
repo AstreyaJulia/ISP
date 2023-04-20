@@ -11,7 +11,6 @@ import useAuth from '../../hooks/useAuth';
 import { stat } from '../../@mock/SampleData';
 import Typography from '../../components/Typography';
 
-
 const CHART_DATA = [4344, 5435, 1443, 4443];
 
 const Test = () => {
