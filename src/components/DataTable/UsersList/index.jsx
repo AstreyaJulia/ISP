@@ -31,6 +31,7 @@ const UsersList = ({ data, isLoading, error }) => {
           <Avatar
             size="16"
             name={getInitialsOnly(item?.fullname)}
+            title={item?.fullname ?? ''}
             color={getAvatarColor(item?.fullname)}
             shape="circle"
             classname={classNames('mr-4 hover:ring-2', `hover:ring-indigo-500/30`)}

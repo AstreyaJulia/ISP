@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { classNames } from '../../utils/classNames';
 
 /** Аватар в различных исполнениях: изображение, инициалы, со значком. В разных размерах. 2 формы - скругленная и круглая */
-export const Avatar = ({ size, classname, name, avatar, color, icon, shape, isLoading }) => {
+export const Avatar = ({ size, classname, name, title = '', avatar, color, icon, shape, isLoading }) => {
 
   /** Размеры аватаров
    * @type {{"12": {nameFont: string, size: string}, "14": {nameFont: string, size: string}, "6": {nameFont: string, size: string}, "8": {nameFont: string, size: string}, "10": {nameFont: string, size: string}}}
@@ -99,6 +99,7 @@ export const Avatar = ({ size, classname, name, avatar, color, icon, shape, isLo
             className={classNames('flex-shrink-0 flex inline-block', AvatarShape[shape], AvatarGroupSize[size].size, classname)}
             src={avatar}
             alt={name}
+            title={title}
           /> :
           <span
             className={classNames('flex-shrink-0 inline-flex items-center justify-center',
@@ -106,6 +107,7 @@ export const Avatar = ({ size, classname, name, avatar, color, icon, shape, isLo
               AvatarGroupSize[size].size,
               AvatarColor[color || 'indigo'].bg,
               classname || '')}
+            title={title}
           >
         <span
           className={classNames('font-medium leading-none d-flex items-center justify-center',
