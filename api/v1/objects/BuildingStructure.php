@@ -48,23 +48,42 @@ class BuildingStructure
   }
 
   /**
-   * Обрабатываем приходящие GET-запросы. 
+   * Проверяем параметры из GET-запроса
    */
-  private function metodGET(): array
+  private function extraParam(): array
   {
-    return match (count($this->helpers->urlData)) {
-      0, 1 => $this->helpers->wrap($this->cabinetList(), "data"),
-      2 =>  $this->helpers->wrap($this->cabinetListInfo(), "data"),
-      default => $this->helpers->isErrorInfo(400, "Ошибка в GET-запросе", "Неверные параметры")
+    return match($this->helpers->urlData[1]){
+      "info" => $this->cabinetListInfo(),
+      "affiliation" => $this->selectAffiliation($this->helpers->urlData[0])
     };
   }
 
   /**
    * Обрабатываем приходящие GET-запросы. 
    */
+  private function metodGET(): array
+  {
+    return match (count($this->helpers->urlData)) {
+      0, 1 => $this->helpers->wrap($this->cabinetList(), "data"),
+      2 => $this->helpers->wrap($this->extraParam(), "data"),
+      default => $this->helpers->isErrorInfo(400, "Ошибка в GET-запросе", "Неверные параметры")
+    };
+  }
+
+  /**
+   * Обрабатываем приходящие POST-запросы. 
+   */
   private function metodPOST(): array
   {
     return $this->helpers->wrap($this->addContent(), "data");
+  }
+
+  /**
+   * Обрабатываем приходящие PATCH-запросы. 
+   */
+  private function metodPATCH(): array
+  {
+    return $this->helpers->wrap($this->updContent(), "data");
   }
 
   /**
@@ -90,5 +109,29 @@ class BuildingStructure
     }
     http_response_code(201);
     return $row;
+  }
+
+  /**
+   * Изменение сущности структуры здания
+   */
+  private function updContent(): array
+  {
+    var_dump(empty($this->helpers->formData["alarm_button"])? $this->helpers->formData["alarm_button"] : NULL);
+    $param = array(
+      "id" => $this->id(),
+      "name" => $this->validateName(),
+      "icon" => $this->validateIcon(),
+      "affiliation" => $this->validateAffiliation(),
+      "ip" => $this->helpers->formData["ip"] ?? NULL,
+      "alarm_button" => $this->helpers->formData["alarm_button"] ?? NULL,
+      "phone_worck" => $this->helpers->formData["phone_worck"] ?? NULL,
+    );
+
+    $sql = "UPDATE dev.sdc_room
+    SET ip = :ip, name = :name, icon = :icon, affiliation = :affiliation, alarm_button = :alarm_button, phone_worck = :phone_worck WHERE id= :id";
+    $this->helpers->db->run($sql, $param);
+
+    http_response_code(200);
+    return $this->helpers->wrap(["info" => "запись изменена", "id"=> $param["id"], "name"=> $param["name"], "icon"=> $param["icon"], ], "data");
   }
 }

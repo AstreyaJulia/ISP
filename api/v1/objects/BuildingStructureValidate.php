@@ -38,7 +38,7 @@ trait BuildingStructureValidate
    * реализованные параметры для отображения дополнительной
    * информации выбранного элемента здания
    */
-  private array $paramBuildingObjectArray = ["info"];
+  private array $paramBuildingObjectArray = ["info", "affiliation"];
 
   public function __construct(
     protected Helpers $helpers = new \Api\Objects\Helpers()
@@ -58,6 +58,26 @@ trait BuildingStructureValidate
       }
     }
     
+  }
+
+  /**
+   * Проверяем id
+   */
+  private function id(){
+
+    $param = $this->helpers->formData["id"] ?? "";
+
+    $this->helpers->validateINT($param, "id");
+
+    $sql = "SELECT
+              COUNT(id)
+            FROM sdc_room
+            WHERE id = ?";
+    $row = $this->helpers->db->run($sql, [$param])->fetchColumn();
+    if($row !== 1){
+        $this->helpers->isErrorInfo(400, "Неверные параметы", "Запись с id $param отсутствует в базе");
+    }
+    return $param;
   }
 
   /**
@@ -110,7 +130,6 @@ trait BuildingStructureValidate
     if (in_array($this->helpers->formData["icon"], $this->iconBilding) and $param != NULL) {
       $this->helpers->isErrorInfo(400,  "Неверные параметры", "При добавлении здания affiliation должен быть пустым");
     }
-    //$this->helpers->validateINT($param, "affiliation");
 
     return match (true) {
       in_array($this->helpers->formData["icon"], $this->iconBilding) => null,
@@ -119,6 +138,41 @@ trait BuildingStructureValidate
       in_array($this->helpers->formData["icon"], $this->iconDesktop) => $this->selectAffiliationValue($param, $this->iconDoor),
       default => $this->helpers->isErrorInfo(401, "Неверные параметры", "affiliation принимает значение которое не получается проверить")
     };
+  }
+
+  /**
+   * Список принадлежности
+   * 
+   * @param int $params id раздела
+   * 
+   * @return array список объектов которым может принадлежать $params
+   */
+  private function selectAffiliation(int $param): array
+  {
+    
+    $sql = "SELECT
+              icon
+            FROM sdc_room
+            WHERE id = ?";
+    $value = $this->helpers->db->run($sql, [$param])->fetch(\PDO::FETCH_COLUMN);
+
+    $affiliation = match (true) {
+      in_array($value, $this->iconBilding) =>  $this->iconBilding,
+      in_array($value, $this->iconFloor) =>  $this->iconFloor,
+      in_array($value, $this->iconDoor) =>  $this->iconDoor,
+      in_array($value, $this->iconDesktop) =>  $this->iconDesktop,
+      default => $this->helpers->isErrorInfo(401, "Неверные параметры", "affiliation принимает значение которое не получается проверить")
+    };
+    array_walk($affiliation, fn(&$x) => $x = "'$x'");
+    $icon = implode(",", $affiliation);
+    $sql = "SELECT
+              id,
+              icon,
+              name
+            FROM sdc_room
+            WHERE icon IN ($icon)";
+
+    return $this->helpers->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
   }
 
   /**
