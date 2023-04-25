@@ -116,22 +116,39 @@ class BuildingStructure
    */
   private function updContent(): array
   {
-    var_dump(empty($this->helpers->formData["alarm_button"])? $this->helpers->formData["alarm_button"] : NULL);
     $param = array(
       "id" => $this->id(),
       "name" => $this->validateName(),
       "icon" => $this->validateIcon(),
       "affiliation" => $this->validateAffiliation(),
-      "ip" => $this->helpers->formData["ip"] ?? NULL,
-      "alarm_button" => $this->helpers->formData["alarm_button"] ?? NULL,
-      "phone_worck" => $this->helpers->formData["phone_worck"] ?? NULL,
     );
 
     $sql = "UPDATE dev.sdc_room
-    SET ip = :ip, name = :name, icon = :icon, affiliation = :affiliation, alarm_button = :alarm_button, phone_worck = :phone_worck WHERE id= :id";
+            SET name = :name, icon = :icon, affiliation = :affiliation
+            WHERE id= :id";
     $this->helpers->db->run($sql, $param);
 
     http_response_code(200);
-    return $this->helpers->wrap(["info" => "запись изменена", "id"=> $param["id"], "name"=> $param["name"], "icon"=> $param["icon"], ], "data");
+    return ["info" => "запись изменена", "id"=> $param["id"], "name"=> $param["name"], "icon"=> $param["icon"]];
+  }
+
+  /**
+   * Обрабатываем приходящие DELETE-запросы.
+   * 
+   * @return string
+   */
+  private function metodDELETE(): string
+  {
+    $sql = "SELECT 
+              building.id AS building,
+              floor.id,
+              door.id,
+              desktop.id
+            FROM sdc_room AS building
+            LEFT JOIN sdc_room AS floor ON floor.affiliation=building.id
+            LEFT JOIN sdc_room AS door ON door.affiliation=floor.id
+            LEFT JOIN sdc_room AS desktop ON desktop.affiliation=door.id
+            WHERE building.id = 49";
+      return $this->helpers->isErrorInfo(401, "Ошибка в запросе", "Метод не реализован");
   }
 }

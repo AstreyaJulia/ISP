@@ -41,6 +41,16 @@ trait Objects
         return $this->helpers->isErrorInfo(401, "Ошибка в запросе", "Метод не реализован");
     }
 
+    /**
+     * Обрабатываем приходящие DELETE-запросы.
+     * 
+     * @return string
+     */
+    private function metodDELETE(): string
+    {
+        return $this->helpers->isErrorInfo(401, "Ошибка в запросе", "Метод не реализован");
+    }
+
     public function response(): void
     {
         try {
@@ -48,6 +58,7 @@ trait Objects
                 "GET" => $this->helpers->getJsonEncode($this->metodGET()),
                 "POST" => $this->helpers->getJsonEncode($this->metodPOST()),
                 "PATCH" => $this->helpers->getJsonEncode($this->metodPATCH()),
+                "DELETE" => $this->helpers->getJsonEncode($this->metodDELETE()),
                 default => $this->helpers->isErrorInfo(401, "Ошибка в запросе", "Метод не реализован")
             };
         } catch (\Error $e) {
