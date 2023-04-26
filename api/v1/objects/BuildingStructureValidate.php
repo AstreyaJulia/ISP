@@ -196,4 +196,35 @@ trait BuildingStructureValidate
 
     return in_array($param, $value) ? $param : $this->helpers->isErrorInfo(401, "Неверные параметры", "affiliation принимает недопустимое значение");
   }
+
+  /**
+   * Проверка перед удалением записи
+   * 
+   * @return array id удаляемых записей
+   */
+  private function delContentValidate(): array
+  {
+    $param = $this->helpers->formData["id"];
+
+    $sql = "SELECT 
+              building.id AS id1,
+              floor.id AS id2,
+              door.id AS id3,
+              desktop.id AS id4
+            FROM sdc_room AS building
+            LEFT JOIN sdc_room AS floor ON floor.affiliation=building.id
+            LEFT JOIN sdc_room AS door ON door.affiliation=floor.id
+            LEFT JOIN sdc_room AS desktop ON desktop.affiliation=door.id
+            WHERE building.id = ?";
+
+    $result = "";
+    foreach ($this->helpers->db->run($sql, [$param])->fetchAll(\PDO::FETCH_ASSOC) as $row) {
+      $row = array_filter($row, fn($value) => !is_null($value) && $value !== '');
+      $result .= implode(",", $row).",";
+    }
+    $result = explode(",", rtrim($result, ","));
+    $result = array_unique($result, SORT_NUMERIC);
+
+    return !empty($result[0]) ? $result: $this->helpers->isErrorInfo(400, "Ошибка в DELETE-запросе", "Записи не существует");
+  }
 }

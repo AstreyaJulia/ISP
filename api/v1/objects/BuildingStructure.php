@@ -87,6 +87,16 @@ class BuildingStructure
   }
 
   /**
+   * Обрабатываем приходящие DELETE-запросы.
+   * 
+   * @return array
+   */
+  private function metodDELETE(): array
+  {
+    return $this->helpers->wrap($this->delContent(), "data");
+  }
+
+  /**
    * Добавление сущности структуры здания 
    * 
    * @return array
@@ -133,22 +143,20 @@ class BuildingStructure
   }
 
   /**
-   * Обрабатываем приходящие DELETE-запросы.
+   * Удаление записи
    * 
-   * @return string
+   * @return array
    */
-  private function metodDELETE(): string
+  private function delContent(): array
   {
-    $sql = "SELECT 
-              building.id AS building,
-              floor.id,
-              door.id,
-              desktop.id
-            FROM sdc_room AS building
-            LEFT JOIN sdc_room AS floor ON floor.affiliation=building.id
-            LEFT JOIN sdc_room AS door ON door.affiliation=floor.id
-            LEFT JOIN sdc_room AS desktop ON desktop.affiliation=door.id
-            WHERE building.id = 49";
-      return $this->helpers->isErrorInfo(401, "Ошибка в запросе", "Метод не реализован");
+    $param = implode(",",$this->delContentValidate());
+
+    $sql = "DELETE FROM sdc_room WHERE id IN ($param)";
+
+    $this->helpers->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
+
+    return ["info" => "запись с id: $param удалена"];
   }
+
+
 }
