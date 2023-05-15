@@ -9,23 +9,11 @@ export const HOST_API = process.env.REACT_APP_HOST_API_KEY || '';
 
 export const APP_NAME = 'ИСП'; /** Название приложения */
 
-/** Бесплатный ключ получить тут https://openweathermap.org/price */
-export const OPEN_WEATHER_API_KEY =
-  process.env.REACT_APP_OPEN_WEATHER_API_KEY || '439d4b804bc8187953eb36d2a8c26a02'; /** API-ключ Open Weather из .ENV, если не указан - ключ open weather с сайта */
-
 /** Название города для погоды */
 export const CITY_NAME = courtsConfig[process.env.REACT_APP_OPEN_WEATHER_COURT_CODE].city_name || '';
 
-/** ID города openweather */
-export const CITY_OPEN_WEATHER_ID = courtsConfig[process.env.REACT_APP_OPEN_WEATHER_COURT_CODE].open_weather_city_id || '';
-
-/** Координаты города. Искать кликом на карту https://yandex.ru/maps/ и нажав на название улицы или места, слева в меню будут показаны координаты  */
-export const CITY_LAT = courtsConfig[process.env.REACT_APP_OPEN_WEATHER_COURT_CODE].open_weather_court_lat || '';
-export const CITY_LON = courtsConfig[process.env.REACT_APP_OPEN_WEATHER_COURT_CODE].open_weather_court_lon || '';
-
 /** Название суда и область */
 export const COURT_NAME = courtsConfig[process.env.REACT_APP_OPEN_WEATHER_COURT_CODE].court_name || '';
-export const COURT_REGION = 'Смоленская область'; // Не используется
 
 /** Настройки для картотек
  * @type {{ADM1: {color: string}, ADM: {color: string}, G1: {color: string}, U1: {color: string}, M: {color: string}}}

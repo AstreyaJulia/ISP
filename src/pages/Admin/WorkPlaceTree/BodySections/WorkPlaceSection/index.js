@@ -32,9 +32,6 @@ const WorkPlaceSection = ({selectedNode, devicesTree, error}) => {
                         <BasicButton size='small' type='button' variant='primary'>
                             Редактировать
                         </BasicButton>
-                        <BasicButton size='small' type='button' variant='danger'>
-                            Удалить
-                        </BasicButton>
                     </div>
                     <PerfectScrollbar options={{wheelPropagation: false}}>
                         <div className='flex flex-col gap-3 items-start p-3'>
@@ -42,10 +39,12 @@ const WorkPlaceSection = ({selectedNode, devicesTree, error}) => {
                                 <Typography variant='h5' classname='mb-2'>{selectedNode.name}</Typography> : ""}
                             <Typography variant='caption' classname='mb-2'>Пользователь рабочего места: Иванов
                                 И.И.</Typography>
-                            <Typography variant='caption' classname='mb-2'>Количество бытовых розеток 220в:
-                                2</Typography>
-                            <Typography variant='caption' classname='mb-2'>Количество компьютерных розеток 220в:
-                                4</Typography>
+                            {selectedNode.phone_worck && <Typography variant='caption' classname='mb-2'>
+                                <span>Номер телефона:</span>
+                                <span className='ml-1'>{selectedNode.phone_worck}</span></Typography>}
+                            {selectedNode.alarm_button && <Typography variant='caption' classname='mb-2'>
+                                <span>Номер тревожной кнопки:</span>
+                                <span className='ml-1'>{selectedNode.alarm_button}</span></Typography>}
                             <Typography variant='h6' classname='mb-2'>Примечание</Typography>
                             <Typography variant='caption' classname='mb-2'>Первое рабочее место от входа в кабинет, по
                                 часовой стрелке</Typography>
@@ -66,12 +65,6 @@ const WorkPlaceSection = ({selectedNode, devicesTree, error}) => {
                                     <path d='M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z'/>
                                 </svg>
                                 Добавить
-                            </BasicButton>
-                            <BasicButton size='small' type='button' variant='primary'>
-                                Редактировать
-                            </BasicButton>
-                            <BasicButton size='small' type='button' variant='danger'>
-                                Удалить
                             </BasicButton>
                             <BasicButton size='small' type='button' variant='basic'>Свойства
                             </BasicButton>
@@ -133,12 +126,6 @@ const WorkPlaceSection = ({selectedNode, devicesTree, error}) => {
                                         <path d='M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z'/>
                                     </svg>
                                     Добавить
-                                </BasicButton>
-                                <BasicButton size='small' type='button' variant='primary'>
-                                    Редактировать
-                                </BasicButton>
-                                <BasicButton size='small' type='button' variant='danger'>
-                                    Удалить
                                 </BasicButton>
                                 <BasicButton size='small' type='button' variant='basic'>Свойства
                                 </BasicButton>
@@ -206,19 +193,9 @@ const WorkPlaceSection = ({selectedNode, devicesTree, error}) => {
                                             111</Typography>
                                         <Typography variant='caption' classname='mb-2'>Сетевое имя компьютера:
                                             Computer</Typography>
-                                        <Typography variant='h6' classname='my-2'>Сетевое подключение №1</Typography>
-                                        <Typography variant='caption' classname='mb-2'>Название подключения: Подключение
-                                            по локальной сети</Typography>
                                         <div className='grid grid-cols-2 gap-3'>
-                                            <Typography variant='caption' classname='mb-2'>IP в локальной сети:
-                                                192.168.2.111</Typography>
-                                            <Typography variant='caption' classname='mb-2'>Маска:
-                                                255.255.255.0</Typography>
-                                            <Typography variant='caption' classname='mb-2'>DNS1: </Typography>
-                                            <Typography variant='caption' classname='mb-2'>DNS2: </Typography>
-                                            <Typography variant='caption' classname='mb-2'>WINS: </Typography>
-                                            <Typography variant='caption' classname='mb-2'>DHCP: </Typography>
-                                            <Typography variant='caption' classname='mb-2'>Шлюз: </Typography>
+                                            <Typography variant='caption' classname='mb-2'><span>IP в локальной сети:</span>
+                                                <span className='ml-1'>{selectedNode.ip}</span></Typography>
                                         </div>
                                         <Typography variant='caption' classname='mb-2'>Прочее: </Typography>
                                     </div>

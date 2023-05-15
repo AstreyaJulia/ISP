@@ -1,8 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
 import { dispatch } from '../index';
-import { CITY_LAT, CITY_LON, OPEN_WEATHER_API_KEY } from '../../config';
 import apiErrorHelper from '../../utils/apiErrorHelper';
+import axios from "../../utils/axios";
 
 /** Начальное состояние
  * @type {{currentError: null, currentWeather: {}, currentIsLoading: string}}
@@ -16,13 +15,7 @@ const initialState = {
 /** Адрес Open Weather
  * @type {string}
  */
-const OPEN_WEATHER_API_CURRENT = 'https://openweathermap.org/data/2.5/onecall';
-
-const getParams = {
-  appid: OPEN_WEATHER_API_KEY,
-  lat: CITY_LAT,
-  lon: CITY_LON,
-};
+const OPEN_WEATHER_API_CURRENT = 'http://dev/api/v1/weather';
 
 const slice = createSlice({
   name: 'weather',
@@ -73,11 +66,7 @@ export function getCurrentWeather() {
   return async () => {
     dispatch(slice.actions.currentWeatherStartLoading());
     try {
-      const response = await axios.get(OPEN_WEATHER_API_CURRENT, {
-        params: {
-          ...getParams,
-        },
-      });
+      const response = await axios.get(OPEN_WEATHER_API_CURRENT);
       dispatch(slice.actions.getCurrentWeatherSuccess(response.data));
     } catch (error) {
       apiErrorHelper(error);

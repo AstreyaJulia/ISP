@@ -3,8 +3,6 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import BodySection from '../BodySection';
 import BasicButton from '../../../../../components/BasicButton';
 import Typography from '../../../../../components/Typography';
-import axios from "../../../../../utils/axios";
-import apiErrorHelper from "../../../../../utils/apiErrorHelper";
 import useAuth from "../../../../../hooks/useAuth";
 
 const BuildingSection = ({selectedNode}) => {
@@ -14,9 +12,14 @@ const BuildingSection = ({selectedNode}) => {
     const [selectedTab, setSelectedTab] = useState('buildingInfo');
 
     const sectionsTabs = [
+        {name: 'Информация', value: 'buildingInfo', onClick: null}
+    ];
+
+    /*     const sectionsTabs = [
         {name: 'Информация', value: 'buildingInfo', onClick: null},
         {name: 'План здания', value: 'buildingPlan', onClick: null},
     ];
+    */
 
     return (
         <BodySection tabs={sectionsTabs} selectedTab={selectedTab} setSelectedTab={setSelectedTab}>
@@ -26,9 +29,6 @@ const BuildingSection = ({selectedNode}) => {
                     <div className='pb-3 mb-2 flex items-center gap-2 border-b border-gray-300 dark:border-gray-600'>
                         <BasicButton size='small' type='button' variant='primary'>
                             Редактировать
-                        </BasicButton>
-                        <BasicButton size='small' type='button' variant='danger'>
-                            Удалить
                         </BasicButton>
 
                     </div>

@@ -9,9 +9,15 @@ const FloorSection = ({ selectedNode }) => {
   const [selectedTab, setSelectedTab] = useState('floorInfo');
 
   const sectionsTabs = [
+    { name: 'Информация', value: 'floorInfo', onClick: null }
+  ];
+
+  /*
+    const sectionsTabs = [
     { name: 'Информация', value: 'floorInfo', onClick: null },
     { name: 'План этажа', value: 'floorPlan', onClick: null },
   ];
+   */
 
   return (
     <BodySection tabs={sectionsTabs} selectedTab={selectedTab} setSelectedTab={setSelectedTab}>
@@ -21,9 +27,6 @@ const FloorSection = ({ selectedNode }) => {
           <div className='pb-3 mb-2 flex items-center gap-2 border-b border-gray-300 dark:border-gray-600'>
             <BasicButton size='small' type='button' variant='primary'>
               Редактировать
-            </BasicButton>
-            <BasicButton size='small' type='button' variant='danger'>
-              Удалить
             </BasicButton>
 
           </div>

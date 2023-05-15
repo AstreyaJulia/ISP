@@ -909,6 +909,14 @@ export const events = [
     allDay: false,
     calendar: 'cyan',
   },
+  {
+    id: '138',
+    title: 'ВКС',
+    start: '2023-05-12 09:00:00',
+    end: '2023-05-12 09:30:00',
+    allDay: false,
+    calendar: 'cyan',
+  },
 ];
 
 export const demoSteps = [
