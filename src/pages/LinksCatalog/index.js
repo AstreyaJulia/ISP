@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { makeArrayFromObj } from '../../utils/makeArrayFromObj';
 import ContentLayoutWithSidebar from '../pagesLayouts/ContentLayoutWithSidebar';
 import useAuth from '../../hooks/useAuth';
-import DeleteModal from './DeleteModal';
+import DeleteModal from '../../components/Modal/DeleteModal';
 import { useDispatch, useSelector } from '../../store';
 import { getGroups, getLinks, resetGroups, resetLinks } from '../../store/slices/linkscatalog';
 import BasicButton from '../../components/BasicButton';
@@ -84,7 +84,7 @@ const LinksCatalog = () => {
       fullHeight='true'
     >
       <ContentLayoutWithSidebar.Sidebar>
-        <DeleteModal open={openDialog} setOpen={setOpenDialog} />
+        <DeleteModal open={openDialog} setOpen={setOpenDialog} deleteOnClick={null} />
         <div className='p-4 h-full flex flex-col'>
           <div className='mb-4'>
             {user.sudo === 1 ? (

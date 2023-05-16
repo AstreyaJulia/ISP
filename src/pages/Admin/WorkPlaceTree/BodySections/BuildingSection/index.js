@@ -28,7 +28,7 @@ const BuildingSection = ({selectedNode}) => {
                     {  /* eslint-disable-next-line */}
                     <div className='pb-3 mb-2 flex items-center gap-2 border-b border-gray-300 dark:border-gray-600'>
                         <BasicButton size='small' type='button' variant='primary'>
-                            Редактировать
+                            Редактировать информацию
                         </BasicButton>
 
                     </div>

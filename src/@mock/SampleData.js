@@ -882,7 +882,7 @@ export const events = [
     title: 'Отпуск Ю',
     start: '2023-06-05 09:00:00',
     end: '2023-06-23 23:00:00',
-    allDay: false,
+    allDay: true,
     calendar: 'cyan',
   },
   {
@@ -898,7 +898,7 @@ export const events = [
     title: 'Отпуск Р',
     start: '2023-07-17 09:00:00',
     end: '2023-08-04 23:00:00',
-    allDay: false,
+    allDay: true,
     calendar: 'cyan',
   },
   {
@@ -906,7 +906,7 @@ export const events = [
     title: 'Отпуск Р',
     start: '2023-10-16 09:00:00',
     end: '2023-11-03 23:00:00',
-    allDay: false,
+    allDay: true,
     calendar: 'cyan',
   },
   {
@@ -915,6 +915,22 @@ export const events = [
     start: '2023-05-12 09:00:00',
     end: '2023-05-12 09:30:00',
     allDay: false,
+    calendar: 'cyan',
+  },
+  {
+    id: '139',
+    title: 'Дежурство Ю',
+    start: '2023-05-29 09:00:00',
+    end: '2023-06-05 23:59:00',
+    allDay: true,
+    calendar: 'cyan',
+  },
+  {
+    id: '140',
+    title: 'Дежурство Р',
+    start: '2023-06-26 09:00:00',
+    end: '2023-07-03 23:59:00',
+    allDay: true,
     calendar: 'cyan',
   },
 ];

@@ -276,8 +276,6 @@ export default function UserNewEditForm({ isEdit, currentUser, getFunc }) {
 
   const generateLogin = () => {
     const values = getValues();
-
-    console.log(values);
     if (values.fullname.toString() !== '') {
       setValue('username', getLoginFromName(values.fullname).toString());
     }
