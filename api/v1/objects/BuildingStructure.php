@@ -28,6 +28,7 @@ class BuildingStructure
               mother.id,
               mother.icon,
               mother.name,
+              mother.affiliation,
               IF(ISNULL(children.id),'false', 'true') AS childNodes
             FROM sdc_room AS mother
             LEFT JOIN sdc_room AS children ON children.affiliation = mother.id
