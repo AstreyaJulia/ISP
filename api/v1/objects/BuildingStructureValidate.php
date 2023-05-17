@@ -117,7 +117,7 @@ trait BuildingStructureValidate
     $icon = array_merge($this->iconBilding, $this->iconFloor, $this->iconDoor, $this->iconDesktop);
     return match (true) {
       in_array($this->helpers->formData["icon"], $icon) => $this->helpers->formData["icon"],
-      default => $this->helpers->isErrorInfo(401, "Неверные параметры", "icon должен принимать одно из значений:".implode(', ', $icon))
+      default => $this->helpers->isErrorInfo(400, "Неверные параметры", "icon должен принимать одно из значений:".implode(', ', $icon))
     };
   }
 
@@ -136,7 +136,7 @@ trait BuildingStructureValidate
       in_array($this->helpers->formData["icon"], $this->iconFloor) => $this->selectAffiliationValue($param, $this->iconBilding),
       in_array($this->helpers->formData["icon"], $this->iconDoor) => $this->selectAffiliationValue($param, $this->iconFloor),
       in_array($this->helpers->formData["icon"], $this->iconDesktop) => $this->selectAffiliationValue($param, $this->iconDoor),
-      default => $this->helpers->isErrorInfo(401, "Неверные параметры", "affiliation принимает значение которое не получается проверить")
+      default => $this->helpers->isErrorInfo(400, "Неверные параметры", "affiliation принимает значение которое не получается проверить")
     };
   }
 
@@ -161,7 +161,7 @@ trait BuildingStructureValidate
       in_array($value, $this->iconFloor) =>  $this->iconFloor,
       in_array($value, $this->iconDoor) =>  $this->iconDoor,
       in_array($value, $this->iconDesktop) =>  $this->iconDesktop,
-      default => $this->helpers->isErrorInfo(401, "Неверные параметры", "affiliation принимает значение которое не получается проверить")
+      default => $this->helpers->isErrorInfo(400, "Неверные параметры", "affiliation принимает значение которое не получается проверить")
     };
     array_walk($affiliation, fn(&$x) => $x = "'$x'");
     $icon = implode(",", $affiliation);
@@ -194,7 +194,7 @@ trait BuildingStructureValidate
             WHERE icon IN($icon)";
     $value = $this->helpers->db->run($sql)->fetchAll(\PDO::FETCH_COLUMN);
 
-    return in_array($param, $value) ? $param : $this->helpers->isErrorInfo(401, "Неверные параметры", "affiliation принимает недопустимое значение");
+    return in_array($param, $value) ? $param : $this->helpers->isErrorInfo(400, "Неверные параметры", "affiliation принимает недопустимое значение");
   }
 
   /**
