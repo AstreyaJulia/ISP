@@ -32,7 +32,7 @@ trait BuildingStructureValidate
   /**
    * id элемента из структуры здания
    */
-  private int|NULL $idBuildingObject;
+  private string|NULL $idBuildingObject;
 
   /**
    * реализованные параметры для отображения дополнительной
@@ -149,7 +149,6 @@ trait BuildingStructureValidate
    */
   private function selectAffiliation(int $param): array
   {
-    
     $sql = "SELECT
               icon
             FROM sdc_room

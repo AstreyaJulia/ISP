@@ -22,7 +22,7 @@ class BuildingStructure
    */
   public function cabinetList(): array
   {
-    $param = count($this->helpers->urlData) ? "=" . $this->idBuildingObject : " IS NULL";
+    $param = count($this->helpers->urlData) ? "=" . $this->helpers->validateINT($this->idBuildingObject, 'GET-запросе') : " IS NULL";
 
     $sql = "SELECT
               mother.id,
@@ -32,8 +32,8 @@ class BuildingStructure
               IF(ISNULL(children.id),'false', 'true') AS childNodes
             FROM sdc_room AS mother
             LEFT JOIN sdc_room AS children ON children.affiliation = mother.id
-            WHERE mother.affiliation $param GROUP BY mother.id";
-    return $this->helpers->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
+            WHERE mother.affiliation ? GROUP BY mother.id";
+    return $this->helpers->db->run($sql, [$param])->fetchAll(\PDO::FETCH_ASSOC);
   }
 
   /**
@@ -41,11 +41,12 @@ class BuildingStructure
    */
   private function cabinetListInfo(): array
   {
-      $sql = "SELECT
-                *
-              FROM sdc_room
-              WHERE id = $this->idBuildingObject";
-      return $this->helpers->db->run($sql)->fetch(\PDO::FETCH_ASSOC);
+    $param = $this->helpers->validateINT($this->idBuildingObject, 'GET-запросе');
+    $sql = "SELECT
+              *
+            FROM sdc_room
+            WHERE id = ?";
+    return $this->helpers->db->run($sql, [$param])->fetch(\PDO::FETCH_ASSOC);
   }
 
   /**
@@ -55,7 +56,7 @@ class BuildingStructure
   {
     return match($this->helpers->urlData[1]){
       "info" => $this->cabinetListInfo(),
-      "affiliation" => $this->selectAffiliation($this->helpers->urlData[0])
+      "affiliation" => $this->selectAffiliation($this->helpers->validateINT($this->helpers->urlData[0], 'GET-запросе'))
     };
   }
 
@@ -84,7 +85,8 @@ class BuildingStructure
    */
   private function metodPATCH(): array
   {
-    return $this->helpers->wrap($this->updContent(), "data");
+    return $this->helpers->wrap("Я метод PATCH", "data");
+    //return $this->helpers->wrap($this->updContent(), "data");
   }
 
   /**
