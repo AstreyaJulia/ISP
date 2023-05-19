@@ -85,8 +85,8 @@ class BuildingStructure
    */
   private function metodPATCH(): array
   {
-    return $this->helpers->wrap("Я метод PATCH", "data");
-    //return $this->helpers->wrap($this->updContent(), "data");
+    //return $this->helpers->wrap("Я метод PATCH", "data");
+    return $this->helpers->wrap($this->updContent(), "data");
   }
 
   /**
