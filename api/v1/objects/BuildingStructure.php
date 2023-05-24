@@ -26,14 +26,15 @@ class BuildingStructure
 
     $sql = "SELECT
               mother.id,
+              mother.menuindex,
               mother.icon,
               mother.name,
               mother.affiliation,
               IF(ISNULL(children.id),'false', 'true') AS childNodes
             FROM sdc_room AS mother
             LEFT JOIN sdc_room AS children ON children.affiliation = mother.id
-            WHERE mother.affiliation ? GROUP BY mother.id";
-    return $this->helpers->db->run($sql, [$param])->fetchAll(\PDO::FETCH_ASSOC);
+            WHERE mother.affiliation $param GROUP BY mother.id ORDER BY mother.menuindex ASC";
+    return $this->helpers->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
   }
 
   /**
@@ -85,8 +86,12 @@ class BuildingStructure
    */
   private function metodPATCH(): array
   {
-    //return $this->helpers->wrap("Я метод PATCH", "data");
-    return $this->helpers->wrap($this->updContent(), "data");
+    $param = $this->helpers->urlData[0] ?? 0;
+    return match ($param) {
+      "up", "down" => $this->helpers->wrap($this->sorting(), 'data'),
+      0 => $this->helpers->wrap($this->updContent(), "data"),
+      default => $this->helpers->isErrorInfo(400, "Неверный маршрут", "Задан несуществующий маршрут")
+    };
   }
 
   /**
@@ -136,13 +141,61 @@ class BuildingStructure
       "affiliation" => $this->validateAffiliation(),
     );
 
-    $sql = "UPDATE dev.sdc_room
+    $sql = "UPDATE sdc_room
             SET name = :name, icon = :icon, affiliation = :affiliation
             WHERE id= :id";
     $this->helpers->db->run($sql, $param);
 
     http_response_code(200);
     return ["info" => "запись изменена", "id"=> $param["id"], "name"=> $param["name"], "icon"=> $param["icon"]];
+  }
+
+  
+  /**
+   * Сортировка структуры здания
+   */
+  private function sorting()
+  {
+
+    $id = $this->id();
+    $sql = "SELECT
+              affiliation
+            FROM sdc_room
+            WHERE id = ?";
+    $affiliation = $this->helpers->db->run($sql, [$id])->fetch(\PDO::FETCH_COLUMN);
+
+    $param = isset($affiliation) ? "=" . $affiliation : " IS NULL";
+
+    $sql = "SELECT
+              id,
+              name,
+              menuindex
+            FROM sdc_room
+            WHERE affiliation $param GROUP BY id ORDER BY menuindex ASC";
+    $result = $this->helpers->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
+
+    $key = $this->helpers->searchAssociativeArray($id, $result, 'id');
+
+    match ($this->helpers->urlData[0]) {
+      'up' => $positionCalculation = ($result[0] == $result[$key]) ? $this->helpers->isErrorInfo(400, 'ошибка в запросе', 'Запись не может быть перемещена вверх') : 1,
+      'down' => $positionCalculation = (end($result) == $result[$key]) ? $this->helpers->isErrorInfo(400, 'ошибка в запросе', 'Запись не может быть перемещена вниз') : -1,
+      default => $this->helpers->isErrorInfo(400, "Ошибка в запросе", "Пререданы неверные параметры для сортировки")
+    };
+
+    $param = [
+      ['id' => $result[$key]['id'], 'menuindex' => $result[$key]['menuindex'] - $positionCalculation],
+      ['id' => $result[$key - $positionCalculation]['id'], 'menuindex' => $result[$key - $positionCalculation]['menuindex'] + $positionCalculation]
+    ];
+
+    $sql = "UPDATE sdc_room
+            SET menuindex = :menuindex
+            WHERE id= :id";
+
+    $this->helpers->db->runMultiple($sql, $param);
+
+    http_response_code(200);
+    return ["info" => "запись перемещена", "id"=> $result[$key]['id'], "name"=> $result[$key]["name"]];
+
   }
 
   /**
