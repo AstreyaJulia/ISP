@@ -113,11 +113,18 @@ class BuildingStructure
   {
     $param = $this->validateContent();
 
-    $sql = "INSERT INTO sdc_room (name, icon, affiliation) VALUES(:name, :icon, :affiliation)";
+    $paramLastRecord = empty($this->helpers->formData["affiliation"]) ? " IS NULL": "=" . $this->helpers->formData["affiliation"];
+
+    $lastRecord = "SELECT
+                    menuindex
+                  FROM sdc_room
+                  WHERE affiliation $paramLastRecord ORDER BY menuindex DESC LIMIT 1";
+    $param = array_merge($param, ["menuindex" => $this->helpers->db->run($lastRecord)->fetch(\PDO::FETCH_COLUMN) + 1]);
+
+    $sql = "INSERT INTO sdc_room (menuindex, name, icon, affiliation) VALUES(:menuindex, :name, :icon, :affiliation)";
     $this->helpers->db->run($sql, $param);
 
     $LAST_ID = $this->helpers->db->pdo->lastInsertId() ?? $this->helpers::isErrorInfo(400, "Произошла ошибка", "Запись не добавлена");
-
 
     $sql = "SELECT name, icon FROM sdc_room WHERE id = ?";
     $row = $this->helpers->db->run($sql, [$LAST_ID])->fetch(\PDO::FETCH_ASSOC);
