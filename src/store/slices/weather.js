@@ -15,7 +15,7 @@ const initialState = {
 /** Адрес Open Weather
  * @type {string}
  */
-const OPEN_WEATHER_API_CURRENT = 'http://dev/api/v1/weather';
+const OPEN_WEATHER_API_CURRENT = '/weather';
 
 const slice = createSlice({
   name: 'weather',

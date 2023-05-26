@@ -14,7 +14,6 @@ import TreeView from "../../components/TreeView";
 import { devicesTree } from "../../@mock/SampleData";
 import NewNodeForm from "./WorkPlaceTree/NewNodeForm";
 import Modal from "../../components/Modal";
-import BasicButton from "../../components/BasicButton";
 import BuildingSection from "./WorkPlaceTree/BodySections/BuildingSection";
 import FloorSection from "./WorkPlaceTree/BodySections/FloorSection";
 import WorkPlaceSection from "./WorkPlaceTree/BodySections/WorkPlaceSection";
@@ -32,79 +31,94 @@ const Workplaces = () => {
 
   const [selectedNode, setSelectedNode] = useState(null); // выделенный в дереве элемент
   const [editedNode, setEditedNode] = useState(null); // редактируемый/удаляемый в дереве элемент
+  const [parentNodeID, setParentNodeID] = useState(null); // ID родительского элемента дерева
   const [selectedNodeInfo, setSelectedNodeInfo] = useState({});
 
   const [modalNewNodeOpened, setModalNewNodeOpened] = useState(false);
+  const [modalEditNodeOpened, setModalEditNodeOpened] = useState(false);
   const [openDialog, setOpenDialog] = useState(false); // модал удаления
   const [modalNewNodeTitle, setModalNewNodeTitle] = useState("");
   const [modalNewNodeIconValue, setModalNewNodeIconValue] = useState("na");
 
-  const nodeMenu = [
-    {
-      title: "Редактировать",
-      icon: <svg xmlns="http://www.w3.org/2000/svg" height="24px"
-                 viewBox="0 0 24 24" width="24px"
-                 fill="currentColor"
-                 className="h-4 w-4 text-gray-500 dark:text-gray-600 mr-2">
-        <path d="M0 0h24v24H0V0z" fill="none" />
-        <path
-          d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z" />
-      </svg>,
-      onClick: (node) => {
-        setEditedNode(node);
-        setModalNewNodeIconValue(node.icon);
-        setModalNewNodeTitle("Редактирование узла");
-        setModalNewNodeOpened(true);
+  const nodeMenu = ({ props }) => {
+    return [
+      {
+        title: "Редактировать",
+        icon: <svg xmlns="http://www.w3.org/2000/svg" height="24px"
+                   viewBox="0 0 24 24" width="24px"
+                   fill="currentColor"
+                   className="h-4 w-4 text-gray-500 dark:text-gray-600 mr-2">
+          <path d="M0 0h24v24H0V0z" fill="none" />
+          <path
+            d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z" />
+        </svg>,
+        onClick: (node) => {
+          setEditedNode(node);
+          setParentNodeID(node?.affiliation)
+          setModalNewNodeIconValue(node?.icon);
+          setModalNewNodeTitle("Редактирование узла");
+          setModalNewNodeOpened(true);
+        },
+        href: null
       },
-      href: null
-    },
-    {
-      title: "Выше",
-      icon: <svg xmlns="http://www.w3.org/2000/svg" height="24px"
-                 viewBox="0 0 24 24" width="24px"
-                 fill="currentColor"
-                 className="h-4 w-4 text-gray-500 dark:text-gray-600 mr-2">
-        <rect fill="none" height="24" width="24" />
-        <path
-          d="M5,9l1.41,1.41L11,5.83V22H13V5.83l4.59,4.59L19,9l-7-7L5,9z" />
-      </svg>,
-      onClick: (node) => console.log(node),
-      href: null
-    },
-    {
-      title: "Ниже",
-      icon: <svg xmlns="http://www.w3.org/2000/svg" height="24px"
-                 viewBox="0 0 24 24" width="24px"
-                 fill="currentColor"
-                 className="h-4 w-4 text-gray-500 dark:text-gray-600 mr-2">
-        <rect fill="none" height="24" width="24" />
-        <path
-          d="M19,15l-1.41-1.41L13,18.17V2H11v16.17l-4.59-4.59L5,15l7,7L19,15z" />
-      </svg>,
-      onClick: (node) => console.log(node),
-      href: null
-    },
-    {
-      title: "Удалить",
-      icon: <svg xmlns="http://www.w3.org/2000/svg" height="24px"
-                 viewBox="0 0 24 24" width="24px"
-                 fill="currentColor"
-                 className="h-4 w-4 text-gray-500 dark:text-gray-600 mr-2">
-        <path d="M0 0h24v24H0V0z" fill="none" />
-        <path
-          d="M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1zM18 7H6v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z" />
-      </svg>,
-      onClick: (node) => {
-        setEditedNode(node);
-        setOpenDialog(true);
+      {
+        title: "Выше",
+        icon: <svg xmlns="http://www.w3.org/2000/svg" height="24px"
+                   viewBox="0 0 24 24" width="24px"
+                   fill="currentColor"
+                   className="h-4 w-4 text-gray-500 dark:text-gray-600 mr-2">
+          <rect fill="none" height="24" width="24" />
+          <path
+            d="M5,9l1.41,1.41L11,5.83V22H13V5.83l4.59,4.59L19,9l-7-7L5,9z" />
+        </svg>,
+        onClick: (node) => {
+          setEditedNode(node);
+          axios.patch('/buildingstructure/up', { "id": node?.id }).then(() => ["building", "buildingMedium", "buildingSmall", "subbuilding"].includes(node.icon) ? getWorkplaceRoot() : getWorkplaceNodeInfo({ id: node.affiliation })).finally(() => setParentNodeID(null)).catch((error) => apiErrorHelper(error))
+        },
+        href: null,
+        disabled: props.firstNode
       },
-      href: null
-    }
-  ];
+      {
+        title: "Ниже",
+        icon: <svg xmlns="http://www.w3.org/2000/svg" height="24px"
+                   viewBox="0 0 24 24" width="24px"
+                   fill="currentColor"
+                   className="h-4 w-4 text-gray-500 dark:text-gray-600 mr-2">
+          <rect fill="none" height="24" width="24" />
+          <path
+            d="M19,15l-1.41-1.41L13,18.17V2H11v16.17l-4.59-4.59L5,15l7,7L19,15z" />
+        </svg>,
+        onClick: (node) => {
+          setEditedNode(node);
+          console.log(node.affiliation)
+          axios.patch('/buildingstructure/down', { "id": node?.id }).then(() => ["building", "buildingMedium", "buildingSmall", "subbuilding"].includes(node.icon) ? getWorkplaceRoot() : getWorkplaceNodeInfo({ id: node.affiliation })).finally(() => setParentNodeID(null)).catch((error) => apiErrorHelper(error))
+        },
+        href: null,
+        disabled: props.lastNode
+      },
+      {
+        title: "Удалить",
+        icon: <svg xmlns="http://www.w3.org/2000/svg" height="24px"
+                   viewBox="0 0 24 24" width="24px"
+                   fill="currentColor"
+                   className="h-4 w-4 text-gray-500 dark:text-gray-600 mr-2">
+          <path d="M0 0h24v24H0V0z" fill="none" />
+          <path
+            d="M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1zM18 7H6v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z" />
+        </svg>,
+        onClick: (node) => {
+          setEditedNode(node);
+          setOpenDialog(true);
+        },
+        href: null
+      }
+    ]
+  };
 
   useEffect(() => {
     initialize();
     setSelectedNode(null);
+    setEditedNode(null);
     setSelectedNodeInfo({});
     getWorkplaceRoot();
     // eslint-disable-next-line
@@ -161,6 +175,12 @@ const Workplaces = () => {
     setEditedNode(null);
   };
 
+  const handleEditModalClosed = () => {
+    setModalEditNodeOpened(false);
+    setSelectedNode(null);
+    setEditedNode(null);
+  };
+
   const handleDeleteNode = async (node) => {
     await axios.delete(`/buildingstructure`, { data: { "id": node.id } });
     getWorkplaceRoot();
@@ -180,7 +200,7 @@ const Workplaces = () => {
             <div className="flex gap-2 items-center pb-2 mb-2 border-b border-b-transparent">
               <Menu as="div" className="relative">
                 <Menu.Button>
-                  <BasicButton size="small" type="button" variant="basic">
+                  <div className='inline-flex rounded-lg items-center justify-center border focus:outline-none focus:ring-2 py-1 px-2 text-sm shadow-sm bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-indigo-500 disabled:border-gray-200 dark:disabled:border-gray-700 disabled:hover:border-gray-200 dark:disabled:hover:border-gray-700 disabled:text-gray-500 dark:disabled:text-gray-500 disabled:bg-gray-50 dark:disabled:bg-gray-800 disabled:hover:bg-gray-50 dark:disabled:hover:bg-gray-800 disabled:hover:cursor-not-allowed'>
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24"
                          width="24px"
                          fill="currentColor"
@@ -188,7 +208,8 @@ const Workplaces = () => {
                       <path d="M0 0h24v24H0z" fill="none" />
                       <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
                     </svg>
-                    Добавить</BasicButton>
+                    Добавить
+                  </div>
                 </Menu.Button>
                 <Menu.Items
                   className="absolute right-0 z-50 mt-2 w-40 origin-top-right divide-y divide-gray-100 dark:divide-gray-700 rounded-md bg-white dark:bg-gray-900 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
@@ -213,7 +234,7 @@ const Workplaces = () => {
                     </Menu.Item>
                   </div>
 
-                  {selectedNode && selectedNode.icon === "building" ? <div className="px-1 py-1">
+                  {selectedNode && ["building", "buildingMedium", "buildingSmall", "subbuilding"].includes(selectedNode.icon) ? <div className="px-1 py-1">
                     <Menu.Item>
                       {({ active }) => (
                         <button
@@ -223,7 +244,7 @@ const Workplaces = () => {
                             setModalNewNodeIconValue("floor");
                             setModalNewNodeOpened(true);
                           }}
-                          disabled={!selectedNode || selectedNode.icon !== "building"}
+                          disabled={!selectedNode || !["building", "buildingMedium", "buildingSmall", "subbuilding"].includes(selectedNode.icon)}
                           className={`${
                             active ? "bg-gray-100 text-gray-900 dark:text-gray-100" : "text-gray-900 dark:text-gray-100"
                           } group flex w-full items-center rounded-md p-2 py-2 text-sm`}
@@ -284,8 +305,9 @@ const Workplaces = () => {
 
               <Menu as="div" className="relative">
                 <Menu.Button>
-                  <BasicButton size="small" type="button" variant="basic">
-                    Отчеты</BasicButton>
+                  <div className='inline-flex rounded-lg items-center justify-center border focus:outline-none focus:ring-2 py-1 px-2 text-sm shadow-sm bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-indigo-500 disabled:border-gray-200 dark:disabled:border-gray-700 disabled:hover:border-gray-200 dark:disabled:hover:border-gray-700 disabled:text-gray-500 dark:disabled:text-gray-500 disabled:bg-gray-50 dark:disabled:bg-gray-800 disabled:hover:bg-gray-50 dark:disabled:hover:bg-gray-800 disabled:hover:cursor-not-allowed'>
+                    Отчеты
+                  </div>
                 </Menu.Button>
                 <Menu.Items
                   className="absolute right-0 z-50 mt-2 w-40 origin-top-right divide-y divide-gray-100 dark:divide-gray-700 rounded-md bg-white dark:bg-gray-900 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
@@ -310,7 +332,7 @@ const Workplaces = () => {
                     </Menu.Item>
                   </div>
 
-                  {selectedNode && selectedNode.icon === "building" ? <div className="px-1 py-1">
+                  {selectedNode && ["building", "buildingMedium", "buildingSmall", "subbuilding"].includes(selectedNode.icon) ? <div className="px-1 py-1">
                     <Menu.Item>
                       {({ active }) => (
                         <button
@@ -320,7 +342,7 @@ const Workplaces = () => {
                             setModalNewNodeIconValue("floor");
                             setModalNewNodeOpened(true);
                           }}
-                          disabled={!selectedNode || selectedNode.icon !== "building"}
+                          disabled={!selectedNode || !["building", "buildingMedium", "buildingSmall", "subbuilding"].includes(selectedNode.icon)}
                           className={`${
                             active ? "bg-gray-100 text-gray-900 dark:text-gray-100" : "text-gray-900 dark:text-gray-100"
                           } group flex w-full items-center rounded-md p-2 py-2 text-sm`}
@@ -381,8 +403,9 @@ const Workplaces = () => {
 
               <Menu as="div" className="relative">
                 <Menu.Button>
-                  <BasicButton size="small" type="button" variant="basic">
-                    Справочники</BasicButton>
+                  <div className='inline-flex rounded-lg items-center justify-center border focus:outline-none focus:ring-2 py-1 px-2 text-sm shadow-sm bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-indigo-500 disabled:border-gray-200 dark:disabled:border-gray-700 disabled:hover:border-gray-200 dark:disabled:hover:border-gray-700 disabled:text-gray-500 dark:disabled:text-gray-500 disabled:bg-gray-50 dark:disabled:bg-gray-800 disabled:hover:bg-gray-50 dark:disabled:hover:bg-gray-800 disabled:hover:cursor-not-allowed'>
+                    Справочники
+                  </div>
                 </Menu.Button>
                 <Menu.Items
                   className="absolute right-0 z-50 mt-2 w-40 origin-top-right divide-y divide-gray-100 dark:divide-gray-700 rounded-md bg-white dark:bg-gray-900 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
@@ -401,7 +424,7 @@ const Workplaces = () => {
                     </Menu.Item>
                   </div>
 
-                  {selectedNode && selectedNode.icon === "building" ? <div className="px-1 py-1">
+                  {selectedNode && ["building", "buildingMedium", "buildingSmall", "subbuilding"].includes(selectedNode.icon) ? <div className="px-1 py-1">
                     <Menu.Item>
                       {({ active }) => (
                         <button
@@ -411,7 +434,7 @@ const Workplaces = () => {
                             setModalNewNodeIconValue("floor");
                             setModalNewNodeOpened(true);
                           }}
-                          disabled={!selectedNode || selectedNode.icon !== "building"}
+                          disabled={!selectedNode || !["building", "buildingMedium", "buildingSmall", "subbuilding"].includes(selectedNode.icon)}
                           className={`${
                             active ? "bg-gray-100 text-gray-900 dark:text-gray-100" : "text-gray-900 dark:text-gray-100"
                           } group flex w-full items-center rounded-md p-2 py-2 text-sm`}
@@ -480,8 +503,11 @@ const Workplaces = () => {
                           error={error}
                           selectedNode={selectedNode}
                           setSelectedNode={(node) => setSelectedNode(node)}
-                          handleNameClick={(node) => getWorkplaceNodeInfo(node)}
-                          nodeMenu={nodeMenu}
+                          handleNameClick={(node) => {
+                            getWorkplaceNodeInfo(node);
+                            setEditedNode(null);
+                          }}
+                          nodeMenu={(props) => nodeMenu({ props })}
                 />
               </PerfectScrollbar>
             </div>
@@ -492,7 +518,7 @@ const Workplaces = () => {
         <div className="p-2 h-full">
 
           { /* eslint-disable-next-line */}
-          {selectedNode && selectedNode.icon === "building" ?
+          {selectedNode && ["building", "buildingMedium", "buildingSmall", "subbuilding"].includes(selectedNode.icon) ?
             /* eslint-disable-next-line */
             <BuildingSection selectedNode={selectedNodeInfo} /> : selectedNode && selectedNode.icon === "floor" ?
               /* eslint-disable-next-line */
@@ -509,11 +535,23 @@ const Workplaces = () => {
       >
         <Modal.Toolbar title={modalNewNodeTitle} />
         <Modal.Body>
-          <NewNodeForm parentNode={selectedNode} currentNode={editedNode} IconValue={modalNewNodeIconValue}
-                       onModalClose={handleModalClosed} isEdit={editedNode !== null}
-                       getFunc={() => selectedNode?.icon === "building" || !selectedNode ? getWorkplaceRoot() : getWorkplaceNode(selectedNode)} />
+          <NewNodeForm parentNode={selectedNode} currentNode={selectedNode} IconValue={modalNewNodeIconValue} affiliation={selectedNode?.id || ''}
+                       onModalClose={handleModalClosed} isEdit={'false'}
+                       getFunc={() => ["building", "buildingMedium", "buildingSmall", "subbuilding"].includes(selectedNode?.icon) || !selectedNode ? getWorkplaceRoot() : getWorkplaceNode(selectedNode)} />
         </Modal.Body>
       </Modal>
+
+      <Modal size="lg" open={modalEditNodeOpened} setOpen={setModalEditNodeOpened} onModalClose={handleEditModalClosed}
+      >
+        <Modal.Toolbar title={modalNewNodeTitle} />
+        <Modal.Body>
+          <NewNodeForm parentNode={null} currentNode={editedNode} IconValue={modalNewNodeIconValue} affiliation={editedNode?.affiliation|| ''}
+                       onModalClose={handleEditModalClosed} isEdit={'true'}
+                       getFunc={() => ["building", "buildingMedium", "buildingSmall", "subbuilding"].includes(editedNode?.icon) || !editedNode ? getWorkplaceRoot() : getWorkplaceNode(editedNode)} />
+        </Modal.Body>
+      </Modal>
+
+
       <DeleteModal open={openDialog} setOpen={setOpenDialog} deleteOnClick={(node) => handleDeleteNode(node)}
                    deletedNode={editedNode}
                    setDeletedNode={setEditedNode} />

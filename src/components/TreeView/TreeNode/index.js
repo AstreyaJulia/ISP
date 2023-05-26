@@ -13,7 +13,9 @@ const TreeNode = ({
                     error,
                     selectedNode,
                     setSelectedNode,
-                    nodeMenu
+                    nodeMenu,
+                    firstNode,
+                    lastNode
                   }) => {
 
   const { id, name, icon, childNodes, brand, model, inventNumber, version } = node;
@@ -34,7 +36,8 @@ const TreeNode = ({
       <div className="flex flex-col" style={count !== 0 ? { marginLeft: `${count * 6}px` } : { marginLeft: 0 }}>
 
         <div className="flex items-center justify-between">
-          <div className={classNames(selectedNode && selectedNode?.id === node?.id ? "bg-gray-200 text-gray-800 rounded-lg" : "text-gray-700 dark:text-gray-300", "flex items-center w-full")}>
+          <div
+            className={classNames(selectedNode && selectedNode?.id === node?.id ? "bg-gray-200 text-gray-800 rounded-lg" : "text-gray-700 dark:text-gray-300", "flex items-center w-full")}>
             {childNodes === "true" ?
               <button type="button" onClick={() => handleClick(node)} className="py-3 pl-1.5">
                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -55,7 +58,7 @@ const TreeNode = ({
               {inventNumber ? <span>инв. №: {inventNumber}</span> : ""}
               {version ? <span>{version}</span> : ""}
             </button>
-            {nodeMenu && nodeMenu.length > 0 ? <Menu as="div" className="relative">
+            {nodeMenu(firstNode || lastNode) && nodeMenu(firstNode || lastNode).length > 0 ? <Menu as="div" className="relative">
               <Menu.Button>
                 <div className="flex-shrink-0">
                   <div
@@ -76,16 +79,15 @@ const TreeNode = ({
               </Menu.Button>
               <Menu.Items
                 className="absolute right-0 z-50 mt-2 w-40 origin-top-right rounded-md bg-white dark:bg-gray-900 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                {nodeMenu.map((menuItem, key) =>
+                { /* eslint-disable-next-line */ }
+                {nodeMenu({firstNode, lastNode}).map((menuItem, key) =>
                   <div key={key} className="px-1 py-1">
-                    <Menu.Item>
+                    <Menu.Item disabled={menuItem.disabled}>
                       {({ active }) => (
                         <a
                           href={menuItem.href}
                           onClick={() => menuItem.onClick(node)}
-                          className={`${
-                            active ? "cursor-pointer bg-gray-100 text-gray-900 dark:text-gray-100" : "text-gray-900 dark:text-gray-100"
-                          } group flex w-full gap-2 items-center rounded-md px-2 py-2 text-sm`}
+                          className={classNames(active ? "cursor-pointer bg-gray-100 text-gray-900 dark:text-gray-100" : "text-gray-900 dark:text-gray-100", "group flex w-full gap-2 items-center rounded-md px-2 py-2 text-sm", menuItem.disabled ? "opacity-50" : "")}
                         >
                           {menuItem.icon}
                           {menuItem.title}

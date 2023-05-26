@@ -15,16 +15,22 @@ import { setSession } from "../../../utils/jwt";
 import { classNames } from "../../../utils/classNames";
 
 
-export default function NewNodeForm({ isEdit, currentNode, getFunc, parentNode, IconValue, onModalClose }) {
+export default function NewNodeForm({ isEdit, currentNode, getFunc, parentNode, IconValue, onModalClose, affiliation }) {
 
   const [loadingParentNodes, setLoadingParentNodes] = useState(false);
   const [parentNodesOptions, setParentNodesOptions] = useState([]);
 
-  const iconsSelectOptions = {
-    "building": makeArrayFromObj(treeIcons).slice(1, 5),
-    "floor": makeArrayFromObj(treeIcons).slice(5, 7),
-    "door": makeArrayFromObj(treeIcons).slice(7, 11),
-    "desktop": makeArrayFromObj(treeIcons)
+  const iconsSelectOptions = (icon) => {
+    if (["building", "buildingMedium", "buildingSmall", "subbuilding"].includes(icon)) {
+      return makeArrayFromObj(treeIcons).slice(1, 5);
+    } if (["floor", "stairs"].includes(icon)) {
+      return makeArrayFromObj(treeIcons).slice(5, 7);
+    } if (["door", "hammer", "balance"].includes(icon)) {
+      return makeArrayFromObj(treeIcons).slice(7, 10);
+    } if (["desktop"].includes(icon)) {
+      return makeArrayFromObj(treeIcons).slice(11, 12);
+    }
+      return makeArrayFromObj(treeIcons)
   };
 
   const NewNodeSchema = Yup.object().shape({
@@ -37,7 +43,7 @@ export default function NewNodeForm({ isEdit, currentNode, getFunc, parentNode, 
     () => ({
       name: currentNode?.name ?? "",
       icon: currentNode?.icon ?? IconValue ?? "na",
-      affiliation: IconValue === "building" ? "" : parseInt(currentNode?.affiliation, 10)
+      affiliation
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentNode]
@@ -58,12 +64,12 @@ export default function NewNodeForm({ isEdit, currentNode, getFunc, parentNode, 
 
   useEffect(() => {
 
-    if (isEdit && IconValue !== "building") getParentNodesSelect(currentNode?.affiliation);
+    if (isEdit === 'true' && !["building", "buildingMedium", "buildingSmall", "subbuilding"].includes(IconValue)) getParentNodesSelect(currentNode?.affiliation);
 
-    if (isEdit && currentNode) {
+    if (isEdit === 'true' && currentNode) {
       reset(defaultValues);
     }
-    if (!isEdit) {
+    if (isEdit === 'false') {
       reset(defaultValues);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -73,10 +79,12 @@ export default function NewNodeForm({ isEdit, currentNode, getFunc, parentNode, 
     const values = getValues();
 
     try {
-      if (!isEdit) {
+      if (isEdit !== 'true') {
+
         await axios.post(`/buildingstructure`, values);
       } else {
-        await axios.patch(`/buildingstructure`, values);
+        console.log(values)
+        await axios.patch(`/buildingstructure`, { ...values, id: currentNode.id });
       }
 
       /* Сохранение пользователя */
@@ -95,16 +103,16 @@ export default function NewNodeForm({ isEdit, currentNode, getFunc, parentNode, 
   };
 
   const getParentNodesSelect = async () => {
-    if (isEdit && IconValue !== "building") {
+    if (isEdit === 'true' && ["building", "buildingMedium", "buildingSmall", "subbuilding"].some((icon) => IconValue !== icon)) {
       await axios
         .get(`http://dev/api/v1/buildingstructure/${currentNode?.affiliation}/affiliation`)
         .then((res) => {
           const parentNodesList = res.data.data;
           const parentNodesOptions = parentNodesList.map((item) => ({
-            'id': item.id,
-            'value': item.id,
-            'label': item.name,
-            'selectID': 'affiliation',
+            "id": item.id,
+            "value": item.id,
+            "label": item.name,
+            "selectID": "affiliation"
           }));
           /* Получаем список род. узлов, очищаем, обрабатываем и пишем в стейт */
           setParentNodesOptions([]);
@@ -112,10 +120,10 @@ export default function NewNodeForm({ isEdit, currentNode, getFunc, parentNode, 
         })
         .catch((err) => {
           const error = err.message && err.info ? `${err.message}: ${err.info}` : err.toString();
-          if (err.code.toString() === '401') {
+          if (err.code.toString() === "401") {
             setSession(null);
           }
-          toast((t) => <Toast t={t} message={error} type='error' />, { className: toastStyles });
+          toast((t) => <Toast t={t} message={error} type="error" />, { className: toastStyles });
         });
     }
   };
@@ -128,26 +136,26 @@ export default function NewNodeForm({ isEdit, currentNode, getFunc, parentNode, 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col gap-5 mt-5">
-        {isEdit && currentNode?.icon !== "building" ?
+        {isEdit === 'true' && !["building", "buildingMedium", "buildingSmall", "subbuilding"].includes(IconValue) ?
           <>
             <Typography variant="label" classname="mb-2">{parentNode?.name}</Typography>
-            <div className={classNames(isEdit ? "" : 'hidden', 'flex items-center gap-5 w-full')}>
-              <RHFSelect name='affiliation'
+            <div className={classNames(isEdit === 'true' ? "" : "hidden", "flex items-center gap-5 w-full")}>
+              <RHFSelect name="affiliation"
                          onChange={() => null}
                          onFocus={() => onFocusParentNode()}
-                         noOptionsMessage={loadingParentNodes ? 'Загрузка...' : 'Результатов не найдено'}
-                         placeholder='Выберите узел'
+                         noOptionsMessage={loadingParentNodes ? "Загрузка..." : "Результатов не найдено"}
+                         placeholder="Выберите узел"
                          options={parentNodesOptions}
               />
             </div>
           </>
-           : null}
+          : null}
         <RHFTextField name="name" placeholder="Название"
                       label={<Typography variant="label">Название</Typography>} direction="column" />
         <RHFRadioGroupWithIcons name="icon"
                                 label={<Typography variant="label" classname="flex">Значок</Typography>}
                                 defaultValue={IconValue} options={
-          iconsSelectOptions[IconValue].map((item, key) => {
+          iconsSelectOptions(IconValue).map((item, key) => {
             return {
               id: key,
               value: item.value,

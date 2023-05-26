@@ -253,7 +253,6 @@ ContentLayoutWithSidebar.propTypes = {
   children: PropTypes.node,
   boxed: PropTypes.string,
   title: PropTypes.string,
-  breadcrumbs: PropTypes.array,
   header: PropTypes.string,
   sidebarSize: PropTypes.string.isRequired,
   fullHeight: PropTypes.string.isRequired,

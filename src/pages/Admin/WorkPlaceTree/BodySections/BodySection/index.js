@@ -5,8 +5,9 @@ const BodySection = ({ children, tabs, selectedTab, setSelectedTab }) => {
     <div className='p-1 h-full flex flex-col'>
       <div className='flex items-center pb-2 mb-2 border-b border-b-transparent gap-2'>
 
-        {tabs.map((tab) => <button
+        {tabs.map((tab, key) => <button
           /* eslint-disable-next-line */
+          key={key}
           type='button'
           onClick={() => {
             setSelectedTab(tab.value)

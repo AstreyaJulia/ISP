@@ -72,7 +72,9 @@ const WorkPlaceSection = ({selectedNode, devicesTree, error}) => {
                             </BasicButton>
                             <Menu as='div' className='relative'>
                                 <Menu.Button>
-                                    <BasicButton size='small' type='button' variant='basic'>Сортировка</BasicButton>
+                                    <div className='inline-flex rounded-lg items-center justify-center border focus:outline-none focus:ring-2 py-1 px-2 text-sm shadow-sm bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-indigo-500 disabled:border-gray-200 dark:disabled:border-gray-700 disabled:hover:border-gray-200 dark:disabled:hover:border-gray-700 disabled:text-gray-500 dark:disabled:text-gray-500 disabled:bg-gray-50 dark:disabled:bg-gray-800 disabled:hover:bg-gray-50 dark:disabled:hover:bg-gray-800 disabled:hover:cursor-not-allowed'>
+                                        Сортировка
+                                    </div>
                                 </Menu.Button>
                                 <Menu.Items
                                     className='absolute right-0 z-50 mt-2 w-40 origin-top-right divide-y divide-gray-100 dark:divide-gray-700 rounded-md bg-white dark:bg-gray-900 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
@@ -133,7 +135,9 @@ const WorkPlaceSection = ({selectedNode, devicesTree, error}) => {
                                 </BasicButton>
                                 <Menu as='div' className='relative'>
                                     <Menu.Button>
-                                        <BasicButton size='small' type='button' variant='basic'>Сортировка</BasicButton>
+                                        <div className='inline-flex rounded-lg items-center justify-center border focus:outline-none focus:ring-2 py-1 px-2 text-sm shadow-sm bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-indigo-500 disabled:border-gray-200 dark:disabled:border-gray-700 disabled:hover:border-gray-200 dark:disabled:hover:border-gray-700 disabled:text-gray-500 dark:disabled:text-gray-500 disabled:bg-gray-50 dark:disabled:bg-gray-800 disabled:hover:bg-gray-50 dark:disabled:hover:bg-gray-800 disabled:hover:cursor-not-allowed'>
+                                            Сортировка
+                                        </div>
                                     </Menu.Button>
                                     <Menu.Items
                                         className='absolute right-0 z-50 mt-2 w-40 origin-top-right divide-y divide-gray-100 dark:divide-gray-700 rounded-md bg-white dark:bg-gray-900 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
