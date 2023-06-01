@@ -13,9 +13,10 @@ import axios from "../../../utils/axios";
 import Toast, { toastStyles } from "../../../components/Toast";
 import { setSession } from "../../../utils/jwt";
 import { classNames } from "../../../utils/classNames";
+import apiErrorHelper from "../../../utils/apiErrorHelper";
 
 
-export default function NewNodeForm({ isEdit, currentNode, getFunc, parentNode, IconValue, onModalClose, affiliation }) {
+export default function NewNodeForm({ isEdit, currentNode, getFunc, parentNode, IconValue, onModalClose }) {
 
   const [loadingParentNodes, setLoadingParentNodes] = useState(false);
   const [parentNodesOptions, setParentNodesOptions] = useState([]);
@@ -41,9 +42,10 @@ export default function NewNodeForm({ isEdit, currentNode, getFunc, parentNode, 
 
   const defaultValues = useMemo(
     () => ({
-      name: currentNode?.name ?? "",
-      icon: currentNode?.icon ?? IconValue ?? "na",
-      affiliation
+      name: isEdit ? currentNode?.name : "",
+      icon: isEdit ? currentNode?.icon : IconValue,
+      // eslint-disable-next-line
+      affiliation: isEdit ? parentNode?.id : !isEdit ? currentNode?.id : ''
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentNode]
@@ -64,12 +66,12 @@ export default function NewNodeForm({ isEdit, currentNode, getFunc, parentNode, 
 
   useEffect(() => {
 
-    if (isEdit === 'true' && !["building", "buildingMedium", "buildingSmall", "subbuilding"].includes(IconValue)) getParentNodesSelect(currentNode?.affiliation);
+    if (isEdit && !["building", "buildingMedium", "buildingSmall", "subbuilding"].includes(IconValue) && parentNode) getParentNodesSelect(currentNode?.affiliation);
 
-    if (isEdit === 'true' && currentNode) {
+    if (isEdit && currentNode) {
       reset(defaultValues);
     }
-    if (isEdit === 'false') {
+    if (!isEdit) {
       reset(defaultValues);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -79,8 +81,7 @@ export default function NewNodeForm({ isEdit, currentNode, getFunc, parentNode, 
     const values = getValues();
 
     try {
-      if (isEdit !== 'true') {
-
+      if (!isEdit) {
         await axios.post(`/buildingstructure`, values);
       } else {
         console.log(values)
@@ -93,19 +94,13 @@ export default function NewNodeForm({ isEdit, currentNode, getFunc, parentNode, 
       getFunc();
       toast((t) => <Toast t={t} message={"Успешно добавлено!"}
                           type="success" />, { className: toastStyles });
-    } catch (err) {
-      const error = err.message && err.info ? `${err.message}: ${err.info}` : err.toString();
-      if (err.code.toString() === "401") {
-        setSession(null);
-      }
-      toast((t) => <Toast t={t} message={error} type="error" />, { className: toastStyles });
-    }
+    } catch (err) {apiErrorHelper(err)}
   };
 
   const getParentNodesSelect = async () => {
-    if (isEdit === 'true' && ["building", "buildingMedium", "buildingSmall", "subbuilding"].some((icon) => IconValue !== icon)) {
+    if (isEdit && ["building", "buildingMedium", "buildingSmall", "subbuilding"].some((icon) => IconValue !== icon)) {
       await axios
-        .get(`http://dev/api/v1/buildingstructure/${currentNode?.affiliation}/affiliation`)
+        .get(`/buildingstructure/${currentNode?.affiliation}/affiliation`)
         .then((res) => {
           const parentNodesList = res.data.data;
           const parentNodesOptions = parentNodesList.map((item) => ({
@@ -118,28 +113,23 @@ export default function NewNodeForm({ isEdit, currentNode, getFunc, parentNode, 
           setParentNodesOptions([]);
           setParentNodesOptions(parentNodesOptions);
         })
-        .catch((err) => {
-          const error = err.message && err.info ? `${err.message}: ${err.info}` : err.toString();
-          if (err.code.toString() === "401") {
-            setSession(null);
-          }
-          toast((t) => <Toast t={t} message={error} type="error" />, { className: toastStyles });
-        });
+        .catch((err) => apiErrorHelper(err));
     }
   };
 
   const onFocusParentNode = async () => {
     setLoadingParentNodes(true);
-    await getParentNodesSelect(currentNode.affiliation).then(() => setLoadingParentNodes(false));
+    if (parentNode) await getParentNodesSelect(parentNode?.id).then(() => setLoadingParentNodes(false));
   };
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col gap-5 mt-5">
-        {isEdit === 'true' && !["building", "buildingMedium", "buildingSmall", "subbuilding"].includes(IconValue) ?
+        <Typography variant="label" classname="mb-2">{!isEdit && `В узел ${currentNode?.name}`}</Typography>
+        {isEdit && !["building", "buildingMedium", "buildingSmall", "subbuilding"].includes(IconValue) ?
           <>
-            <Typography variant="label" classname="mb-2">{parentNode?.name}</Typography>
-            <div className={classNames(isEdit === 'true' ? "" : "hidden", "flex items-center gap-5 w-full")}>
+
+            <div className={classNames(isEdit ? "" : "hidden", "flex items-center gap-5 w-full")}>
               <RHFSelect name="affiliation"
                          onChange={() => null}
                          onFocus={() => onFocusParentNode()}

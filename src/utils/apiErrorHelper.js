@@ -6,7 +6,7 @@ import Toast, { toastStyles } from '../components/Toast';
 
 const apiErrorHelper = (error) => {
   const message = error.message && error.info ? `${error.message}: ${error.info}` : error.toString();
-  if (error.code.toString() === '401') {
+  if (error.code?.toString() === '401') {
     setSession(null);
   }
   toast((t) => <Toast t={t} message={message} type='error' />, { className: toastStyles });
