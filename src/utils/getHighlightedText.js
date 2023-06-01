@@ -1,7 +1,7 @@
 import React from 'react';
 
 export function getHighlightedText(text, highlight) {
-  const parts = text.split(new RegExp(`(${highlight})`, 'gi'));
+  const parts = text.toString().split(new RegExp(`(${highlight})`, 'gi'));
   return highlight !== '' ? (
     <span>
       {' '}

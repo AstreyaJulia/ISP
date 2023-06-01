@@ -14,19 +14,19 @@ const SearchResults = ({ show, query, searchQueryClose, searchType, searchresult
     users: {
       element: (item, query) => (
         <a
-          key={item.fullname}
+          key={item?.fullname}
           href={PATH_ADMIN.users.client.view(item?.id)}
           className="flex flex-col border border-transparent border-b-gray-300 border-dashed py-2 hover:cursor-pointer hover:bg-emerald-50 dark:hover:bg-emerald-800/70 hover:border-emerald-300 hover:border hover:rounded-md p-2"
         >
           <p className="text-sm font-bold text-gray-800 dark:text-gray-200">
-            {getHighlightedText(item.fullname, query)}
+            {getHighlightedText(item?.fullname || '', query)}
           </p>
           <p className="flex items-center text-sm text-gray-600 dark:text-gray-400">
-            <span>{item.profession}</span>
-            <span className="mx-2">•</span>
-            <span>{item.room}</span>
-            <span className="mx-2">•</span>
-            <span>{getHighlightedText(item.phone_worck, query)}</span>
+            <span>{item?.profession}</span>
+            {item?.room ? <><span className="mx-2">•</span>
+            <span>{item?.room}</span></> : ''}
+            {item?.phone_worck ? <><span className="mx-2">•</span>
+            <span>{getHighlightedText(item?.phone_worck || '', query)}</span></> : ''}
           </p>
         </a>
       ),
@@ -41,12 +41,12 @@ const SearchResults = ({ show, query, searchQueryClose, searchType, searchresult
             <p className="text-sm font-bold  text-gray-800 dark:text-gray-200 mb-1">
               <span className="inline-flex items-center font-medium px-2.5 py-0.5 text-xs bg-cyan-500/30 text-cyan-700 dark:text-cyan-300 rounded-md">
                 <span className="mr-1">Вх. №:</span>
-                {getHighlightedText(item.DELO_CORRESP_NUM, query)}
+                {getHighlightedText(item.DELO_CORRESP_NUM || '', query)}
               </span>
               <span className="inline-flex items-center font-medium px-2.5 py-0.5 text-xs text-gray-700 dark:text-gray-300">
-                {getHighlightedText(item.INSERT_DATE, query)}
+                {getHighlightedText(item.INSERT_DATE || '', query)}
               </span>
-              <span className="ml-2">{getHighlightedText(item.CORRESP_MSG_ANNOTATION, query)}</span>
+              <span className="ml-2">{getHighlightedText(item.CORRESP_MSG_ANNOTATION || '', query)}</span>
             </p>
             <p className="flex items-center text-sm text-gray-600 dark:text-gray-400">
               {item.MESSAGE_TYPE === 'Электронная почта' ? (
@@ -79,7 +79,7 @@ const SearchResults = ({ show, query, searchQueryClose, searchType, searchresult
                   />
                 </svg>
               )}
-              <span className="shrink-0">{getHighlightedText(item.SENDER_NAME, query)}</span>
+              <span className="shrink-0">{getHighlightedText(item.SENDER_NAME || '', query)}</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -106,12 +106,12 @@ const SearchResults = ({ show, query, searchQueryClose, searchType, searchresult
             <p className="text-sm font-bold  text-gray-800 dark:text-gray-200 mb-1">
               <span className="inline-flex items-center font-medium px-2.5 py-0.5 text-xs bg-indigo-500/30 text-indigo-700 dark:text-indigo-300 rounded-md">
                 <span className="mr-1">Исх. №:</span>
-                {getHighlightedText(item.DELO_SEND_NUM, query)}
+                {getHighlightedText(item.DELO_SEND_NUM || '', query)}
               </span>
               <span className="inline-flex items-center font-medium px-2.5 py-0.5 text-xs text-gray-700 dark:text-gray-300">
-                {getHighlightedText(item.INSERT_DATE, query)}
+                {getHighlightedText(item.INSERT_DATE || '', query)}
               </span>
-              <span className="ml-2">{getHighlightedText(item.SEND_MSG_ANNOTATION, query)}</span>
+              <span className="ml-2">{getHighlightedText(item.SEND_MSG_ANNOTATION || '', query)}</span>
             </p>
             <p className="flex items-center text-sm text-gray-600 dark:text-gray-400">
               {
@@ -173,7 +173,7 @@ const SearchResults = ({ show, query, searchQueryClose, searchType, searchresult
               >
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
               </svg>
-              <span>{getHighlightedText(item.SEND_TO, query)}</span>
+              <span>{getHighlightedText(item.SEND_TO || '', query)}</span>
             </p>
           </div>
         </a>
