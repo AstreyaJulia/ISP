@@ -44,10 +44,19 @@ class BuildingStructure
   {
     $param = $this->helpers->validateINT($this->idBuildingObject, 'GET-запросе');
     $sql = "SELECT
-              *
-            FROM sdc_room
-            WHERE id = ?";
-    return $this->helpers->db->run($sql, [$param])->fetch(\PDO::FETCH_ASSOC);
+              room.id AS id,
+              room.menuindex,
+              room.ip,
+              room.name,
+              room.icon,
+              room.affiliation,
+              room.alarm_button,
+              room.phone_worck,
+              userAttributes.fullname AS workplace_user
+            FROM sdc_room AS room
+            LEFT JOIN sdc_user_attributes AS userAttributes ON room.id = userAttributes.room
+            WHERE room.id = ?";
+    return $this->helpers->db->run($sql, [$param])->fetch(\PDO::NULL_TO_STRING);
   }
 
   /**
