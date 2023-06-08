@@ -8,7 +8,7 @@ abstract class User
 {
 
   public readonly int $id;
-  public readonly int|NULL $idGAS;
+  public readonly string $idGAS;
   public readonly string $username;
   private $password;
   public readonly string|NULL $fullname;
