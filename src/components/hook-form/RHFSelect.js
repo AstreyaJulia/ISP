@@ -36,6 +36,10 @@ export default function RHFSelect({ name, label, options, placeholder, isMulti, 
       </components.Placeholder>
     );
 
+  Placeholder.propTypes = {
+    children: PropTypes.node,
+  }
+
   /* Меню */
   const MenuList = (props) => (
       <components.MenuList {...props}>
@@ -43,12 +47,20 @@ export default function RHFSelect({ name, label, options, placeholder, isMulti, 
       </components.MenuList>
     );
 
+  MenuList.propTypes = {
+    children: PropTypes.node,
+  }
+
   /* Элемент меню */
   const Option = (props) => (
     <components.Option {...props}>
       <div className='px-3 py-2'>{props.children}</div>
     </components.Option>
   );
+
+  Option.propTypes = {
+    children: PropTypes.node,
+  }
 
   /* Форматтер элемента меню */
   const formatOptionLabel = ({ label, icon, customAbbreviation }) => (
@@ -79,6 +91,10 @@ export default function RHFSelect({ name, label, options, placeholder, isMulti, 
         </span>
       </components.MultiValueLabel>
     );
+
+  MultiValueLabel.propTypes = {
+    children: PropTypes.node,
+  }
 
   /* Кнопка удаления для плашки мультиселекта */
   const MultiValueRemove = (props) => (
@@ -240,8 +256,10 @@ RHFSelect.propTypes = {
   placeholder: PropTypes.string,
   isMulti: PropTypes.string,
   label: PropTypes.node,
-  defaultValue: PropTypes.string,
   direction: PropTypes.oneOf(['row', 'column']),
+  onChange: PropTypes.func,
+  onFocus: PropTypes.func,
+  noOptionsMessage: PropTypes.string
 };
 
 RHFSelect.defaultProps = {

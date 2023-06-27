@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Menu } from "@headlessui/react";
 import PerfectScrollbar from "react-perfect-scrollbar";
+import PropTypes from "prop-types";
 import ContentLayoutWithSidebar from "../pagesLayouts/ContentLayoutWithSidebar";
 import buildingAdd from "../../assets/images/icons/building_add.png";
 import floorAdd from "../../assets/images/icons/floor_add.png";
@@ -11,7 +12,7 @@ import useAuth from "../../hooks/useAuth";
 import axios from "../../utils/axios";
 import apiErrorHelper from "../../utils/apiErrorHelper";
 import TreeView from "../../components/TreeView";
-import { courtTree, devicesTree } from "../../@mock/SampleData";
+import { devicesTree } from "../../@mock/SampleData";
 import NewNodeForm from "./WorkPlaceTree/NewNodeForm";
 import Modal from "../../components/Modal";
 import BuildingSection from "./WorkPlaceTree/BodySections/BuildingSection";
@@ -36,13 +37,11 @@ const Workplaces = () => {
 
     const [editMode, setEditMode] = useState(false); // Режим редактирования / добавления записи
     const [modalNewNodeOpened, setModalNewNodeOpened] = useState(false);
-    const [modalEditNodeOpened, setModalEditNodeOpened] = useState(false);
     const [openDialog, setOpenDialog] = useState(false); // модал удаления
     const [modalNewNodeTitle, setModalNewNodeTitle] = useState("");
     const [modalNewNodeIconValue, setModalNewNodeIconValue] = useState("na");
 
-    const nodeMenu = ({ props }) => {
-      return [
+    const nodeMenu = ({ props }) => [
         {
           title: "Редактировать",
           icon: <svg xmlns="http://www.w3.org/2000/svg" height="24px"
@@ -122,7 +121,6 @@ const Workplaces = () => {
           href: null
         }
       ];
-    };
 
     useEffect(() => {
       initialize();
@@ -398,3 +396,8 @@ const Workplaces = () => {
 ;
 
 export default Workplaces;
+
+Workplaces.propTypes = {
+  firstNode: PropTypes.object,
+  lastNode: PropTypes.object
+}

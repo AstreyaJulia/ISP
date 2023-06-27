@@ -359,7 +359,7 @@ const Processed = ({ data, isLoading, all, error }) => {
                       <div className='flex items-center gap-2'>
                         <Typography variant='body1' >до:</Typography>
                         <Badge
-                            size="medium"
+                            size="small"
                             shape="rounded"
                             color={getCaseUntilColor(selectedCase?.DATE_UNTIL ?? null)}
                             item={selectedCase?.DATE_UNTIL}
@@ -374,7 +374,7 @@ const Processed = ({ data, isLoading, all, error }) => {
                 <div className='flex items-center gap-2'>
                   <Typography variant='body1' classname='mb-2'>Срок рассмотрения до:</Typography>
                   <Badge
-                      size="medium"
+                      size="small"
                       shape="rounded"
                       className="mb-2"
                       color={getCaseUntilColor(

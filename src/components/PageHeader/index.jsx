@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { classNames } from '../../utils/classNames';
 import Typography from '../Typography';
-import { PATH_HOME } from '../../routes/paths';
 
 /** Заголовок содержимого страницы, "хлебные крошки"
  * @param pages - объект для навигации:
@@ -49,10 +48,11 @@ const PageHeader = ({ classname, header, children, backLinkTitle, backLinkUrl })
 );
 
 PageHeader.propTypes = {
-  pages: PropTypes.array,
   classname: PropTypes.string,
   header: PropTypes.string,
   children: PropTypes.node,
+  backLinkTitle: PropTypes.string,
+  backLinkUrl: PropTypes.string
 };
 
 export default PageHeader;

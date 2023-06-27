@@ -16,7 +16,9 @@ const DataTableToolBar = ({ children, className, isLoading, error }) => {
 
 DataTableToolBar.propTypes = {
   children: PropTypes.node,
+  isLoading: PropTypes.string,
   className: PropTypes.string,
+  error: PropTypes.string
 };
 
 export default DataTableToolBar;

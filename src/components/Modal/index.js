@@ -1,5 +1,6 @@
 import {Dialog, Transition} from '@headlessui/react';
-import React, {Fragment, useRef} from 'react';
+import React, {Fragment} from 'react';
+import PropTypes from "prop-types";
 import {classNames} from '../../utils/classNames';
 import Typography from "../Typography";
 
@@ -85,9 +86,23 @@ const Modal = ({open, setOpen, onModalClose = null, children, title, size, butto
     );
 };
 
+Modal.propTypes = {
+    open: PropTypes.bool,
+    setOpen: PropTypes.func,
+    onModalClose: PropTypes.func,
+    children: PropTypes.node,
+    title: PropTypes.string,
+    size: PropTypes.string,
+    buttonRef: PropTypes.node
+}
+
 const Body = ({children}) => <div className='w-full'>
     {children}
 </div>;
+
+Body.propTypes = {
+    children: PropTypes.node
+}
 
 const Toolbar = ({children, title = null, subtitle = null, icon = null, titleVariant = 'h5'}) => <div
     className='flex flex-col'>
@@ -112,6 +127,14 @@ const Toolbar = ({children, title = null, subtitle = null, icon = null, titleVar
 
     </div>
 </div>;
+
+Toolbar.propTypes = {
+    children: PropTypes.node,
+    title: PropTypes.string,
+    subtitle: PropTypes.string,
+    icon: PropTypes.node,
+    titleVariant: PropTypes.string
+}
 
 Modal.Toolbar = (props) => Toolbar(props);
 Modal.Body = (props) => Body(props);

@@ -3,6 +3,7 @@ import {Controller, useFormContext} from "react-hook-form";
 import {RadioGroup} from "@headlessui/react";
 import {Tooltip} from "react-tooltip";
 import PerfectScrollbar from 'react-perfect-scrollbar';
+import PropTypes from "prop-types";
 import {classNames} from "../../utils/classNames";
 
 
@@ -84,4 +85,12 @@ export default function RHFRadioGroupWithIcons({name, label, options, defaultVal
 
             </div>)}
     />);
+}
+
+RHFRadioGroupWithIcons.propTypes = {
+  name: PropTypes.string,
+  label: PropTypes.string,
+  options: PropTypes.array,
+  defaultValue: PropTypes.object,
+  direction: PropTypes.string
 }

@@ -1,11 +1,10 @@
-import React, { Fragment, useRef, useState } from 'react';
-import { Dialog, Transition } from '@headlessui/react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Modal from '../../components/Modal';
 import BasicButton from '../../components/BasicButton';
 
 const EventsModal = ({ open, setOpen }) => {
-  const [isEdit, setIsEdit] = useState(false)
+  const [isEdit] = useState(false)
 
   return (
     <Modal setOpen={setOpen} open={open}  size='lg' >

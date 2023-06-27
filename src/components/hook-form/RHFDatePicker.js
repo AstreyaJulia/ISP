@@ -2,15 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Controller, useFormContext } from 'react-hook-form';
 import DatePicker, { registerLocale } from 'react-datepicker';
-import {isDate, parse, parseISO} from 'date-fns';
+import {isDate, parseISO} from 'date-fns';
 import ru from 'date-fns/locale/ru';
 import { Tooltip } from 'react-tooltip';
 import { classNames } from '../../utils/classNames';
-import { formatDate } from '../../utils/formatTime';
 
 registerLocale('ru', ru);
 
-export default function RHFDatePicker({ name, label, placeholder, inputFormat, direction, ...other }) {
+export default function RHFDatePicker({ name, label, placeholder, direction, ...other }) {
   const { control } = useFormContext();
 
   const getDate = (date) => {
@@ -27,7 +26,7 @@ export default function RHFDatePicker({ name, label, placeholder, inputFormat, d
     <Controller
       name={name}
       control={control}
-      render={({ field: { value, onChange, ref }, fieldState: { error } }) => (
+      render={({ field: { value, onChange }, fieldState: { error } }) => (
         <div className={classNames('flex', direction === 'row' ? 'items-center justify-end grow-0' : 'flex-col', label ? 'gap-4' : '')}>
           {label ? (
             <label htmlFor={name} className={classNames('flex flex-col shrink-0', direction === 'row' ? 'text-right w-52' : 'w-full text-left')} >

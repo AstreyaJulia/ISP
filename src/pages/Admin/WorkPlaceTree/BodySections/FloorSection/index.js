@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
+import PropTypes from "prop-types";
 import BodySection from '../BodySection';
 import Typography from '../../../../../components/Typography';
 import BasicButton from '../../../../../components/BasicButton';
@@ -59,3 +60,7 @@ const FloorSection = ({ selectedNode }) => {
 };
 
 export default FloorSection;
+
+FloorSection.propTypes = {
+  selectedNode: PropTypes.object,
+}

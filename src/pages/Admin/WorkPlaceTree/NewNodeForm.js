@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import React, { useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
+import PropTypes from "prop-types";
 import { FormProvider, RHFRadioGroupWithIcons, RHFSelect, RHFTextField } from "../../../components/hook-form";
 import Typography from "../../../components/Typography";
 import { treeIcons } from "../../../components/TreeView/workplacesTreeIcons";
@@ -11,7 +12,6 @@ import BasicButton from "../../../components/BasicButton";
 import LoadingButton from "../../../components/LoadingButton";
 import axios from "../../../utils/axios";
 import Toast, { toastStyles } from "../../../components/Toast";
-import { setSession } from "../../../utils/jwt";
 import { classNames } from "../../../utils/classNames";
 import apiErrorHelper from "../../../utils/apiErrorHelper";
 
@@ -59,7 +59,6 @@ export default function NewNodeForm({ isEdit, currentNode, getFunc, parentNode, 
   const {
     reset,
     getValues,
-    setValue,
     handleSubmit,
     formState: { isSubmitting }
   } = methods;
@@ -145,15 +144,13 @@ export default function NewNodeForm({ isEdit, currentNode, getFunc, parentNode, 
         <RHFRadioGroupWithIcons name="icon"
                                 label={<Typography variant="label" classname="flex">Значок</Typography>}
                                 defaultValue={IconValue} options={
-          iconsSelectOptions(IconValue).map((item, key) => {
-            return {
+          iconsSelectOptions(IconValue).map((item, key) => ({
               id: key,
               value: item.value,
               label: item.label,
               selectID: "icon",
               icon: item.icon
-            };
-          })
+            }))
         } />
         <div className="flex items-center justify-end gap-5 mt-5">
 
@@ -172,4 +169,13 @@ export default function NewNodeForm({ isEdit, currentNode, getFunc, parentNode, 
     </FormProvider>
   );
 
+}
+
+NewNodeForm.propTypes = {
+  isEdit: PropTypes.bool,
+  currentNode: PropTypes.object,
+  getFunc: PropTypes.func,
+  parentNode: PropTypes.object,
+  IconValue: PropTypes.string,
+  onModalClose: PropTypes.func
 }

@@ -682,10 +682,6 @@ const treeIcons = {
   },
 };
 
-const workplacesTreeIcons = (icon) => {
-
-  return treeIcons[!icon || !treeIcons[icon] || icon === '' ? 'na' : icon];
-
-};
+const workplacesTreeIcons = (icon) => treeIcons[!icon || !treeIcons[icon] || icon === '' ? 'na' : icon];
 
 export { workplacesTreeIcons, treeIcons };

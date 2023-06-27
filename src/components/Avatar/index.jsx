@@ -129,6 +129,7 @@ Avatar.propTypes = {
   name: PropTypes.string.isRequired,
   /** Изображение аватара */
   avatar: PropTypes.string,
+  title: PropTypes.string,
   /** Состояние загрузки. Показивает скелетон */
   isLoading: PropTypes.bool,
   /**  Цвет аватара */

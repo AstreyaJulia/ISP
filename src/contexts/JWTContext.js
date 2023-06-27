@@ -97,7 +97,6 @@ function AuthProvider({ children }) {
   const getUserData = async () => axios
       .get('/users/login-data')
       .then((res) => {
-        const { fullname, id, sidebar, sudo, theme, username, professionID, professionName } = res.data.data;
 
         dispatch({
           type: 'INITIALIZE',

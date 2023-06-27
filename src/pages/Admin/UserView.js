@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import BasicPage from '../pagesLayouts/BasicPage';
 import PageHeader from '../../components/PageHeader';
@@ -7,9 +6,8 @@ import useAuth from '../../hooks/useAuth';
 import UserViewSection from '../../components/UserViewSection';
 import { useDispatch, useSelector } from '../../store';
 import { getStaffInfoById } from '../../store/slices/staff';
-import { PATH_ADMIN, PATH_INFO } from '../../routes/paths';
 
-const UserView = ({ user }) => {
+const UserView = () => {
 
   const dispatch = useDispatch();
   const { staffUser, isLoading, error } = useSelector((state) => state.staff);
@@ -35,7 +33,3 @@ const UserView = ({ user }) => {
 };
 
 export default UserView;
-
-UserView.propTypes = {
-  user: PropTypes.bool
-};

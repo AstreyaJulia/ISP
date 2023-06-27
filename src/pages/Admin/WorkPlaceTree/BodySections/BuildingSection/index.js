@@ -1,14 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
+import PropTypes from "prop-types";
 import BodySection from '../BodySection';
 import BasicButton from '../../../../../components/BasicButton';
 import Typography from '../../../../../components/Typography';
-import useAuth from "../../../../../hooks/useAuth";
 
 const BuildingSection = ({selectedNode}) => {
 
     /** Состояние пользователя */
-    const {initialize} = useAuth();
     const [selectedTab, setSelectedTab] = useState('buildingInfo');
 
     const sectionsTabs = [
@@ -65,3 +64,7 @@ const BuildingSection = ({selectedNode}) => {
 };
 
 export default BuildingSection;
+
+BuildingSection.propTypes = {
+    selectedNode: PropTypes.object
+}

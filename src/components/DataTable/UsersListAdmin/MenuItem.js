@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import PropTypes from 'prop-types';
 import {CopyToClipboard} from "react-copy-to-clipboard";
 import {useNavigate} from "react-router-dom";
 import {PATH_ADMIN} from "../../../routes/paths";
@@ -10,7 +11,7 @@ import {classNames} from "../../../utils/classNames";
 import {getHighlightedText} from "../../../utils/getHighlightedText";
 import ElementsDropdown from "../../ElementsDropdown";
 
-const MenuItem = ({item, key, query, blockUser}) => {
+const MenuItem = ({item, query, blockUser}) => {
     const [copied, setIsCopied] = useState('false');
     const navigate = useNavigate();
 
@@ -154,3 +155,9 @@ const MenuItem = ({item, key, query, blockUser}) => {
 }
 
 export default MenuItem
+
+MenuItem.propTypes = {
+    item: PropTypes.object,
+    query: PropTypes.string,
+    blockUser: PropTypes.func
+}

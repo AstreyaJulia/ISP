@@ -2,6 +2,7 @@ import { formatISO, intervalToDuration, parseISO } from 'date-fns';
 import React from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import PropTypes from "prop-types";
 import { Avatar } from '../Avatar';
 import { getInitials, getInitialsOnly } from '../../utils/getInitials';
 import { getAvatarColor } from '../../utils/getAvatarColor';
@@ -14,7 +15,6 @@ import { fDate } from '../../utils/formatTime';
 import { getAmount } from '../../utils/getAmount';
 import axios from '../../utils/axios';
 import Toast, { toastStyles } from '../Toast';
-import { setSession } from '../../utils/jwt';
 import LoadingSkeleton from '../LoadingSkeleton';
 import apiErrorHelper from '../../utils/apiErrorHelper';
 import { formatMobileNumber } from '../../utils/formatMobileNumber';
@@ -273,3 +273,10 @@ export default function UserViewSection({ currentUser, getFunc, isLoading, error
     </div>}
   </Card> : <Alert alertType='error' title={error} />);
 };
+
+UserViewSection.propTypes = {
+  currentUser: PropTypes.object,
+  getFunc: PropTypes.func,
+  isLoading: PropTypes.string,
+  error: PropTypes.string
+}

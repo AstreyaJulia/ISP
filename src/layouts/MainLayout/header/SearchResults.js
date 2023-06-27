@@ -6,7 +6,7 @@ import { getAmount } from '../../../utils/getAmount';
 import { classNames } from '../../../utils/classNames';
 import { getHighlightedText } from '../../../utils/getHighlightedText';
 import { fDate } from '../../../utils/formatTime';
-import {PATH_ADMIN} from "../../../routes/paths";
+import { PATH_INFO } from "../../../routes/paths";
 
 
 const SearchResults = ({ show, query, searchQueryClose, searchType, searchresults, isLoading, error }) => {
@@ -15,7 +15,7 @@ const SearchResults = ({ show, query, searchQueryClose, searchType, searchresult
       element: (item, query) => (
         <a
           key={item?.fullname}
-          href={PATH_ADMIN.users.client.view(item?.id)}
+          href={PATH_INFO.phoneBook.client.view(item?.id)}
           className="flex flex-col border border-transparent border-b-gray-300 border-dashed py-2 hover:cursor-pointer hover:bg-emerald-50 dark:hover:bg-emerald-800/70 hover:border-emerald-300 hover:border hover:rounded-md p-2"
         >
           <p className="text-sm font-bold text-gray-800 dark:text-gray-200">

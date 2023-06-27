@@ -43,3 +43,7 @@ const ElementsDropdown = ({ menuItems }) => (<Menu as='div' className='relative'
   </Menu>);
 
 export default ElementsDropdown;
+
+ElementsDropdown.propTypes = {
+  menuItems: PropTypes.array
+}

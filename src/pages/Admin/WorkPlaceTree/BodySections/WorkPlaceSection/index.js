@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import {Menu} from '@headlessui/react';
+import PropTypes from "prop-types";
 import BodySection from '../BodySection';
 import TreeView from '../../../../../components/TreeView';
 import BasicButton from '../../../../../components/BasicButton';
@@ -211,3 +212,9 @@ const WorkPlaceSection = ({selectedNode, devicesTree, error}) => {
 };
 
 export default WorkPlaceSection;
+
+WorkPlaceSection.propTypes = {
+    selectedNode: PropTypes.object,
+    devicesTree: PropTypes.array,
+    error: PropTypes.string
+}

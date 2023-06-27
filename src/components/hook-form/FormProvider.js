@@ -5,6 +5,7 @@ FormProvider.propTypes = {
   children: PropTypes.node.isRequired,
   methods: PropTypes.object.isRequired,
   onSubmit: PropTypes.func,
+  className: PropTypes.string
 };
 
 export default function FormProvider({ children, onSubmit, methods, ...props }) {

@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
+import PropTypes from "prop-types";
 import TreeView from "../index";
 import { classNames } from "../../../utils/classNames";
 import { workplacesTreeIcons } from "../workplacesTreeIcons";
@@ -18,7 +19,7 @@ const TreeNode = ({
                     lastNode
                   }) => {
 
-  const { id, name, icon, childNodes, brand, model, inventNumber, version, children } = node;
+  const { name, icon, childNodes, brand, model, inventNumber, version, children } = node;
   const [open, setOpen] = useState(false);
 
   const handleClick = (node) => {
@@ -37,7 +38,7 @@ const TreeNode = ({
 
         <div className="flex items-center justify-between">
           <div
-            className={classNames(selectedNode && selectedNode?.id === node?.id ? "bg-gray-200 text-gray-800 rounded-lg" : "text-gray-700 dark:text-gray-300", "flex items-center w-full")}>
+            className={classNames(selectedNode && selectedNode?.id === node?.id ? "bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-300 rounded-lg" : "text-gray-700 dark:text-gray-300", "flex items-center w-full")}>
             {childNodes === "true" || children ?
               <button type="button" onClick={() => handleClick(node)} className="py-3 pl-1.5">
                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -87,7 +88,7 @@ const TreeNode = ({
                         <a
                           href={menuItem.href}
                           onClick={() => menuItem.onClick(node)}
-                          className={classNames(active ? "cursor-pointer bg-gray-100 text-gray-900 dark:text-gray-100" : "text-gray-900 dark:text-gray-100", "group flex w-full gap-2 items-center rounded-md px-2 py-2 text-sm", menuItem.disabled ? "opacity-50" : "")}
+                          className={classNames(active ? "cursor-pointer bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100" : "text-gray-900 dark:text-gray-100", "group flex w-full gap-2 items-center rounded-md px-2 py-2 text-sm", menuItem.disabled ? "opacity-50" : "")}
                         >
                           {menuItem.icon}
                           {menuItem.title}
@@ -126,3 +127,17 @@ const TreeNode = ({
 };
 
 export default TreeNode;
+
+TreeNode.propTypes = {
+  node: PropTypes.object,
+  handleOpen: PropTypes.func,
+  handleNameClick: PropTypes.func,
+  count: PropTypes.number,
+  isLoading: PropTypes.bool,
+  error: PropTypes.string,
+  selectedNode: PropTypes.object,
+  setSelectedNode: PropTypes.func,
+  nodeMenu: PropTypes.func,
+  firstNode: PropTypes.bool,
+  lastNode: PropTypes.bool
+}

@@ -111,7 +111,10 @@ const DeleteModal = ({ open, setOpen, deleteOnClick, deletedNode, setDeletedNode
 
 DeleteModal.propTypes = {
   open: PropTypes.bool.isRequired,
-  setOpen: PropTypes.func.isRequired
+  setOpen: PropTypes.func.isRequired,
+  deleteOnClick: PropTypes.func,
+  deletedNode: PropTypes.object,
+  setDeletedNode: PropTypes.func
 };
 
 export default DeleteModal;

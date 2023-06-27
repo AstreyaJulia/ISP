@@ -257,4 +257,6 @@ ContentLayoutWithSidebar.propTypes = {
   sidebarSize: PropTypes.string.isRequired,
   fullHeight: PropTypes.string.isRequired,
   meta: PropTypes.object,
+  backLinkTitle: PropTypes.string,
+  backLinkUrl: PropTypes.string
 };

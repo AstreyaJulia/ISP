@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from "prop-types";
 import { classNames } from '../../utils/classNames';
 
 const LoadingContentSpinner = ({ classname }) => (
@@ -21,3 +22,7 @@ const LoadingContentSpinner = ({ classname }) => (
   );
 
 export default LoadingContentSpinner;
+
+LoadingContentSpinner.propTypes = {
+  classname: PropTypes.string
+}

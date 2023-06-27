@@ -1,16 +1,10 @@
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useEffect, useMemo, useState } from 'react';
-import axios from '../../utils/axios';
-import toast from 'react-hot-toast';
-import Toast, { toastStyles } from '../../components/Toast';
-import { setSession } from '../../utils/jwt';
-import { FormProvider, RHFRadioGroupWithIcons, RHFTextField } from '../../components/hook-form';
-import Typography from '../../components/Typography';
-import BasicButton from '../../components/BasicButton';
-import LoadingButton from '../../components/LoadingButton';
+import { useEffect, useMemo } from 'react';
 import { isDate, parseISO } from 'date-fns';
+import PropTypes from "prop-types";
+import { FormProvider, } from '../../components/hook-form';
 
 const NewEditEventForm = ({ currentEvent, isEdit }) => {
 
@@ -62,9 +56,7 @@ const NewEditEventForm = ({ currentEvent, isEdit }) => {
   const {
     reset,
     getValues,
-    setValue,
-    handleSubmit,
-    formState: { isSubmitting },
+    handleSubmit
   } = methods;
 
   useEffect(() => {
@@ -86,12 +78,15 @@ const NewEditEventForm = ({ currentEvent, isEdit }) => {
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-      <div className='flex flex-col gap-5 mt-5'>
-
-      </div>
+      <div className='flex flex-col gap-5 mt-5' />
     </FormProvider>
   );
 
 };
 
 export default NewEditEventForm;
+
+NewEditEventForm.propTypes = {
+  currentEvent: PropTypes.object,
+  isEdit: PropTypes.bool
+}

@@ -1,7 +1,7 @@
+import PropTypes from "prop-types";
 import { classNames } from '../../../../../utils/classNames';
 
-const BodySection = ({ children, tabs, selectedTab, setSelectedTab }) => {
-  return (
+const BodySection = ({ children, tabs, selectedTab, setSelectedTab }) => (
     <div className='p-1 h-full flex flex-col'>
       <div className='flex items-center pb-2 mb-2 border-b border-b-transparent gap-2'>
 
@@ -25,6 +25,12 @@ const BodySection = ({ children, tabs, selectedTab, setSelectedTab }) => {
       </div>
     </div>
   );
-};
 
 export default BodySection;
+
+BodySection.propTypes = {
+  children: PropTypes.node,
+  tabs: PropTypes.array,
+  selectedTab: PropTypes.string,
+  setSelectedTab: PropTypes.func
+}
