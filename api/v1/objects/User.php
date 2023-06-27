@@ -15,7 +15,7 @@ abstract class User
   public readonly int $sudo;
   public readonly int $sidebar;
   public readonly int $theme;
-  public readonly int|NULL $professionID;
+  public readonly int|string $professionID;
   public readonly string|NULL $professionName;
   public readonly int|string $membership;
 
@@ -44,7 +44,7 @@ abstract class User
   /**
    * set элемент для professionID
    */
-  public function setProfessionID(int|NULL $professionID): void
+  public function setProfessionID(int|string $professionID): void
   {
     $this->professionID = $professionID;
   }
