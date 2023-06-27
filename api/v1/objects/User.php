@@ -17,7 +17,7 @@ abstract class User
   public readonly int $theme;
   public readonly int|NULL $professionID;
   public readonly string|NULL $professionName;
-  public readonly int|NULL $membership;
+  public readonly int|string $membership;
 
   public function __construct(
     public readonly DB $db = new \Api\Objects\DB(DB_NAME, DB_USER, DB_PASS, DB_HOST),
