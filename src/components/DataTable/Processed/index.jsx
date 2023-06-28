@@ -56,7 +56,7 @@ const Processed = ({ data, isLoading, all, error }) => {
 
   const getStatusSettings = (status, item) => {
     const statusSettings = {
-      motionless: { title: 'Без движения', color: 'red' },
+      motionless: { title: 'Без движения', color: 'orange' },
       process: { title: 'Рассматривается', color: 'indigo' },
       stopped: { title: 'Приостановлено', color: 'orange' },
     };

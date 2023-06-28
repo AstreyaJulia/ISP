@@ -7,7 +7,7 @@ import {PATH_CASE} from "../../../../routes/paths";
 
 const CasesOverPeriodWidgetAll = ({ user }) => {
   /** Должности, которым доступна отрисовка */
-  const availableUsers = [null, 1, 2, 3, 6, 7];
+  const availableUsers = ['', 1, 2, 3, 6, 7];
   /* [
     {id: 1, profession: 'Председатель', group: 24},
     {id: 2, profession: 'Заместитель председателя', group: 24},

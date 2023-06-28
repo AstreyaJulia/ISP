@@ -111,6 +111,19 @@ const CasesOverPeriod = ({ data, isLoading, error, all }) => {
     setRows(selectFilterFunction(data, tempFilter));
   };
 
+  const getStatusSettings = (status, item) => {
+    const statusSettings = {
+      motionless: { title: 'Без движения', color: 'orange' },
+      process: { title: 'Рассматривается', color: 'indigo' },
+      stopped: { title: 'Приостановлено', color: 'orange' },
+      overperiod: { title: 'Нарушение срока рассмотрения', color: 'red' },
+    };
+    if (status) {
+      return statusSettings[status][item];
+    }
+    return statusSettings.motionless[item];
+  };
+
   return (
     <>
       <Alert alertType="info" containerClassName="mt-7">
@@ -212,7 +225,10 @@ const CasesOverPeriod = ({ data, isLoading, error, all }) => {
           </PDFViewer>
         </PdfModal>
       </DataTableCore>
-      <CaseInfoModal open={modalOpened} setOpen={setModalOpened} onModalClose={handleModalClosed}>
+      <CaseInfoModal open={modalOpened} setOpen={setModalOpened} onModalClose={handleModalClosed} item={selectedCase} caseStatus={{
+        color: getStatusSettings(selectedCase?.CASE_STATUS ?? null, 'color'),
+        item: getStatusSettings(selectedCase?.CASE_STATUS ?? null, 'title')
+      }}>
         <div className="mt-7">
           <p className="text-gray-600 dark:text-gray-400 text-sm font-bold mb-2">Дата рассмотрения дела:</p>
           <p className="text-gray-700 dark:text-gray-300 text-sm mb-5">{selectedCase.RESULT_DATE}</p>

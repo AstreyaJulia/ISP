@@ -37,7 +37,7 @@ export const PATH_CASE = {
 
     processAll: { // По всем судьям
       client: pathJoin(ROOTS_CASE, '/process/all'),
-      accessibleProfessions: [1, 2, 4, 5, 6, null],
+      accessibleProfessions: [1, 2, 4, 5, 6, ''],
       accessibleRoles: null,
       api: {
         main: null,
@@ -56,7 +56,7 @@ export const PATH_CASE = {
 
     overPeriodAll: { // По всем судьям
       client: pathJoin(ROOTS_CASE, '/over-period/all'),
-      accessibleProfessions: [1, 2, 4, 5, 6, null],
+      accessibleProfessions: [1, 2, 4, 5, 6, ''],
       accessibleRoles: null,
       api: {
         main: null,
@@ -74,7 +74,7 @@ export const PATH_CASE = {
     },
     noLastEventsAll: { // По всем судьям
       client: pathJoin(ROOTS_CASE, '/no-last-events/all'),
-      accessibleProfessions: [1, 2, 6, null],
+      accessibleProfessions: [1, 2, 6, ''],
       accessibleRoles: null,
       api: {
         main: null,
@@ -85,7 +85,7 @@ export const PATH_CASE = {
     /* Просмотр данных по делу по ид */
     view: { // category - картотека дела, id - ид дела в картотеке
       client: (id, category) => pathJoin(ROOTS_CASE, `/case/view&case=${category}&id=${id}`),
-      accessibleProfessions: null,
+      accessibleProfessions: '',
       accessibleRoles: null,
       api: {
         main: null,
@@ -104,7 +104,7 @@ export const PATH_CASE = {
     },
     neededPublicationAll: { // По всем судьям
       client: pathJoin(ROOTS_CASE, '/publication/needed-publication/all'),
-      accessibleProfessions: [1, 2, 4, 5, 6, null],
+      accessibleProfessions: [1, 2, 4, 5, 6, ''],
       accessibleRoles: null,
       api: {
         main: null,
@@ -122,7 +122,7 @@ export const PATH_CASE = {
     },
     isPublishedAll: { // По всем судьям
       client: pathJoin(ROOTS_CASE, '/publication/is-published/all'),
-      accessibleProfessions: [1, 2, 4, 5, 6, null],
+      accessibleProfessions: [1, 2, 4, 5, 6, ''],
       accessibleRoles: null,
       api: {
         main: null,
@@ -142,7 +142,7 @@ const ROOTS_PLANING = '/planing';
 export const PATH_PLANING = {
   root: {  // Календарь + задачи
     client: ROOTS_PLANING,
-    accessibleProfessions: null,
+    accessibleProfessions: '',
     accessibleRoles: [1],
     api: {
       main: null,
@@ -159,7 +159,7 @@ export const PATH_INFO = {
         list: pathJoin(ROOTS_INFO, '/phonebook/list'), // Список для пользоввателей
         view: (id) => pathJoin(ROOTS_INFO, `/phonebook/${id}/view`), // Просмотр пользователя пользователем
     },
-    accessibleProfessions: null,
+    accessibleProfessions: '',
     accessibleRoles: [0, 1],
     api: {
       main: null,
@@ -168,7 +168,7 @@ export const PATH_INFO = {
   proxyList: {
     list: { // Каталог ссылок
       client: pathJoin(ROOTS_INFO, '/proxy-list'),
-      accessibleProfessions: null,
+      accessibleProfessions: '',
       accessibleRoles: [0, 1],
       api: {
         main: null,
@@ -179,7 +179,7 @@ export const PATH_INFO = {
         edit: (id) => pathJoin(ROOTS_INFO, `/proxy-list/group/${id}/edit`), // Правка группы администратором
         new: pathJoin(ROOTS_INFO, '/proxy-list/group/new'), // Добавление группы администратором
       },
-      accessibleProfessions: null,
+      accessibleProfessions: '',
       accessibleRoles: [1],
       api: {
         main: null,
@@ -190,7 +190,7 @@ export const PATH_INFO = {
         edit: (id) => pathJoin(ROOTS_INFO, `/proxy-list/link/${id}/edit`), // Правка ссылки администратором
         new: pathJoin(ROOTS_INFO, '/proxy-list/link/new'), // Добавление ссылки администратором
       },
-      accessibleProfessions: null,
+      accessibleProfessions: '',
       accessibleRoles: [1],
       api: {
         main: null,
@@ -204,7 +204,7 @@ export const PATH_INFO = {
       gCategory: pathJoin(ROOTS_INFO, '/faq/gas/g-category'),
       mCategory: pathJoin(ROOTS_INFO, '/faq/gas/m-category'),
     },
-    accessibleProfessions: null,
+    accessibleProfessions: '',
     accessibleRoles: [0, 1],
     api: {
       main: null,
@@ -217,7 +217,7 @@ const ROOTS_STAT = '/stat'
 export const PATH_STAT = {
   grade: {
     client: pathJoin(ROOTS_STAT, '/grade'),
-    accessibleProfessions: [null, 1, 2, 6],
+    accessibleProfessions: ['', 1, 2, 6],
     accessibleRoles: null,
     api: {
       main: null
@@ -225,7 +225,7 @@ export const PATH_STAT = {
   },
   charts: {
     client: pathJoin(ROOTS_STAT, '/charts'),
-    accessibleProfessions: [null, 1, 2, 6],
+    accessibleProfessions: ['', 1, 2, 6],
     accessibleRoles: null,
     api: {
       main: null
@@ -247,7 +247,7 @@ const ROOTS_ADMIN = '/admin';
 export const PATH_ADMIN = {
   root: {
     client: ROOTS_ADMIN,
-    accessibleProfessions: null,
+    accessibleProfessions: '',
     accessibleRoles: [1],
     api: {
       main: null,
@@ -260,7 +260,7 @@ export const PATH_ADMIN = {
       view: (id) => pathJoin(ROOTS_ADMIN, `/users/${id}/view`), // Просмотр пользователя администратором, все данные
       edit: (id) => pathJoin(ROOTS_ADMIN, `/users/${id}/edit`), // Правка пользователя администратором
     },
-    accessibleProfessions: null,
+    accessibleProfessions: '',
     accessibleRoles: [1],
     api: {
       main: null,
@@ -270,7 +270,7 @@ export const PATH_ADMIN = {
     client: {
       list: pathJoin(ROOTS_ADMIN, '/workplaces/list'), // Список для администратора
     },
-    accessibleProfessions: null,
+    accessibleProfessions: '',
     accessibleRoles: [1],
     api: {
       main: null,

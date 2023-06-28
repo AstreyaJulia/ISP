@@ -108,7 +108,7 @@ function AuthProvider({ children }) {
               fullname: res?.data?.data?.fullname, // полное имя
               professionID: res?.data?.data?.professionID, // ID профессии, может быть null
               professionName:
-                res?.data?.data?.professionName === null || res?.data?.data?.professionName.toString() === 'null'
+                res?.data?.data?.professionName === null || res?.data?.data?.professionName === ''
                   ? 'Администратор системы'
                   : res?.data?.data?.professionName,
               role: res?.data?.data?.sudo === 1 ? 'Администратор' : 'Пользователь', // Роль, текстовое значение
