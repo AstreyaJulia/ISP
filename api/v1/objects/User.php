@@ -54,7 +54,7 @@ abstract class User
     $decoded = $this->classJWT::decode($jwt, $key, array('HS256'));
     $this->id = $decoded->data->id ?? null;
     $this->sudo = $decoded->data->sudo ?? null;
-    $this->professionID = $decoded->data->professionID ?? null;
+    $this->professionID = $decoded->data->professionID ?? '';
     return $decoded;
   }
 
