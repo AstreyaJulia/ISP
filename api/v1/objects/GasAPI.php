@@ -16,7 +16,7 @@ class GasAPI
     public function metodGET(): array
     {
         return match ($this->helpers->urlData["0"] ?? "") {
-            'sudact', 'deadlines', 'materials-production', 'no-last-events' => $this->prepareQuery($this->helpers->urlData),
+            'sudact', 'deadlines', 'materials-production', 'no-last-events', 'overperioddecision' => $this->prepareQuery($this->helpers->urlData),
             'categories-civil-cases', 'categories-material' => $this->categoriesMaterial(),
             default => $this->helpers->isErrorInfo(400, "Ошибка в переданных данных", "Не задан маршрут до ресурса")
         };
