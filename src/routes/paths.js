@@ -63,6 +63,25 @@ export const PATH_CASE = {
       },
     },
 
+    /* Принятые свыше срока */
+    overPeriodDecision: { // По судье
+      client: pathJoin(ROOTS_CASE, '/over-period-decision'),
+      accessibleProfessions: [1, 2, 3, 6, 7, 9],
+      accessibleRoles: null,
+      api: {
+        main: null,
+      },
+    },
+
+    overPeriodDecisionAll: { // По всем судьям
+      client: pathJoin(ROOTS_CASE, '/over-period-decision/all'),
+      accessibleProfessions: [1, 2, 4, 5, 6, ''],
+      accessibleRoles: null,
+      api: {
+        main: null,
+      },
+    },
+
     /* Не отмечены последние события */
     noLastEvents: { // По судье
       client: pathJoin(ROOTS_CASE, '/no-last-events'),

@@ -92,6 +92,23 @@ export default function Router() {
                     ),
                 },
                 {
+                    path: PATH_CASE.lists.overPeriodDecision.client,
+                    element: (
+                      <RoleBasedGuard accessibleProfessions={PATH_CASE.lists.overPeriodDecision.accessibleProfessions}>
+                          <OverPeriodDecision all='false'/>
+                      </RoleBasedGuard>
+                    ),
+                },
+                // Все
+                {
+                    path: PATH_CASE.lists.overPeriodDecisionAll.client,
+                    element: (
+                      <RoleBasedGuard accessibleProfessions={PATH_CASE.lists.overPeriodDecisionAll.accessibleProfessions}>
+                          <OverPeriodDecision all='true'/>
+                      </RoleBasedGuard>
+                    ),
+                },
+                {
                     path: PATH_CASE.publication.neededPublication.client,
                     element: (
                         <RoleBasedGuard accessibleProfessions={PATH_CASE.publication.neededPublication.accessibleProfessions}>
@@ -284,7 +301,8 @@ export default function Router() {
 // Основные страницы
 const Home = Loadable(lazy(() => import('../pages/Home'))); // Главная
 const LinksCatalog = Loadable(lazy(() => import('../pages/LinksCatalog'))); // Каталог ссылок
-const Finished = Loadable(lazy(() => import('../pages/cases/Finished'))); // Оконченные дела
+const Finished = Loadable(lazy(() => import('../pages/cases/Finished'))); // Оконченные дела свыше срока
+const OverPeriodDecision = Loadable(lazy(() => import('../pages/cases/OverPeriodDecision'))); // Принятые к производству свыше срока
 const Publication = Loadable(lazy(() => import('../pages/cases/Publication'))); // Контроль публикации СА
 const Process = Loadable(lazy(() => import('../pages/cases/Process'))); // Каталог ссылок
 const NoLastEvents = Loadable(lazy(() => import('../pages/cases/NoLastEvents'))); // Не отмеченные дела

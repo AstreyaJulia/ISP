@@ -3,6 +3,7 @@ import BasicPage from '../pagesLayouts/BasicPage';
 import PageHeader from '../../components/PageHeader';
 import useAuth from '../../hooks/useAuth';
 import CasesOverPeriodWidgetAll from './widgets/CasesOverPeriodWidgetAll';
+import CasesOverPeriodDecisionWidgetAll from './widgets/CasesOverPeriodDecisionWidgetAll';
 import NoPublicatedActsAll from './widgets/NoPublicatedActsAll';
 import ProcessedWidgetAll from './widgets/ProcessedWidgetAll';
 import NoLastEventsAll from './widgets/NoLastEventsAll';
@@ -22,6 +23,7 @@ const Grade = () => {
       <div className="grid grid-cols-3 mt-4 gap-4">
         <div className="flex flex-col gap-4">
           <CasesOverPeriodWidgetAll user={user ?? {}} />
+          <CasesOverPeriodDecisionWidgetAll user={user ?? {}} />
           <NoPublicatedActsAll user={user ?? {}} />
           <ProcessedWidgetAll user={user ?? {}} />
           <NoLastEventsAll user={user ?? {}} />

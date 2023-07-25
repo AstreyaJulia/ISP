@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import BasicPage from '../pagesLayouts/BasicPage';
 import CasesOverPeriodWidget from './widgets/CasesOverPeriodWidget';
+import CasesOverPeriodDecisionWidget from "./widgets/CasesOverPeriodDecisionWidget";
 import useAuth from '../../hooks/useAuth';
 import NoPublicatedActs from './widgets/NoPublicatedActs';
 import ProcessedWidget from './widgets/ProcessedWidget';
@@ -11,6 +12,7 @@ import { WidgetWeather } from '../../components/Weather/WidgetWeather';
 import { getCurrentWeather } from '../../store/slices/weather';
 import { getBirthdaysList } from '../../store/slices/users';
 import WidgetUsersBirthdays from './widgets/WidgetUsersBirthdays';
+
 
 const Home = () => {
   /** Состояние пользователя */
@@ -46,6 +48,7 @@ const Home = () => {
             {/* 1-я колонка */}
             <UserWelcomeWidget />
             {[1, 2, 3, 6, 7].includes(user?.professionID) ? <CasesOverPeriodWidget /> : ''}
+            {[1, 2, 3, 6, 7].includes(user?.professionID) ? <CasesOverPeriodDecisionWidget /> : ''}
             {[1, 2, 3, 6, 7].includes(user?.professionID) ? <NoPublicatedActs /> : ''}
             {[1, 2, 3, 6, 7].includes(user?.professionID) ? <ProcessedWidget /> : ''}
             {[1, 2, 3, 9].includes(user?.professionID) ? <NoLastEvents /> : ''}

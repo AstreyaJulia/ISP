@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import storage from 'redux-persist/lib/storage';
 import overperiod from './slices/cases/overperiod';
+import overperioddecision from './slices/cases/overperioddecision';
 import actpublication from './slices/cases/actpublication';
 import processed from './slices/cases/processed';
 import calendar from './slices/calendar';
@@ -21,6 +22,7 @@ const rootPersistConfig = {
 
 const appReducer = combineReducers({
   overperiod,
+  overperioddecision,
   actpublication,
   processed,
   calendar,
