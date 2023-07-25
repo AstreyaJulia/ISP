@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from '../../../utils/axios';
 import { dispatch } from '../../index';
-import CasesOverPeriodDecisionWidget from "../../../pages/Home/widgets/CasesOverPeriodDecisionWidget";
 
 /** Начальное состояние
  * @type {{isLoading: string, cases: *[], error: null}}
