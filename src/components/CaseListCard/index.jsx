@@ -23,10 +23,10 @@ const CaseListCard = ({ item, query, children, link, handleOnDblclick }) => {
       onDoubleClick={handleOnDblclick ? (evt) => handleOnDblclick(evt) : () => null}
     >
       <Card variant='grayShadowless' classname='p-4 flex grow items-center' >
-        <div className='flex items-center justify-between w-full'>
-          <div className='flex flex-col items-start gap-2'>
+        <div className='flex justify-between w-full'>
+          <div className='flex flex-col items-start gap-1'>
             <p
-              className='shrink-0 font-medium text-base text-gray-800 dark:text-gray-200 flex flex-wrap gap-4 justify-start items-center text-left'>
+              className='shrink-0 font-medium text-base text-gray-800 dark:text-gray-200 flex flex-wrap gap-4 justify-start items-center text-left mb-2'>
               <Avatar
                 size='8'
                 shape='circle'
@@ -77,11 +77,16 @@ const CaseListCard = ({ item, query, children, link, handleOnDblclick }) => {
                 </button>
               </CopyToClipboard>
             </p>
-            <span className='text-sm text-indigo-700 dark:text-indigo-300'>{getInitials(item?.JUDGE_NAME)}</span>
-            <p
-              className='mt-1 text-base text-gray-700 dark:text-gray-300 flex-wrap line-clamp-2 justify-start items-center text-left'>
-              {getHighlightedText(item?.PARTS_FIO, query)}
-            </p>
+
+            <span className='text-base text-indigo-700 dark:text-indigo-300 mb-3'>{getInitials(item?.JUDGE_NAME)}</span>
+
+            {item?.PARTS_FIO?.split(/\n/).slice(0,2).map((item, key) => (
+              <p key={key}
+                className='text-base text-gray-700 dark:text-gray-300 flex-wrap line-clamp-1 justify-start items-center text-left'>
+                {getHighlightedText(item, query)}
+              </p>
+            ))}
+
           </div>
           <div className='flex flex-col items-end shrink-0 gap-1 h-full grow-0'>{children}</div>
         </div>

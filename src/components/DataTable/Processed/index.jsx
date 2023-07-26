@@ -327,20 +327,36 @@ const Processed = ({ data, isLoading, all, error }) => {
         color: getStatusSettings(selectedCase?.CASE_STATUS ?? null, 'color'),
         item: getStatusSettings(selectedCase?.CASE_STATUS ?? null, 'title')
       }}>
-        <div className="mt-5 flex flex-col gap-4">
+        <div className="mt-7 flex flex-col gap-6">
 
-          <div className='flex flex-col gap-3'>
+          <span className='text-base text-indigo-700 dark:text-indigo-300'>{getInitials(selectedCase?.JUDGE_NAME)}</span>
+
+          <div className='flex flex-col gap-2'>
             <Typography variant='h6'>Стороны лица/по делу:</Typography>
-            <Typography variant='body1'>{selectedCase.PARTS_FIO}</Typography>
+
+            {selectedCase?.PARTS_FIO?.split(/\n/).map((item, key) => (
+              <Typography key={key} variant='body1' classname='capitalize'>{item}</Typography>
+            ))}
           </div>
 
-          <div className='flex flex-col gap-4'>
-            <Typography variant='h6'>Категория / статья:</Typography>
-            <Typography variant='body1'>{selectedCase.CAT}</Typography>
-          </div>
+          {selectedCase?.CAT !== '' ? (
+            <div className='flex flex-col gap-2'>
+              <Typography variant='h6'>Категория / статья:</Typography>
+              <Typography variant='body1'>{selectedCase.CAT}</Typography>
+            </div>
+          ) : (
+            ''
+          )}
 
-          <div className='flex flex-col'>
-            <Typography variant='h6' classname='mb-2'>Информация:</Typography>
+          <div className='flex flex-col gap-2'>
+            <Typography variant='h6'>Информация:</Typography>
+
+            {selectedCase?.NORMATIVE_PERIOD !== '' && selectedCase?.INFO === '' ? (
+              <Typography variant='body1'>Общ. норм. срок: {selectedCase?.NORMATIVE_PERIOD}</Typography>
+            ) : (
+              ''
+            )}
+
             <div className="flex items-center gap-2" >
 
               {selectedCase?.MOTIONLES_DATE !== '' ? (
