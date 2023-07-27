@@ -18,7 +18,7 @@ trait Objects
      */
     private function metodGET(): string
     {
-        return $this->helpers->isErrorInfo(401, "Ошибка в запросе", "Метод не реализован");
+        return $this->helpers->isErrorInfo(400, "Ошибка в запросе", "Метод не реализован");
     }
 
     /**
@@ -28,7 +28,7 @@ trait Objects
      */
     private function metodPOST(): string
     {
-        return $this->helpers->isErrorInfo(401, "Ошибка в запросе", "Метод не реализован");
+        return $this->helpers->isErrorInfo(400, "Ошибка в запросе", "Метод не реализован");
     }
 
     /**
@@ -38,7 +38,7 @@ trait Objects
      */
     private function metodPATCH(): string
     {
-        return $this->helpers->isErrorInfo(401, "Ошибка в запросе", "Метод не реализован");
+        return $this->helpers->isErrorInfo(400, "Ошибка в запросе", "Метод не реализован");
     }
 
     /**
@@ -48,7 +48,7 @@ trait Objects
      */
     private function metodDELETE(): string
     {
-        return $this->helpers->isErrorInfo(401, "Ошибка в запросе", "Метод не реализован");
+        return $this->helpers->isErrorInfo(400, "Ошибка в запросе", "Метод не реализован");
     }
 
     public function response(): void
@@ -59,7 +59,7 @@ trait Objects
                 "POST" => $this->helpers->getJsonEncode($this->metodPOST()),
                 "PATCH" => $this->helpers->getJsonEncode($this->metodPATCH()),
                 "DELETE" => $this->helpers->getJsonEncode($this->metodDELETE()),
-                default => $this->helpers->isErrorInfo(401, "Ошибка в запросе", "Метод не реализован")
+                default => $this->helpers->isErrorInfo(400, "Ошибка в запросе", "Метод не реализован")
             };
         } catch (\Error $e) {
             $this->helpers::isErrorInfo(400, "Неверные параметры", $e);
