@@ -141,7 +141,7 @@ class Calendar
     $path = 'http://xmlcalendar.ru/data/ru/'.$year.'/calendar.json';
     $file = "../../data/weekend/$year.json";
 
-    $date = time() - filemtime($file);
+    $date = (file_exists($file))? time() - filemtime($file) : 900000;
 
     if ($date > 864000) {
       $current = $this->helpers->sendGETtoProxy(array(), $path);
@@ -189,7 +189,7 @@ class Calendar
               'description' => '',
               'display' => 'background',
               'users' => '',
-              'creator'
+              'creator' => ''
             ];
           }
         }
