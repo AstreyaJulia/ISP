@@ -123,7 +123,8 @@ abstract class Router extends User
       ["route" => "gas-api", "objects" => "Api\Objects\GasAPI"],
       ["route" => "weather", "objects" => "Api\Objects\Weather"],
       ["route" => "staff", "objects" => "Api\Objects\Staff"],
-      ["route" => "buildingstructure", "objects" => "Api\Objects\BuildingStructure"]
+      ["route" => "buildingstructure", "objects" => "Api\Objects\BuildingStructure"],
+      ["route" => "calendar", "objects" => "Api\Objects\Calendar"]
     );
   }
 }
