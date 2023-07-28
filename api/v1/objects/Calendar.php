@@ -30,7 +30,7 @@ class Calendar
         'start' => $row['dob'],
         'end' => $row['dob'],
         'allDay' => 'true',
-        'calendar' => '',
+        'calendar' => 'red',
         'description' => 'Поздравляем!!! Исполняется '. $row['age'],
         'display' => 'birthday',
         'users' => '',
