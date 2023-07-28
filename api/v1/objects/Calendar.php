@@ -38,7 +38,7 @@ class Calendar
       ];
     }
 
-    //$weekends = $this->weekendHoliday($startDate, $endDate);
+    $userEvents[] = $this->weekendHolidayArray($this->weekendHoliday($startDate, $endDate));
 
 
 
@@ -125,6 +125,9 @@ class Calendar
    * и выходных через Proxy-сервер
    * судебного департамента Смол. обл.
    * 
+   * @param string $startDate (YYYY-MM-DD)
+   * @param string $endDate (YYYY-MM-DD)
+   * 
    * @return string
    */
   private function weekendHoliday($startDate, $endDate): string
@@ -137,6 +140,7 @@ class Calendar
     }
     $path = 'http://xmlcalendar.ru/data/ru/'.$year.'/calendar.json';
     $file = "../../data/weekend/$year.json";
+
     $date = time() - filemtime($file);
 
     if ($date > 864000) {
@@ -149,6 +153,63 @@ class Calendar
       }
     } else {
       return file_get_contents($file, true);
+    }
+  }
+
+  /**
+   * Преобразуем полученную строку JSON с выходными днями в массив
+   * 
+   * @param string $json 
+   * 
+   * @return array
+   */
+  private function weekendHolidayArray(string $json):array {
+
+      $row = json_decode($json);
+      if (isset($row->year)) {
+        foreach ($row->months as $value) {
+          $days = explode(',', $value->days);
+          foreach ($days as $day) {
+            if ($day == rtrim($day, "*")){
+                    $title = "";
+                    $calendar = "dayoff";
+            } else {
+                    $title = "Сокращенный рабочий день";
+                    $calendar = "short";
+            }
+  
+            $date = $row->year."-".$this->addNol($value->month)."-".$this->addNol(rtrim($day, "*"));
+            $array[] = [
+              'id' => '',
+              'title' => $title,
+              'start' => $date." 00:00:00",
+              'end' => $date." 23:59:59",
+              'allDay' => "true",
+              'calendar' => $calendar,
+              'description' => '',
+              'display' => 'background',
+              'users' => '',
+              'creator'
+            ];
+          }
+        }
+      } else {
+        $array = array();
+      }
+
+      return $array;
+  }
+
+  /**
+   * Добавляем к месяцу и дню 0
+   * 
+   * 
+   */
+  private function addNol($str) {
+    if (strlen($str) == 1) {
+      return '0'.$str;
+    } else {
+      return $str;
     }
   }
 

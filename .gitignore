@@ -38,4 +38,5 @@ yarn-error.log*
 /data/proxylist/whitelist.txt
 /data/proxylist/blacklist.txt
 /data/weather.json
+/data/weekend
 conection.php
