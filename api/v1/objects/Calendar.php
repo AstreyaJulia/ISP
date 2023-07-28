@@ -3,6 +3,7 @@
 namespace Api\Objects;
 
 use InvalidArgumentException;
+use DateTime;
 
 /**
  * Календарь
@@ -13,7 +14,7 @@ class Calendar
     CalendarValidate::__construct insteadof Objects;
   }
 
-  private function events():array
+  private function events()
   {
     $userEvents = array();
     $startDate = $this->validateStartDate();
@@ -36,6 +37,15 @@ class Calendar
         'creator' => ''
       ];
     }
+
+    //$weekends = $this->weekendHoliday($startDate, $endDate);
+
+
+
+
+
+
+
     return $userEvents;
 
     //return $userBirthday;
@@ -54,8 +64,16 @@ class Calendar
   {
     $param = ($this->helpers->sudo == 1)? '' : "AND (creator = {$this->helpers->id} or FIND_IN_SET({$this->helpers->id}, users) != 0)";
     $sql = "SELECT
-              *,
-              IF(allDay = 1, 'true', 'false') AS allDay
+              id,
+              title,
+              startDate AS start,
+              endDate AS end,
+              IF(allDay = 1, 'true', 'false') AS allDay,
+              calendar,
+              description,
+              display,
+              users,
+              creator
             FROM sdc_calendar
             WHERE 
               (
@@ -100,6 +118,38 @@ class Calendar
               )
             )";
     return $this->helpers->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
+  }
+
+  /**
+   * Получаем данные о праздничных днях
+   * и выходных через Proxy-сервер
+   * судебного департамента Смол. обл.
+   * 
+   * @return string
+   */
+  private function weekendHoliday($startDate, $endDate): string
+  {
+    if (in_array(DateTime::createFromFormat('Y-m-d', $startDate)->format('m'), ['12']) && in_array(DateTime::createFromFormat('Y-m-d', $endDate)->format('m'), ['01', '02'])) {
+      $year = DateTime::createFromFormat('Y-m-d', $endDate)->format('Y');
+    }
+    else {
+      $year = DateTime::createFromFormat('Y-m-d', $startDate)->format('Y');
+    }
+    $path = 'http://xmlcalendar.ru/data/ru/'.$year.'/calendar.json';
+    $file = "../../data/weekend/$year.json";
+    $date = time() - filemtime($file);
+
+    if ($date > 864000) {
+      $current = $this->helpers->sendGETtoProxy(array(), $path);
+      if (isset(json_decode($current)->year)) {
+        file_put_contents($file, $current, LOCK_EX);
+        return $current;
+      } else {
+        return file_get_contents($file, true);
+      }
+    } else {
+      return file_get_contents($file, true);
+    }
   }
 
   /**
