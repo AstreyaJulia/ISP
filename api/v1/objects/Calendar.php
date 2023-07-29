@@ -22,7 +22,6 @@ class Calendar
 
     $userEvents = $this->userEvents($startDate, $endDate);
 
-
     foreach ($this->userBirthday($startDate, $endDate) as $row) {
       $userEvents[] = [
         'id' => '',
@@ -31,6 +30,7 @@ class Calendar
         'end' => $row['dob'],
         'allDay' => 'true',
         'calendar' => 'red',
+        'color' => '',
         'description' => 'Поздравляем!!! Исполняется '. $row['age'],
         'display' => 'birthday',
         'users' => '',
@@ -40,16 +40,7 @@ class Calendar
 
     $userEvents[] = $this->weekendHolidayArray($this->weekendHoliday($startDate, $endDate));
 
-
-
-
-
-
-
     return $userEvents;
-
-    //return $userBirthday;
-
   }
 
   /**
@@ -70,6 +61,7 @@ class Calendar
               endDate AS end,
               IF(allDay = 1, 'true', 'false') AS allDay,
               calendar,
+              color,
               description,
               display,
               users,
@@ -80,6 +72,8 @@ class Calendar
                 (DATE(startDate) BETWEEN '$startDate' AND '$endDate')
                 OR
                 (DATE(endDate) BETWEEN '$startDate' AND '$endDate')
+                OR
+	              (DATE(startDate) < '$startDate' AND DATE(endDate) > '$endDate')
               )
               $param";
     return $this->helpers->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
@@ -186,6 +180,7 @@ class Calendar
               'end' => $date." 23:59:59",
               'allDay' => "true",
               'calendar' => $calendar,
+              'color' => '',
               'description' => '',
               'display' => 'background',
               'users' => '',
