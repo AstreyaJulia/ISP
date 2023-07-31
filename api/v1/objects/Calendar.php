@@ -38,7 +38,7 @@ class Calendar
       ];
     }
 
-    $userEvents[] = $this->weekendHolidayArray($this->weekendHoliday($startDate, $endDate));
+    $userEvents = array_merge($userEvents, $this->weekendHolidayArray($this->weekendHoliday($startDate, $endDate)));
 
     return $userEvents;
   }
