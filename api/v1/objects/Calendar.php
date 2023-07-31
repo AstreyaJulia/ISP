@@ -210,6 +210,17 @@ class Calendar
     }
   }
 
+  private function staffCalendar()
+  {
+    $sql = "SELECT
+              users.id,
+              userAttributes.fullname AS label
+            FROM sdc_users AS users
+            LEFT JOIN sdc_user_attributes userAttributes ON users.id = userAttributes.internalKey
+            WHERE users.active = 1 AND users.id != 1 ORDER BY label ASC";
+    return $this->helpers->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
+  }
+
   /**
    * Обрабатываем приходящие GET-запросы. 
    */
@@ -217,6 +228,10 @@ class Calendar
   {
     return match (count($this->helpers->urlData)) {
       0 => $this->helpers->wrap($this->events(), "data"),
+      1 => match ($this->helpers->urlData[0]) {
+            'staffCalendar'=> $this->helpers->wrap($this->staffCalendar(), "data"),
+            default => $this->helpers->isErrorInfo(400, "Ошибка в GET-запросе", "Неверные параметры"),
+          },
       default => $this->helpers->isErrorInfo(400, "Ошибка в GET-запросе", "Неверные параметры")
     };
   }
