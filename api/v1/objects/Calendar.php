@@ -26,8 +26,8 @@ class Calendar
       $userEvents[] = [
         'id' => '',
         'title' => 'День рождения '. $row['fullname'],
-        'start' => $row['dob'],
-        'end' => $row['dob'],
+        'start' => DateTime::createFromFormat('Y-m-d', $startDate)->format('Y').'-'.DateTime::createFromFormat('Y-m-d', $row['dob'])->format('m-d'),
+        'end' => DateTime::createFromFormat('Y-m-d', $startDate)->format('Y').'-'.DateTime::createFromFormat('Y-m-d', $row['dob'])->format('m-d'),
         'allDay' => 'true',
         'calendar' => 'red',
         'color' => '',
