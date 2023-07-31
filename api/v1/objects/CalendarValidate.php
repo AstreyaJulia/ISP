@@ -19,7 +19,7 @@ trait CalendarValidate
   }
 
   private function validateStartDate() {
-    $param = ($this->helpers->formData['start']) ? $this->helpers->formData['start'] : "";
+    $param = $this->helpers->formData['start'] ?? "";
     $format = "Y-m-d";
     $d = \DateTime::createFromFormat($format, $param);
 
@@ -31,7 +31,7 @@ trait CalendarValidate
   }
   
   private function validateEndDate() {
-    $param = ($this->helpers->formData['end']) ? $this->helpers->formData['end'] : "";
+    $param = $this->helpers->formData['end'] ?? "";
     $format = "Y-m-d";
     $d = \DateTime::createFromFormat($format, $param);
 
