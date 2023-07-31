@@ -139,15 +139,12 @@ class Calendar
 
     if ($date > 864000) {
       $current = $this->helpers->sendGETtoProxy(array(), $path);
-      if (isset(json_decode($current)->year)) {
-        file_put_contents($file, $current, LOCK_EX);
-        return $current;
-      } else {
-        return file_get_contents($file, true);
-      }
+      file_put_contents($file, $current, LOCK_EX);
+      return $current;
     } else {
       return file_get_contents($file, true);
     }
+    
   }
 
   /**
