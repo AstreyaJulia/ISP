@@ -119,6 +119,25 @@ class Helpers extends Router
   }
 
   /**
+   * Проверяем формат даты
+   * 
+   * @param string $date проверяемая дата
+   * @param string $format формат даты
+   * @param string $lable placeholder поля
+   * 
+   * @return string
+   */
+  public static function validateDate(string $date, string $format, string $lable)
+  {
+    $param = !empty($date) ? $date : self::isErrorInfo(400, "Неверные параметры", "Ожидаю $lable в формате $format");
+    $d = \DateTime::createFromFormat($format, $param);
+    if (!($d && $d->format($format) === $param)) {
+      self::isErrorInfo(400, "Неверные параметры", "Ожидаю $lable в формате $format Получаю: $param");
+    }
+    return $d->format($format);
+  }
+
+  /**
    * Необходимые заголовки
    */
   public static function headlinesGET()
