@@ -105,7 +105,10 @@ class Calendar
             WHERE 
               id = ?
               $param";
-    return $this->helpers->db->run($sql, [$id])->fetch(\PDO::FETCH_ASSOC);
+    $row = $this->helpers->db->run($sql, [$id])->fetch(\PDO::FETCH_ASSOC);
+    $row = ($row)? $row : array();
+
+    return $row;
   }
 
 
