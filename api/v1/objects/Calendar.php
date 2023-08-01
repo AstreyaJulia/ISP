@@ -25,7 +25,7 @@ class Calendar
     foreach ($this->userBirthday($startDate, $endDate) as $row) {
       $userEvents[] = [
         'id' => '',
-        'title' => ':birthday: '. $this->helpers->declinationAge($row['age']).' '. $this->helpers->shortFIO($row['fullname']),
+        'title' => '🎂 '. $this->helpers->declinationAge($row['age']).' '. $this->helpers->shortFIO($row['fullname']),
         'start' => DateTime::createFromFormat('Y-m-d', $startDate)->format('Y').'-'.DateTime::createFromFormat('Y-m-d', $row['dob'])->format('m-d'),
         'end' => DateTime::createFromFormat('Y-m-d', $startDate)->format('Y').'-'.DateTime::createFromFormat('Y-m-d', $row['dob'])->format('m-d'),
         'allDay' => 'true',
