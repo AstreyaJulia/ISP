@@ -25,13 +25,13 @@ class Calendar
     foreach ($this->userBirthday($startDate, $endDate) as $row) {
       $userEvents[] = [
         'id' => '',
-        'title' => 'День рождения '. $row['fullname'],
+        'title' => ':birthday: '. $this->helpers->declinationAge($row['age']).' '. $this->helpers->shortFIO($row['fullname']),
         'start' => DateTime::createFromFormat('Y-m-d', $startDate)->format('Y').'-'.DateTime::createFromFormat('Y-m-d', $row['dob'])->format('m-d'),
         'end' => DateTime::createFromFormat('Y-m-d', $startDate)->format('Y').'-'.DateTime::createFromFormat('Y-m-d', $row['dob'])->format('m-d'),
         'allDay' => 'true',
-        'calendar' => 'red',
-        'color' => '',
-        'description' => 'Поздравляем!!! Исполняется '. $row['age'],
+        'calendar' => 'Дни рождения',
+        'color' => 'red',
+        'description' => '',
         'display' => 'birthday',
         'users' => '',
         'creator' => ''

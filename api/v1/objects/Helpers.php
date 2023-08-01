@@ -6,6 +6,33 @@ class Helpers extends Router
 {
 
   /**
+   * Склонение возраста
+   * 
+   * @param int $age возраст
+   * 
+   * @return string 
+   */
+  public static function declinationAge(int $age):string
+  {
+    $last = substr($age, -1);
+    return match ($last) {
+       '1' => $age .' год',
+       '2', '3', '4' => $age .' года',
+       '0', '5', '6', '7', '8', '9' => $age .' лет'
+    };
+  }
+  /**
+   * приводит Фамилию Имя Отчество к виду Фамилия И.О.
+   * 
+   * @param string $fullname Фамилия Имя Отчечтво
+   * 
+   * @return string Фамилия И.О.
+   */
+  public static function shortFIO($fullname) {
+    return preg_replace('#(.*)\s+(.).*\s+(.).*#usi', '$1 $2.$3.', $fullname);
+  }
+
+  /**
    * Возвращает JSON-представление данных. Не код кодирует многобайтовые
    * символы Unicode, (по умолчанию они кодируются как \uXXXX). Использует
    * пробельные символы в возвращаемых данных для их форматирования.
