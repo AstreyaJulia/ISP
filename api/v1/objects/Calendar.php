@@ -78,6 +78,37 @@ class Calendar
               $param";
     return $this->helpers->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
   }
+  
+  /**
+   * Событие пользователя 
+   * 
+   * @param int $id события
+   * 
+   * @return array 
+   */
+  private function userEventID(int $id):array
+  {
+    $param = ($this->helpers->sudo == 1)? '' : "AND (creator = {$this->helpers->id} or FIND_IN_SET({$this->helpers->id}, users) != 0)";
+    $sql = "SELECT
+              id,
+              title,
+              startDate AS start,
+              endDate AS end,
+              IF(allDay = 1, 'true', 'false') AS allDay,
+              calendar,
+              color,
+              description,
+              display,
+              users,
+              creator
+            FROM sdc_calendar
+            WHERE 
+              id = ?
+              $param";
+    return $this->helpers->db->run($sql, [$id])->fetch(\PDO::FETCH_ASSOC);
+  }
+
+
 
   /**
    * Дни рождения рабтающих сотрудников
@@ -230,6 +261,7 @@ class Calendar
       0 => $this->helpers->wrap($this->events(), "data"),
       1 => match ($this->helpers->urlData[0]) {
             'staffCalendar'=> $this->helpers->wrap($this->staffCalendar(), "data"),
+            ''.$this->helpers->validateINT($this->helpers->urlData[0], "id") => $this->helpers->wrap($this->userEventID($this->helpers->urlData[0]), "data"),
             default => $this->helpers->isErrorInfo(400, "Ошибка в GET-запросе", "Неверные параметры"),
           },
       default => $this->helpers->isErrorInfo(400, "Ошибка в GET-запросе", "Неверные параметры")
