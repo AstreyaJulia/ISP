@@ -25,9 +25,9 @@ class Calendar
     foreach ($this->userBirthday($startDate, $endDate) as $row) {
       $userEvents[] = [
         'id' => '',
-        'title' => '🎂 '. $this->helpers->declinationAge($row['age']).' '. $this->helpers->shortFIO($row['fullname']),
-        'start' => DateTime::createFromFormat('Y-m-d', $startDate)->format('Y').'-'.DateTime::createFromFormat('Y-m-d', $row['dob'])->format('m-d'),
-        'end' => DateTime::createFromFormat('Y-m-d', $startDate)->format('Y').'-'.DateTime::createFromFormat('Y-m-d', $row['dob'])->format('m-d'),
+        'title' => '🎂 ' . $this->helpers->declinationAge($row['age']) . ' ' . $this->helpers->shortFIO($row['fullname']),
+        'start' => DateTime::createFromFormat('Y-m-d', $startDate)->format('Y') . '-' . DateTime::createFromFormat('Y-m-d', $row['dob'])->format('m-d'),
+        'end' => DateTime::createFromFormat('Y-m-d', $startDate)->format('Y') . '-' . DateTime::createFromFormat('Y-m-d', $row['dob'])->format('m-d'),
         'allDay' => 'true',
         'calendar' => 'Дни рождения',
         'color' => 'red',
@@ -51,9 +51,9 @@ class Calendar
    * 
    * @return array 
    */
-  private function userEvents($startDate, $endDate):array
+  private function userEvents($startDate, $endDate): array
   {
-    $param = ($this->helpers->sudo == 1)? '' : "AND (creator = {$this->helpers->id} or FIND_IN_SET({$this->helpers->id}, users) != 0)";
+    $param = ($this->helpers->sudo == 1) ? '' : "AND (creator = {$this->helpers->id} or FIND_IN_SET({$this->helpers->id}, users) != 0)";
     $sql = "SELECT
               id,
               title,
@@ -78,7 +78,7 @@ class Calendar
               $param";
     return $this->helpers->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
   }
-  
+
   /**
    * Событие пользователя 
    * 
@@ -86,9 +86,9 @@ class Calendar
    * 
    * @return array 
    */
-  private function userEventID(int $id):array
+  private function userEventID(int $id): array
   {
-    $param = ($this->helpers->sudo == 1)? '' : "AND (creator = {$this->helpers->id} or FIND_IN_SET({$this->helpers->id}, users) != 0)";
+    $param = ($this->helpers->sudo == 1) ? '' : "AND (creator = {$this->helpers->id} or FIND_IN_SET({$this->helpers->id}, users) != 0)";
     $sql = "SELECT
               id,
               title,
@@ -106,7 +106,7 @@ class Calendar
               id = ?
               $param";
     $row = $this->helpers->db->run($sql, [$id])->fetch(\PDO::FETCH_ASSOC);
-    $row = ($row)? $row : array();
+    $row = ($row) ? $row : array();
 
     return $row;
   }
@@ -121,7 +121,8 @@ class Calendar
    * 
    * @return array 
    */
-  private function userBirthday($startDate, $endDate):array {
+  private function userBirthday($startDate, $endDate): array
+  {
     $sql = "SELECT
               fullname,
               dob,
@@ -148,6 +149,49 @@ class Calendar
     return $this->helpers->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
   }
 
+  private function addEvent()
+  {
+    $param = $this->validateEvent();
+
+    $sql = "INSERT
+              INTO `sdc_calendar`
+                (`title`, `startDate`, `endDate`, `allDay`, `calendar`, `color`, `description`, `display`, `users`, `creator`)
+              VALUES
+                (:title, :startDate, :endDate, :allDay, :calendar, :color, :description, :display, :users, :creator)";
+    $this->helpers->db->run($sql, $param);
+
+    $this->helpers->db->pdo->lastInsertId() ?? $this->helpers::isErrorInfo(400, "Произошла ошибка", "Запись не добавлена");
+
+    http_response_code(201);
+    return $this->helpers->wrap($param, "data");
+  }
+
+  /**
+   * Изменение данных календаря
+   */
+  private function updEvent()
+  {
+    $param = array_merge(["id" => $this->id()], $this->validateEvent());
+
+    $sql = "UPDATE sdc_calendar
+                  SET
+                    title = :title,
+                    startDate = :startDate,
+                    endDate = :endDate,
+                    allDay = :allDay,
+                    calendar = :calendar,
+                    color = :color,
+                    description = :description,
+                    display = :display,
+                    users = :users,
+                    creator =:creator 
+                  WHERE id = :id";
+    $this->helpers->db->run($sql, $param);
+
+    http_response_code(200);
+    return $this->helpers->wrap(["info" => "запись изменена", "id" => $param["id"], "title" => $param["title"]], "data");
+  }
+
   /**
    * Получаем данные о праздничных днях
    * и выходных через Proxy-сервер
@@ -162,14 +206,13 @@ class Calendar
   {
     if (in_array(DateTime::createFromFormat('Y-m-d', $startDate)->format('m'), ['12']) && in_array(DateTime::createFromFormat('Y-m-d', $endDate)->format('m'), ['01', '02'])) {
       $year = DateTime::createFromFormat('Y-m-d', $endDate)->format('Y');
-    }
-    else {
+    } else {
       $year = DateTime::createFromFormat('Y-m-d', $startDate)->format('Y');
     }
-    $path = 'http://xmlcalendar.ru/data/ru/'.$year.'/calendar.json';
+    $path = 'http://xmlcalendar.ru/data/ru/' . $year . '/calendar.json';
     $file = "../../data/weekend/$year.json";
 
-    $date = (file_exists($file))? time() - filemtime($file) : 900000;
+    $date = (file_exists($file)) ? time() - filemtime($file) : 900000;
 
     if ($date > 864000) {
       $current = $this->helpers->sendGETtoProxy(array(), $path);
@@ -183,7 +226,6 @@ class Calendar
     } else {
       return file_get_contents($file, true);
     }
-    
   }
 
   /**
@@ -193,42 +235,43 @@ class Calendar
    * 
    * @return array
    */
-  private function weekendHolidayArray(string $json):array {
+  private function weekendHolidayArray(string $json): array
+  {
 
-      $row = json_decode($json);
-      if (isset($row->year)) {
-        foreach ($row->months as $value) {
-          $days = explode(',', $value->days);
-          foreach ($days as $day) {
-            if ($day == rtrim($day, "*")){
-                    $title = "";
-                    $calendar = "dayoff";
-            } else {
-                    $title = "Сокращенный рабочий день";
-                    $calendar = "short";
-            }
-  
-            $date = $row->year."-".$this->addNol($value->month)."-".$this->addNol(rtrim($day, "*"));
-            $array[] = [
-              'id' => '',
-              'title' => $title,
-              'start' => $date." 00:00:00",
-              'end' => $date." 23:59:59",
-              'allDay' => "true",
-              'calendar' => $calendar,
-              'color' => '',
-              'description' => '',
-              'display' => 'background',
-              'users' => '',
-              'creator' => ''
-            ];
+    $row = json_decode($json);
+    if (isset($row->year)) {
+      foreach ($row->months as $value) {
+        $days = explode(',', $value->days);
+        foreach ($days as $day) {
+          if ($day == rtrim($day, "*")) {
+            $title = "";
+            $calendar = "dayoff";
+          } else {
+            $title = "Сокращенный рабочий день";
+            $calendar = "short";
           }
-        }
-      } else {
-        $array = array();
-      }
 
-      return $array;
+          $date = $row->year . "-" . $this->addNol($value->month) . "-" . $this->addNol(rtrim($day, "*"));
+          $array[] = [
+            'id' => '',
+            'title' => $title,
+            'start' => $date . " 00:00:00",
+            'end' => $date . " 23:59:59",
+            'allDay' => "true",
+            'calendar' => $calendar,
+            'color' => '',
+            'description' => '',
+            'display' => 'background',
+            'users' => '',
+            'creator' => ''
+          ];
+        }
+      }
+    } else {
+      $array = array();
+    }
+
+    return $array;
   }
 
   /**
@@ -236,9 +279,10 @@ class Calendar
    * 
    * 
    */
-  private function addNol($str) {
+  private function addNol($str)
+  {
     if (strlen($str) == 1) {
-      return '0'.$str;
+      return '0' . $str;
     } else {
       return $str;
     }
@@ -263,11 +307,37 @@ class Calendar
     return match (count($this->helpers->urlData)) {
       0 => $this->helpers->wrap($this->events(), "data"),
       1 => match ($this->helpers->urlData[0]) {
-            'staffCalendar'=> $this->helpers->wrap($this->staffCalendar(), "data"),
-            ''.$this->helpers->validateINT($this->helpers->urlData[0], "id") => $this->helpers->wrap($this->userEventID($this->helpers->urlData[0]), "data"),
-            default => $this->helpers->isErrorInfo(400, "Ошибка в GET-запросе", "Неверные параметры"),
-          },
+        'staffCalendar' => $this->helpers->wrap($this->staffCalendar(), "data"),
+        '' . $this->helpers->validateINT($this->helpers->urlData[0], "id") => $this->helpers->wrap($this->userEventID($this->helpers->urlData[0]), "data"),
+        default => $this->helpers->isErrorInfo(400, "Ошибка в GET-запросе", "Неверные параметры"),
+      },
       default => $this->helpers->isErrorInfo(400, "Ошибка в GET-запросе", "Неверные параметры")
     };
+  }
+
+  /**
+   * Обрабатываем приходящие POST-запросы. 
+   */
+  private function metodPOST()
+  {
+    if ($this->helpers->method === "POST") {
+      $this->helpers::headlinesPOST();
+      return $this->addEvent();
+    } else {
+      $this->helpers->isErrorInfo(400, "Ошибка в POST-запросе", "Неверные параметры");
+    }
+  }
+
+  /**
+   * Обрабатываем приходящие PATCH-запросы. 
+   */
+  private function metodPATCH()
+  {
+    if ($this->helpers->method === "PATCH") {
+      $this->helpers::headlinesPOST();
+      return $this->updEvent();
+    } else {
+      $this->helpers->isErrorInfo(400, "Ошибка в PATCH-запросе", "Неверные параметры");
+    }
   }
 }
