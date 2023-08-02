@@ -124,17 +124,18 @@ class Helpers extends Router
    * @param string $date проверяемая дата
    * @param string $format формат даты
    * @param string $lable placeholder поля
+   * @param string $returnDateFormat формат даты на выходе
    * 
-   * @return string
+   * @return string Y-m-d H:i:s
    */
-  public static function validateDate(string $date, string $format, string $lable)
+  public static function validateDate(string $date, string $format, string $lable, $returnDateFormat = "Y-m-d H:i:s")
   {
     $param = !empty($date) ? $date : self::isErrorInfo(400, "Неверные параметры", "Ожидаю $lable в формате $format");
     $d = \DateTime::createFromFormat($format, $param);
     if (!($d && $d->format($format) === $param)) {
       self::isErrorInfo(400, "Неверные параметры", "Ожидаю $lable в формате $format Получаю: $param");
     }
-    return $d->format($format);
+    return $d->format($returnDateFormat);
   }
 
   /**
