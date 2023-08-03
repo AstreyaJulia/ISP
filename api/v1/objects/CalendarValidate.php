@@ -104,7 +104,7 @@ trait CalendarValidate
   private function startDate():string
   {
     $startDate = $this->helpers->formData["start"] ?? "";
-    $startDate = $this->helpers->validateDate($startDate, "Y-m-d\\TH:i:s.vP", "start");
+    $startDate = $this->helpers->validateDate($startDate, "Y-m-d H:i:s", "start");
 
     return $startDate;
   }
@@ -117,7 +117,7 @@ trait CalendarValidate
   private function endDate():string
   {
     $endDate = $this->helpers->formData["end"] ?? "";
-    $endDate = $this->helpers->validateDate($endDate, "Y-m-d\\TH:i:s.vP", "end");
+    $endDate = $this->helpers->validateDate($endDate, "Y-m-d H:i:s", "end");
 
     return $endDate;
   }
