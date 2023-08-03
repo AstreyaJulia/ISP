@@ -25,7 +25,7 @@ class Calendar
     foreach ($this->userBirthday($startDate, $endDate) as $row) {
       $userEvents[] = [
         'id' => '',
-        'title' => '🎂 ' . $this->helpers->declinationAge($row['age']) . ' ' . $this->helpers->shortFIO($row['fullname']),
+        'title' => $this->helpers->declinationAge($row['age']) . ' ' . $this->helpers->shortFIO($row['fullname']),
         'start' => DateTime::createFromFormat('Y-m-d', $startDate)->format('Y') . '-' . DateTime::createFromFormat('Y-m-d', $row['dob'])->format('m-d'),
         'end' => DateTime::createFromFormat('Y-m-d', $startDate)->format('Y') . '-' . DateTime::createFromFormat('Y-m-d', $row['dob'])->format('m-d'),
         'allDay' => 'true',
@@ -193,6 +193,20 @@ class Calendar
   }
 
   /**
+   * Удаление записи из календаря
+   */
+  private function delEvent()
+  {
+    $param = $this->helpers->sudo === 1 ? '' : "AND creator = {$this->helpers->id}";
+
+    $sql = "DELETE FROM sdc_calendar WHERE id = ? $param";
+    $row = $this->helpers->db->run($sql, [$this->id()]);
+var_dump($row);
+    http_response_code(200);
+    return $this->helpers->wrap(["info" => "запись удалена", "id" => $this->id()], "data");
+  }
+
+  /**
    * Получаем данные о праздничных днях
    * и выходных через Proxy-сервер
    * судебного департамента Смол. обл.
@@ -340,4 +354,14 @@ class Calendar
       $this->helpers->isErrorInfo(400, "Ошибка в PATCH-запросе", "Неверные параметры");
     }
   }
+
+      /**
+     * Обрабатываем приходящие DELETE-запросы.
+     * 
+     * @return string
+     */
+    private function metodDELETE()
+    {
+        return $this->delEvent();
+    }
 }
