@@ -68,11 +68,11 @@ abstract class Router extends User
 
       return $data;
     } catch (\Error $e) {
-      http_response_code(401);
+      http_response_code(400);
       echo json_encode(array(
         "data" => [],
         "error" => array(
-          "code" => 401,
+          "code" => 400,
           "message" => "Ошибка в теле запроса",
           "info" => $e->getMessage()
         )
