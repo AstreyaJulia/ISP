@@ -23,19 +23,42 @@ class Calendar
     $userEvents = $this->userEvents($startDate, $endDate);
 
     foreach ($this->userBirthday($startDate, $endDate) as $row) {
-      $userEvents[] = [
-        'id' => '',
-        'title' => $this->helpers->declinationAge($row['age']) . ' ' . $this->helpers->shortFIO($row['fullname']),
-        'start' => DateTime::createFromFormat('Y-m-d', $startDate)->format('Y') . '-' . DateTime::createFromFormat('Y-m-d', $row['dob'])->format('m-d'),
-        'end' => DateTime::createFromFormat('Y-m-d', $startDate)->format('Y') . '-' . DateTime::createFromFormat('Y-m-d', $row['dob'])->format('m-d'),
-        'allDay' => 'true',
-        'calendar' => 'Дни рождения',
-        'color' => 'red',
-        'description' => '',
-        'display' => 'birthday',
-        'users' => '',
-        'creator' => ''
-      ];
+      $startDateYear = DateTime::createFromFormat('Y-m-d', $startDate)->format('Y');
+      $startDateMonth = DateTime::createFromFormat('Y-m-d', $startDate)->format('m');
+      $endDateYear = DateTime::createFromFormat('Y-m-d', $endDate)->format('Y');
+      $endDateMonth = DateTime::createFromFormat('Y-m-d', $endDate)->format('m');
+      $ageYear = DateTime::createFromFormat('Y-m-d', $row['dob'])->format('Y');
+
+      $date = $startDate;
+      $age = $startDateYear - $ageYear;
+
+      if($startDateMonth == 12 and in_array($endDateMonth, array("01","02"))) {
+        $date = $endDate;
+        $age = $endDateYear - $ageYear;
+      }
+      if($startDateMonth == 12 and $startDateMonth == DateTime::createFromFormat('Y-m-d', $row['dob'])->format('m')) {
+        $date = $startDate;
+        $age = $startDateYear - $ageYear;
+      }
+      if($startDateMonth == 11 and $endDateMonth == DateTime::createFromFormat('Y-m-d', $row['dob'])->format('m')) {
+        $date = $endDate;
+        $age = $endDateYear - $ageYear;
+      }
+      if($age > 0){
+        $userEvents[] = [
+          'id' => '',
+          'title' => $this->helpers->declinationAge($age) . ' ' . $this->helpers->shortFIO($row['fullname']),
+          'start' => DateTime::createFromFormat('Y-m-d', $date)->format('Y') . '-' . DateTime::createFromFormat('Y-m-d', $row['dob'])->format('m-d'),
+          'end' => DateTime::createFromFormat('Y-m-d', $date)->format('Y') . '-' . DateTime::createFromFormat('Y-m-d', $row['dob'])->format('m-d'),
+          'allDay' => 'true',
+          'calendar' => 'Дни рождения',
+          'color' => 'red',
+          'description' => '',
+          'display' => 'birthday',
+          'users' => '',
+          'creator' => ''
+        ];
+      }
     }
 
     $userEvents = array_merge($userEvents, $this->weekendHolidayArray($this->weekendHoliday($startDate, $endDate)));
