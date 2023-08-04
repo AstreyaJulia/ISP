@@ -78,18 +78,19 @@ class Calendar
   {
     $param = ($this->helpers->sudo == 1) ? '' : "AND (creator = {$this->helpers->id} or FIND_IN_SET({$this->helpers->id}, users) != 0)";
     $sql = "SELECT
-              id,
-              title,
+              calendar.id,
+              calendar.title,
               startDate AS start,
               endDate AS end,
               IF(allDay = 1, 'true', 'false') AS allDay,
-              calendar,
-              color,
+              category.title AS calendar,
+              category.color AS color,
               description,
               display,
               users,
               creator
-            FROM sdc_calendar
+            FROM sdc_calendar AS calendar
+            LEFT JOIN sdc_calendar_category AS category ON calendar.calendar = category.id
             WHERE 
               (
                 (DATE(startDate) BETWEEN '$startDate' AND '$endDate')
@@ -113,28 +114,27 @@ class Calendar
   {
     $param = ($this->helpers->sudo == 1) ? '' : "AND (creator = {$this->helpers->id} or FIND_IN_SET({$this->helpers->id}, users) != 0)";
     $sql = "SELECT
-              id,
-              title,
+              calendar.id,
+              calendar.title,
               startDate AS start,
               endDate AS end,
               IF(allDay = 1, 'true', 'false') AS allDay,
-              calendar,
-              color,
+              category.title AS calendar,
+              category.color AS color,
               description,
               display,
               users,
               creator
-            FROM sdc_calendar
+            FROM sdc_calendar AS calendar
+            LEFT JOIN sdc_calendar_category AS category ON calendar.calendar = category.id
             WHERE 
-              id = ?
+              calendar.id = ?
               $param";
     $row = $this->helpers->db->run($sql, [$id])->fetch(\PDO::FETCH_ASSOC);
     $row = ($row) ? $row : array();
 
     return $row;
   }
-
-
 
   /**
    * Дни рождения рабтающих сотрудников
@@ -178,14 +178,19 @@ class Calendar
 
     $sql = "INSERT
               INTO `sdc_calendar`
-                (`title`, `startDate`, `endDate`, `allDay`, `calendar`, `color`, `description`, `display`, `users`, `creator`)
+                (`title`, `startDate`, `endDate`, `allDay`, `calendar`, `description`, `display`, `users`, `creator`)
               VALUES
-                (:title, :startDate, :endDate, :allDay, :calendar, :color, :description, :display, :users, :creator)";
+                (:title, :startDate, :endDate, :allDay, :calendar, :description, :display, :users, :creator)";
     $this->helpers->db->run($sql, $param);
 
-    $this->helpers->db->pdo->lastInsertId() ?? $this->helpers::isErrorInfo(400, "Произошла ошибка", "Запись не добавлена");
+    $lastID = $this->helpers->db->pdo->lastInsertId() ?? $this->helpers::isErrorInfo(400, "Произошла ошибка", "Запись не добавлена");
 
     http_response_code(201);
+    $param = [
+      "info" => "запись добавлена",
+      "id" => $lastID,
+      "title" => $param["title"]
+    ];
     return $this->helpers->wrap($param, "data");
   }
 
@@ -203,7 +208,6 @@ class Calendar
                     endDate = :endDate,
                     allDay = :allDay,
                     calendar = :calendar,
-                    color = :color,
                     description = :description,
                     display = :display,
                     users = :users,
@@ -341,6 +345,18 @@ class Calendar
     return $this->helpers->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
   }
 
+
+  private function categoryCalendar()
+  {
+    $sql = "SELECT
+              id,
+              title,
+              color
+            FROM sdc_calendar_category
+            ORDER BY title ASC";
+    return $this->helpers->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
+  }
+
   /**
    * Обрабатываем приходящие GET-запросы. 
    */
@@ -350,6 +366,7 @@ class Calendar
       0 => $this->helpers->wrap($this->events(), "data"),
       1 => match ($this->helpers->urlData[0]) {
         'staffCalendar' => $this->helpers->wrap($this->staffCalendar(), "data"),
+        'category' => $this->helpers->wrap($this->categoryCalendar(), "data"),
         '' . $this->helpers->validateINT($this->helpers->urlData[0], "id") => $this->helpers->wrap($this->userEventID($this->helpers->urlData[0]), "data"),
         default => $this->helpers->isErrorInfo(400, "Ошибка в GET-запросе", "Неверные параметры"),
       },

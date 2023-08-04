@@ -59,7 +59,6 @@ trait CalendarValidate
       "endDate" => $this->endDate(),
       "allDay" => $this->allDay(),
       "calendar" => $this->calendar(),
-      "color" => $this->color(),
       "description" => $this->description(),
       "display" => $this->display(),
       "users" => $this->users(),
@@ -130,11 +129,6 @@ trait CalendarValidate
     ($start > $end) ? $this->helpers::isErrorInfo(400, "Неверные параметры", "Начальная дата должна быть меньше конечной"): true;
   }
 
-  /**
-   * Проверяем начальную дату
-   * 
-   * @return int
-   */
   private function allDay():int
   {
     $param = $this->helpers->formData["allDay"] ?? "";
@@ -144,18 +138,14 @@ trait CalendarValidate
     return $param;
   }
 
-  private function calendar():string
+  private function calendar():int
   {
-    $param = !empty($this->helpers->formData["calendar"]) ? $this->helpers->formData["calendar"] : $this->helpers::isErrorInfo(400, "Неверные параметры", "Ожидаю calendar.");
+    $param = $this->helpers->formData["calendar"] ?? "";
+
+    $this->helpers->validateINT($param, "calendar");
+    $param = ($this->helpers->isExistsById("sdc_calendar_category", $param)) ? $param: $this->helpers->isErrorInfo(400, "Неверные параметы", "Нет такой категории");
     return $param;
   }
-
-  private function color():string
-  {
-    $param = !empty($this->helpers->formData["color"]) ? $this->helpers->formData["color"] : $this->helpers::isErrorInfo(400, "Неверные параметры", "Ожидаю color.");
-    return $param;
-  }
-
 
   private function description():string
   {
