@@ -197,13 +197,18 @@ class Calendar
    */
   private function delEvent()
   {
+    $id = $this->id();
     $param = $this->helpers->sudo === 1 ? '' : "AND creator = {$this->helpers->id}";
 
     $sql = "DELETE FROM sdc_calendar WHERE id = ? $param";
-    $row = $this->helpers->db->run($sql, [$this->id()]);
-var_dump($row);
+    $this->helpers->db->run($sql, [$id]);
+
+    $row = $this->helpers->isExistsById('sdc_calendar', $id);
+    if($row){
+      $this->helpers->isErrorInfo(400, "Отказано в доступе", "Вы не можете удалить запись с id $id");
+    }
     http_response_code(200);
-    return $this->helpers->wrap(["info" => "запись удалена", "id" => $this->id()], "data");
+    return $this->helpers->wrap(["info" => "запись удалена", "id" => $id], "data");
   }
 
   /**
