@@ -45,6 +45,7 @@ class DB
       $stmt->execute($args);
       return $stmt;
     } catch (\PDOException $e) {
+      http_response_code(400);
       echo json_encode(array(
         "data" =>[],
         "error" => array(
