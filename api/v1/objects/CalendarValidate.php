@@ -168,4 +168,20 @@ trait CalendarValidate
     return $param;
   }
 
+  /**
+   * Если категория используется в таблице
+   * sdc_calendar запрещаем её удалять
+   */
+  private function validateExistCategory():void
+  {
+    $sql = "SELECT
+                COUNT(id)
+            FROM sdc_calendar
+            WHERE calendar = ?";
+    $row = $this->helpers->db->run($sql, [$this->helpers->formData["id"]])->fetchColumn();
+    if($row !== 0){
+        $this->helpers->isErrorInfo(400, "Неверные параметы", "Невозможно удалить категорию. Она используется");
+    }
+  }
+
 }

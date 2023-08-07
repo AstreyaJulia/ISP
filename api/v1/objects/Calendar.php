@@ -381,8 +381,11 @@ class Calendar
 
   private function delCategoryCalendar()
   {
+    $this->helpers->sudo === 1 ? '' : $this->helpers->isErrorInfo(400, "Отказано в доступе", "Вы не можете удалить запись");
+
     $id = $this->id("sdc_calendar_category");
-    $param = $this->helpers->sudo === 1 ? '' : $this->helpers->isErrorInfo(400, "Отказано в доступе", "Вы не можете удалить запись с id $id");
+    
+    $this->validateExistCategory();
 
     $sql = "DELETE FROM sdc_calendar_category WHERE id = ?";
     $this->helpers->db->run($sql, [$id]);
