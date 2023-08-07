@@ -198,7 +198,7 @@ class Calendar
    */
   private function updEvent()
   {
-    $param = array_merge(["id" => $this->id()], $this->validateEvent());
+    $param = array_merge(["id" => $this->id("sdc_calendar")], $this->validateEvent());
 
     $sql = "UPDATE sdc_calendar
                   SET
@@ -223,7 +223,7 @@ class Calendar
    */
   private function delEvent()
   {
-    $id = $this->id();
+    $id = $this->id("sdc_calendar");
     $param = $this->helpers->sudo === 1 ? '' : "AND creator = {$this->helpers->id}";
 
     $sql = "DELETE FROM sdc_calendar WHERE id = ? $param";
@@ -379,6 +379,22 @@ class Calendar
     return $this->helpers->wrap($param, "data");
   }
 
+  private function delCategoryCalendar()
+  {
+    $id = $this->id("sdc_calendar_category");
+    $param = $this->helpers->sudo === 1 ? '' : $this->helpers->isErrorInfo(400, "Отказано в доступе", "Вы не можете удалить запись с id $id");
+
+    $sql = "DELETE FROM sdc_calendar_category WHERE id = ?";
+    $this->helpers->db->run($sql, [$id]);
+
+    if($this->helpers->isExistsById('sdc_calendar_category', $id)){
+      $this->helpers->isErrorInfo(400, "Ошибка в запросе", "Не удалось удалить запись с id $id");
+    }
+
+    http_response_code(200);
+    return $this->helpers->wrap(["info" => "запись удалена", "id" => $id], "data");
+  }
+
   /**
    * Обрабатываем приходящие GET-запросы. 
    */
@@ -417,12 +433,11 @@ class Calendar
    */
   private function metodPATCH()
   {
-    if ($this->helpers->method === "PATCH") {
-      $this->helpers::headlinesPOST();
-      return $this->updEvent();
-    } else {
-      $this->helpers->isErrorInfo(400, "Ошибка в PATCH-запросе", "Неверные параметры");
-    }
+    $this->helpers::headlinesPOST();
+    return match (count($this->helpers->urlData)) {
+      0 => $this->updEvent(),
+      default => $this->helpers->isErrorInfo(400, "Ошибка в PATCH-запросе", "Неверные параметры")
+    };
   }
 
       /**
@@ -432,6 +447,13 @@ class Calendar
      */
     private function metodDELETE()
     {
-        return $this->delEvent();
+      return match (count($this->helpers->urlData)) {
+        0 => $this->delEvent(),
+        1 => match ($this->helpers->urlData[0]) {
+          'category' => $this->delCategoryCalendar(),
+          default => $this->helpers->isErrorInfo(400, "Ошибка в DELETE-запросе", "Неверные параметры"),
+        },
+        default => $this->helpers->isErrorInfo(400, "Ошибка в DELETE-запросе", "Неверные параметры")
+      };
     }
 }

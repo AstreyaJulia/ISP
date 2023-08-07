@@ -69,9 +69,11 @@ trait CalendarValidate
   /**
    * Проверяем id
    * 
+   * @param string $tableName наименование таблицы
+   * 
    * @return int id проверяемой записи
    */
-  private function id():int
+  private function id($tableName):int
   {
 
     $param = $this->helpers->formData["id"] ?? "";
@@ -80,7 +82,7 @@ trait CalendarValidate
 
     $sql = "SELECT
                 COUNT(id)
-            FROM sdc_calendar
+            FROM $tableName
             WHERE id = ?";
     $row = $this->helpers->db->run($sql, [$param])->fetchColumn();
     if($row !== 1){
