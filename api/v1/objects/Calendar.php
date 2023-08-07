@@ -356,6 +356,29 @@ class Calendar
     return $this->helpers->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
   }
 
+  private function addCategoryCalendar()
+  {
+    $param = [
+      "title" => $this->helpers->validateExist($this->helpers->formData["title"] ?? "", "title"),
+      "color" => $this->helpers->validateExist($this->helpers->formData["color"] ?? "", "color")
+    ];
+    $sql = "INSERT INTO sdc_calendar_category
+            (title, color)
+            VALUES(:title, :color)";
+
+    $this->helpers->db->run($sql, $param)->fetchAll(\PDO::FETCH_ASSOC);
+
+    $lastID = $this->helpers->db->pdo->lastInsertId() ?? $this->helpers::isErrorInfo(400, "Произошла ошибка", "Запись не добавлена");
+
+    http_response_code(201);
+    $param = [
+      "info" => "запись добавлена",
+      "id" => $lastID,
+      "title" => $param["title"]
+    ];
+    return $this->helpers->wrap($param, "data");
+  }
+
   /**
    * Обрабатываем приходящие GET-запросы. 
    */
@@ -378,12 +401,15 @@ class Calendar
    */
   private function metodPOST()
   {
-    if ($this->helpers->method === "POST") {
-      $this->helpers::headlinesPOST();
-      return $this->addEvent();
-    } else {
-      $this->helpers->isErrorInfo(400, "Ошибка в POST-запросе", "Неверные параметры");
-    }
+    $this->helpers::headlinesPOST();
+    return match (count($this->helpers->urlData)) {
+      0 => $this->addEvent(),
+      1 => match ($this->helpers->urlData[0]) {
+        'category' => $this->addCategoryCalendar(),
+        default => $this->helpers->isErrorInfo(400, "Ошибка в POST-запросе", "Неверные параметры"),
+      },
+      default => $this->helpers->isErrorInfo(400, "Ошибка в POST-запросе", "Неверные параметры")
+    };
   }
 
   /**
