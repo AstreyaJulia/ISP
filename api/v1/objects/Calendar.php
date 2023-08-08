@@ -345,9 +345,12 @@ class Calendar
   {
     $sql = "SELECT
               users.id,
-              userAttributes.fullname AS label
+              userAttributes.fullname AS label,
+              groupVocation.name AS groupName
             FROM sdc_users AS users
             LEFT JOIN sdc_user_attributes userAttributes ON users.id = userAttributes.internalKey
+            LEFT JOIN sdc_vocation AS vocation ON userAttributes.profession = vocation.id
+            LEFT JOIN sdc_vocation AS groupVocation ON vocation.parent_id = groupVocation.id
             WHERE users.active = 1 AND users.id != 1 ORDER BY label ASC";
     return $this->helpers->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
   }
