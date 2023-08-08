@@ -52,11 +52,13 @@ trait CalendarValidate
    */
   private function validateEvent():array
   {
-    $this->validateDate($this->helpers->formData["start"], $this->helpers->formData["end"]);
+    $startDate = $this->startDate();
+    $endDate = $this->endDate();
+    $this->validateDate($startDate, $endDate);
     return array(
       "title" => $this->title(),
-      "startDate" => $this->startDate(),
-      "endDate" => $this->endDate(),
+      "startDate" => $startDate,
+      "endDate" => $endDate,
       "allDay" => $this->allDay(),
       "calendar" => $this->calendar(),
       "description" => $this->description(),
