@@ -202,6 +202,12 @@ class Calendar
 
     $access = $this->helpers->sudo === 1 ? '' : "AND creator = {$this->helpers->id}";
 
+    $sql = "SELECT count(id) FROM sdc_calendar WHERE id = ? $access";
+
+    if(!$this->helpers->db->run($sql, [$param["id"]])->fetchColumn()){
+      $this->helpers->isErrorInfo(400, "Отказано в доступе", "Вы не можете изменить запись с id {$param['id']}");
+    }
+
     $sql = "UPDATE sdc_calendar
                   SET
                     title = :title,
@@ -215,11 +221,6 @@ class Calendar
                     creator =:creator 
                   WHERE id = :id $access";
     $this->helpers->db->run($sql, $param);
-
-    $row = $this->helpers->isExistsById('sdc_calendar', $param["id"]);
-    if($row){
-      $this->helpers->isErrorInfo(400, "Отказано в доступе", "Вы не можете удалить запись с id {$param['id']}");
-    }
 
     http_response_code(200);
     return $this->helpers->wrap(["info" => "запись изменена", "id" => $param["id"], "title" => $param["title"]], "data");
