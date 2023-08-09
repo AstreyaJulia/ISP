@@ -1,11 +1,9 @@
 import React, { Fragment, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import PropTypes from "prop-types";
-import toast from "react-hot-toast";
-import { setSession } from "../../../utils/jwt";
-import Toast, { toastStyles } from "../../Toast";
+import apiErrorHelper from "../../../utils/apiErrorHelper";
 
-const DeleteModal = ({ open, setOpen, deleteOnClick, deletedNode, setDeletedNode }) => {
+const DeleteModal = ({ open, setOpen, deleteOnClick, deletedNode, setDeletedNode, deleteTitle, deleteMessage }) => {
   const cancelButtonRef = useRef(null);
 
   return (
@@ -60,12 +58,11 @@ const DeleteModal = ({ open, setOpen, deleteOnClick, deletedNode, setDeletedNode
                   </div>
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                     <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
-                      Удаление элемента
+                      {deleteTitle}
                     </Dialog.Title>
                     <div className="mt-2">
                       <p className="text-base text-gray-700">
-                        Вы уверены, что хотите удалить этот элемент? Сведения будут полностью удалены. Операцию
-                        невозможно будет отменить.
+                        {deleteMessage}
                       </p>
                     </div>
                   </div>
@@ -78,13 +75,9 @@ const DeleteModal = ({ open, setOpen, deleteOnClick, deletedNode, setDeletedNode
                   onClick={() => {
                     if (deleteOnClick) {
                       try {
-                        deleteOnClick(deletedNode).then(() => setDeletedNode(null));
+                        deleteOnClick(deletedNode).then(() => deletedNode ? setDeletedNode(null) : null);
                       } catch (err) {
-                        const error = err.message && err.info ? `${err.message}: ${err.info}` : err.toString();
-                        if (err.code.toString() === "401") {
-                          setSession(null);
-                        }
-                        toast((t) => <Toast t={t} message={error} type="error" />, { className: toastStyles });
+                        apiErrorHelper(err);
                       }
                     }
                     setOpen(false);
@@ -114,7 +107,14 @@ DeleteModal.propTypes = {
   setOpen: PropTypes.func.isRequired,
   deleteOnClick: PropTypes.func,
   deletedNode: PropTypes.object,
-  setDeletedNode: PropTypes.func
+  setDeletedNode: PropTypes.func,
+  deleteTitle: PropTypes.string,
+  deleteMessage: PropTypes.string
+};
+
+DeleteModal.defaultProps = {
+  deleteTitle: 'Удаление элемента',
+  deleteMessage: 'Вы уверены, что хотите удалить этот элемент? Сведения будут полностью удалены. Операцию невозможно будет отменить.'
 };
 
 export default DeleteModal;

@@ -7,7 +7,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { isDate, parseISO } from "date-fns";
 import PropTypes from "prop-types";
 import Toast, { toastStyles } from "../Toast";
-import { setSession } from "../../utils/jwt";
 import {
   FormProvider,
   RHFDatePicker,
@@ -24,7 +23,7 @@ import LoadingButton from "../LoadingButton";
 import axios from "../../utils/axios";
 import { getLoginFromName } from "../../utils/createLogin";
 import Badge from "../Badge";
-
+import apiErrorHelper from "../../utils/apiErrorHelper";
 
 export default function UserNewEditForm({ isEdit, currentUser, getFunc }) {
 
@@ -141,11 +140,7 @@ export default function UserNewEditForm({ isEdit, currentUser, getFunc }) {
                           type="success" />, { className: toastStyles });
       navigate(-1);
     } catch (err) {
-      const error = err.message && err.info ? `${err.message}: ${err.info}` : err.toString();
-      if (err.code.toString() === "401") {
-        setSession(null);
-      }
-      toast((t) => <Toast t={t} message={error} type="error" />, { className: toastStyles });
+      apiErrorHelper(err);
     }
   };
 
@@ -201,13 +196,7 @@ export default function UserNewEditForm({ isEdit, currentUser, getFunc }) {
         setRoomsOptions([]);
         setRoomsOptions(roomsOptions);
       })
-      .catch((err) => {
-        const error = err.message && err.info ? `${err.message}: ${err.info}` : err.toString();
-        if (err.code.toString() === "401") {
-          setSession(null);
-        }
-        toast((t) => <Toast t={t} message={error} type="error" />, { className: toastStyles });
-      });
+      .catch((err) => apiErrorHelper(err));
   };
 
   const getProfessionsSelect = async () => {
@@ -226,13 +215,7 @@ export default function UserNewEditForm({ isEdit, currentUser, getFunc }) {
         setProfessionsOptions([]);
         setProfessionsOptions(professionsOptions);
       })
-      .catch((err) => {
-        const error = err.message && err.info ? `${err.message}: ${err.info}` : err.toString();
-        if (err.code.toString() === "401") {
-          setSession(null);
-        }
-        toast((t) => <Toast t={t} message={error} type="error" />, { className: toastStyles });
-      });
+      .catch((err) =>apiErrorHelper(err));
   };
 
   const getJudgesSelect = async () => {
@@ -251,13 +234,7 @@ export default function UserNewEditForm({ isEdit, currentUser, getFunc }) {
         setJudgesOptions([]);
         setJudgesOptions(jugdesOptions);
       })
-      .catch((err) => {
-        const error = err.message && err.info ? `${err.message}: ${err.info}` : err.toString();
-        if (err.code.toString() === "401") {
-          setSession(null);
-        }
-        toast((t) => <Toast t={t} message={error} type="error" />, { className: toastStyles });
-      });
+      .catch((err) => apiErrorHelper(err));
   };
 
   const onFocusRooms = async () => {
@@ -290,13 +267,7 @@ export default function UserNewEditForm({ isEdit, currentUser, getFunc }) {
         toast((t) => <Toast t={t} message={message} type="success" />, { className: toastStyles });
         getFunc();
       })
-      .catch((err) => {
-        const error = err.message && err.info ? `${err.message}: ${err.info}` : err.toString();
-        if (err.code.toString() === "401") {
-          setSession(null);
-        }
-        toast((t) => <Toast t={t} message={error} type="error" />, { className: toastStyles });
-      });
+      .catch((err) => apiErrorHelper(err));
   };
 
   return (
@@ -312,7 +283,7 @@ export default function UserNewEditForm({ isEdit, currentUser, getFunc }) {
                           label={<Typography variant="label">Фамилия, имя, отчество</Typography>} />
 
             <div className="flex items-center gap-5 mb-5">
-              <RHFDatePicker name="dob" placeholder="Дата рождения"
+              <RHFDatePicker name="dob" placeholder="Дата рождения" onChange={(date)=> setValue('dob', date)}
                              label={<Typography variant="label">Дата рождения</Typography>} />
               <RHFGenderRadioGroup name="gender" defaultValue={genders[1].value} options={genders} />
             </div>

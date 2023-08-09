@@ -21,7 +21,7 @@ export default function RHFRadioGroupWithIcons({name, label, options, defaultVal
                     error
                         ? 'border-red-500 dark:border-red-600'
                         : 'border-transparent',
-                    direction === 'row' ? 'items-center justify-end' : 'flex-col', label ? 'gap-4' : '')}>
+                    direction === 'row' ? 'items-center justify-end' : 'flex-col', label ? 'gap-3' : '')}>
 
                 {label ? (
                     <label htmlFor={name}

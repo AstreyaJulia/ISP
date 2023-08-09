@@ -26,6 +26,7 @@
 
 .react-datepicker {
     font-family: "OpenSans", helvetica, arial, sans-serif;
+    z-index: 1000;
 }
 
 .react-datepicker {

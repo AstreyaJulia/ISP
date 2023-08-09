@@ -165,7 +165,7 @@ export const events = [
   {
     id: '1',
     title: 'Длинное событие на несколько дней',
-    date: '2022-05-04',
+    start: '2022-05-04',
     end: '2022-05-07',
     allDay: true,
     calendar: 'indigo',

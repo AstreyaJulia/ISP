@@ -162,7 +162,7 @@ export const PATH_PLANING = {
   root: {  // Календарь + задачи
     client: ROOTS_PLANING,
     accessibleProfessions: '',
-    accessibleRoles: [1],
+    accessibleRoles: [0,1],
     api: {
       main: null,
     },

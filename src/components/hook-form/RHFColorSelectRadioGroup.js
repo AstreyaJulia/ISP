@@ -5,8 +5,54 @@ import { RadioGroup } from '@headlessui/react';
 import { Tooltip } from 'react-tooltip';
 import { classNames } from '../../utils/classNames';
 
-export default function RHFGenderRadioGroup({ name, label, options, defaultValue, direction, ...other }) {
+export default function RHFColorSelectRadioGroup({ name, label, options, defaultValue, direction, size, ...other }) {
   const { control } = useFormContext();
+
+  const sizes = {
+    3: 'h-3 w-3',
+    4: 'h-4 w-4',
+    5: 'h-5 w-5',
+    6: 'h-6 w-6',
+  };
+
+  const colorOptions = {
+    indigo: {
+      ring: 'ring-indigo-600 dark:bg-indigo-500',
+      bg: 'bg-indigo-500 dark:bg-indigo-600'
+    },
+    green: {
+      ring: 'ring-green-600 dark:bg-green-500',
+      bg: 'bg-green-500 dark:bg-green-600'
+    },
+    cyan: {
+      ring: 'ring-cyan-600 dark:bg-cyan-500',
+      bg: 'bg-cyan-500 dark:bg-cyan-600'
+    },
+    yellow: {
+      ring: 'ring-yellow-600 dark:bg-yellow-500',
+      bg: 'bg-yellow-500 dark:bg-yellow-600'
+    },
+    red: {
+      ring: 'ring-red-600 dark:bg-red-500',
+      bg: 'bg-red-500 dark:bg-red-600'
+    },
+    pink: {
+      ring: 'ring-pink-600 dark:bg-pink-500',
+      bg: 'bg-pink-500 dark:bg-pink-600'
+    },
+    blue: {
+      ring: 'ring-blue-600 dark:bg-blue-500',
+      bg: 'bg-blue-500 dark:bg-blue-600'
+    },
+    orange: {
+      ring: 'ring-orange-600 dark:bg-orange-500',
+      bg: 'bg-orange-500 dark:bg-orange-600'
+    },
+    teal: {
+      ring: 'ring-teal-600 dark:bg-teal-500',
+      bg: 'bg-teal-500 dark:bg-teal-600'
+    }
+  }
 
   return (<Controller
     name={name}
@@ -14,11 +60,8 @@ export default function RHFGenderRadioGroup({ name, label, options, defaultValue
     defaultValue={defaultValue}
     render={({ field, fieldState: { error } }) => (
       <div
-        className={classNames('relative flex w-full pr-10 py-1 pl-3 rounded-lg border',
-            error
-                ? 'border-red-500 dark:border-red-600'
-                : 'border-transparent',
-            direction === 'row' ? 'items-center justify-end' : 'flex-col', label ? 'gap-3' : '')}>
+        className={classNames('relative flex w-full pr-10 rounded-lg',
+          direction === 'row' ? 'items-center justify-end' : 'flex-col', label ? 'gap-3' : '')}>
 
         {label ? (
           <label htmlFor={name} className={classNames('flex flex-col shrink-0', direction === 'row' ? 'text-right w-52' : 'w-full')} >
@@ -27,7 +70,7 @@ export default function RHFGenderRadioGroup({ name, label, options, defaultValue
         <div id={name} className='relative'>
           <RadioGroup {...other} value={field.value} onChange={field.onChange} {...field}>
             <RadioGroup.Label className='sr-only'>Выберите</RadioGroup.Label>
-            <div className='flex items-center space-x-3'>
+            <div className='flex items-center gap-3 flex-wrap justify-start'>
               {options.map((option) => (<RadioGroup.Option
                 key={`${name}-${option.value}`}
                 value={option.value}
@@ -35,23 +78,15 @@ export default function RHFGenderRadioGroup({ name, label, options, defaultValue
                 className={({
                               active,
                               checked,
-                            }) => classNames(option.value.toString() === '0' ? 'ring-pink-500' : 'ring-cyan-500', active && checked ? 'ring ring-offset-1' : '', !active && checked ? 'ring-2' : '', '-m-0.5 relative p-0.5 rounded-full flex items-center justify-center cursor-pointer focus:outline-none')}
+                            }) => classNames(colorOptions[option.value.toString()].ring, active && checked ? 'ring ring-offset-1' : '', !active && checked ? 'ring-2' : '', '-m-0.5 relative p-0.5 rounded-full flex items-center justify-center cursor-pointer focus:outline-none')}
               >
                 <RadioGroup.Label as='p' className='sr-only'>
                   {option.label}
                 </RadioGroup.Label>
                 <span
                   aria-hidden='true'
-                  className={classNames(option.value.toString() === '0' ? 'bg-pink-400' : 'bg-cyan-400', 'h-8 w-8 border border-black border-opacity-10 rounded-full flex items-center justify-center shadow-sm')}
-                >{option.value.toString() === '0' ?
-                  <svg xmlns='http://www.w3.org/2000/svg' className='w-6 h-6 text-pink-800'>
-                    <path fill='currentColor'
-                          d='M11 21v-2H9v-2h2v-2.1q-1.975-.35-3.237-1.888Q6.5 11.475 6.5 9.45q0-2.275 1.613-3.862Q9.725 4 12 4t3.887 1.588Q17.5 7.175 17.5 9.45q0 2.025-1.262 3.562Q14.975 14.55 13 14.9V17h2v2h-2v2Zm1-8q1.45 0 2.475-1.025Q15.5 10.95 15.5 9.5q0-1.45-1.025-2.475Q13.45 6 12 6q-1.45 0-2.475 1.025Q8.5 8.05 8.5 9.5q0 1.45 1.025 2.475Q10.55 13 12 13Z' />
-                  </svg> : <svg xmlns='http://www.w3.org/2000/svg' className='w-6 h-6 text-cyan-800'
-                                preserveAspectRatio='xMidYMid meet' viewBox='0 0 24 24'>
-                    <path fill='currentColor'
-                          d='M20 4v6h-2V7.425l-3.975 3.95q.475.7.725 1.487q.25.788.25 1.638q0 2.3-1.6 3.9T9.5 20q-2.3 0-3.9-1.6T4 14.5q0-2.3 1.6-3.9T9.5 9q.825 0 1.625.238q.8.237 1.475.737L16.575 6H14V4ZM9.5 11q-1.45 0-2.475 1.025Q6 13.05 6 14.5q0 1.45 1.025 2.475Q8.05 18 9.5 18q1.45 0 2.475-1.025Q13 15.95 13 14.5q0-1.45-1.025-2.475Q10.95 11 9.5 11Z' />
-                  </svg>}</span>
+                  className={classNames(colorOptions[option.value.toString()].bg, sizes[size], 'border border-black border-opacity-10 rounded-full flex items-center justify-center shadow-sm')}
+                />
               </RadioGroup.Option>))}
             </div>
           </RadioGroup>
@@ -82,7 +117,7 @@ export default function RHFGenderRadioGroup({ name, label, options, defaultValue
   />);
 }
 
-RHFGenderRadioGroup.propTypes = {
+RHFColorSelectRadioGroup.propTypes = {
   name: PropTypes.string,
   options: PropTypes.arrayOf(PropTypes.object),
   label: PropTypes.node,
@@ -91,7 +126,7 @@ RHFGenderRadioGroup.propTypes = {
   direction: PropTypes.oneOf(['row', 'column']),
 };
 
-RHFGenderRadioGroup.defaultProps = {
+RHFColorSelectRadioGroup.defaultProps = {
   label: null,
   direction: 'row',
 };

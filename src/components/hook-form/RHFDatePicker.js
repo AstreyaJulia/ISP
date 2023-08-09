@@ -9,7 +9,7 @@ import { classNames } from '../../utils/classNames';
 
 registerLocale('ru', ru);
 
-export default function RHFDatePicker({ name, label, placeholder, direction, ...other }) {
+export default function RHFDatePicker({ name, label, placeholder, direction, dateFormat, showTimeSelect, onChange, ...other }) {
   const { control } = useFormContext();
 
   const getDate = (date) => {
@@ -26,8 +26,8 @@ export default function RHFDatePicker({ name, label, placeholder, direction, ...
     <Controller
       name={name}
       control={control}
-      render={({ field: { value, onChange }, fieldState: { error } }) => (
-        <div className={classNames('flex', direction === 'row' ? 'items-center justify-end grow-0' : 'flex-col', label ? 'gap-4' : '')}>
+      render={({ field: { value }, fieldState: { error } }) => (
+        <div className={classNames('flex', direction === 'row' ? 'items-center justify-end grow-0' : 'flex-col', label ? 'gap-3' : '')}>
           {label ? (
             <label htmlFor={name} className={classNames('flex flex-col shrink-0', direction === 'row' ? 'text-right w-52' : 'w-full text-left')} >
               {label}
@@ -38,13 +38,14 @@ export default function RHFDatePicker({ name, label, placeholder, direction, ...
           <div id={name} className='relative'>
             <DatePicker
               selected={getDate(value)}
-              dateFormat='dd.MM.yyyy'
-              onChange={onChange}
+              dateFormat={dateFormat}
+              showTimeSelect={showTimeSelect}
+              onChange={(date) => onChange(date)}
               locale='ru'
               className={classNames(
                 'relative bg-gray-100 dark:bg-gray-800 focus:outline-none text-base rounded-lg shadow-sm',
                 error
-                  ? 'pr-10 border-red-500 dark:border-red-600 text-red-900 dark:text-red-50 placeholder-red-400 dark:placeholder-red-400 focus:ring-red-500 focus:border-red-500'
+                  ? 'border-red-500 dark:border-red-600 text-red-900 dark:text-red-50 placeholder-red-400 dark:placeholder-red-400 focus:ring-red-500 focus:border-red-500'
                   : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-gray-900 dark:text-gray-400 placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500',
               )}
               placeholderText={placeholder}
@@ -85,9 +86,15 @@ RHFDatePicker.propTypes = {
   label: PropTypes.node,
   placeholder: PropTypes.string.isRequired,
   direction: PropTypes.oneOf(['row', 'column']),
+  dateFormat: PropTypes.string,
+  showTimeSelect: PropTypes.bool,
+  onChange: PropTypes.func
 };
 
 RHFDatePicker.defaultProps = {
   label: null,
   direction: 'row',
+  dateFormat: 'dd.MM.yyyy',
+  showTimeSelect: false,
+  onChange: () => null
 };

@@ -5,6 +5,7 @@ import axios from '../utils/axios';
 import { isValidToken, setSession } from '../utils/jwt';
 import useLocalStorage from '../hooks/useLocalStorage';
 import Toast, { toastStyles } from '../components/Toast';
+import apiErrorHelper from "../utils/apiErrorHelper";
 
 const initialState = {
   theme: 1,
@@ -119,13 +120,7 @@ function AuthProvider({ children }) {
           },
         });
       })
-      .catch((err) => {
-        const error = err.message && err.info ? `${err.message}: ${err.info}` : err.toString();
-        if (err.code.toString() === '401') {
-          setSession(null);
-        }
-        toast((t) => <Toast t={t} message={error} type="error" />, { className: toastStyles });
-      });
+      .catch((err) => apiErrorHelper(err));
 
   const initialize = async () => {
     try {
@@ -251,10 +246,7 @@ function AuthProvider({ children }) {
           toast((t) => <Toast t={t} message={error} type="error" />, { className: toastStyles });
         }
       })
-      .catch((err) => {
-        const error = err.message && err.info ? `${err.message}: ${err.info}` : err.toString();
-        toast((t) => <Toast t={t} message={error} type="error" />, { className: toastStyles });
-      });
+      .catch((err) => apiErrorHelper(err));
   };
 
   /** Регистрация (установка пароля)
@@ -293,10 +285,7 @@ function AuthProvider({ children }) {
           getUserData();
         }
       })
-      .catch((err) => {
-        const error = err.message && err.info ? `${err.message}: ${err.info}` : err.toString();
-        toast((t) => <Toast t={t} message={error} type="error" />, { className: toastStyles });
-      });
+      .catch((err) => apiErrorHelper(err));
   };
 
   /** Выход

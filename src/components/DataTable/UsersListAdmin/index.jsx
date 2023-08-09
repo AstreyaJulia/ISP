@@ -7,10 +7,10 @@ import DataTableCore from '../DataTableCore';
 import DataTableToolBar from '../DataTableCore/DataTableToolBar';
 import axios from '../../../utils/axios';
 import Toast, { toastStyles } from '../../Toast';
-import { setSession } from '../../../utils/jwt';
 import BasicButton from '../../BasicButton';
 import { PATH_ADMIN } from '../../../routes/paths';
 import MenuItem from "./MenuItem";
+import apiErrorHelper from "../../../utils/apiErrorHelper";
 
 const UsersListAdmin = ({ data, isLoading, error, getFunc }) => {
   const [rows, setRows] = useState(data ?? []);
@@ -39,13 +39,7 @@ const UsersListAdmin = ({ data, isLoading, error, getFunc }) => {
         toast((t) => <Toast t={t} message={message} type='success' />, { className: toastStyles });
         getFunc();
       })
-      .catch((err) => {
-        const error = err.message && err.info ? `${err.message}: ${err.info}` : err.toString();
-        if (err.code.toString() === '401') {
-          setSession(null);
-        }
-        toast((t) => <Toast t={t} message={error} type='error' />, { className: toastStyles });
-      });
+      .catch((err) => apiErrorHelper(err));
   };
 
   const filter = (rows, query, columns) => rows?.filter((row) => columns.slice(1, 6).some((column) => row[column].toLowerCase().indexOf(query.toLowerCase()) > -1));

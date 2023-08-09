@@ -7,7 +7,7 @@ import { Tooltip } from 'react-tooltip';
 import useAuth from '../../hooks/useAuth';
 import { classNames } from '../../utils/classNames';
 
-export default function RHFSelect({ name, label, options, placeholder, isMulti, onChange, onFocus, noOptionsMessage, direction }) {
+export default function RHFSelect({ name, label, options, placeholder, isMulti, onChange, onFocus, noOptionsMessage, direction, disabled, defaultValue }) {
   const { control } = useFormContext();
 
   const { theme } = useAuth();
@@ -64,7 +64,7 @@ export default function RHFSelect({ name, label, options, placeholder, isMulti, 
 
   /* Форматтер элемента меню */
   const formatOptionLabel = ({ label, icon, customAbbreviation }) => (
-    <div className='flex items-center group flex w-full items-center text-base gap-2 w-full h-full'>
+    <div className='flex items-center group flex w-full items-center text-sm gap-2 w-full h-full'>
       {icon ? <span>{icon}</span> : ''}
       <span>{label}</span>
       {customAbbreviation}
@@ -86,7 +86,7 @@ export default function RHFSelect({ name, label, options, placeholder, isMulti, 
   const MultiValueLabel = (props) => (
       <components.MultiValueLabel {...props}>
         <span
-          className='flex items-center bg-slate-200 dark:bg-slate-700 text-gray-500 dark:text-gray-400 rounded-l-md p-1'>
+          className='flex items-center bg-slate-200 dark:bg-slate-700 text-gray-700 dark:text-gray-200 rounded-l-md p-1'>
           {props.children}
         </span>
       </components.MultiValueLabel>
@@ -126,13 +126,25 @@ export default function RHFSelect({ name, label, options, placeholder, isMulti, 
       </components.ClearIndicator>
     );
 
+  /* const findValues = (value, options, isMulti) => {
+    if (!isMulti) {
+      return options.find(c => c.value === value)
+    }
+    // eslint-disable-next-line
+    return options.map((option)=> {
+      if (option.options && option.options.length > 0) {
+        return [option.options]
+      }
+    }).filter(c => value.includes(c.value))
+  } */
+
   return (
     <Controller
       name={name}
       control={control}
-      defaultValue={options.map(c => c.value)}
+      defaultValue={defaultValue}
       render={({ field: { value, ref }, fieldState: { error } }) => (
-        <div className={classNames('flex w-full', direction === 'row' ? 'items-center justify-end' : 'flex-col', label ? 'gap-4' : '')}>
+        <div className={classNames('flex w-full', direction === 'row' ? 'items-center justify-end' : 'flex-col', label ? 'gap-3' : '')}>
 
           {label ? (
             <label htmlFor={name} className={classNames('flex flex-col shrink-0', direction === 'row' ? 'text-right w-52' : 'w-full text-left ')} >
@@ -221,6 +233,7 @@ export default function RHFSelect({ name, label, options, placeholder, isMulti, 
               options={options}
               onChange={(evt) => onChange(evt)}
               isClearable={'true'}
+              isDisabled={disabled}
             />
             {error ? (
               <div className='absolute inset-y-0 right-8 flex items-center pointer-events-none'>
@@ -254,15 +267,20 @@ RHFSelect.propTypes = {
   options: PropTypes.array,
   name: PropTypes.string,
   placeholder: PropTypes.string,
-  isMulti: PropTypes.string,
+  isMulti: PropTypes.bool,
   label: PropTypes.node,
   direction: PropTypes.oneOf(['row', 'column']),
   onChange: PropTypes.func,
   onFocus: PropTypes.func,
-  noOptionsMessage: PropTypes.string
+  noOptionsMessage: PropTypes.string,
+  disabled: PropTypes.bool,
+  defaultValue: PropTypes.any
 };
 
 RHFSelect.defaultProps = {
   label: null,
   direction: 'row',
+  isMulti: false,
+  disabled: false,
+  defaultValue: null
 };

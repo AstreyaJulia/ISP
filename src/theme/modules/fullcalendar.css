@@ -298,43 +298,43 @@
 
 /** Текст событий */
 .calendar-module .fc-event-indigo .fc-event-title {
-    @apply text-indigo-900 dark:text-indigo-200 ml-1;
+    @apply text-indigo-900 dark:text-indigo-200;
 }
 
 .calendar-module .fc-event-green .fc-event-title {
-    @apply text-green-900 dark:text-green-200 ml-1;
+    @apply text-green-900 dark:text-green-200;
 }
 
 .calendar-module .fc-event-cyan .fc-event-title {
-    @apply text-cyan-900 dark:text-cyan-200 ml-1;
+    @apply text-cyan-900 dark:text-cyan-200;
 }
 
 .calendar-module .fc-event-yellow .fc-event-title {
-    @apply text-yellow-900 dark:text-yellow-200 ml-1;
+    @apply text-yellow-900 dark:text-yellow-200;
 }
 
 .calendar-module .fc-event-red .fc-event-title {
-    @apply text-red-900 dark:text-red-200 ml-1;
+    @apply text-red-900 dark:text-red-200;
 }
 
 .calendar-module .fc-event-pink .fc-event-title {
-    @apply text-pink-900 dark:text-pink-200 ml-1;
+    @apply text-pink-900 dark:text-pink-200;
 }
 
 .calendar-module .fc-event-blue .fc-event-title {
-    @apply text-blue-900 dark:text-blue-200 ml-1;
+    @apply text-blue-900 dark:text-blue-200;
 }
 
 .calendar-module .fc-event-orange .fc-event-title {
-    @apply text-orange-900 dark:text-orange-200 ml-1;
+    @apply text-orange-900 dark:text-orange-200;
 }
 
 .calendar-module .fc-event-teal .fc-event-title {
-    @apply text-teal-900 dark:text-teal-200 ml-1;
+    @apply text-teal-900 dark:text-teal-200;
 }
 
 .calendar-module .fc-event-sky .fc-event-title {
-    @apply text-sky-900 dark:text-sky-200 ml-1;
+    @apply text-sky-900 dark:text-sky-200;
 }
 
 /** Точки на событиях */
@@ -369,7 +369,7 @@
 
 .calendar-module .fc-event-time,
 .calendar-module .fc-daygrid-block-event .fc-event-time {
-    @apply text-gray-800 font-bold text-sm flex shrink-0;
+    @apply text-gray-800 font-bold text-xs flex shrink-0;
 }
 
 .calendar-module .fc-event-indigo .fc-event-time {
@@ -490,27 +490,6 @@
 
 .calendar-module .fc {
     height: calc(100vh - 88px - 110px);
-}
-
-.fc-event-task .fc-event-main .fc-event-main-frame .fc-event-title-container .fc-event-title.fc-sticky:before {
-    content: '☑';
-    font-size: 16px;
-    margin-right: 5px;
-}
-
-.fc-event-task-completed
-.fc-event-main
-.fc-event-main-frame
-.fc-event-title-container
-.fc-event-title.fc-sticky:before {
-    content: '☑';
-    font-size: 16px;
-    margin-right: 5px;
-    text-decoration: none;
-}
-
-.fc-event-task-completed .fc-event-main .fc-event-main-frame .fc-event-title-container .fc-event-title.fc-sticky {
-    text-decoration: line-through;
 }
 
 .fc .fc-daygrid-day-top {

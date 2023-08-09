@@ -57,7 +57,7 @@ const Toast = ({ t, message, type }) => {
   };
 
   return (
-    <div className="flex items-start">
+    <div className="flex items-start z-50">
       <div className="flex-shrink-0">{toastTypes[type].icon}</div>
       <div className="ml-3 flex-1 pt-0.5">
         <p className="text-sm font-medium text-gray-700 dark:text-gray-200">{serverErrors[message] || message}</p>

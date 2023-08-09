@@ -5,6 +5,7 @@ import Toast, { toastStyles } from '../components/Toast';
 
 
 const apiErrorHelper = (error) => {
+  console.log(error)
   const message = error.message && error.info ? `${error.message}: ${error.info}` : error.toString();
   if (error.code?.toString() === '401') {
     setSession(null);

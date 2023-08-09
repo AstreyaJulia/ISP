@@ -1,17 +1,17 @@
-import React, { useEffect } from 'react';
-import BasicPage from '../pagesLayouts/BasicPage';
-import CasesOverPeriodWidget from './widgets/CasesOverPeriodWidget';
+import React, { useEffect } from "react";
+import BasicPage from "../pagesLayouts/BasicPage";
+import CasesOverPeriodWidget from "./widgets/CasesOverPeriodWidget";
 import CasesOverPeriodDecisionWidget from "./widgets/CasesOverPeriodDecisionWidget";
-import useAuth from '../../hooks/useAuth';
-import NoPublicatedActs from './widgets/NoPublicatedActs';
-import ProcessedWidget from './widgets/ProcessedWidget';
-import UserWelcomeWidget from './widgets/UserWelcomeWidget';
-import NoLastEvents from './widgets/NoLastEvents';
-import { useDispatch, useSelector } from '../../store';
-import { WidgetWeather } from '../../components/Weather/WidgetWeather';
-import { getCurrentWeather } from '../../store/slices/weather';
-import { getBirthdaysList } from '../../store/slices/users';
-import WidgetUsersBirthdays from './widgets/WidgetUsersBirthdays';
+import useAuth from "../../hooks/useAuth";
+import NoPublicatedActs from "./widgets/NoPublicatedActs";
+import ProcessedWidget from "./widgets/ProcessedWidget";
+import UserWelcomeWidget from "./widgets/UserWelcomeWidget";
+import NoLastEvents from "./widgets/NoLastEvents";
+import { useDispatch, useSelector } from "../../store";
+import { WidgetWeather } from "../../components/Weather/WidgetWeather";
+import { getCurrentWeather } from "../../store/slices/weather";
+import { getBirthdaysList } from "../../store/slices/users";
+import WidgetUsersBirthdays from "./widgets/WidgetUsersBirthdays";
 
 
 const Home = () => {
@@ -34,11 +34,13 @@ const Home = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    setInterval(() => {
+    const interval = setInterval(() => {
       dispatch(getCurrentWeather());
-    }, 300000);
-    // eslint-disable-next-line
-  }, []);
+      dispatch(getBirthdaysList());
+    }, (1000 * 60 * 5)); // милисекунды * секунды * минуты
+    // очистка интервала
+    return () => clearInterval(interval);
+  });
 
   return (
     <BasicPage title="Главная" className="main-content max-w-7xl mx-auto px-5">
@@ -47,11 +49,11 @@ const Home = () => {
           <div className="flex flex-col gap-4">
             {/* 1-я колонка */}
             <UserWelcomeWidget />
-            {[1, 2, 3, 6, 7].includes(user?.professionID) ? <CasesOverPeriodWidget /> : ''}
-            {[1, 2, 3, 6, 7].includes(user?.professionID) ? <CasesOverPeriodDecisionWidget /> : ''}
-            {[1, 2, 3, 6, 7].includes(user?.professionID) ? <NoPublicatedActs /> : ''}
-            {[1, 2, 3, 6, 7].includes(user?.professionID) ? <ProcessedWidget /> : ''}
-            {[1, 2, 3, 9].includes(user?.professionID) ? <NoLastEvents /> : ''}
+            {[1, 2, 3, 6, 7].includes(user?.professionID) ? <CasesOverPeriodWidget /> : ""}
+            {[1, 2, 3, 6, 7].includes(user?.professionID) ? <CasesOverPeriodDecisionWidget /> : ""}
+            {[1, 2, 3, 6, 7].includes(user?.professionID) ? <NoPublicatedActs /> : ""}
+            {[1, 2, 3, 6, 7].includes(user?.professionID) ? <ProcessedWidget /> : ""}
+            {[1, 2, 3, 9].includes(user?.professionID) ? <NoLastEvents /> : ""}
           </div>
         </div>
         <div>
@@ -66,7 +68,7 @@ const Home = () => {
               currentError={currentError}
             />
 
-            {usersBirthdays.length > 0 ? <WidgetUsersBirthdays birthdays={usersBirthdays ?? []} error={error} /> : ''}
+            {usersBirthdays.length > 0 ? <WidgetUsersBirthdays birthdays={usersBirthdays ?? []} error={error} /> : ""}
           </div>
         </div>
       </div>

@@ -16,7 +16,7 @@ export default function RHFPasswordHideShow({ name, label, placeholder, directio
       name={name}
       control={control}
       render={({ field, fieldState: { error } }) => (
-        <div className={classNames('flex w-full', direction === 'row' ? 'items-center justify-end' : 'flex-col', label ? 'gap-4' : '')}>
+        <div className={classNames('flex w-full', direction === 'row' ? 'items-center justify-end' : 'flex-col', label ? 'gap-3' : '')}>
           {label ? (
             <label htmlFor={name} className={classNames('flex flex-col shrink-0', direction === 'row' ? 'text-right w-52' : 'w-full text-left ')} >
               {label}

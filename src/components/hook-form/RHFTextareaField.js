@@ -5,7 +5,7 @@ import { Tooltip } from 'react-tooltip';
 import { classNames } from '../../utils/classNames';
 
 
-export default function RHFTextareaField({ name, label, placeholder, rows, direction, ...other }) {
+export default function RHFTextareaField({ name, label, placeholder, rows, direction, className, ...other }) {
   const { control } = useFormContext();
 
   return (
@@ -13,7 +13,7 @@ export default function RHFTextareaField({ name, label, placeholder, rows, direc
       name={name}
       control={control}
       render={({ field, fieldState: { error } }) => (
-        <div className={classNames('flex w-full', direction === 'row' ? 'justify-end' : 'flex-col', label ? 'gap-4' : '')}>
+        <div className={classNames('flex w-full', direction === 'row' ? 'justify-end' : 'flex-col', label ? 'gap-3' : '', className)}>
 
           {label ? (
             <label htmlFor={name} className={classNames('flex flex-col shrink-0', direction === 'row' ? 'text-right w-52' : 'w-full text-left ')} >
@@ -74,9 +74,11 @@ RHFTextareaField.propTypes = {
   label: PropTypes.node,
   placeholder: PropTypes.string.isRequired,
   direction: PropTypes.oneOf(['row', 'column']),
+  className: PropTypes.string
 };
 
 RHFTextareaField.defaultProps = {
   label: null,
   direction: 'row',
+  className: ''
 };

@@ -1,4 +1,4 @@
-import { format, formatDistanceToNow, getYear, parse } from 'date-fns';
+import { format, formatDistanceToNow, getYear, isDate, parse } from "date-fns";
 import ru from 'date-fns/locale/ru';
 
 const today = new Date();
@@ -69,4 +69,8 @@ export function formatDdMmYyyyDate(date) {
 
 export function formatYyyyMmDdDate(date) {
   return format(date, 'yyyy-MM-dd', { locale: ru });
+}
+
+export function formatYyyyMmDdHHMMDate(date) {
+  return format(isDate(date) ? date :  parse(date, 'yyyy-MM-dd HH:mm:ss', new Date(), { locale: ru }), 'yyyy-MM-dd HH:mm:ss', { locale: ru });
 }
