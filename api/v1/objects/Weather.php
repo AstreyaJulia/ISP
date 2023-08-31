@@ -15,15 +15,13 @@ class Weather
    */
   private function weatherForecast(): string
   {
-    $CITY_LAT = '55.1064';
-    $CITY_LON = '33.2426';
     $params = array(
       "appid" => OPEN_WEATHER_API_KEY,
-      "lat" => $CITY_LAT,
-      "lon" => $CITY_LON
+      "lat" => $this->helpers->lat,
+      "lon" => $this->helpers->lon
     );
-    $file = "../../data/weather.json";
-    $date = time() - filemtime($file);
+    $file = "../../data/weather_{$params['lat']}x{$params['lon']}.json";
+    $date = file_exists($file)? time() - filemtime($file) : 620;
 
     if ($date > 600) {
       $current = $this->helpers->sendGETtoProxy($params, OPEN_WEATHER_API_CURRENT);
