@@ -69,7 +69,11 @@ class Users
                   "professionID" => $this->helpers->professionID,
                   "professionName" => $this->helpers->professionName,
                   "sidebar" => $this->helpers->sidebar,
-                  "theme" => $this->helpers->theme
+                  "theme" => $this->helpers->theme,
+                  "building" => $this->helpers->building,
+                  "lat" => $this->helpers->lat,
+                  "lon" => $this->helpers->lon
+
                 ];
                 return $userLoginData;
                 break;

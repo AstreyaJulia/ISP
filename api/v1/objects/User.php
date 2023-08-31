@@ -18,6 +18,9 @@ abstract class User
   public readonly int|string $professionID;
   public readonly string|NULL $professionName;
   public readonly int|string $membership;
+  public readonly string $building;
+  public readonly string $lat;
+  public readonly string $lon;
 
   public function __construct(
     public readonly DB $db = new \Api\Objects\DB(DB_NAME, DB_USER, DB_PASS, DB_HOST),
@@ -66,23 +69,31 @@ abstract class User
   public function assignValues()
   {
     $sqlUser = "SELECT
-                    IFNULL(AffiliationJudge.idGAS, UserAttributes.idGAS) AS idGAS,
-                    UserAttributes.fullname,
-                    sdc_users.id,
-                    sdc_users.username,
-                    sdc_users.password,
-                    sdc_users.active,
-                    sdc_users.sudo,
-                    sdc_users.sidebar,
-                    sdc_users.theme,
-                    UserAttributes.profession AS professionID,
-                    sdc_vocation.name AS professionName,
-                    sdc_vocation.parent_id AS membership
-                  FROM sdc_users
-                  LEFT JOIN sdc_user_attributes AS UserAttributes ON UserAttributes.internalKey=sdc_users.id
-                  LEFT JOIN sdc_vocation ON sdc_vocation.id = UserAttributes.profession
-                  LEFT JOIN sdc_user_attributes AS AffiliationJudge ON UserAttributes.affiliation = AffiliationJudge.id
-                  WHERE sdc_users.id = :id AND sdc_users.sudo = :sudo AND (UserAttributes.profession = :professionID or ISNULL(sdc_vocation.parent_id)) AND sdc_users.active = 1";
+                  IFNULL(AffiliationJudge.idGAS, UserAttributes.idGAS) AS idGAS,
+                  UserAttributes.fullname,
+                  sdc_users.id,
+                  sdc_users.username,
+                  sdc_users.password,
+                  sdc_users.active,
+                  sdc_users.sudo,
+                  sdc_users.sidebar,
+                  sdc_users.theme,
+                  UserAttributes.profession AS professionID,
+                  sdc_vocation.name AS professionName,
+                  sdc_vocation.parent_id AS membership,
+                  Building.name AS building,
+                  Location.lat AS lat,
+                  Location.lon AS lon
+                FROM sdc_users
+                LEFT JOIN sdc_user_attributes AS UserAttributes ON UserAttributes.internalKey=sdc_users.id
+                LEFT JOIN sdc_vocation ON sdc_vocation.id = UserAttributes.profession
+                LEFT JOIN sdc_user_attributes AS AffiliationJudge ON UserAttributes.affiliation = AffiliationJudge.id
+                LEFT JOIN sdc_room AS Room ON Room.id = UserAttributes.room
+                LEFT JOIN sdc_room AS Door ON Door.id = Room.affiliation
+                LEFT JOIN sdc_room AS Floors ON Floors.id = Door.affiliation
+                LEFT JOIN sdc_room AS Building ON Building.id = Floors.affiliation
+                LEFT JOIN sdc_room_location AS Location ON Location.idBuilding = Building.id
+                WHERE sdc_users.id = :id AND sdc_users.sudo = :sudo AND (UserAttributes.profession = :professionID or ISNULL(sdc_vocation.parent_id)) AND sdc_users.active = 1";
     // получаем значения
     $row = $this->db->run($sqlUser, ['id' => $this->id, 'sudo' => $this->sudo, 'professionID' => $this->professionID])->fetch(\PDO::FETCH_LAZY);
     if ($row) {
@@ -95,6 +106,9 @@ abstract class User
       $this->theme = $row['theme'];
       $this->membership = $row['membership'];
       $this->professionName = $row['professionName'];
+      $this->building = $row['building'];
+      $this->lat = $row['lat'];
+      $this->lon = $row['lon'];
     }
     return $row;
   }
