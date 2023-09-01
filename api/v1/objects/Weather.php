@@ -15,10 +15,13 @@ class Weather
    */
   private function weatherForecast(): string
   {
+    $lat = strlen($this->helpers->lat) === 0 ? $this->helpers->isErrorInfo(400, "Я не знаю где ты находишься!!!",  "Какую погоду ты хочешь?"): $this->helpers->lat;
+    $lon = strlen($this->helpers->lon) === 0 ? $this->helpers->isErrorInfo(400, "Я не знаю где ты находишься!!!",  "Какую погоду ты хочешь?"): $this->helpers->lon;
+
     $params = array(
       "appid" => OPEN_WEATHER_API_KEY,
-      "lat" => $this->helpers->lat,
-      "lon" => $this->helpers->lon
+      "lat" => $lat,
+      "lon" => $lon
     );
     $file = "../../data/weather_{$params['lat']}x{$params['lon']}.json";
     $date = file_exists($file)? time() - filemtime($file) : 620;
@@ -29,7 +32,7 @@ class Weather
         file_put_contents($file, $current, LOCK_EX);
         return $current;
       } else {
-        return file_get_contents($file, true);
+        return file_exists($file);
       }
     } else {
       return file_get_contents($file, true);
