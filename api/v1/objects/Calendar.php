@@ -296,15 +296,20 @@ class Calendar
       foreach ($row->months as $value) {
         $days = explode(',', $value->days);
         foreach ($days as $day) {
-          if ($day == rtrim($day, "*")) {
+          if (str_contains($day, '+')) {
+            $title = "перенесено";
+            $calendar = "dayoff";
+          }
+          else if ($day == rtrim($day, "*")) {
             $title = "";
             $calendar = "dayoff";
-          } else {
+          }
+          else {
             $title = "Сокращенный рабочий день";
             $calendar = "short";
           }
 
-          $date = $row->year . "-" . $this->addNol($value->month) . "-" . $this->addNol(rtrim($day, "*"));
+          $date = $row->year . "-" . $this->addNol($value->month) . "-" . $this->addNol(rtrim($day, "*,+"));
           $array[] = [
             'id' => '',
             'title' => $title,
