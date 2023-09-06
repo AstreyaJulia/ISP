@@ -297,7 +297,12 @@ class Calendar
         $days = explode(',', $value->days);
         foreach ($days as $day) {
           if (str_contains($day, '+')) {
-            $title = "перенесено";
+            $to = $this->addNol($value->month) . "." . $this->addNol(rtrim($day, "*,+"));
+            $search = $this->helpers->searchAssociativeArray($to, $row->transitions, 'to');
+            $transitions =  $row->year .'.'. $row->transitions[$search]->from;
+            $transitions = DateTime::createFromFormat('Y.m.d', $transitions)->format('d.m.Y');
+
+            $title = "перенесено с " . $transitions;
             $calendar = "dayoff";
           }
           else if ($day == rtrim($day, "*")) {
