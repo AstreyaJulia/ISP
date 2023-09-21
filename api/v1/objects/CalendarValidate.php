@@ -163,11 +163,32 @@ trait CalendarValidate
     return $param;
   }
 
-
   private function users():string
   {
     $param = isset($this->helpers->formData["users"]) ? $this->helpers->formData["users"] : $this->helpers::isErrorInfo(400, "Неверные параметры", "Ожидаю users.");
+    $paramArray = explode(",", $param);
+    if (mb_strlen($param) !== 0) {
+      foreach ($paramArray as  $value) {
+        $this->helpers->validateINT($value, "users");
+      }
+    }
+
+    $this->usersVerifyDB($paramArray);
+
     return $param;
+  }
+
+  /**
+   * Сверяем id с базой данных
+   * проверяем только с активными сотрудниками
+   * 
+   * @param array $users
+   */
+  private function usersVerifyDB(array $users):void
+  {
+    $row = $this->helpers->db->run("SELECT id FROM sdc_users WHERE active = 1")->fetchAll(\PDO::FETCH_COLUMN);
+    $rowDiff = array_diff($users, $row);
+    count($rowDiff) !== 0 ? $this->helpers::isErrorInfo(400, "Неверные параметры", "users: ". implode(',', $rowDiff)) : "не ноль";
   }
 
   /**
