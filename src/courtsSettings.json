@@ -1,0 +1,266 @@
+{
+  "67RS0001.1": {
+    "city_name": "Смоленск",
+    "region": "Смоленская область",
+    "court_name": "Заднепровский районный суд г. Смоленска",
+    "open_weather_court_lat": "54.7732",
+    "open_weather_court_lon": "32.0476",
+    "open_weather_city_id": 491687
+  },
+  "67RS0002.1": {
+    "city_name": "Смоленск",
+    "region": "Смоленская область",
+    "court_name": "Ленинский районный суд г. Смоленска",
+    "open_weather_court_lat": "54.7643",
+    "open_weather_court_lon": "32.0452",
+    "open_weather_city_id": 491687
+  },
+  "67RS0003.1": {
+    "city_name": "Смоленск",
+    "region": "Смоленская область",
+    "court_name": "Промышленный районный суд г. Смоленска",
+    "open_weather_court_lat": "54.7643",
+    "open_weather_court_lon": "32.0452",
+    "open_weather_city_id": 491687
+  },
+  "67RS0004.1": {
+    "city_name": "Вязьма",
+    "region": "Смоленская область",
+    "court_name": "Вяземский районный суд",
+    "open_weather_court_lat": "55.2108",
+    "open_weather_court_lon": "34.2989",
+    "open_weather_city_id": 470676
+  },
+  "67RS0004.2": {
+    "city_name": "Вязьма",
+    "region": "Смоленская область",
+    "court_name": "Вяземский районный суд",
+    "open_weather_court_lat": "55.2119",
+    "open_weather_court_lon": "34.2922",
+    "open_weather_city_id": 470676
+  },
+  "67RS0004.3": {
+    "city_name": "Угра",
+    "region": "Смоленская область",
+    "court_name": "Вяземский районный суд",
+    "open_weather_court_lat": "54.7779",
+    "open_weather_court_lon": "34.3177",
+    "open_weather_city_id": 479471
+  },
+  "67RS0005.1": {
+    "city_name": "Гагарин",
+    "region": "Смоленская область",
+    "court_name": "Гагаринский районный суд",
+    "open_weather_court_lat": "55.5538",
+    "open_weather_court_lon": "34.9911",
+    "open_weather_city_id": 562237
+  },
+  "67RS0005.2": {
+    "city_name": "Тёмкино",
+    "region": "Смоленская область",
+    "court_name": "Гагаринский районный суд",
+    "open_weather_court_lat": "55.0811",
+    "open_weather_court_lon": "35.0022",
+    "open_weather_city_id": 562237
+  },
+  "67RS0006.1": {
+    "city_name": "Рославль",
+    "region": "Смоленская область",
+    "court_name": "Рославльский городской суд",
+    "open_weather_court_lat": "53.9461",
+    "open_weather_court_lon": "32.8599",
+    "open_weather_city_id": 501283
+  },
+  "67RS0006.2": {
+    "city_name": "Рославль",
+    "region": "Смоленская область",
+    "court_name": "Рославльский городской суд",
+    "open_weather_court_lat": "53.9453",
+    "open_weather_court_lon": "32.8633",
+    "open_weather_city_id": 501283
+  },
+  "67RS0007.1": {
+    "city_name": "Сафоново",
+    "region": "Смоленская область",
+    "court_name": "Сафоновский районный суд",
+    "open_weather_court_lat": "55.1064",
+    "open_weather_court_lon": "33.2426",
+    "open_weather_city_id": 499452
+  },
+  "67RS0007.2": {
+    "city_name": "Холм-Жирковский",
+    "region": "Смоленская область",
+    "court_name": "Сафоновский районный суд",
+    "open_weather_court_lat": "54.9437",
+    "open_weather_court_lon": "31.0857",
+    "open_weather_city_id": 549718
+  },
+  "67RS0008.1": {
+    "city_name": "Ярцево",
+    "region": "Смоленская область",
+    "court_name": "Ярцевский городской суд",
+    "open_weather_court_lat": "55.0684",
+    "open_weather_court_lon": "32.6986",
+    "open_weather_city_id": 468866
+  },
+  "67RS0009.1": {
+    "city_name": "Велиж",
+    "region": "Смоленская область",
+    "court_name": "Велижский районный суд",
+    "open_weather_court_lat": "55.5993",
+    "open_weather_court_lon": "31.1942",
+    "open_weather_city_id": 475955
+  },
+  "67RS0010.1": {
+    "city_name": "Демидов",
+    "region": "Смоленская область",
+    "court_name": "Демидовский районный суд",
+    "open_weather_court_lat": "55.2644",
+    "open_weather_court_lon": "31.5158",
+    "open_weather_city_id": 566751
+  },
+  "67RS0011.1": {
+    "city_name": "Дорогобуж",
+    "region": "Смоленская область",
+    "court_name": "Дорогобужский районный суд",
+    "open_weather_court_lat": "54.9122",
+    "open_weather_court_lon": "33.2971",
+    "open_weather_city_id": 565202
+  },
+  "67RS0012.1": {
+    "city_name": "Духовщина",
+    "region": "Смоленская область",
+    "court_name": "Духовщинский районный суд",
+    "open_weather_court_lat": "55.1899",
+    "open_weather_court_lon": "32.4099",
+    "open_weather_city_id": 564234
+  },
+  "67RS0012.2": {
+    "city_name": "Кардымово",
+    "region": "Смоленская область",
+    "court_name": "Духовщинский районный суд",
+    "open_weather_court_lat": "54.8951",
+    "open_weather_court_lon": "32.4346",
+    "open_weather_city_id": 552558
+  },
+  "67RS0013.1": {
+    "city_name": "Ельня",
+    "region": "Смоленская область",
+    "court_name": "Ельнинский районный суд",
+    "open_weather_court_lat": "54.5772",
+    "open_weather_court_lon": "33.1897",
+    "open_weather_city_id": 467753
+  },
+  "67RS0013.2": {
+    "city_name": "Глинка",
+    "region": "Смоленская область",
+    "court_name": "Ельнинский районный суд",
+    "open_weather_court_lat": "54.6412",
+    "open_weather_court_lon": "32.8766",
+    "open_weather_city_id": 561234
+  },
+  "67RS0015.1": {
+    "city_name": "Красный",
+    "region": "Смоленская область",
+    "court_name": "Краснинский  районный суд",
+    "open_weather_court_lat": "54.5637",
+    "open_weather_court_lon": "31.4354",
+    "open_weather_city_id": 462864
+  },
+  "67RS0017.1": {
+    "city_name": "Монастырщина",
+    "region": "Смоленская область",
+    "court_name": "Монастырщинский районный суд",
+    "open_weather_court_lat": "54.3512",
+    "open_weather_court_lon": "31.8362",
+    "open_weather_city_id": 525426
+  },
+  "67RS0017.2": {
+    "city_name": "Хиславичи",
+    "region": "Смоленская область",
+    "court_name": "Монастырщинский районный суд",
+    "open_weather_court_lat": "54.1818",
+    "open_weather_court_lon": "32.1528",
+    "open_weather_city_id": 550234
+  },
+  "67RS0019.1": {
+    "city_name": "Починок",
+    "region": "Смоленская область",
+    "court_name": "Починковский районный суд",
+    "open_weather_court_lat": "54.4076",
+    "open_weather_court_lon": "32.4330",
+    "open_weather_city_id": 508606
+  },
+  "67RS0020.1": {
+    "city_name": "Рудня",
+    "region": "Смоленская область",
+    "court_name": "Руднянский районный суд",
+    "open_weather_court_lat": "54.9463",
+    "open_weather_court_lon": "31.0935",
+    "open_weather_city_id": 500667
+  },
+  "67RS0020.2": {
+    "city_name": "Рудня",
+    "region": "Смоленская область",
+    "court_name": "Руднянский районный суд",
+    "open_weather_court_lat": "54.9469",
+    "open_weather_court_lon": "31.0981",
+    "open_weather_city_id": 500667
+  },
+  "67RS0021.1": {
+    "city_name": "Смоленск",
+    "region": "Смоленская область",
+    "court_name": "Смоленский районный суд",
+    "open_weather_court_lat": "54.7643",
+    "open_weather_court_lon": "32.0452",
+    "open_weather_city_id": 491687
+  },
+  "67RS0021.2": {
+    "city_name": "Смоленск",
+    "region": "Смоленская область",
+    "court_name": "Смоленский районный суд",
+    "open_weather_court_lat": "54.7643",
+    "open_weather_court_lon": "32.0452",
+    "open_weather_city_id": 491687
+  },
+  "67RS0022.1": {
+    "city_name": "Сычёвка",
+    "region": "Смоленская область",
+    "court_name": "Сычевский районный суд",
+    "open_weather_court_lat": "55.8262",
+    "open_weather_court_lon": "34.2738",
+    "open_weather_city_id": 485280
+  },
+  "67RS0022.2": {
+    "city_name": "Новодугино",
+    "region": "Смоленская область",
+    "court_name": "Сычевский районный суд",
+    "open_weather_court_lat": "55.6309",
+    "open_weather_court_lon": "34.2933",
+    "open_weather_city_id": 518912
+  },
+  "67RS0027.1": {
+    "city_name": "Шумячи",
+    "region": "Смоленская область",
+    "court_name": "Шумячский районный суд",
+    "open_weather_court_lat": "53.8553",
+    "open_weather_court_lon": "32.4197",
+    "open_weather_city_id": 493405
+  },
+  "67RS0027.2": {
+    "city_name": "Шумячи",
+    "region": "Смоленская область",
+    "court_name": "Шумячский районный суд",
+    "open_weather_court_lat": "53.8553",
+    "open_weather_court_lon": "32.4197",
+    "open_weather_city_id": 493405
+  },
+  "67RS0029.1": {
+    "city_name": "Десногорск",
+    "region": "Смоленская область",
+    "court_name": "Десногорский городской суд",
+    "open_weather_court_lat": "54.1529",
+    "open_weather_court_lon": "33.2819",
+    "open_weather_city_id": 566384
+  }
+}

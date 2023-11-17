@@ -1,0 +1,5 @@
+/** Шрифты */
+@import 'opensans/css/opensans.css';
+/* Без засечек. UI.*/
+@import 'notoserif/css/notoserif.css';
+/* С засечками. Текст. */

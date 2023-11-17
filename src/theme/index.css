@@ -1,0 +1,64 @@
+/** Анимация  */
+@import './animation';
+
+/** npm модули */
+@import '~react-perfect-scrollbar/dist/css/styles.css';
+@import '~react-quill/dist/quill.snow.css';
+@import '~react-datepicker/dist/react-datepicker.css';
+@import '~react-tooltip/dist/react-tooltip.css';
+
+/** Кастомные стили для npm модулей */
+@import './modules/apexcharts.css';
+@import './modules/fullcalendar.css';
+@import './modules/quill.css';
+@import './modules/react-select.css';
+@import './modules/react-datepicker.css';
+
+/** Tailwind  */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/** Замена браузерных стилей для Мозиллы */
+@supports (-moz-appearance: none) {
+  option {
+    -moz-appearance: none !important;
+    font-size: 14px;
+    @apply text-gray-700 bg-gray-100 font-medium dark:text-gray-300 dark:bg-gray-800 border border-gray-200 dark:border-gray-700;
+  }
+}
+
+/** Для страниц с фиксированной высотой */
+.full-height-page {
+  height: calc(100vh - 64px - 64px);
+}
+
+/* Для сайдбаров с полосой прокрутки, иначе прокрутка не появится */
+.full-h-sidebar {
+  max-height: calc(100vh - 64px - 64px - 151px);
+}
+
+  /** Для страниц с фиксированной высотой - курс */
+.full-height-course {
+  height: calc(100vh - 64px - 50px);
+}
+
+/** Perfect scrollbar постоянно отображается */
+.ps__show .ps__rail-y {
+  opacity: 1;
+}
+
+/** Подсветка найденных строк */
+.text-highlight {
+  @apply bg-amber-400 dark:bg-amber-500 dark:text-gray-900;
+}
+
+/** Убирает кавычки у цитат */
+q::before {
+  content: '';
+}
+
+/** Блоки кода */
+code {
+  @apply text-white px-4 py-5 bg-gray-800 rounded-md overflow-x-auto;
+}
